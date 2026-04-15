@@ -1,6 +1,7 @@
-// Vercel Serverless Function â Blog Dynamic Inject v2
+// Vercel Serverless Function â Blog Dynamic Inject v3
 // Serves JS that upgrades static blog tab with real Notion data + cover images
 // Route: /api/blog-inject
+// Filters out EN posts (slug ending with -en) to show only RU on main page
 
 const { Client } = require("@notionhq/client");
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
@@ -26,7 +27,7 @@ module.exports = async function handler(req, res) {
       database_id: DB,
       filter: { property: "Status", select: { equals: "Published" } },
       sorts: [{ property: "Published Date", direction: "descending" }],
-      page_size: 12,
+      page_size: 20,
     });
     const arts = r.results.map(pg => {
       const p = pg.properties;
@@ -42,7 +43,7 @@ module.exports = async function handler(req, res) {
         dt: txt(p["Published Date"]),
         img: cover || pageCover || ""
       };
-    });
+    }).filter(x => !x.s.endsWith("-en"));
     let js = "(function(){var a=" + JSON.stringify(arts) + ";";
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
@@ -53,8 +54,8 @@ module.exports = async function handler(req, res) {
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
     js += "h+='<div class=\"blog-thumb\" style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";
-    js += "h+='<div class=\"blog-t\">'+x.t+'</div>';";
-    js += "h+='<div class=\"blog-e\">'+ds+'</div>';";
+    js += "h+='<div class=\"blog-t\" style=\"font-size:15px;font-weight:700;line-height:1.3;margin:6px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word\">'+x.t+'</div>';";
+    js += "h+='<div class=\"blog-e\" style=\"font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden\">'+ds+'</div>';";
     js += "h+='<span class=\"blog-read\" style=\"color:#8B82E8;font-size:12px\">Read \\u2192</span>';";
     js += "h+='</div></a>';});";
     js += "if(h)g.innerHTML=h;})();";
