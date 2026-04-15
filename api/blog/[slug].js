@@ -1,5 +1,5 @@
 // ============================================================
-// Vercel Serverless Function â Blog Article Page
+// Vercel Serverless Function â Blog Article Page v2
 // Fetches article from Notion by slug, returns full HTML
 // Route: /blog/[slug]  (via vercel.json rewrite)
 // ============================================================
@@ -7,7 +7,7 @@
 const { Client } = require("@notionhq/client");
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const DATABASE_ID = process.env.NOTION_BLOG_DB_ID; // b5fc50d974b54a22bea514a8b65af26d
+const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 
 // Convert Notion blocks to HTML
 function blocksToHtml(blocks) {
@@ -15,7 +15,6 @@ function blocksToHtml(blocks) {
   let inList = false;
 
   for (const block of blocks) {
-    // Close list if current block is not a list item
     if (inList && block.type !== "bulleted_list_item" && block.type !== "numbered_list_item") {
       html += "</ul>\n";
       inList = false;
@@ -110,15 +109,27 @@ function getPropertyText(prop) {
   if (prop.type === "select") return prop.select?.name || "";
   if (prop.type === "multi_select") return prop.multi_select?.map(s => s.name) || [];
   if (prop.type === "date") return prop.date?.start || "";
+  if (prop.type === "files") {
+    const f = (prop.files || [])[0];
+    return f ? (f.type === "external" ? f.external.url : (f.file || {}).url || "") : "";
+  }
   return "";
 }
 
 // Full HTML page template with SEO
 function renderPage(article, contentHtml) {
-  const { title, seoTitle, seoDescription, category, tags, publishedDate, slug } = article;
+  const { title, seoTitle, seoDescription, category, tags, publishedDate, slug, coverImage } = article;
   const displayTitle = seoTitle || title;
   const canonical = `https://www.legalsol.pl/blog/${slug}`;
   const tagsStr = Array.isArray(tags) ? tags.join(", ") : "";
+
+  const heroImageHtml = coverImage
+    ? `<div class="hero-image"><img src="${escapeHtml(coverImage)}" alt="${escapeHtml(title)}"></div>`
+    : "";
+
+  const ogImageMeta = coverImage
+    ? `<meta property="og:image" content="${escapeHtml(coverImage)}">\n  <meta name="twitter:image" content="${escapeHtml(coverImage)}">`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -137,6 +148,7 @@ function renderPage(article, contentHtml) {
   <meta property="og:url" content="${canonical}">
   <meta property="og:site_name" content="Legal Solutions">
   ${publishedDate ? `<meta property="article:published_time" content="${publishedDate}">` : ""}
+  ${ogImageMeta}
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
@@ -151,6 +163,7 @@ function renderPage(article, contentHtml) {
     "headline": "${escapeHtml(title)}",
     "description": "${escapeHtml(seoDescription)}",
     "url": "${canonical}",
+    ${coverImage ? `"image": "${escapeHtml(coverImage)}",` : ""}
     "datePublished": "${publishedDate || new Date().toISOString()}",
     "author": { "@type": "Organization", "name": "Legal Solutions", "url": "https://www.legalsol.pl" },
     "publisher": { "@type": "Organization", "name": "Legal Solutions" }
@@ -222,10 +235,24 @@ function renderPage(article, contentHtml) {
     }
     .btn-consult:hover { opacity: 0.9; }
 
+    /* Hero Image */
+    .hero-image {
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
     /* Article */
     .article-hero {
       max-width: 800px;
-      margin: 60px auto 0;
+      margin: 40px auto 0;
       padding: 0 24px;
     }
     .article-meta {
@@ -367,6 +394,7 @@ function renderPage(article, contentHtml) {
     /* Responsive */
     @media (max-width: 640px) {
       .article-hero h1 { font-size: 1.8rem; }
+      .hero-image img { height: 240px; }
       .nav-links { display: none; }
       .cta-inner { padding: 28px 20px; }
     }
@@ -386,6 +414,8 @@ function renderPage(article, contentHtml) {
   </header>
 
   <article>
+    ${heroImageHtml}
+
     <div class="article-hero">
       <div class="article-meta">
         ${category ? `<span class="category-badge">${escapeHtml(category)}</span>` : ""}
@@ -432,7 +462,6 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Query Notion for article with matching slug
     const response = await notion.databases.query({
       database_id: DATABASE_ID,
       filter: {
@@ -451,6 +480,12 @@ module.exports = async function handler(req, res) {
     const page = response.results[0];
     const props = page.properties;
 
+    // Get cover image from property or page cover
+    const propCover = getPropertyText(props["Cover Image"]);
+    const pageCover = page.cover
+      ? (page.cover.type === "external" ? page.cover.external.url : (page.cover.file || {}).url || "")
+      : "";
+
     const article = {
       title: getPropertyText(props["Title"]),
       slug: getPropertyText(props["Slug"]),
@@ -459,13 +494,13 @@ module.exports = async function handler(req, res) {
       category: getPropertyText(props["Category"]),
       tags: getPropertyText(props["Tags"]),
       publishedDate: getPropertyText(props["Published Date"]),
+      coverImage: propCover || pageCover || "",
     };
 
     // Fetch page content blocks
     const blocks = await notion.blocks.children.list({ block_id: page.id, page_size: 100 });
     const contentHtml = blocksToHtml(blocks.results);
 
-    // Cache for 10 minutes, stale-while-revalidate for 1 hour
     res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=3600");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(article, contentHtml));
