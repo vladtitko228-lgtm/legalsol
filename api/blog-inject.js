@@ -44,12 +44,26 @@ module.exports = async function handler(req, res) {
         img: cover || pageCover || ""
       };
     }).filter(x => !x.s.endsWith("-en"));
+    const fallbackMap = {
+      "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80",
+      "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80",
+      "PESEL":            "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&q=80",
+      "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80",
+      "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
+      "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
+      "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80",
+      "DEFAULT":          "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
+    };
+    arts.forEach(x => {
+      if (!x.img) x.img = fallbackMap[(x.c||"").toUpperCase()] || fallbackMap["DEFAULT"];
+      x.fb = fallbackMap[(x.c||"").toUpperCase()] || fallbackMap["DEFAULT"];
+    });
     let js = "(function(){";
     js += "var a=" + JSON.stringify(arts) + ";";
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
-    js += "var imgHtml=x.img?'<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:180px;object-fit:cover;display:block;border-radius:12px 12px 0 0;position:relative;z-index:1\" onerror=\"this.style.display=\\'none\\'\">':'';";
+    js += "var imgHtml='<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:180px;object-fit:cover;display:block;border-radius:12px 12px 0 0\" onerror=\"this.src=\\''+x.fb+'\\';this.onerror=null;\">';";
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
     js += "h+='<div style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;background:linear-gradient(135deg,#3D35A0,#7B72E8)\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";

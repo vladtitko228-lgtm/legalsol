@@ -29,14 +29,30 @@ function escapeHtml(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+const FALLBACK_IMAGES = {
+  "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80",
+  "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80",
+  "PESEL":            "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&q=80",
+  "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80",
+  "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
+  "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
+  "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80",
+  "PMJ":              "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
+  "DEFAULT":          "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
+};
+
+function getFallback(category) {
+  return FALLBACK_IMAGES[(category || "").toUpperCase()] || FALLBACK_IMAGES["DEFAULT"];
+}
+
 function renderArticleCard(article) {
   const dateStr = article.publishedDate
     ? new Date(article.publishedDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
     : "";
 
-  const coverHtml = article.coverImage
-    ? `<div class="card-cover"><img src="${escapeHtml(article.coverImage)}" alt="${escapeHtml(article.title)}" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="card-cover-placeholder" style="display:none;height:200px;"></div></div>`
-    : `<div class="card-cover card-cover-placeholder"></div>`;
+  const fallback = getFallback(article.category);
+  const imgSrc = article.coverImage || fallback;
+  const coverHtml = `<div class="card-cover"><img src="${escapeHtml(imgSrc)}" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.src='${fallback}';this.onerror=null;"></div>`;
 
   const tagsHtml = Array.isArray(article.tags) && article.tags.length
     ? article.tags.slice(0, 3).map(t => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")
