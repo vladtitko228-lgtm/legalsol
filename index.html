@@ -9511,6 +9511,14 @@ function _updateTriggerFlag(lang){
 function _doInit(){
   _initFlags();
   setLang('en');
+  // Hash-based tab routing: legalsol.pl#tab-blog → open blog tab
+  var _hash = window.location.hash;
+  if(_hash && _hash.startsWith('#tab-')){
+    var _tabName = _hash.replace('#tab-','');
+    if(document.getElementById('tab-'+_tabName)){
+      setTimeout(function(){ showTab(_tabName); }, 100);
+    }
+  }
 }
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',_doInit);}else{_doInit();}
 

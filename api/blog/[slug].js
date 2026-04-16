@@ -312,21 +312,42 @@ function renderPage(a, contentHtml) {
 
     /* CTA BOX */
     .cta-box { max-width:780px; margin:0 auto 48px; padding:0 24px; }
-    .cta-inner { background:linear-gradient(160deg,var(--p800),#1a1060); border-radius:24px; padding:52px 40px 44px; text-align:center; position:relative; overflow:hidden; }
-    .cta-inner::before { content:''; position:absolute; top:-40%; right:-10%; width:360px; height:360px; background:radial-gradient(circle, rgba(91,82,204,.35), transparent 70%); border-radius:50%; pointer-events:none; }
-    .cta-inner::after { content:''; position:absolute; bottom:-30%; left:-10%; width:280px; height:280px; background:radial-gradient(circle, rgba(139,130,232,.2), transparent 70%); border-radius:50%; pointer-events:none; }
-    .cta-label { display:inline-block; background:rgba(91,82,204,.25); border:1px solid rgba(139,130,232,.3); color:var(--p300); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:18px; position:relative; }
-    .cta-inner h3 { font-size:1.65rem; color:#fff; margin-bottom:12px; position:relative; font-weight:800; line-height:1.25; }
-    .cta-inner > p { color:rgba(255,255,255,.6); margin-bottom:32px; font-size:15px; position:relative; line-height:1.6; }
-    .trust-stats { display:flex; justify-content:center; gap:32px; margin-bottom:32px; position:relative; flex-wrap:wrap; }
-    .trust-stat { text-align:center; }
-    .trust-stat-num { font-size:1.6rem; font-weight:800; color:#fff; line-height:1; }
+    .cta-inner {
+      background:linear-gradient(145deg,#16113d 0%,#1e1856 50%,#12102e 100%);
+      border-radius:20px; padding:44px 40px 40px;
+      display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center;
+      position:relative; overflow:hidden;
+      border:1px solid rgba(139,130,232,.18);
+      box-shadow:0 0 0 1px rgba(91,82,204,.08), 0 24px 60px rgba(10,8,40,.35);
+    }
+    .cta-inner::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(139,130,232,.5),transparent);
+    }
+    .cta-left { position:relative; }
+    .cta-eyebrow { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--p400); margin-bottom:12px; }
+    .cta-inner h3 { font-size:1.55rem; color:#fff; margin-bottom:10px; font-weight:800; line-height:1.25; }
+    .cta-inner .cta-desc { color:rgba(255,255,255,.5); font-size:14px; line-height:1.65; margin-bottom:24px; }
+    .cta-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--p500); color:#fff; padding:13px 28px;
+      border-radius:12px; text-decoration:none; font-weight:700; font-size:14px;
+      transition:background .2s, transform .2s, box-shadow .2s;
+      box-shadow:0 4px 20px rgba(91,82,204,.4);
+      cursor:pointer; border:none;
+    }
+    .cta-btn:hover { background:var(--p700); transform:translateY(-2px); box-shadow:0 8px 28px rgba(91,82,204,.55); }
+    .cta-guarantee { margin-top:12px; font-size:11.5px; color:rgba(255,255,255,.3); }
+    .cta-right { display:flex; flex-direction:column; gap:20px; min-width:130px; }
+    .trust-stat { text-align:center; padding:14px 18px; background:rgba(255,255,255,.04); border-radius:14px; border:1px solid rgba(139,130,232,.12); }
+    .trust-stat-num { font-size:1.65rem; font-weight:800; color:#fff; line-height:1; letter-spacing:-1px; }
     .trust-stat-num span { color:var(--p400); }
-    .trust-stat-label { font-size:11px; color:rgba(255,255,255,.45); margin-top:4px; text-transform:uppercase; letter-spacing:.8px; }
-    .trust-divider { width:1px; background:rgba(139,130,232,.2); align-self:stretch; }
-    .cta-btn { display:inline-block; position:relative; background:linear-gradient(135deg,var(--p500),var(--p700)); color:#fff; padding:15px 40px; border-radius:30px; text-decoration:none; font-weight:700; font-size:15px; transition:transform .2s, box-shadow .2s; box-shadow:0 4px 24px rgba(91,82,204,.45); }
-    .cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(83,74,183,.6); }
-    .cta-guarantee { margin-top:16px; font-size:12px; color:rgba(255,255,255,.35); position:relative; }
+    .trust-stat-label { font-size:10px; color:rgba(255,255,255,.38); margin-top:4px; text-transform:uppercase; letter-spacing:.8px; }
+    @media(max-width:600px){
+      .cta-inner { grid-template-columns:1fr; gap:24px; padding:28px 22px; }
+      .cta-right { flex-direction:row; justify-content:center; }
+      .trust-stat { flex:1; min-width:0; }
+    }
 
     /* FLOATING BUTTONS */
     .float-btns { position:fixed; bottom:24px; right:24px; display:flex; flex-direction:column; gap:12px; z-index:99; }
@@ -470,18 +491,21 @@ function renderPage(a, contentHtml) {
 
   <div class="cta-box">
     <div class="cta-inner">
-      <div class="cta-label">⚖️ ${t.ctaLabel}</div>
-      <h3>${t.ctaTitle}</h3>
-      <p>${t.ctaDesc}</p>
-      <div class="trust-stats">
-        <div class="trust-stat"><div class="trust-stat-num">3000<span>+</span></div><div class="trust-stat-label">${isRu ? 'довольных клиентов' : 'happy clients'}</div></div>
-        <div class="trust-divider"></div>
-        <div class="trust-stat"><div class="trust-stat-num">6</div><div class="trust-stat-label">${isRu ? 'лет на рынке' : 'years on market'}</div></div>
-        <div class="trust-divider"></div>
-        <div class="trust-stat"><div class="trust-stat-num">98<span>%</span></div><div class="trust-stat-label">${isRu ? 'одобрений' : 'approval rate'}</div></div>
+      <div class="cta-left">
+        <div class="cta-eyebrow">${t.ctaLabel}</div>
+        <h3>${t.ctaTitle}</h3>
+        <p class="cta-desc">${t.ctaDesc}</p>
+        <button onclick="openConsultModal()" class="cta-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          ${t.ctaBtn}
+        </button>
+        <p class="cta-guarantee">${t.ctaGuarantee}</p>
       </div>
-      <button onclick="openConsultModal()" class="cta-btn" style="cursor:pointer;border:none;">${t.ctaBtn}</button>
-      <p class="cta-guarantee">${t.ctaGuarantee}</p>
+      <div class="cta-right">
+        <div class="trust-stat"><div class="trust-stat-num">3000<span>+</span></div><div class="trust-stat-label">${isRu ? 'клиентов' : 'clients'}</div></div>
+        <div class="trust-stat"><div class="trust-stat-num">6</div><div class="trust-stat-label">${isRu ? 'лет' : 'years'}</div></div>
+        <div class="trust-stat"><div class="trust-stat-num">98<span>%</span></div><div class="trust-stat-label">${isRu ? 'одобрений' : 'approved'}</div></div>
+      </div>
     </div>
   </div>
 
