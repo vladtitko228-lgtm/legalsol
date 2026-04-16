@@ -30,15 +30,15 @@ function escapeHtml(str) {
 }
 
 const FALLBACK_IMAGES = {
-  "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80",
-  "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80",
-  "PESEL":            "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&q=80",
-  "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80",
-  "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
-  "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
-  "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80",
-  "PMJ":              "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
-  "DEFAULT":          "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
+  "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&w=600&q=75",
+  "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&w=600&q=75",
+  "PESEL":            "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&w=600&q=75",
+  "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&w=600&q=75",
+  "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&w=600&q=75",
+  "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&w=600&q=75",
+  "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&w=600&q=75",
+  "CUKR":             "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&w=600&q=75",
+  "DEFAULT":          "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&w=600&q=75",
 };
 
 function getFallback(category) {
@@ -51,7 +51,10 @@ function renderArticleCard(article) {
     : "";
 
   const fallback = getFallback(article.category);
-  const imgSrc = article.coverImage || fallback;
+  // Replace expired Notion S3 URLs with permanent fallback
+  const imgSrc = (!article.coverImage || article.coverImage.includes('s3.amazonaws.com') || article.coverImage.includes('prod-files-secure') || article.coverImage.includes('secure.notion-static'))
+      ? fallback
+      : article.coverImage;
   const coverHtml = `<div class="card-cover"><img src="${escapeHtml(imgSrc)}" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.src='${fallback}';this.onerror=null;"></div>`;
 
   const tagsHtml = Array.isArray(article.tags) && article.tags.length
@@ -336,11 +339,11 @@ function renderPage(articles) {
 
     /* Search */
     .search-wrap { max-width:600px; margin:0 auto 28px; padding:0 24px; position:relative; }
-    .search-input { width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(124,92,252,.25); border-radius:30px; padding:12px 48px 12px 44px; color:#fff; font-size:15px; outline:none; font-family:inherit; transition:border-color .2s; }
+    .search-input { width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(124,92,252,.25); border-radius:30px; padding:12px 48px 12px 44px; color:#fff; font-size:15px; outline:none; font-family:inherit; transition:border-color .2s,background .2s; }
     .search-input:focus { border-color:rgba(124,92,252,.7); background:rgba(255,255,255,.09); }
     .search-input::placeholder { color:rgba(255,255,255,.3); }
     .search-icon { position:absolute; left:38px; top:50%; transform:translateY(-50%); opacity:.4; pointer-events:none; }
-    .search-clear { position:absolute; right:36px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:18px; display:none; padding:4px; }
+    .search-clear { position:absolute; right:36px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:20px; display:none; line-height:1; padding:4px 6px; }
     #no-results { display:none; text-align:center; padding:60px 24px; color:rgba(255,255,255,.4); font-size:16px; grid-column:1/-1; }
 
     @media (max-width: 640px) {
@@ -369,9 +372,9 @@ function renderPage(articles) {
   </section>
 
   <div class="search-wrap">
-    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input id="search-input" class="search-input" type="text" placeholder="Search articles..." autocomplete="off">
-    <button id="search-clear" class="search-clear" aria-label="Clear search">&times;</button>
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input class="search-input" id="searchInput" type="text" placeholder="Search articles... / Поиск статей..." oninput="handleSearch(this.value)" autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear">×</button>
   </div>
 
   ${categories.length > 1 ? `
@@ -401,47 +404,24 @@ function renderPage(articles) {
         card.style.display = (!cat || cardCat === cat) ? '' : 'none';
       });
     }
-
-    (function() {
-      var searchInput = document.getElementById('search-input');
-      var searchClear = document.getElementById('search-clear');
-      var filtersDiv = document.querySelector('.filters');
-      var noResults = document.getElementById('no-results');
-
-      if (!searchInput) return;
-
-      searchInput.addEventListener('keyup', function() {
-        var query = searchInput.value.trim().toLowerCase();
-        searchClear.style.display = query ? 'block' : 'none';
-
-        if (filtersDiv) filtersDiv.style.display = query ? 'none' : '';
-
-        var cards = document.querySelectorAll('.article-card');
-        var visibleCount = 0;
-
-        cards.forEach(function(card) {
-          var title = (card.dataset.title || '').toLowerCase();
-          var desc = (card.dataset.desc || '').toLowerCase();
-          var cat = (card.dataset.cat || '').toLowerCase();
-          var match = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1 || cat.indexOf(query) !== -1;
-          card.style.display = match ? '' : 'none';
-          if (match) visibleCount++;
-        });
-
-        noResults.style.display = (query && visibleCount === 0) ? 'block' : 'none';
+    function handleSearch(val) {
+      var q = val.trim().toLowerCase();
+      var cards = document.querySelectorAll('.article-card');
+      var visible = 0;
+      document.getElementById('searchClear').style.display = q ? 'block' : 'none';
+      document.querySelector('.filters') && (document.querySelector('.filters').style.display = q ? 'none' : '');
+      cards.forEach(function(c) {
+        var text = ((c.dataset.title||'') + ' ' + (c.dataset.desc||'') + ' ' + (c.dataset.cat||'')).toLowerCase();
+        var show = !q || text.includes(q);
+        c.style.display = show ? '' : 'none';
+        if (show) visible++;
       });
-
-      searchClear.addEventListener('click', function() {
-        searchInput.value = '';
-        searchClear.style.display = 'none';
-        if (filtersDiv) filtersDiv.style.display = '';
-        document.querySelectorAll('.article-card').forEach(function(card) {
-          card.style.display = '';
-        });
-        noResults.style.display = 'none';
-        searchInput.focus();
-      });
-    })();
+      document.getElementById('no-results').style.display = (q && visible === 0) ? 'block' : 'none';
+    }
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      handleSearch('');
+    }
   </script>
 
 </body>

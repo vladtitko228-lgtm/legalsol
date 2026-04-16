@@ -45,18 +45,23 @@ module.exports = async function handler(req, res) {
       };
     }).filter(x => !x.s.endsWith("-en"));
     const fallbackMap = {
-      "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80",
-      "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80",
-      "PESEL":            "https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=600&q=80",
-      "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80",
-      "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80",
-      "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80",
-      "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80",
-      "DEFAULT":          "https://images.unsplash.com/photo-1546552158-6b64a7a8df02?w=600&q=80",
+      "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&w=600&q=75",
+      "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&w=600&q=75",
+      "PESEL":            "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&w=600&q=75",
+      "BUSINESS":         "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&w=600&q=75",
+      "APPEALS":          "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&w=600&q=75",
+      "PROFIL ZAUFANY":   "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&w=600&q=75",
+      "BLUE CARD":        "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&w=600&q=75",
+      "CUKR":             "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&w=600&q=75",
+      "DEFAULT":          "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&w=600&q=75",
     };
     arts.forEach(x => {
-      if (!x.img) x.img = fallbackMap[(x.c||"").toUpperCase()] || fallbackMap["DEFAULT"];
-      x.fb = fallbackMap[(x.c||"").toUpperCase()] || fallbackMap["DEFAULT"];
+      const fb = fallbackMap[(x.c||"").toUpperCase()] || fallbackMap["DEFAULT"];
+      // Notion file URLs (S3) expire — replace immediately with permanent Unsplash
+      if (!x.img || x.img.includes('s3.amazonaws.com') || x.img.includes('prod-files-secure') || x.img.includes('secure.notion-static')) {
+          x.img = fb;
+      }
+      x.fb = fb;
     });
     let js = "(function(){";
     js += "var a=" + JSON.stringify(arts) + ";";
