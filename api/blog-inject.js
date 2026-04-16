@@ -45,16 +45,13 @@ module.exports = async function handler(req, res) {
       };
     }).filter(x => !x.s.endsWith("-en"));
     let js = "(function(){";
-    js += "function imgErr(el){el.style.display='none';el.parentNode.style.background='linear-gradient(135deg,#3D35A0,#7B72E8)';el.parentNode.style.borderRadius='12px 12px 0 0';}";
     js += "var a=" + JSON.stringify(arts) + ";";
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
-    js += "var imgHtml='';";
-    js += "if(x.img){imgHtml='<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\" onerror=\"imgErr(this)\">';}";
-    js += "else{imgHtml='<div style=\"width:100%;height:100%;background:linear-gradient(135deg,#3D35A0,#7B72E8);border-radius:12px 12px 0 0\"></div>';}";
+    js += "var imgHtml=x.img?'<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\" onerror=\"this.style.display=\\'none\\'\">':'';";
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
-    js += "h+='<div class=\"blog-thumb\" style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
+    js += "h+='<div style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;background:linear-gradient(135deg,#3D35A0,#7B72E8)\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";
     js += "h+='<div class=\"blog-t\" style=\"font-size:15px;font-weight:700;line-height:1.3;margin:6px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word\">'+x.t+'</div>';";
     js += "h+='<div class=\"blog-e\" style=\"font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden\">'+ds+'</div>';";
