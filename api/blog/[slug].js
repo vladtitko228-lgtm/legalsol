@@ -341,6 +341,25 @@ function renderPage(a, contentHtml) {
     .footer { background:var(--p900); padding:32px 24px; text-align:center; color:rgba(255,255,255,.4); font-size:13px; }
     .footer a { color:var(--p400); text-decoration:none; }
 
+    /* CONSULT MODAL */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:24px;}
+    .modal-overlay.open{display:flex;animation:modalFadeIn .25s ease;}
+    @keyframes modalFadeIn{from{opacity:0}to{opacity:1}}
+    .modal-box{background:linear-gradient(160deg,#1a1745,#12103a);border:1px solid rgba(139,130,232,.3);border-radius:24px;padding:40px 36px;max-width:440px;width:100%;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(91,82,204,.15);animation:modalSlide .3s cubic-bezier(.34,1.2,.64,1);}
+    @keyframes modalSlide{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .modal-close{position:absolute;top:16px;right:16px;background:rgba(139,130,232,.12);border:none;color:rgba(255,255,255,.6);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .modal-close:hover{background:rgba(139,130,232,.3);color:#fff;}
+    .modal-icon{font-size:36px;text-align:center;margin-bottom:12px;}
+    .modal-box h3{font-size:1.3rem;color:#fff;font-weight:700;text-align:center;margin-bottom:8px;}
+    .modal-box p{color:rgba(255,255,255,.55);font-size:14px;text-align:center;margin-bottom:24px;line-height:1.5;}
+    .modal-field{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(139,130,232,.25);border-radius:12px;padding:12px 16px;font-size:14px;color:#fff;font-family:'Inter',sans-serif;outline:none;margin-bottom:12px;transition:border-color .2s;}
+    .modal-field:focus{border-color:var(--p400);}
+    .modal-field::placeholder{color:rgba(255,255,255,.35);}
+    .modal-wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#25D366;color:#fff;border:none;padding:14px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(37,211,102,.3);margin-top:4px;}
+    .modal-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.4);}
+    .modal-divider{text-align:center;color:rgba(255,255,255,.25);font-size:12px;margin:14px 0;}
+    .modal-note{text-align:center;font-size:12px;color:rgba(255,255,255,.3);margin-top:12px;}
+
     /* MOBILE NAV DRAWER */
     #mob-nav{display:none;position:fixed;top:68px;left:0;right:0;z-index:998;background:rgba(12,10,35,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,130,232,.18);box-shadow:0 8px 32px rgba(0,0,0,.45);}
     #mob-nav.open{display:block;animation:mobNavOpen .45s cubic-bezier(.22,1,.36,1) forwards;}
@@ -440,7 +459,7 @@ function renderPage(a, contentHtml) {
     <div class="cta-inner">
       <h3>${t.ctaTitle}</h3>
       <p>${t.ctaDesc}</p>
-      <a href="https://www.legalsol.pl" class="cta-btn">${t.ctaBtn}</a>
+      <button onclick="openConsultModal()" class="cta-btn" style="cursor:pointer;border:none;">${t.ctaBtn}</button>
     </div>
   </div>
 
@@ -448,17 +467,49 @@ function renderPage(a, contentHtml) {
     <a href="https://wa.me/48XXXXXXXXX" class="float-wa" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
-    <a href="https://www.legalsol.pl" class="float-consult">
+    <button onclick="openConsultModal()" class="float-consult" style="border:none;cursor:pointer;">
       <span class="float-dot"></span>
       <span>${t.consultation}</span>
-    </a>
+    </button>
   </div>
 
   <footer class="footer">
     <p>&copy; ${new Date().getFullYear()} <a href="https://www.legalsol.pl">Legal Solutions</a> \u2014 ${t.footerText}</p>
   </footer>
 
-  <script>document.addEventListener('click',function(){document.getElementById('lang-dd').classList.remove('open')});</script>
+  <!-- CONSULT MODAL -->
+  <div class="modal-overlay" id="consultModal" onclick="if(event.target===this)closeConsultModal()">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeConsultModal()">&#x2715;</button>
+      <div class="modal-icon">⚖️</div>
+      <h3>${isRu ? 'Бесплатная консультация' : 'Free Consultation'}</h3>
+      <p>${isRu ? 'Оставьте имя и телефон — свяжемся в WhatsApp в течение 15 минут' : 'Leave your name and phone — we\'ll contact you via WhatsApp within 15 minutes'}</p>
+      <input class="modal-field" id="modal-name" type="text" placeholder="${isRu ? 'Ваше имя' : 'Your name'}">
+      <input class="modal-field" id="modal-phone" type="tel" placeholder="${isRu ? 'Телефон / WhatsApp' : 'Phone / WhatsApp'}">
+      <button class="modal-wa-btn" onclick="sendToWhatsApp()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        ${isRu ? 'Написать в WhatsApp' : 'Contact via WhatsApp'}
+      </button>
+      <p class="modal-note">${isRu ? '98% одобрений · Бесплатный правовой анализ' : '98% approval rate · Free legal analysis'}</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('click',function(){document.getElementById('lang-dd').classList.remove('open')});
+    function openConsultModal(){document.getElementById('consultModal').classList.add('open');document.body.style.overflow='hidden';}
+    function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';}
+    function sendToWhatsApp(){
+      var name=document.getElementById('modal-name').value.trim();
+      var phone=document.getElementById('modal-phone').value.trim();
+      var article=${JSON.stringify(title)};
+      var msg='${isRu ? 'Здравствуйте! Читал статью' : 'Hello! I read the article'}: '+article+'.';
+      if(name)msg+=' ${isRu ? 'Меня зовут' : 'My name is'} '+name+'.';
+      if(phone)msg+=' ${isRu ? 'Мой телефон' : 'My phone'}: '+phone+'.';
+      msg+=' ${isRu ? 'Хочу записаться на консультацию.' : 'I would like to book a consultation.'}';
+      window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeConsultModal();});
+  </script>
 </body>
 </html>`;
 }

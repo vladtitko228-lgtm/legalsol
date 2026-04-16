@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
-    js += "var imgHtml=x.img?'<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\" onerror=\"this.style.display=\\'none\\'\">':'';";
+    js += "var imgHtml=x.img?'<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:180px;object-fit:cover;display:block;border-radius:12px 12px 0 0;position:relative;z-index:1\" onerror=\"this.style.display=\\'none\\'\">':'';";
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
     js += "h+='<div style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;background:linear-gradient(135deg,#3D35A0,#7B72E8)\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";
