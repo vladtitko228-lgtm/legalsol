@@ -43,7 +43,7 @@ function renderArticleCard(article) {
     : "";
 
   return `
-    <a href="/blog/${escapeHtml(article.slug)}" class="article-card">
+    <a href="/blog/${escapeHtml(article.slug)}" class="article-card" data-title="${escapeHtml(article.title)}" data-desc="${escapeHtml(article.seoDescription)}" data-cat="${escapeHtml(article.category)}">
       ${coverHtml}
       <div class="card-body">
         <div class="card-meta">
@@ -318,6 +318,15 @@ function renderPage(articles) {
     }
     .footer a { color: var(--accent-light); text-decoration: none; }
 
+    /* Search */
+    .search-wrap { max-width:600px; margin:0 auto 28px; padding:0 24px; position:relative; }
+    .search-input { width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(124,92,252,.25); border-radius:30px; padding:12px 48px 12px 44px; color:#fff; font-size:15px; outline:none; font-family:inherit; transition:border-color .2s; }
+    .search-input:focus { border-color:rgba(124,92,252,.7); background:rgba(255,255,255,.09); }
+    .search-input::placeholder { color:rgba(255,255,255,.3); }
+    .search-icon { position:absolute; left:38px; top:50%; transform:translateY(-50%); opacity:.4; pointer-events:none; }
+    .search-clear { position:absolute; right:36px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:18px; display:none; padding:4px; }
+    #no-results { display:none; text-align:center; padding:60px 24px; color:rgba(255,255,255,.4); font-size:16px; grid-column:1/-1; }
+
     @media (max-width: 640px) {
       .blog-hero h1 { font-size: 2rem; }
       .articles-grid { grid-template-columns: 1fr; }
@@ -343,6 +352,12 @@ function renderPage(articles) {
     <p>Expert guides, tips, and news about living and working in Poland</p>
   </section>
 
+  <div class="search-wrap">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="search-input" class="search-input" type="text" placeholder="Search articles..." autocomplete="off">
+    <button id="search-clear" class="search-clear" aria-label="Clear search">&times;</button>
+  </div>
+
   ${categories.length > 1 ? `
   <div class="filters">
     <button class="filter-btn active" onclick="filterCategory('')">All</button>
@@ -354,6 +369,7 @@ function renderPage(articles) {
       ? cardsHtml
       : `<div class="empty-state"><h2>Coming Soon</h2><p>We're preparing expert content for you. Check back soon!</p></div>`
     }
+    <div id="no-results">No articles found</div>
   </div>
 
   <footer class="footer">
@@ -369,6 +385,47 @@ function renderPage(articles) {
         card.style.display = (!cat || cardCat === cat) ? '' : 'none';
       });
     }
+
+    (function() {
+      var searchInput = document.getElementById('search-input');
+      var searchClear = document.getElementById('search-clear');
+      var filtersDiv = document.querySelector('.filters');
+      var noResults = document.getElementById('no-results');
+
+      if (!searchInput) return;
+
+      searchInput.addEventListener('keyup', function() {
+        var query = searchInput.value.trim().toLowerCase();
+        searchClear.style.display = query ? 'block' : 'none';
+
+        if (filtersDiv) filtersDiv.style.display = query ? 'none' : '';
+
+        var cards = document.querySelectorAll('.article-card');
+        var visibleCount = 0;
+
+        cards.forEach(function(card) {
+          var title = (card.dataset.title || '').toLowerCase();
+          var desc = (card.dataset.desc || '').toLowerCase();
+          var cat = (card.dataset.cat || '').toLowerCase();
+          var match = !query || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1 || cat.indexOf(query) !== -1;
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        noResults.style.display = (query && visibleCount === 0) ? 'block' : 'none';
+      });
+
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        if (filtersDiv) filtersDiv.style.display = '';
+        document.querySelectorAll('.article-card').forEach(function(card) {
+          card.style.display = '';
+        });
+        noResults.style.display = 'none';
+        searchInput.focus();
+      });
+    })();
   </script>
 
 </body>
@@ -401,7 +458,7 @@ module.exports = async function handler(req, res) {
       };
     });
 
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=1800");
+    res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=120");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(articles));
 

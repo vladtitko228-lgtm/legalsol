@@ -58,7 +58,7 @@ module.exports = async function handler(req, res) {
     js += "h+='<span class=\"blog-read\" style=\"color:#8B82E8;font-size:12px\">Read \\u2192</span>';";
     js += "h+='</div></a>';});";
     js += "if(h)g.innerHTML=h;})();";
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=1800");
+    res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=120");
     res.setHeader("Content-Type", "application/javascript; charset=utf-8");
     res.status(200).send(js);
   } catch (e) {
