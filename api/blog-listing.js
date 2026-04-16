@@ -36,7 +36,7 @@ function renderArticleCard(article) {
 
   const coverHtml = article.coverImage
     ? `<div class="card-cover"><img src="${escapeHtml(article.coverImage)}" alt="${escapeHtml(article.title)}" loading="lazy"></div>`
-    : `<div class="card-cover card-cover-placeholder"><div class="placeholder-icon">ð</div></div>`;
+    : `<div class="card-cover card-cover-placeholder"></div>`;
 
   const tagsHtml = Array.isArray(article.tags) && article.tags.length
     ? article.tags.slice(0, 3).map(t => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")
@@ -223,6 +223,7 @@ function renderPage(articles) {
       text-decoration: none;
       color: inherit;
       transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      word-break: break-word;
     }
     .article-card:hover {
       transform: translateY(-6px);
@@ -241,11 +242,9 @@ function renderPage(articles) {
       object-fit: cover;
     }
     .card-cover-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, #2D2869, #5B52CC);
+      border-radius: 12px 12px 0 0;
     }
-    .placeholder-icon { font-size: 48px; opacity: 0.3; }
 
     .card-body { padding: 24px; }
     .card-meta {
@@ -266,11 +265,15 @@ function renderPage(articles) {
     }
     .card-date { color: var(--text-muted); font-size: 13px; }
     .card-title {
-      font-size: 1.2rem;
+      font-size: clamp(14px, 2vw, 18px);
       font-weight: 700;
       color: white;
       margin-bottom: 10px;
       line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .card-desc {
       color: var(--text-muted);
