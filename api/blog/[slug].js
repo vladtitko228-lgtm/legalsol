@@ -128,9 +128,11 @@ function renderPage(a, contentHtml) {
     checkStatus: "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C \u0441\u0442\u0430\u0442\u0443\u0441",
     referFriend: "\u041F\u0440\u0438\u0432\u0435\u0434\u0438 \u0434\u0440\u0443\u0433\u0430",
     cabinet: "\u041A\u0430\u0431\u0438\u043D\u0435\u0442",
-    ctaTitle: "\u041D\u0443\u0436\u043D\u0430 \u043F\u043E\u043C\u043E\u0449\u044C \u0441 \u043B\u0435\u0433\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0435\u0439?",
-    ctaDesc: "Legal Solutions \u2014 \u043E\u0442 \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u0438 \u0434\u043E \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430 \u0432 \u0440\u0443\u043A\u0430\u0445. 3 000+ \u0443\u0441\u043F\u0435\u0448\u043D\u044B\u0445 \u0434\u0435\u043B, 98% \u043E\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u0439.",
+    ctaLabel: "\u0414\u043E\u0432\u0435\u0440\u044F\u044E\u0442 6 \u043B\u0435\u0442",
+    ctaTitle: "\u041D\u0435 \u043E\u0441\u0442\u0430\u0432\u0430\u0439\u0442\u0435\u0441\u044C \u0431\u0435\u0437 \u0441\u0442\u0430\u0442\u0443\u0441\u0430 \u2014\u00a0\u043C\u044B \u0432\u0441\u0451 \u0441\u0434\u0435\u043B\u0430\u0435\u043C",
+    ctaDesc: "\u0437\u0430 6 \u043B\u0435\u0442 \u043C\u044B \u043F\u043E\u043C\u043E\u0433\u043B\u0438 \u0431\u043E\u043B\u0435\u0435 3\u00a0000 \u0438\u043D\u043E\u0441\u0442\u0440\u0430\u043D\u0446\u0435\u0432 \u043B\u0435\u0433\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F \u0432 \u041F\u043E\u043B\u044C\u0448\u0435. \u0411\u0435\u0440\u0451\u043C \u043D\u0430 \u0441\u0435\u0431\u044F \u0432\u0441\u0451: \u0430\u043D\u0430\u043B\u0438\u0437 \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0438\u044F, \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B, \u043F\u043E\u0434\u0430\u0447\u0443 \u2014 \u0434\u043E \u043A\u0430\u0440\u0442\u044B \u0432 \u0440\u0443\u043A\u0430\u0445.",
     ctaBtn: "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044F \u2192",
+    ctaGuarantee: "\u0413\u0430\u0440\u0430\u043D\u0442\u0438\u044F 98% \u043E\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u0439 \u00b7 \u0410\u043F\u0435\u043B\u043B\u044F\u0446\u0438\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E \u00b7 \u041E\u0442\u0432\u0435\u0442 \u0437\u0430 15 \u043C\u0438\u043D\u0443\u0442",
     consultation: "\u041A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044F",
     footerText: "\u0418\u043C\u043C\u0438\u0433\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0435 \u0443\u0441\u043B\u0443\u0433\u0438 \u0432 \u041F\u043E\u043B\u044C\u0448\u0435"
   } : {
@@ -142,9 +144,11 @@ function renderPage(a, contentHtml) {
     checkStatus: "Check Status",
     referFriend: "Refer a Friend",
     cabinet: "Cabinet",
-    ctaTitle: "Need Help with Immigration?",
-    ctaDesc: "Legal Solutions handles everything from consultation to document in hand. 3,000+ successful cases, 98% approval rate.",
+    ctaLabel: "Trusted for 6 years",
+    ctaTitle: "Don\u2019t stay without status \u2014 we\u2019ll handle everything",
+    ctaDesc: "In 6 years Legal Solutions helped 3,000+ foreigners get legal status in Poland. We take care of everything: analysis, documents, submission \u2014 until the card is in your hands.",
     ctaBtn: "Free Consultation \u2192",
+    ctaGuarantee: "98% approval rate \u00b7 Free appeal \u00b7 Reply within 15 min",
     consultation: "Free Consultation",
     footerText: "Immigration Services in Poland"
   };
@@ -308,12 +312,21 @@ function renderPage(a, contentHtml) {
 
     /* CTA BOX */
     .cta-box { max-width:780px; margin:0 auto 48px; padding:0 24px; }
-    .cta-inner { background:var(--p800); border-radius:20px; padding:48px 40px; text-align:center; position:relative; overflow:hidden; }
-    .cta-inner::before { content:''; position:absolute; top:-50%; right:-20%; width:300px; height:300px; background:radial-gradient(circle, rgba(83,74,183,.4), transparent 70%); border-radius:50%; }
-    .cta-inner h3 { font-size:1.5rem; color:#fff; margin-bottom:10px; position:relative; }
-    .cta-inner p { color:rgba(255,255,255,.65); margin-bottom:28px; font-size:15px; position:relative; }
-    .cta-btn { display:inline-block; position:relative; background:var(--p500); color:#fff; padding:14px 36px; border-radius:30px; text-decoration:none; font-weight:700; font-size:15px; transition:transform .2s, box-shadow .2s; }
-    .cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(83,74,183,.5); }
+    .cta-inner { background:linear-gradient(160deg,var(--p800),#1a1060); border-radius:24px; padding:52px 40px 44px; text-align:center; position:relative; overflow:hidden; }
+    .cta-inner::before { content:''; position:absolute; top:-40%; right:-10%; width:360px; height:360px; background:radial-gradient(circle, rgba(91,82,204,.35), transparent 70%); border-radius:50%; pointer-events:none; }
+    .cta-inner::after { content:''; position:absolute; bottom:-30%; left:-10%; width:280px; height:280px; background:radial-gradient(circle, rgba(139,130,232,.2), transparent 70%); border-radius:50%; pointer-events:none; }
+    .cta-label { display:inline-block; background:rgba(91,82,204,.25); border:1px solid rgba(139,130,232,.3); color:var(--p300); font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:18px; position:relative; }
+    .cta-inner h3 { font-size:1.65rem; color:#fff; margin-bottom:12px; position:relative; font-weight:800; line-height:1.25; }
+    .cta-inner > p { color:rgba(255,255,255,.6); margin-bottom:32px; font-size:15px; position:relative; line-height:1.6; }
+    .trust-stats { display:flex; justify-content:center; gap:32px; margin-bottom:32px; position:relative; flex-wrap:wrap; }
+    .trust-stat { text-align:center; }
+    .trust-stat-num { font-size:1.6rem; font-weight:800; color:#fff; line-height:1; }
+    .trust-stat-num span { color:var(--p400); }
+    .trust-stat-label { font-size:11px; color:rgba(255,255,255,.45); margin-top:4px; text-transform:uppercase; letter-spacing:.8px; }
+    .trust-divider { width:1px; background:rgba(139,130,232,.2); align-self:stretch; }
+    .cta-btn { display:inline-block; position:relative; background:linear-gradient(135deg,var(--p500),var(--p700)); color:#fff; padding:15px 40px; border-radius:30px; text-decoration:none; font-weight:700; font-size:15px; transition:transform .2s, box-shadow .2s; box-shadow:0 4px 24px rgba(91,82,204,.45); }
+    .cta-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(83,74,183,.6); }
+    .cta-guarantee { margin-top:16px; font-size:12px; color:rgba(255,255,255,.35); position:relative; }
 
     /* FLOATING BUTTONS */
     .float-btns { position:fixed; bottom:24px; right:24px; display:flex; flex-direction:column; gap:12px; z-index:99; }
@@ -457,9 +470,18 @@ function renderPage(a, contentHtml) {
 
   <div class="cta-box">
     <div class="cta-inner">
+      <div class="cta-label">⚖️ ${t.ctaLabel}</div>
       <h3>${t.ctaTitle}</h3>
       <p>${t.ctaDesc}</p>
+      <div class="trust-stats">
+        <div class="trust-stat"><div class="trust-stat-num">3000<span>+</span></div><div class="trust-stat-label">${isRu ? 'довольных клиентов' : 'happy clients'}</div></div>
+        <div class="trust-divider"></div>
+        <div class="trust-stat"><div class="trust-stat-num">6</div><div class="trust-stat-label">${isRu ? 'лет на рынке' : 'years on market'}</div></div>
+        <div class="trust-divider"></div>
+        <div class="trust-stat"><div class="trust-stat-num">98<span>%</span></div><div class="trust-stat-label">${isRu ? 'одобрений' : 'approval rate'}</div></div>
+      </div>
       <button onclick="openConsultModal()" class="cta-btn" style="cursor:pointer;border:none;">${t.ctaBtn}</button>
+      <p class="cta-guarantee">${t.ctaGuarantee}</p>
     </div>
   </div>
 
