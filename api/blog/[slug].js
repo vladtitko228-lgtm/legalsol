@@ -379,8 +379,8 @@ function renderPage(a, contentHtml) {
           <svg class="arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="lang-dd-panel">
-          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><img src="https://flagcdn.com/20x15/ru.png" width="20" height="15" alt="RU" class="lang-flag"><span class="ldp-code">RU</span></a>
-          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><img src="https://flagcdn.com/20x15/gb.png" width="20" height="15" alt="EN" class="lang-flag"><span class="ldp-code">EN</span></a>
+          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><img src="https://flagcdn.com/ru.svg" width="20" height="15" alt="RU" class="lang-flag"><span class="ldp-code">RU</span></a>
+          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><img src="https://flagcdn.com/gb.svg" width="20" height="15" alt="EN" class="lang-flag"><span class="ldp-code">EN</span></a>
         </div>
       </div>
       <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">\u{1F464} ${t.cabinet}</a>
