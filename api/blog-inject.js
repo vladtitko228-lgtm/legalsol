@@ -45,14 +45,14 @@ module.exports = async function handler(req, res) {
       };
     }).filter(x => !x.s.endsWith("-en"));
     let js = "(function(){";
-    js += "function imgErr(el){el.style.display='none';el.parentNode.style.background='linear-gradient(135deg,#2D2869,#5B52CC)';}";
+    js += "function imgErr(el){el.style.display='none';el.parentNode.style.background='linear-gradient(135deg,#3D35A0,#7B72E8)';el.parentNode.style.borderRadius='12px 12px 0 0';}";
     js += "var a=" + JSON.stringify(arts) + ";";
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
     js += "var imgHtml='';";
     js += "if(x.img){imgHtml='<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\" onerror=\"imgErr(this)\">';}";
-    js += "else{imgHtml='<div style=\"width:100%;height:100%;background:linear-gradient(135deg,#2D2869,#5B52CC);border-radius:12px 12px 0 0\"></div>';}";
+    js += "else{imgHtml='<div style=\"width:100%;height:100%;background:linear-gradient(135deg,#3D35A0,#7B72E8);border-radius:12px 12px 0 0\"></div>';}";
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
     js += "h+='<div class=\"blog-thumb\" style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";

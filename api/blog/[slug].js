@@ -329,7 +329,7 @@ function renderPage(a, contentHtml) {
     .back-btn {
       display:inline-flex;align-items:center;gap:8px;
       color:#fff;font-size:13px;font-weight:600;text-decoration:none;
-      background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.3);
+      background:rgba(91,82,204,.45);border:1px solid rgba(139,130,232,.5);
       padding:8px 16px;border-radius:30px;
       transition:all .25s;
       animation:backPulse 3s ease-in-out infinite;
