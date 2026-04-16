@@ -75,13 +75,13 @@ module.exports = async function handler(req, res) {
     js += "var sw=document.getElementById('ls-blog-search-wrap');";
     js += "if(!sw){";
     js += "sw=document.createElement('div');sw.id='ls-blog-search-wrap';";
-    js += "sw.style.cssText='max-width:560px;margin:0 auto 28px;position:relative;padding:0 24px;';";
+    js += "sw.style.cssText='max-width:300px;margin:0 auto 28px;position:relative;padding:0 24px;transition:max-width .4s cubic-bezier(.4,0,.2,1);';";
     js += "sw.innerHTML='<svg style=\"position:absolute;left:38px;top:50%;transform:translateY(-50%);opacity:.45;pointer-events:none\" width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.35-4.35\"/></svg>"
          + "<input id=\"ls-blog-si\" type=\"text\" placeholder=\"Search articles... / \\u041F\\u043E\\u0438\\u0441\\u043A \\u0441\\u0442\\u0430\\u0442\\u0435\\u0439...\" autocomplete=\"off\" "
-         + "style=\"width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(124,92,252,.3);border-radius:30px;padding:11px 44px 11px 42px;color:#fff;font-size:14px;outline:none;font-family:inherit;transition:border-color .2s,background .2s;\">"
+         + "style=\"width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(124,92,252,.3);border-radius:30px;padding:9px 40px 9px 38px;color:#fff;font-size:13px;outline:none;font-family:inherit;transition:border-color .2s,background .2s;\">"
          + "<button id=\"ls-blog-sc\" onclick=\"lsBlogClear()\" style=\"display:none;position:absolute;right:36px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:20px;line-height:1;padding:4px;\">\\u00d7</button>';";
     js += "g.parentNode.insertBefore(sw,g);";
-    js += "document.getElementById('ls-blog-si').addEventListener('input',function(){lsBlogSearch(this.value);});";
+    js += "document.getElementById('ls-blog-si').addEventListener('input',function(){lsBlogSearch(this.value);});document.getElementById('ls-blog-si').addEventListener('focus',function(){sw.style.maxWidth='520px';});document.getElementById('ls-blog-si').addEventListener('blur',function(){if(!this.value)sw.style.maxWidth='300px';});";
     js += "}";
 
     // build cards
