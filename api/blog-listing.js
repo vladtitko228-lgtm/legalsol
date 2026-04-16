@@ -57,12 +57,14 @@ function renderArticleCard(article) {
       : article.coverImage;
   const coverHtml = `<div class="card-cover"><img src="${escapeHtml(imgSrc)}" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.src='${fallback}';this.onerror=null;"></div>`;
 
-  const tagsHtml = Array.isArray(article.tags) && article.tags.length
-    ? article.tags.slice(0, 3).map(t => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")
+  const tagsArr = Array.isArray(article.tags) ? article.tags : [];
+  const tagsHtml = tagsArr.length
+    ? tagsArr.slice(0, 10).map(t => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")
     : "";
+  const tagsStr = tagsArr.join(" ");
 
   return `
-    <a href="/blog/${escapeHtml(article.slug)}" class="article-card" data-title="${escapeHtml(article.title)}" data-desc="${escapeHtml(article.seoDescription)}" data-cat="${escapeHtml(article.category)}">
+    <a href="/blog/${escapeHtml(article.slug)}" class="article-card" data-title="${escapeHtml(article.title)}" data-desc="${escapeHtml(article.seoDescription)}" data-cat="${escapeHtml(article.category)}" data-tags="${escapeHtml(tagsStr)}">
       ${coverHtml}
       <div class="card-body">
         <div class="card-meta">
@@ -338,12 +340,13 @@ function renderPage(articles) {
     .footer a { color: var(--accent-light); text-decoration: none; }
 
     /* Search */
-    .search-wrap { max-width:600px; margin:0 auto 28px; padding:0 24px; position:relative; }
-    .search-input { width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(124,92,252,.25); border-radius:30px; padding:12px 48px 12px 44px; color:#fff; font-size:15px; outline:none; font-family:inherit; transition:border-color .2s,background .2s; }
-    .search-input:focus { border-color:rgba(124,92,252,.7); background:rgba(255,255,255,.09); }
-    .search-input::placeholder { color:rgba(255,255,255,.3); }
-    .search-icon { position:absolute; left:38px; top:50%; transform:translateY(-50%); opacity:.4; pointer-events:none; }
-    .search-clear { position:absolute; right:36px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:20px; display:none; line-height:1; padding:4px 6px; }
+    .search-wrap { max-width:320px; margin:0 auto 28px; padding:0 24px; position:relative; transition:max-width .4s cubic-bezier(.4,0,.2,1); }
+    .search-wrap:focus-within { max-width:540px; }
+    .search-input { width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(124,92,252,.2); border-radius:30px; padding:9px 40px 9px 38px; color:#fff; font-size:13px; outline:none; font-family:inherit; transition:border-color .25s,background .25s,box-shadow .3s; }
+    .search-input:focus { border-color:rgba(124,92,252,.65); background:rgba(255,255,255,.09); box-shadow:0 0 22px rgba(124,92,252,.18); }
+    .search-input::placeholder { color:rgba(255,255,255,.28); }
+    .search-icon { position:absolute; left:36px; top:50%; transform:translateY(-50%); opacity:.35; pointer-events:none; }
+    .search-clear { position:absolute; right:34px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:18px; display:none; line-height:1; padding:4px 6px; }
     #no-results { display:none; text-align:center; padding:60px 24px; color:rgba(255,255,255,.4); font-size:16px; grid-column:1/-1; }
 
     @media (max-width: 640px) {
@@ -411,7 +414,7 @@ function renderPage(articles) {
       document.getElementById('searchClear').style.display = q ? 'block' : 'none';
       document.querySelector('.filters') && (document.querySelector('.filters').style.display = q ? 'none' : '');
       cards.forEach(function(c) {
-        var text = ((c.dataset.title||'') + ' ' + (c.dataset.desc||'') + ' ' + (c.dataset.cat||'')).toLowerCase();
+        var text = ((c.dataset.title||'') + ' ' + (c.dataset.desc||'') + ' ' + (c.dataset.cat||'') + ' ' + (c.dataset.tags||'')).toLowerCase();
         var show = !q || text.includes(q);
         c.style.display = show ? '' : 'none';
         if (show) visible++;
@@ -454,9 +457,13 @@ module.exports = async function handler(req, res) {
       };
     });
 
+    // EN-first: show EN version; if no EN exists, show RU as fallback
+    const enSlugs = new Set(articles.filter(a => a.slug.endsWith('-en')).map(a => a.slug.replace(/-en$/, '')));
+    const filtered = articles.filter(a => a.slug.endsWith('-en') || !enSlugs.has(a.slug));
+
     res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=120");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.status(200).send(renderPage(articles));
+    res.status(200).send(renderPage(filtered));
 
   } catch (error) {
     console.error("Notion API error:", error);
