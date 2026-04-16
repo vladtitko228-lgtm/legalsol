@@ -35,7 +35,7 @@ function renderArticleCard(article) {
     : "";
 
   const coverHtml = article.coverImage
-    ? `<div class="card-cover"><img src="${escapeHtml(article.coverImage)}" alt="${escapeHtml(article.title)}" loading="lazy"></div>`
+    ? `<div class="card-cover"><img src="${escapeHtml(article.coverImage)}" alt="${escapeHtml(article.title)}" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="card-cover-placeholder" style="display:none;height:200px;"></div></div>`
     : `<div class="card-cover card-cover-placeholder"></div>`;
 
   const tagsHtml = Array.isArray(article.tags) && article.tags.length
@@ -220,6 +220,8 @@ function renderPage(articles) {
       border: 1px solid rgba(124,92,252,0.1);
       border-radius: 16px;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
       color: inherit;
       transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
@@ -234,16 +236,15 @@ function renderPage(articles) {
       width: 100%;
       height: 200px;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(124,92,252,0.1), rgba(34,197,94,0.08));
-    }
-    .card-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+      flex-shrink: 0;
     }
     .card-cover-placeholder {
+      width: 100%;
+      height: 200px;
       background: linear-gradient(135deg, #2D2869, #5B52CC);
       border-radius: 12px 12px 0 0;
+      flex-shrink: 0;
     }
 
     .card-body { padding: 24px; }
@@ -274,6 +275,7 @@ function renderPage(articles) {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      word-break: break-word;
     }
     .card-desc {
       color: var(--text-muted);

@@ -266,7 +266,7 @@ function renderPage(a, contentHtml) {
     .mob-burger span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;transition:all .3s;}
 
     /* HERO */
-    .hero-wrap { max-width:900px; margin:100px auto 0; padding:0 24px; }
+    .hero-wrap { max-width:900px; margin:16px auto 0; padding:0 24px; }
     .hero-img { width:100%; max-height:420px; object-fit:cover; border-radius:16px; display:block; box-shadow:0 8px 30px rgba(30,26,74,.12); }
 
     /* ARTICLE HEADER */
@@ -343,7 +343,7 @@ function renderPage(a, contentHtml) {
       .mob-burger { display:flex; }
       .logo-name { font-size:20px; letter-spacing:1.5px; }
       .logo-sub { font-size:9px; letter-spacing:2px; }
-      .hero-wrap { margin-top:80px; }
+      .hero-wrap { margin-top:12px; }
       .article-header h1 { font-size:1.7rem; }
       .hero-img { max-height:260px; }
       .cta-inner { padding:32px 24px; }
@@ -397,6 +397,10 @@ function renderPage(a, contentHtml) {
     <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-ai">${t.ai}</a>
     <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-status">${t.checkStatus}</a>
     <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-referral" style="color:#fde047;">${t.referFriend}</a>
+  </div>
+
+  <div style="max-width:900px;margin:84px auto 0;padding:0 24px 0;">
+    <a href="https://www.legalsol.pl#tab-blog" style="color:var(--p400);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;opacity:.8;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.8'">${isRu ? '← Все статьи' : '← All articles'}</a>
   </div>
 
   <article>
