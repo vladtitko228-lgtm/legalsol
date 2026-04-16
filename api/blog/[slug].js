@@ -1,4 +1,4 @@
-const { Client } = require("@notionhq/client");
+﻿const { Client } = require("@notionhq/client");
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 
@@ -209,6 +209,7 @@ function renderPage(a, contentHtml) {
       display:flex;gap:3px;
       background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.14);
       border-radius:var(--rb);padding:4px;
+      margin-left:40px;
     }
     .tab-btn {
       background:none;border:none;
@@ -231,6 +232,8 @@ function renderPage(a, contentHtml) {
       animation:heroRefShimmer 3s ease-in-out infinite;pointer-events:none;
     }
     @keyframes heroRefShimmer{0%{transform:translateX(-100%)}50%,100%{transform:translateX(100%)}}
+    .gift-icon{display:inline-block;margin-right:5px;animation:giftBounce 2s ease-in-out infinite;}
+    @keyframes giftBounce{0%,100%{transform:translateY(0) rotate(0deg);}30%{transform:translateY(-4px) rotate(-8deg);}60%{transform:translateY(-2px) rotate(5deg);}}
     .nav-right {
       display:flex;align-items:center;gap:10px;flex-shrink:0;
     }
@@ -246,6 +249,7 @@ function renderPage(a, contentHtml) {
     .ldp-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.75);font-size:12px;font-weight:600;font-family:'Inter',sans-serif;transition:all .15s;}
     .ldp-btn:hover{background:rgba(91,82,204,.25);color:#fff;}
     .ldp-btn.active{background:rgba(91,82,204,.35);color:#fff;}
+    .ldp-flag{font-size:14px;flex-shrink:0;}
     .ldp-code{font-weight:700;min-width:22px;}
     .ldp-name{color:rgba(255,255,255,.45);font-weight:400;margin-left:auto;}
     /* Cabinet button — matches main site */
@@ -365,17 +369,17 @@ function renderPage(a, contentHtml) {
       <a class="tab-btn active" href="https://www.legalsol.pl#tab-blog">${t.blog}</a>
       <a class="tab-btn" href="https://www.legalsol.pl#tab-ai">${t.ai}</a>
       <a class="tab-btn" href="https://www.legalsol.pl#tab-status">${t.checkStatus}</a>
-      <a class="tab-btn referral-btn" href="https://www.legalsol.pl#tab-referral"><span class="shimmer"></span>${t.referFriend}</a>
+      <a class="tab-btn referral-btn" href="https://www.legalsol.pl#tab-referral"><span class="shimmer"></span><span class="gift-icon">🎁</span>${t.referFriend}</a>
     </div>
     <div class="nav-right">
       <div class="lang-dd" id="lang-dd">
         <button class="lang-dd-trigger" onclick="document.getElementById('lang-dd').classList.toggle('open');event.stopPropagation();">
-          <span>${isRu ? 'RU' : 'EN'}</span>
+          <span>${isRu ? '🇷🇺 RU' : '🇬🇧 EN'}</span>
           <svg class="arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="lang-dd-panel">
-          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><span class="ldp-code">RU</span><span class="ldp-name">\u0420\u0443\u0441\u0441\u043A\u0438\u0439</span></a>
-          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><span class="ldp-code">EN</span><span class="ldp-name">English</span></a>
+          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><span class="ldp-flag">🇷🇺</span><span class="ldp-code">RU</span><span class="ldp-name">\u0420\u0443\u0441\u0441\u043A\u0438\u0439</span></a>
+          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><span class="ldp-flag">🇬🇧</span><span class="ldp-code">EN</span><span class="ldp-name">English</span></a>
         </div>
       </div>
       <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">\u{1F464} ${t.cabinet}</a>
@@ -505,3 +509,4 @@ a{color:#fff;background:#534AB7;padding:12px 28px;border-radius:30px;text-decora
 a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(83,74,183,.3)}</style>
 </head><body><h1>404</h1><p>Article not found</p><a href="https://www.legalsol.pl">Back to Legal Solutions</a></body></html>`;
 }
+
