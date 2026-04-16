@@ -249,7 +249,7 @@ function renderPage(a, contentHtml) {
     .ldp-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.75);font-size:12px;font-weight:600;font-family:'Inter',sans-serif;transition:all .15s;}
     .ldp-btn:hover{background:rgba(91,82,204,.25);color:#fff;}
     .ldp-btn.active{background:rgba(91,82,204,.35);color:#fff;}
-    .ldp-flag{font-size:14px;flex-shrink:0;}
+    .lang-flag{border-radius:2px;flex-shrink:0;object-fit:cover;}
     .ldp-code{font-weight:700;min-width:22px;}
     .ldp-name{color:rgba(255,255,255,.45);font-weight:400;margin-left:auto;}
     /* Cabinet button — matches main site */
@@ -374,12 +374,13 @@ function renderPage(a, contentHtml) {
     <div class="nav-right">
       <div class="lang-dd" id="lang-dd">
         <button class="lang-dd-trigger" onclick="document.getElementById('lang-dd').classList.toggle('open');event.stopPropagation();">
-          <span>${isRu ? '🇷🇺 RU' : '🇬🇧 EN'}</span>
+          <img src="https://flagcdn.com/20x15/${isRu ? 'ru' : 'gb'}.png" width="20" height="15" alt="${isRu ? 'RU' : 'EN'}" class="lang-flag">
+          <span>${isRu ? 'RU' : 'EN'}</span>
           <svg class="arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="lang-dd-panel">
-          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><span class="ldp-flag">🇷🇺</span><span class="ldp-code">RU</span><span class="ldp-name">\u0420\u0443\u0441\u0441\u043A\u0438\u0439</span></a>
-          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><span class="ldp-flag">🇬🇧</span><span class="ldp-code">EN</span><span class="ldp-name">English</span></a>
+          <a class="ldp-btn${isRu ? ' active' : ''}" href="/blog/${isRu ? slug : otherSlug}"><img src="https://flagcdn.com/20x15/ru.png" width="20" height="15" alt="RU" class="lang-flag"><span class="ldp-code">RU</span><span class="ldp-name">\u0420\u0443\u0441\u0441\u043A\u0438\u0439</span></a>
+          <a class="ldp-btn${!isRu ? ' active' : ''}" href="/blog/${!isRu ? slug : otherSlug}"><img src="https://flagcdn.com/20x15/gb.png" width="20" height="15" alt="EN" class="lang-flag"><span class="ldp-code">EN</span><span class="ldp-name">English</span></a>
         </div>
       </div>
       <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">\u{1F464} ${t.cabinet}</a>
