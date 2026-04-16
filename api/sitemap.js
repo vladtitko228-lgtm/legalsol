@@ -4,7 +4,7 @@
 
 const { Client } = require("@notionhq/client");
 
-const SITE = "https://legalsol.pl";
+const SITE = "https://www.legalsol.pl";
 
 function txt(p) {
   if (!p) return "";

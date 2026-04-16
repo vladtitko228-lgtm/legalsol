@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://legalsol.pl/sitemap.xml
+Sitemap: https://www.legalsol.pl/sitemap.xml
