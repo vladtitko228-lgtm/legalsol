@@ -29,7 +29,7 @@ module.exports = async function handler(req, res) {
       sorts: [{ property: "Published Date", direction: "descending" }],
       page_size: 20,
     });
-    const arts = r.results.map(pg => {
+    const allArts = r.results.map(pg => {
       const p = pg.properties;
       const cover = txt(p["Cover Image"]) || "";
       const pageCover = pg.cover
@@ -43,7 +43,10 @@ module.exports = async function handler(req, res) {
         dt: txt(p["Published Date"]),
         img: cover || pageCover || ""
       };
-    }).filter(x => !x.s.endsWith("-en"));
+    });
+    // Show EN articles by default; if no EN version exists, show RU as fallback
+    const enSlugs = new Set(allArts.filter(x => x.s.endsWith("-en")).map(x => x.s.replace(/-en$/, "")));
+    const arts = allArts.filter(x => x.s.endsWith("-en") || !enSlugs.has(x.s));
     const fallbackMap = {
       "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&w=600&q=75",
       "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&w=600&q=75",
