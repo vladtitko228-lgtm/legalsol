@@ -325,6 +325,18 @@ function renderPage(a, contentHtml) {
     .float-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; display:inline-block; animation:dotPulse 2s ease-in-out infinite; }
     @keyframes dotPulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
 
+    /* BACK BUTTON */
+    .back-btn {
+      display:inline-flex;align-items:center;gap:8px;
+      color:#fff;font-size:13px;font-weight:600;text-decoration:none;
+      background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.3);
+      padding:8px 16px;border-radius:30px;
+      transition:all .25s;
+      animation:backPulse 3s ease-in-out infinite;
+    }
+    .back-btn:hover{background:rgba(91,82,204,.4);border-color:var(--p400);color:#fff;transform:translateX(-3px);}
+    @keyframes backPulse{0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,.0);}50%{box-shadow:0 0 0 6px rgba(91,82,204,.15);}}
+
     /* FOOTER */
     .footer { background:var(--p900); padding:32px 24px; text-align:center; color:rgba(255,255,255,.4); font-size:13px; }
     .footer a { color:var(--p400); text-decoration:none; }
@@ -400,7 +412,7 @@ function renderPage(a, contentHtml) {
   </div>
 
   <div style="max-width:900px;margin:84px auto 0;padding:0 24px 0;">
-    <a href="https://www.legalsol.pl#tab-blog" style="color:var(--p400);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;opacity:.8;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.8'">${isRu ? '← Все статьи' : '← All articles'}</a>
+    <a href="https://www.legalsol.pl#tab-blog" class="back-btn">${isRu ? '← Все статьи' : '← All articles'}</a>
   </div>
 
   <article>

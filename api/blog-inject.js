@@ -44,13 +44,15 @@ module.exports = async function handler(req, res) {
         img: cover || pageCover || ""
       };
     }).filter(x => !x.s.endsWith("-en"));
-    let js = "(function(){var a=" + JSON.stringify(arts) + ";";
+    let js = "(function(){";
+    js += "function imgErr(el){el.style.display='none';el.parentNode.style.background='linear-gradient(135deg,#2D2869,#5B52CC)';}";
+    js += "var a=" + JSON.stringify(arts) + ";";
     js += "var g=document.querySelector('#tab-blog .blog-grid');if(!g)return;";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
     js += "var imgHtml='';";
-    js += "if(x.img){imgHtml='<img src=\"'+x.img+'\" alt=\"'+x.t+'\" style=\"width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\">';}";
-    js += "else{imgHtml='<div style=\"width:100%;height:100%;background:linear-gradient(135deg,rgba(91,82,204,.15),rgba(139,130,232,.08));display:flex;align-items:center;justify-content:center\"><svg width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"rgba(124,92,252,0.4)\" stroke-width=\"1.5\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><path d=\"m21 15-5-5L5 21\"/></svg></div>';}";
+    js += "if(x.img){imgHtml='<img src=\"'+x.img+'\" alt=\"\" loading=\"lazy\" style=\"width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0\" onerror=\"imgErr(this)\">';}";
+    js += "else{imgHtml='<div style=\"width:100%;height:100%;background:linear-gradient(135deg,#2D2869,#5B52CC);border-radius:12px 12px 0 0\"></div>';}";
     js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card\" style=\"text-decoration:none;color:inherit\">';";
     js += "h+='<div class=\"blog-thumb\" style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative\">'+imgHtml+'<div class=\"blog-cat\" style=\"position:absolute;top:12px;left:12px;z-index:1\">'+ct+'</div></div>';";
     js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";
