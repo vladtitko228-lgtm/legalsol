@@ -92,7 +92,7 @@ function renderPage(articles) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog â Legal Solutions | Immigration Guides for Poland</title>
   <meta name="description" content="Expert guides on immigration to Poland: karta pobytu, work permits, PESEL, business registration, and more. Free resources from Legal Solutions.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23fff'/%3E%3Crect x='0' y='9' width='6' height='18' rx='1.5' fill='%235B52CC'/%3E%3Crect x='26' y='9' width='6' height='18' rx='1.5' fill='%235B52CC'/%3E%3Crect x='8.5' y='4' width='6.5' height='23' rx='1.5' fill='%236E65D8'/%3E%3Crect x='17' y='4' width='6.5' height='23' rx='1.5' fill='%236E65D8'/%3E%3Crect x='0' y='3.5' width='32' height='3.5' rx='1.5' fill='%233D3499'/%3E%3Crect x='0' y='27.5' width='32' height='3' rx='1.5' fill='%233D3499'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://www.legalsol.pl/blog">
 
   <meta property="og:type" content="website">
