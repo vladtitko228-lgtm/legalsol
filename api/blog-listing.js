@@ -458,9 +458,8 @@ module.exports = async function handler(req, res) {
       };
     });
 
-    // EN-first: show EN version; if no EN exists, show RU as fallback
-    const enSlugs = new Set(articles.filter(a => a.slug.endsWith('-en')).map(a => a.slug.replace(/-en$/, '')));
-    const filtered = articles.filter(a => a.slug.endsWith('-en') || !enSlugs.has(a.slug));
+    // Show only EN posts in the public feed
+    const filtered = articles.filter(a => a.language === "EN");
 
     res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=120");
     res.setHeader("Content-Type", "text/html; charset=utf-8");

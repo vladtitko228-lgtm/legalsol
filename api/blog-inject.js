@@ -42,12 +42,12 @@ module.exports = async function handler(req, res) {
         d: txt(p["SEO Description"]),
         dt: txt(p["Published Date"]),
         img: cover || pageCover || "",
-        tg: (txt(p["Tags"]) || []).join(" ")
+        tg: (txt(p["Tags"]) || []).join(" "),
+        lang: txt(p["Language"]) || ""
       };
     });
-    // Show EN articles by default; if no EN version exists, show RU as fallback
-    const enSlugs = new Set(allArts.filter(x => x.s.endsWith("-en")).map(x => x.s.replace(/-en$/, "")));
-    const arts = allArts.filter(x => x.s.endsWith("-en") || !enSlugs.has(x.s));
+    // Show only EN posts in the public feed
+    const arts = allArts.filter(x => x.lang === "EN");
     const fallbackMap = {
       "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&w=600&q=75",
       "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&w=600&q=75",
