@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -2700,7 +2700,7 @@ updateTicker('ru');
 <div id="tab-jobs" class="tab-content">
 <section class="section" style="background:var(--bg);padding-top:120px;">
   <div class="s-inner">
-    <!-- ══ WORK SECTION BG + JOB CALCULATOR ══ -->
+    <!-- ══ WORK SECTION BG + JOB CALCULATOR v2 ══ -->
     <style>
       /* Work section background */
       #tab-jobs .section{position:relative;}
@@ -2709,107 +2709,226 @@ updateTicker('ru');
       .jobs-bg-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0;}
       .jobs-bg-b1{top:-80px;left:-80px;width:520px;height:520px;background:radial-gradient(ellipse,rgba(91,82,204,.12),transparent 65%);}
       .jobs-bg-b2{top:30%;right:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(139,130,232,.07),transparent 65%);}
-
-      /* jobs-intro: align top */
       .jobs-intro{align-items:start !important;}
 
-      /* ── Calculator ── */
+      /* ===== CALCULATOR SHELL ===== */
       .jcalc{
         background:linear-gradient(150deg,#13102b 0%,#1c1847 55%,#0f0d22 100%);
         border:1px solid rgba(139,130,232,.28);
         border-radius:28px;
-        padding:30px 26px;
+        padding:28px 24px;
         box-shadow:0 0 0 1px rgba(139,130,232,.06),0 32px 80px rgba(0,0,0,.55),0 0 120px rgba(91,82,204,.1);
         position:relative;
         overflow:hidden;
       }
       .jcalc::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(91,82,204,.2),transparent 55%);pointer-events:none;}
       .jcalc::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(184,178,245,.7),transparent);}
-      .jc-deco{position:absolute;font-size:100px;opacity:.035;pointer-events:none;user-select:none;line-height:1;}
-      .jc-deco-1{top:-15px;right:-8px;transform:rotate(18deg);}
-      .jc-deco-2{bottom:-18px;left:-8px;transform:rotate(-12deg);}
+      .jc-deco{position:absolute;font-size:90px;opacity:.03;pointer-events:none;user-select:none;line-height:1;}
+      .jc-deco-1{top:-10px;right:-5px;transform:rotate(18deg);}
+      .jc-deco-2{bottom:-15px;left:-5px;transform:rotate(-12deg);}
 
-      .jcalc-head{text-align:center;margin-bottom:22px;position:relative;}
-      .jcalc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.32);border-radius:20px;padding:5px 15px 5px 10px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8B2F5;margin-bottom:12px;}
-      .jcbdot{width:8px;height:8px;background:#5B52CC;border-radius:50%;animation:jcBdot 1.8s infinite;flex-shrink:0;}
+      /* Head */
+      .jcalc-head{text-align:center;margin-bottom:20px;}
+      .jcalc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.32);border-radius:20px;padding:5px 15px 5px 10px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8B2F5;margin-bottom:10px;}
+      .jcbdot{width:8px;height:8px;background:#5B52CC;border-radius:50%;flex-shrink:0;animation:jcBdot 1.8s infinite;}
       @keyframes jcBdot{0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,.6)}60%{box-shadow:0 0 0 7px rgba(91,82,204,0)}}
-      .jcalc-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:5px;line-height:1.2;}
-      .jcalc-sub{color:rgba(255,255,255,.36);font-size:11.5px;}
+      .jcalc-title{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:4px;line-height:1.2;}
+      .jcalc-sub{color:rgba(255,255,255,.35);font-size:11px;}
 
-      .jc-prog{height:3px;background:rgba(139,130,232,.1);border-radius:4px;margin-top:16px;overflow:hidden;}
+      /* Progress */
+      .jc-prog{height:3px;background:rgba(139,130,232,.1);border-radius:4px;margin-top:14px;overflow:hidden;}
       .jc-prog-bar{height:100%;background:linear-gradient(90deg,#3D3585,#8B82E8,#DAD7FF);border-radius:4px;transition:width .55s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
-      .jc-prog-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:jcShimmer 1.8s infinite;}
+      .jc-prog-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:jcShimmer 1.8s infinite;}
       @keyframes jcShimmer{from{transform:translateX(-100%)}to{transform:translateX(300%)}}
 
-      .jc-dots{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;}
-      .jc-dot{width:7px;height:7px;border-radius:50%;background:rgba(139,130,232,.18);transition:all .35s;}
+      /* Dots */
+      .jc-dots{display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:16px;}
+      .jc-dot{width:6px;height:6px;border-radius:50%;background:rgba(139,130,232,.18);transition:all .35s;}
       .jc-dot.done{background:rgba(91,82,204,.55);}
-      .jc-dot.cur{background:#8B82E8;transform:scale(1.45);box-shadow:0 0 10px rgba(139,130,232,.65);}
+      .jc-dot.cur{background:#8B82E8;transform:scale(1.5);box-shadow:0 0 10px rgba(139,130,232,.65);}
 
+      /* Step transition */
       .jc-step{display:none;}
-      .jc-step.active{display:block;animation:jcSlide .38s cubic-bezier(.34,1.4,.64,1);}
-      @keyframes jcSlide{from{opacity:0;transform:translateX(22px) scale(.97)}to{opacity:1;transform:none}}
+      .jc-step.active{display:block;animation:jcSlide .4s cubic-bezier(.34,1.4,.64,1);}
+      @keyframes jcSlide{from{opacity:0;transform:translateX(24px) scale(.97)}to{opacity:1;transform:none}}
 
-      .jc-q{font-size:.92rem;font-weight:700;color:#fff;margin-bottom:13px;display:flex;align-items:center;gap:8px;}
-      .jc-q-ic{font-size:20px;flex-shrink:0;}
+      /* Question header */
+      .jc-qhead{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+      .jc-qico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;}
+      .jc-qico svg{position:relative;z-index:1;}
+      .jc-qico::before{content:'';position:absolute;inset:0;opacity:.25;animation:jcIcoPulse 2.5s infinite;}
+      @keyframes jcIcoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+      .jq-clock{background:linear-gradient(135deg,#0EA5E9,#38BDF8);color:#fff;}
+      .jq-clock::before{background:radial-gradient(circle,#fff,transparent);}
+      .jq-brief{background:linear-gradient(135deg,#F59E0B,#FCD34D);color:#7C2D12;}
+      .jq-brief::before{background:radial-gradient(circle,#fff,transparent);}
+      .jq-lang{background:linear-gradient(135deg,#10B981,#34D399);color:#fff;}
+      .jq-lang::before{background:radial-gradient(circle,#fff,transparent);}
+      .jq-coin{background:linear-gradient(135deg,#8B5CF6,#A78BFA);color:#fff;}
+      .jq-coin::before{background:radial-gradient(circle,#fff,transparent);}
+      .jq-doc{background:linear-gradient(135deg,#3B82F6,#60A5FA);color:#fff;}
+      .jq-doc::before{background:radial-gradient(circle,#fff,transparent);}
+      .jq-globe{background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;}
+      .jq-globe::before{background:radial-gradient(circle,#fff,transparent);}
+      .jc-qtxt{flex:1;}
+      .jc-qtitle{font-size:.93rem;font-weight:700;color:#fff;line-height:1.2;}
+      .jc-qsub{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px;}
 
+      /* Options */
       .jc-opts{display:flex;flex-direction:column;gap:6px;}
-      .jc-og{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-
       .jc-opt{
         background:rgba(139,130,232,.055);
         border:1.5px solid rgba(139,130,232,.13);
-        border-radius:11px;
-        padding:10px 13px;
-        color:rgba(255,255,255,.7);
-        font-size:12.5px;
-        font-weight:500;
+        border-radius:12px;
+        padding:10px 12px;
+        color:rgba(255,255,255,.75);
         cursor:pointer;
         text-align:left;
         transition:all .22s cubic-bezier(.4,0,.2,1);
         font-family:inherit;
+        display:flex;
+        align-items:center;
+        gap:12px;
         position:relative;
         overflow:hidden;
+      }
+      .jc-opt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,82,204,.2),transparent 60%);opacity:0;transition:opacity .22s;}
+      .jc-opt:hover{background:rgba(91,82,204,.15);border-color:rgba(139,130,232,.45);color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3);}
+      .jc-opt:hover::before{opacity:1;}
+      .jc-opt.sel{background:rgba(91,82,204,.25);border-color:#8B82E8;color:#fff;box-shadow:0 0 0 1px rgba(139,130,232,.3);}
+      .jc-opt.sel::before{opacity:1;}
+
+      /* Option icon box */
+      .jco-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;}
+      .jc-opt:hover .jco-ic{transform:scale(1.08) rotate(-3deg);}
+      .jco-txt{flex:1;}
+      .jco-main{display:block;font-size:12.5px;font-weight:600;color:#fff;line-height:1.2;}
+      .jco-sub{display:block;font-size:10.5px;color:rgba(255,255,255,.35);margin-top:1px;}
+      .jco-check{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(139,130,232,.25);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+      .jc-opt.sel .jco-check{background:#5B52CC;border-color:#8B82E8;}
+      .jc-opt.sel .jco-check::after{content:'';display:block;width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+
+      /* Language multi-select */
+      .jc-langs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;}
+      .jcl-opt{
+        background:rgba(139,130,232,.055);
+        border:1.5px solid rgba(139,130,232,.13);
+        border-radius:11px;
+        padding:9px 12px;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        gap:8px;
+        transition:all .2s;
+        font-family:inherit;
+      }
+      .jcl-opt:hover{border-color:rgba(139,130,232,.4);background:rgba(91,82,204,.12);}
+      .jcl-opt.sel{background:rgba(91,82,204,.22);border-color:#8B82E8;}
+      .jcl-flag{font-size:18px;flex-shrink:0;}
+      .jcl-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);}
+      .jcl-opt.sel .jcl-name{color:#fff;}
+      .jcl-none{grid-column:1/-1;}
+      .jc-lang-continue{width:100%;background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none;padding:12px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s;margin-top:2px;}
+      .jc-lang-continue:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(91,82,204,.4);}
+
+      /* Country grid */
+      .jcc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:2px;}
+      .jcc{
+        background:rgba(139,130,232,.055);
+        border:1.5px solid rgba(139,130,232,.12);
+        border-radius:13px;
+        padding:12px 6px 10px;
+        cursor:pointer;
         display:flex;
         flex-direction:column;
-        gap:2px;
+        align-items:center;
+        gap:5px;
+        transition:all .25s cubic-bezier(.34,1.4,.64,1);
+        font-family:inherit;
+        position:relative;
+        overflow:hidden;
       }
-      .jc-opt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,82,204,.22),transparent 60%);opacity:0;transition:opacity .22s;}
-      .jc-opt:hover{background:rgba(91,82,204,.16);border-color:rgba(139,130,232,.45);color:#fff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.28);}
-      .jc-opt:hover::before{opacity:1;}
-      .jc-opt-r{display:flex;align-items:center;gap:7px;font-weight:600;color:#fff;font-size:12.5px;}
-      .jc-opt-ic{font-size:15px;flex-shrink:0;}
-      .jc-opt-s{font-size:11px;color:rgba(255,255,255,.36);padding-left:22px;}
-      .jc-og .jc-opt{flex-direction:row;align-items:center;justify-content:center;gap:6px;font-weight:600;color:#fff;font-size:13px;text-align:center;}
+      .jcc::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;}
+      .jcc:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(139,130,232,.45);box-shadow:0 8px 24px rgba(0,0,0,.35);}
+      .jcc.sel{border-color:#8B82E8;box-shadow:0 0 0 1px rgba(139,130,232,.4),0 8px 24px rgba(91,82,204,.25);}
+      .jcc-flag{font-size:26px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));transition:transform .3s cubic-bezier(.34,1.6,.64,1);}
+      .jcc:hover .jcc-flag{transform:scale(1.18);}
+      .jcc-name{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.65);text-align:center;line-height:1.2;}
+      .jcc.sel .jcc-name{color:#fff;}
+      .jcc-any{grid-column:1/-1;flex-direction:row;padding:10px 14px;gap:10px;}
+      .jcc-any .jcc-name{font-size:12px;}
+      .jcc-tick{position:absolute;top:5px;right:5px;width:14px;height:14px;border-radius:50%;background:#5B52CC;display:none;align-items:center;justify-content:center;}
+      .jcc-tick::after{content:'';display:block;width:4px;height:7px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+      .jcc.sel .jcc-tick{display:flex;}
 
+      /* Country color accents */
+      .jcc-pl{--cc:#DC143C;} .jcc-de{--cc:#333;} .jcc-nl{--cc:#FF6B35;}
+      .jcc-be{--cc:#FFCC00;} .jcc-at{--cc:#DC143C;} .jcc-cz{--cc:#11457E;}
+      .jcc-any-c{--cc:#5B52CC;}
+      .jcc:hover::before{background:radial-gradient(circle at 50% 0%,rgba(var(--cc-r,91),var(--cc-g,82),var(--cc-b,204),.15),transparent 70%);opacity:1;}
+      .jcc-pl:hover{border-color:rgba(220,20,60,.4);}
+      .jcc-de:hover{border-color:rgba(255,204,0,.3);}
+      .jcc-nl:hover{border-color:rgba(255,107,53,.4);}
+      .jcc-be:hover{border-color:rgba(255,204,0,.4);}
+      .jcc-at:hover{border-color:rgba(220,20,60,.4);}
+      .jcc-cz:hover{border-color:rgba(17,69,126,.5);}
+
+      /* Loading screen */
+      .jcl-wrap{padding:16px 0;text-align:center;}
+      .jcl-rings{position:relative;width:80px;height:80px;margin:0 auto 18px;}
+      .jcl-ring{position:absolute;inset:0;border-radius:50%;border:3px solid transparent;animation:jcRingSpin linear infinite;}
+      .jcl-r1{border-top-color:#5B52CC;border-right-color:#5B52CC22;animation-duration:1.2s;}
+      .jcl-r2{inset:10px;border-top-color:#8B82E8;border-left-color:#8B82E822;animation-duration:1.8s;animation-direction:reverse;}
+      .jcl-r3{inset:20px;border-top-color:#B8B2F5;border-right-color:#B8B2F522;animation-duration:2.4s;}
+      @keyframes jcRingSpin{to{transform:rotate(360deg)}}
+      .jcl-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;animation:jcCenterPulse 1.5s infinite;}
+      @keyframes jcCenterPulse{0%,100%{opacity:.6;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
+      .jcl-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:5px;animation:jcFadeUp .4s ease;}
+      .jcl-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:18px;}
+      @keyframes jcFadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+      .jcl-stages{display:flex;flex-direction:column;gap:7px;text-align:left;}
+      .jcl-stage{display:flex;align-items:center;gap:9px;font-size:12px;color:rgba(255,255,255,.35);transition:all .4s;}
+      .jcl-stage.done{color:rgba(255,255,255,.75);}
+      .jcl-stage.active{color:#B8B2F5;}
+      .jcls-ico{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(139,130,232,.3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .4s;}
+      .jcl-stage.done .jcls-ico{background:#5B52CC;border-color:#8B82E8;}
+      .jcl-stage.done .jcls-ico::after{content:'';display:block;width:4px;height:7px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+      .jcl-stage.active .jcls-ico{border-color:#8B82E8;animation:jcBdot 1s infinite;}
+
+      /* Result screen */
       .jcr-wrap{text-align:center;}
-      .jcr-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#4ade80;margin-bottom:12px;}
+      .jcr-confetti{display:flex;justify-content:center;gap:6px;margin-bottom:12px;animation:jcFadeUp .5s ease;}
+      .jcr-confetti span{font-size:22px;animation:jcConfettiFall 1s ease var(--d,0s) both;}
+      @keyframes jcConfettiFall{from{opacity:0;transform:translateY(-20px) rotate(-20deg)}to{opacity:1;transform:none}}
+      .jcr-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#4ade80;margin-bottom:10px;}
       .jcr-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:5px;}
-      .jcr-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.55;}
-
-      .jc-jobs{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;text-align:left;}
+      .jcr-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:14px;line-height:1.55;}
+      .jcr-profile{background:rgba(139,130,232,.07);border:1px solid rgba(139,130,232,.15);border-radius:12px;padding:10px 12px;margin-bottom:14px;text-align:left;}
+      .jcr-prof-row{display:flex;gap:6px;flex-wrap:wrap;}
+      .jcr-tag{background:rgba(91,82,204,.25);border:1px solid rgba(139,130,232,.25);border-radius:20px;padding:2px 9px;font-size:10.5px;color:#B8B2F5;font-weight:600;}
+      .jc-jobs{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;text-align:left;}
       .jc-job{background:rgba(139,130,232,.055);border:1px solid rgba(139,130,232,.12);border-radius:11px;padding:10px 13px;display:flex;align-items:center;gap:10px;transition:all .2s;}
       .jc-job:hover{border-color:rgba(139,130,232,.3);background:rgba(91,82,204,.1);}
-      .jc-job-fl{font-size:20px;flex-shrink:0;}
+      .jc-job-fl{font-size:22px;flex-shrink:0;}
       .jc-job-inf{flex:1;min-width:0;}
       .jc-job-t{font-weight:700;color:#fff;font-size:12.5px;}
       .jc-job-m{color:rgba(255,255,255,.38);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .jc-job-r{background:linear-gradient(135deg,rgba(91,82,204,.3),rgba(139,130,232,.18));border:1px solid rgba(139,130,232,.28);border-radius:14px;padding:3px 10px;color:#B8B2F5;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;}
-
       .jc-wa{width:100%;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;border:none;padding:14px 18px;border-radius:12px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:7px;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(34,197,94,.3);animation:jcWaGlow 2.5s infinite;}
       @keyframes jcWaGlow{0%,100%{box-shadow:0 4px 18px rgba(34,197,94,.3)}50%{box-shadow:0 6px 30px rgba(34,197,94,.55)}}
       .jc-wa:hover{transform:translateY(-2px);animation:none;box-shadow:0 8px 28px rgba(34,197,94,.5) !important;}
 
-      .jcnd-top{text-align:center;margin-bottom:14px;}
-      .jcnd-av{width:58px;height:58px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,130,232,.35);margin-bottom:5px;}
-      .jcnd-stars{color:#F59E0B;font-size:13px;letter-spacing:2px;}
-      .jcnd-title{font-size:1.05rem;font-weight:800;color:#fff;text-align:center;margin-bottom:7px;}
-      .jcnd-desc{color:rgba(255,255,255,.46);font-size:12px;line-height:1.65;text-align:center;margin-bottom:18px;}
+      /* No docs */
+      .jcnd-top{text-align:center;margin-bottom:12px;}
+      .jcnd-av{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,130,232,.35);margin-bottom:4px;}
+      .jcnd-stars{color:#F59E0B;font-size:12px;letter-spacing:2px;}
+      .jcnd-title{font-size:1.05rem;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;}
+      .jcnd-desc{color:rgba(255,255,255,.46);font-size:12px;line-height:1.65;text-align:center;margin-bottom:16px;}
 
-      .jc-restart{background:none;border:none;color:rgba(255,255,255,.2);font-size:11.5px;cursor:pointer;font-family:inherit;transition:color .2s;display:block;margin:4px auto 0;padding:6px 12px;}
+      .jc-restart{background:none;border:none;color:rgba(255,255,255,.2);font-size:11px;cursor:pointer;font-family:inherit;transition:color .2s;display:block;margin:4px auto 0;padding:6px 12px;}
       .jc-restart:hover{color:rgba(255,255,255,.55);}
 
-      @media(max-width:640px){.jc-og{grid-template-columns:1fr;}.jcalc{padding:22px 16px;}}
+      @media(max-width:640px){.jcc-grid{grid-template-columns:repeat(2,1fr);}.jcalc{padding:20px 14px;}.jc-langs{grid-template-columns:1fr 1fr;}}
     </style>
 
     <div class="jobs-intro">
@@ -2823,19 +2942,19 @@ updateTicker('ru');
           <div class="jb reveal"><div class="jb-ico">📋</div><div class="jb-text"><strong>Work Permits</strong>All work permits for EU</div></div>
           <div class="jb reveal"><div class="jb-ico">✅</div><div class="jb-text"><strong>Official Contract</strong>Umowa o pracę or zlecenie only</div></div>
           <div class="jb reveal"><div class="jb-ico">🏠</div><div class="jb-text"><strong>Housing &amp; Meals</strong>Many vacancies include accommodation</div></div>
-          <div class="jb reveal"><div class="jb-ico">💶</div><div class="jb-text"><strong>Competitive Pay</strong>From 28 PLN/h to 22 EUR/h</div></div>
+          <div class="jb reveal"><div class="jb-ico">💶</div><div class="jb-text"><strong>Competitive Pay</strong>From 28 PLN/h to 25 EUR/h</div></div>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;"><button class="btn-gold" onclick="openModal()">Find a Vacancy →</button><button class="btn-ghost" onclick="openModal()">Permit + Job</button></div>
       </div>
 
-      <!-- ══ JOB CALCULATOR ══ -->
+      <!-- ══ JOB CALCULATOR v2 ══ -->
       <div class="jcalc reveal">
         <div class="jc-deco jc-deco-1">💼</div>
         <div class="jc-deco jc-deco-2">🌍</div>
         <div class="jcalc-head">
-          <div class="jcalc-badge"><span class="jcbdot"></span>JOB MATCHER</div>
+          <div class="jcalc-badge"><span class="jcbdot"></span>JOB MATCHER AI</div>
           <div class="jcalc-title">Find Your Perfect Job</div>
-          <div class="jcalc-sub">4 questions &nbsp;&middot;&nbsp; 30 seconds &nbsp;&middot;&nbsp; Real vacancies</div>
+          <div class="jcalc-sub">Brief form · 6 questions · Instant match</div>
           <div class="jc-prog"><div class="jc-prog-bar" id="jcProg" style="width:0%"></div></div>
         </div>
         <div class="jc-dots">
@@ -2843,64 +2962,239 @@ updateTicker('ru');
           <div class="jc-dot" id="jcdot2"></div>
           <div class="jc-dot" id="jcdot3"></div>
           <div class="jc-dot" id="jcdot4"></div>
+          <div class="jc-dot" id="jcdot5"></div>
+          <div class="jc-dot" id="jcdot6"></div>
         </div>
 
+        <!-- S1: WHEN -->
         <div class="jc-step active" id="jcs1">
-          <div class="jc-q"><span class="jc-q-ic">⏰</span>When can you start?</div>
+          <div class="jc-qhead">
+            <div class="jc-qico jq-clock"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">When can you start?</div>
+              <div class="jc-qsub">Step 1 of 6</div>
+            </div>
+          </div>
           <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(1,'now')"><div class="jc-opt-r"><span class="jc-opt-ic">⚡</span>Right now — ready to go</div><div class="jc-opt-s">Can leave any day, everything ready</div></button>
-            <button class="jc-opt" onclick="jcGo(1,'soon')"><div class="jc-opt-r"><span class="jc-opt-ic">📅</span>In 1–2 months</div><div class="jc-opt-s">Need a short time to prepare</div></button>
-            <button class="jc-opt" onclick="jcGo(1,'q')"><div class="jc-opt-r"><span class="jc-opt-ic">🗓️</span>In 3–6 months</div><div class="jc-opt-s">Planning the move ahead</div></button>
-            <button class="jc-opt" onclick="jcGo(1,'later')"><div class="jc-opt-r"><span class="jc-opt-ic">🔍</span>Just exploring options</div><div class="jc-opt-s">No fixed timeline yet</div></button>
+            <button class="jc-opt" onclick="jcGo(1,'now')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#F59E0B,#FCD34D)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Right now — I’m ready to go</span><span class="jco-sub">Available immediately, can leave any day</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(1,'soon')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#0EA5E9,#38BDF8)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">In 1–2 months</span><span class="jco-sub">Need a short time to prepare</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(1,'q')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">In 3–6 months</span><span class="jco-sub">Planning the move, saving up</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(1,'later')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#6B7280,#9CA3AF)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Just exploring options</span><span class="jco-sub">No fixed timeline yet</span></div>
+              <div class="jco-check"></div>
+            </button>
           </div>
         </div>
 
+        <!-- S2: EXPERIENCE -->
         <div class="jc-step" id="jcs2">
-          <div class="jc-q"><span class="jc-q-ic">💰</span>Expected monthly salary?</div>
+          <div class="jc-qhead">
+            <div class="jc-qico jq-brief"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">Work experience</div>
+              <div class="jc-qsub">Step 2 of 6</div>
+            </div>
+          </div>
           <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(2,'low')"><div class="jc-opt-r"><span class="jc-opt-ic">💸</span>28–34 PLN/h · Poland</div><div class="jc-opt-s">∼4,000–5,000 PLN/month net</div></button>
-            <button class="jc-opt" onclick="jcGo(2,'mid')"><div class="jc-opt-r"><span class="jc-opt-ic">💰</span>35–42 PLN/h · Poland</div><div class="jc-opt-s">∼5,500–6,500 PLN/month net</div></button>
-            <button class="jc-opt" onclick="jcGo(2,'hi')"><div class="jc-opt-r"><span class="jc-opt-ic">💎</span>43–52 PLN/h · Poland</div><div class="jc-opt-s">∼7,000–8,500 PLN/month net</div></button>
-            <button class="jc-opt" onclick="jcGo(2,'eur')"><div class="jc-opt-r"><span class="jc-opt-ic">💶</span>14–20 EUR/h · EU countries</div><div class="jc-opt-s">Germany / Netherlands / Belgium</div></button>
-            <button class="jc-opt" onclick="jcGo(2,'eurhi')"><div class="jc-opt-r"><span class="jc-opt-ic">🏆</span>21–30+ EUR/h · EU specialist</div><div class="jc-opt-s">Qualified / senior level role</div></button>
+            <button class="jc-opt" onclick="jcGo(2,'none')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#6B7280,#9CA3AF)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">No experience / Fresh start</span><span class="jco-sub">Just starting my career</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(2,'lt1')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Less than 1 year</span><span class="jco-sub">Some basic skills and practice</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(2,'1to3')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20v-1a8 8 0 0116 0v1"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">1–3 years</span><span class="jco-sub">Solid experience in my field</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(2,'3to5')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">3–5 years</span><span class="jco-sub">Experienced professional</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(2,'5plus')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#F59E0B,#FCD34D)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/><polygon points="12 7 13.5 10.5 17 11.27 14.5 13.77 15.09 17.27 12 15.5 8.91 17.27 9.5 13.77 7 11.27 10.5 10.5 12 7"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">5+ years — senior level</span><span class="jco-sub">Expert in my field</span></div>
+              <div class="jco-check"></div>
+            </button>
           </div>
         </div>
 
+        <!-- S3: LANGUAGES -->
         <div class="jc-step" id="jcs3">
-          <div class="jc-q"><span class="jc-q-ic">📄</span>What documents do you have?</div>
-          <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(3,'karta')"><div class="jc-opt-r"><span class="jc-opt-ic">✅</span>Karta Pobytu (residence permit)</div><div class="jc-opt-s">Valid card or stamp in passport</div></button>
-            <button class="jc-opt" onclick="jcGo(3,'permit')"><div class="jc-opt-r"><span class="jc-opt-ic">📋</span>Work permit / D-visa</div><div class="jc-opt-s">Employer-sponsored, tied to one company</div></button>
-            <button class="jc-opt" onclick="jcGo(3,'eu')"><div class="jc-opt-r"><span class="jc-opt-ic">🇪🇺</span>EU citizenship / permanent residency</div><div class="jc-opt-s">Full right to work anywhere in EU</div></button>
-            <button class="jc-opt" onclick="jcGo(3,'cukr')"><div class="jc-opt-r"><span class="jc-opt-ic">🛡️</span>Temporary protection (CUKR)</div><div class="jc-opt-s">Valid but need to upgrade status</div></button>
-            <button class="jc-opt" onclick="jcGo(3,'none')"><div class="jc-opt-r"><span class="jc-opt-ic">❌</span>No documents yet</div><div class="jc-opt-s">Need help getting legal status first</div></button>
+          <div class="jc-qhead">
+            <div class="jc-qico jq-lang"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">Languages you speak</div>
+              <div class="jc-qsub">Step 3 of 6 · Select all that apply</div>
+            </div>
           </div>
+          <div class="jc-langs">
+            <button class="jcl-opt" onclick="jcLangToggle('en',this)"><span class="jcl-flag">🇬🇧</span><span class="jcl-name">English</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('ru',this)"><span class="jcl-flag">🇷🇺</span><span class="jcl-name">Russian</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('pl',this)"><span class="jcl-flag">🇵🇱</span><span class="jcl-name">Polish</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('hi',this)"><span class="jcl-flag">🇮🇳</span><span class="jcl-name">Hindi/Urdu</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('bn',this)"><span class="jcl-flag">🇧🇩</span><span class="jcl-name">Bengali</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('si',this)"><span class="jcl-flag">🇱🇰</span><span class="jcl-name">Sinhala</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('de',this)"><span class="jcl-flag">🇩🇪</span><span class="jcl-name">German</span></button>
+            <button class="jcl-opt jcl-none" onclick="jcLangToggle('none',this)" id="jcl-none-btn"><span class="jcl-flag">🤷</span><span class="jcl-name">None / Other</span></button>
+          </div>
+          <button class="jc-lang-continue" onclick="jcLangDone()">Continue →</button>
         </div>
 
+        <!-- S4: SALARY -->
         <div class="jc-step" id="jcs4">
-          <div class="jc-q"><span class="jc-q-ic">🌍</span>Which country?</div>
-          <div class="jc-og">
-            <button class="jc-opt" onclick="jcGo(4,'pl')">🇵🇱 Poland</button>
-            <button class="jc-opt" onclick="jcGo(4,'de')">🇩🇪 Germany</button>
-            <button class="jc-opt" onclick="jcGo(4,'nl')">🇳🇱 Netherlands</button>
-            <button class="jc-opt" onclick="jcGo(4,'be')">🇧🇪 Belgium</button>
-            <button class="jc-opt" onclick="jcGo(4,'at')">🇦🇹 Austria</button>
-            <button class="jc-opt" onclick="jcGo(4,'cz')">🇨🇿 Czech Rep.</button>
-            <button class="jc-opt" style="grid-column:1/-1;" onclick="jcGo(4,'any')">🌍 Anywhere in Europe</button>
+          <div class="jc-qhead">
+            <div class="jc-qico jq-coin"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/><path d="M9 9h4.5a1.5 1.5 0 010 3H9a1.5 1.5 0 000 3H14"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">Expected monthly salary</div>
+              <div class="jc-qsub">Step 4 of 6</div>
+            </div>
+          </div>
+          <div class="jc-opts">
+            <button class="jc-opt" onclick="jcGo(4,'low')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#6B7280,#9CA3AF)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">28–34 PLN/h · Poland</span><span class="jco-sub">∼4,000–5,000 PLN/month net</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(4,'mid')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">35–42 PLN/h · Poland</span><span class="jco-sub">∼5,500–6,500 PLN/month net</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(4,'hi')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">43–52 PLN/h · Poland</span><span class="jco-sub">∼7,000–8,500 PLN/month net</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(4,'eur')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M14.5 8.5a4 4 0 100 7M7 10h6M7 14h6"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">14–20 EUR/h · EU countries</span><span class="jco-sub">Germany / Netherlands / Belgium</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(4,'eurhi')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#F59E0B,#FCD34D)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">21–30+ EUR/h · EU specialist</span><span class="jco-sub">Qualified / senior level</span></div>
+              <div class="jco-check"></div>
+            </button>
           </div>
         </div>
 
+        <!-- S5: DOCUMENTS -->
+        <div class="jc-step" id="jcs5">
+          <div class="jc-qhead">
+            <div class="jc-qico jq-doc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="17" x2="13" y2="17"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">What documents do you have?</div>
+              <div class="jc-qsub">Step 5 of 6</div>
+            </div>
+          </div>
+          <div class="jc-opts">
+            <button class="jc-opt" onclick="jcGo(5,'karta')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Karta Pobytu (residence permit)</span><span class="jco-sub">Valid card or stamp in passport</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(5,'permit')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Work permit / D-visa</span><span class="jco-sub">Employer-sponsored, tied to one company</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(5,'eu')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#0EA5E9,#38BDF8)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">EU citizenship / permanent residency</span><span class="jco-sub">Full right to work anywhere in EU</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(5,'cukr')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#F59E0B,#FCD34D)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">Temporary protection (CUKR)</span><span class="jco-sub">Valid but need to upgrade status</span></div>
+              <div class="jco-check"></div>
+            </button>
+            <button class="jc-opt" onclick="jcGo(5,'none')">
+              <div class="jco-ic" style="background:linear-gradient(135deg,#EF4444,#F87171)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+              <div class="jco-txt"><span class="jco-main">No documents yet</span><span class="jco-sub">Need help getting legal status first</span></div>
+              <div class="jco-check"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- S6: COUNTRY -->
+        <div class="jc-step" id="jcs6">
+          <div class="jc-qhead">
+            <div class="jc-qico jq-globe"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+            <div class="jc-qtxt">
+              <div class="jc-qtitle">Preferred country</div>
+              <div class="jc-qsub">Step 6 of 6</div>
+            </div>
+          </div>
+          <div class="jcc-grid">
+            <button class="jcc jcc-pl" onclick="jcGo(6,'pl')"><div class="jcc-tick"></div><div class="jcc-flag">🇵🇱</div><div class="jcc-name">Poland</div></button>
+            <button class="jcc jcc-de" onclick="jcGo(6,'de')"><div class="jcc-tick"></div><div class="jcc-flag">🇩🇪</div><div class="jcc-name">Germany</div></button>
+            <button class="jcc jcc-nl" onclick="jcGo(6,'nl')"><div class="jcc-tick"></div><div class="jcc-flag">🇳🇱</div><div class="jcc-name">Netherlands</div></button>
+            <button class="jcc jcc-be" onclick="jcGo(6,'be')"><div class="jcc-tick"></div><div class="jcc-flag">🇧🇪</div><div class="jcc-name">Belgium</div></button>
+            <button class="jcc jcc-at" onclick="jcGo(6,'at')"><div class="jcc-tick"></div><div class="jcc-flag">🇦🇹</div><div class="jcc-name">Austria</div></button>
+            <button class="jcc jcc-cz" onclick="jcGo(6,'cz')"><div class="jcc-tick"></div><div class="jcc-flag">🇨🇿</div><div class="jcc-name">Czech Rep.</div></button>
+            <button class="jcc jcc-any-c jcc-any" onclick="jcGo(6,'any')"><div class="jcc-tick"></div><div class="jcc-flag">🌍</div><div class="jcc-name">Anywhere in Europe</div></button>
+          </div>
+        </div>
+
+        <!-- LOADING -->
+        <div class="jc-step" id="jcs-loading">
+          <div class="jcl-wrap">
+            <div class="jcl-rings">
+              <div class="jcl-ring jcl-r1"></div>
+              <div class="jcl-ring jcl-r2"></div>
+              <div class="jcl-ring jcl-r3"></div>
+              <div class="jcl-center">🤖</div>
+            </div>
+            <div class="jcl-title" id="jclTitle">Analyzing your profile...</div>
+            <div class="jcl-sub" id="jclSub">AI is processing your answers</div>
+            <div class="jcl-stages">
+              <div class="jcl-stage" id="jcls1"><div class="jcls-ico"></div>Profile analysis</div>
+              <div class="jcl-stage" id="jcls2"><div class="jcls-ico"></div>Matching vacancies</div>
+              <div class="jcl-stage" id="jcls3"><div class="jcls-ico"></div>Checking employer requirements</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULT -->
         <div class="jc-step" id="jcs-result">
           <div class="jcr-wrap">
-            <div class="jcr-badge">✅ Matching vacancies found!</div>
-            <div class="jcr-title">We have perfect jobs for you!</div>
-            <div class="jcr-sub">Write us on WhatsApp and send <strong style="color:#B8B2F5">"WORK"</strong> — we’ll contact you and help get you employed</div>
+            <div class="jcr-confetti">
+              <span style="--d:0s">🎉</span>
+              <span style="--d:.1s">⭐</span>
+              <span style="--d:.2s">🎯</span>
+              <span style="--d:.1s">⭐</span>
+              <span style="--d:0s">🎉</span>
+            </div>
+            <div class="jcr-badge">✅ Vacancies found for you!</div>
+            <div class="jcr-title">Great news — we have a match!</div>
+            <div class="jcr-sub">Write <strong style="color:#B8B2F5">"WORK"</strong> on WhatsApp — our team will contact you and help get you employed</div>
+            <div class="jcr-profile" id="jcrProfile"></div>
             <div class="jc-jobs" id="jcJobsList"></div>
-            <button class="jc-wa" onclick="jcWhatsApp()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Write on WhatsApp — send &ldquo;WORK&rdquo;</button>
+            <button class="jc-wa" onclick="jcWhatsApp()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Write on WhatsApp — send “WORK”</button>
             <button class="jc-restart" onclick="jcRestart()">← Start over</button>
           </div>
         </div>
 
+        <!-- NO DOCS -->
         <div class="jc-step" id="jcs-nodocs">
           <div class="jcr-wrap">
             <div class="jcnd-top">
@@ -2908,8 +3202,8 @@ updateTicker('ru');
               <div class="jcnd-stars">★★★★★</div>
             </div>
             <div class="jcnd-title">First, let’s get your documents</div>
-            <div class="jcnd-desc">Without legal status top employers won’t hire you. But we can fix that — Legal Solution gets your residence permit <strong style="color:#B8B2F5">and</strong> finds you a job. All in one place, from day one.<br><br>6 years of experience &nbsp;·&nbsp; 3,000+ clients &nbsp;·&nbsp; 98% approval rate</div>
-            <button class="jc-wa" onclick="jcNoDocsWA()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Message us on WhatsApp now</button>
+            <div class="jcnd-desc">Without legal status top employers won’t hire you. But we can fix that — Legal Solution gets your residence permit <strong style="color:#B8B2F5">and</strong> finds you a job. All in one place.<br><br>6 years · 3,000+ clients · 98% approval rate</div>
+            <button class="jc-wa" onclick="jcNoDocsWA()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Get legal status + job</button>
             <button class="jc-restart" onclick="jcRestart()">← Go back</button>
           </div>
         </div>
@@ -2918,28 +3212,28 @@ updateTicker('ru');
 
     <script>
     (function(){
-      var D={when:'',salary:'',docs:'',country:''};
+      var D={when:'',exp:'',langs:[],salary:'',docs:'',country:''};
       var JOBS={
         pl:{
-          low:[{f:'🇵🇱',t:'Warehouse Worker',m:'Amazon, DHL · Warsaw / Łódź',r:'30 PLN/h'},{f:'🇵🇱',t:'Hotel Cleaner',m:'Marriott, Hilton · Kraków / Warsaw',r:'29 PLN/h'},{f:'🇵🇱',t:'Food Production',m:'Hochland · Poland',r:'30 PLN/h'}],
+          low:[{f:'🇵🇱',t:'Warehouse Worker',m:'Amazon, DHL · Warsaw / Łódź',r:'30 PLN/h'},{f:'🇵🇱',t:'Hotel Cleaner',m:'Marriott, Hilton · Kraków',r:'29 PLN/h'},{f:'🇵🇱',t:'Food Production',m:'Hochland · Poland',r:'30 PLN/h'}],
           mid:[{f:'🇵🇱',t:'Cook / Kitchen Staff',m:'NH Hotel Group · Wrocław',r:'36 PLN/h'},{f:'🇵🇱',t:'Factory Operator',m:'Philip Morris · Kraków',r:'38 PLN/h'}],
-          hi:[{f:'🇵🇱',t:'Welder / Metalworker',m:'MetallBau · Warsaw',r:'44 PLN/h'},{f:'🇵🇱',t:'Electrician / Installer',m:'Budimex · Warsaw',r:'46 PLN/h'}],
+          hi:[{f:'🇵🇱',t:'Welder / Metalworker',m:'MetallBau · Warsaw',r:'44 PLN/h'},{f:'🇵🇱',t:'Electrician',m:'Budimex · Warsaw',r:'46 PLN/h'}],
           eur:[{f:'🇵🇱',t:'Forklift Operator',m:'FM Logistic · Warsaw',r:'38 PLN/h'},{f:'🇵🇱',t:'Production Technician',m:'Danone · Warsaw',r:'40 PLN/h'}],
           eurhi:[{f:'🇵🇱',t:'Senior Welder MIG/MAG',m:'MetallBau Group · Warsaw',r:'50 PLN/h'},{f:'🇵🇱',t:'Site Engineer',m:'Budimex · Warsaw',r:'52 PLN/h'}]
         },
         de:{
           low:[{f:'🇩🇪',t:'Construction Helper',m:'Bauunternehmen GmbH · Berlin',r:'15 EUR/h'},{f:'🇩🇪',t:'Warehouse Worker',m:'Amazon · Frankfurt',r:'14 EUR/h'}],
           mid:[{f:'🇩🇪',t:'Builder / Finisher',m:'Bauunternehmen · Hamburg',r:'17 EUR/h'},{f:'🇩🇪',t:'Factory Worker',m:'VW Group · Wolfsburg',r:'17 EUR/h'}],
-          hi:[{f:'🇩🇪',t:'Skilled Mechanic',m:'BMW Group · Munich',r:'19 EUR/h'}],
+          hi:[{f:'🇩🇪',t:'Skilled Mechanic',m:'BMW Group · Munich',r:'19 EUR/h'},{f:'🇩🇪',t:'CNC Machinist',m:'Siemens · Nuremberg',r:'20 EUR/h'}],
           eur:[{f:'🇩🇪',t:'Fitter / Technician',m:'MetallBau GmbH · Düsseldorf',r:'18 EUR/h'}],
           eurhi:[{f:'🇩🇪',t:'Welder MIG/MAG',m:'MetallBau GmbH · Cologne',r:'22 EUR/h'},{f:'🇩🇪',t:'Electrician',m:'ElektroTech · Munich',r:'24 EUR/h'}]
         },
         nl:{
-          low:[{f:'🇳🇱',t:'Warehouse Worker',m:'Bol.com · Amsterdam',r:'15 EUR/h'}],
-          mid:[{f:'🇳🇱',t:'Greenhouse Worker',m:'Westland · Rotterdam',r:'16 EUR/h'}],
-          hi:[{f:'🇳🇱',t:'Production Line Lead',m:'Heineken · Amsterdam',r:'19 EUR/h'}],
+          low:[{f:'🇳🇱',t:'Warehouse Worker',m:'Bol.com · Amsterdam',r:'15 EUR/h'},{f:'🇳🇱',t:'Greenhouse Worker',m:'Westland · Rotterdam',r:'14 EUR/h'}],
+          mid:[{f:'🇳🇱',t:'Production Line Worker',m:'Heineken · Amsterdam',r:'16 EUR/h'}],
+          hi:[{f:'🇳🇱',t:'Production Lead',m:'Philips · Eindhoven',r:'20 EUR/h'}],
           eur:[{f:'🇳🇱',t:'Delivery Driver CE',m:'TransEuropa · Amsterdam',r:'19 EUR/h'}],
-          eurhi:[{f:'🇳🇱',t:'Driver CE / Long-haul',m:'TransEuropa Logistics · Rotterdam',r:'24 EUR/h'}]
+          eurhi:[{f:'🇳🇱',t:'Driver CE / Long-haul',m:'TransEuropa Logistics',r:'24 EUR/h'}]
         },
         be:{
           low:[{f:'🇧🇪',t:'Production Worker',m:'LogiPack · Antwerp',r:'15 EUR/h'}],
@@ -2950,17 +3244,17 @@ updateTicker('ru');
         },
         at:{
           low:[{f:'🇦🇹',t:'General Worker',m:'Baumax · Vienna',r:'14 EUR/h'}],
-          mid:[{f:'🇦🇹',t:'Houseman / Cleaner',m:'Vienna Marriott · Vienna',r:'16 EUR/h'}],
+          mid:[{f:'🇦🇹',t:'Hotel Staff',m:'Vienna Marriott · Vienna',r:'16 EUR/h'}],
           hi:[{f:'🇦🇹',t:'Skilled Electrician',m:'ElektroBau Wien · Graz',r:'20 EUR/h'}],
           eur:[{f:'🇦🇹',t:'Electrician / Installer',m:'ElektroBau Wien · Graz',r:'19 EUR/h'}],
-          eurhi:[{f:'🇦🇹',t:'Civil Engineer',m:'Strabag · Vienna / Salzburg',r:'25 EUR/h'}]
+          eurhi:[{f:'🇦🇹',t:'Civil Engineer',m:'Strabag · Vienna',r:'25 EUR/h'}]
         },
         cz:{
           low:[{f:'🇨🇿',t:'Warehouse Staff',m:'Amazon · Prague',r:'190 CZK/h'}],
           mid:[{f:'🇨🇿',t:'Factory Operator',m:'Škoda Auto · Mladá Boleslav',r:'220 CZK/h'}],
-          hi:[{f:'🇨🇿',t:'Production Technician',m:'Bosch · Jihlava',r:'260 CZK/h'}],
+          hi:[{f:'🇨🇿',t:'CNC Machinist',m:'Škoda Auto · Mladá Boleslav',r:'260 CZK/h'}],
           eur:[{f:'🇨🇿',t:'Forklift Operator',m:'DHL · Prague',r:'240 CZK/h'}],
-          eurhi:[{f:'🇨🇿',t:'CNC Machinist',m:'Škoda Auto · Mladá Boleslav',r:'290 CZK/h'}]
+          eurhi:[{f:'🇨🇿',t:'Senior Technician',m:'Bosch · Jihlava',r:'290 CZK/h'}]
         },
         any:{
           low:[{f:'🇵🇱',t:'Warehouse Worker',m:'Amazon · Poland',r:'30 PLN/h'},{f:'🇧🇪',t:'Production Worker',m:'LogiPack · Belgium',r:'15 EUR/h'}],
@@ -2971,56 +3265,159 @@ updateTicker('ru');
         }
       };
 
-      function dots(n){for(var i=1;i<=4;i++){var d=document.getElementById('jcdot'+i);if(!d)continue;d.className='jc-dot'+(i<n?' done':i===n?' cur':'');}}
+      // Step counter dots (6 steps)
+      function dots(n){for(var i=1;i<=6;i++){var d=document.getElementById('jcdot'+i);if(!d)continue;d.className='jc-dot'+(i<n?' done':i===n?' cur':'');}}
 
-      window.jcGo=function(step,val){
-        if(step===1)D.when=val;
-        else if(step===2)D.salary=val;
-        else if(step===3){
-          D.docs=val;
-          if(val==='none'){
-            ['jcs1','jcs2','jcs3','jcs4','jcs-result'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
-            document.getElementById('jcs-nodocs').classList.add('active');
-            document.getElementById('jcProg').style.width='100%';
-            dots(5);return;
-          }
+      // Language multi-select
+      window.jcLangToggle=function(val,btn){
+        if(val==='none'){
+          // deselect all others
+          D.langs=[];
+          document.querySelectorAll('.jcl-opt').forEach(function(b){b.classList.remove('sel');});
+          btn.classList.add('sel');
+          D.langs=['none'];
+        } else {
+          // deselect "none" if it was selected
+          var noneBtn=document.getElementById('jcl-none-btn');
+          if(noneBtn)noneBtn.classList.remove('sel');
+          var ni=D.langs.indexOf('none');if(ni>-1)D.langs.splice(ni,1);
+          // toggle this lang
+          var idx=D.langs.indexOf(val);
+          if(idx>-1){D.langs.splice(idx,1);btn.classList.remove('sel');}
+          else{D.langs.push(val);btn.classList.add('sel');}
         }
-        else if(step===4){D.country=val;showRes();return;}
-        var nxt=step+1;
-        document.getElementById('jcs'+step).classList.remove('active');
-        document.getElementById('jcs'+nxt).classList.add('active');
-        document.getElementById('jcProg').style.width=(nxt/4*100)+'%';
-        dots(nxt);
+      };
+      window.jcLangDone=function(){
+        if(D.langs.length===0)D.langs=['none'];
+        document.getElementById('jcs3').classList.remove('active');
+        document.getElementById('jcs4').classList.add('active');
+        document.getElementById('jcProg').style.width=(4/6*100)+'%';
+        dots(4);
       };
 
-      function showRes(){
+      // Main step handler
+      window.jcGo=function(step,val){
+        if(step===1)D.when=val;
+        else if(step===2)D.exp=val;
+        else if(step===4)D.salary=val;
+        else if(step===5){
+          D.docs=val;
+          if(val==='none'){
+            ['jcs1','jcs2','jcs3','jcs4','jcs5','jcs6','jcs-result'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
+            document.getElementById('jcs-nodocs').classList.add('active');
+            document.getElementById('jcProg').style.width='100%';
+            dots(7);return;
+          }
+        }
+        else if(step===6){D.country=val;startLoading();return;}
+
+        // Advance to next step
+        var next=step+1;
+        // Skip step 3 handling (done by jcLangDone)
+        var curId='jcs'+step;
+        var nxtId='jcs'+next;
+        var el=document.getElementById(curId);if(el)el.classList.remove('active');
+        var nel=document.getElementById(nxtId);if(nel)nel.classList.add('active');
+        document.getElementById('jcProg').style.width=(next/6*100)+'%';
+        dots(next);
+      };
+
+      // Loading animation
+      function startLoading(){
+        ['jcs1','jcs2','jcs3','jcs4','jcs5','jcs6'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
+        document.getElementById('jcs-loading').classList.add('active');
+        document.getElementById('jcProg').style.width='90%';
+        dots(7);
+
+        var stages=[
+          {title:'Analyzing your profile...',sub:'Checking experience and skills',stageId:'jcls1'},
+          {title:'Searching matching vacancies...',sub:'Comparing with 200+ active positions',stageId:'jcls2'},
+          {title:'Checking employer requirements...',sub:'Finding the best fit for you',stageId:'jcls3'}
+        ];
+        var i=0;
+        function tick(){
+          if(i<stages.length){
+            var s=stages[i];
+            var el=document.getElementById(s.stageId);
+            if(el)el.className='jcl-stage active';
+            document.getElementById('jclTitle').textContent=s.title;
+            document.getElementById('jclSub').textContent=s.sub;
+            if(i>0){var prev=document.getElementById(stages[i-1].stageId);if(prev)prev.className='jcl-stage done';}
+            i++;
+            setTimeout(tick,900);
+          } else {
+            // all done
+            stages.forEach(function(s){var el=document.getElementById(s.stageId);if(el)el.className='jcl-stage done';});
+            setTimeout(showResult,400);
+          }
+        }
+        setTimeout(tick,400);
+      }
+
+      function showResult(){
         var c=D.country,s=D.salary;
         var jobs=(JOBS[c]&&JOBS[c][s])?JOBS[c][s]:JOBS.any[s]||JOBS.any.mid;
+        // Build profile tags
+        var expN={none:'No exp',lt1:'<1yr exp','1to3':'1-3yr','3to5':'3-5yr','5plus':'5+ yr'};
+        var salN={low:'28-34 PLN/h',mid:'35-42 PLN/h',hi:'43-52 PLN/h',eur:'14-20 EUR/h',eurhi:'21-30+ EUR/h'};
+        var cN={pl:'🇵🇱 Poland',de:'🇩🇪 Germany',nl:'🇳🇱 Netherlands',be:'🇧🇪 Belgium',at:'🇦🇹 Austria',cz:'🇨🇿 Czech',any:'🌍 EU'};
+        var tags=[expN[D.exp]||D.exp, salN[D.salary]||D.salary, cN[D.country]||D.country];
+        if(D.langs.length&&D.langs[0]!=='none')tags.push(D.langs.join(', '));
+        var profHtml='<div class="jcr-prof-row">'+tags.map(function(t){return '<span class="jcr-tag">'+t+'</span>';}).join('')+'</div>';
+        document.getElementById('jcrProfile').innerHTML=profHtml;
+        // Build jobs list
         document.getElementById('jcJobsList').innerHTML=jobs.map(function(j){
           return '<div class="jc-job"><div class="jc-job-fl">'+j.f+'</div><div class="jc-job-inf"><div class="jc-job-t">'+j.t+'</div><div class="jc-job-m">'+j.m+'</div></div><div class="jc-job-r">'+j.r+'</div></div>';
         }).join('');
-        ['jcs1','jcs2','jcs3','jcs4'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
+        document.getElementById('jcs-loading').classList.remove('active');
         document.getElementById('jcs-result').classList.add('active');
         document.getElementById('jcProg').style.width='100%';
-        dots(5);
+        // Save to localStorage
+        try{localStorage.setItem('ls-job-profile',JSON.stringify(D));}catch(e){}
       }
 
       window.jcWhatsApp=function(){
-        var cN={pl:'Poland',de:'Germany',nl:'Netherlands',be:'Belgium',at:'Austria',cz:'Czech Republic',any:'Anywhere in Europe'};
-        var sN={low:'28-34 PLN/h',mid:'35-42 PLN/h',hi:'43-52 PLN/h',eur:'14-20 EUR/h',eurhi:'21-30+ EUR/h'};
+        var expN={none:'No experience',lt1:'Less than 1 year','1to3':'1-3 years','3to5':'3-5 years','5plus':'5+ years (senior)'};
+        var salN={low:'28-34 PLN/h',mid:'35-42 PLN/h',hi:'43-52 PLN/h',eur:'14-20 EUR/h',eurhi:'21-30+ EUR/h'};
         var wN={now:'right now',soon:'in 1-2 months',q:'in 3-6 months',later:'just exploring'};
-        var msg='WORK\n\nHello! I used the job calculator on your website.\n\u23f0 Start: '+(wN[D.when]||D.when)+'\n\U0001f4b0 Salary: '+(sN[D.salary]||D.salary)+'\n\U0001f4c4 Documents: '+D.docs+'\n\U0001f30d Country: '+(cN[D.country]||D.country)+'\n\nPlease help me find a matching job!';
+        var cN={pl:'Poland',de:'Germany',nl:'Netherlands',be:'Belgium',at:'Austria',cz:'Czech Republic',any:'Anywhere in Europe'};
+        var msg='WORK
+
+Hello! I filled the Job Matcher form on your website.
+
+'
+          +'⏰ Start: '+(wN[D.when]||D.when)+'
+'
+          +'💼 Experience: '+(expN[D.exp]||D.exp)+'
+'
+          +'💬 Languages: '+(D.langs.join(', ')||'not specified')+'
+'
+          +'💰 Salary: '+(salN[D.salary]||D.salary)+'
+'
+          +'📄 Documents: '+D.docs+'
+'
+          +'🌍 Country: '+(cN[D.country]||D.country)+'
+
+'
+          +'Please help me find a matching job!';
         window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
       };
 
       window.jcNoDocsWA=function(){
-        var msg='WORK\n\nHello! I visited Legal Solution website.\nI currently have no documents / residence permit.\nI need help getting legal status and finding a job in Poland.\nPlease contact me!';
+        var msg='WORK
+
+Hello! I visited Legal Solution website.
+I have no documents / residence permit yet.
+I need help getting legal status and finding a job in Poland.
+Please contact me!';
         window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
       };
 
       window.jcRestart=function(){
-        D={when:'',salary:'',docs:'',country:''};
-        ['jcs2','jcs3','jcs4','jcs-result','jcs-nodocs'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
+        D={when:'',exp:'',langs:[],salary:'',docs:'',country:''};
+        document.querySelectorAll('.jcl-opt').forEach(function(b){b.classList.remove('sel');});
+        document.querySelectorAll('.jcc').forEach(function(b){b.classList.remove('sel');});
+        ['jcs2','jcs3','jcs4','jcs5','jcs6','jcs-loading','jcs-result','jcs-nodocs'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
         document.getElementById('jcs1').classList.add('active');
         document.getElementById('jcProg').style.width='0%';
         dots(1);
