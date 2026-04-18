@@ -3381,38 +3381,20 @@ updateTicker('ru');
         var salN={low:'28-34 PLN/h',mid:'35-42 PLN/h',hi:'43-52 PLN/h',eur:'14-20 EUR/h',eurhi:'21-30+ EUR/h'};
         var wN={now:'right now',soon:'in 1-2 months',q:'in 3-6 months',later:'just exploring'};
         var cN={pl:'Poland',de:'Germany',nl:'Netherlands',be:'Belgium',at:'Austria',cz:'Czech Republic',any:'Anywhere in Europe'};
-        var msg='WORK
-
-Hello! I filled the Job Matcher form on your website.
-
-'
-          +'⏰ Start: '+(wN[D.when]||D.when)+'
-'
-          +'💼 Experience: '+(expN[D.exp]||D.exp)+'
-'
-          +'💬 Languages: '+(D.langs.join(', ')||'not specified')+'
-'
-          +'💰 Salary: '+(salN[D.salary]||D.salary)+'
-'
-          +'📄 Documents: '+D.docs+'
-'
-          +'🌍 Country: '+(cN[D.country]||D.country)+'
-
-'
+        var msg='WORK\n\nHello! I filled the Job Matcher form on your website.\n\n'
+          +'⏰ Start: '+(wN[D.when]||D.when)+'\n'
+          +'💼 Experience: '+(expN[D.exp]||D.exp)+'\n'
+          +'💬 Languages: '+(D.langs.join(', ')||'not specified')+'\n'
+          +'💰 Salary: '+(salN[D.salary]||D.salary)+'\n'
+          +'📄 Documents: '+D.docs+'\n'
+          +'🌍 Country: '+(cN[D.country]||D.country)+'\n\n'
           +'Please help me find a matching job!';
         window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
       };
-
       window.jcNoDocsWA=function(){
-        var msg='WORK
-
-Hello! I visited Legal Solution website.
-I have no documents / residence permit yet.
-I need help getting legal status and finding a job in Poland.
-Please contact me!';
+        var msg='WORK\n\nHello! I visited Legal Solution website.\nI have no documents / residence permit yet.\nI need help getting legal status and finding a job in Poland.\nPlease contact me!';
         window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
       };
-
       window.jcRestart=function(){
         D={when:'',exp:'',langs:[],salary:'',docs:'',country:''};
         document.querySelectorAll('.jcl-opt').forEach(function(b){b.classList.remove('sel');});
