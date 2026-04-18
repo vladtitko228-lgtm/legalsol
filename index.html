@@ -2715,6 +2715,208 @@ updateTicker('ru');
       </div>
     </div>
 
+    <!-- ══ JOB CALCULATOR ══ -->
+    <style>
+      .jcalc-wrap{max-width:720px;margin:0 auto 60px;padding:0 24px;}
+      .jcalc{background:linear-gradient(145deg,#16113d,#1e1856,#12102e);border:1px solid rgba(139,130,232,.22);border-radius:24px;padding:40px;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative;overflow:hidden;}
+      .jcalc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,130,232,.5),transparent);}
+      .jcalc-head{text-align:center;margin-bottom:32px;}
+      .jcalc-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8B82E8;margin-bottom:10px;}
+      .jcalc-title{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px;}
+      .jcalc-sub{color:rgba(255,255,255,.45);font-size:14px;}
+      .jc-prog{height:4px;background:rgba(139,130,232,.15);border-radius:4px;margin-top:20px;overflow:hidden;}
+      .jc-prog-bar{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:4px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+      .jc-step{display:none;animation:jcFade .3s ease;}
+      .jc-step.active{display:block;}
+      @keyframes jcFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+      .jc-q{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:20px;text-align:center;}
+      .jc-opts{display:flex;flex-direction:column;gap:10px;}
+      .jc-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+      .jc-opt{background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.18);border-radius:14px;padding:14px 20px;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all .2s;font-family:inherit;}
+      .jc-opt:hover{background:rgba(91,82,204,.25);border-color:#8B82E8;color:#fff;transform:translateX(4px);}
+      .jc-opt.selected{background:rgba(91,82,204,.35);border-color:#5B52CC;color:#fff;}
+      .jc-result-wrap{text-align:center;}
+      .jc-result-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:24px;}
+      .jc-jobs{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;text-align:left;}
+      .jc-job{background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.15);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;}
+      .jc-job-flag{font-size:24px;flex-shrink:0;}
+      .jc-job-info{flex:1;}
+      .jc-job-title{font-weight:700;color:#fff;font-size:15px;margin-bottom:2px;}
+      .jc-job-meta{color:rgba(255,255,255,.45);font-size:12px;}
+      .jc-job-rate{background:rgba(91,82,204,.3);border:1px solid rgba(139,130,232,.3);border-radius:20px;padding:4px 12px;color:#B8B2F5;font-size:13px;font-weight:700;white-space:nowrap;}
+      .jc-wa-btn{width:100%;background:linear-gradient(135deg,#1fbe5a,#17a34a);color:#fff;border:none;padding:16px 24px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(34,197,94,.3);margin-bottom:12px;}
+      .jc-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,.4);}
+      .jc-consult-btn{width:100%;background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none;padding:16px 24px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s;margin-bottom:12px;}
+      .jc-consult-btn:hover{transform:translateY(-2px);}
+      .jc-restart{background:none;border:none;color:rgba(255,255,255,.35);font-size:13px;cursor:pointer;font-family:inherit;transition:color .2s;display:block;margin:0 auto;padding:8px;}
+      .jc-restart:hover{color:rgba(255,255,255,.7);}
+      .jc-nodocs-icon{font-size:48px;text-align:center;margin-bottom:16px;}
+      .jc-nodocs-desc{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;text-align:center;margin-bottom:24px;}
+      @media(max-width:600px){.jc-opts-grid{grid-template-columns:1fr;}.jcalc{padding:28px 20px;}}
+    </style>
+
+    <div class="jcalc-wrap reveal">
+      <div class="jcalc">
+        <div class="jcalc-head">
+          <div class="jcalc-label" id="jc-label-text">ПОДБОР ВАКАНСИИ</div>
+          <div class="jcalc-title" id="jc-main-title">Найдём работу именно для вас</div>
+          <div class="jcalc-sub" id="jc-main-sub">Ответьте на 4 вопроса — покажем подходящие вакансии</div>
+          <div class="jc-prog"><div class="jc-prog-bar" id="jcProg" style="width:0%"></div></div>
+        </div>
+
+        <div class="jc-step active" id="jcs1">
+          <div class="jc-q">⏰ Когда хотите приступить к работе?</div>
+          <div class="jc-opts">
+            <button class="jc-opt" onclick="jcGo(1,'now')">⚡ Прямо сейчас — готов выехать</button>
+            <button class="jc-opt" onclick="jcGo(1,'soon')">📅 Через 1–3 месяца</button>
+            <button class="jc-opt" onclick="jcGo(1,'later')">🔍 Пока изучаю варианты</button>
+          </div>
+        </div>
+
+        <div class="jc-step" id="jcs2">
+          <div class="jc-q">💰 Какую зарплату ожидаете?</div>
+          <div class="jc-opts">
+            <button class="jc-opt" onclick="jcGo(2,'low')">💸 25–30 PLN/ч &nbsp;·&nbsp; ~3 500 PLN нетто</button>
+            <button class="jc-opt" onclick="jcGo(2,'mid')">💰 30–35 PLN/ч &nbsp;·&nbsp; ~5 000 PLN нетто</button>
+            <button class="jc-opt" onclick="jcGo(2,'eur')">💶 15–20 EUR/ч &nbsp;·&nbsp; Германия / Нидерланды</button>
+            <button class="jc-opt" onclick="jcGo(2,'eurhi')">🏆 20+ EUR/ч &nbsp;·&nbsp; Квалифицированный специалист</button>
+          </div>
+        </div>
+
+        <div class="jc-step" id="jcs3">
+          <div class="jc-q">📄 Какие документы у вас есть?</div>
+          <div class="jc-opts">
+            <button class="jc-opt" onclick="jcGo(3,'karta')">✅ Karta Pobytu (ВНЖ)</button>
+            <button class="jc-opt" onclick="jcGo(3,'permit')">📋 Разрешение на работу / виза D</button>
+            <button class="jc-opt" onclick="jcGo(3,'eu')">🇪🇺 Гражданство / ПМЖ ЕС</button>
+            <button class="jc-opt" onclick="jcGo(3,'none')">❌ Документов нет — нужна помощь</button>
+          </div>
+        </div>
+
+        <div class="jc-step" id="jcs4">
+          <div class="jc-q">🌍 В какой стране хотите работать?</div>
+          <div class="jc-opts jc-opts-grid">
+            <button class="jc-opt" onclick="jcGo(4,'pl')">🇵🇱 Польша</button>
+            <button class="jc-opt" onclick="jcGo(4,'de')">🇩🇪 Германия</button>
+            <button class="jc-opt" onclick="jcGo(4,'nl')">🇳🇱 Нидерланды</button>
+            <button class="jc-opt" onclick="jcGo(4,'be')">🇧🇪 Бельгия</button>
+            <button class="jc-opt" onclick="jcGo(4,'at')">🇦🇹 Австрия</button>
+            <button class="jc-opt" onclick="jcGo(4,'any')">🌍 Любая страна</button>
+          </div>
+        </div>
+
+        <div class="jc-step" id="jcs-result">
+          <div class="jc-result-wrap">
+            <div class="jc-result-title">🎉 Нашли подходящие вакансии!</div>
+            <div class="jc-jobs" id="jcJobsList"></div>
+            <button class="jc-wa-btn" onclick="jcWhatsApp()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Написать в WhatsApp — получить детали
+            </button>
+            <button class="jc-restart" onclick="jcRestart()">← Начать заново</button>
+          </div>
+        </div>
+
+        <div class="jc-step" id="jcs-nodocs">
+          <div class="jc-result-wrap">
+            <div class="jc-nodocs-icon">📋</div>
+            <div class="jc-result-title">Сначала нужны документы</div>
+            <div class="jc-nodocs-desc">Без легального статуса лучшие работодатели не возьмут. Но это решаемо — Legal Solution оформит ВНЖ и сразу подберёт вакансию. Всё в одном месте.</div>
+            <button class="jc-consult-btn" onclick="openModal()">Записаться на консультацию →</button>
+            <button class="jc-restart" onclick="jcRestart()">← Назад</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      var jcData = {when:'',salary:'',docs:'',country:''};
+      var jcStep = 1;
+      var JC_JOBS = {
+        pl:  {low:[{flag:'🇵🇱',title:'Работник склада',meta:'Amazon, DHL · Варшава / Лодзь',rate:'30 PLN/ч'},{flag:'🇵🇱',title:'Горничная / клинер',meta:'Marriott, Hilton · Краков / Варшава',rate:'28 PLN/ч'}],
+               mid:[{flag:'🇵🇱',title:'Повар / помощник повара',meta:'NH Hotel Group · Вроцлав / Познань',rate:'32 PLN/ч'},{flag:'🇵🇱',title:'Медсестра / санитар',meta:'Medicover, LUX MED · Варшава',rate:'32 PLN/ч'}],
+               eur:[{flag:'🇵🇱',title:'Работник производства',meta:'Philip Morris · Краков',rate:'35 PLN/ч'},{flag:'🇵🇱',title:'Водитель погрузчика',meta:'FM Logistic · Варшава',rate:'34 PLN/ч'}],
+               eurhi:[{flag:'🇵🇱',title:'Сварщик / слесарь',meta:'MetallBau · Варшава',rate:'38 PLN/ч'},{flag:'🇵🇱',title:'Электрик / монтажник',meta:'Budimex · Варшава',rate:'40 PLN/ч'}]},
+        de:  {low:[{flag:'🇩🇪',title:'Разнорабочий / стройка',meta:'Bauunternehmen GmbH · Берлин',rate:'14 EUR/ч'}],
+               mid:[{flag:'🇩🇪',title:'Строитель / отделочник',meta:'Bauunternehmen · Гамбург',rate:'16 EUR/ч'}],
+               eur:[{flag:'🇩🇪',title:'Слесарь / техник',meta:'MetallBau GmbH · Дюссельдорф',rate:'17 EUR/ч'}],
+               eurhi:[{flag:'🇩🇪',title:'Сварщик MIG/MAG',meta:'MetallBau GmbH · Кёльн',rate:'19 EUR/ч'},{flag:'🇩🇪',title:'Электрик',meta:'ElektroTech · Мюнхен',rate:'20 EUR/ч'}]},
+        nl:  {low:[{flag:'🇳🇱',title:'Работник склада',meta:'Bol.com · Амстердам',rate:'14 EUR/ч'}],
+               mid:[{flag:'🇳🇱',title:'Работник теплицы',meta:'Westland · Роттердам',rate:'15 EUR/ч'}],
+               eur:[{flag:'🇳🇱',title:'Водитель-экспедитор',meta:'TransEuropa · Амстердам',rate:'18 EUR/ч'}],
+               eurhi:[{flag:'🇳🇱',title:'Водитель CE',meta:'TransEuropa Logistics · Роттердам',rate:'22 EUR/ч'}]},
+        be:  {low:[{flag:'🇧🇪',title:'Работник производства',meta:'LogiPack · Антверпен',rate:'14 EUR/ч'}],
+               mid:[{flag:'🇧🇪',title:'Фасовщик / упаковщик',meta:'LogiPack Belgium · Брюссель',rate:'15 EUR/ч'}],
+               eur:[{flag:'🇧🇪',title:'Оператор склада',meta:'DSV · Антверпен',rate:'17 EUR/ч'}],
+               eurhi:[{flag:'🇧🇪',title:'Техник оборудования',meta:'Siemens Belgium · Гент',rate:'20 EUR/ч'}]},
+        at:  {low:[{flag:'🇦🇹',title:'Разнорабочий',meta:'Baumax · Вена',rate:'13 EUR/ч'}],
+               mid:[{flag:'🇦🇹',title:'Горничная / хаусмен',meta:'Vienna Marriott · Вена',rate:'14 EUR/ч'}],
+               eur:[{flag:'🇦🇹',title:'Электрик / монтажник',meta:'ElektroBau Wien · Грац',rate:'18 EUR/ч'}],
+               eurhi:[{flag:'🇦🇹',title:'Инженер-строитель',meta:'Strabag · Вена / Зальцбург',rate:'22 EUR/ч'}]},
+        any: {low:[{flag:'🇵🇱',title:'Работник склада',meta:'Amazon · Польша',rate:'30 PLN/ч'},{flag:'🇧🇪',title:'Работник производства',meta:'LogiPack · Бельгия',rate:'14 EUR/ч'}],
+               mid:[{flag:'🇩🇪',title:'Строитель',meta:'Bauunternehmen · Германия',rate:'16 EUR/ч'},{flag:'🇵🇱',title:'Медсестра',meta:'Medicover · Польша',rate:'32 PLN/ч'}],
+               eur:[{flag:'🇳🇱',title:'Водитель CE',meta:'TransEuropa · Нидерланды',rate:'18 EUR/ч'},{flag:'🇩🇪',title:'Слесарь',meta:'MetallBau · Германия',rate:'17 EUR/ч'}],
+               eurhi:[{flag:'🇩🇪',title:'Сварщик MIG',meta:'MetallBau · Германия',rate:'19 EUR/ч'},{flag:'🇦🇹',title:'Электрик',meta:'ElektroBau · Австрия',rate:'18 EUR/ч'}]}
+      };
+
+      window.jcGo = function(step, val) {
+        if(step===1) jcData.when=val;
+        else if(step===2) jcData.salary=val;
+        else if(step===3){
+          jcData.docs=val;
+          if(val==='none'){
+            ['jcs1','jcs2','jcs3','jcs4','jcs-result'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+            var nd=document.getElementById('jcs-nodocs'); if(nd)nd.classList.add('active');
+            document.getElementById('jcProg').style.width='100%';
+            return;
+          }
+        }
+        else if(step===4){
+          jcData.country=val;
+          showResult();
+          return;
+        }
+        var next = step+1;
+        document.getElementById('jcs'+step).classList.remove('active');
+        document.getElementById('jcs'+next).classList.add('active');
+        document.getElementById('jcProg').style.width=(next/4*100)+'%';
+      };
+
+      function showResult(){
+        var c = jcData.country; var s = jcData.salary;
+        var jobs = (JC_JOBS[c]&&JC_JOBS[c][s]) ? JC_JOBS[c][s] : JC_JOBS['any'][s]||JC_JOBS['any']['mid'];
+        var html = jobs.map(function(j){
+          return '<div class="jc-job"><div class="jc-job-flag">'+j.flag+'</div><div class="jc-job-info"><div class="jc-job-title">'+j.title+'</div><div class="jc-job-meta">'+j.meta+'</div></div><div class="jc-job-rate">'+j.rate+'</div></div>';
+        }).join('');
+        document.getElementById('jcJobsList').innerHTML = html;
+        ['jcs1','jcs2','jcs3','jcs4'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+        document.getElementById('jcs-result').classList.add('active');
+        document.getElementById('jcProg').style.width='100%';
+      }
+
+      window.jcWhatsApp = function(){
+        var countryNames={pl:'Польша',de:'Германия',nl:'Нидерланды',be:'Бельгия',at:'Австрия',any:'Любая страна'};
+        var salaryNames={low:'25-30 PLN/ч',mid:'30-35 PLN/ч',eur:'15-20 EUR/ч',eurhi:'20+ EUR/ч'};
+        var whenNames={now:'прямо сейчас',soon:'через 1-3 месяца',later:'изучаю варианты'};
+        var msg = 'Здравствуйте! Я заполнил калькулятор вакансий на сайте.\n'
+          + '⏰ Готов: ' + (whenNames[jcData.when]||jcData.when) + '\n'
+          + '💰 Ожидаемая зарплата: ' + (salaryNames[jcData.salary]||jcData.salary) + '\n'
+          + '📄 Документы: ' + jcData.docs + '\n'
+          + '🌍 Страна: ' + (countryNames[jcData.country]||jcData.country) + '\n'
+          + 'Хочу узнать подробнее о подходящих вакансиях.';
+        window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
+      };
+
+      window.jcRestart = function(){
+        jcData={when:'',salary:'',docs:'',country:''};
+        ['jcs2','jcs3','jcs4','jcs-result','jcs-nodocs'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+        document.getElementById('jcs1').classList.add('active');
+        document.getElementById('jcProg').style.width='0%';
+      };
+    })();
+    </script>
+
     <div class="jobs-grid">
       <div class="jcard ft reveal">
         <div class="jcard-img"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=320&fit=crop&q=75" alt="Работник склада" loading="lazy" decoding="async"/><div class="jcard-tag">🇵🇱 ПОЛЬША</div><div class="jcard-rate">30 PLN/ч</div></div>
