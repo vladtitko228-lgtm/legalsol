@@ -46,8 +46,8 @@ module.exports = async function handler(req, res) {
         lang: txt(p["Language"]) || ""
       };
     });
-    // Show only EN posts in the public feed
-    const arts = allArts.filter(x => x.lang === "EN");
+    // Show only EN posts in the public feed, limit to 9 for the homepage widget (3×3 grid)
+    const arts = allArts.filter(x => x.lang === "EN").slice(0, 9);
     const fallbackMap = {
       "TAXES":            "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&w=600&q=75",
       "RESIDENCE PERMIT": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&w=600&q=75",
@@ -103,6 +103,7 @@ module.exports = async function handler(req, res) {
     js += "h+='<span class=\"blog-read\" style=\"color:#8B82E8;font-size:12px\">Read \\u2192</span>';";
     js += "h+='</div></a>';});";
     js += "if(h)g.innerHTML=h;";
+    js += "var wa=document.getElementById('ls-blog-all');if(!wa){wa=document.createElement('div');wa.id='ls-blog-all';wa.style.cssText='text-align:center;margin-top:32px;';wa.innerHTML='<a href=\"/blog\" style=\"display:inline-block;padding:12px 32px;background:rgba(124,92,252,0.15);border:1px solid rgba(124,92,252,0.4);border-radius:30px;color:#a78bfa;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;\" onmouseover=\"this.style.background=\\'rgba(124,92,252,0.3)\\'\" onmouseout=\"this.style.background=\\'rgba(124,92,252,0.15)\\'\">All articles \u2192</a>';g.parentNode.appendChild(wa);}";
 
     // search functions
     js += "window.lsBlogSearch=function(v){";
