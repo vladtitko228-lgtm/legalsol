@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v2.1 -->
+<!-- v2.2 -->
 <html lang="en">
 
 <head>
@@ -5610,7 +5610,57 @@ updateTicker('ru');
 
       .jc-opt.sel .jco-check::after{content:'';display:block;width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
 
-
+      /* ── Salary step animations ─────────────────────────────────── */
+      @keyframes jcoSlideIn{
+        from{opacity:0;transform:translateY(14px);}
+        to  {opacity:1;transform:translateY(0);}
+      }
+      @keyframes jcoShimmer{
+        0%  {box-shadow:0 0 0 0 rgba(139,130,232,0);}
+        40% {box-shadow:0 0 0 6px rgba(139,130,232,.22);}
+        100%{box-shadow:0 0 0 0 rgba(139,130,232,0);}
+      }
+      @keyframes jcoIconPop{
+        0%  {transform:scale(1) rotate(0deg);}
+        35% {transform:scale(1.18) rotate(-6deg);}
+        65% {transform:scale(1.06) rotate(2deg);}
+        100%{transform:scale(1) rotate(0deg);}
+      }
+      @keyframes jcoGlowPulse{
+        0%,100%{opacity:.55;}
+        50%    {opacity:1;}
+      }
+      /* Staggered entrance when step becomes active */
+      #jcs4.active .jc-opt{
+        opacity:0;
+        animation:jcoSlideIn .38s cubic-bezier(.22,1,.36,1) forwards;
+      }
+      #jcs4.active .jc-opt:nth-child(1){animation-delay:.04s;}
+      #jcs4.active .jc-opt:nth-child(2){animation-delay:.10s;}
+      #jcs4.active .jc-opt:nth-child(3){animation-delay:.16s;}
+      #jcs4.active .jc-opt:nth-child(4){animation-delay:.22s;}
+      #jcs4.active .jc-opt:nth-child(5){animation-delay:.28s;}
+      /* Icon shimmer on hover */
+      .jc-opt:hover .jco-ic{
+        animation:jcoIconPop .42s ease forwards;
+        box-shadow:0 4px 14px rgba(0,0,0,.3);
+      }
+      /* Glow ring on selected */
+      .jc-opt.sel{
+        animation:jcoShimmer 1.4s ease .05s 1;
+      }
+      /* Subtle border glow sweep on hover */
+      .jc-opt::after{
+        content:'';
+        position:absolute;inset:0;
+        border-radius:inherit;
+        background:linear-gradient(105deg,transparent 30%,rgba(139,130,232,.12) 50%,transparent 70%);
+        background-size:200% 100%;
+        opacity:0;
+        transition:opacity .22s;
+        pointer-events:none;
+      }
+      .jc-opt:hover::after{opacity:1;}
 
       /* Language multi-select */
 
@@ -6144,7 +6194,7 @@ updateTicker('ru');
 
               <div class="jco-ic" style="background:linear-gradient(135deg,#6B7280,#9CA3AF)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
 
-              <div class="jco-txt"><span class="jco-main"><svg width="18" height="12" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg" style="border-radius:2px;vertical-align:middle;margin-right:4px"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg>28–34 PLN/h · Poland</span><span class="jco-sub">∼4,000–5,000 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main">28–34 PLN/h · Poland</span><span class="jco-sub">∼4,000–5,000 PLN/month net</span></div>
 
               <div class="jco-check"></div>
 
@@ -6154,7 +6204,7 @@ updateTicker('ru');
 
               <div class="jco-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
 
-              <div class="jco-txt"><span class="jco-main"><svg width="18" height="12" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg" style="border-radius:2px;vertical-align:middle;margin-right:4px"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg>35–42 PLN/h · Poland</span><span class="jco-sub">∼5,500–6,500 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main">35–42 PLN/h · Poland</span><span class="jco-sub">∼5,500–6,500 PLN/month net</span></div>
 
               <div class="jco-check"></div>
 
@@ -6164,7 +6214,7 @@ updateTicker('ru');
 
               <div class="jco-ic" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
 
-              <div class="jco-txt"><span class="jco-main"><svg width="18" height="12" viewBox="0 0 8 5" xmlns="http://www.w3.org/2000/svg" style="border-radius:2px;vertical-align:middle;margin-right:4px"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg>43–52 PLN/h · Poland</span><span class="jco-sub">∼7,000–8,500 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main">43–52 PLN/h · Poland</span><span class="jco-sub">∼7,000–8,500 PLN/month net</span></div>
 
               <div class="jco-check"></div>
 
