@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
       database_id: DB,
       filter: { property: "Status", select: { equals: "Published" } },
       sorts: [{ property: "Published Date", direction: "descending" }],
-      page_size: 20,
+      page_size: 100,
     });
     const allArts = r.results.map(pg => {
       const p = pg.properties;
