@@ -39,7 +39,6 @@
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin/>
 <link rel="dns-prefetch" href="https://wa.me"/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" media="print" onload="this.media='all'"/>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap"/></noscript>
 <style>
@@ -2825,12 +2824,26 @@ updateTicker('ru');
       }
       .jcl-opt:hover{border-color:rgba(139,130,232,.4);background:rgba(91,82,204,.12);}
       .jcl-opt.sel{background:rgba(91,82,204,.22);border-color:#8B82E8;}
-      .jcl-flag{font-size:20px;flex-shrink:0;border-radius:3px;line-height:1;}
+      .jcl-flag{flex-shrink:0;border-radius:3px;}
       .jcl-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);}
       .jcl-opt.sel .jcl-name{color:#fff;}
       .jcl-none{grid-column:1/-1;}
       .jc-lang-continue{width:100%;background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none;padding:12px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s;margin-top:2px;}
       .jc-lang-continue:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(91,82,204,.4);}
+      /* ── Self-contained SVG flags ── */
+      .sf{display:inline-block;background-size:cover;background-repeat:no-repeat;border-radius:2px;flex-shrink:0;vertical-align:middle;}
+      .sf-gb{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30,0 V30 M0,15 H60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30,0 V30 M0,15 H60' stroke='%23C8102E' stroke-width='6'/%3E%3C/svg%3E");}
+.sf-ru{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 6'%3E%3Crect width='9' height='2' fill='%23fff'/%3E%3Crect y='2' width='9' height='2' fill='%230039A6'/%3E%3Crect y='4' width='9' height='2' fill='%23D52B1E'/%3E%3C/svg%3E");}
+.sf-pl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 5'%3E%3Crect width='8' height='2.5' fill='%23fff'/%3E%3Crect y='2.5' width='8' height='2.5' fill='%23DC143C'/%3E%3C/svg%3E");}
+.sf-in{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 14'%3E%3Crect width='21' height='4.67' fill='%23FF9933'/%3E%3Crect y='4.67' width='21' height='4.67' fill='%23fff'/%3E%3Crect y='9.33' width='21' height='4.67' fill='%23138808'/%3E%3Ccircle cx='10.5' cy='7' r='1.8' fill='none' stroke='%23000080' stroke-width='.35'/%3E%3C/svg%3E");}
+.sf-bd{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 14'%3E%3Crect width='21' height='14' fill='%23006A4E'/%3E%3Ccircle cx='9.5' cy='7' r='4.5' fill='%23F42A41'/%3E%3C/svg%3E");}
+.sf-lk{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 14'%3E%3Crect width='21' height='14' fill='%238D153A'/%3E%3Crect width='2.5' height='14' fill='%23F68B00'/%3E%3Crect x='2.5' width='2.5' height='14' fill='%2300534E'/%3E%3Crect x='5.5' width='13' height='14' fill='%238D153A'/%3E%3Crect x='18' y='2.5' width='3' height='9' rx='1' fill='%23FFD100'/%3E%3C/svg%3E");}
+.sf-de{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3'%3E%3Crect width='5' height='1' fill='%23000'/%3E%3Crect y='1' width='5' height='1' fill='%23D00'/%3E%3Crect y='2' width='5' height='1' fill='%23FFCE00'/%3E%3C/svg%3E");}
+.sf-nl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='.667' fill='%23AE1C28'/%3E%3Crect y='.667' width='3' height='.667' fill='%23fff'/%3E%3Crect y='1.333' width='3' height='.667' fill='%2321468B'/%3E%3C/svg%3E");}
+.sf-be{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='1' height='2' fill='%23000'/%3E%3Crect x='1' width='1' height='2' fill='%23FFD90C'/%3E%3Crect x='2' width='1' height='2' fill='%23F00'/%3E%3C/svg%3E");}
+.sf-at{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='.667' fill='%23ED2939'/%3E%3Crect y='.667' width='3' height='.667' fill='%23fff'/%3E%3Crect y='1.333' width='3' height='.667' fill='%23ED2939'/%3E%3C/svg%3E");}
+.sf-cz{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 4'%3E%3Crect width='6' height='2' fill='%23fff'/%3E%3Crect y='2' width='6' height='2' fill='%23D7141A'/%3E%3Cpolygon points='0,0 3,2 0,4' fill='%2311457E'/%3E%3C/svg%3E");}
+
 
       /* Country grid */
       .jcc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:2px;}
@@ -2852,7 +2865,7 @@ updateTicker('ru');
       .jcc::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s;}
       .jcc:hover{transform:translateY(-3px) scale(1.03);border-color:rgba(139,130,232,.45);box-shadow:0 8px 24px rgba(0,0,0,.35);}
       .jcc.sel{border-color:#8B82E8;box-shadow:0 0 0 1px rgba(139,130,232,.4),0 8px 24px rgba(91,82,204,.25);}
-      .jcc-flag{font-size:32px;line-height:1;border-radius:5px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));transition:transform .3s cubic-bezier(.34,1.6,.64,1);}
+      .jcc-flag{border-radius:5px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));transition:transform .3s cubic-bezier(.34,1.6,.64,1);}
       .jcc:hover .jcc-flag{transform:scale(1.18);}
       .jcc-name{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.65);text-align:center;line-height:1.2;}
       .jcc.sel .jcc-name{color:#fff;}
@@ -3048,13 +3061,13 @@ updateTicker('ru');
             </div>
           </div>
           <div class="jc-langs">
-            <button class="jcl-opt" onclick="jcLangToggle('en',this)"><span class="fi fi-gb jcl-flag"></span><span class="jcl-name">English</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('ru',this)"><span class="fi fi-ru jcl-flag"></span><span class="jcl-name">Russian</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('pl',this)"><span class="fi fi-pl jcl-flag"></span><span class="jcl-name">Polish</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('hi',this)"><span class="fi fi-in jcl-flag"></span><span class="jcl-name">Hindi/Urdu</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('bn',this)"><span class="fi fi-bd jcl-flag"></span><span class="jcl-name">Bengali</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('si',this)"><span class="fi fi-lk jcl-flag"></span><span class="jcl-name">Sinhala</span></button>
-            <button class="jcl-opt" onclick="jcLangToggle('de',this)"><span class="fi fi-de jcl-flag"></span><span class="jcl-name">German</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('en',this)"><span class="sf sf-gb" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">English</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('ru',this)"><span class="sf sf-ru" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">Russian</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('pl',this)"><span class="sf sf-pl" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">Polish</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('hi',this)"><span class="sf sf-in" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">Hindi/Urdu</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('bn',this)"><span class="sf sf-bd" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">Bengali</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('si',this)"><span class="sf sf-lk" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">Sinhala</span></button>
+            <button class="jcl-opt" onclick="jcLangToggle('de',this)"><span class="sf sf-de" style="width:22px;height:15px;margin-right:2px"></span><span class="jcl-name">German</span></button>
             <button class="jcl-opt jcl-none" onclick="jcLangToggle('none',this)" id="jcl-none-btn"><span class="jcl-flag">🤷</span><span class="jcl-name">None / Other</span></button>
           </div>
           <button class="jc-lang-continue" onclick="jcLangDone()">Continue →</button>
@@ -3072,27 +3085,27 @@ updateTicker('ru');
           <div class="jc-opts">
             <button class="jc-opt" onclick="jcGo(4,'low')">
               <div class="jco-ic" style="background:linear-gradient(135deg,#6B7280,#9CA3AF)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-              <div class="jco-txt"><span class="jco-main"><span class="fi fi-pl" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span>28–34 PLN/h · Poland</span><span class="jco-sub">∼4,000–5,000 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main"><span class="sf sf-pl" style="width:18px;height:12px;margin-right:4px"></span>28–34 PLN/h · Poland</span><span class="jco-sub">∼4,000–5,000 PLN/month net</span></div>
               <div class="jco-check"></div>
             </button>
             <button class="jc-opt" onclick="jcGo(4,'mid')">
               <div class="jco-ic" style="background:linear-gradient(135deg,#10B981,#34D399)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-              <div class="jco-txt"><span class="jco-main"><span class="fi fi-pl" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span>35–42 PLN/h · Poland</span><span class="jco-sub">∼5,500–6,500 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main"><span class="sf sf-pl" style="width:18px;height:12px;margin-right:4px"></span>35–42 PLN/h · Poland</span><span class="jco-sub">∼5,500–6,500 PLN/month net</span></div>
               <div class="jco-check"></div>
             </button>
             <button class="jc-opt" onclick="jcGo(4,'hi')">
               <div class="jco-ic" style="background:linear-gradient(135deg,#3B82F6,#60A5FA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-              <div class="jco-txt"><span class="jco-main"><span class="fi fi-pl" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span>43–52 PLN/h · Poland</span><span class="jco-sub">∼7,000–8,500 PLN/month net</span></div>
+              <div class="jco-txt"><span class="jco-main"><span class="sf sf-pl" style="width:18px;height:12px;margin-right:4px"></span>43–52 PLN/h · Poland</span><span class="jco-sub">∼7,000–8,500 PLN/month net</span></div>
               <div class="jco-check"></div>
             </button>
             <button class="jc-opt" onclick="jcGo(4,'eur')">
               <div class="jco-ic" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M14.5 8.5a4 4 0 100 7M7 10h6M7 14h6"/></svg></div>
-              <div class="jco-txt"><span class="jco-main"><span class="fi fi-de" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span><span class="fi fi-nl" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span><span class="fi fi-be" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span> 14–20 EUR/h · EU</span><span class="jco-sub"><span class="fi fi-de" style="font-size:12px;border-radius:2px;vertical-align:middle;line-height:1"></span> Germany · <span class="fi fi-nl" style="font-size:12px;border-radius:2px;vertical-align:middle;line-height:1"></span> Netherlands · <span class="fi fi-be" style="font-size:12px;border-radius:2px;vertical-align:middle;line-height:1"></span> Belgium</span></div>
+              <div class="jco-txt"><span class="jco-main"><span class="sf sf-de" style="width:18px;height:12px;margin-right:4px"></span><span class="sf sf-nl" style="width:18px;height:12px;margin-right:4px"></span><span class="sf sf-be" style="width:18px;height:12px;margin-right:4px"></span> 14–20 EUR/h · EU</span><span class="jco-sub"><span class="sf sf-de" style="width:15px;height:10px;margin-right:2px"></span> Germany · <span class="sf sf-nl" style="width:15px;height:10px;margin-right:2px"></span> Netherlands · <span class="sf sf-be" style="width:15px;height:10px;margin-right:2px"></span> Belgium</span></div>
               <div class="jco-check"></div>
             </button>
             <button class="jc-opt" onclick="jcGo(4,'eurhi')">
               <div class="jco-ic" style="background:linear-gradient(135deg,#F59E0B,#FCD34D)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C2D12" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-              <div class="jco-txt"><span class="jco-main"><span class="fi fi-de" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span><span class="fi fi-at" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span><span class="fi fi-nl" style="font-size:14px;border-radius:2px;vertical-align:middle;margin-right:4px;line-height:1"></span> 21–30+ EUR/h · Top EU</span><span class="jco-sub">Senior / qualified specialist</span></div>
+              <div class="jco-txt"><span class="jco-main"><span class="sf sf-de" style="width:18px;height:12px;margin-right:4px"></span><span class="sf sf-at" style="width:18px;height:12px;margin-right:4px"></span><span class="sf sf-nl" style="width:18px;height:12px;margin-right:4px"></span> 21–30+ EUR/h · Top EU</span><span class="jco-sub">Senior / qualified specialist</span></div>
               <div class="jco-check"></div>
             </button>
           </div>
@@ -3146,12 +3159,12 @@ updateTicker('ru');
             </div>
           </div>
           <div class="jcc-grid">
-            <button class="jcc jcc-pl" onclick="jcGo(6,'pl')"><div class="jcc-tick"></div><span class="fi fi-pl jcc-flag"></span><div class="jcc-name">Poland</div></button>
-            <button class="jcc jcc-de" onclick="jcGo(6,'de')"><div class="jcc-tick"></div><span class="fi fi-de jcc-flag"></span><div class="jcc-name">Germany</div></button>
-            <button class="jcc jcc-nl" onclick="jcGo(6,'nl')"><div class="jcc-tick"></div><span class="fi fi-nl jcc-flag"></span><div class="jcc-name">Netherlands</div></button>
-            <button class="jcc jcc-be" onclick="jcGo(6,'be')"><div class="jcc-tick"></div><span class="fi fi-be jcc-flag"></span><div class="jcc-name">Belgium</div></button>
-            <button class="jcc jcc-at" onclick="jcGo(6,'at')"><div class="jcc-tick"></div><span class="fi fi-at jcc-flag"></span><div class="jcc-name">Austria</div></button>
-            <button class="jcc jcc-cz" onclick="jcGo(6,'cz')"><div class="jcc-tick"></div><span class="fi fi-cz jcc-flag"></span><div class="jcc-name">Czech Rep.</div></button>
+            <button class="jcc jcc-pl" onclick="jcGo(6,'pl')"><div class="jcc-tick"></div><span class="sf sf-pl jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Poland</div></button>
+            <button class="jcc jcc-de" onclick="jcGo(6,'de')"><div class="jcc-tick"></div><span class="sf sf-de jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Germany</div></button>
+            <button class="jcc jcc-nl" onclick="jcGo(6,'nl')"><div class="jcc-tick"></div><span class="sf sf-nl jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Netherlands</div></button>
+            <button class="jcc jcc-be" onclick="jcGo(6,'be')"><div class="jcc-tick"></div><span class="sf sf-be jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Belgium</div></button>
+            <button class="jcc jcc-at" onclick="jcGo(6,'at')"><div class="jcc-tick"></div><span class="sf sf-at jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Austria</div></button>
+            <button class="jcc jcc-cz" onclick="jcGo(6,'cz')"><div class="jcc-tick"></div><span class="sf sf-cz jcc-flag" style="width:36px;height:24px"></span><div class="jcc-name">Czech Rep.</div></button>
             <button class="jcc jcc-any-c jcc-any" onclick="jcGo(6,'any')"><div class="jcc-tick"></div><div class="jcc-flag" style="font-size:26px;line-height:1">🌍</div><div class="jcc-name">Anywhere in Europe</div></button>
           </div>
         </div>
