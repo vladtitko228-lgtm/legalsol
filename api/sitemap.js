@@ -36,6 +36,7 @@ module.exports = async function handler(req, res) {
       const date = txt(p["Published Date"]);
       return slug ? {
         loc: `${SITE}/blog/${slug}`,
+        slug: slug,
         lastmod: date || undefined,
         priority: "0.8",
         changefreq: "monthly",
@@ -52,12 +53,25 @@ module.exports = async function handler(req, res) {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${allUrls.map(u => `  <url>
+${allUrls.map(u => {
+    // For blog articles, add hreflang alternates for EN/RU pairs
+    let hreflang = '';
+    if (u.loc.startsWith(SITE + '/blog/') && u.slug) {
+      const isEn = u.slug.endsWith('-en');
+      const ruSlug = isEn ? u.slug.replace(/-en$/, '') : u.slug;
+      const enSlug = isEn ? u.slug : u.slug + '-en';
+      hreflang = `
+    <xhtml:link rel="alternate" hreflang="ru" href="${SITE}/blog/${ruSlug}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/blog/${enSlug}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/blog/${enSlug}"/>`;
+    }
+    return `  <url>
     <loc>${u.loc}</loc>
     ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : `<lastmod>${today}</lastmod>`}
     <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join("\n")}
+    <priority>${u.priority}</priority>${hreflang}
+  </url>`;
+  }).join("\n")}
 </urlset>`;
 
   res.setHeader("Content-Type", "application/xml; charset=utf-8");

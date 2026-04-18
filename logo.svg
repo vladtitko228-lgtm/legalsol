@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <rect width="200" height="60" rx="8" fill="#1E1B4B"/>
+  <path d="M16 12 L16 48 L36 48" stroke="#8B82E8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 20 L44 48 M44 28 L58 28 M44 48 L58 48" stroke="#8B82E8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="72" y="36" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#ffffff">Legal</text>
+  <text x="120" y="36" font-family="Arial,sans-serif" font-size="18" font-weight="400" fill="#8B82E8">Solution</text>
+</svg>

@@ -55,7 +55,7 @@ function renderArticleCard(article) {
   const imgSrc = (!article.coverImage || article.coverImage.includes('s3.amazonaws.com') || article.coverImage.includes('prod-files-secure') || article.coverImage.includes('secure.notion-static'))
       ? fallback
       : article.coverImage;
-  const coverHtml = `<div class="card-cover"><img src="${escapeHtml(imgSrc)}" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.src='${fallback}';this.onerror=null;"></div>`;
+  const coverHtml = `<div class="card-cover"><img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(article.title||article.category||'Article')}" loading="lazy" style="width:100%;height:200px;object-fit:cover;display:block;" onerror="this.src='${fallback}';this.onerror=null;"></div>`;
 
   const tagsArr = Array.isArray(article.tags) ? article.tags : [];
   const tagsHtml = tagsArr.length
@@ -99,6 +99,15 @@ function renderPage(articles) {
   <meta property="og:title" content="Blog - Legal Solutions">
   <meta property="og:description" content="Expert immigration guides for Poland">
   <meta property="og:url" content="https://www.legalsol.pl/blog">
+  <meta property="og:image" content="https://www.legalsol.pl/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog - Legal Solutions | Immigration Guides">
+  <meta name="twitter:description" content="Expert immigration guides for Poland: karta pobytu, work permits, PESEL and more.">
+  <meta name="twitter:image" content="https://www.legalsol.pl/og-image.jpg">
+  <link rel="alternate" hreflang="en" href="https://www.legalsol.pl/blog">
+  <link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/blog">
 
   <script type="application/ld+json">
   {
@@ -401,13 +410,13 @@ function renderPage(articles) {
     <div class="nav-right">
       <div class="lang-dd" id="lang-dd">
         <button class="lang-dd-trigger" onclick="document.getElementById('lang-dd').classList.toggle('open');event.stopPropagation();">
-          <img src="https://flagcdn.com/gb.svg" width="24" height="18" alt="EN" class="lang-flag">
+          <svg width="24" height="16" viewBox="0 0 60 30" style="border-radius:2px;vertical-align:middle"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg>
           <span>EN</span>
           <svg class="arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="lang-dd-panel">
-          <a class="ldp-btn active" href="/blog"><img src="https://flagcdn.com/gb.svg" width="20" height="15" alt="EN" class="lang-flag"><span>EN</span></a>
-          <a class="ldp-btn" href="/blog"><img src="https://flagcdn.com/ru.svg" width="20" height="15" alt="RU" class="lang-flag"><span>RU</span></a>
+          <a class="ldp-btn active" href="/blog"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px;vertical-align:middle"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span></a>
+          <a class="ldp-btn" href="/blog"><svg width="20" height="14" viewBox="0 0 9 6" style="border-radius:2px;vertical-align:middle"><rect width="9" height="2" fill="#fff"/><rect y="2" width="9" height="2" fill="#0039A6"/><rect y="4" width="9" height="2" fill="#D52B1E"/></svg><span>RU</span></a>
         </div>
       </div>
       <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">👤 Cabinet</a>
