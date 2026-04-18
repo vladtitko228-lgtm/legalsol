@@ -2700,130 +2700,217 @@ updateTicker('ru');
 <div id="tab-jobs" class="tab-content">
 <section class="section" style="background:var(--bg);padding-top:120px;">
   <div class="s-inner">
-    <div class="jobs-intro">
-      <div>
-        <div class="s-tag reveal">Работа в Европе / Польше</div>
-        <h2 class="s-title reveal">Легальный статус +<br><em>Гарантированная работа</em></h2>
-        <p class="s-desc reveal">Оформляем вид на жительство и сразу трудоустраиваем. Официально, надёжно, с поддержкой на каждом шагу.</p>
-        <div class="jb-s">
-          <div class="jb reveal"><div class="jb-ico">📋</div><div class="jb-text"><strong>Рабочие разрешения</strong>Все разрешения для работы в ЕС</div></div>
-          <div class="jb reveal"><div class="jb-ico">✅</div><div class="jb-text"><strong>Официальный договор</strong>Только умова о пrace или злецения</div></div>
-          <div class="jb reveal"><div class="jb-ico">🏠</div><div class="jb-text"><strong>Жильё и питание</strong>Многие вакансии включают проживание</div></div>
-          <div class="jb reveal"><div class="jb-ico">💶</div><div class="jb-text"><strong>Конкурентная оплата</strong>От 28 PLN/ч до 22 EUR/ч</div></div>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;"><button class="btn-gold" onclick="openModal()">Подобрать вакансию →</button><button class="btn-ghost" onclick="openModal()">ВНЖ + Работа</button></div>
-      </div>
-    </div>
-
-    <!-- ══ JOB CALCULATOR ══ -->
+    <!-- ══ WORK SECTION BG + JOB CALCULATOR ══ -->
     <style>
-      .jcalc-wrap{max-width:720px;margin:0 auto 60px;padding:0 24px;}
-      .jcalc{background:linear-gradient(145deg,#16113d,#1e1856,#12102e);border:1px solid rgba(139,130,232,.22);border-radius:24px;padding:40px;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative;overflow:hidden;}
-      .jcalc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,130,232,.5),transparent);}
-      .jcalc-head{text-align:center;margin-bottom:32px;}
-      .jcalc-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8B82E8;margin-bottom:10px;}
-      .jcalc-title{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px;}
-      .jcalc-sub{color:rgba(255,255,255,.45);font-size:14px;}
-      .jc-prog{height:4px;background:rgba(139,130,232,.15);border-radius:4px;margin-top:20px;overflow:hidden;}
-      .jc-prog-bar{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:4px;transition:width .4s cubic-bezier(.4,0,.2,1);}
-      .jc-step{display:none;animation:jcFade .3s ease;}
-      .jc-step.active{display:block;}
-      @keyframes jcFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-      .jc-q{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:20px;text-align:center;}
-      .jc-opts{display:flex;flex-direction:column;gap:10px;}
-      .jc-opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-      .jc-opt{background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.18);border-radius:14px;padding:14px 20px;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all .2s;font-family:inherit;}
-      .jc-opt:hover{background:rgba(91,82,204,.25);border-color:#8B82E8;color:#fff;transform:translateX(4px);}
-      .jc-opt.selected{background:rgba(91,82,204,.35);border-color:#5B52CC;color:#fff;}
-      .jc-result-wrap{text-align:center;}
-      .jc-result-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:24px;}
-      .jc-jobs{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;text-align:left;}
-      .jc-job{background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.15);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;}
-      .jc-job-flag{font-size:24px;flex-shrink:0;}
-      .jc-job-info{flex:1;}
-      .jc-job-title{font-weight:700;color:#fff;font-size:15px;margin-bottom:2px;}
-      .jc-job-meta{color:rgba(255,255,255,.45);font-size:12px;}
-      .jc-job-rate{background:rgba(91,82,204,.3);border:1px solid rgba(139,130,232,.3);border-radius:20px;padding:4px 12px;color:#B8B2F5;font-size:13px;font-weight:700;white-space:nowrap;}
-      .jc-wa-btn{width:100%;background:linear-gradient(135deg,#1fbe5a,#17a34a);color:#fff;border:none;padding:16px 24px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(34,197,94,.3);margin-bottom:12px;}
-      .jc-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,.4);}
-      .jc-consult-btn{width:100%;background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none;padding:16px 24px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .2s;margin-bottom:12px;}
-      .jc-consult-btn:hover{transform:translateY(-2px);}
-      .jc-restart{background:none;border:none;color:rgba(255,255,255,.35);font-size:13px;cursor:pointer;font-family:inherit;transition:color .2s;display:block;margin:0 auto;padding:8px;}
-      .jc-restart:hover{color:rgba(255,255,255,.7);}
-      .jc-nodocs-icon{font-size:48px;text-align:center;margin-bottom:16px;}
-      .jc-nodocs-desc{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;text-align:center;margin-bottom:24px;}
-      @media(max-width:600px){.jc-opts-grid{grid-template-columns:1fr;}.jcalc{padding:28px 20px;}}
+      /* Work section background */
+      #tab-jobs .section{position:relative;}
+      #tab-jobs .section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(139,130,232,.07) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;}
+      #tab-jobs .s-inner{position:relative;z-index:1;}
+      .jobs-bg-blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0;}
+      .jobs-bg-b1{top:-80px;left:-80px;width:520px;height:520px;background:radial-gradient(ellipse,rgba(91,82,204,.12),transparent 65%);}
+      .jobs-bg-b2{top:30%;right:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(139,130,232,.07),transparent 65%);}
+
+      /* jobs-intro: align top */
+      .jobs-intro{align-items:start !important;}
+
+      /* ── Calculator ── */
+      .jcalc{
+        background:linear-gradient(150deg,#13102b 0%,#1c1847 55%,#0f0d22 100%);
+        border:1px solid rgba(139,130,232,.28);
+        border-radius:28px;
+        padding:30px 26px;
+        box-shadow:0 0 0 1px rgba(139,130,232,.06),0 32px 80px rgba(0,0,0,.55),0 0 120px rgba(91,82,204,.1);
+        position:relative;
+        overflow:hidden;
+      }
+      .jcalc::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(91,82,204,.2),transparent 55%);pointer-events:none;}
+      .jcalc::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(184,178,245,.7),transparent);}
+      .jc-deco{position:absolute;font-size:100px;opacity:.035;pointer-events:none;user-select:none;line-height:1;}
+      .jc-deco-1{top:-15px;right:-8px;transform:rotate(18deg);}
+      .jc-deco-2{bottom:-18px;left:-8px;transform:rotate(-12deg);}
+
+      .jcalc-head{text-align:center;margin-bottom:22px;position:relative;}
+      .jcalc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.32);border-radius:20px;padding:5px 15px 5px 10px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8B2F5;margin-bottom:12px;}
+      .jcbdot{width:8px;height:8px;background:#5B52CC;border-radius:50%;animation:jcBdot 1.8s infinite;flex-shrink:0;}
+      @keyframes jcBdot{0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,.6)}60%{box-shadow:0 0 0 7px rgba(91,82,204,0)}}
+      .jcalc-title{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:5px;line-height:1.2;}
+      .jcalc-sub{color:rgba(255,255,255,.36);font-size:11.5px;}
+
+      .jc-prog{height:3px;background:rgba(139,130,232,.1);border-radius:4px;margin-top:16px;overflow:hidden;}
+      .jc-prog-bar{height:100%;background:linear-gradient(90deg,#3D3585,#8B82E8,#DAD7FF);border-radius:4px;transition:width .55s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+      .jc-prog-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:jcShimmer 1.8s infinite;}
+      @keyframes jcShimmer{from{transform:translateX(-100%)}to{transform:translateX(300%)}}
+
+      .jc-dots{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;}
+      .jc-dot{width:7px;height:7px;border-radius:50%;background:rgba(139,130,232,.18);transition:all .35s;}
+      .jc-dot.done{background:rgba(91,82,204,.55);}
+      .jc-dot.cur{background:#8B82E8;transform:scale(1.45);box-shadow:0 0 10px rgba(139,130,232,.65);}
+
+      .jc-step{display:none;}
+      .jc-step.active{display:block;animation:jcSlide .38s cubic-bezier(.34,1.4,.64,1);}
+      @keyframes jcSlide{from{opacity:0;transform:translateX(22px) scale(.97)}to{opacity:1;transform:none}}
+
+      .jc-q{font-size:.92rem;font-weight:700;color:#fff;margin-bottom:13px;display:flex;align-items:center;gap:8px;}
+      .jc-q-ic{font-size:20px;flex-shrink:0;}
+
+      .jc-opts{display:flex;flex-direction:column;gap:6px;}
+      .jc-og{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+
+      .jc-opt{
+        background:rgba(139,130,232,.055);
+        border:1.5px solid rgba(139,130,232,.13);
+        border-radius:11px;
+        padding:10px 13px;
+        color:rgba(255,255,255,.7);
+        font-size:12.5px;
+        font-weight:500;
+        cursor:pointer;
+        text-align:left;
+        transition:all .22s cubic-bezier(.4,0,.2,1);
+        font-family:inherit;
+        position:relative;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        gap:2px;
+      }
+      .jc-opt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(91,82,204,.22),transparent 60%);opacity:0;transition:opacity .22s;}
+      .jc-opt:hover{background:rgba(91,82,204,.16);border-color:rgba(139,130,232,.45);color:#fff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.28);}
+      .jc-opt:hover::before{opacity:1;}
+      .jc-opt-r{display:flex;align-items:center;gap:7px;font-weight:600;color:#fff;font-size:12.5px;}
+      .jc-opt-ic{font-size:15px;flex-shrink:0;}
+      .jc-opt-s{font-size:11px;color:rgba(255,255,255,.36);padding-left:22px;}
+      .jc-og .jc-opt{flex-direction:row;align-items:center;justify-content:center;gap:6px;font-weight:600;color:#fff;font-size:13px;text-align:center;}
+
+      .jcr-wrap{text-align:center;}
+      .jcr-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:#4ade80;margin-bottom:12px;}
+      .jcr-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:5px;}
+      .jcr-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;line-height:1.55;}
+
+      .jc-jobs{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;text-align:left;}
+      .jc-job{background:rgba(139,130,232,.055);border:1px solid rgba(139,130,232,.12);border-radius:11px;padding:10px 13px;display:flex;align-items:center;gap:10px;transition:all .2s;}
+      .jc-job:hover{border-color:rgba(139,130,232,.3);background:rgba(91,82,204,.1);}
+      .jc-job-fl{font-size:20px;flex-shrink:0;}
+      .jc-job-inf{flex:1;min-width:0;}
+      .jc-job-t{font-weight:700;color:#fff;font-size:12.5px;}
+      .jc-job-m{color:rgba(255,255,255,.38);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .jc-job-r{background:linear-gradient(135deg,rgba(91,82,204,.3),rgba(139,130,232,.18));border:1px solid rgba(139,130,232,.28);border-radius:14px;padding:3px 10px;color:#B8B2F5;font-size:11px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+
+      .jc-wa{width:100%;background:linear-gradient(135deg,#22c55e,#15803d);color:#fff;border:none;padding:14px 18px;border-radius:12px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:7px;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(34,197,94,.3);animation:jcWaGlow 2.5s infinite;}
+      @keyframes jcWaGlow{0%,100%{box-shadow:0 4px 18px rgba(34,197,94,.3)}50%{box-shadow:0 6px 30px rgba(34,197,94,.55)}}
+      .jc-wa:hover{transform:translateY(-2px);animation:none;box-shadow:0 8px 28px rgba(34,197,94,.5) !important;}
+
+      .jcnd-top{text-align:center;margin-bottom:14px;}
+      .jcnd-av{width:58px;height:58px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,130,232,.35);margin-bottom:5px;}
+      .jcnd-stars{color:#F59E0B;font-size:13px;letter-spacing:2px;}
+      .jcnd-title{font-size:1.05rem;font-weight:800;color:#fff;text-align:center;margin-bottom:7px;}
+      .jcnd-desc{color:rgba(255,255,255,.46);font-size:12px;line-height:1.65;text-align:center;margin-bottom:18px;}
+
+      .jc-restart{background:none;border:none;color:rgba(255,255,255,.2);font-size:11.5px;cursor:pointer;font-family:inherit;transition:color .2s;display:block;margin:4px auto 0;padding:6px 12px;}
+      .jc-restart:hover{color:rgba(255,255,255,.55);}
+
+      @media(max-width:640px){.jc-og{grid-template-columns:1fr;}.jcalc{padding:22px 16px;}}
     </style>
 
-    <div class="jcalc-wrap reveal">
-      <div class="jcalc">
+    <div class="jobs-intro">
+      <div style="position:relative;z-index:1;">
+        <div class="jobs-bg-blob jobs-bg-b1"></div>
+        <div class="jobs-bg-blob jobs-bg-b2"></div>
+        <div class="s-tag reveal">Work in Europe / Poland</div>
+        <h2 class="s-title reveal">Legal Status +<br><em>Guaranteed Employment</em></h2>
+        <p class="s-desc reveal">We process your residence permit and find you a job. Official, reliable, with support every step of the way.</p>
+        <div class="jb-s">
+          <div class="jb reveal"><div class="jb-ico">📋</div><div class="jb-text"><strong>Work Permits</strong>All work permits for EU</div></div>
+          <div class="jb reveal"><div class="jb-ico">✅</div><div class="jb-text"><strong>Official Contract</strong>Umowa o pracę or zlecenie only</div></div>
+          <div class="jb reveal"><div class="jb-ico">🏠</div><div class="jb-text"><strong>Housing &amp; Meals</strong>Many vacancies include accommodation</div></div>
+          <div class="jb reveal"><div class="jb-ico">💶</div><div class="jb-text"><strong>Competitive Pay</strong>From 28 PLN/h to 22 EUR/h</div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;"><button class="btn-gold" onclick="openModal()">Find a Vacancy →</button><button class="btn-ghost" onclick="openModal()">Permit + Job</button></div>
+      </div>
+
+      <!-- ══ JOB CALCULATOR ══ -->
+      <div class="jcalc reveal">
+        <div class="jc-deco jc-deco-1">💼</div>
+        <div class="jc-deco jc-deco-2">🌍</div>
         <div class="jcalc-head">
-          <div class="jcalc-label" id="jc-label-text">ПОДБОР ВАКАНСИИ</div>
-          <div class="jcalc-title" id="jc-main-title">Найдём работу именно для вас</div>
-          <div class="jcalc-sub" id="jc-main-sub">Ответьте на 4 вопроса — покажем подходящие вакансии</div>
+          <div class="jcalc-badge"><span class="jcbdot"></span>JOB MATCHER</div>
+          <div class="jcalc-title">Find Your Perfect Job</div>
+          <div class="jcalc-sub">4 questions &nbsp;&middot;&nbsp; 30 seconds &nbsp;&middot;&nbsp; Real vacancies</div>
           <div class="jc-prog"><div class="jc-prog-bar" id="jcProg" style="width:0%"></div></div>
+        </div>
+        <div class="jc-dots">
+          <div class="jc-dot cur" id="jcdot1"></div>
+          <div class="jc-dot" id="jcdot2"></div>
+          <div class="jc-dot" id="jcdot3"></div>
+          <div class="jc-dot" id="jcdot4"></div>
         </div>
 
         <div class="jc-step active" id="jcs1">
-          <div class="jc-q">⏰ Когда хотите приступить к работе?</div>
+          <div class="jc-q"><span class="jc-q-ic">⏰</span>When can you start?</div>
           <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(1,'now')">⚡ Прямо сейчас — готов выехать</button>
-            <button class="jc-opt" onclick="jcGo(1,'soon')">📅 Через 1–3 месяца</button>
-            <button class="jc-opt" onclick="jcGo(1,'later')">🔍 Пока изучаю варианты</button>
+            <button class="jc-opt" onclick="jcGo(1,'now')"><div class="jc-opt-r"><span class="jc-opt-ic">⚡</span>Right now — ready to go</div><div class="jc-opt-s">Can leave any day, everything ready</div></button>
+            <button class="jc-opt" onclick="jcGo(1,'soon')"><div class="jc-opt-r"><span class="jc-opt-ic">📅</span>In 1–2 months</div><div class="jc-opt-s">Need a short time to prepare</div></button>
+            <button class="jc-opt" onclick="jcGo(1,'q')"><div class="jc-opt-r"><span class="jc-opt-ic">🗓️</span>In 3–6 months</div><div class="jc-opt-s">Planning the move ahead</div></button>
+            <button class="jc-opt" onclick="jcGo(1,'later')"><div class="jc-opt-r"><span class="jc-opt-ic">🔍</span>Just exploring options</div><div class="jc-opt-s">No fixed timeline yet</div></button>
           </div>
         </div>
 
         <div class="jc-step" id="jcs2">
-          <div class="jc-q">💰 Какую зарплату ожидаете?</div>
+          <div class="jc-q"><span class="jc-q-ic">💰</span>Expected monthly salary?</div>
           <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(2,'low')">💸 25–30 PLN/ч &nbsp;·&nbsp; ~3 500 PLN нетто</button>
-            <button class="jc-opt" onclick="jcGo(2,'mid')">💰 30–35 PLN/ч &nbsp;·&nbsp; ~5 000 PLN нетто</button>
-            <button class="jc-opt" onclick="jcGo(2,'eur')">💶 15–20 EUR/ч &nbsp;·&nbsp; Германия / Нидерланды</button>
-            <button class="jc-opt" onclick="jcGo(2,'eurhi')">🏆 20+ EUR/ч &nbsp;·&nbsp; Квалифицированный специалист</button>
+            <button class="jc-opt" onclick="jcGo(2,'low')"><div class="jc-opt-r"><span class="jc-opt-ic">💸</span>28–34 PLN/h · Poland</div><div class="jc-opt-s">∼4,000–5,000 PLN/month net</div></button>
+            <button class="jc-opt" onclick="jcGo(2,'mid')"><div class="jc-opt-r"><span class="jc-opt-ic">💰</span>35–42 PLN/h · Poland</div><div class="jc-opt-s">∼5,500–6,500 PLN/month net</div></button>
+            <button class="jc-opt" onclick="jcGo(2,'hi')"><div class="jc-opt-r"><span class="jc-opt-ic">💎</span>43–52 PLN/h · Poland</div><div class="jc-opt-s">∼7,000–8,500 PLN/month net</div></button>
+            <button class="jc-opt" onclick="jcGo(2,'eur')"><div class="jc-opt-r"><span class="jc-opt-ic">💶</span>14–20 EUR/h · EU countries</div><div class="jc-opt-s">Germany / Netherlands / Belgium</div></button>
+            <button class="jc-opt" onclick="jcGo(2,'eurhi')"><div class="jc-opt-r"><span class="jc-opt-ic">🏆</span>21–30+ EUR/h · EU specialist</div><div class="jc-opt-s">Qualified / senior level role</div></button>
           </div>
         </div>
 
         <div class="jc-step" id="jcs3">
-          <div class="jc-q">📄 Какие документы у вас есть?</div>
+          <div class="jc-q"><span class="jc-q-ic">📄</span>What documents do you have?</div>
           <div class="jc-opts">
-            <button class="jc-opt" onclick="jcGo(3,'karta')">✅ Karta Pobytu (ВНЖ)</button>
-            <button class="jc-opt" onclick="jcGo(3,'permit')">📋 Разрешение на работу / виза D</button>
-            <button class="jc-opt" onclick="jcGo(3,'eu')">🇪🇺 Гражданство / ПМЖ ЕС</button>
-            <button class="jc-opt" onclick="jcGo(3,'none')">❌ Документов нет — нужна помощь</button>
+            <button class="jc-opt" onclick="jcGo(3,'karta')"><div class="jc-opt-r"><span class="jc-opt-ic">✅</span>Karta Pobytu (residence permit)</div><div class="jc-opt-s">Valid card or stamp in passport</div></button>
+            <button class="jc-opt" onclick="jcGo(3,'permit')"><div class="jc-opt-r"><span class="jc-opt-ic">📋</span>Work permit / D-visa</div><div class="jc-opt-s">Employer-sponsored, tied to one company</div></button>
+            <button class="jc-opt" onclick="jcGo(3,'eu')"><div class="jc-opt-r"><span class="jc-opt-ic">🇪🇺</span>EU citizenship / permanent residency</div><div class="jc-opt-s">Full right to work anywhere in EU</div></button>
+            <button class="jc-opt" onclick="jcGo(3,'cukr')"><div class="jc-opt-r"><span class="jc-opt-ic">🛡️</span>Temporary protection (CUKR)</div><div class="jc-opt-s">Valid but need to upgrade status</div></button>
+            <button class="jc-opt" onclick="jcGo(3,'none')"><div class="jc-opt-r"><span class="jc-opt-ic">❌</span>No documents yet</div><div class="jc-opt-s">Need help getting legal status first</div></button>
           </div>
         </div>
 
         <div class="jc-step" id="jcs4">
-          <div class="jc-q">🌍 В какой стране хотите работать?</div>
-          <div class="jc-opts jc-opts-grid">
-            <button class="jc-opt" onclick="jcGo(4,'pl')">🇵🇱 Польша</button>
-            <button class="jc-opt" onclick="jcGo(4,'de')">🇩🇪 Германия</button>
-            <button class="jc-opt" onclick="jcGo(4,'nl')">🇳🇱 Нидерланды</button>
-            <button class="jc-opt" onclick="jcGo(4,'be')">🇧🇪 Бельгия</button>
-            <button class="jc-opt" onclick="jcGo(4,'at')">🇦🇹 Австрия</button>
-            <button class="jc-opt" onclick="jcGo(4,'any')">🌍 Любая страна</button>
+          <div class="jc-q"><span class="jc-q-ic">🌍</span>Which country?</div>
+          <div class="jc-og">
+            <button class="jc-opt" onclick="jcGo(4,'pl')">🇵🇱 Poland</button>
+            <button class="jc-opt" onclick="jcGo(4,'de')">🇩🇪 Germany</button>
+            <button class="jc-opt" onclick="jcGo(4,'nl')">🇳🇱 Netherlands</button>
+            <button class="jc-opt" onclick="jcGo(4,'be')">🇧🇪 Belgium</button>
+            <button class="jc-opt" onclick="jcGo(4,'at')">🇦🇹 Austria</button>
+            <button class="jc-opt" onclick="jcGo(4,'cz')">🇨🇿 Czech Rep.</button>
+            <button class="jc-opt" style="grid-column:1/-1;" onclick="jcGo(4,'any')">🌍 Anywhere in Europe</button>
           </div>
         </div>
 
         <div class="jc-step" id="jcs-result">
-          <div class="jc-result-wrap">
-            <div class="jc-result-title">🎉 Нашли подходящие вакансии!</div>
+          <div class="jcr-wrap">
+            <div class="jcr-badge">✅ Matching vacancies found!</div>
+            <div class="jcr-title">We have perfect jobs for you!</div>
+            <div class="jcr-sub">Write us on WhatsApp and send <strong style="color:#B8B2F5">"WORK"</strong> — we’ll contact you and help get you employed</div>
             <div class="jc-jobs" id="jcJobsList"></div>
-            <button class="jc-wa-btn" onclick="jcWhatsApp()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Написать в WhatsApp — получить детали
-            </button>
-            <button class="jc-restart" onclick="jcRestart()">← Начать заново</button>
+            <button class="jc-wa" onclick="jcWhatsApp()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Write on WhatsApp — send &ldquo;WORK&rdquo;</button>
+            <button class="jc-restart" onclick="jcRestart()">← Start over</button>
           </div>
         </div>
 
         <div class="jc-step" id="jcs-nodocs">
-          <div class="jc-result-wrap">
-            <div class="jc-nodocs-icon">📋</div>
-            <div class="jc-result-title">Сначала нужны документы</div>
-            <div class="jc-nodocs-desc">Без легального статуса лучшие работодатели не возьмут. Но это решаемо — Legal Solution оформит ВНЖ и сразу подберёт вакансию. Всё в одном месте.</div>
-            <button class="jc-consult-btn" onclick="openModal()">Записаться на консультацию →</button>
-            <button class="jc-restart" onclick="jcRestart()">← Назад</button>
+          <div class="jcr-wrap">
+            <div class="jcnd-top">
+              <img class="jcnd-av" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=120&h=120&fit=crop&crop=faces" alt="Legal Solution consultant"/>
+              <div class="jcnd-stars">★★★★★</div>
+            </div>
+            <div class="jcnd-title">First, let’s get your documents</div>
+            <div class="jcnd-desc">Without legal status top employers won’t hire you. But we can fix that — Legal Solution gets your residence permit <strong style="color:#B8B2F5">and</strong> finds you a job. All in one place, from day one.<br><br>6 years of experience &nbsp;·&nbsp; 3,000+ clients &nbsp;·&nbsp; 98% approval rate</div>
+            <button class="jc-wa" onclick="jcNoDocsWA()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Message us on WhatsApp now</button>
+            <button class="jc-restart" onclick="jcRestart()">← Go back</button>
           </div>
         </div>
       </div>
@@ -2831,88 +2918,112 @@ updateTicker('ru');
 
     <script>
     (function(){
-      var jcData = {when:'',salary:'',docs:'',country:''};
-      var jcStep = 1;
-      var JC_JOBS = {
-        pl:  {low:[{flag:'🇵🇱',title:'Работник склада',meta:'Amazon, DHL · Варшава / Лодзь',rate:'30 PLN/ч'},{flag:'🇵🇱',title:'Горничная / клинер',meta:'Marriott, Hilton · Краков / Варшава',rate:'28 PLN/ч'}],
-               mid:[{flag:'🇵🇱',title:'Повар / помощник повара',meta:'NH Hotel Group · Вроцлав / Познань',rate:'32 PLN/ч'},{flag:'🇵🇱',title:'Медсестра / санитар',meta:'Medicover, LUX MED · Варшава',rate:'32 PLN/ч'}],
-               eur:[{flag:'🇵🇱',title:'Работник производства',meta:'Philip Morris · Краков',rate:'35 PLN/ч'},{flag:'🇵🇱',title:'Водитель погрузчика',meta:'FM Logistic · Варшава',rate:'34 PLN/ч'}],
-               eurhi:[{flag:'🇵🇱',title:'Сварщик / слесарь',meta:'MetallBau · Варшава',rate:'38 PLN/ч'},{flag:'🇵🇱',title:'Электрик / монтажник',meta:'Budimex · Варшава',rate:'40 PLN/ч'}]},
-        de:  {low:[{flag:'🇩🇪',title:'Разнорабочий / стройка',meta:'Bauunternehmen GmbH · Берлин',rate:'14 EUR/ч'}],
-               mid:[{flag:'🇩🇪',title:'Строитель / отделочник',meta:'Bauunternehmen · Гамбург',rate:'16 EUR/ч'}],
-               eur:[{flag:'🇩🇪',title:'Слесарь / техник',meta:'MetallBau GmbH · Дюссельдорф',rate:'17 EUR/ч'}],
-               eurhi:[{flag:'🇩🇪',title:'Сварщик MIG/MAG',meta:'MetallBau GmbH · Кёльн',rate:'19 EUR/ч'},{flag:'🇩🇪',title:'Электрик',meta:'ElektroTech · Мюнхен',rate:'20 EUR/ч'}]},
-        nl:  {low:[{flag:'🇳🇱',title:'Работник склада',meta:'Bol.com · Амстердам',rate:'14 EUR/ч'}],
-               mid:[{flag:'🇳🇱',title:'Работник теплицы',meta:'Westland · Роттердам',rate:'15 EUR/ч'}],
-               eur:[{flag:'🇳🇱',title:'Водитель-экспедитор',meta:'TransEuropa · Амстердам',rate:'18 EUR/ч'}],
-               eurhi:[{flag:'🇳🇱',title:'Водитель CE',meta:'TransEuropa Logistics · Роттердам',rate:'22 EUR/ч'}]},
-        be:  {low:[{flag:'🇧🇪',title:'Работник производства',meta:'LogiPack · Антверпен',rate:'14 EUR/ч'}],
-               mid:[{flag:'🇧🇪',title:'Фасовщик / упаковщик',meta:'LogiPack Belgium · Брюссель',rate:'15 EUR/ч'}],
-               eur:[{flag:'🇧🇪',title:'Оператор склада',meta:'DSV · Антверпен',rate:'17 EUR/ч'}],
-               eurhi:[{flag:'🇧🇪',title:'Техник оборудования',meta:'Siemens Belgium · Гент',rate:'20 EUR/ч'}]},
-        at:  {low:[{flag:'🇦🇹',title:'Разнорабочий',meta:'Baumax · Вена',rate:'13 EUR/ч'}],
-               mid:[{flag:'🇦🇹',title:'Горничная / хаусмен',meta:'Vienna Marriott · Вена',rate:'14 EUR/ч'}],
-               eur:[{flag:'🇦🇹',title:'Электрик / монтажник',meta:'ElektroBau Wien · Грац',rate:'18 EUR/ч'}],
-               eurhi:[{flag:'🇦🇹',title:'Инженер-строитель',meta:'Strabag · Вена / Зальцбург',rate:'22 EUR/ч'}]},
-        any: {low:[{flag:'🇵🇱',title:'Работник склада',meta:'Amazon · Польша',rate:'30 PLN/ч'},{flag:'🇧🇪',title:'Работник производства',meta:'LogiPack · Бельгия',rate:'14 EUR/ч'}],
-               mid:[{flag:'🇩🇪',title:'Строитель',meta:'Bauunternehmen · Германия',rate:'16 EUR/ч'},{flag:'🇵🇱',title:'Медсестра',meta:'Medicover · Польша',rate:'32 PLN/ч'}],
-               eur:[{flag:'🇳🇱',title:'Водитель CE',meta:'TransEuropa · Нидерланды',rate:'18 EUR/ч'},{flag:'🇩🇪',title:'Слесарь',meta:'MetallBau · Германия',rate:'17 EUR/ч'}],
-               eurhi:[{flag:'🇩🇪',title:'Сварщик MIG',meta:'MetallBau · Германия',rate:'19 EUR/ч'},{flag:'🇦🇹',title:'Электрик',meta:'ElektroBau · Австрия',rate:'18 EUR/ч'}]}
+      var D={when:'',salary:'',docs:'',country:''};
+      var JOBS={
+        pl:{
+          low:[{f:'🇵🇱',t:'Warehouse Worker',m:'Amazon, DHL · Warsaw / Łódź',r:'30 PLN/h'},{f:'🇵🇱',t:'Hotel Cleaner',m:'Marriott, Hilton · Kraków / Warsaw',r:'29 PLN/h'},{f:'🇵🇱',t:'Food Production',m:'Hochland · Poland',r:'30 PLN/h'}],
+          mid:[{f:'🇵🇱',t:'Cook / Kitchen Staff',m:'NH Hotel Group · Wrocław',r:'36 PLN/h'},{f:'🇵🇱',t:'Factory Operator',m:'Philip Morris · Kraków',r:'38 PLN/h'}],
+          hi:[{f:'🇵🇱',t:'Welder / Metalworker',m:'MetallBau · Warsaw',r:'44 PLN/h'},{f:'🇵🇱',t:'Electrician / Installer',m:'Budimex · Warsaw',r:'46 PLN/h'}],
+          eur:[{f:'🇵🇱',t:'Forklift Operator',m:'FM Logistic · Warsaw',r:'38 PLN/h'},{f:'🇵🇱',t:'Production Technician',m:'Danone · Warsaw',r:'40 PLN/h'}],
+          eurhi:[{f:'🇵🇱',t:'Senior Welder MIG/MAG',m:'MetallBau Group · Warsaw',r:'50 PLN/h'},{f:'🇵🇱',t:'Site Engineer',m:'Budimex · Warsaw',r:'52 PLN/h'}]
+        },
+        de:{
+          low:[{f:'🇩🇪',t:'Construction Helper',m:'Bauunternehmen GmbH · Berlin',r:'15 EUR/h'},{f:'🇩🇪',t:'Warehouse Worker',m:'Amazon · Frankfurt',r:'14 EUR/h'}],
+          mid:[{f:'🇩🇪',t:'Builder / Finisher',m:'Bauunternehmen · Hamburg',r:'17 EUR/h'},{f:'🇩🇪',t:'Factory Worker',m:'VW Group · Wolfsburg',r:'17 EUR/h'}],
+          hi:[{f:'🇩🇪',t:'Skilled Mechanic',m:'BMW Group · Munich',r:'19 EUR/h'}],
+          eur:[{f:'🇩🇪',t:'Fitter / Technician',m:'MetallBau GmbH · Düsseldorf',r:'18 EUR/h'}],
+          eurhi:[{f:'🇩🇪',t:'Welder MIG/MAG',m:'MetallBau GmbH · Cologne',r:'22 EUR/h'},{f:'🇩🇪',t:'Electrician',m:'ElektroTech · Munich',r:'24 EUR/h'}]
+        },
+        nl:{
+          low:[{f:'🇳🇱',t:'Warehouse Worker',m:'Bol.com · Amsterdam',r:'15 EUR/h'}],
+          mid:[{f:'🇳🇱',t:'Greenhouse Worker',m:'Westland · Rotterdam',r:'16 EUR/h'}],
+          hi:[{f:'🇳🇱',t:'Production Line Lead',m:'Heineken · Amsterdam',r:'19 EUR/h'}],
+          eur:[{f:'🇳🇱',t:'Delivery Driver CE',m:'TransEuropa · Amsterdam',r:'19 EUR/h'}],
+          eurhi:[{f:'🇳🇱',t:'Driver CE / Long-haul',m:'TransEuropa Logistics · Rotterdam',r:'24 EUR/h'}]
+        },
+        be:{
+          low:[{f:'🇧🇪',t:'Production Worker',m:'LogiPack · Antwerp',r:'15 EUR/h'}],
+          mid:[{f:'🇧🇪',t:'Packer / Assembly',m:'LogiPack Belgium · Brussels',r:'16 EUR/h'}],
+          hi:[{f:'🇧🇪',t:'Warehouse Supervisor',m:'DSV · Antwerp',r:'19 EUR/h'}],
+          eur:[{f:'🇧🇪',t:'Warehouse Operator',m:'DSV · Antwerp',r:'18 EUR/h'}],
+          eurhi:[{f:'🇧🇪',t:'Equipment Technician',m:'Siemens Belgium · Ghent',r:'22 EUR/h'}]
+        },
+        at:{
+          low:[{f:'🇦🇹',t:'General Worker',m:'Baumax · Vienna',r:'14 EUR/h'}],
+          mid:[{f:'🇦🇹',t:'Houseman / Cleaner',m:'Vienna Marriott · Vienna',r:'16 EUR/h'}],
+          hi:[{f:'🇦🇹',t:'Skilled Electrician',m:'ElektroBau Wien · Graz',r:'20 EUR/h'}],
+          eur:[{f:'🇦🇹',t:'Electrician / Installer',m:'ElektroBau Wien · Graz',r:'19 EUR/h'}],
+          eurhi:[{f:'🇦🇹',t:'Civil Engineer',m:'Strabag · Vienna / Salzburg',r:'25 EUR/h'}]
+        },
+        cz:{
+          low:[{f:'🇨🇿',t:'Warehouse Staff',m:'Amazon · Prague',r:'190 CZK/h'}],
+          mid:[{f:'🇨🇿',t:'Factory Operator',m:'Škoda Auto · Mladá Boleslav',r:'220 CZK/h'}],
+          hi:[{f:'🇨🇿',t:'Production Technician',m:'Bosch · Jihlava',r:'260 CZK/h'}],
+          eur:[{f:'🇨🇿',t:'Forklift Operator',m:'DHL · Prague',r:'240 CZK/h'}],
+          eurhi:[{f:'🇨🇿',t:'CNC Machinist',m:'Škoda Auto · Mladá Boleslav',r:'290 CZK/h'}]
+        },
+        any:{
+          low:[{f:'🇵🇱',t:'Warehouse Worker',m:'Amazon · Poland',r:'30 PLN/h'},{f:'🇧🇪',t:'Production Worker',m:'LogiPack · Belgium',r:'15 EUR/h'}],
+          mid:[{f:'🇩🇪',t:'Builder / Finisher',m:'Bauunternehmen · Germany',r:'17 EUR/h'},{f:'🇵🇱',t:'Cook / Kitchen',m:'NH Hotel Group · Poland',r:'36 PLN/h'}],
+          hi:[{f:'🇵🇱',t:'Welder',m:'MetallBau · Poland',r:'44 PLN/h'},{f:'🇩🇪',t:'Skilled Mechanic',m:'BMW Group · Germany',r:'19 EUR/h'}],
+          eur:[{f:'🇳🇱',t:'Driver CE',m:'TransEuropa · Netherlands',r:'19 EUR/h'},{f:'🇩🇪',t:'Fitter / Technician',m:'MetallBau · Germany',r:'18 EUR/h'}],
+          eurhi:[{f:'🇩🇪',t:'Welder MIG/MAG',m:'MetallBau · Germany',r:'22 EUR/h'},{f:'🇦🇹',t:'Civil Engineer',m:'Strabag · Austria',r:'25 EUR/h'}]
+        }
       };
 
-      window.jcGo = function(step, val) {
-        if(step===1) jcData.when=val;
-        else if(step===2) jcData.salary=val;
+      function dots(n){for(var i=1;i<=4;i++){var d=document.getElementById('jcdot'+i);if(!d)continue;d.className='jc-dot'+(i<n?' done':i===n?' cur':'');}}
+
+      window.jcGo=function(step,val){
+        if(step===1)D.when=val;
+        else if(step===2)D.salary=val;
         else if(step===3){
-          jcData.docs=val;
+          D.docs=val;
           if(val==='none'){
-            ['jcs1','jcs2','jcs3','jcs4','jcs-result'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
-            var nd=document.getElementById('jcs-nodocs'); if(nd)nd.classList.add('active');
+            ['jcs1','jcs2','jcs3','jcs4','jcs-result'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
+            document.getElementById('jcs-nodocs').classList.add('active');
             document.getElementById('jcProg').style.width='100%';
-            return;
+            dots(5);return;
           }
         }
-        else if(step===4){
-          jcData.country=val;
-          showResult();
-          return;
-        }
-        var next = step+1;
+        else if(step===4){D.country=val;showRes();return;}
+        var nxt=step+1;
         document.getElementById('jcs'+step).classList.remove('active');
-        document.getElementById('jcs'+next).classList.add('active');
-        document.getElementById('jcProg').style.width=(next/4*100)+'%';
+        document.getElementById('jcs'+nxt).classList.add('active');
+        document.getElementById('jcProg').style.width=(nxt/4*100)+'%';
+        dots(nxt);
       };
 
-      function showResult(){
-        var c = jcData.country; var s = jcData.salary;
-        var jobs = (JC_JOBS[c]&&JC_JOBS[c][s]) ? JC_JOBS[c][s] : JC_JOBS['any'][s]||JC_JOBS['any']['mid'];
-        var html = jobs.map(function(j){
-          return '<div class="jc-job"><div class="jc-job-flag">'+j.flag+'</div><div class="jc-job-info"><div class="jc-job-title">'+j.title+'</div><div class="jc-job-meta">'+j.meta+'</div></div><div class="jc-job-rate">'+j.rate+'</div></div>';
+      function showRes(){
+        var c=D.country,s=D.salary;
+        var jobs=(JOBS[c]&&JOBS[c][s])?JOBS[c][s]:JOBS.any[s]||JOBS.any.mid;
+        document.getElementById('jcJobsList').innerHTML=jobs.map(function(j){
+          return '<div class="jc-job"><div class="jc-job-fl">'+j.f+'</div><div class="jc-job-inf"><div class="jc-job-t">'+j.t+'</div><div class="jc-job-m">'+j.m+'</div></div><div class="jc-job-r">'+j.r+'</div></div>';
         }).join('');
-        document.getElementById('jcJobsList').innerHTML = html;
-        ['jcs1','jcs2','jcs3','jcs4'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+        ['jcs1','jcs2','jcs3','jcs4'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
         document.getElementById('jcs-result').classList.add('active');
         document.getElementById('jcProg').style.width='100%';
+        dots(5);
       }
 
-      window.jcWhatsApp = function(){
-        var countryNames={pl:'Польша',de:'Германия',nl:'Нидерланды',be:'Бельгия',at:'Австрия',any:'Любая страна'};
-        var salaryNames={low:'25-30 PLN/ч',mid:'30-35 PLN/ч',eur:'15-20 EUR/ч',eurhi:'20+ EUR/ч'};
-        var whenNames={now:'прямо сейчас',soon:'через 1-3 месяца',later:'изучаю варианты'};
-        var msg = 'Здравствуйте! Я заполнил калькулятор вакансий на сайте.\n'
-          + '⏰ Готов: ' + (whenNames[jcData.when]||jcData.when) + '\n'
-          + '💰 Ожидаемая зарплата: ' + (salaryNames[jcData.salary]||jcData.salary) + '\n'
-          + '📄 Документы: ' + jcData.docs + '\n'
-          + '🌍 Страна: ' + (countryNames[jcData.country]||jcData.country) + '\n'
-          + 'Хочу узнать подробнее о подходящих вакансиях.';
+      window.jcWhatsApp=function(){
+        var cN={pl:'Poland',de:'Germany',nl:'Netherlands',be:'Belgium',at:'Austria',cz:'Czech Republic',any:'Anywhere in Europe'};
+        var sN={low:'28-34 PLN/h',mid:'35-42 PLN/h',hi:'43-52 PLN/h',eur:'14-20 EUR/h',eurhi:'21-30+ EUR/h'};
+        var wN={now:'right now',soon:'in 1-2 months',q:'in 3-6 months',later:'just exploring'};
+        var msg='WORK\n\nHello! I used the job calculator on your website.\n\u23f0 Start: '+(wN[D.when]||D.when)+'\n\U0001f4b0 Salary: '+(sN[D.salary]||D.salary)+'\n\U0001f4c4 Documents: '+D.docs+'\n\U0001f30d Country: '+(cN[D.country]||D.country)+'\n\nPlease help me find a matching job!';
         window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
       };
 
-      window.jcRestart = function(){
-        jcData={when:'',salary:'',docs:'',country:''};
-        ['jcs2','jcs3','jcs4','jcs-result','jcs-nodocs'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('active');});
+      window.jcNoDocsWA=function(){
+        var msg='WORK\n\nHello! I visited Legal Solution website.\nI currently have no documents / residence permit.\nI need help getting legal status and finding a job in Poland.\nPlease contact me!';
+        window.open('https://wa.me/48571368388?text='+encodeURIComponent(msg),'_blank');
+      };
+
+      window.jcRestart=function(){
+        D={when:'',salary:'',docs:'',country:''};
+        ['jcs2','jcs3','jcs4','jcs-result','jcs-nodocs'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.remove('active');});
         document.getElementById('jcs1').classList.add('active');
         document.getElementById('jcProg').style.width='0%';
+        dots(1);
       };
     })();
     </script>
