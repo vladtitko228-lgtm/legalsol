@@ -115,68 +115,87 @@ function renderPage(articles) {
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0d2b;
-      --card-bg: #141432;
-      --text: #e0e0e0;
-      --text-muted: #9090b0;
-      --accent: #7c5cfc;
-      --accent-light: #a78bfa;
+      --p900:#1E1B4B;--p800:#2D2869;--p700:#3D3585;--p500:#5B52CC;--p400:#8B82E8;--p300:#B8B2F5;--p200:#DAD7FF;
+      --rb:60px;--txt2:rgba(255,255,255,.58);
+      --bg:#0d0d2b;--card-bg:#141432;--text:#e0e0e0;--text-muted:#9090b0;
+      --accent:#5B52CC;--accent-light:#B8B2F5;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
+      padding-top: 68px;
     }
 
-    /* Header */
-    .header {
-      background: rgba(13,13,43,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(124,92,252,0.2);
-      padding: 16px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    /* NAV */
+    nav {
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      padding:0 48px;height:68px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      background:rgba(10,8,28,.85);
+      backdrop-filter:blur(30px) saturate(200%);
+      -webkit-backdrop-filter:blur(30px) saturate(200%);
+      border-bottom:1px solid rgba(139,130,232,.18);
+      box-shadow:0 4px 32px rgba(0,0,0,.4);
     }
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .logo { display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0; }
+    .logo-name { font-family:'Playfair Display',serif;font-size:16px;font-weight:700;letter-spacing:2px;color:#fff; }
+    .logo-sub { font-size:8px;letter-spacing:3px;color:var(--p400); }
+    .tab-nav {
+      display:flex;gap:3px;
+      background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.14);
+      border-radius:var(--rb);padding:4px;margin-left:40px;
     }
-    .logo {
-      color: white;
-      font-weight: 800;
-      font-size: 18px;
-      text-decoration: none;
-      letter-spacing: 2px;
+    .tab-btn {
+      background:none;border:none;padding:8px 18px;border-radius:var(--rb);
+      font-size:13px;font-weight:500;cursor:pointer;
+      font-family:'Inter',sans-serif;color:var(--txt2);
+      transition:all .25s;white-space:nowrap;text-decoration:none;display:inline-block;
     }
-    .logo span { color: var(--accent); }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: 24px;
-      font-size: 14px;
-      transition: color 0.2s;
+    .tab-btn.active { background:var(--p500);color:#fff;box-shadow:0 2px 10px rgba(91,82,204,.4); }
+    .tab-btn:hover:not(.active) { background:rgba(139,130,232,.2);color:#fff; }
+    .tab-btn.referral-btn {
+      background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(234,179,8,.08));
+      border:1px solid rgba(250,204,21,.25);color:#fde047;position:relative;overflow:hidden;
     }
-    .nav-links a:hover { color: white; }
-    .btn-consult {
-      background: var(--accent);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 24px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      margin-left: 24px;
+    .tab-btn.referral-btn .shimmer {
+      position:absolute;inset:0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+      animation:heroRefShimmer 3s ease-in-out infinite;pointer-events:none;
     }
+    @keyframes heroRefShimmer{0%{transform:translateX(-100%)}50%,100%{transform:translateX(100%)}}
+    .gift-icon{display:inline-block;margin-right:5px;}
+    .nav-right { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+    .lang-dd{position:relative;z-index:9999;}
+    .lang-dd-trigger{display:flex;align-items:center;gap:7px;background:rgba(139,130,232,.1);border:1px solid rgba(139,130,232,.22);border-radius:60px;padding:6px 12px 6px 8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;color:rgba(255,255,255,.85);transition:all .2s;}
+    .lang-dd-trigger:hover{background:rgba(91,82,204,.25);color:#fff;}
+    .lang-dd-trigger .arrow{transition:transform .25s;opacity:.5;}
+    .lang-dd.open .arrow{transform:rotate(180deg);}
+    .lang-dd-panel{position:absolute;top:calc(100% + 8px);right:0;background:rgba(12,10,36,.97);border:1px solid rgba(139,130,232,.22);border-radius:16px;padding:6px;display:none;flex-direction:column;gap:1px;min-width:120px;box-shadow:0 24px 60px rgba(0,0,0,.7);backdrop-filter:blur(20px);z-index:99999;}
+    .lang-dd.open .lang-dd-panel{display:flex;}
+    .ldp-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;color:rgba(255,255,255,.75);font-size:12px;font-weight:600;font-family:'Inter',sans-serif;transition:all .15s;text-decoration:none;}
+    .ldp-btn:hover{background:rgba(91,82,204,.25);color:#fff;}
+    .lang-flag{border-radius:2px;flex-shrink:0;display:block;}
+    .nav-cab-btn {
+      background:rgba(30,27,75,.7);border:1.5px solid rgba(139,130,232,.45);
+      color:#B8B2F5;padding:9px 20px;border-radius:var(--rb);
+      font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;
+      display:flex;align-items:center;gap:6px;text-decoration:none;transition:all .2s;
+    }
+    .nav-cab-btn:hover{background:rgba(91,82,204,.35);color:#fff;}
+    .mob-burger{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;width:32px;}
+    .mob-burger span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;}
+    #mob-nav{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(10,8,28,.97);border-bottom:1px solid rgba(139,130,232,.18);padding:12px;z-index:499;flex-direction:column;gap:4px;}
+    #mob-nav.open{display:flex;}
+    .mob-nav-btn{padding:12px 16px;border-radius:12px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:background .2s;}
+    .mob-nav-btn:hover,.mob-nav-active{background:rgba(91,82,204,.2);color:#fff;}
 
     /* Hero */
     .blog-hero {
@@ -350,25 +369,61 @@ function renderPage(articles) {
     .search-clear { position:absolute; right:34px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.5); cursor:pointer; font-size:18px; display:none; line-height:1; padding:4px 6px; }
     #no-results { display:none; text-align:center; padding:60px 24px; color:rgba(255,255,255,.4); font-size:16px; grid-column:1/-1; }
 
+    @media (max-width: 960px) {
+      nav { padding:0 14px 0 12px; height:60px; }
+      body { padding-top: 60px; }
+      .tab-nav,.nav-cab-btn { display:none; }
+      .mob-burger { display:flex; }
+      #mob-nav { top:60px; }
+    }
     @media (max-width: 640px) {
       .blog-hero h1 { font-size: 2rem; }
       .articles-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="header-inner">
-      <a href="https://www.legalsol.pl" class="logo">LEGAL <span>SOLUTIONS</span></a>
-      <nav class="nav-links">
-        <a href="https://www.legalsol.pl">Home</a>
-        <a href="/blog" style="color:white;">Blog</a>
-        <a href="https://www.legalsol.pl" class="btn-consult">Free Consultation</a>
-      </nav>
+  <nav>
+    <a class="logo" href="https://www.legalsol.pl">
+      <svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+      <div><div class="logo-name">LEGAL SOLUTIONS</div><div class="logo-sub">LEGALIZATION SERVICES</div></div>
+    </a>
+    <div class="tab-nav">
+      <a class="tab-btn" href="https://www.legalsol.pl">Home</a>
+      <a class="tab-btn" href="https://www.legalsol.pl#tab-services">Services</a>
+      <a class="tab-btn" href="https://www.legalsol.pl#tab-jobs">Work</a>
+      <a class="tab-btn active" href="/blog">Blog</a>
+      <a class="tab-btn" href="https://www.legalsol.pl#tab-ai">AI</a>
+      <a class="tab-btn" href="https://www.legalsol.pl#tab-status">Check Status</a>
+      <a class="tab-btn referral-btn" href="https://www.legalsol.pl#tab-referral"><span class="shimmer"></span><span class="gift-icon">🎁</span>Refer a Friend</a>
     </div>
-  </header>
+    <div class="nav-right">
+      <div class="lang-dd" id="lang-dd">
+        <button class="lang-dd-trigger" onclick="document.getElementById('lang-dd').classList.toggle('open');event.stopPropagation();">
+          <img src="https://flagcdn.com/gb.svg" width="24" height="18" alt="EN" class="lang-flag">
+          <span>EN</span>
+          <svg class="arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="lang-dd-panel">
+          <a class="ldp-btn active" href="/blog"><img src="https://flagcdn.com/gb.svg" width="20" height="15" alt="EN" class="lang-flag"><span>EN</span></a>
+          <a class="ldp-btn" href="/blog"><img src="https://flagcdn.com/ru.svg" width="20" height="15" alt="RU" class="lang-flag"><span>RU</span></a>
+        </div>
+      </div>
+      <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">👤 Cabinet</a>
+      <button class="mob-burger" onclick="document.getElementById('mob-nav').classList.toggle('open');" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div id="mob-nav">
+    <a class="mob-nav-btn" href="https://www.legalsol.pl">Home</a>
+    <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-services">Services</a>
+    <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-jobs">Work</a>
+    <a class="mob-nav-btn mob-nav-active" href="/blog">Blog</a>
+    <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-ai">AI</a>
+    <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-status">Check Status</a>
+    <a class="mob-nav-btn" href="https://www.legalsol.pl#tab-referral" style="color:#fde047;">🎁 Refer a Friend</a>
+  </div>
 
   <section class="blog-hero">
     <h1>Immigration Blog</h1>
@@ -426,6 +481,10 @@ function renderPage(articles) {
       document.getElementById('searchInput').value = '';
       handleSearch('');
     }
+    document.addEventListener('click', function(e) {
+      var dd = document.getElementById('lang-dd');
+      if (dd && !dd.contains(e.target)) dd.classList.remove('open');
+    });
   </script>
 
 </body>
