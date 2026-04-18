@@ -1,5 +1,5 @@
 // ============================================================
-// Vercel Serverless Function â Blog Listing Page
+// Vercel Serverless Function  -  Blog Listing Page
 // SSR page listing all published articles from Notion
 // Route: /blog  (via vercel.json rewrite)
 // ============================================================
@@ -90,13 +90,13 @@ function renderPage(articles) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog â Legal Solutions | Immigration Guides for Poland</title>
+  <title>Blog - Legal Solutions | Immigration Guides for Poland</title>
   <meta name="description" content="Expert guides on immigration to Poland: karta pobytu, work permits, PESEL, business registration, and more. Free resources from Legal Solutions.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="canonical" href="https://www.legalsol.pl/blog">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Blog â Legal Solutions">
+  <meta property="og:title" content="Blog - Legal Solutions">
   <meta property="og:description" content="Expert immigration guides for Poland">
   <meta property="og:url" content="https://www.legalsol.pl/blog">
 
