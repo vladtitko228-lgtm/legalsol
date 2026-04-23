@@ -525,6 +525,19 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 .nav-ph:hover{opacity:.8;}
 
+/* Phone number in desktop navbar */
+.nav-phone-num{
+  display:flex;align-items:center;gap:5px;
+  font-size:13px;font-weight:700;color:rgba(255,255,255,.85);
+  text-decoration:none;white-space:nowrap;
+  padding:6px 10px;border-radius:20px;
+  border:1px solid rgba(139,130,232,.2);
+  background:rgba(139,130,232,.08);
+  transition:background .2s,color .2s;
+}
+.nav-phone-num:hover{background:rgba(139,130,232,.18);color:#fff;}
+.nav-phone-num svg{opacity:.6;flex-shrink:0;}
+
 /* WA + Email nav circles */
 .nav-circle{
   width:34px;height:34px;border-radius:50%;
@@ -2441,6 +2454,12 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
   <div class="nav-right">
 
     <a class="nav-ph" href="tel:+48735248525" style="display:none">📱 +48 735 248 525</a>
+
+    <!-- Phone number between referral and circles -->
+    <a class="nav-phone-num" href="tel:+48735248525">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12.32a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.63a16 16 0 006.29 6.29l1.16-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +48 735 248 525
+    </a>
 
     <!-- WA + Email animated circles -->
     <a class="nav-circle nav-circle-wa" href="https://wa.me/48735248525" target="_blank" rel="noopener" aria-label="WhatsApp">
