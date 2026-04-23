@@ -499,7 +499,7 @@ img{max-width:100%;height:auto;}
 
 /* NAV */
 
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:all .5s cubic-bezier(.16,1,.3,1);background:rgba(10,8,28,.3);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(139,130,232,.08);box-shadow:0 1px 0 rgba(139,130,232,.04);}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 48px;height:68px;display:flex;align-items:center;justify-content:flex-start;gap:16px;transition:all .5s cubic-bezier(.16,1,.3,1);background:rgba(10,8,28,.3);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(139,130,232,.08);box-shadow:0 1px 0 rgba(139,130,232,.04);}
 
 nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(200%);-webkit-backdrop-filter:blur(30px) saturate(200%);border-bottom:1px solid rgba(139,130,232,.18);box-shadow:0 4px 32px rgba(0,0,0,.4),0 1px 0 rgba(139,130,232,.1);}
 
@@ -511,44 +511,81 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 @media(max-width:960px){.logo-name{font-size:20px;letter-spacing:1.5px;}.logo-sub{font-size:9px;letter-spacing:2px;}}
 
-/* Collapsible nav menu toggle button */
-.nav-menu-wrap{position:relative;display:flex;align-items:center;}
-.nav-menu-toggle{
-  display:flex;align-items:center;gap:9px;
-  background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.18);
-  border-radius:var(--rb);padding:8px 18px;cursor:pointer;
-  font-size:13px;font-weight:500;font-family:'Inter',sans-serif;
-  color:var(--txt2);transition:all .25s;white-space:nowrap;
-}
-.nav-menu-toggle:hover,.nav-menu-wrap.open .nav-menu-toggle{
-  background:rgba(139,130,232,.18);color:#fff;border-color:rgba(139,130,232,.35);
-  box-shadow:0 2px 12px rgba(91,82,204,.25);
-}
-.nm-bars{display:flex;flex-direction:column;gap:3.5px;width:14px;flex-shrink:0;}
-.nm-bars span{display:block;height:1.5px;background:currentColor;border-radius:2px;transition:transform .22s ease,opacity .22s ease;}
-.nav-menu-wrap.open .nm-bars span:nth-child(1){transform:translateY(5px) rotate(45deg);}
-.nav-menu-wrap.open .nm-bars span:nth-child(2){opacity:0;transform:scaleX(0);}
-.nav-menu-wrap.open .nm-bars span:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
-.nm-chevron{width:10px;height:10px;flex-shrink:0;transition:transform .22s ease;color:var(--p300);}
-.nav-menu-wrap.open .nm-chevron{transform:rotate(180deg);}
+/* Collapsible nav menu — inline slide-right */
+.nav-menu-wrap{display:flex;align-items:center;gap:0;flex-shrink:0;}
 
-/* Dropdown tab-nav panel */
+/* Toggle button: glowing pill next to logo */
+.nav-menu-toggle{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(91,82,204,.18);
+  border:1px solid rgba(139,130,232,.35);
+  border-radius:var(--rb);padding:7px 14px 7px 12px;cursor:pointer;
+  font-size:13px;font-weight:600;font-family:'Inter',sans-serif;
+  color:#e0dcff;white-space:nowrap;flex-shrink:0;
+  position:relative;overflow:hidden;
+  transition:background .25s,border-color .25s,box-shadow .25s;
+  animation:nmTogglePulse 2.8s ease-in-out infinite;
+}
+.nav-menu-toggle::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.1) 50%,transparent 100%);
+  background-size:200% 100%;
+  animation:nmToggleShimmer 2.8s ease-in-out infinite;
+}
+@keyframes nmTogglePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,0),0 2px 8px rgba(91,82,204,.3);}
+  50%{box-shadow:0 0 0 3px rgba(91,82,204,.18),0 2px 14px rgba(91,82,204,.45);}
+}
+@keyframes nmToggleShimmer{
+  0%{background-position:200% 0;}
+  60%,100%{background-position:-200% 0;}
+}
+.nav-menu-toggle:hover{background:rgba(91,82,204,.3);border-color:rgba(139,130,232,.6);box-shadow:0 2px 18px rgba(91,82,204,.4);}
+.nav-menu-wrap.open .nav-menu-toggle{background:rgba(91,82,204,.28);border-color:rgba(139,130,232,.55);animation:none;box-shadow:0 2px 14px rgba(91,82,204,.35);}
+
+/* 3-bar icon */
+.nm-bars{display:flex;flex-direction:column;gap:3px;width:13px;flex-shrink:0;}
+.nm-bars span{display:block;height:1.5px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .25s ease;}
+.nav-menu-wrap.open .nm-bars span:nth-child(1){transform:translateY(4.5px) rotate(45deg);}
+.nav-menu-wrap.open .nm-bars span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-menu-wrap.open .nm-bars span:nth-child(3){transform:translateY(-4.5px) rotate(-45deg);}
+
+/* Right-pointing chevron → rotates when open */
+.nm-chevron{width:10px;height:10px;flex-shrink:0;transition:transform .3s cubic-bezier(.16,1,.3,1);color:#a89ff5;transform:rotate(-90deg);}
+.nav-menu-wrap.open .nm-chevron{transform:rotate(90deg);}
+
+/* Tab-nav: inline, slides right */
 .tab-nav{
-  position:absolute;top:calc(100% + 10px);left:50%;
-  transform:translateX(-50%) translateY(-6px);
-  background:rgba(12,10,28,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(139,130,232,.2);border-radius:20px;
-  padding:8px;gap:4px;flex-wrap:wrap;justify-content:center;
-  min-width:540px;
-  opacity:0;pointer-events:none;
-  transition:opacity .2s ease,transform .2s cubic-bezier(.16,1,.3,1);
-  box-shadow:0 20px 60px rgba(0,0,0,.65),inset 0 1px 0 rgba(139,130,232,.12);
-  z-index:600;
+  display:flex;gap:3px;
+  overflow:hidden;
+  max-width:0;
+  opacity:0;
+  padding:4px 0;
+  margin-left:0;
+  background:rgba(139,130,232,.07);
+  border:1px solid transparent;
+  border-radius:var(--rb);
+  transition:max-width .48s cubic-bezier(.16,1,.3,1),opacity .3s ease,margin-left .3s ease,padding .3s ease,border-color .3s ease,background .3s ease;
+  pointer-events:none;
 }
 .nav-menu-wrap.open .tab-nav{
-  opacity:1;pointer-events:auto;
-  transform:translateX(-50%) translateY(0);
+  max-width:780px;
+  opacity:1;
+  margin-left:6px;
+  padding:4px;
+  border-color:rgba(139,130,232,.14);
+  pointer-events:auto;
 }
+
+/* Stagger fade-in for each button when menu opens */
+@keyframes nmBtnIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
+.nav-menu-wrap.open .tab-btn:nth-child(1){animation:nmBtnIn .25s ease forwards .06s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(2){animation:nmBtnIn .25s ease forwards .11s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(3){animation:nmBtnIn .25s ease forwards .16s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(4){animation:nmBtnIn .25s ease forwards .21s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(5){animation:nmBtnIn .25s ease forwards .26s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(6){animation:nmBtnIn .25s ease forwards .31s;opacity:0;}
+.nav-menu-wrap.open .tab-btn:nth-child(7){animation:nmBtnIn .25s ease forwards .36s;opacity:0;}
 
 .tab-btn{background:none;border:none;padding:8px 18px;border-radius:var(--rb);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--txt2);transition:all .25s;white-space:nowrap;}
 
@@ -556,7 +593,7 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 .tab-btn:hover:not(.active){background:rgba(139,130,232,.2);box-shadow:none;}
 
-.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;}
 
 .nav-ph{font-size:13px;color:var(--gold2);text-decoration:none;font-weight:600;white-space:nowrap;}
 
@@ -1604,7 +1641,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   #lang-dd-arrow{width:7px!important;height:7px!important;}
 
-  .tab-nav,.nav-ph,.btn-cta{display:none;}
+  .tab-nav,.nav-ph,.btn-cta,.nav-menu-toggle{display:none;}
 
   #hero{grid-template-columns:1fr;padding:80px 20px 50px;}
 
@@ -1965,7 +2002,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   .mob-burger{display:none!important;}
 
-  .tab-nav{display:flex!important;}/* still flex layout; open/close via opacity+pointer-events */
+  /* tab-nav display controlled by max-width/opacity in .nav-menu-wrap.open rule */
 
   .btn-cta.nav-cab-btn{display:flex!important;}
 
@@ -2534,7 +2571,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
     <button class="nav-menu-toggle" id="navMenuToggle" onclick="toggleNavMenu()" aria-label="Menu">
       <span class="nm-bars"><span></span><span></span><span></span></span>
       <span id="navMenuLabel">Меню</span>
-      <svg class="nm-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5l3 3 3-3"/></svg>
+      <svg class="nm-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 2l3 3-3 3"/></svg>
     </button>
 
     <div class="tab-nav" id="tabNav">
