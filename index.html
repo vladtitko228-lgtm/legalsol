@@ -11334,7 +11334,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <div class="cab-field"><label class="cab-label">Пароль</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
 
-      <button class="cab-btn-primary" onclick="event.preventDefault();showCabComingSoon()">Войти →</button>
+      <button class="cab-btn-primary" onclick="cabLogin()">Войти →</button>
 
       <div class="cab-login-hint">Забыли пароль? <span onclick="cabToast('Ссылка восстановления отправлена','info')">Восстановить</span></div>
 
@@ -12499,6 +12499,21 @@ function showCabComingSoon(){
 
 
 function cabLogin(){
+
+  var pass=document.getElementById('cab-pass');
+  var passVal=pass?pass.value:'';
+
+  if(passVal!=='1111'){
+    // shake + red border on wrong password
+    if(pass){
+      pass.style.borderColor='rgba(239,68,68,.7)';
+      pass.style.boxShadow='0 0 0 3px rgba(239,68,68,.18)';
+      pass.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:320,easing:'ease-out'});
+      setTimeout(function(){pass.style.borderColor='';pass.style.boxShadow='';},1800);
+    }
+    cabToast('Неверный пароль','error');
+    return;
+  }
 
   document.getElementById('cab-login-screen').style.display='none';
 
