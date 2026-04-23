@@ -1801,6 +1801,19 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
 .mob-nav-lang-btn .mnl-flag svg{display:block;width:100%;height:100%;}
 
+/* Mobile nav phone number */
+.mob-nav-phone{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 16px;
+  border-top:1px solid rgba(139,130,232,.12);
+  text-decoration:none;
+  font-size:16px;font-weight:700;letter-spacing:.5px;
+  color:#fff;
+  background:rgba(139,130,232,.08);
+}
+.mob-nav-phone svg{opacity:.6;flex-shrink:0;}
+.mob-nav-phone:active{background:rgba(139,130,232,.18);}
+
 /* Mobile nav social row */
 .mob-nav-social{
   display:flex;flex-direction:column;gap:6px;
@@ -2542,6 +2555,12 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
     <span id="mnbtn-referral">Приведи друга</span>
 
   </button>
+
+  <!-- Phone number -->
+  <a class="mob-nav-phone" href="tel:+48735248525">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12.32a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.63a16 16 0 006.29 6.29l1.16-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    +48 735 248 525
+  </a>
 
   <!-- Social contacts row -->
   <div class="mob-nav-social">
