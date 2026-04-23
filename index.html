@@ -511,7 +511,44 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 @media(max-width:960px){.logo-name{font-size:20px;letter-spacing:1.5px;}.logo-sub{font-size:9px;letter-spacing:2px;}}
 
-.tab-nav{display:flex;gap:3px;background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.14);border-radius:var(--rb);padding:4px;}
+/* Collapsible nav menu toggle button */
+.nav-menu-wrap{position:relative;display:flex;align-items:center;}
+.nav-menu-toggle{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.18);
+  border-radius:var(--rb);padding:8px 18px;cursor:pointer;
+  font-size:13px;font-weight:500;font-family:'Inter',sans-serif;
+  color:var(--txt2);transition:all .25s;white-space:nowrap;
+}
+.nav-menu-toggle:hover,.nav-menu-wrap.open .nav-menu-toggle{
+  background:rgba(139,130,232,.18);color:#fff;border-color:rgba(139,130,232,.35);
+  box-shadow:0 2px 12px rgba(91,82,204,.25);
+}
+.nm-bars{display:flex;flex-direction:column;gap:3.5px;width:14px;flex-shrink:0;}
+.nm-bars span{display:block;height:1.5px;background:currentColor;border-radius:2px;transition:transform .22s ease,opacity .22s ease;}
+.nav-menu-wrap.open .nm-bars span:nth-child(1){transform:translateY(5px) rotate(45deg);}
+.nav-menu-wrap.open .nm-bars span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-menu-wrap.open .nm-bars span:nth-child(3){transform:translateY(-5px) rotate(-45deg);}
+.nm-chevron{width:10px;height:10px;flex-shrink:0;transition:transform .22s ease;color:var(--p300);}
+.nav-menu-wrap.open .nm-chevron{transform:rotate(180deg);}
+
+/* Dropdown tab-nav panel */
+.tab-nav{
+  position:absolute;top:calc(100% + 10px);left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  background:rgba(12,10,28,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(139,130,232,.2);border-radius:20px;
+  padding:8px;gap:4px;flex-wrap:wrap;justify-content:center;
+  min-width:540px;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 20px 60px rgba(0,0,0,.65),inset 0 1px 0 rgba(139,130,232,.12);
+  z-index:600;
+}
+.nav-menu-wrap.open .tab-nav{
+  opacity:1;pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
 
 .tab-btn{background:none;border:none;padding:8px 18px;border-radius:var(--rb);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;color:var(--txt2);transition:all .25s;white-space:nowrap;}
 
@@ -1928,7 +1965,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   .mob-burger{display:none!important;}
 
-  .tab-nav{display:flex!important;}
+  .tab-nav{display:flex!important;}/* still flex layout; open/close via opacity+pointer-events */
 
   .btn-cta.nav-cab-btn{display:flex!important;}
 
@@ -2492,27 +2529,37 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   </a>
 
-  <div class="tab-nav">
+  <div class="nav-menu-wrap" id="navMenuWrap">
 
-    <button class="tab-btn active" id="tbtn-home" onclick="showTab('home')">Главная</button>
-
-    <button class="tab-btn" id="tbtn-services" onclick="showTab('services')">Наши услуги</button>
-
-    <button class="tab-btn" id="tbtn-jobs" onclick="showTab('jobs')">Работа</button>
-
-    <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Блог</button>
-
-    <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">ИИ</button>
-
-    <button class="tab-btn" id="tbtn-status" onclick="showTab('status')">Проверить статус</button>
-
-    <button class="tab-btn" id="tbtn-referral" onclick="showTab('referral')" style="background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(234,179,8,.08));border:1px solid rgba(250,204,21,.25);color:#fde047;position:relative;overflow:hidden;">
-
-      <span style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);animation:heroRefShimmer 3s ease-in-out infinite;pointer-events:none;"></span>
-
-      Приведи друга
-
+    <button class="nav-menu-toggle" id="navMenuToggle" onclick="toggleNavMenu()" aria-label="Menu">
+      <span class="nm-bars"><span></span><span></span><span></span></span>
+      <span id="navMenuLabel">Меню</span>
+      <svg class="nm-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5l3 3 3-3"/></svg>
     </button>
+
+    <div class="tab-nav" id="tabNav">
+
+      <button class="tab-btn active" id="tbtn-home" onclick="showTab('home')">Главная</button>
+
+      <button class="tab-btn" id="tbtn-services" onclick="showTab('services')">Наши услуги</button>
+
+      <button class="tab-btn" id="tbtn-jobs" onclick="showTab('jobs')">Работа</button>
+
+      <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Блог</button>
+
+      <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">ИИ</button>
+
+      <button class="tab-btn" id="tbtn-status" onclick="showTab('status')">Проверить статус</button>
+
+      <button class="tab-btn" id="tbtn-referral" onclick="showTab('referral')" style="background:linear-gradient(135deg,rgba(250,204,21,.15),rgba(234,179,8,.08));border:1px solid rgba(250,204,21,.25);color:#fde047;position:relative;overflow:hidden;">
+
+        <span style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);animation:heroRefShimmer 3s ease-in-out infinite;pointer-events:none;"></span>
+
+        Приведи друга
+
+      </button>
+
+    </div>
 
   </div>
 
@@ -11106,7 +11153,7 @@ updateTicker('ru');
 
 nav.cab-nav-dark{background:rgba(5,3,18,.98) !important;backdrop-filter:blur(20px) !important;border-bottom:1px solid rgba(91,82,204,.2) !important;}
 
-nav.cab-nav-dark .tab-nav{display:none !important;}
+nav.cab-nav-dark .nav-menu-wrap{display:none !important;}
 
 nav.cab-nav-dark .logo-name{color:#fff !important;}
 
@@ -13954,7 +14001,23 @@ window.addEventListener('scroll',function(){document.getElementById('nav').class
 
 // Tabs
 
+// Nav menu toggle
+function toggleNavMenu(){
+  var wrap=document.getElementById('navMenuWrap');
+  if(wrap)wrap.classList.toggle('open');
+}
+function closeNavMenu(){
+  var wrap=document.getElementById('navMenuWrap');
+  if(wrap)wrap.classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  var wrap=document.getElementById('navMenuWrap');
+  if(wrap&&!wrap.contains(e.target))wrap.classList.remove('open');
+});
+
 function showTab(name){
+
+  closeNavMenu();
 
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
 
@@ -16260,6 +16323,7 @@ var T={
 
     'pre-label':'ЗАГРУЖАЕМ ВАШИ ДОКУМЕНТЫ',
 
+    'navMenuLabel':'Меню',
     'tbtn-home':'Главная','tbtn-services':'Услуги','tbtn-jobs':'Работа','tbtn-blog':'Блог',
 
     'mnbtn-home':'Главная','mnbtn-services':'Наши услуги','mnbtn-jobs':'Работа','mnbtn-blog':'Блог','mnbtn-ai':'ИИ','mnbtn-status':'Проверить статус',
@@ -16802,6 +16866,7 @@ var T={
 
     'pre-label':'LOADING YOUR DOCUMENTS',
 
+    'navMenuLabel':'Menu',
     'tbtn-home':'Home','tbtn-services':'Services','tbtn-jobs':'Work','tbtn-blog':'Blog',
 
     'mnbtn-home':'Home','mnbtn-services':'Our Services','mnbtn-jobs':'Jobs','mnbtn-blog':'Blog','mnbtn-ai':'AI','mnbtn-status':'Check Status',
@@ -17418,6 +17483,7 @@ var T={
 
     'pre-label':'ŁADOWANIE TWOICH DOKUMENTÓW','pre-sub':'LEGALIZACJA W POLSCE',
 
+    'navMenuLabel':'Menu',
     'tbtn-home':'Strona główna','tbtn-services':'Usługi','tbtn-jobs':'Praca','tbtn-blog':'Blog',
 
     'mnbtn-home':'Strona główna','mnbtn-services':'Nasze usługi','mnbtn-jobs':'Praca','mnbtn-blog':'Blog','mnbtn-ai':'AI','mnbtn-status':'Sprawdź status',
@@ -17994,6 +18060,7 @@ var T={
 
     'pre-label':'CARGANDO SUS DOCUMENTOS','pre-sub':'LEGALIZACIÓN EN POLONIA',
 
+    'navMenuLabel':'Menú',
     'tbtn-home':'Inicio','tbtn-services':'Servicios','tbtn-jobs':'Trabajo','tbtn-blog':'Blog',
 
     'mnbtn-home':'Inicio','mnbtn-services':'Servicios','mnbtn-jobs':'Empleos','mnbtn-blog':'Blog','mnbtn-ai':'IA','mnbtn-status':'Verificar estado',
@@ -18564,6 +18631,7 @@ var T={
 
     'pre-label':'BELGELERİNİZ YÜKLENİYOR','pre-sub':'POLONYA\'DA YASAL STATÜ',
 
+    'navMenuLabel':'Menü',
     'tbtn-home':'Ana Sayfa','tbtn-services':'Hizmetler','tbtn-jobs':'İş','tbtn-blog':'Blog',
 
     'mnbtn-home':'Ana Sayfa','mnbtn-services':'Hizmetler','mnbtn-jobs':'İş İlanları','mnbtn-blog':'Blog','mnbtn-ai':'YZ','mnbtn-status':'Durumu kontrol et',
@@ -19134,6 +19202,7 @@ var T={
 
     'pre-label':'SƏNƏDLƏRİNİZ YÜKLƏNİR','pre-sub':'POLŞADA LEQALLAŞİYA',
 
+    'navMenuLabel':'Menyu',
     'tbtn-home':'Ana Səhifə','tbtn-services':'Xidmətlər','tbtn-jobs':'İş','tbtn-blog':'Bloq',
 
     'mnbtn-home':'Ana Səhifə','mnbtn-services':'Xidmətlər','mnbtn-jobs':'Vakansiyalar','mnbtn-blog':'Blog','mnbtn-ai':'Süni İdrak','mnbtn-status':'Statusu yoxla',
@@ -19704,6 +19773,7 @@ var T={
 
     'pre-label':'आपके दस्तावेज़ लोड हो रहे हैं','pre-sub':'पोलैंड में वैधीकरण',
 
+    'navMenuLabel':'मेनू',
     'tbtn-home':'होम','tbtn-services':'सेवाएं','tbtn-jobs':'नौकरी','tbtn-blog':'ब्लॉग',
 
     'mnbtn-home':'होम','mnbtn-services':'हमारी सेवाएं','mnbtn-jobs':'नौकरी','mnbtn-blog':'ब्लॉग','mnbtn-ai':'एआई','mnbtn-status':'स्थिति जांचें',
@@ -20274,6 +20344,7 @@ var T={
 
     'pre-label':'Завантажуються ваші документи','pre-sub':'Легалізація в Польщі',
 
+    'navMenuLabel':'Меню',
     'tbtn-home':'Головна','tbtn-services':'Послуги','tbtn-jobs':'Робота','tbtn-blog':'Блог',
 
     'mnbtn-home':'Головна','mnbtn-services':'Наші послуги','mnbtn-jobs':'Робота','mnbtn-blog':'Блог','mnbtn-ai':'ШІ','mnbtn-status':'Перевірити статус',
