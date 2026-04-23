@@ -527,16 +527,49 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 /* Phone number in desktop navbar */
 .nav-phone-num{
-  display:flex;align-items:center;gap:5px;
-  font-size:13px;font-weight:700;color:rgba(255,255,255,.85);
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:700;color:#fff;
   text-decoration:none;white-space:nowrap;
-  padding:6px 10px;border-radius:20px;
-  border:1px solid rgba(139,130,232,.2);
-  background:rgba(139,130,232,.08);
-  transition:background .2s,color .2s;
+  padding:7px 14px 7px 10px;border-radius:22px;
+  background:linear-gradient(135deg,rgba(91,82,204,.45),rgba(139,130,232,.25));
+  border:1px solid rgba(139,130,232,.35);
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 10px rgba(91,82,204,.25);
+  transition:transform .2s,box-shadow .2s;
+  animation:navPhonePulse 3s ease infinite;
 }
-.nav-phone-num:hover{background:rgba(139,130,232,.18);color:#fff;}
-.nav-phone-num svg{opacity:.6;flex-shrink:0;}
+@keyframes navPhonePulse{
+  0%,100%{box-shadow:0 2px 10px rgba(91,82,204,.25);}
+  50%    {box-shadow:0 2px 18px rgba(139,130,232,.5);}
+}
+/* Shimmer sweep */
+.nav-phone-num::before{
+  content:'';position:absolute;
+  top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:navPhoneShimmer 2.5s ease infinite;
+}
+@keyframes navPhoneShimmer{
+  0%  {left:-100%;}
+  60%,100%{left:150%;}
+}
+.nav-phone-num:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(139,130,232,.55);}
+.nav-phone-num:active{transform:scale(.97);}
+/* Animated phone icon */
+.nav-phone-ico{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  animation:navPhoneRing 3s ease infinite;
+}
+@keyframes navPhoneRing{
+  0%,85%,100%{transform:rotate(0deg);}
+  88%{transform:rotate(-15deg);}
+  91%{transform:rotate(15deg);}
+  94%{transform:rotate(-10deg);}
+  97%{transform:rotate(8deg);}
+}
 
 /* WA + Email nav circles */
 .nav-circle{
@@ -2457,7 +2490,9 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
     <!-- Phone number between referral and circles -->
     <a class="nav-phone-num" href="tel:+48735248525">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12.32a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.63a16 16 0 006.29 6.29l1.16-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <span class="nav-phone-ico">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12.32a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.63a16 16 0 006.29 6.29l1.16-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </span>
       +48 735 248 525
     </a>
 
