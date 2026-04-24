@@ -86,7 +86,7 @@ module.exports = async function handler(req, res) {
 
         img: cover || pageCover || "",
 
-        tg: (txt(p["Tags"]) || []).join(" "),
+        tg: (txt(p["Tags"]) || []).join("|"),
 
         lang: txt(p["Language"]) || ""
 
@@ -200,7 +200,7 @@ module.exports = async function handler(req, res) {
 
     js += "h+='<div class=\"blog-e\" style=\"font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden\">'+ds+'</div>';";
 
-    js += "h+=(x.tg?'<div style=\"display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px\">'+x.tg.split(' ').filter(Boolean).slice(0,10).map(function(t){return '<span style=\"font-size:11px;color:rgba(167,139,250,.6);\">#'+t+'</span>';}).join('')+'</div>':'');";
+    js += "h+=(x.tg?'<div style=\"display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px\">'+x.tg.split('|').filter(Boolean).slice(0,10).map(function(t){return '<span style=\"font-size:11px;color:rgba(167,139,250,.6);\">#'+t+'</span>';}).join('')+'</div>':'');";
 
     js += "h+='<span class=\"blog-read\" style=\"color:#8B82E8;font-size:12px\">Read \\u2192</span>';";
 

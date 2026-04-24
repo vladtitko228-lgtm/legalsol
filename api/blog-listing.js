@@ -509,7 +509,7 @@ module.exports = async function handler(req, res) {
         select: { equals: "Published" }
       },
       sorts: [{ property: "Published Date", direction: "descending" }],
-      page_size: 50,
+      page_size: 100,
     });
 
     const articles = response.results.map(page => {
