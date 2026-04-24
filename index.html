@@ -597,9 +597,11 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto;}
 
-.nav-ph{font-size:13px;color:var(--gold2);text-decoration:none;font-weight:600;white-space:nowrap;}
+.nav-ph{font-size:13px;color:var(--p300);text-decoration:none;font-weight:600;white-space:nowrap;display:none;align-items:center;gap:6px;opacity:.9;transition:opacity .2s;}
 
-.nav-ph:hover{opacity:.8;}
+.nav-ph svg{opacity:.7;flex-shrink:0;}
+
+.nav-ph:hover{opacity:1;}
 
 /* Contact dropdown in desktop navbar */
 .nav-contact-wrap{position:relative;}
@@ -2004,7 +2006,28 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   .mob-burger{display:none!important;}
 
-  /* tab-nav display controlled by max-width/opacity in .nav-menu-wrap.open rule */
+  /* Desktop: static always-visible nav menu */
+  nav{justify-content:space-between!important;}
+  .nav-right{margin-left:0!important;}
+  .nav-menu-toggle{display:none!important;}
+  .tab-nav{
+    position:static!important;
+    max-width:none!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    margin-left:0!important;
+    transform:none!important;
+    overflow:visible!important;
+    background:rgba(139,130,232,.08)!important;
+    border:1px solid rgba(139,130,232,.14)!important;
+    border-radius:var(--rb)!important;
+    padding:4px!important;
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+
+  /* Desktop: show phone number */
+  .nav-ph{display:flex!important;align-items:center;gap:6px;}
 
   .btn-cta.nav-cab-btn{display:flex!important;}
 
@@ -2604,7 +2627,10 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   <div class="nav-right">
 
-    <a class="nav-ph" href="tel:+48735248525" style="display:none">📱 +48 735 248 525</a>
+    <a class="nav-ph" href="tel:+48735248525">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12.32a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.63a16 16 0 006.29 6.29l1.16-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +48 735 248 525
+    </a>
 
     <!-- Phone number between referral and circles -->
     <!-- Contact dropdown trigger -->
