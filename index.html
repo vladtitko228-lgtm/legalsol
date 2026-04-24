@@ -85,6 +85,10 @@
 
 <style>
 
+/* Hide body until language is applied — prevents Russian flash on load */
+body{opacity:0;animation:bodyFallback 1s ease 1.2s forwards;}
+@keyframes bodyFallback{to{opacity:1;}}
+
 :root{
 
   --p900:#1E1B4B;--p800:#2D2869;--p700:#3D3585;--p500:#5B52CC;--p400:#8B82E8;--p300:#B8B2F5;--p200:#DAD7FF;
@@ -20989,7 +20993,14 @@ function _doInit(){
 
   _initFlags();
 
-  var _sl=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();setLang(_sl&&['en','ru','uk'].indexOf(_sl)!==-1?_sl:'en');
+  var _sl=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
+  var _allLangs=['en','ru','uk','pl','es','tr','az','hi'];
+  setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
+  // Reveal page after language is applied — no more Russian flash
+  requestAnimationFrame(function(){
+    document.body.style.transition='opacity .18s ease';
+    document.body.style.opacity='1';
+  });
 
   // Hash-based tab routing: legalsol.pl#tab-blog → open blog tab
 
