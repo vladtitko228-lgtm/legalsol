@@ -113,7 +113,11 @@
 .pre-dots span{width:4px;height:4px;border-radius:50%;background:rgba(139,130,232,.5);animation:preDot 1s ease-in-out infinite;}
 .pre-dots span:nth-child(2){animation-delay:.22s;}
 .pre-dots span:nth-child(3){animation-delay:.44s;}
-@keyframes preDot{0%,80%,100%{transform:scale(.55);opacity:.35;}40%{transform:scale(1.1);opacity:1;}}
+@keyframes preDot{0%,80%,100%{transform:scale(.55);opacity:.35;}40%{transform:scale(1.1);opacity:1;}}.pre-pct-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;width:200px;animation:preBrandIn .5s ease .35s both;}
+.pre-pct-num{font-family:'Playfair Display',serif;font-size:68px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px;display:flex;align-items:flex-start;}
+.pre-pct-sign{font-size:28px;font-weight:700;color:var(--p400);margin-top:10px;margin-left:3px;}
+.pre-pct-track{width:100%;height:3px;background:rgba(139,130,232,.15);border-radius:3px;overflow:hidden;}
+.pre-pct-fill{height:100%;width:0%;background:linear-gradient(90deg,#5B52CC,#B8B2F5);border-radius:3px;transition:width .06s linear;box-shadow:0 0 8px rgba(139,130,232,.6);}
 
 :root{
 
@@ -2464,19 +2468,37 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 <body>
 
 <div id="preloader">
-  <div class="pre-scene">
-    <div class="pre-doc pre-doc-1"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
-    <div class="pre-doc pre-doc-2"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
-    <div class="pre-doc pre-doc-3"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
-    <div class="pre-mark">
-      <svg width="52" height="48" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+
+  <!-- Version A: documents flying (repeat visits / refresh) -->
+  <div id="pre-v-docs" style="display:none;flex-direction:column;align-items:center;gap:24px;">
+    <div class="pre-scene">
+      <div class="pre-doc pre-doc-1"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
+      <div class="pre-doc pre-doc-2"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
+      <div class="pre-doc pre-doc-3"><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div><div class="pre-dl"></div></div>
+      <div class="pre-mark"><svg width="52" height="48" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg></div>
+    </div>
+    <div class="pre-brand">
+      <div class="pre-brand-name">LEGAL SOLUTION</div>
+      <div class="pre-brand-sub">Legalization Services</div>
+      <div class="pre-dots"><span></span><span></span><span></span></div>
     </div>
   </div>
-  <div class="pre-brand">
-    <div class="pre-brand-name">LEGAL SOLUTION</div>
-    <div class="pre-brand-sub">Legalization Services</div>
-    <div class="pre-dots"><span></span><span></span><span></span></div>
+
+  <!-- Version B: percentage counter (first visit) -->
+  <div id="pre-v-pct" style="display:none;flex-direction:column;align-items:center;gap:28px;">
+    <div class="pre-mark" style="animation:preMarkPop .5s cubic-bezier(.16,1,.3,1) both;filter:drop-shadow(0 0 18px rgba(91,82,204,.6));">
+      <svg width="60" height="56" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+    </div>
+    <div class="pre-brand" style="animation:preBrandIn .5s ease .2s both;">
+      <div class="pre-brand-name">LEGAL SOLUTION</div>
+      <div class="pre-brand-sub">Legalization Services</div>
+    </div>
+    <div class="pre-pct-wrap">
+      <div class="pre-pct-num"><span id="prePctN">0</span><span class="pre-pct-sign">%</span></div>
+      <div class="pre-pct-track"><div class="pre-pct-fill" id="prePctFill"></div></div>
+    </div>
   </div>
+
 </div>
 
 
@@ -21038,13 +21060,41 @@ function _doInit(){
   var _sl=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
   var _allLangs=['en','ru','uk','pl','es','tr','az','hi'];
   setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
-  // Hide preloader after language is applied
+
+  // Preloader: first visit = percentage, repeat = docs animation
   var _pre=document.getElementById('preloader');
-  if(_pre){
-    setTimeout(function(){
-      _pre.classList.add('pre-out');
-      setTimeout(function(){_pre.style.display='none';},480);
-    },320);
+  var _preFirstVisit=false;
+  try{_preFirstVisit=!localStorage.getItem('ls-pre-visited');}catch(e){}
+
+  function _hidePre(){
+    if(!_pre)return;
+    _pre.classList.add('pre-out');
+    setTimeout(function(){_pre.style.display='none';},480);
+  }
+
+  if(_preFirstVisit){
+    // First visit — percentage counter
+    try{localStorage.setItem('ls-pre-visited','1');}catch(e){}
+    var _vPct=document.getElementById('pre-v-pct');
+    if(_vPct)_vPct.style.display='flex';
+    var _pctN=document.getElementById('prePctN');
+    var _pctFill=document.getElementById('prePctFill');
+    var _pctVal=0,_pctStart=performance.now(),_pctDur=700;
+    function _animPct(now){
+      var p=Math.min((now-_pctStart)/_pctDur,1);
+      var eased=1-Math.pow(1-p,2.5);
+      _pctVal=Math.floor(eased*100);
+      if(_pctN)_pctN.textContent=_pctVal;
+      if(_pctFill)_pctFill.style.width=_pctVal+'%';
+      if(p<1){requestAnimationFrame(_animPct);}
+      else{setTimeout(_hidePre,180);}
+    }
+    requestAnimationFrame(_animPct);
+  } else {
+    // Repeat visit — documents flying
+    var _vDocs=document.getElementById('pre-v-docs');
+    if(_vDocs)_vDocs.style.display='flex';
+    setTimeout(_hidePre,320);
   }
 
   // Hash-based tab routing: legalsol.pl#tab-blog → open blog tab
