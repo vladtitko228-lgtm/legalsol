@@ -1,4 +1,4 @@
-// Vercel Serverless Function â Blog Dynamic Inject v3
+// Vercel Serverless Function — Blog Dynamic Inject v3
 
 // Serves JS that upgrades static blog tab with real Notion data + cover images
 
