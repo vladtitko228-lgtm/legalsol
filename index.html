@@ -14222,6 +14222,92 @@ function openModal(){document.getElementById('modal').classList.add('on');}
 
 function closeModal(){document.getElementById('modal').classList.remove('on');csClose();}
 
+/* ── i18n для форм + лидов ── */
+var _LS_LEAD_URL='https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
+
+function _lsLang(){
+  var l=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
+  return l||document.documentElement.lang||'en';
+}
+
+var _ls_t={
+  'err.phone':{
+    en:'Please enter your phone number',
+    ru:'Укажите номер телефона',
+    pl:'Podaj numer telefonu',
+    uk:'Вкажіть номер телефону',
+    es:'Indique su teléfono',
+    tr:'Telefon numaranızı girin',
+    az:'Telefon nömrənizi daxil edin',
+    hi:'कृपया अपना फ़ोन नंबर दर्ज करें'
+  },
+  'toast.ok.title':{
+    en:'✅ Request received!',
+    ru:'✅ Заявка принята!',
+    pl:'✅ Zgłoszenie przyjęte!',
+    uk:'✅ Заявку прийнято!',
+    es:'✅ ¡Solicitud recibida!',
+    tr:'✅ Talep alındı!',
+    az:'✅ Müraciət qəbul edildi!',
+    hi:'✅ अनुरोध प्राप्त हुआ!'
+  },
+  'toast.ok.body':{
+    en:"We'll contact you within 15 minutes. Thank you!",
+    ru:'Свяжемся в течение 15 минут. Спасибо!',
+    pl:'Skontaktujemy się w ciągu 15 minut. Dziękujemy!',
+    uk:'Зв\'яжемося протягом 15 хвилин. Дякуємо!',
+    es:'Le contactaremos en 15 minutos. ¡Gracias!',
+    tr:'15 dakika içinde sizinle iletişime geçeceğiz. Teşekkürler!',
+    az:'15 dəqiqə ərzində sizinlə əlaqə saxlayacağıq. Təşəkkürlər!',
+    hi:'हम 15 मिनट में संपर्क करेंगे। धन्यवाद!'
+  },
+  'toast.ok.cta':{
+    en:'Great!',
+    ru:'Отлично!',
+    pl:'Świetnie!',
+    uk:'Чудово!',
+    es:'¡Genial!',
+    tr:'Harika!',
+    az:'Əla!',
+    hi:'बहुत अच्छा!'
+  },
+  'quiz.thanks':{
+    en:'Thank you! A specialist will contact you within 15 minutes.',
+    ru:'Спасибо! Специалист свяжется с вами в течение 15 минут.',
+    pl:'Dziękujemy! Specjalista skontaktuje się z Tobą w ciągu 15 minut.',
+    uk:'Дякуємо! Спеціаліст зв\'яжеться з вами протягом 15 хвилин.',
+    es:'¡Gracias! Un especialista le contactará en 15 minutos.',
+    tr:'Teşekkürler! Bir uzman 15 dakika içinde sizinle iletişime geçecek.',
+    az:'Təşəkkürlər! Mütəxəssis 15 dəqiqə ərzində sizinlə əlaqə saxlayacaq.',
+    hi:'धन्यवाद! एक विशेषज्ञ 15 मिनट में आपसे संपर्क करेगा।'
+  }
+};
+
+function _t(key){
+  var e=_ls_t[key];if(!e)return key;
+  return e[_lsLang()]||e.en;
+}
+
+/* Отправка лида в Google Sheet (no-cors → fire-and-forget, обходит CORS preflight) */
+function _sendLead(payload){
+  try{
+    fetch(_LS_LEAD_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    }).catch(function(){});
+  }catch(e){}
+}
+
+function _utmObject(){
+  try{
+    var p=new URLSearchParams(location.search),o={};
+    p.forEach(function(v,k){if(k.indexOf('utm_')===0)o[k]=v;});
+    return o;
+  }catch(e){return{};}
+}
+
 /* ── Custom Service Picker ── */
 function csToggle(e){
   if(e){e.stopPropagation();e.preventDefault();}
@@ -14260,23 +14346,50 @@ document.addEventListener('keydown',function(e){
 });
 
 function submitModal(){
-
   var p=document.getElementById('m-phone');
+  if(!p||!p.value.trim()){alert(_t('err.phone'));return;}
 
-  if(!p||!p.value.trim()){alert('Укажите телефон');return;}
+  var btn=document.getElementById('modal-btn');
+  if(btn)btn.disabled=true;
+
+  // Собираем payload и шлём в Google Sheet
+  var payload={
+    name:(document.getElementById('m-name')||{}).value||'',
+    phone:p.value.trim(),
+    service:(document.getElementById('m-service')||{}).value||'',
+    message:'',
+    source:'modal_form',
+    page:location.pathname,
+    lang:_lsLang(),
+    utm:_utmObject(),
+    ref:document.referrer||''
+  };
+  _sendLead(payload);
 
   closeModal();
 
-  document.getElementById('toast-title').textContent='✅ Заявка принята!';
-
-  document.getElementById('toast-body').textContent='Свяжемся в течение 15 минут. Спасибо!';
-
-  document.getElementById('toast-cta').textContent='Отлично!';
-
+  document.getElementById('toast-title').textContent=_t('toast.ok.title');
+  document.getElementById('toast-body').textContent=_t('toast.ok.body');
+  document.getElementById('toast-cta').textContent=_t('toast.ok.cta');
   document.getElementById('toast-cta').onclick=hideToast;
 
   showToast();setTimeout(hideToast,6000);
 
+  if(btn)btn.disabled=false;
+
+  // Очистим форму после отправки
+  setTimeout(function(){
+    if(document.getElementById('m-name'))document.getElementById('m-name').value='';
+    if(p)p.value='';
+    var sv=document.getElementById('m-service');if(sv)sv.value='';
+    var trig=document.getElementById('cs-trigger'),txt=document.getElementById('cs-trigger-text');
+    if(trig)trig.classList.remove('cs-has-value');
+    if(txt){
+      var p1={en:'What are you interested in?',ru:'Что интересует?',pl:'Co Cię interesuje?',uk:'Що вас цікавить?',es:'¿Qué le interesa?',tr:'Sizi ne ilgilendiriyor?',az:'Sizi nə maraqlandırır?',hi:'आप क्या चाहते हैं?'};
+      txt.textContent=p1[_lsLang()]||p1.en;
+    }
+    document.querySelectorAll('#cs-menu .cs-option').forEach(function(o){o.classList.remove('cs-selected');});
+  },800);
 }
 
 
@@ -23312,13 +23425,40 @@ function showQuizResult(){
 }
 
 function quizSubmit(){
+  var phEl=document.getElementById('quiz-phone');
+  var ph=phEl?phEl.value.trim():'';
+  if(ph.length<8){alert(_t('err.phone'));return;}
 
-  var ph=document.getElementById('quiz-phone').value;
+  var nameEl=document.getElementById('quiz-name');
+  var name=nameEl?nameEl.value.trim():'';
 
-  if(ph.length<8){alert('Введите номер телефона');return;}
+  var price=quizA[4]==='pmzh'?4000:quizA[4]==='citizen'?5500:2500;
 
-  alert('Спасибо! Специалист свяжется с вами в течение 15 минут.');
+  var payload={
+    name:name,
+    phone:ph,
+    service:'Quiz · '+(quizA[4]||'consultation'),
+    message:JSON.stringify({
+      time_in_poland:quizA[1]||'',
+      current_status:quizA[2]||'',
+      basis:quizA[3]||'',
+      service_choice:quizA[4]||'',
+      estimated_price_pln:price
+    }),
+    source:'quiz_calculator',
+    page:location.pathname,
+    lang:_lsLang(),
+    utm:_utmObject(),
+    ref:document.referrer||''
+  };
+  _sendLead(payload);
 
+  // Показываем благодарность (toast + очищаем форму)
+  document.getElementById('toast-title').textContent=_t('toast.ok.title');
+  document.getElementById('toast-body').textContent=_t('quiz.thanks');
+  document.getElementById('toast-cta').textContent=_t('toast.ok.cta');
+  document.getElementById('toast-cta').onclick=hideToast;
+  showToast();setTimeout(hideToast,6000);
 }
 
 
