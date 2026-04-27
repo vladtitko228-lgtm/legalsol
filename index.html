@@ -1612,6 +1612,29 @@ h1 .acc{color:var(--p300);}
 
 .modal-in{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.25);border-radius:14px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;display:block;}
 
+/* ── Custom Service Picker ── */
+.cs-wrap{position:relative;margin-bottom:10px;}
+.cs-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;text-align:left;margin:0;font-size:14px;line-height:1.3;transition:border-color .18s ease,background .18s ease;}
+.cs-trigger:hover{background:rgba(255,255,255,.09);border-color:rgba(139,130,232,.5);}
+.cs-trigger.cs-open{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+.cs-trigger-text{flex:1;color:rgba(255,255,255,.45);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:10px;}
+.cs-trigger.cs-has-value .cs-trigger-text{color:#fff;}
+.cs-trigger-arrow{flex-shrink:0;color:#7F77DD;transition:transform .25s cubic-bezier(.4,0,.2,1);}
+.cs-trigger.cs-open .cs-trigger-arrow{transform:rotate(180deg);}
+.cs-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:1000;background:rgba(30,27,75,.96);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border:1px solid rgba(139,130,232,.35);border-radius:14px;padding:6px;box-shadow:0 16px 48px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.04) inset;opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top center;transition:opacity .2s ease,transform .2s cubic-bezier(.4,0,.2,1),visibility .2s;max-height:340px;overflow-y:auto;overscroll-behavior:contain;}
+.cs-menu.cs-open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.cs-menu::-webkit-scrollbar{width:6px;}
+.cs-menu::-webkit-scrollbar-track{background:transparent;}
+.cs-menu::-webkit-scrollbar-thumb{background:rgba(139,130,232,.3);border-radius:3px;}
+.cs-menu::-webkit-scrollbar-thumb:hover{background:rgba(139,130,232,.5);}
+.cs-option{padding:11px 14px;border-radius:10px;color:rgba(255,255,255,.85);font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s ease,color .15s ease,transform .12s ease;user-select:none;-webkit-user-select:none;}
+.cs-option:hover{background:rgba(127,119,221,.18);color:#fff;}
+.cs-option:active{transform:scale(.98);}
+.cs-option.cs-selected{background:linear-gradient(135deg,rgba(127,119,221,.28),rgba(83,74,183,.22));color:#fff;font-weight:600;box-shadow:inset 0 0 0 1px rgba(139,130,232,.4);}
+.cs-option.cs-option-muted{margin-top:4px;border-top:1px solid rgba(139,130,232,.18);padding-top:13px;color:rgba(255,255,255,.7);font-style:italic;}
+.cs-option.cs-option-muted:hover{color:#fff;font-style:normal;}
+@media (max-width:480px){.cs-menu{max-height:60vh;}}
+
 .modal-in:focus{border-color:var(--p400);}
 
 .modal-in::placeholder{color:rgba(255,255,255,.2);}
@@ -2618,29 +2641,26 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
     <input class="modal-in" placeholder="WhatsApp / Telegram / Телефон" id="m-phone"/>
 
-    <select class="modal-in" id="m-service" style="cursor:pointer;">
-
-      <option value="" disabled selected>Что интересует?</option>
-
-      <option>Карта побыту / вид на жительство</option>
-
-      <option>Постоянный побыт (ВНЖ)</option>
-
-      <option>PESEL</option><option>Доверенный профиль (Profil Zaufany)</option>
-
-      <option>Регистрация фирмы / ИП</option>
-
-      <option>Бухгалтерия и налоги</option>
-
-      <option>Апелляция по отказу</option>
-
-      <option>Работа в Польше / Европе</option>
-
-      <option>Замена водительских прав</option>
-
-      <option>Не знаю — нужна консультация</option>
-
-    </select>
+    <!-- Custom service picker (replaces native select) -->
+    <div class="cs-wrap" id="cs-wrap">
+      <button type="button" class="cs-trigger modal-in" id="cs-trigger" onclick="csToggle(event)" aria-haspopup="listbox" aria-expanded="false">
+        <span class="cs-trigger-text" id="cs-trigger-text">Что интересует?</span>
+        <svg class="cs-trigger-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="cs-menu" id="cs-menu" role="listbox">
+        <div class="cs-option" data-key="karta_pobytu"      role="option" onclick="csSelect(this)">Карта побыту / вид на жительство</div>
+        <div class="cs-option" data-key="permanent"         role="option" onclick="csSelect(this)">Постоянный побыт (ВНЖ)</div>
+        <div class="cs-option" data-key="pesel"             role="option" onclick="csSelect(this)">PESEL</div>
+        <div class="cs-option" data-key="profil_zaufany"    role="option" onclick="csSelect(this)">Доверенный профиль (Profil Zaufany)</div>
+        <div class="cs-option" data-key="company"           role="option" onclick="csSelect(this)">Регистрация фирмы / ИП</div>
+        <div class="cs-option" data-key="accounting"        role="option" onclick="csSelect(this)">Бухгалтерия и налоги</div>
+        <div class="cs-option" data-key="appeal"            role="option" onclick="csSelect(this)">Апелляция по отказу</div>
+        <div class="cs-option" data-key="work"              role="option" onclick="csSelect(this)">Работа в Польше / Европе</div>
+        <div class="cs-option" data-key="driving"           role="option" onclick="csSelect(this)">Замена водительских прав</div>
+        <div class="cs-option cs-option-muted" data-key="not_sure" role="option" onclick="csSelect(this)">Не знаю — нужна консультация</div>
+      </div>
+      <input type="hidden" id="m-service" value=""/>
+    </div>
 
     <button class="modal-btn" id="modal-btn" onclick="submitModal()">Записаться — ответим за 15 минут →</button>
 
@@ -14200,7 +14220,44 @@ function showTab(name){
 
 function openModal(){document.getElementById('modal').classList.add('on');}
 
-function closeModal(){document.getElementById('modal').classList.remove('on');}
+function closeModal(){document.getElementById('modal').classList.remove('on');csClose();}
+
+/* ── Custom Service Picker ── */
+function csToggle(e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  var t=document.getElementById('cs-trigger'),m=document.getElementById('cs-menu');
+  if(!t||!m)return;
+  var isOpen=m.classList.contains('cs-open');
+  if(isOpen){csClose();}else{csOpen();}
+}
+function csOpen(){
+  var t=document.getElementById('cs-trigger'),m=document.getElementById('cs-menu');
+  if(!t||!m)return;
+  m.classList.add('cs-open');t.classList.add('cs-open');t.setAttribute('aria-expanded','true');
+}
+function csClose(){
+  var t=document.getElementById('cs-trigger'),m=document.getElementById('cs-menu');
+  if(!t||!m)return;
+  m.classList.remove('cs-open');t.classList.remove('cs-open');t.setAttribute('aria-expanded','false');
+}
+function csSelect(el){
+  if(!el)return;
+  var hidden=document.getElementById('m-service'),trig=document.getElementById('cs-trigger'),txt=document.getElementById('cs-trigger-text');
+  if(hidden)hidden.value=el.getAttribute('data-key')||el.textContent.trim();
+  if(txt)txt.textContent=el.textContent.trim();
+  if(trig)trig.classList.add('cs-has-value');
+  document.querySelectorAll('#cs-menu .cs-option').forEach(function(o){o.classList.remove('cs-selected');});
+  el.classList.add('cs-selected');
+  csClose();
+}
+/* Закрытие по клику вне и по Escape */
+document.addEventListener('click',function(e){
+  var w=document.getElementById('cs-wrap');
+  if(w && !w.contains(e.target)){csClose();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){csClose();}
+});
 
 function submitModal(){
 
@@ -21374,6 +21431,21 @@ function setLang(lang){
   var _o=_opts[lang]||_opts.en;
 
   if(ms){for(var i=0;i<_o.length&&i<ms.options.length;i++)ms.options[i].text=_o[i];}
+
+  // Custom select: 1-й элемент = плейсхолдер, остальные — опции
+  var csTrig=document.getElementById('cs-trigger-text');
+  var csOpts=document.querySelectorAll('#cs-menu .cs-option');
+  var csHidden=document.getElementById('m-service');
+  if(csTrig && _o[0]){
+    if(!csHidden || !csHidden.value){csTrig.textContent=_o[0];}
+  }
+  if(csOpts.length){
+    for(var ci=0;ci<csOpts.length && ci+1<_o.length;ci++){
+      csOpts[ci].textContent=_o[ci+1];
+      // если эта опция выбрана — обновим триггер
+      if(csOpts[ci].classList.contains('cs-selected') && csTrig){csTrig.textContent=_o[ci+1];}
+    }
+  }
 
   // Status note with link
 
