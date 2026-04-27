@@ -1612,6 +1612,25 @@ h1 .acc{color:var(--p300);}
 
 .modal-in{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.25);border-radius:14px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;display:block;}
 
+/* ── Lead Success Modal ── */
+.lsuc-overlay{position:fixed;inset:0;z-index:200000;display:flex;align-items:center;justify-content:center;background:rgba(15,13,40,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .28s ease,visibility .28s;padding:20px;-webkit-tap-highlight-color:transparent;}
+.lsuc-overlay.lsuc-on{opacity:1;visibility:visible;}
+.lsuc-card{position:relative;background:linear-gradient(160deg,#2a2570 0%,#1e1b4b 100%);border:1px solid rgba(139,130,232,.35);border-radius:24px;padding:40px 32px 32px;max-width:440px;width:100%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04) inset;transform:translateY(20px) scale(.96);opacity:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .25s ease;font-family:'Inter',sans-serif;}
+.lsuc-overlay.lsuc-on .lsuc-card{transform:translateY(0) scale(1);opacity:1;}
+.lsuc-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.6);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;line-height:1;font-family:inherit;}
+.lsuc-close:hover{background:rgba(255,255,255,.15);color:#fff;}
+.lsuc-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;box-shadow:0 8px 28px rgba(34,197,94,.45),0 0 0 8px rgba(34,197,94,.12);animation:lsuc-pop .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes lsuc-pop{0%{transform:scale(.4);opacity:0;}60%{transform:scale(1.08);}100%{transform:scale(1);opacity:1;}}
+.lsuc-title{font-size:22px;font-weight:700;color:#fff;margin:0 0 12px;line-height:1.3;letter-spacing:-.01em;}
+.lsuc-body{font-size:15px;color:rgba(255,255,255,.78);margin:0 0 24px;line-height:1.5;}
+.lsuc-divider{display:flex;align-items:center;gap:14px;margin:20px 0 16px;color:rgba(255,255,255,.4);font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:600;}
+.lsuc-divider::before,.lsuc-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(139,130,232,.3),transparent);}
+.lsuc-hint{font-size:13px;color:rgba(255,255,255,.65);margin:0 0 18px;line-height:1.5;}
+.lsuc-wa-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,#25d366 0%,#1eb555 100%);color:#fff;text-decoration:none;padding:15px 22px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;box-shadow:0 8px 24px rgba(37,211,102,.35);}
+.lsuc-wa-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,211,102,.5);filter:brightness(1.05);}
+.lsuc-wa-btn:active{transform:translateY(0);}
+@media (max-width:480px){.lsuc-card{padding:32px 22px 24px;}.lsuc-title{font-size:19px;}.lsuc-icon{width:68px;height:68px;}}
+
 /* ── Custom Service Picker ── */
 .cs-wrap{position:relative;margin-bottom:10px;}
 .cs-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;text-align:left;margin:0;font-size:14px;line-height:1.3;transition:border-color .18s ease,background .18s ease;}
@@ -2590,6 +2609,24 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 </div>
 
 
+
+<!-- LEAD SUCCESS MODAL -->
+<div id="lead-success" class="lsuc-overlay" onclick="if(event.target===this)hideLeadSuccess();" aria-hidden="true">
+  <div class="lsuc-card" role="dialog" aria-labelledby="lsuc-title">
+    <button class="lsuc-close" onclick="hideLeadSuccess()" aria-label="Close">×</button>
+    <div class="lsuc-icon">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h3 class="lsuc-title" id="lsuc-title">Your form has been successfully submitted!</h3>
+    <p class="lsuc-body" id="lsuc-body">Our specialist will contact you shortly.</p>
+    <div class="lsuc-divider"><span id="lsuc-or">or</span></div>
+    <p class="lsuc-hint" id="lsuc-hint">Don't want to wait? Message us on WhatsApp — we'll reply immediately.</p>
+    <a class="lsuc-wa-btn" id="lsuc-wa-btn" href="https://wa.me/48735248525" target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="lsuc-wa-text">Message us on WhatsApp</span>
+    </a>
+  </div>
+</div>
 
 <!-- TOAST -->
 
@@ -14280,6 +14317,56 @@ var _ls_t={
     tr:'Teşekkürler! Bir uzman 15 dakika içinde sizinle iletişime geçecek.',
     az:'Təşəkkürlər! Mütəxəssis 15 dəqiqə ərzində sizinlə əlaqə saxlayacaq.',
     hi:'धन्यवाद! एक विशेषज्ञ 15 मिनट में आपसे संपर्क करेगा।'
+  },
+  'lsuc.title':{
+    en:'Your form has been successfully submitted!',
+    ru:'Заявка успешно отправлена!',
+    pl:'Formularz został pomyślnie wysłany!',
+    uk:'Заявку успішно надіслано!',
+    es:'¡Su formulario se ha enviado correctamente!',
+    tr:'Formunuz başarıyla gönderildi!',
+    az:'Müraciətiniz uğurla göndərildi!',
+    hi:'आपका फ़ॉर्म सफलतापूर्वक भेज दिया गया है!'
+  },
+  'lsuc.body':{
+    en:'Our specialist will contact you shortly to discuss your case.',
+    ru:'Наш специалист свяжется с вами в ближайшее время.',
+    pl:'Nasz specjalista wkrótce się z Tobą skontaktuje.',
+    uk:'Наш спеціаліст незабаром зв\'яжеться з вами.',
+    es:'Nuestro especialista se pondrá en contacto con usted pronto.',
+    tr:'Uzmanımız kısa süre içinde sizinle iletişime geçecek.',
+    az:'Mütəxəssisimiz tezliklə sizinlə əlaqə saxlayacaq.',
+    hi:'हमारा विशेषज्ञ शीघ्र ही आपसे संपर्क करेगा।'
+  },
+  'lsuc.or':{
+    en:'or',
+    ru:'или',
+    pl:'lub',
+    uk:'або',
+    es:'o',
+    tr:'veya',
+    az:'və ya',
+    hi:'या'
+  },
+  'lsuc.hint':{
+    en:"Don't want to wait? Message us on WhatsApp — we'll reply immediately.",
+    ru:'Не хотите ждать? Напишите в WhatsApp — ответим сразу.',
+    pl:'Nie chcesz czekać? Napisz do nas na WhatsApp — odpowiemy od razu.',
+    uk:'Не хочете чекати? Напишіть у WhatsApp — відповімо одразу.',
+    es:'¿No quiere esperar? Escríbanos por WhatsApp — responderemos al instante.',
+    tr:'Beklemek istemiyor musunuz? WhatsApp\'tan yazın — hemen cevap veririz.',
+    az:'Gözləmək istəmirsiniz? WhatsApp-a yazın — dərhal cavab verəcəyik.',
+    hi:'इंतज़ार नहीं करना चाहते? WhatsApp पर लिखें — हम तुरंत जवाब देंगे।'
+  },
+  'lsuc.wa':{
+    en:'Message us on WhatsApp',
+    ru:'Написать в WhatsApp',
+    pl:'Napisz na WhatsApp',
+    uk:'Написати в WhatsApp',
+    es:'Escribir por WhatsApp',
+    tr:'WhatsApp\'tan yaz',
+    az:'WhatsApp-a yaz',
+    hi:'WhatsApp पर लिखें'
   }
 };
 
@@ -14307,6 +14394,46 @@ function _utmObject(){
     return o;
   }catch(e){return{};}
 }
+
+/* Lead Success — крупное окно подтверждения с WA-кнопкой */
+function showLeadSuccess(opts){
+  opts=opts||{};
+  var ov=document.getElementById('lead-success');
+  if(!ov)return;
+  // Подставляем переводы
+  var t=document.getElementById('lsuc-title');     if(t)t.textContent=_t('lsuc.title');
+  var b=document.getElementById('lsuc-body');      if(b)b.textContent=opts.body||_t('lsuc.body');
+  var or=document.getElementById('lsuc-or');       if(or)or.textContent=_t('lsuc.or');
+  var h=document.getElementById('lsuc-hint');      if(h)h.textContent=_t('lsuc.hint');
+  var wt=document.getElementById('lsuc-wa-text');  if(wt)wt.textContent=_t('lsuc.wa');
+  // WhatsApp ссылка с префиллом — имя/услуга/телефон если есть
+  var waBtn=document.getElementById('lsuc-wa-btn');
+  if(waBtn){
+    var prefilParts=['Hello! I just submitted a request on legalsol.pl'];
+    if(opts.name)prefilParts.push('Name: '+opts.name);
+    if(opts.phone)prefilParts.push('Phone: '+opts.phone);
+    if(opts.service)prefilParts.push('Service: '+opts.service);
+    var prefil=encodeURIComponent(prefilParts.join('\n'));
+    waBtn.href='https://wa.me/48735248525?text='+prefil;
+  }
+  ov.classList.add('lsuc-on');
+  ov.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+function hideLeadSuccess(){
+  var ov=document.getElementById('lead-success');
+  if(!ov)return;
+  ov.classList.remove('lsuc-on');
+  ov.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+/* Esc закрывает окно подтверждения */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var ov=document.getElementById('lead-success');
+    if(ov && ov.classList.contains('lsuc-on'))hideLeadSuccess();
+  }
+});
 
 /* ── Custom Service Picker ── */
 function csToggle(e){
@@ -14368,12 +14495,8 @@ function submitModal(){
 
   closeModal();
 
-  document.getElementById('toast-title').textContent=_t('toast.ok.title');
-  document.getElementById('toast-body').textContent=_t('toast.ok.body');
-  document.getElementById('toast-cta').textContent=_t('toast.ok.cta');
-  document.getElementById('toast-cta').onclick=hideToast;
-
-  showToast();setTimeout(hideToast,6000);
+  // Показываем красивое окно подтверждения с WhatsApp-кнопкой
+  showLeadSuccess({name:payload.name,phone:payload.phone,service:payload.service});
 
   if(btn)btn.disabled=false;
 
@@ -23453,12 +23576,8 @@ function quizSubmit(){
   };
   _sendLead(payload);
 
-  // Показываем благодарность (toast + очищаем форму)
-  document.getElementById('toast-title').textContent=_t('toast.ok.title');
-  document.getElementById('toast-body').textContent=_t('quiz.thanks');
-  document.getElementById('toast-cta').textContent=_t('toast.ok.cta');
-  document.getElementById('toast-cta').onclick=hideToast;
-  showToast();setTimeout(hideToast,6000);
+  // Показываем красивое окно подтверждения с WhatsApp-кнопкой
+  showLeadSuccess({name:name,phone:ph,service:payload.service,body:_t('quiz.thanks')});
 }
 
 
