@@ -2641,23 +2641,23 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
     <input class="modal-in" placeholder="WhatsApp / Telegram / Телефон" id="m-phone"/>
 
-    <!-- Custom service picker (replaces native select) -->
+    <!-- Custom service picker (replaces native select). Texts default to EN; setLang() rewrites them. -->
     <div class="cs-wrap" id="cs-wrap">
       <button type="button" class="cs-trigger modal-in" id="cs-trigger" onclick="csToggle(event)" aria-haspopup="listbox" aria-expanded="false">
-        <span class="cs-trigger-text" id="cs-trigger-text">Что интересует?</span>
+        <span class="cs-trigger-text" id="cs-trigger-text">What are you interested in?</span>
         <svg class="cs-trigger-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
       <div class="cs-menu" id="cs-menu" role="listbox">
-        <div class="cs-option" data-key="karta_pobytu"      role="option" onclick="csSelect(this)">Карта побыту / вид на жительство</div>
-        <div class="cs-option" data-key="permanent"         role="option" onclick="csSelect(this)">Постоянный побыт (ВНЖ)</div>
+        <div class="cs-option" data-key="karta_pobytu"      role="option" onclick="csSelect(this)">Residence permit</div>
+        <div class="cs-option" data-key="permanent"         role="option" onclick="csSelect(this)">Permanent residence</div>
         <div class="cs-option" data-key="pesel"             role="option" onclick="csSelect(this)">PESEL</div>
-        <div class="cs-option" data-key="profil_zaufany"    role="option" onclick="csSelect(this)">Доверенный профиль (Profil Zaufany)</div>
-        <div class="cs-option" data-key="company"           role="option" onclick="csSelect(this)">Регистрация фирмы / ИП</div>
-        <div class="cs-option" data-key="accounting"        role="option" onclick="csSelect(this)">Бухгалтерия и налоги</div>
-        <div class="cs-option" data-key="appeal"            role="option" onclick="csSelect(this)">Апелляция по отказу</div>
-        <div class="cs-option" data-key="work"              role="option" onclick="csSelect(this)">Работа в Польше / Европе</div>
-        <div class="cs-option" data-key="driving"           role="option" onclick="csSelect(this)">Замена водительских прав</div>
-        <div class="cs-option cs-option-muted" data-key="not_sure" role="option" onclick="csSelect(this)">Не знаю — нужна консультация</div>
+        <div class="cs-option" data-key="profil_zaufany"    role="option" onclick="csSelect(this)">Trusted Profile</div>
+        <div class="cs-option" data-key="company"           role="option" onclick="csSelect(this)">Company registration</div>
+        <div class="cs-option" data-key="accounting"        role="option" onclick="csSelect(this)">Accounting &amp; taxes</div>
+        <div class="cs-option" data-key="appeal"            role="option" onclick="csSelect(this)">Appeal a denial</div>
+        <div class="cs-option" data-key="work"              role="option" onclick="csSelect(this)">Work in Poland / Europe</div>
+        <div class="cs-option" data-key="driving"           role="option" onclick="csSelect(this)">Driving licence exchange</div>
+        <div class="cs-option cs-option-muted" data-key="not_sure" role="option" onclick="csSelect(this)">Not sure — need advice</div>
       </div>
       <input type="hidden" id="m-service" value=""/>
     </div>
