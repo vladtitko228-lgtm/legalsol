@@ -458,7 +458,12 @@ img{max-width:100%;height:auto;}
 
 @keyframes dp{0%,100%{opacity:1;}50%{opacity:.25;}}
 
-#wa-fab{position:fixed;bottom:84px;right:24px;z-index:800;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45),0 0 0 3px rgba(37,211,102,.15);text-decoration:none;transition:transform .2s;animation:waP 3s ease-in-out infinite;}
+#wa-fab{position:fixed;bottom:84px;right:24px;z-index:800;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s;animation:waPulse 2.4s ease-in-out infinite;}
+#wa-fab::before,#wa-fab::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;pointer-events:none;}
+#wa-fab::before{animation:waRing 2.4s ease-out infinite;}
+#wa-fab::after{animation:waRing 2.4s ease-out 1.2s infinite;}
+#wa-fab:hover{transform:scale(1.08);animation-play-state:paused;}
+#wa-fab:hover::before,#wa-fab:hover::after{animation-play-state:paused;opacity:0;}
 
 #wa-fab:hover{transform:scale(1.12);box-shadow:0 10px 32px rgba(37,211,102,.6);}
 
@@ -466,7 +471,9 @@ img{max-width:100%;height:auto;}
 
 #tg-fab:hover{transform:scale(1.12);box-shadow:0 10px 32px rgba(41,182,246,.6);}
 
-@keyframes waP{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,.2);}60%{box-shadow:0 6px 20px rgba(37,211,102,.4),0 0 0 12px rgba(37,211,102,0);}}
+@keyframes waPulse{0%,100%{transform:scale(1);box-shadow:0 6px 24px rgba(37,211,102,.5);}50%{transform:scale(1.06);box-shadow:0 8px 32px rgba(37,211,102,.7);}}
+@keyframes waRing{0%{transform:scale(1);opacity:.65;}80%{transform:scale(1.85);opacity:0;}100%{transform:scale(1.85);opacity:0;}}
+@media (prefers-reduced-motion:reduce){#wa-fab,#wa-fab::before,#wa-fab::after{animation:none!important;}}
 
 
 
