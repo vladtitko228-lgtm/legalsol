@@ -6,13 +6,21 @@
 
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
-<!-- Microsoft Clarity (heatmaps + session recordings) -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wispohj28j");
+<!-- Cookie Consent (RODO/GDPR compliant) - loaded before any analytics -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+<script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js" defer></script>
+
+<!-- Clarity is loaded dynamically only after user grants analytics consent (see ccConfig below) -->
+<script>
+function loadClarity(){
+  if(window._clarityLoaded)return;
+  window._clarityLoaded=true;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window,document,"clarity","script","wispohj28j");
+}
 </script>
 <meta name="theme-color" content="#1E1B4B"/>
 <link rel="shortcut icon"                         href="/favicon.ico"/>
@@ -14193,13 +14201,15 @@ function refSubmit(){
 
     <div class="ft-copy" id="ft-copy">© 2026 Legal Solutions. Все права защищены.</div>
 
-    <div style="display:flex;align-items:center;gap:16px;font-size:12px;color:var(--txt3);">
+    <div style="display:flex;align-items:center;gap:16px;font-size:12px;color:var(--txt3);flex-wrap:wrap;">
 
-      <span>Польша · Варшава</span>
+      <span>Poland · Warsaw</span>
 
-      <a href="#" onclick="event.preventDefault()" style="color:var(--txt3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--txt3)'">Privacy Policy</a>
+      <a href="/privacy" style="color:var(--txt3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--txt3)'">Privacy Policy</a>
 
-      <a href="#" onclick="event.preventDefault()" style="color:var(--txt3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--txt3)'">Cookie Policy</a>
+      <a href="/terms" style="color:var(--txt3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--txt3)'">Terms of Service</a>
+
+      <a href="#" onclick="event.preventDefault();openCookieSettings();" style="color:var(--txt3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--txt3)'">Cookie Settings</a>
 
     </div>
 
@@ -24654,6 +24664,176 @@ document.addEventListener('visibilitychange',function(){
 </div>
 
 <script src="/api/blog-inject" defer></script>
+
+<!-- Cookie Consent — RODO/GDPR (8 languages) -->
+<script>
+window.addEventListener('load',function(){
+  if(typeof CookieConsent==='undefined'){
+    setTimeout(function(){if(typeof CookieConsent!=='undefined')initLsCookieConsent();},500);
+    return;
+  }
+  initLsCookieConsent();
+});
+
+function initLsCookieConsent(){
+  CookieConsent.run({
+    guiOptions:{
+      consentModal:{layout:'box',position:'bottom right',equalWeightButtons:true,flipButtons:false},
+      preferencesModal:{layout:'box',equalWeightButtons:true,flipButtons:false}
+    },
+    categories:{
+      necessary:{enabled:true,readOnly:true},
+      analytics:{enabled:false,readOnly:false,
+        services:{
+          clarity:{label:'Microsoft Clarity',
+            cookies:[{name:/^_clck/},{name:/^_clsk/},{name:/^CLID/},{name:/^MUID/}],
+            onAccept:function(){loadClarity();}
+          }
+        }
+      }
+    },
+    onConsent:function(){if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();},
+    onChange:function(){if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();},
+    language:{
+      default:'en',
+      autoDetect:'document',
+      translations:{
+        en:{
+          consentModal:{
+            title:'We use cookies',
+            description:'We use essential cookies to make our site work and analytics cookies (Microsoft Clarity) to improve it. You can accept all or manage your preferences. <a href="/privacy" target="_blank">Privacy Policy</a>.',
+            acceptAllBtn:'Accept all',acceptNecessaryBtn:'Reject all',showPreferencesBtn:'Manage preferences'
+          },
+          preferencesModal:{
+            title:'Cookie preferences',acceptAllBtn:'Accept all',acceptNecessaryBtn:'Reject all',savePreferencesBtn:'Save preferences',closeIconLabel:'Close',
+            sections:[
+              {title:'Cookie usage',description:'We use cookies to ensure essential site functionality and to analyze usage with Microsoft Clarity. <a href="/privacy" target="_blank">Privacy Policy</a>.'},
+              {title:'Strictly necessary',description:'These cookies are required for basic site operation (language preference, cookie consent itself).',linkedCategory:'necessary'},
+              {title:'Analytics',description:'Microsoft Clarity collects anonymized session recordings and heatmaps to help us improve UX. No personal data captured.',linkedCategory:'analytics'},
+              {title:'More information',description:'For questions, contact <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        ru:{
+          consentModal:{
+            title:'Мы используем cookie',
+            description:'Мы используем необходимые cookie для работы сайта и аналитические (Microsoft Clarity) для его улучшения. Вы можете принять все или настроить. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.',
+            acceptAllBtn:'Принять все',acceptNecessaryBtn:'Отклонить все',showPreferencesBtn:'Настроить'
+          },
+          preferencesModal:{
+            title:'Настройки cookie',acceptAllBtn:'Принять все',acceptNecessaryBtn:'Отклонить все',savePreferencesBtn:'Сохранить',closeIconLabel:'Закрыть',
+            sections:[
+              {title:'Использование cookie',description:'Используем cookie для базовой работы сайта и аналитики через Microsoft Clarity. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.'},
+              {title:'Строго необходимые',description:'Нужны для базовой работы сайта (язык, согласие на cookie).',linkedCategory:'necessary'},
+              {title:'Аналитика',description:'Microsoft Clarity собирает анонимизированные записи и тепловые карты для улучшения сайта. Личные данные не записываются.',linkedCategory:'analytics'},
+              {title:'Подробнее',description:'Вопросы — <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        pl:{
+          consentModal:{
+            title:'Używamy plików cookie',
+            description:'Używamy niezbędnych plików cookie do działania strony oraz analitycznych (Microsoft Clarity) do jej ulepszania. Możesz zaakceptować wszystkie lub zarządzać preferencjami. <a href="/privacy" target="_blank">Polityka prywatności</a>.',
+            acceptAllBtn:'Akceptuj wszystkie',acceptNecessaryBtn:'Odrzuć wszystkie',showPreferencesBtn:'Zarządzaj'
+          },
+          preferencesModal:{
+            title:'Preferencje cookie',acceptAllBtn:'Akceptuj wszystkie',acceptNecessaryBtn:'Odrzuć wszystkie',savePreferencesBtn:'Zapisz',closeIconLabel:'Zamknij',
+            sections:[
+              {title:'Wykorzystanie cookie',description:'Używamy cookie do podstawowej funkcjonalności i analizy w Microsoft Clarity. <a href="/privacy" target="_blank">Polityka prywatności</a>.'},
+              {title:'Ściśle niezbędne',description:'Wymagane do działania (preferencja języka, zgoda na cookie).',linkedCategory:'necessary'},
+              {title:'Analityczne',description:'Microsoft Clarity zbiera zanonimizowane nagrania sesji i mapy ciepła. Bez danych osobowych.',linkedCategory:'analytics'},
+              {title:'Więcej informacji',description:'Pytania: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        uk:{
+          consentModal:{
+            title:'Ми використовуємо cookie',
+            description:'Використовуємо необхідні cookie для роботи сайту та аналітичні (Microsoft Clarity) для його покращення. Ви можете прийняти все або налаштувати. <a href="/privacy" target="_blank">Політика конфіденційності</a>.',
+            acceptAllBtn:'Прийняти все',acceptNecessaryBtn:'Відхилити все',showPreferencesBtn:'Налаштувати'
+          },
+          preferencesModal:{
+            title:'Налаштування cookie',acceptAllBtn:'Прийняти все',acceptNecessaryBtn:'Відхилити все',savePreferencesBtn:'Зберегти',closeIconLabel:'Закрити',
+            sections:[
+              {title:'Використання cookie',description:'Використовуємо cookie для базової роботи та аналітики через Microsoft Clarity. <a href="/privacy" target="_blank">Політика конфіденційності</a>.'},
+              {title:'Строго необхідні',description:'Потрібні для роботи сайту (мова, згода на cookie).',linkedCategory:'necessary'},
+              {title:'Аналітика',description:'Microsoft Clarity збирає анонімізовані записи та теплові карти. Без особистих даних.',linkedCategory:'analytics'},
+              {title:'Детальніше',description:'Питання — <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        es:{
+          consentModal:{
+            title:'Usamos cookies',
+            description:'Usamos cookies esenciales para el funcionamiento y analíticas (Microsoft Clarity) para mejorar el sitio. Puede aceptar todas o gestionar preferencias. <a href="/privacy" target="_blank">Política de privacidad</a>.',
+            acceptAllBtn:'Aceptar todas',acceptNecessaryBtn:'Rechazar todas',showPreferencesBtn:'Gestionar'
+          },
+          preferencesModal:{
+            title:'Preferencias de cookies',acceptAllBtn:'Aceptar todas',acceptNecessaryBtn:'Rechazar todas',savePreferencesBtn:'Guardar',closeIconLabel:'Cerrar',
+            sections:[
+              {title:'Uso de cookies',description:'Usamos cookies para funcionalidad básica y análisis con Microsoft Clarity. <a href="/privacy" target="_blank">Política</a>.'},
+              {title:'Estrictamente necesarias',description:'Necesarias para funcionar (idioma, consentimiento).',linkedCategory:'necessary'},
+              {title:'Analíticas',description:'Microsoft Clarity recopila grabaciones anonimizadas. Sin datos personales.',linkedCategory:'analytics'},
+              {title:'Más información',description:'Preguntas: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        tr:{
+          consentModal:{
+            title:'Çerez kullanıyoruz',
+            description:'Sitenin çalışması için gerekli çerezler ve iyileştirme için analitik çerezler (Microsoft Clarity) kullanıyoruz. <a href="/privacy" target="_blank">Gizlilik Politikası</a>.',
+            acceptAllBtn:'Tümünü kabul et',acceptNecessaryBtn:'Tümünü reddet',showPreferencesBtn:'Yönet'
+          },
+          preferencesModal:{
+            title:'Çerez tercihleri',acceptAllBtn:'Tümünü kabul et',acceptNecessaryBtn:'Tümünü reddet',savePreferencesBtn:'Kaydet',closeIconLabel:'Kapat',
+            sections:[
+              {title:'Çerez kullanımı',description:'Temel işlevsellik ve Microsoft Clarity analizi için çerezler kullanıyoruz. <a href="/privacy" target="_blank">Gizlilik Politikası</a>.'},
+              {title:'Kesinlikle gerekli',description:'Site çalışması için gereklidir (dil, çerez izni).',linkedCategory:'necessary'},
+              {title:'Analitik',description:'Microsoft Clarity anonim oturumları ve ısı haritalarını toplar. Kişisel veri yok.',linkedCategory:'analytics'},
+              {title:'Daha fazla bilgi',description:'Sorular: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        az:{
+          consentModal:{
+            title:'Çərəzlərdən istifadə edirik',
+            description:'Saytın işləməsi üçün vacib çərəzlər və yaxşılaşdırma üçün analitik çərəzlər (Microsoft Clarity) istifadə edirik. <a href="/privacy" target="_blank">Məxfilik siyasəti</a>.',
+            acceptAllBtn:'Hamısını qəbul et',acceptNecessaryBtn:'Hamısını rədd et',showPreferencesBtn:'İdarə et'
+          },
+          preferencesModal:{
+            title:'Çərəz seçimləri',acceptAllBtn:'Hamısını qəbul et',acceptNecessaryBtn:'Hamısını rədd et',savePreferencesBtn:'Yadda saxla',closeIconLabel:'Bağla',
+            sections:[
+              {title:'Çərəz istifadəsi',description:'Əsas funksionallıq və Microsoft Clarity analizi üçün istifadə edirik.'},
+              {title:'Tamamilə vacib',description:'Saytın işləməsi üçün lazımdır.',linkedCategory:'necessary'},
+              {title:'Analitik',description:'Microsoft Clarity anonim seans qeydlərini toplayır.',linkedCategory:'analytics'},
+              {title:'Əlavə məlumat',description:'Suallar: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        },
+        hi:{
+          consentModal:{
+            title:'हम कुकीज़ का उपयोग करते हैं',
+            description:'हम साइट को चलाने के लिए आवश्यक कुकीज़ और सुधार के लिए विश्लेषणात्मक कुकीज़ (Microsoft Clarity) का उपयोग करते हैं। <a href="/privacy" target="_blank">गोपनीयता नीति</a>.',
+            acceptAllBtn:'सभी स्वीकार करें',acceptNecessaryBtn:'सभी अस्वीकार करें',showPreferencesBtn:'प्रबंधित करें'
+          },
+          preferencesModal:{
+            title:'कुकी प्राथमिकताएँ',acceptAllBtn:'सभी स्वीकार करें',acceptNecessaryBtn:'सभी अस्वीकार करें',savePreferencesBtn:'सहेजें',closeIconLabel:'बंद करें',
+            sections:[
+              {title:'कुकीज़ का उपयोग',description:'मूल कार्यक्षमता और Microsoft Clarity विश्लेषण के लिए कुकीज़ का उपयोग करते हैं।'},
+              {title:'सख्ती से आवश्यक',description:'साइट के बुनियादी संचालन के लिए आवश्यक।',linkedCategory:'necessary'},
+              {title:'विश्लेषिकी',description:'Microsoft Clarity अनाम सत्र रिकॉर्डिंग एकत्र करता है।',linkedCategory:'analytics'},
+              {title:'अधिक जानकारी',description:'प्रश्न: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
+            ]
+          }
+        }
+      }
+    }
+  });
+}
+
+/* Открыть настройки cookies из любой ссылки в футере */
+function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsent.showPreferences();}
+</script>
 
 </body>
 

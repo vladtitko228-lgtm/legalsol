@@ -7,7 +7,9 @@
     "rewrites": [
           { "source": "/blog/:slug", "destination": "/api/blog/:slug" },
           { "source": "/blog", "destination": "/api/blog-listing" },
-          { "source": "/sitemap.xml", "destination": "/api/sitemap" }
+          { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+          { "source": "/privacy", "destination": "/privacy.html" },
+          { "source": "/terms", "destination": "/terms.html" }
     ],
     "headers": [
           {

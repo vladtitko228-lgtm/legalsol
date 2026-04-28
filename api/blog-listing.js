@@ -96,14 +96,7 @@ function renderPage(articles) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Microsoft Clarity (heatmaps + session recordings) -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wispohj28j");
-  </script>
+  <!-- Analytics will be enabled here once a cookie consent banner is added to blog pages too -->
   <title>Blog - Legal Solutions | Immigration Guides for Poland</title>
   <meta name="description" content="Expert guides on immigration to Poland: karta pobytu, work permits, PESEL, business registration, and more. Free resources from Legal Solutions.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
