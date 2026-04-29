@@ -1731,6 +1731,19 @@ h1 .acc{color:var(--p300);}
 @media (max-width:480px){.lsuc-card{padding:36px 22px 24px;}.lsuc-title{font-size:19px;}.lsuc-icon{width:68px;height:68px;}.lsuc-ref-text strong{font-size:13px;}.lsuc-ref-text small{font-size:11px;}}
 @media (prefers-reduced-motion:reduce){.lsuc-card,.lsuc-card>*{transition:opacity .2s ease!important;transform:none!important;}.lsuc-icon,.lsuc-icon::before,.lsuc-icon::after{animation:none!important;}}
 
+/* ── Trust Badges + Live Countdown ── */
+.trust-badges{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 10px;}
+.trust-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 4px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:10px;text-align:center;line-height:1.2;transition:background .2s,border-color .2s;}
+.trust-badge:hover{background:rgba(127,119,221,.12);border-color:rgba(139,130,232,.4);}
+.tb-icon{font-size:18px;line-height:1;}
+.tb-text{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.78);letter-spacing:.01em;}
+@media (max-width:380px){.tb-text{font-size:9.5px;}}
+
+.modal-countdown{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:8px 12px;font-size:12px;color:rgba(255,255,255,.65);background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);border-radius:10px;line-height:1.4;}
+.modal-countdown strong{color:#22c55e;font-weight:700;font-variant-numeric:tabular-nums;}
+.mc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:mcDot 1.4s ease-in-out infinite;box-shadow:0 0 0 0 rgba(34,197,94,.6);}
+@keyframes mcDot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6);transform:scale(1);}70%{box-shadow:0 0 0 6px rgba(34,197,94,0);transform:scale(1.1);}}
+
 /* ── Custom Service Picker ── */
 .cs-wrap{position:relative;margin-bottom:10px;}
 .cs-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer;text-align:left;margin:0;font-size:14px;line-height:1.3;transition:border-color .18s ease,background .18s ease;}
@@ -2829,7 +2842,21 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
       <input type="hidden" id="m-service" value=""/>
     </div>
 
+    <!-- Trust badges — повышают доверие перед нажатием "Submit" -->
+    <div class="trust-badges">
+      <div class="trust-badge"><span class="tb-icon">🛡️</span><span class="tb-text" id="tb-1">98% approval rate</span></div>
+      <div class="trust-badge"><span class="tb-icon">💬</span><span class="tb-text" id="tb-2">Reply in 15 min</span></div>
+      <div class="trust-badge"><span class="tb-icon">🔒</span><span class="tb-text" id="tb-3">No spam</span></div>
+      <div class="trust-badge"><span class="tb-icon">⭐</span><span class="tb-text" id="tb-4">3000+ clients</span></div>
+    </div>
+
     <button class="modal-btn" id="modal-btn" onclick="submitModal()">Записаться — ответим за 15 минут →</button>
+
+    <!-- Live countdown — добавляет urgency -->
+    <div class="modal-countdown" id="modal-countdown">
+      <span class="mc-dot"></span>
+      <span id="mc-text">We'll reply by <strong id="mc-time">--:--</strong> · <span id="mc-rest">live now</span></span>
+    </div>
 
     <div class="modal-fine" id="modal-fine">Без спама · Конфиденциально · Не передаём данные</div>
 
@@ -14599,6 +14626,66 @@ function _utmObject(){
     return o;
   }catch(e){return{};}
 }
+
+/* ── Trust badges + live countdown в модалке ── */
+var _TB={
+  en:['98% approval','Reply in 15 min','No spam','3000+ clients'],
+  ru:['98% одобрений','Ответ за 15 мин','Без спама','3000+ клиентов'],
+  pl:['98% zatwierdzeń','Odpowiedź w 15 min','Bez spamu','3000+ klientów'],
+  uk:['98% схвалень','Відповідь за 15 хв','Без спаму','3000+ клієнтів'],
+  es:['98% aprobaciones','Respuesta en 15 min','Sin spam','3000+ clientes'],
+  tr:['%98 onay','15 dakikada cevap','Spam yok','3000+ müşteri'],
+  az:['98% təsdiq','15 dəqiqəyə cavab','Spam yoxdur','3000+ müştəri'],
+  hi:['98% अनुमोदन','15 मिनट में जवाब','कोई स्पैम नहीं','3000+ ग्राहक']
+};
+var _MC_TXT={
+  en:['We\'ll reply by','live now'],
+  ru:['Ответ к','онлайн'],
+  pl:['Odpowiemy do','online'],
+  uk:['Відповімо до','онлайн'],
+  es:['Responderemos a las','en línea'],
+  tr:['Cevap saati','çevrimiçi'],
+  az:['Cavab','onlayn'],
+  hi:['जवाब तक','ऑनलाइन']
+};
+
+function _refreshTrustBadges(){
+  var lang=_lsLang(),arr=_TB[lang]||_TB.en;
+  for(var i=0;i<4;i++){var el=document.getElementById('tb-'+(i+1));if(el)arr[i]&&(el.textContent=arr[i]);}
+  // countdown текст
+  var mtxt=_MC_TXT[lang]||_MC_TXT.en;
+  var rest=document.getElementById('mc-rest');if(rest)rest.textContent=mtxt[1];
+  // префикс перед временем — обновим html текст в mc-text если нужно
+  var mc=document.getElementById('mc-text');
+  if(mc){
+    mc.innerHTML=mtxt[0]+' <strong id="mc-time">--:--</strong> · <span id="mc-rest">'+mtxt[1]+'</span>';
+  }
+  _updateCountdownTime();
+}
+
+/* Обновляет время "ответим к ХХ:ХХ" — текущее +15 минут (Warsaw time) */
+function _updateCountdownTime(){
+  var t=document.getElementById('mc-time');if(!t)return;
+  var d=new Date();
+  d.setMinutes(d.getMinutes()+15);
+  var hh=String(d.getHours()).padStart(2,'0');
+  var mm=String(d.getMinutes()).padStart(2,'0');
+  t.textContent=hh+':'+mm;
+}
+
+/* При открытии модалки — обновим всё, и каждые 30 сек пока модалка открыта */
+var _mcInterval=null;
+(function patchOpenModal(){
+  if(typeof openModal!=='function')return;
+  var orig=openModal;
+  window.openModal=function(){
+    orig.apply(this,arguments);
+    _refreshTrustBadges();
+    if(_mcInterval)clearInterval(_mcInterval);
+    _mcInterval=setInterval(_updateCountdownTime,30000);
+  };
+})();
+document.addEventListener('DOMContentLoaded',_refreshTrustBadges);
 
 /* ── WhatsApp prefilled CTA — динамически под контекст ── */
 var _WA_PHONE='48735248525';
