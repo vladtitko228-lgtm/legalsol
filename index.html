@@ -23020,6 +23020,31 @@ function setLang(lang){
 
   if(cabHint){var sp=cabHint.querySelector('span');if(sp)sp.textContent=_ct.restore[_cl];cabHint.childNodes[0].textContent=_ct.forgot[_cl]+' ';}
 
+  
+  var _NAV_LABELS={"ru": ["Карта побыту", "ПМЖ", "Гражданство", "Blue Card (ЕС)", "Апелляции", "Регистрация компании", "Бухгалтерия", "PESEL", "Profil Zaufany", "Замена прав", "Международная защита"], "en": ["Residence Permit", "Permanent Residence", "Polish Citizenship", "Blue Card (EU)", "Appeals", "Company Registration", "Accounting", "PESEL", "Profil Zaufany", "Driving License", "International Protection"], "pl": ["Karta Pobytu", "Pobyt Stały", "Obywatelstwo", "Blue Card (UE)", "Odwołania", "Rejestracja Firmy", "Księgowość", "PESEL", "Profil Zaufany", "Wymiana Prawa Jazdy", "Ochrona Międzynarodowa"], "uk": ["Карта Побуту", "ПМЖ", "Громадянство", "Blue Card (ЄС)", "Апеляції", "Реєстрація Фірми", "Бухгалтерія", "PESEL", "Profil Zaufany", "Заміна Прав", "Міжнародний Захист"], "hi": ["Karta Pobytu", "स्थायी निवास", "नागरिकता", "Blue Card (EU)", "अपील", "कंपनी पंजीकरण", "अकाउंटिंग", "PESEL", "Profil Zaufany", "लाइसेंस एक्सचेंज", "अंतरराष्ट्रीय सुरक्षा"], "az": ["Karta Pobytu", "Daimi İqamət", "Vətəndaşlıq", "Blue Card (AB)", "Şikayətlər", "Şirkət Qeydiyyatı", "Mühasibat", "PESEL", "Profil Zaufany", "Sürücülük Vəsiqəsi", "Beynəlxalq Müdafiə"], "tr": ["Karta Pobytu", "Kalıcı İkamet", "Vatandaşlık", "Blue Card (AB)", "İtirazlar", "Şirket Kaydı", "Muhasebe", "PESEL", "Profil Zaufany", "Ehliyet Değişimi", "Uluslararası Koruma"], "es": ["Karta Pobytu", "Residencia Permanente", "Ciudadanía", "Blue Card (UE)", "Apelaciones", "Registro de Empresa", "Contabilidad", "PESEL", "Profil Zaufany", "Canje de Licencia", "Protección Internacional"]};
+  var _NAV_KEYS=["kp", "pmzh", "citizen", "bluecard", "appeal", "company", "accounting", "pesel", "profil", "rights", "intl"];
+  try {
+    // 1. Update sidebar service nav labels
+    var _navList = _NAV_LABELS[lang] || _NAV_LABELS.en;
+    document.querySelectorAll('.sv-item').forEach(function(item) {
+      var oc = item.getAttribute('onclick') || '';
+      var mm = oc.match(/showSvc\(['"]([^'"]+)['"]\)/);
+      if (!mm) return;
+      var svcKey = mm[1];
+      var idx = _NAV_KEYS.indexOf(svcKey);
+      if (idx === -1) return;
+      var t = item.querySelector('.sv-item-t');
+      if (t && _navList[idx]) t.textContent = _navList[idx];
+    });
+    // 2. Re-render currently active service card with new lang
+    var active = document.querySelector('.sv-item.active');
+    if (active && typeof showSvc === 'function') {
+      var oc2 = active.getAttribute('onclick') || '';
+      var mm2 = oc2.match(/showSvc\(['"]([^'"]+)['"]\)/);
+      if (mm2) showSvc(mm2[1]);
+    }
+  } catch(err2) { console.warn('[setLang sv-item update]', err2); }
+
   }catch(err){console.error('[setLang] error at lang='+lang+':',err);}
 
 }
