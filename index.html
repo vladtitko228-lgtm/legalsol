@@ -22261,7 +22261,7 @@ function setLang(lang){
 
   var _o=_opts[lang]||_opts.en;
 
-  if(ms){for(var i=0;i<_o.length&&i<ms.options.length;i++)ms.options[i].text=_o[i];}
+  if(ms&&ms.options&&_o){for(var i=0;i<_o.length&&i<ms.options.length;i++)ms.options[i].text=_o[i];}
 
   // Custom select: 1-й элемент = плейсхолдер, остальные — опции
   var csTrig=document.getElementById('cs-trigger-text');
