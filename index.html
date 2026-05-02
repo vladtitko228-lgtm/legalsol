@@ -24993,6 +24993,30 @@ document.addEventListener('visibilitychange',function(){
   document.querySelector('#ls-cb-policy span').textContent = t.policy;
   document.getElementById('ls-cb-accept').textContent = t.accept;
   document.body.classList.add('ls-cb-active');
+  
+  // Hide vanilla-cookieconsent default banner (we replace it with our custom one)
+  function _lsCbHideLib(){
+    var sel = ['#cc-main > .cm','#cm','.cm-wrapper','div.cm','#cc-main .cm__title'];
+    sel.forEach(function(s){
+      document.querySelectorAll(s).forEach(function(el){ el.style.setProperty('display','none','important'); });
+    });
+    // try to hide entire #cc-main only if no preferences/preferences__title visible
+    var ccMain = document.getElementById('cc-main');
+    if (ccMain) {
+      var pm = ccMain.querySelector('.pm,.pm-wrapper,#pm,.cm--preferences');
+      if (!pm || pm.offsetParent === null) {
+        ccMain.style.setProperty('display','none','important');
+      }
+    }
+  }
+  _lsCbHideLib();
+  // observe DOM in case library inserts its banner later
+  try {
+    var _lsCbObs = new MutationObserver(function(){ _lsCbHideLib(); });
+    _lsCbObs.observe(document.documentElement || document.body, {childList:true, subtree:true});
+    setTimeout(function(){ if(_lsCbObs) _lsCbObs.disconnect(); }, 8000);
+  } catch(e){}
+  
   setTimeout(function(){ el.classList.add('ls-cb-show'); }, 400);
   document.getElementById('ls-cb-accept').addEventListener('click', function(){
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ accepted: true, ts: Date.now(), v: 1 }));
