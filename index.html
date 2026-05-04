@@ -1636,6 +1636,11 @@ h1 .acc{color:var(--p300);}
 
 .modal-in{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.25);border-radius:14px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;display:block;}
 
+/* Phone row with country picker */
+.m-phone-row{display:flex;gap:8px;margin-bottom:10px;align-items:stretch;}
+.m-phone-row .m-phone-num{flex:1;margin-bottom:0;}
+.m-phone-row .ls-cp{margin-bottom:0;}
+
 /* ── Exit Intent popup — золотой акцент, всплывает снизу ── */
 .ei-overlay{position:fixed;inset:0;z-index:200001;display:flex;align-items:center;justify-content:center;background:rgba(15,13,40,0);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s,background-color .5s ease,backdrop-filter .5s ease,-webkit-backdrop-filter .5s ease;padding:20px;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif;}
 .ei-overlay.ei-on{opacity:1;visibility:visible;background:rgba(15,13,40,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
@@ -2819,7 +2824,21 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
     <input class="modal-in" placeholder="Ваше имя" id="m-name"/>
 
-    <input class="modal-in" placeholder="WhatsApp / Telegram / Телефон" id="m-phone"/>
+    <div class="m-phone-row">
+      <div class="ls-cp" data-default="+48">
+        <button type="button" data-cp-trigger aria-haspopup="listbox" aria-expanded="false">
+          <span data-cp-flag>🇵🇱</span>
+          <span data-cp-code>+48</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div data-cp-menu role="listbox">
+          <input type="text" data-cp-search placeholder="Search country or code…" autocomplete="off"/>
+          <div data-cp-list></div>
+        </div>
+        <input type="hidden" data-cp-hidden id="m-phone-cc" value="+48"/>
+      </div>
+      <input class="modal-in m-phone-num" placeholder="600 123 456" id="m-phone" type="tel" inputmode="numeric"/>
+    </div>
 
     <!-- Custom service picker (replaces native select). Texts default to EN; setLang() rewrites them. -->
     <div class="cs-wrap" id="cs-wrap">
@@ -14983,15 +15002,26 @@ document.addEventListener('keydown',function(e){
 
 function submitModal(){
   var p=document.getElementById('m-phone');
-  if(!p||!p.value.trim()){alert(_t('err.phone'));return;}
+  var raw=p?p.value.trim():'';
+  // Валидация: минимум 6 цифр в самом номере
+  var digits=raw.replace(/\D/g,'');
+  if(!raw || digits.length<6){
+    if(p){p.style.borderColor='#ef4444';setTimeout(function(){p.style.borderColor='';},2000);p.focus();}
+    return;
+  }
 
   var btn=document.getElementById('modal-btn');
   if(btn)btn.disabled=true;
 
+  // Склеиваем код страны + номер (убираем повторный + и ведущие нули из номера)
+  var ccEl=document.getElementById('m-phone-cc');
+  var cc=ccEl?ccEl.value:'+48';
+  var phoneFull=cc+' '+raw.replace(/^\+?\s*/,'').replace(/^0+/,'');
+
   // Собираем payload и шлём в Google Sheet
   var payload={
     name:(document.getElementById('m-name')||{}).value||'',
-    phone:p.value.trim(),
+    phone:phoneFull,
     service:(document.getElementById('m-service')||{}).value||'',
     message:'',
     source:'modal_form',
@@ -24923,6 +24953,7 @@ document.addEventListener('visibilitychange',function(){
 
 </div>
 
+<script src="/country-picker.js" defer></script>
 <script src="/api/blog-inject" defer></script>
 
 <!-- Cookie Consent — RODO/GDPR (8 languages) -->
