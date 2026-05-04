@@ -854,6 +854,10 @@ function renderPage(a, contentHtml) {
 
     .modal-field::placeholder{color:rgba(255,255,255,.25);}
 
+    select.modal-field{appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;background-image:url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%237F77DD%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e');background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:38px;}
+
+    select.modal-field option{background:#1e1b4b;color:#fff;}
+
     .modal-wa-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,#1fbe5a,#17a34a);color:#fff;border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 4px 18px rgba(34,197,94,.25);margin-top:20px;}
 
     .modal-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(34,197,94,.35);filter:brightness(1.05);}
@@ -1148,9 +1152,9 @@ function renderPage(a, contentHtml) {
 
         <div class="modal-badge"><span class="modal-badge-dot"></span>${isRu ? 'Онлайн · Ответим за 15 мин' : 'Online · Reply in 15 min'}</div>
 
-        <h3>${isRu ? 'Бесплатная консультация' : 'Free Consultation'}</h3>
+        <h3>${isRu ? 'Оставить заявку' : 'Leave a request'}</h3>
 
-        <p>${isRu ? 'Оставьте контакты — юрист напишет в WhatsApp и поможет разобраться в ситуации' : 'Leave your contacts — a lawyer will reach you on WhatsApp and help with your case'}</p>
+        <p>${isRu ? 'Заполните форму — юрист свяжется с вами в течение 15 минут' : 'Fill in the form — a lawyer will contact you within 15 minutes'}</p>
 
       </div>
 
@@ -1164,11 +1168,28 @@ function renderPage(a, contentHtml) {
 
         <input class="modal-field" id="modal-phone" type="tel" placeholder="+48 ...">
 
+        <div class="modal-label">${isRu ? 'Какая услуга интересует?' : 'Which service?'}</div>
+
+        <select class="modal-field" id="modal-service">
+          <option value="">${isRu ? 'Не знаю — нужна консультация' : "Not sure — need advice"}</option>
+          <option value="karta_pobytu">${isRu ? 'Карта побыту / вид на жительство' : 'Residence permit (Karta Pobytu)'}</option>
+          <option value="permanent">${isRu ? 'Постоянный побыт (ВНЖ)' : 'Permanent residence'}</option>
+          <option value="pesel">PESEL</option>
+          <option value="profil_zaufany">${isRu ? 'Доверенный профиль (Profil Zaufany)' : 'Trusted Profile'}</option>
+          <option value="blue_card">${isRu ? 'Голубая карта ЕС (Blue Card)' : 'EU Blue Card'}</option>
+          <option value="company">${isRu ? 'Регистрация фирмы / ИП' : 'Company registration'}</option>
+          <option value="accounting">${isRu ? 'Бухгалтерия и налоги' : 'Accounting & taxes'}</option>
+          <option value="appeal">${isRu ? 'Апелляция по отказу' : 'Appeal a denial'}</option>
+          <option value="work">${isRu ? 'Работа в Польше / Европе' : 'Work in Poland / Europe'}</option>
+          <option value="driving">${isRu ? 'Замена водительских прав' : 'Driving licence exchange'}</option>
+          <option value="citizenship">${isRu ? 'Гражданство Польши' : 'Polish citizenship'}</option>
+        </select>
+
         <button class="modal-wa-btn" onclick="sendToWhatsApp()">
 
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
 
-          ${isRu ? 'Написать в WhatsApp' : 'Write on WhatsApp'}
+          ${isRu ? 'Отправить заявку' : 'Submit request'}
 
         </button>
 
@@ -1190,32 +1211,38 @@ function renderPage(a, contentHtml) {
 
     function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';}
 
+    /* Submit заявки на консультацию из блога — только в Google Sheet, без открытия WA */
     function sendToWhatsApp(){
-
       var name=document.getElementById('modal-name').value.trim();
-
       var phone=document.getElementById('modal-phone').value.trim();
-
+      var serviceEl=document.getElementById('modal-service');
+      var serviceKey=serviceEl?serviceEl.value:'';
+      var serviceText=serviceEl?(serviceEl.options[serviceEl.selectedIndex].text):'';
       var article=${JSON.stringify(title)};
 
-      var msg='${isRu ? 'Здравствуйте! Читал статью' : 'Hello! I read the article'}: '+article+'.';
+      // Валидация — телефон обязателен (имя опционально)
+      if(!phone || phone.length<6){
+        var phEl=document.getElementById('modal-phone');
+        if(phEl){phEl.style.borderColor='#ef4444';setTimeout(function(){phEl.style.borderColor='';},2000);phEl.focus();}
+        return;
+      }
 
-      if(name)msg+=' ${isRu ? 'Меня зовут' : 'My name is'} '+name+'.';
+      // Отправка в Google Sheet
+      var btn=document.querySelector('#consultModal .modal-wa-btn');
+      if(btn)btn.disabled=true;
 
-      if(phone)msg+=' ${isRu ? 'Мой телефон' : 'My phone'}: '+phone+'.';
+      // Service для таблицы: "Карта побыту" + контекст статьи
+      var serviceForSheet=(serviceText && serviceKey)?(serviceText+' (from blog: '+article+')'):'Blog CTA · '+article;
 
-      msg+=' ${isRu ? 'Хочу записаться на консультацию.' : 'I would like to book a consultation.'}';
-
-      // Параллельно отправляем лид в Google Sheet (no-cors fire-and-forget)
       try{
         fetch('https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec',{
           method:'POST',
           mode:'no-cors',
           headers:{'Content-Type':'text/plain;charset=utf-8'},
           body:JSON.stringify({
-            name:name,
+            name:name||'',
             phone:phone,
-            service:'Blog CTA · '+article,
+            service:serviceForSheet,
             message:'',
             source:'blog_article_cta',
             page:location.pathname,
@@ -1226,13 +1253,27 @@ function renderPage(a, contentHtml) {
         }).catch(function(){});
       }catch(e){}
 
-      window.open('https://wa.me/48735248525?text='+encodeURIComponent(msg),'_blank');
-
-      // Закрыть модалку и очистить
-      closeConsultModal();
-      var n=document.getElementById('modal-name'),p=document.getElementById('modal-phone');
-      if(n)n.value='';if(p)p.value='';
-
+      // Показать success state в самой модалке (без открытия WA)
+      var modalBody=document.querySelector('#consultModal .modal-body');
+      var modalHead=document.querySelector('#consultModal .modal-head');
+      if(modalBody && modalHead){
+        modalHead.innerHTML='<button class="modal-close" onclick="closeConsultModal()">×</button>'+
+          '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:8px auto 14px;box-shadow:0 8px 24px rgba(34,197,94,.45);">'+
+          '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'+
+          '</div>'+
+          '<h3 style="text-align:center;">${isRu ? "Заявка отправлена!" : "Request received!"}</h3>'+
+          '<p style="text-align:center;">${isRu ? "Наш специалист свяжется с вами в течение 15 минут." : "Our specialist will contact you within 15 minutes."}</p>';
+        // Префилл WA с именем/телефоном для быстрого контакта
+        var prefillMsg='${isRu ? "Здравствуйте! Я только что оставил заявку с блога legalsol.pl. Имя: " : "Hello! I just submitted a request from legalsol.pl blog. Name: "}'+(name||'—')+', '+
+          '${isRu ? "телефон: " : "phone: "}'+phone+'. '+
+          '${isRu ? "Статья: " : "Article: "}'+article+'.';
+        modalBody.innerHTML='<p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin:0 0 16px;">${isRu ? "Не хотите ждать? Напишите в WhatsApp — ответим сразу." : "Don\\u2019t want to wait? Message us on WhatsApp — we\\u2019ll reply immediately."}</p>'+
+          '<a href="https://wa.me/48735248525?text='+encodeURIComponent(prefillMsg)+'" target="_blank" rel="noopener" class="modal-wa-btn" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#25d366,#1eb555);">'+
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'+
+          '<span>${isRu ? "Написать в WhatsApp" : "Message us on WhatsApp"}</span>'+
+          '</a>'+
+          '<p class="modal-note" style="text-align:center;">${isRu ? "98% дел одобрено · Апелляция бесплатно · Без предоплаты" : "98% approval rate · Free appeal · No prepayment"}</p>';
+      }
     }
 
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeConsultModal();});
