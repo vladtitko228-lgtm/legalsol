@@ -858,10 +858,36 @@ function renderPage(a, contentHtml) {
 
     select.modal-field option{background:#1e1b4b;color:#fff;}
 
-    .phone-row{display:flex;gap:8px;}
-    .phone-row .phone-cc{flex:0 0 130px;font-size:13px;}
+    .phone-row{display:flex;gap:8px;align-items:stretch;}
     .phone-row .phone-num{flex:1;}
-    @media (max-width:380px){.phone-row .phone-cc{flex:0 0 110px;font-size:12px;}}
+
+    /* ── Country code picker (searchable) ── */
+    .phone-cc-picker{position:relative;flex:0 0 130px;}
+    .phone-cc-trigger{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;height:100%;background:rgba(255,255,255,.05);border:1px solid rgba(139,130,232,.2);border-radius:10px;padding:10px 10px 10px 12px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s;outline:none;}
+    .phone-cc-trigger:hover{background:rgba(139,130,232,.10);border-color:rgba(139,130,232,.4);}
+    .phone-cc-trigger.cci-open{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+    .phone-cc-flag{font-size:18px;line-height:1;flex-shrink:0;}
+    .phone-cc-code{font-weight:600;flex:1;text-align:left;color:#fff;}
+    .phone-cc-arrow{flex-shrink:0;color:#7F77DD;transition:transform .25s ease;}
+    .phone-cc-trigger.cci-open .phone-cc-arrow{transform:rotate(180deg);}
+
+    .phone-cc-menu{position:absolute;top:calc(100% + 6px);left:0;width:320px;max-width:90vw;z-index:100;background:rgba(30,27,75,.97);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(139,130,232,.35);border-radius:14px;padding:8px;box-shadow:0 16px 48px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top left;transition:opacity .2s ease,transform .2s cubic-bezier(.4,0,.2,1),visibility .2s;}
+    .phone-cc-menu.cci-open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+    .phone-cc-search{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.2);border-radius:10px;padding:9px 12px;color:#fff;font-size:13px;font-family:inherit;outline:none;margin-bottom:6px;box-sizing:border-box;}
+    .phone-cc-search::placeholder{color:rgba(255,255,255,.4);}
+    .phone-cc-search:focus{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+    .phone-cc-list{max-height:280px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:1px;}
+    .phone-cc-list::-webkit-scrollbar{width:6px;}
+    .phone-cc-list::-webkit-scrollbar-thumb{background:rgba(139,130,232,.3);border-radius:3px;}
+    .phone-cc-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;transition:background .12s ease;user-select:none;}
+    .phone-cc-item:hover{background:rgba(127,119,221,.18);color:#fff;}
+    .phone-cc-item.cci-selected{background:rgba(127,119,221,.25);color:#fff;font-weight:600;}
+    .phone-cc-item .cci-flag{font-size:18px;line-height:1;flex-shrink:0;}
+    .phone-cc-item .cci-name{flex:1;color:rgba(255,255,255,.85);}
+    .phone-cc-item .cci-code{flex-shrink:0;color:rgba(127,119,221,.95);font-weight:600;font-variant-numeric:tabular-nums;}
+    .phone-cc-empty{display:none;padding:14px;color:rgba(255,255,255,.5);font-size:13px;text-align:center;}
+    .phone-cc-list:empty + .phone-cc-empty{display:block;}
+    @media (max-width:480px){.phone-cc-menu{width:280px;}.phone-cc-list{max-height:240px;}}
 
     .modal-wa-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,#1fbe5a,#17a34a);color:#fff;border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 4px 18px rgba(34,197,94,.25);margin-top:20px;}
 
@@ -1172,39 +1198,20 @@ function renderPage(a, contentHtml) {
         <div class="modal-label">${isRu ? 'Телефон / WhatsApp' : 'Phone / WhatsApp'}</div>
 
         <div class="phone-row">
-          <select class="modal-field phone-cc" id="modal-phone-cc">
-            <option value="+48"  data-flag="🇵🇱">🇵🇱 +48 PL</option>
-            <option value="+380" data-flag="🇺🇦">🇺🇦 +380 UA</option>
-            <option value="+7"   data-flag="🇷🇺">🇷🇺 +7 RU/KZ</option>
-            <option value="+375" data-flag="🇧🇾">🇧🇾 +375 BY</option>
-            <option value="+373" data-flag="🇲🇩">🇲🇩 +373 MD</option>
-            <option value="+995" data-flag="🇬🇪">🇬🇪 +995 GE</option>
-            <option value="+994" data-flag="🇦🇿">🇦🇿 +994 AZ</option>
-            <option value="+374" data-flag="🇦🇲">🇦🇲 +374 AM</option>
-            <option value="+998" data-flag="🇺🇿">🇺🇿 +998 UZ</option>
-            <option value="+90"  data-flag="🇹🇷">🇹🇷 +90 TR</option>
-            <option value="+91"  data-flag="🇮🇳">🇮🇳 +91 IN</option>
-            <option value="+92"  data-flag="🇵🇰">🇵🇰 +92 PK</option>
-            <option value="+880" data-flag="🇧🇩">🇧🇩 +880 BD</option>
-            <option value="+62"  data-flag="🇮🇩">🇮🇩 +62 ID</option>
-            <option value="+63"  data-flag="🇵🇭">🇵🇭 +63 PH</option>
-            <option value="+84"  data-flag="🇻🇳">🇻🇳 +84 VN</option>
-            <option value="+49"  data-flag="🇩🇪">🇩🇪 +49 DE</option>
-            <option value="+44"  data-flag="🇬🇧">🇬🇧 +44 UK</option>
-            <option value="+1"   data-flag="🇺🇸">🇺🇸 +1 US/CA</option>
-            <option value="+34"  data-flag="🇪🇸">🇪🇸 +34 ES</option>
-            <option value="+33"  data-flag="🇫🇷">🇫🇷 +33 FR</option>
-            <option value="+39"  data-flag="🇮🇹">🇮🇹 +39 IT</option>
-            <option value="+31"  data-flag="🇳🇱">🇳🇱 +31 NL</option>
-            <option value="+32"  data-flag="🇧🇪">🇧🇪 +32 BE</option>
-            <option value="+43"  data-flag="🇦🇹">🇦🇹 +43 AT</option>
-            <option value="+420" data-flag="🇨🇿">🇨🇿 +420 CZ</option>
-            <option value="+421" data-flag="🇸🇰">🇸🇰 +421 SK</option>
-            <option value="+371" data-flag="🇱🇻">🇱🇻 +371 LV</option>
-            <option value="+370" data-flag="🇱🇹">🇱🇹 +370 LT</option>
-            <option value="+372" data-flag="🇪🇪">🇪🇪 +372 EE</option>
-          </select>
-          <input class="modal-field phone-num" id="modal-phone" type="tel" inputmode="numeric" placeholder="${isRu ? '600 123 456' : '600 123 456'}">
+          <div class="phone-cc-picker" id="phone-cc-picker">
+            <button type="button" class="phone-cc-trigger" id="phone-cc-trigger" onclick="cciToggle(event)" aria-haspopup="listbox" aria-expanded="false">
+              <span class="phone-cc-flag" id="phone-cc-flag">🇵🇱</span>
+              <span class="phone-cc-code" id="phone-cc-code">+48</span>
+              <svg class="phone-cc-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="phone-cc-menu" id="phone-cc-menu" role="listbox">
+              <input type="text" class="phone-cc-search" id="phone-cc-search" placeholder="${isRu ? 'Поиск страны или кода…' : 'Search country or code…'}" autocomplete="off"/>
+              <div class="phone-cc-list" id="phone-cc-list"></div>
+              <div class="phone-cc-empty" id="phone-cc-empty">${isRu ? 'Не найдено' : 'No results'}</div>
+            </div>
+            <input type="hidden" id="modal-phone-cc" value="+48"/>
+          </div>
+          <input class="modal-field phone-num" id="modal-phone" type="tel" inputmode="numeric" placeholder="600 123 456">
         </div>
 
         <div class="modal-label">${isRu ? 'Какая услуга интересует?' : 'Which service?'}</div>
@@ -1212,16 +1219,16 @@ function renderPage(a, contentHtml) {
         <select class="modal-field" id="modal-service">
           <option value="">${isRu ? 'Не знаю — нужна консультация' : "Not sure — need advice"}</option>
           <option value="karta_pobytu">${isRu ? 'Карта побыту / вид на жительство' : 'Residence permit (Karta Pobytu)'}</option>
-          <option value="permanent">${isRu ? 'Постоянный побыт (ВНЖ)' : 'Permanent residence'}</option>
-          <option value="pesel">PESEL</option>
-          <option value="profil_zaufany">${isRu ? 'Доверенный профиль (Profil Zaufany)' : 'Trusted Profile'}</option>
-          <option value="blue_card">${isRu ? 'Голубая карта ЕС (Blue Card)' : 'EU Blue Card'}</option>
-          <option value="company">${isRu ? 'Регистрация фирмы / ИП' : 'Company registration'}</option>
-          <option value="accounting">${isRu ? 'Бухгалтерия и налоги' : 'Accounting & taxes'}</option>
-          <option value="appeal">${isRu ? 'Апелляция по отказу' : 'Appeal a denial'}</option>
-          <option value="work">${isRu ? 'Работа в Польше / Европе' : 'Work in Poland / Europe'}</option>
-          <option value="driving">${isRu ? 'Замена водительских прав' : 'Driving licence exchange'}</option>
+          <option value="permanent_residence">${isRu ? 'ПМЖ (постоянный побыт)' : 'Permanent residence'}</option>
           <option value="citizenship">${isRu ? 'Гражданство Польши' : 'Polish citizenship'}</option>
+          <option value="blue_card">${isRu ? 'Blue Card (ЕС)' : 'Blue Card (EU)'}</option>
+          <option value="appeals">${isRu ? 'Апелляция по отказу' : 'Appeals'}</option>
+          <option value="company">${isRu ? 'Регистрация компании' : 'Company registration'}</option>
+          <option value="accounting">${isRu ? 'Бухгалтерский учёт' : 'Accounting'}</option>
+          <option value="pesel">${isRu ? 'Помощь с PESEL' : 'PESEL assistance'}</option>
+          <option value="profil_zaufany">${isRu ? 'Profil Zaufany' : 'Profil Zaufany'}</option>
+          <option value="driving">${isRu ? 'Замена прав' : 'Driving licence exchange'}</option>
+          <option value="international_protection">${isRu ? 'Международная защита' : 'International protection'}</option>
         </select>
 
         <button class="modal-wa-btn" onclick="sendToWhatsApp()">
@@ -1246,9 +1253,223 @@ function renderPage(a, contentHtml) {
 
     document.addEventListener('click',function(){document.getElementById('lang-dd').classList.remove('open')});
 
-    function openConsultModal(){document.getElementById('consultModal').classList.add('open');document.body.style.overflow='hidden';}
+    function openConsultModal(){document.getElementById('consultModal').classList.add('open');document.body.style.overflow='hidden';if(!_cciInited)cciInit();}
 
-    function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';}
+    function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';cciClose();}
+
+    /* ── Country code picker (searchable) ── */
+    var _cciInited=false;
+    var _CCI=[
+      // Priority order (Legal Solutions clients top regions first)
+      {n:'Poland',c:'+48',f:'🇵🇱',s:'pl polska polonia poland'},
+      {n:'Ukraine',c:'+380',f:'🇺🇦',s:'ua ukraine ukraina'},
+      {n:'Russia',c:'+7',f:'🇷🇺',s:'ru russia rossiya kazakhstan kz'},
+      {n:'Belarus',c:'+375',f:'🇧🇾',s:'by belarus belorussia'},
+      {n:'Moldova',c:'+373',f:'🇲🇩',s:'md moldova'},
+      {n:'Georgia',c:'+995',f:'🇬🇪',s:'ge georgia gruzia'},
+      {n:'Azerbaijan',c:'+994',f:'🇦🇿',s:'az azerbaijan'},
+      {n:'Armenia',c:'+374',f:'🇦🇲',s:'am armenia'},
+      {n:'Kazakhstan',c:'+7',f:'🇰🇿',s:'kz kazakhstan'},
+      {n:'Uzbekistan',c:'+998',f:'🇺🇿',s:'uz uzbekistan'},
+      {n:'Kyrgyzstan',c:'+996',f:'🇰🇬',s:'kg kyrgyzstan kirgizia'},
+      {n:'Tajikistan',c:'+992',f:'🇹🇯',s:'tj tajikistan'},
+      {n:'Turkmenistan',c:'+993',f:'🇹🇲',s:'tm turkmenistan'},
+      {n:'Turkey',c:'+90',f:'🇹🇷',s:'tr turkey turkiye'},
+      {n:'India',c:'+91',f:'🇮🇳',s:'in india'},
+      {n:'Pakistan',c:'+92',f:'🇵🇰',s:'pk pakistan'},
+      {n:'Bangladesh',c:'+880',f:'🇧🇩',s:'bd bangladesh'},
+      {n:'Sri Lanka',c:'+94',f:'🇱🇰',s:'lk sri lanka'},
+      {n:'Nepal',c:'+977',f:'🇳🇵',s:'np nepal'},
+      {n:'Indonesia',c:'+62',f:'🇮🇩',s:'id indonesia'},
+      {n:'Philippines',c:'+63',f:'🇵🇭',s:'ph philippines'},
+      {n:'Vietnam',c:'+84',f:'🇻🇳',s:'vn vietnam'},
+      {n:'Thailand',c:'+66',f:'🇹🇭',s:'th thailand'},
+      {n:'China',c:'+86',f:'🇨🇳',s:'cn china'},
+      {n:'South Korea',c:'+82',f:'🇰🇷',s:'kr korea south'},
+      {n:'Japan',c:'+81',f:'🇯🇵',s:'jp japan'},
+      {n:'Malaysia',c:'+60',f:'🇲🇾',s:'my malaysia'},
+      {n:'Singapore',c:'+65',f:'🇸🇬',s:'sg singapore'},
+      // EU + Schengen
+      {n:'Germany',c:'+49',f:'🇩🇪',s:'de germany deutschland'},
+      {n:'United Kingdom',c:'+44',f:'🇬🇧',s:'uk united kingdom britain'},
+      {n:'France',c:'+33',f:'🇫🇷',s:'fr france'},
+      {n:'Italy',c:'+39',f:'🇮🇹',s:'it italy italia'},
+      {n:'Spain',c:'+34',f:'🇪🇸',s:'es spain espana'},
+      {n:'Portugal',c:'+351',f:'🇵🇹',s:'pt portugal'},
+      {n:'Netherlands',c:'+31',f:'🇳🇱',s:'nl netherlands holland'},
+      {n:'Belgium',c:'+32',f:'🇧🇪',s:'be belgium'},
+      {n:'Austria',c:'+43',f:'🇦🇹',s:'at austria'},
+      {n:'Switzerland',c:'+41',f:'🇨🇭',s:'ch switzerland'},
+      {n:'Czech Republic',c:'+420',f:'🇨🇿',s:'cz czech czechia'},
+      {n:'Slovakia',c:'+421',f:'🇸🇰',s:'sk slovakia'},
+      {n:'Hungary',c:'+36',f:'🇭🇺',s:'hu hungary'},
+      {n:'Romania',c:'+40',f:'🇷🇴',s:'ro romania'},
+      {n:'Bulgaria',c:'+359',f:'🇧🇬',s:'bg bulgaria'},
+      {n:'Greece',c:'+30',f:'🇬🇷',s:'gr greece'},
+      {n:'Latvia',c:'+371',f:'🇱🇻',s:'lv latvia'},
+      {n:'Lithuania',c:'+370',f:'🇱🇹',s:'lt lithuania'},
+      {n:'Estonia',c:'+372',f:'🇪🇪',s:'ee estonia'},
+      {n:'Finland',c:'+358',f:'🇫🇮',s:'fi finland'},
+      {n:'Sweden',c:'+46',f:'🇸🇪',s:'se sweden'},
+      {n:'Norway',c:'+47',f:'🇳🇴',s:'no norway'},
+      {n:'Denmark',c:'+45',f:'🇩🇰',s:'dk denmark'},
+      {n:'Ireland',c:'+353',f:'🇮🇪',s:'ie ireland'},
+      {n:'Iceland',c:'+354',f:'🇮🇸',s:'is iceland'},
+      {n:'Luxembourg',c:'+352',f:'🇱🇺',s:'lu luxembourg'},
+      {n:'Malta',c:'+356',f:'🇲🇹',s:'mt malta'},
+      {n:'Cyprus',c:'+357',f:'🇨🇾',s:'cy cyprus'},
+      {n:'Slovenia',c:'+386',f:'🇸🇮',s:'si slovenia'},
+      {n:'Croatia',c:'+385',f:'🇭🇷',s:'hr croatia'},
+      {n:'Serbia',c:'+381',f:'🇷🇸',s:'rs serbia'},
+      {n:'Bosnia and Herzegovina',c:'+387',f:'🇧🇦',s:'ba bosnia herzegovina'},
+      {n:'Montenegro',c:'+382',f:'🇲🇪',s:'me montenegro'},
+      {n:'North Macedonia',c:'+389',f:'🇲🇰',s:'mk north macedonia'},
+      {n:'Albania',c:'+355',f:'🇦🇱',s:'al albania'},
+      {n:'Kosovo',c:'+383',f:'🇽🇰',s:'xk kosovo'},
+      // Americas
+      {n:'United States',c:'+1',f:'🇺🇸',s:'us usa united states america'},
+      {n:'Canada',c:'+1',f:'🇨🇦',s:'ca canada'},
+      {n:'Mexico',c:'+52',f:'🇲🇽',s:'mx mexico'},
+      {n:'Brazil',c:'+55',f:'🇧🇷',s:'br brazil brasil'},
+      {n:'Argentina',c:'+54',f:'🇦🇷',s:'ar argentina'},
+      {n:'Chile',c:'+56',f:'🇨🇱',s:'cl chile'},
+      {n:'Colombia',c:'+57',f:'🇨🇴',s:'co colombia'},
+      {n:'Peru',c:'+51',f:'🇵🇪',s:'pe peru'},
+      {n:'Venezuela',c:'+58',f:'🇻🇪',s:'ve venezuela'},
+      {n:'Ecuador',c:'+593',f:'🇪🇨',s:'ec ecuador'},
+      {n:'Bolivia',c:'+591',f:'🇧🇴',s:'bo bolivia'},
+      {n:'Paraguay',c:'+595',f:'🇵🇾',s:'py paraguay'},
+      {n:'Uruguay',c:'+598',f:'🇺🇾',s:'uy uruguay'},
+      {n:'Cuba',c:'+53',f:'🇨🇺',s:'cu cuba'},
+      {n:'Dominican Republic',c:'+1',f:'🇩🇴',s:'do dominican'},
+      {n:'Puerto Rico',c:'+1',f:'🇵🇷',s:'pr puerto rico'},
+      {n:'Costa Rica',c:'+506',f:'🇨🇷',s:'cr costa rica'},
+      {n:'Panama',c:'+507',f:'🇵🇦',s:'pa panama'},
+      {n:'Guatemala',c:'+502',f:'🇬🇹',s:'gt guatemala'},
+      {n:'Honduras',c:'+504',f:'🇭🇳',s:'hn honduras'},
+      {n:'El Salvador',c:'+503',f:'🇸🇻',s:'sv el salvador'},
+      {n:'Nicaragua',c:'+505',f:'🇳🇮',s:'ni nicaragua'},
+      // Middle East
+      {n:'Israel',c:'+972',f:'🇮🇱',s:'il israel'},
+      {n:'United Arab Emirates',c:'+971',f:'🇦🇪',s:'ae uae emirates'},
+      {n:'Saudi Arabia',c:'+966',f:'🇸🇦',s:'sa saudi arabia'},
+      {n:'Qatar',c:'+974',f:'🇶🇦',s:'qa qatar'},
+      {n:'Kuwait',c:'+965',f:'🇰🇼',s:'kw kuwait'},
+      {n:'Bahrain',c:'+973',f:'🇧🇭',s:'bh bahrain'},
+      {n:'Oman',c:'+968',f:'🇴🇲',s:'om oman'},
+      {n:'Jordan',c:'+962',f:'🇯🇴',s:'jo jordan'},
+      {n:'Lebanon',c:'+961',f:'🇱🇧',s:'lb lebanon'},
+      {n:'Syria',c:'+963',f:'🇸🇾',s:'sy syria'},
+      {n:'Iraq',c:'+964',f:'🇮🇶',s:'iq iraq'},
+      {n:'Iran',c:'+98',f:'🇮🇷',s:'ir iran'},
+      {n:'Yemen',c:'+967',f:'🇾🇪',s:'ye yemen'},
+      {n:'Palestine',c:'+970',f:'🇵🇸',s:'ps palestine'},
+      {n:'Afghanistan',c:'+93',f:'🇦🇫',s:'af afghanistan'},
+      // Africa
+      {n:'Egypt',c:'+20',f:'🇪🇬',s:'eg egypt'},
+      {n:'Morocco',c:'+212',f:'🇲🇦',s:'ma morocco'},
+      {n:'Algeria',c:'+213',f:'🇩🇿',s:'dz algeria'},
+      {n:'Tunisia',c:'+216',f:'🇹🇳',s:'tn tunisia'},
+      {n:'Libya',c:'+218',f:'🇱🇾',s:'ly libya'},
+      {n:'Sudan',c:'+249',f:'🇸🇩',s:'sd sudan'},
+      {n:'South Africa',c:'+27',f:'🇿🇦',s:'za south africa'},
+      {n:'Nigeria',c:'+234',f:'🇳🇬',s:'ng nigeria'},
+      {n:'Kenya',c:'+254',f:'🇰🇪',s:'ke kenya'},
+      {n:'Ethiopia',c:'+251',f:'🇪🇹',s:'et ethiopia'},
+      {n:'Ghana',c:'+233',f:'🇬🇭',s:'gh ghana'},
+      {n:'Tanzania',c:'+255',f:'🇹🇿',s:'tz tanzania'},
+      {n:'Uganda',c:'+256',f:'🇺🇬',s:'ug uganda'},
+      {n:'Rwanda',c:'+250',f:'🇷🇼',s:'rw rwanda'},
+      {n:'Senegal',c:'+221',f:'🇸🇳',s:'sn senegal'},
+      {n:'Cote d Ivoire',c:'+225',f:'🇨🇮',s:'ci ivory coast'},
+      {n:'Cameroon',c:'+237',f:'🇨🇲',s:'cm cameroon'},
+      {n:'Angola',c:'+244',f:'🇦🇴',s:'ao angola'},
+      {n:'Mozambique',c:'+258',f:'🇲🇿',s:'mz mozambique'},
+      {n:'Zimbabwe',c:'+263',f:'🇿🇼',s:'zw zimbabwe'},
+      {n:'Zambia',c:'+260',f:'🇿🇲',s:'zm zambia'},
+      {n:'Madagascar',c:'+261',f:'🇲🇬',s:'mg madagascar'},
+      // Oceania
+      {n:'Australia',c:'+61',f:'🇦🇺',s:'au australia'},
+      {n:'New Zealand',c:'+64',f:'🇳🇿',s:'nz new zealand'},
+      {n:'Fiji',c:'+679',f:'🇫🇯',s:'fj fiji'},
+      // Other
+      {n:'Hong Kong',c:'+852',f:'🇭🇰',s:'hk hong kong'},
+      {n:'Taiwan',c:'+886',f:'🇹🇼',s:'tw taiwan'},
+      {n:'Macau',c:'+853',f:'🇲🇴',s:'mo macau'},
+      {n:'Mongolia',c:'+976',f:'🇲🇳',s:'mn mongolia'},
+      {n:'Myanmar',c:'+95',f:'🇲🇲',s:'mm myanmar burma'},
+      {n:'Cambodia',c:'+855',f:'🇰🇭',s:'kh cambodia'},
+      {n:'Laos',c:'+856',f:'🇱🇦',s:'la laos'},
+      {n:'Brunei',c:'+673',f:'🇧🇳',s:'bn brunei'},
+      {n:'Maldives',c:'+960',f:'🇲🇻',s:'mv maldives'},
+      {n:'Bhutan',c:'+975',f:'🇧🇹',s:'bt bhutan'}
+    ];
+
+    function cciInit(){
+      _cciInited=true;
+      var list=document.getElementById('phone-cc-list');
+      var search=document.getElementById('phone-cc-search');
+      if(!list||!search)return;
+      cciRenderList(_CCI);
+      search.addEventListener('input',function(){
+        var q=this.value.trim().toLowerCase();
+        if(!q){cciRenderList(_CCI);return;}
+        var filtered=_CCI.filter(function(it){
+          if(it.c.indexOf(q)!==-1)return true;
+          if(it.n.toLowerCase().indexOf(q)!==-1)return true;
+          if(it.s.toLowerCase().indexOf(q)!==-1)return true;
+          return false;
+        });
+        cciRenderList(filtered);
+      });
+    }
+    function cciRenderList(items){
+      var list=document.getElementById('phone-cc-list');
+      var hidden=document.getElementById('modal-phone-cc');
+      var current=hidden?hidden.value:'+48';
+      var html='';
+      for(var i=0;i<items.length;i++){
+        var it=items[i];
+        var sel=(it.c===current)?' cci-selected':'';
+        html+='<div class="phone-cc-item'+sel+'" data-code="'+it.c+'" data-flag="'+it.f+'" onclick="cciSelect(this)"><span class="cci-flag">'+it.f+'</span><span class="cci-name">'+it.n+'</span><span class="cci-code">'+it.c+'</span></div>';
+      }
+      list.innerHTML=html;
+    }
+    function cciToggle(e){
+      if(e){e.stopPropagation();e.preventDefault();}
+      var t=document.getElementById('phone-cc-trigger'),m=document.getElementById('phone-cc-menu');
+      if(!t||!m)return;
+      if(m.classList.contains('cci-open')){cciClose();}else{cciOpen();}
+    }
+    function cciOpen(){
+      var t=document.getElementById('phone-cc-trigger'),m=document.getElementById('phone-cc-menu'),s=document.getElementById('phone-cc-search');
+      if(!t||!m)return;
+      m.classList.add('cci-open');t.classList.add('cci-open');t.setAttribute('aria-expanded','true');
+      setTimeout(function(){if(s)s.focus();},50);
+    }
+    function cciClose(){
+      var t=document.getElementById('phone-cc-trigger'),m=document.getElementById('phone-cc-menu'),s=document.getElementById('phone-cc-search');
+      if(!t||!m)return;
+      m.classList.remove('cci-open');t.classList.remove('cci-open');t.setAttribute('aria-expanded','false');
+      if(s)s.value='';
+      cciRenderList(_CCI);
+    }
+    function cciSelect(el){
+      if(!el)return;
+      var code=el.getAttribute('data-code'),flag=el.getAttribute('data-flag');
+      var hidden=document.getElementById('modal-phone-cc');
+      var fl=document.getElementById('phone-cc-flag'),cd=document.getElementById('phone-cc-code');
+      if(hidden)hidden.value=code;
+      if(fl)fl.textContent=flag;
+      if(cd)cd.textContent=code;
+      cciClose();
+      // фокус на номер для удобства
+      var num=document.getElementById('modal-phone');if(num)num.focus();
+    }
+    document.addEventListener('click',function(e){
+      var p=document.getElementById('phone-cc-picker');
+      if(p && !p.contains(e.target))cciClose();
+    });
 
     /* Submit заявки на консультацию из блога — только в Google Sheet, без открытия WA */
     function sendToWhatsApp(){
