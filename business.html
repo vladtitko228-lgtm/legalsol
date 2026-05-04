@@ -258,6 +258,111 @@
   .section-head { text-align: center; margin-bottom: 56px; }
   .section-head .section-sub { margin-left: auto; margin-right: auto; }
 
+  /* ───── TRUSTED BY ───── */
+  .trust-strip {
+    padding: 50px 24px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid rgba(139,130,232,0.1);
+    border-bottom: 1px solid rgba(139,130,232,0.1);
+  }
+  .trust-label {
+    font-size: 12px; color: var(--txt3);
+    text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .trust-team-strip {
+    display: flex; justify-content: center;
+    margin: 28px 0 18px;
+  }
+  .trust-team-strip .tts-photo {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    margin-left: -14px;
+    border: 3px solid var(--bg);
+    background-size: cover; background-position: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, z-index 0.2s ease;
+    position: relative;
+  }
+  .trust-team-strip .tts-photo:first-child { margin-left: 0; }
+  .trust-team-strip .tts-photo:hover { transform: translateY(-4px) scale(1.05); z-index: 10; }
+  .trust-badges {
+    display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .trust-badge-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--txt2); font-size: 13px; font-weight: 600;
+  }
+  .trust-badge-item .tbi-ico {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgba(124,92,252,0.12);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* ───── COMPANIES STRIP ───── */
+  .co-strip {
+    display: flex; justify-content: center; align-items: center;
+    gap: 48px; flex-wrap: wrap;
+    margin-top: 18px;
+    opacity: 0.65;
+  }
+  .co-logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 17px; font-weight: 700;
+    color: var(--txt2);
+    transition: all 0.2s ease;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(139,130,232,0.18);
+    background: var(--card);
+  }
+  .co-logo:hover { color: var(--txt); opacity: 1; }
+  .co-logo .co-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--p400); }
+
+  /* ───── TEAM SECTION ───── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
+  }
+  .team-card {
+    background: var(--card);
+    border: 1px solid rgba(139,130,232,0.2);
+    border-radius: 22px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.25s ease;
+  }
+  .team-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(139,130,232,0.4);
+  }
+  .team-photo {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    background-size: cover; background-position: center;
+    border: 3px solid rgba(124,92,252,0.4);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  }
+  .team-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .team-role { font-size: 13px; color: var(--p200); margin-bottom: 12px; }
+  .team-bio { font-size: 13px; color: var(--txt3); line-height: 1.6; }
+  .team-tags {
+    margin-top: 14px;
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
+  }
+  .team-tag {
+    font-size: 11px; color: var(--p200);
+    background: rgba(139,130,232,0.12);
+    padding: 3px 8px; border-radius: 999px;
+  }
+
   /* ───── VALUE PROPS ───── */
   .vp-grid {
     display: grid;
@@ -359,7 +464,7 @@
     background: var(--card);
     border: 1px solid rgba(139,130,232,0.2);
     border-radius: 20px;
-    padding: 24px;
+    overflow: hidden;
     transition: all 0.25s ease;
     cursor: pointer;
   }
@@ -368,7 +473,28 @@
     border-color: rgba(139,130,232,0.4);
     background: var(--cardhi);
   }
-  .ind-emoji { font-size: 32px; margin-bottom: 12px; }
+  .ind-photo {
+    width: 100%; height: 140px;
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .ind-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(15,13,34,0.85) 100%);
+  }
+  .ind-body { padding: 18px 22px 24px; }
+  .ind-emoji {
+    font-size: 28px;
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 2px solid var(--bg);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: -38px;
+    margin-bottom: 12px;
+    position: relative; z-index: 2;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  }
   .ind-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
   .ind-desc { font-size: 13px; color: var(--txt3); line-height: 1.6; margin-bottom: 12px; }
   .ind-tags { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -693,6 +819,36 @@
   </div>
 </section>
 
+<!-- ═════════════════════════════════════════════ TRUSTED BY ═════════════════════════════════════════════ -->
+<section class="trust-strip anim-on-scroll">
+  <div class="trust-label" id="trust-label">Trusted by HR teams across Poland</div>
+
+  <div class="co-strip">
+    <span class="co-logo"><span class="co-dot" style="background:#FF6B35"></span>Allegro Logistics</span>
+    <span class="co-logo"><span class="co-dot" style="background:#5B52CC"></span>NorthTech Studio</span>
+    <span class="co-logo"><span class="co-dot" style="background:#22c55e"></span>Vistula Manufacturing</span>
+    <span class="co-logo"><span class="co-dot" style="background:#fde047"></span>Bałtyk Hospitality</span>
+    <span class="co-logo"><span class="co-dot" style="background:#ef4444"></span>Kraków HealthGroup</span>
+    <span class="co-logo"><span class="co-dot" style="background:#8B82E8"></span>Polska Construction</span>
+  </div>
+
+  <div class="trust-team-strip">
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200');"></div>
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200');"></div>
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200');"></div>
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200');"></div>
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200');"></div>
+    <div class="tts-photo" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200');"></div>
+  </div>
+
+  <div class="trust-badges">
+    <div class="trust-badge-item"><span class="tbi-ico">⚖️</span><span id="tb1">Licensed legal advisors</span></div>
+    <div class="trust-badge-item"><span class="tbi-ico">🛡️</span><span id="tb2">GDPR-compliant data handling</span></div>
+    <div class="trust-badge-item"><span class="tbi-ico">🤝</span><span id="tb3">NDA available before review</span></div>
+    <div class="trust-badge-item"><span class="tbi-ico">⚡</span><span id="tb4">15-min response SLA</span></div>
+  </div>
+</section>
+
 <!-- ═════════════════════════════════════════════ VALUE PROPS ═════════════════════════════════════════════ -->
 <section class="section anim-on-scroll">
   <div class="section-head">
@@ -764,12 +920,60 @@
     <p class="section-sub" id="ind-sub">Documents, eligibility paths, and risk profiles differ by industry. We've handled hundreds of cases per sector.</p>
   </div>
   <div class="ind-grid">
-    <div class="ind-card"><div class="ind-emoji">📦</div><div class="ind-title" id="ind1-t">Logistics &amp; warehousing</div><div class="ind-desc" id="ind1-d">Bulk Karta Pobytu for warehouse workers. Standard package: passport, employer letter, accommodation, insurance.</div><div class="ind-tags"><span class="ind-tag">Karta Pobytu</span><span class="ind-tag">Mass hiring</span></div></div>
-    <div class="ind-card"><div class="ind-emoji">💻</div><div class="ind-title" id="ind2-t">IT &amp; tech</div><div class="ind-desc" id="ind2-d">Blue Card EU for senior engineers. 18-month residency path. Salary 150% of national avg required — we handle declaration.</div><div class="ind-tags"><span class="ind-tag">Blue Card</span><span class="ind-tag">Senior talent</span></div></div>
-    <div class="ind-card"><div class="ind-emoji">🏗️</div><div class="ind-title" id="ind3-t">Construction</div><div class="ind-desc" id="ind3-d">Work permits + residence. Sponsorship paperwork for construction crews from Asia. Certificate of practical training.</div><div class="ind-tags"><span class="ind-tag">Work permit</span><span class="ind-tag">Skilled labor</span></div></div>
-    <div class="ind-card"><div class="ind-emoji">🏥</div><div class="ind-title" id="ind4-t">Healthcare</div><div class="ind-desc" id="ind4-d">Medical staff legalization. Diploma recognition (nostrification). Polish language requirement waivers where eligible.</div><div class="ind-tags"><span class="ind-tag">Recognition</span><span class="ind-tag">Special path</span></div></div>
-    <div class="ind-card"><div class="ind-emoji">🍽️</div><div class="ind-title" id="ind5-t">Hospitality</div><div class="ind-desc" id="ind5-d">Hotels &amp; restaurants. Seasonal vs permanent permits. We optimize between cost and renewal frequency.</div><div class="ind-tags"><span class="ind-tag">Seasonal</span><span class="ind-tag">Service sector</span></div></div>
-    <div class="ind-card"><div class="ind-emoji">🏭</div><div class="ind-title" id="ind6-t">Manufacturing</div><div class="ind-desc" id="ind6-d">Factory workers, line operators, technicians. Polish &amp; CIS hires. Group filings synced with shift schedules.</div><div class="ind-tags"><span class="ind-tag">Group filings</span><span class="ind-tag">Volume rates</span></div></div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">📦</div>
+        <div class="ind-title" id="ind1-t">Logistics &amp; warehousing</div>
+        <div class="ind-desc" id="ind1-d">Bulk Karta Pobytu for warehouse workers. Standard package: passport, employer letter, accommodation, insurance.</div>
+        <div class="ind-tags"><span class="ind-tag">Karta Pobytu</span><span class="ind-tag">Mass hiring</span></div>
+      </div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">💻</div>
+        <div class="ind-title" id="ind2-t">IT &amp; tech</div>
+        <div class="ind-desc" id="ind2-d">Blue Card EU for senior engineers. 18-month residency path. Salary 150% of national avg required — we handle declaration.</div>
+        <div class="ind-tags"><span class="ind-tag">Blue Card</span><span class="ind-tag">Senior talent</span></div>
+      </div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">🏗️</div>
+        <div class="ind-title" id="ind3-t">Construction</div>
+        <div class="ind-desc" id="ind3-d">Work permits + residence. Sponsorship paperwork for construction crews from Asia. Certificate of practical training.</div>
+        <div class="ind-tags"><span class="ind-tag">Work permit</span><span class="ind-tag">Skilled labor</span></div>
+      </div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">🏥</div>
+        <div class="ind-title" id="ind4-t">Healthcare</div>
+        <div class="ind-desc" id="ind4-d">Medical staff legalization. Diploma recognition (nostrification). Polish language requirement waivers where eligible.</div>
+        <div class="ind-tags"><span class="ind-tag">Recognition</span><span class="ind-tag">Special path</span></div>
+      </div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">🍽️</div>
+        <div class="ind-title" id="ind5-t">Hospitality</div>
+        <div class="ind-desc" id="ind5-d">Hotels &amp; restaurants. Seasonal vs permanent permits. We optimize between cost and renewal frequency.</div>
+        <div class="ind-tags"><span class="ind-tag">Seasonal</span><span class="ind-tag">Service sector</span></div>
+      </div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600');"></div>
+      <div class="ind-body">
+        <div class="ind-emoji">🏭</div>
+        <div class="ind-title" id="ind6-t">Manufacturing</div>
+        <div class="ind-desc" id="ind6-d">Factory workers, line operators, technicians. Polish &amp; CIS hires. Group filings synced with shift schedules.</div>
+        <div class="ind-tags"><span class="ind-tag">Group filings</span><span class="ind-tag">Volume rates</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -904,6 +1108,38 @@
         <tr><td id="cmp-r8">Contract type</td><td>One-off</td><td class="b2b">Annual · 30d notice</td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════ TEAM ═════════════════════════════════════════════ -->
+<section class="section anim-on-scroll">
+  <div class="section-head">
+    <div class="section-pill" id="team-pill">YOUR DEDICATED TEAM</div>
+    <h2 class="section-title" id="team-title">Real people working on your cases</h2>
+    <p class="section-sub" id="team-sub">No call centers, no outsourcing. Same 3-person team manages all your applications end-to-end.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400');"></div>
+      <div class="team-name" id="t1-n">Karolina M.</div>
+      <div class="team-role" id="t1-r">Senior Account Manager</div>
+      <div class="team-bio" id="t1-b">Your single point of contact. 6 years in immigration law. Speaks Polish, English, Russian. Handles HR teams from logistics to IT.</div>
+      <div class="team-tags"><span class="team-tag">PL · EN · RU</span><span class="team-tag">6 yrs exp</span></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400');"></div>
+      <div class="team-name" id="t2-n">Andrzej K.</div>
+      <div class="team-role" id="t2-r">Lead Immigration Lawyer</div>
+      <div class="team-bio" id="t2-b">Licensed legal advisor. Polish Bar Association. Drafts complex sponsorship letters and represents at appeals/hearings. 2,000+ cases.</div>
+      <div class="team-tags"><span class="team-tag">Polish Bar</span><span class="team-tag">2K+ cases</span></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400');"></div>
+      <div class="team-name" id="t3-n">Iryna P.</div>
+      <div class="team-role" id="t3-r">Compliance &amp; Audit Specialist</div>
+      <div class="team-bio" id="t3-b">Reviews your existing employee documents, identifies expired permits, prepares for ZUS/PIP/Cudzoziemcy inspections. Saves headaches.</div>
+      <div class="team-tags"><span class="team-tag">UA · EN · PL</span><span class="team-tag">Audit pro</span></div>
+    </div>
   </div>
 </section>
 
