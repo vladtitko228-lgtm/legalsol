@@ -858,6 +858,11 @@ function renderPage(a, contentHtml) {
 
     select.modal-field option{background:#1e1b4b;color:#fff;}
 
+    .phone-row{display:flex;gap:8px;}
+    .phone-row .phone-cc{flex:0 0 130px;font-size:13px;}
+    .phone-row .phone-num{flex:1;}
+    @media (max-width:380px){.phone-row .phone-cc{flex:0 0 110px;font-size:12px;}}
+
     .modal-wa-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,#1fbe5a,#17a34a);color:#fff;border:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 4px 18px rgba(34,197,94,.25);margin-top:20px;}
 
     .modal-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(34,197,94,.35);filter:brightness(1.05);}
@@ -1166,7 +1171,41 @@ function renderPage(a, contentHtml) {
 
         <div class="modal-label">${isRu ? 'Телефон / WhatsApp' : 'Phone / WhatsApp'}</div>
 
-        <input class="modal-field" id="modal-phone" type="tel" placeholder="+48 ...">
+        <div class="phone-row">
+          <select class="modal-field phone-cc" id="modal-phone-cc">
+            <option value="+48"  data-flag="🇵🇱">🇵🇱 +48 PL</option>
+            <option value="+380" data-flag="🇺🇦">🇺🇦 +380 UA</option>
+            <option value="+7"   data-flag="🇷🇺">🇷🇺 +7 RU/KZ</option>
+            <option value="+375" data-flag="🇧🇾">🇧🇾 +375 BY</option>
+            <option value="+373" data-flag="🇲🇩">🇲🇩 +373 MD</option>
+            <option value="+995" data-flag="🇬🇪">🇬🇪 +995 GE</option>
+            <option value="+994" data-flag="🇦🇿">🇦🇿 +994 AZ</option>
+            <option value="+374" data-flag="🇦🇲">🇦🇲 +374 AM</option>
+            <option value="+998" data-flag="🇺🇿">🇺🇿 +998 UZ</option>
+            <option value="+90"  data-flag="🇹🇷">🇹🇷 +90 TR</option>
+            <option value="+91"  data-flag="🇮🇳">🇮🇳 +91 IN</option>
+            <option value="+92"  data-flag="🇵🇰">🇵🇰 +92 PK</option>
+            <option value="+880" data-flag="🇧🇩">🇧🇩 +880 BD</option>
+            <option value="+62"  data-flag="🇮🇩">🇮🇩 +62 ID</option>
+            <option value="+63"  data-flag="🇵🇭">🇵🇭 +63 PH</option>
+            <option value="+84"  data-flag="🇻🇳">🇻🇳 +84 VN</option>
+            <option value="+49"  data-flag="🇩🇪">🇩🇪 +49 DE</option>
+            <option value="+44"  data-flag="🇬🇧">🇬🇧 +44 UK</option>
+            <option value="+1"   data-flag="🇺🇸">🇺🇸 +1 US/CA</option>
+            <option value="+34"  data-flag="🇪🇸">🇪🇸 +34 ES</option>
+            <option value="+33"  data-flag="🇫🇷">🇫🇷 +33 FR</option>
+            <option value="+39"  data-flag="🇮🇹">🇮🇹 +39 IT</option>
+            <option value="+31"  data-flag="🇳🇱">🇳🇱 +31 NL</option>
+            <option value="+32"  data-flag="🇧🇪">🇧🇪 +32 BE</option>
+            <option value="+43"  data-flag="🇦🇹">🇦🇹 +43 AT</option>
+            <option value="+420" data-flag="🇨🇿">🇨🇿 +420 CZ</option>
+            <option value="+421" data-flag="🇸🇰">🇸🇰 +421 SK</option>
+            <option value="+371" data-flag="🇱🇻">🇱🇻 +371 LV</option>
+            <option value="+370" data-flag="🇱🇹">🇱🇹 +370 LT</option>
+            <option value="+372" data-flag="🇪🇪">🇪🇪 +372 EE</option>
+          </select>
+          <input class="modal-field phone-num" id="modal-phone" type="tel" inputmode="numeric" placeholder="${isRu ? '600 123 456' : '600 123 456'}">
+        </div>
 
         <div class="modal-label">${isRu ? 'Какая услуга интересует?' : 'Which service?'}</div>
 
@@ -1214,14 +1253,18 @@ function renderPage(a, contentHtml) {
     /* Submit заявки на консультацию из блога — только в Google Sheet, без открытия WA */
     function sendToWhatsApp(){
       var name=document.getElementById('modal-name').value.trim();
-      var phone=document.getElementById('modal-phone').value.trim();
+      var phoneRaw=document.getElementById('modal-phone').value.trim();
+      var ccEl=document.getElementById('modal-phone-cc');
+      var cc=ccEl?ccEl.value:'+48';
+      var phone=cc+' '+phoneRaw.replace(/^\+?\s*/,'').replace(/^0+/,''); // убираем повторный + и ведущие нули
       var serviceEl=document.getElementById('modal-service');
       var serviceKey=serviceEl?serviceEl.value:'';
       var serviceText=serviceEl?(serviceEl.options[serviceEl.selectedIndex].text):'';
       var article=${JSON.stringify(title)};
 
-      // Валидация — телефон обязателен (имя опционально)
-      if(!phone || phone.length<6){
+      // Валидация — нужно минимум 6 цифр в самом номере (без кода страны)
+      var digitsOnly=phoneRaw.replace(/\D/g,'');
+      if(!digitsOnly || digitsOnly.length<6){
         var phEl=document.getElementById('modal-phone');
         if(phEl){phEl.style.borderColor='#ef4444';setTimeout(function(){phEl.style.borderColor='';},2000);phEl.focus();}
         return;
