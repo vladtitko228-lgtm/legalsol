@@ -266,6 +266,12 @@ function renderPage(a, contentHtml) {
 
     ctaBtn: "\u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044F \u2192",
 
+    ctaBtnWa: "\u041D\u0430\u043F\u0438\u0441\u0430\u0442\u044C \u0432 WhatsApp",
+
+    ctaBtnRequest: "\u041E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u044F\u0432\u043A\u0443",
+
+    ctaOr: "\u0438\u043B\u0438",
+
     ctaGuarantee: "\u0413\u0430\u0440\u0430\u043D\u0442\u0438\u044F 98% \u043E\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u0439 \u00b7 \u0410\u043F\u0435\u043B\u043B\u044F\u0446\u0438\u044F \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E \u00b7 \u041E\u0442\u0432\u0435\u0442 \u0437\u0430 15 \u043C\u0438\u043D\u0443\u0442",
 
     consultation: "\u041A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044F",
@@ -298,6 +304,12 @@ function renderPage(a, contentHtml) {
 
     ctaBtn: "Free Consultation \u2192",
 
+    ctaBtnWa: "Write on WhatsApp",
+
+    ctaBtnRequest: "Leave a request",
+
+    ctaOr: "or",
+
     ctaGuarantee: "98% approval rate \u00b7 Free appeal \u00b7 Reply within 15 min",
 
     consultation: "Free Consultation",
@@ -318,7 +330,8 @@ function renderPage(a, contentHtml) {
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Analytics will be enabled here once a cookie consent banner is added to blog pages too -->
+  <!-- Cookie Consent banner + Clarity (loads after accept) -->
+  <script src="/cookie-banner.js" defer></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -683,6 +696,18 @@ function renderPage(a, contentHtml) {
 
     .cta-btn:hover { background:var(--p700); transform:translateY(-2px); box-shadow:0 8px 28px rgba(91,82,204,.55); }
 
+    .cta-btns-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:4px; }
+
+    .cta-btn-wa { background:linear-gradient(135deg,#25d366 0%,#1eb555 100%); box-shadow:0 4px 20px rgba(37,211,102,.4); }
+
+    .cta-btn-wa:hover { background:linear-gradient(135deg,#1eb555 0%,#1a9b48 100%); box-shadow:0 8px 28px rgba(37,211,102,.55); }
+
+    .cta-btn-request { background:var(--p500); }
+
+    .cta-btn-or { color:rgba(255,255,255,.4); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; }
+
+    @media (max-width:600px){ .cta-btns-row { flex-direction:column; align-items:stretch; gap:8px; } .cta-btn-or { text-align:center; padding:4px 0; } .cta-btn { justify-content:center; } }
+
     .cta-guarantee { margin-top:12px; font-size:11.5px; color:rgba(255,255,255,.3); }
 
     .cta-right { display:flex; flex-direction:column; gap:20px; min-width:130px; }
@@ -1041,13 +1066,27 @@ function renderPage(a, contentHtml) {
 
         <p class="cta-desc">${t.ctaDesc}</p>
 
-        <button onclick="openConsultModal()" class="cta-btn">
+        <div class="cta-btns-row">
 
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <a href="https://wa.me/48735248525?text=${encodeURIComponent((isRu ? 'Здравствуйте! Читал статью «' : 'Hello! I read the article \\u201C') + title + (isRu ? '» на legalsol.pl. Хочу бесплатную консультацию.' : '\\u201D on legalsol.pl. I would like a free consultation.'))}" target="_blank" rel="noopener" class="cta-btn cta-btn-wa">
 
-          ${t.ctaBtn}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 
-        </button>
+            ${t.ctaBtnWa}
+
+          </a>
+
+          <span class="cta-btn-or">${t.ctaOr}</span>
+
+          <button onclick="openConsultModal()" class="cta-btn cta-btn-request">
+
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+
+            ${t.ctaBtnRequest}
+
+          </button>
+
+        </div>
 
         <p class="cta-guarantee">${t.ctaGuarantee}</p>
 

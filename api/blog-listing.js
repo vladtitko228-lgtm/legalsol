@@ -96,7 +96,8 @@ function renderPage(articles) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Analytics will be enabled here once a cookie consent banner is added to blog pages too -->
+  <!-- Cookie Consent banner + Clarity (loads after accept) -->
+  <script src="/cookie-banner.js" defer></script>
   <title>Blog - Legal Solutions | Immigration Guides for Poland</title>
   <meta name="description" content="Expert guides on immigration to Poland: karta pobytu, work permits, PESEL, business registration, and more. Free resources from Legal Solutions.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
