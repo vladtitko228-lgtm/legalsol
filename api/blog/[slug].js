@@ -1256,14 +1256,14 @@ function renderPage(a, contentHtml) {
       var phoneRaw=document.getElementById('modal-phone').value.trim();
       var ccEl=document.getElementById('modal-phone-cc');
       var cc=ccEl?ccEl.value:'+48';
-      var phone=cc+' '+phoneRaw.replace(/^\+?\s*/,'').replace(/^0+/,''); // убираем повторный + и ведущие нули
+      var phone=cc+' '+phoneRaw.replace(/^\\+?\\s*/,'').replace(/^0+/,''); // убираем повторный + и ведущие нули
       var serviceEl=document.getElementById('modal-service');
       var serviceKey=serviceEl?serviceEl.value:'';
       var serviceText=serviceEl?(serviceEl.options[serviceEl.selectedIndex].text):'';
       var article=${JSON.stringify(title)};
 
       // Валидация — нужно минимум 6 цифр в самом номере (без кода страны)
-      var digitsOnly=phoneRaw.replace(/\D/g,'');
+      var digitsOnly=phoneRaw.replace(/\\D/g,'');
       if(!digitsOnly || digitsOnly.length<6){
         var phEl=document.getElementById('modal-phone');
         if(phEl){phEl.style.borderColor='#ef4444';setTimeout(function(){phEl.style.borderColor='';},2000);phEl.focus();}
