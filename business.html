@@ -65,7 +65,14 @@
     background: rgba(11,10,28,0.7);
     backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
     z-index: 100;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
   }
+  header.scrolled { background: rgba(11,10,28,0.92); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .logo svg rect { transform-origin: center; }
+  .logo:hover svg rect:nth-child(1) { animation: bounceIn 0.5s ease; }
+  .logo:hover svg rect:nth-child(2) { animation: bounceIn 0.5s ease 0.05s; }
+  .logo:hover svg rect:nth-child(3) { animation: bounceIn 0.5s ease 0.1s; }
+  .logo:hover svg rect:nth-child(4) { animation: bounceIn 0.5s ease 0.15s; }
   .logo { font-weight: 700; font-size: 17px; color: var(--txt); display: flex; align-items: center; gap: 12px; }
   .logo svg { width: 32px; height: 28px; }
   .logo b { font-weight: 800; }
@@ -84,11 +91,63 @@
   /* ───── ANIM UTILS ───── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
   @keyframes pulseGlow {
     0%, 100% { box-shadow: 0 12px 32px rgba(124,92,252,0.45), 0 0 0 0 rgba(124,92,252,0.5); }
     50%      { box-shadow: 0 14px 36px rgba(124,92,252,0.55), 0 0 0 12px rgba(124,92,252,0); }
   }
   @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.1); }
+    70% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(40px, -20px) scale(1.1); }
+    50% { transform: translate(-20px, 30px) scale(0.95); }
+    75% { transform: translate(-40px, -10px) scale(1.05); }
+  }
+  @keyframes sparkle {
+    0% { transform: translate(0,0) scale(0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1) rotate(360deg); opacity: 0; }
+  }
+  @keyframes shimmerSweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  @keyframes drawLine { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
+  @keyframes confetti {
+    0% { transform: translate(0,0) rotate(0); opacity: 1; }
+    100% { transform: translate(var(--cx,0), var(--cy,300px)) rotate(720deg); opacity: 0; }
+  }
+  @keyframes checkPop {
+    0% { opacity: 0; transform: scale(0); }
+    60% { opacity: 1; transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+  @keyframes iconBob { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(8deg); } }
+
+  /* Ambient orbs (background floating gradients) */
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(60px);
+    pointer-events: none; z-index: -1; opacity: 0.55;
+    animation: orbFloat 20s ease-in-out infinite;
+  }
+  .orb-1 { width: 360px; height: 360px; background: radial-gradient(circle, rgba(124,92,252,0.35), transparent 70%); top: 8%; left: -100px; animation-delay: 0s; }
+  .orb-2 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(255,107,53,0.25), transparent 70%); top: 40%; right: -80px; animation-delay: -7s; }
+  .orb-3 { width: 320px; height: 320px; background: radial-gradient(circle, rgba(74,222,128,0.18), transparent 70%); top: 75%; left: 20%; animation-delay: -14s; }
+
+  /* Scroll progress bar at top */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--p400), #9978ff, var(--gold));
+    z-index: 200; transition: width 0.05s linear;
+    box-shadow: 0 0 12px rgba(124,92,252,0.6);
+  }
   .anim-on-scroll { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
   .anim-on-scroll.visible { opacity: 1; transform: translateY(0); }
   .stagger-child { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -352,7 +411,21 @@
     border: 1px solid rgba(124,92,252,0.3);
     margin-bottom: 20px;
     box-shadow: 0 8px 20px rgba(124,92,252,0.2);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+  .vp-card:hover .vp-icon { animation: iconBob 0.7s ease; }
+  /* Shimmer sweep across vp-card on hover */
+  .vp-card { isolation: isolate; }
+  .vp-card .vp-shimmer {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden; pointer-events: none; border-radius: 22px;
+  }
+  .vp-card .vp-shimmer::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 50%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: translateX(-100%);
+  }
+  .vp-card:hover .vp-shimmer::after { animation: shimmerSweep 1.2s ease; }
   .vp-title { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
   .vp-desc { font-size: 14px; color: var(--txt2); line-height: 1.65; }
 
@@ -370,7 +443,28 @@
     font-size: 24px; font-weight: 800;
     box-shadow: 0 10px 28px rgba(124,92,252,0.45);
     position: relative; z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
   }
+  .step:hover .step-num {
+    transform: scale(1.15) rotate(-8deg);
+    box-shadow: 0 14px 36px rgba(124,92,252,0.7), 0 0 0 6px rgba(124,92,252,0.15);
+  }
+  .step-num::after {
+    content: ''; position: absolute; inset: -3px; border-radius: 21px;
+    background: linear-gradient(135deg, var(--p300), var(--gold));
+    z-index: -1; opacity: 0; transition: opacity 0.3s ease;
+  }
+  .step:hover .step-num::after { opacity: 0.6; filter: blur(8px); }
+  /* Stagger reveal of timeline steps */
+  .timeline .step { opacity: 0; transform: translateX(-20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .visible .timeline .step { opacity: 1; transform: translateX(0); }
+  .visible .timeline .step:nth-child(1) { transition-delay: 0ms; }
+  .visible .timeline .step:nth-child(2) { transition-delay: 100ms; }
+  .visible .timeline .step:nth-child(3) { transition-delay: 200ms; }
+  .visible .timeline .step:nth-child(4) { transition-delay: 300ms; }
+  .visible .timeline .step:nth-child(5) { transition-delay: 400ms; }
+  .visible .timeline .step:nth-child(6) { transition-delay: 500ms; }
+  .visible .timeline .step:nth-child(7) { transition-delay: 600ms; }
   .step-content { flex: 1; padding-top: 8px; }
   .step-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
   .step-desc { font-size: 14px; color: var(--txt2); line-height: 1.65; }
@@ -385,10 +479,12 @@
     transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
   }
   .ind-card:hover { transform: translateY(-6px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
-  .ind-photo { width: 100%; height: 150px; background-size: cover; background-position: center; position: relative; }
+  .ind-photo { width: 100%; height: 150px; background-size: cover; background-position: center; position: relative; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+  .ind-card:hover .ind-photo { transform: scale(1.08); }
   .ind-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(11,10,28,0.92) 100%); }
   .ind-body { padding: 20px 24px 26px; }
-  .ind-emoji { font-size: 28px; width: 58px; height: 58px; border-radius: 14px; background: var(--bg2); border: 2px solid var(--bg); display: inline-flex; align-items: center; justify-content: center; margin-top: -42px; margin-bottom: 14px; position: relative; z-index: 2; box-shadow: 0 8px 18px rgba(0,0,0,0.4); }
+  .ind-emoji { font-size: 28px; width: 58px; height: 58px; border-radius: 14px; background: var(--bg2); border: 2px solid var(--bg); display: inline-flex; align-items: center; justify-content: center; margin-top: -42px; margin-bottom: 14px; position: relative; z-index: 2; box-shadow: 0 8px 18px rgba(0,0,0,0.4); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .ind-card:hover .ind-emoji { transform: scale(1.15) rotate(-12deg); }
   .ind-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
   .ind-desc { font-size: 13px; color: var(--txt3); line-height: 1.6; margin-bottom: 12px; }
   .ind-tags { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -460,6 +556,53 @@
     transition: all 0.15s ease;
   }
   .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: 0 6px 18px rgba(124,92,252,0.8); }
+  .calc-slider:active::-webkit-slider-thumb {
+    transform: scale(1.3);
+    box-shadow: 0 6px 22px rgba(124,92,252,0.9), 0 0 0 8px rgba(124,92,252,0.2);
+  }
+  .calc-slider:focus { outline: none; }
+  .calc-slider:focus::-webkit-slider-thumb { box-shadow: 0 6px 18px rgba(124,92,252,0.8), 0 0 0 6px rgba(124,92,252,0.18); }
+
+  /* Sparkles container for "You save" hero */
+  .sparkles-host { position: relative; }
+  .spark {
+    position: absolute; width: 8px; height: 8px; pointer-events: none;
+    color: var(--gold);
+    --tx: 0px; --ty: -40px;
+    animation: sparkle 0.8s ease-out forwards;
+  }
+  .spark::before {
+    content: '✦'; font-size: 14px; line-height: 1;
+    text-shadow: 0 0 8px rgba(253,224,71,0.9);
+  }
+
+  /* Calculator preset bounce on click */
+  .calc-preset { transition: all 0.2s ease; }
+  .calc-preset.active { animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+  /* Result hero pulse when value changes */
+  .calc-result-hero-val.flash {
+    animation: flashScale 0.6s ease;
+  }
+  @keyframes flashScale {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); text-shadow: 0 0 30px rgba(74,222,128,0.7); }
+    100% { transform: scale(1); }
+  }
+
+  /* Calculator segment pop */
+  .calc-seg.active {
+    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Bar chart shine on update */
+  .chart-bar-fill { position: relative; overflow: hidden; }
+  .chart-bar-fill::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+  }
+  .chart-bar-fill.shine::after { animation: shimmerSweep 1s ease; }
   .calc-slider::-moz-range-thumb {
     width: 24px; height: 24px; border-radius: 50%;
     background: linear-gradient(135deg, var(--p400), #9978ff);
@@ -565,8 +708,28 @@
   .ctable td { border-bottom: 1px solid rgba(139,130,232,0.1); }
   .ctable th.b2b, .ctable td.b2b { background: rgba(124,92,252,0.07); border-left: 1px solid rgba(124,92,252,0.2); border-right: 1px solid rgba(124,92,252,0.2); }
   .ctable th.b2b { color: var(--p100); border-top-left-radius: 12px; border-top-right-radius: 12px; border-top: 2px solid var(--p400); }
-  .ctable .check { color: var(--green); font-weight: 700; }
+  .ctable .check { color: var(--green); font-weight: 700; display: inline-block; }
   .ctable .cross { color: var(--txt3); }
+  .visible .ctable tr { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .visible .ctable thead tr, .visible .ctable tbody tr { opacity: 1; transform: translateY(0); }
+  .visible .ctable tbody tr:nth-child(1) { transition-delay: 100ms; }
+  .visible .ctable tbody tr:nth-child(2) { transition-delay: 180ms; }
+  .visible .ctable tbody tr:nth-child(3) { transition-delay: 260ms; }
+  .visible .ctable tbody tr:nth-child(4) { transition-delay: 340ms; }
+  .visible .ctable tbody tr:nth-child(5) { transition-delay: 420ms; }
+  .visible .ctable tbody tr:nth-child(6) { transition-delay: 500ms; }
+  .visible .ctable tbody tr:nth-child(7) { transition-delay: 580ms; }
+  .visible .ctable tbody tr:nth-child(8) { transition-delay: 660ms; }
+  .visible .ctable .check { animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both; }
+
+  /* Highlight scan on B2B column */
+  .ctable th.b2b, .ctable td.b2b { position: relative; overflow: hidden; }
+  .ctable td.b2b::before {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 60%;
+    background: linear-gradient(90deg, transparent, rgba(124,92,252,0.18), transparent);
+    transform: translateX(-100%);
+  }
+  .visible .ctable td.b2b::before { animation: shimmerSweep 1.8s ease 0.8s; }
 
   /* ───── TEAM ROLES ───── */
   .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
@@ -582,7 +745,22 @@
   .sp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
   .sp-card { background: var(--card); border: 1px solid rgba(139,130,232,0.22); border-radius: 22px; padding: 30px; display: flex; flex-direction: column; transition: all 0.3s ease; backdrop-filter: blur(16px); }
   .sp-card:hover { transform: translateY(-4px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
-  .sp-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+  .sp-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; display: flex; gap: 3px; }
+  .sp-stars span { display: inline-block; opacity: 0; transform: scale(0); animation: bounceIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .visible .sp-stars span:nth-child(1) { animation-delay: 0.1s; }
+  .visible .sp-stars span:nth-child(2) { animation-delay: 0.2s; }
+  .visible .sp-stars span:nth-child(3) { animation-delay: 0.3s; }
+  .visible .sp-stars span:nth-child(4) { animation-delay: 0.4s; }
+  .visible .sp-stars span:nth-child(5) { animation-delay: 0.5s; }
+  /* before .visible — keep stars hidden */
+  .sp-stars span { opacity: 0; }
+  .visible .sp-stars span { opacity: 1; }
+  .sp-card .sp-quote::before {
+    content: '"'; font-size: 60px; line-height: 0.8; color: var(--p400);
+    margin-right: 4px; opacity: 0.5; vertical-align: text-top;
+  }
+  .sp-avatar { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .sp-card:hover .sp-avatar { transform: rotate(8deg) scale(1.1); }
   .sp-quote { font-size: 15px; color: var(--txt); line-height: 1.65; margin-bottom: 22px; flex: 1; font-style: italic; }
   .sp-author { display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(139,130,232,0.15); }
   .sp-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--p500), var(--p400)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
@@ -625,6 +803,14 @@
 </style>
 </head>
 <body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
+<!-- Floating ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
 <header>
   <a href="/" class="logo">
@@ -709,12 +895,12 @@
     <p class="section-sub" id="vp-sub">From 5 to 500+ legalizations per year — same single contact, transparent pricing, predictable timelines.</p>
   </div>
   <div class="vp-grid">
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">💰</div><div class="vp-title" id="vp1-t">Volume discounts up to 35%</div><div class="vp-desc" id="vp1-d">5+ apps: 10% off · 10+: 15% · 20+: 25% · 50+: 30% · 100+: 35%. Locked-in rates with annual contract — predictable budget for HR.</div></div>
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">👨‍💼</div><div class="vp-title" id="vp2-t">Dedicated account manager</div><div class="vp-desc" id="vp2-d">One contact across all employees, all processes. Speaks English, Russian, Ukrainian, Polish. WhatsApp + email response within 15 minutes.</div></div>
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">📊</div><div class="vp-title" id="vp3-t">Corporate dashboard</div><div class="vp-desc" id="vp3-d">Real-time status of every application, document checklist per employee, exportable reports for HR and finance. SSO via Google/Microsoft.</div></div>
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">⚖️</div><div class="vp-title" id="vp4-t">Legal advisory for HR</div><div class="vp-desc" id="vp4-d">Monthly Q&amp;A with our immigration lawyers. Custom policy templates. Sponsorship document drafting. Internal training for HR team.</div></div>
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">⚡</div><div class="vp-title" id="vp5-t">Priority queue</div><div class="vp-desc" id="vp5-d">Express filing 2× faster than standard. Critical hires processed in 14 business days. Overnight document review available.</div></div>
-    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">🛡️</div><div class="vp-title" id="vp6-t">Compliance audit</div><div class="vp-desc" id="vp6-d">Full review of existing employee documents, identification of compliance gaps, action plan to fix risks before audit/inspection.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">💰</div><div class="vp-title" id="vp1-t">Volume discounts up to 35%</div><div class="vp-desc" id="vp1-d">5+ apps: 10% off · 10+: 15% · 20+: 25% · 50+: 30% · 100+: 35%. Locked-in rates with annual contract — predictable budget for HR.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">👨‍💼</div><div class="vp-title" id="vp2-t">Dedicated account manager</div><div class="vp-desc" id="vp2-d">One contact across all employees, all processes. Speaks English, Russian, Ukrainian, Polish. WhatsApp + email response within 15 minutes.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">📊</div><div class="vp-title" id="vp3-t">Corporate dashboard</div><div class="vp-desc" id="vp3-d">Real-time status of every application, document checklist per employee, exportable reports for HR and finance. SSO via Google/Microsoft.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">⚖️</div><div class="vp-title" id="vp4-t">Legal advisory for HR</div><div class="vp-desc" id="vp4-d">Monthly Q&amp;A with our immigration lawyers. Custom policy templates. Sponsorship document drafting. Internal training for HR team.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">⚡</div><div class="vp-title" id="vp5-t">Priority queue</div><div class="vp-desc" id="vp5-d">Express filing 2× faster than standard. Critical hires processed in 14 business days. Overnight document review available.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-shimmer"></div><div class="vp-icon">🛡️</div><div class="vp-title" id="vp6-t">Compliance audit</div><div class="vp-desc" id="vp6-d">Full review of existing employee documents, identification of compliance gaps, action plan to fix risks before audit/inspection.</div></div>
   </div>
 </section>
 
@@ -957,12 +1143,12 @@
     <h2 class="section-title" id="sp-title">HR teams trust us with their hardest hires</h2>
   </div>
   <div class="sp-grid">
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp1-q">"They handled dozens of Karta Pobytu applications for our warehouse staff. One contact, weekly status reports, no surprises. Saved significantly vs retail rates."</div><div class="sp-author"><div class="sp-avatar">HR</div><div><div class="sp-role" id="sp1-r">HR Director · Logistics · Warsaw</div></div></div></div>
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp2-q">"We brought in IT engineers from India on Blue Card EU. The dedicated manager handled paperwork while we focused on onboarding. Best vendor decision we made this year."</div><div class="sp-author"><div class="sp-avatar">IT</div><div><div class="sp-role" id="sp2-r">Head of Talent · IT Consulting · Kraków</div></div></div></div>
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp3-q">"Compliance audit found expired permits we didn't know about. Fixed before our annual ZUS inspection. Worth the engagement on its own."</div><div class="sp-author"><div class="sp-avatar">🏗</div><div><div class="sp-role" id="sp3-r">CEO · Construction firm · Wrocław</div></div></div></div>
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp4-q">"Hospitality has constant seasonal permit renewals. The dashboard fixed it — I see status of every employee's card in one screen."</div><div class="sp-author"><div class="sp-avatar">🏨</div><div><div class="sp-role" id="sp4-r">HR Manager · Hospitality · Gdańsk</div></div></div></div>
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp5-q">"Negotiated rate for manufacturing workers from Bangladesh. Saved meaningful percent vs our previous lawyer. Manager actually picks up WhatsApp."</div><div class="sp-author"><div class="sp-avatar">🏭</div><div><div class="sp-role" id="sp5-r">Operations Director · Manufacturing · Łódź</div></div></div></div>
-    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp6-q">"We needed Blue Card EU for engineers from India. Other firms quoted 6+ months. Legal Solutions did it in under 4. Senior talent secured before competitors poached them."</div><div class="sp-author"><div class="sp-avatar">VP</div><div><div class="sp-role" id="sp6-r">VP People · SaaS company · Warsaw</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp1-q">"They handled dozens of Karta Pobytu applications for our warehouse staff. One contact, weekly status reports, no surprises. Saved significantly vs retail rates."</div><div class="sp-author"><div class="sp-avatar">HR</div><div><div class="sp-role" id="sp1-r">HR Director · Logistics · Warsaw</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp2-q">"We brought in IT engineers from India on Blue Card EU. The dedicated manager handled paperwork while we focused on onboarding. Best vendor decision we made this year."</div><div class="sp-author"><div class="sp-avatar">IT</div><div><div class="sp-role" id="sp2-r">Head of Talent · IT Consulting · Kraków</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp3-q">"Compliance audit found expired permits we didn't know about. Fixed before our annual ZUS inspection. Worth the engagement on its own."</div><div class="sp-author"><div class="sp-avatar">🏗</div><div><div class="sp-role" id="sp3-r">CEO · Construction firm · Wrocław</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp4-q">"Hospitality has constant seasonal permit renewals. The dashboard fixed it — I see status of every employee's card in one screen."</div><div class="sp-author"><div class="sp-avatar">🏨</div><div><div class="sp-role" id="sp4-r">HR Manager · Hospitality · Gdańsk</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp5-q">"Negotiated rate for manufacturing workers from Bangladesh. Saved meaningful percent vs our previous lawyer. Manager actually picks up WhatsApp."</div><div class="sp-author"><div class="sp-avatar">🏭</div><div><div class="sp-role" id="sp5-r">Operations Director · Manufacturing · Łódź</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="sp-quote" id="sp6-q">"We needed Blue Card EU for engineers from India. Other firms quoted 6+ months. Legal Solutions did it in under 4. Senior talent secured before competitors poached them."</div><div class="sp-author"><div class="sp-avatar">VP</div><div><div class="sp-role" id="sp6-r">VP People · SaaS company · Warsaw</div></div></div></div>
   </div>
 </section>
 
@@ -1245,15 +1431,81 @@
     window.open('https://wa.me/48735248525?text=' + encodeURIComponent(msg), '_blank');
   };
 
-  // ───── Header parallax (subtle) ─────
+  // ───── Scroll progress bar + Header scrolled state + Hero parallax ─────
   var hiStage = document.querySelector('.hi-stage');
-  if (hiStage) {
-    window.addEventListener('scroll', function(){
-      var y = window.scrollY;
-      if (y > 600) return;
-      hiStage.style.transform = 'translateY(' + (y * 0.15) + 'px)';
-    }, { passive: true });
+  var progressEl = document.getElementById('scroll-progress');
+  var headerEl = document.querySelector('header');
+  function onScroll() {
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (y / max) * 100 : 0;
+    if (progressEl) progressEl.style.width = pct + '%';
+    if (headerEl) headerEl.classList.toggle('scrolled', y > 30);
+    if (hiStage && y < 600) hiStage.style.transform = 'translateY(' + (y * 0.15) + 'px)';
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ───── Sparkles when "You save" value increases ─────
+  var saveEl = document.getElementById('cv-save');
+  var sparkleHost = saveEl ? saveEl.parentElement : null;
+  if (sparkleHost) sparkleHost.classList.add('sparkles-host');
+  function emitSparkles(host, count) {
+    if (!host) return;
+    for (var i = 0; i < count; i++) {
+      var s = document.createElement('div');
+      s.className = 'spark';
+      var angle = Math.random() * Math.PI * 2;
+      var dist = 40 + Math.random() * 60;
+      s.style.left = '50%'; s.style.top = '50%';
+      s.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+      s.style.setProperty('--ty', (Math.sin(angle) * dist - 20) + 'px');
+      s.style.animationDelay = (i * 50) + 'ms';
+      host.appendChild(s);
+      setTimeout(function(el){ return function(){ el.remove(); }; }(s), 1200 + i * 50);
+    }
+  }
+  // Patch smoothFmt to also flash + emit sparkles for cv-save
+  var prevSave = 0;
+  var origText = saveEl ? saveEl.textContent : '';
+  // Hook into result observer — observe text changes via MutationObserver
+  if (saveEl) {
+    var lastVal = 0;
+    var mo = new MutationObserver(function(){
+      var current = parseInt((saveEl.textContent || '0').replace(/[^0-9]/g,'')) || 0;
+      if (current > lastVal && current > 0 && lastVal > 0) {
+        saveEl.classList.remove('flash');
+        void saveEl.offsetWidth;  // force reflow
+        saveEl.classList.add('flash');
+        emitSparkles(sparkleHost, 5);
+      }
+      lastVal = current;
+    });
+    mo.observe(saveEl, { childList: true, characterData: true, subtree: true });
+  }
+
+  // ───── Bar chart shine on update ─────
+  ['bar-retail', 'bar-b2b', 'bar-3y'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    var moBar = new MutationObserver(function(){
+      el.classList.remove('shine');
+      void el.offsetWidth;
+      el.classList.add('shine');
+    });
+    moBar.observe(el, { attributes: true, attributeFilter: ['style'] });
+  });
+
+  // ───── Magnetic CTA (slight pull toward cursor) ─────
+  document.querySelectorAll('.cta-primary').forEach(function(btn){
+    btn.addEventListener('mousemove', function(e){
+      var r = btn.getBoundingClientRect();
+      var x = e.clientX - r.left - r.width / 2;
+      var y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = 'translate(' + (x * 0.15) + 'px, ' + (y * 0.15 - 3) + 'px)';
+    });
+    btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
+  });
 })();
 </script>
 </body>
