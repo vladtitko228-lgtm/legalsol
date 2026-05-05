@@ -2847,15 +2847,17 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
         <svg class="cs-trigger-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
       <div class="cs-menu" id="cs-menu" role="listbox">
-        <div class="cs-option" data-key="karta_pobytu"      role="option" onclick="csSelect(this)">Residence permit</div>
-        <div class="cs-option" data-key="permanent"         role="option" onclick="csSelect(this)">Permanent residence</div>
-        <div class="cs-option" data-key="pesel"             role="option" onclick="csSelect(this)">PESEL</div>
-        <div class="cs-option" data-key="profil_zaufany"    role="option" onclick="csSelect(this)">Trusted Profile</div>
-        <div class="cs-option" data-key="company"           role="option" onclick="csSelect(this)">Company registration</div>
-        <div class="cs-option" data-key="accounting"        role="option" onclick="csSelect(this)">Accounting &amp; taxes</div>
-        <div class="cs-option" data-key="appeal"            role="option" onclick="csSelect(this)">Appeal a denial</div>
-        <div class="cs-option" data-key="work"              role="option" onclick="csSelect(this)">Work in Poland / Europe</div>
-        <div class="cs-option" data-key="driving"           role="option" onclick="csSelect(this)">Driving licence exchange</div>
+        <div class="cs-option" data-key="karta_pobytu"             role="option" onclick="csSelect(this)">Residence permit (Karta Pobytu)</div>
+        <div class="cs-option" data-key="permanent_residence"      role="option" onclick="csSelect(this)">Permanent residence</div>
+        <div class="cs-option" data-key="citizenship"              role="option" onclick="csSelect(this)">Polish citizenship</div>
+        <div class="cs-option" data-key="blue_card"                role="option" onclick="csSelect(this)">Blue Card (EU)</div>
+        <div class="cs-option" data-key="appeals"                  role="option" onclick="csSelect(this)">Appeals</div>
+        <div class="cs-option" data-key="company"                  role="option" onclick="csSelect(this)">Company registration</div>
+        <div class="cs-option" data-key="accounting"               role="option" onclick="csSelect(this)">Accounting</div>
+        <div class="cs-option" data-key="pesel"                    role="option" onclick="csSelect(this)">PESEL assistance</div>
+        <div class="cs-option" data-key="profil_zaufany"           role="option" onclick="csSelect(this)">Profil Zaufany</div>
+        <div class="cs-option" data-key="driving"                  role="option" onclick="csSelect(this)">Driving licence exchange</div>
+        <div class="cs-option" data-key="international_protection" role="option" onclick="csSelect(this)">International protection</div>
         <div class="cs-option cs-option-muted" data-key="not_sure" role="option" onclick="csSelect(this)">Not sure — need advice</div>
       </div>
       <input type="hidden" id="m-service" value=""/>
@@ -22300,21 +22302,21 @@ function setLang(lang){
 
   var _opts={
 
-    ru:['Что интересует?','Карта побыту / вид на жительство','Постоянный побыт (ВНЖ)','PESEL','Доверенный профиль (Profil Zaufany)','Регистрация фирмы / ИП','Бухгалтерия и налоги','Апелляция по отказу','Работа в Польше / Европе','Замена водительских прав','Не знаю — нужна консультация'],
+    ru:['Что интересует?','Карта побыту / вид на жительство','ПМЖ (постоянный побыт)','Гражданство Польши','Blue Card (ЕС)','Апелляция по отказу','Регистрация компании','Бухгалтерский учёт','Помощь с PESEL','Profil Zaufany','Замена прав','Международная защита','Не знаю — нужна консультация'],
 
-    en:['What are you interested in?','Residence permit','Permanent residence','PESEL','Trusted Profile','Company registration','Accounting & taxes','Appeal a denial','Work in Poland / Europe','Driving licence exchange','Not sure — need advice'],
+    en:['What are you interested in?','Residence permit (Karta Pobytu)','Permanent residence','Polish citizenship','Blue Card (EU)','Appeals','Company registration','Accounting','PESEL assistance','Profil Zaufany','Driving licence exchange','International protection','Not sure — need advice'],
 
-    pl:['Co Cię interesuje?','Karta pobytu / zezwolenie na pobyt','Stały pobyt','PESEL','Profil Zaufany','Rejestracja firmy / działalności','Księgowość i podatki','Odwołanie od odmowy','Praca w Polsce / Europie','Wymiana prawa jazdy','Nie wiem — potrzebuję konsultacji'],
+    pl:['Co Cię interesuje?','Karta pobytu','Stały pobyt','Obywatelstwo polskie','Blue Card (UE)','Odwołania','Rejestracja firmy','Księgowość','Pomoc z PESEL','Profil Zaufany','Wymiana prawa jazdy','Ochrona międzynarodowa','Nie wiem — potrzebuję konsultacji'],
 
-    es:['¿Qué le interesa?','Permiso de residencia','Residencia permanente','PESEL','Perfil de Confianza','Registro de empresa','Contabilidad e impuestos','Apelación por denegación','Trabajo en Polonia / Europa','Canje de permiso de conducir','No sé — necesito asesoramiento'],
+    es:['¿Qué le interesa?','Permiso de residencia','Residencia permanente','Ciudadanía polaca','Blue Card (UE)','Apelaciones','Registro de empresa','Contabilidad','Ayuda con PESEL','Profil Zaufany','Canje de licencia','Protección internacional','No sé — necesito asesoramiento'],
 
-    tr:['Sizi ne ilgilendiriyor?','Oturma izni','Sürekli oturma izni','PESEL','Güvenilir Profil','Şirket kaydı','Muhasebe ve vergiler','Ret itirazı','Polonya / Avrupa\'da çalışma','Ehliyet değişimi','Emin değilim — danışma lazım'],
+    tr:['Sizi ne ilgilendiriyor?','Oturma izni','Kalıcı ikamet','Polonya vatandaşlığı','Blue Card (AB)','İtirazlar','Şirket kaydı','Muhasebe','PESEL yardımı','Profil Zaufany','Ehliyet değişimi','Uluslararası koruma','Emin değilim — danışma lazım'],
 
-    az:['Sizi nə maraqlandırır?','İqamət icazəsi','Daimi iqamət','PESEL','Etibarlı Profil','Şirkət qeydiyyatı','Mühasibatlıq və vergilər','Rədd apellyasiyası','Polşa / Avropada iş','Sürücülük vəsiqəsi mübadiləsi','Bilmirəm — məsləhət lazımdır'],
+    az:['Sizi nə maraqlandırır?','İqamət icazəsi','Daimi iqamət','Polşa vətəndaşlığı','Blue Card (AB)','Şikayətlər','Şirkət qeydiyyatı','Mühasibat','PESEL yardımı','Profil Zaufany','Sürücülük vəsiqəsi','Beynəlxalq müdafiə','Bilmirəm — məsləhət lazımdır'],
 
-    hi:['आप क्या चाहते हैं?','निवास परमिट','स्थायी निवास','PESEL','विश्वसनीय प्रोफाइल','कंपनी पंजीकरण','लेखांकन और कर','अस्वीकृति के खिलाफ अपील','पोलैंड / यूरोप में काम','ड्राइविंग लाइसेंस बदलना','नहीं जानता — परामर्श चाहिए'],
+    hi:['आप क्या चाहते हैं?','निवास परमिट','स्थायी निवास','पोलिश नागरिकता','Blue Card (EU)','अपील','कंपनी पंजीकरण','अकाउंटिंग','PESEL सहायता','Profil Zaufany','लाइसेंस एक्सचेंज','अंतर्राष्ट्रीय सुरक्षा','नहीं जानता — परामर्श चाहिए'],
 
-    uk:['Що вас цікавить?','Карта побиту / вид на проживання','Постійний побит (ПМЖ)','PESEL','Довірений профіль (Profil Zaufany)','Реєстрація фірми / ФОП','Бухгалтерія та податки','Апеляція щодо відмови','Робота в Польщі / Європі','Заміна водійських прав','Не знаю — потрібна консультація']
+    uk:['Що вас цікавить?','Карта побуту','Постійний побут (ПМП)','Громадянство Польщі','Blue Card (ЄС)','Оскарження','Реєстрація компанії','Бухгалтерія','Допомога з PESEL','Profil Zaufany','Заміна прав','Міжнародний захист','Не знаю — потрібна консультація']
 
   };
 

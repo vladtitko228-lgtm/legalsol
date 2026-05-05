@@ -858,6 +858,24 @@ function renderPage(a, contentHtml) {
 
     select.modal-field option{background:#1e1b4b;color:#fff;}
 
+    /* ── Service picker (custom dark dropdown) ── */
+    .ls-svc-picker{position:relative;margin-bottom:10px;}
+    .ls-svc-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(139,130,232,.2);border-radius:10px;padding:11px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s;outline:none;text-align:left;}
+    .ls-svc-trigger:hover{background:rgba(139,130,232,.10);border-color:rgba(139,130,232,.4);}
+    .ls-svc-trigger.lssvc-open{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+    .ls-svc-text{flex:1;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .ls-svc-arrow{flex-shrink:0;color:#7F77DD;transition:transform .25s ease;}
+    .ls-svc-trigger.lssvc-open .ls-svc-arrow{transform:rotate(180deg);}
+    .ls-svc-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:100;background:rgba(30,27,75,.97);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(139,130,232,.35);border-radius:12px;padding:6px;box-shadow:0 16px 48px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top center;transition:opacity .2s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility .2s;max-height:340px;overflow-y:auto;}
+    .ls-svc-menu.lssvc-open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+    .ls-svc-menu::-webkit-scrollbar{width:6px;}
+    .ls-svc-menu::-webkit-scrollbar-thumb{background:rgba(139,130,232,.3);border-radius:3px;}
+    .ls-svc-option{padding:10px 13px;border-radius:8px;color:rgba(255,255,255,.85);font-size:13.5px;cursor:pointer;transition:background .12s ease,color .12s ease;user-select:none;}
+    .ls-svc-option:hover{background:rgba(127,119,221,.18);color:#fff;}
+    .ls-svc-option.lssvc-selected{background:linear-gradient(135deg,rgba(127,119,221,.28),rgba(83,74,183,.22));color:#fff;font-weight:600;}
+    .ls-svc-muted{margin-bottom:4px;border-bottom:1px solid rgba(139,130,232,.18);padding-bottom:12px;color:rgba(255,255,255,.7);font-style:italic;}
+    .ls-svc-muted:hover{color:#fff;font-style:normal;}
+
     .phone-row{display:flex;gap:8px;align-items:stretch;}
     .phone-row .phone-num{flex:1;}
 
@@ -1216,20 +1234,27 @@ function renderPage(a, contentHtml) {
 
         <div class="modal-label">${isRu ? 'Какая услуга интересует?' : 'Which service?'}</div>
 
-        <select class="modal-field" id="modal-service">
-          <option value="">${isRu ? 'Не знаю — нужна консультация' : "Not sure — need advice"}</option>
-          <option value="karta_pobytu">${isRu ? 'Карта побыту / вид на жительство' : 'Residence permit (Karta Pobytu)'}</option>
-          <option value="permanent_residence">${isRu ? 'ПМЖ (постоянный побыт)' : 'Permanent residence'}</option>
-          <option value="citizenship">${isRu ? 'Гражданство Польши' : 'Polish citizenship'}</option>
-          <option value="blue_card">${isRu ? 'Blue Card (ЕС)' : 'Blue Card (EU)'}</option>
-          <option value="appeals">${isRu ? 'Апелляция по отказу' : 'Appeals'}</option>
-          <option value="company">${isRu ? 'Регистрация компании' : 'Company registration'}</option>
-          <option value="accounting">${isRu ? 'Бухгалтерский учёт' : 'Accounting'}</option>
-          <option value="pesel">${isRu ? 'Помощь с PESEL' : 'PESEL assistance'}</option>
-          <option value="profil_zaufany">${isRu ? 'Profil Zaufany' : 'Profil Zaufany'}</option>
-          <option value="driving">${isRu ? 'Замена прав' : 'Driving licence exchange'}</option>
-          <option value="international_protection">${isRu ? 'Международная защита' : 'International protection'}</option>
-        </select>
+        <div class="ls-svc-picker" id="modal-service-picker">
+          <button type="button" class="ls-svc-trigger" id="ls-svc-trigger" onclick="lsSvcToggle(event)" aria-haspopup="listbox" aria-expanded="false">
+            <span class="ls-svc-text" id="ls-svc-text">${isRu ? 'Не знаю — нужна консультация' : 'Not sure — need advice'}</span>
+            <svg class="ls-svc-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ls-svc-menu" id="ls-svc-menu" role="listbox">
+            <div class="ls-svc-option ls-svc-muted" data-key="" onclick="lsSvcSelect(this)">${isRu ? 'Не знаю — нужна консультация' : 'Not sure — need advice'}</div>
+            <div class="ls-svc-option" data-key="karta_pobytu" onclick="lsSvcSelect(this)">${isRu ? 'Карта побыту / вид на жительство' : 'Residence permit (Karta Pobytu)'}</div>
+            <div class="ls-svc-option" data-key="permanent_residence" onclick="lsSvcSelect(this)">${isRu ? 'ПМЖ (постоянный побыт)' : 'Permanent residence'}</div>
+            <div class="ls-svc-option" data-key="citizenship" onclick="lsSvcSelect(this)">${isRu ? 'Гражданство Польши' : 'Polish citizenship'}</div>
+            <div class="ls-svc-option" data-key="blue_card" onclick="lsSvcSelect(this)">${isRu ? 'Blue Card (ЕС)' : 'Blue Card (EU)'}</div>
+            <div class="ls-svc-option" data-key="appeals" onclick="lsSvcSelect(this)">${isRu ? 'Апелляция по отказу' : 'Appeals'}</div>
+            <div class="ls-svc-option" data-key="company" onclick="lsSvcSelect(this)">${isRu ? 'Регистрация компании' : 'Company registration'}</div>
+            <div class="ls-svc-option" data-key="accounting" onclick="lsSvcSelect(this)">${isRu ? 'Бухгалтерский учёт' : 'Accounting'}</div>
+            <div class="ls-svc-option" data-key="pesel" onclick="lsSvcSelect(this)">${isRu ? 'Помощь с PESEL' : 'PESEL assistance'}</div>
+            <div class="ls-svc-option" data-key="profil_zaufany" onclick="lsSvcSelect(this)">${isRu ? 'Profil Zaufany' : 'Profil Zaufany'}</div>
+            <div class="ls-svc-option" data-key="driving" onclick="lsSvcSelect(this)">${isRu ? 'Замена прав' : 'Driving licence exchange'}</div>
+            <div class="ls-svc-option" data-key="international_protection" onclick="lsSvcSelect(this)">${isRu ? 'Международная защита' : 'International protection'}</div>
+          </div>
+          <input type="hidden" id="modal-service" value=""/>
+        </div>
 
         <button class="modal-wa-btn" onclick="sendToWhatsApp()">
 
@@ -1255,7 +1280,39 @@ function renderPage(a, contentHtml) {
 
     function openConsultModal(){document.getElementById('consultModal').classList.add('open');document.body.style.overflow='hidden';if(!_cciInited)cciInit();}
 
-    function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';cciClose();}
+    function closeConsultModal(){document.getElementById('consultModal').classList.remove('open');document.body.style.overflow='';cciClose();lsSvcClose();}
+
+    /* ── Service picker (custom dropdown) ── */
+    function lsSvcToggle(e){
+      if(e){e.stopPropagation();e.preventDefault();}
+      var t=document.getElementById('ls-svc-trigger'),m=document.getElementById('ls-svc-menu');
+      if(!t||!m)return;
+      if(m.classList.contains('lssvc-open'))lsSvcClose();else lsSvcOpen();
+    }
+    function lsSvcOpen(){
+      var t=document.getElementById('ls-svc-trigger'),m=document.getElementById('ls-svc-menu');
+      if(!t||!m)return;
+      m.classList.add('lssvc-open');t.classList.add('lssvc-open');t.setAttribute('aria-expanded','true');
+    }
+    function lsSvcClose(){
+      var t=document.getElementById('ls-svc-trigger'),m=document.getElementById('ls-svc-menu');
+      if(!t||!m)return;
+      m.classList.remove('lssvc-open');t.classList.remove('lssvc-open');t.setAttribute('aria-expanded','false');
+    }
+    function lsSvcSelect(el){
+      if(!el)return;
+      var hidden=document.getElementById('modal-service'),txt=document.getElementById('ls-svc-text');
+      var key=el.getAttribute('data-key')||'';
+      if(hidden)hidden.value=key;
+      if(txt)txt.textContent=el.textContent.trim();
+      document.querySelectorAll('#ls-svc-menu .ls-svc-option').forEach(function(o){o.classList.remove('lssvc-selected');});
+      el.classList.add('lssvc-selected');
+      lsSvcClose();
+    }
+    document.addEventListener('click',function(e){
+      var p=document.getElementById('modal-service-picker');
+      if(p && !p.contains(e.target))lsSvcClose();
+    });
 
     /* ── Country code picker (searchable) ── */
     var _cciInited=false;
@@ -1480,7 +1537,8 @@ function renderPage(a, contentHtml) {
       var phone=cc+' '+phoneRaw.replace(/^\\+?\\s*/,'').replace(/^0+/,''); // убираем повторный + и ведущие нули
       var serviceEl=document.getElementById('modal-service');
       var serviceKey=serviceEl?serviceEl.value:'';
-      var serviceText=serviceEl?(serviceEl.options[serviceEl.selectedIndex].text):'';
+      var svcTxtEl=document.getElementById('ls-svc-text');
+      var serviceText=svcTxtEl?svcTxtEl.textContent.trim():'';
       var article=${JSON.stringify(title)};
 
       // Валидация — нужно минимум 6 цифр в самом номере (без кода страны)
