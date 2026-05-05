@@ -3,754 +3,624 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-
-<title>Legal Solutions for Business — Bulk Immigration & Work Permits in Poland</title>
-<meta name="description" content="Volume discounts up to 35% · dedicated manager · corporate dashboard · priority processing. We legalize foreign workforce for businesses in Poland — Karta Pobytu, Blue Card, work permits. 3000+ cases · 98% approval rate."/>
+<title>Legal Solutions for Business — Bulk Immigration in Poland</title>
+<meta name="description" content="Volume discounts up to 35% · dedicated manager · corporate dashboard · priority processing. We legalize foreign workforce for Polish businesses — Karta Pobytu, Blue Card, work permits. 3000+ cases · 98% approval."/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="canonical" href="https://www.legalsol.pl/business"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Legal Solutions for Business — Bulk Immigration in Poland"/>
-<meta property="og:description" content="Volume discounts up to 35%, dedicated manager, corporate dashboard. 3000+ cases · 98% approval."/>
+<meta property="og:description" content="Volume discounts up to 35%, dedicated manager, corporate dashboard."/>
 <meta property="og:image" content="/og-image.jpg"/>
 <meta property="og:url" content="https://www.legalsol.pl/business"/>
 
 <style>
   :root {
-    --bg: #0f0d22; --bg2: #1a1545;
-    --card: rgba(45,40,105,0.4); --cardhi: rgba(91,82,204,0.18);
+    --bg: #0b0a1c; --bg2: #16133a;
+    --card: rgba(45,40,105,0.42); --cardhi: rgba(91,82,204,0.22);
     --p100: #E8E4F5; --p200: #B8B2F5; --p300: #8B82E8; --p400: #7C5CFC; --p500: #5B52CC; --p600: #4338CA;
     --gold: #fde047; --gold2: #f59e0b;
     --green: #4ade80; --green2: #22c55e;
-    --txt: #fff; --txt2: rgba(255,255,255,0.78); --txt3: rgba(255,255,255,0.55);
+    --txt: #fff; --txt2: rgba(255,255,255,0.78); --txt3: rgba(255,255,255,0.5); --txt4: rgba(255,255,255,0.32);
+    --shadow-1: 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-2: 0 12px 32px rgba(0,0,0,0.4);
+    --shadow-3: 0 24px 60px rgba(0,0,0,0.5);
+    --glow: 0 0 40px rgba(124,92,252,0.35);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    background: var(--bg); color: var(--txt);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
-    line-height: 1.55;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+  html, body { background: var(--bg); color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif; line-height: 1.55; overflow-x: hidden; scroll-behavior: smooth; }
+
+  /* ───── ANIMATED MESH BACKGROUND ───── */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(124,92,252,0.28), transparent 45%),
+      radial-gradient(circle at 88% 22%, rgba(255,107,53,0.12), transparent 50%),
+      radial-gradient(circle at 38% 68%, rgba(91,82,204,0.18), transparent 50%),
+      radial-gradient(circle at 90% 90%, rgba(74,222,128,0.10), transparent 45%);
+    animation: meshDrift 25s ease-in-out infinite;
   }
-  body {
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: -1;
     background-image:
-      radial-gradient(circle at 15% 8%, rgba(91,82,204,0.22), transparent 55%),
-      radial-gradient(circle at 88% 70%, rgba(255,107,53,0.08), transparent 55%),
-      radial-gradient(circle at 50% 100%, rgba(124,92,252,0.12), transparent 60%);
-    min-height: 100vh;
+      radial-gradient(circle, rgba(139,130,232,0.08) 1px, transparent 1.2px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    pointer-events: none;
   }
-  a { color: var(--p200); text-decoration: none; }
-  a:hover { color: var(--p300); }
-  img { max-width: 100%; display: block; }
+  @keyframes meshDrift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33%      { transform: translate(-2%, 1%) scale(1.03); }
+    66%      { transform: translate(1%, -2%) scale(0.98); }
+  }
+
+  a { color: var(--p200); text-decoration: none; transition: color 0.2s ease; }
+  a:hover { color: var(--p100); }
 
   /* ───── HEADER ───── */
   header {
-    padding: 16px 24px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid rgba(139,130,232,0.12);
+    padding: 18px 28px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(139,130,232,0.1);
     position: sticky; top: 0;
-    background: rgba(15,13,34,0.85);
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    background: rgba(11,10,28,0.7);
+    backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%);
     z-index: 100;
   }
-  .logo {
-    font-weight: 700; font-size: 17px;
-    color: var(--txt);
-    display: flex; align-items: center; gap: 10px;
-  }
-  .logo svg { width: 30px; height: 28px; }
-  .logo b { font-weight: 700; }
+  .logo { font-weight: 700; font-size: 17px; color: var(--txt); display: flex; align-items: center; gap: 12px; }
+  .logo svg { width: 32px; height: 28px; }
+  .logo b { font-weight: 800; }
   .logo span { font-weight: 500; opacity: 0.85; }
-  .header-right { display: flex; gap: 18px; align-items: center; }
-  .nav-back {
-    font-size: 14px; color: var(--txt2);
-    padding: 8px 14px; border-radius: 10px;
-    transition: background 0.15s ease;
-  }
+  .header-right { display: flex; gap: 14px; align-items: center; }
+  .nav-back { font-size: 14px; color: var(--txt2); padding: 9px 14px; border-radius: 10px; transition: all 0.2s ease; }
   .nav-back:hover { background: rgba(139,130,232,0.1); color: var(--txt); }
-  .nav-cta-btn {
-    font-size: 14px; font-weight: 600;
-    padding: 10px 20px; border-radius: 12px;
+  .nav-cta {
+    font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 12px;
     background: linear-gradient(135deg, var(--p400), #9978ff);
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(124,92,252,0.4);
+    color: #fff; box-shadow: 0 6px 18px rgba(124,92,252,0.4);
+    transition: all 0.2s ease;
   }
-  .nav-cta-btn:hover { color: #fff; transform: translateY(-1px); }
+  .nav-cta:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124,92,252,0.55); }
 
-  /* ───── ANIMATIONS ───── */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  /* ───── ANIM UTILS ───── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .anim-on-scroll { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 12px 32px rgba(124,92,252,0.45), 0 0 0 0 rgba(124,92,252,0.5); }
+    50%      { box-shadow: 0 14px 36px rgba(124,92,252,0.55), 0 0 0 12px rgba(124,92,252,0); }
+  }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .anim-on-scroll { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1); }
   .anim-on-scroll.visible { opacity: 1; transform: translateY(0); }
+  .stagger-child { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .visible .stagger-child { opacity: 1; transform: translateY(0); }
+  .visible .stagger-child:nth-child(1) { transition-delay: 0ms; }
+  .visible .stagger-child:nth-child(2) { transition-delay: 80ms; }
+  .visible .stagger-child:nth-child(3) { transition-delay: 160ms; }
+  .visible .stagger-child:nth-child(4) { transition-delay: 240ms; }
+  .visible .stagger-child:nth-child(5) { transition-delay: 320ms; }
+  .visible .stagger-child:nth-child(6) { transition-delay: 400ms; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 
   /* ───── HERO ───── */
   .hero {
-    text-align: center;
-    padding: 80px 24px 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
+    text-align: center; padding: 96px 24px 60px;
+    max-width: 1180px; margin: 0 auto; position: relative;
   }
   .hero-pill {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 16px; border-radius: 999px;
-    background: rgba(139,130,232,0.15);
-    border: 1px solid rgba(139,130,232,0.35);
-    font-size: 13px; font-weight: 600;
-    color: var(--p200);
-    margin-bottom: 24px;
-    animation: fadeIn 0.8s ease;
+    padding: 9px 18px; border-radius: 999px;
+    background: linear-gradient(135deg, rgba(139,130,232,0.18), rgba(139,130,232,0.08));
+    border: 1px solid rgba(139,130,232,0.4);
+    font-size: 13px; font-weight: 600; color: var(--p100);
+    margin-bottom: 28px;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    animation: fadeIn 0.9s ease;
   }
   .hero h1 {
-    font-size: clamp(36px, 5.5vw, 60px);
-    line-height: 1.05; font-weight: 800; letter-spacing: -0.02em;
-    margin-bottom: 22px;
-    animation: fadeUp 0.8s ease 0.1s both;
+    font-size: clamp(40px, 6vw, 68px);
+    line-height: 1.02; font-weight: 800; letter-spacing: -0.025em;
+    margin-bottom: 22px; max-width: 980px; margin-left: auto; margin-right: auto;
+    animation: fadeUp 0.9s ease 0.1s both;
   }
   .hero h1 em {
-    font-style: italic;
-    background: linear-gradient(135deg, var(--p200) 0%, var(--p400) 50%, #9978ff 100%);
+    font-style: italic; position: relative; display: inline-block;
+    background: linear-gradient(135deg, #B8B2F5 0%, #9978ff 40%, #FF6B35 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .hero-sub {
     font-size: 19px; color: var(--txt2);
-    max-width: 760px; margin: 0 auto 36px;
-    animation: fadeUp 0.8s ease 0.2s both;
+    max-width: 760px; margin: 0 auto 40px;
+    animation: fadeUp 0.9s ease 0.2s both;
   }
 
-  .hero-illustration {
-    margin: 36px auto 28px;
-    width: 320px; height: 200px;
-    border-radius: 28px;
-    background:
-      radial-gradient(circle at 30% 30%, rgba(124,92,252,0.25), transparent 60%),
-      linear-gradient(135deg, rgba(20,16,55,0.8) 0%, rgba(45,40,105,0.4) 100%);
-    border: 1px solid rgba(139,130,232,0.25);
-    position: relative; overflow: hidden;
-    animation: fadeIn 1s ease 0.3s both;
+  /* ───── HERO ILLUSTRATION (3D LAYERED) ───── */
+  .hi-stage {
+    margin: 30px auto 32px;
+    width: 380px; height: 240px; position: relative;
+    animation: fadeIn 1.2s ease 0.3s both;
+    perspective: 1200px;
   }
-  /* karta pobytu illustration (reuse from cookie) */
-  .hi-karta {
-    position: absolute;
-    width: 170px; height: 110px;
-    border-radius: 12px;
-    left: 36px; top: 40px;
-    background: linear-gradient(135deg, #3D3585 0%, #5B52CC 60%, #7C5CFC 100%);
-    box-shadow: 0 16px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18);
-    border: 1px solid rgba(139,130,232,0.4);
-    padding: 12px;
-    transform: rotate(-6deg);
-    animation: hiFloat 4.5s ease-in-out infinite;
-    z-index: 2;
+  @media (max-width: 600px) { .hi-stage { width: 320px; height: 210px; transform: scale(0.85); } }
+  .hi-glow {
+    position: absolute; inset: -40px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,92,252,0.4) 0%, transparent 60%);
+    filter: blur(40px); animation: floatY 6s ease-in-out infinite;
+    z-index: 0;
   }
-  @keyframes hiFloat { 0%,100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-5px); } }
-  .hi-flag { width: 22px; height: 14px; border-radius: 2px; background: linear-gradient(to bottom, #fff 50%, #DC143C 50%); display: inline-block; }
+  .hi-card {
+    position: absolute; width: 200px; height: 130px;
+    border-radius: 14px; padding: 14px;
+    box-shadow: 0 22px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.18);
+    border: 1px solid rgba(139,130,232,0.45);
+    transform-style: preserve-3d;
+  }
+  .hi-card-1 {
+    background: linear-gradient(135deg, #3D3585 0%, #5B52CC 50%, #7C5CFC 100%);
+    left: 50%; top: 50%; transform: translate(-50%,-50%) rotate(-7deg);
+    z-index: 3;
+    animation: hi1 5s ease-in-out infinite;
+  }
+  @keyframes hi1 {
+    0%,100% { transform: translate(-50%,-50%) rotate(-7deg) translateY(0); }
+    50%     { transform: translate(-50%,-50%) rotate(-5deg) translateY(-6px); }
+  }
+  .hi-card-2 {
+    background: linear-gradient(145deg, rgba(61,53,133,0.85), rgba(30,27,75,0.75));
+    width: 110px; height: 140px;
+    left: 5%; top: 22%; transform: rotate(-14deg);
+    z-index: 2; animation: hi2 6s ease-in-out infinite;
+  }
+  @keyframes hi2 {
+    0%,100% { transform: rotate(-14deg) translateY(0); }
+    50%     { transform: rotate(-16deg) translateY(-10px); }
+  }
+  .hi-card-3 {
+    background: linear-gradient(145deg, rgba(61,53,133,0.7), rgba(30,27,75,0.5));
+    width: 100px; height: 130px;
+    right: 5%; top: 30%; transform: rotate(11deg);
+    z-index: 1; animation: hi3 6.5s ease-in-out infinite;
+  }
+  @keyframes hi3 {
+    0%,100% { transform: rotate(11deg) translateY(0); }
+    50%     { transform: rotate(13deg) translateY(-8px); }
+  }
+  .hi-flag { width: 22px; height: 14px; border-radius: 2px; background: linear-gradient(to bottom,#fff 50%,#DC143C 50%); display: inline-block; vertical-align: middle; }
   .hi-eu { font-size: 8px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; float: right; margin-top: 4px; }
-  .hi-portrait { width: 34px; height: 42px; border-radius: 5px; background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05)); border: 1px solid rgba(255,255,255,0.2); margin-top: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 3px; }
-  .hi-portrait::before { content: ''; width: 14px; height: 14px; border-radius: 999px; background: rgba(255,255,255,0.45); margin-bottom: 1px; }
-  .hi-portrait::after { content: ''; width: 24px; height: 12px; border-radius: 12px 12px 0 0; background: rgba(255,255,255,0.45); }
-  .hi-lines { position: absolute; left: 56px; top: 38px; width: 100px; }
-  .hi-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.5); margin-bottom: 4px; }
-  .hi-line.shimmer { background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.85), rgba(255,255,255,0.3)); background-size: 200% 100%; animation: hiShimmer 2.5s ease-in-out infinite; }
-  @keyframes hiShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-  .hi-line:nth-child(1) { width: 100%; } .hi-line:nth-child(2) { width: 80%; } .hi-line:nth-child(3) { width: 60%; }
-  .hi-chip { position: absolute; bottom: 14px; left: 16px; width: 18px; height: 14px; border-radius: 2px; background: linear-gradient(135deg, #FFD700, #DAA520); }
-  .hi-doc {
-    position: absolute; width: 90px; height: 110px; border-radius: 9px;
-    background: linear-gradient(145deg, rgba(61,53,133,0.7), rgba(30,27,75,0.6));
-    border: 1px solid rgba(139,130,232,0.3);
-    padding: 9px 8px;
-    box-shadow: 0 10px 22px rgba(0,0,0,0.4);
+  .hi-portrait { width: 36px; height: 44px; border-radius: 5px; background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); border: 1px solid rgba(255,255,255,0.25); margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 3px; }
+  .hi-portrait::before { content: ''; width: 14px; height: 14px; border-radius: 999px; background: rgba(255,255,255,0.5); margin-bottom: 1px; }
+  .hi-portrait::after { content: ''; width: 24px; height: 12px; border-radius: 12px 12px 0 0; background: rgba(255,255,255,0.5); }
+  .hi-lines { position: absolute; left: 60px; top: 42px; width: 122px; }
+  .hi-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.5); margin-bottom: 5px; }
+  .hi-line.shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.3) 100%);
+    background-size: 220% 100%; animation: shimmerX 2.4s ease-in-out infinite;
   }
-  .hi-doc::after { content: ''; position: absolute; top: 0; right: 0; width: 14px; height: 14px; background: linear-gradient(225deg, rgba(139,130,232,0.4) 50%, transparent 50%); border-radius: 0 9px 0 0; }
-  .hi-doc-1 { right: 28px; top: 22px; transform: rotate(8deg); animation: hiDoc1 5.5s ease-in-out infinite; z-index: 1; }
-  .hi-doc-2 { right: 46px; top: 50px; transform: rotate(-3deg); opacity: 0.55; animation: hiDoc2 6.5s ease-in-out infinite; z-index: 0; }
-  .hi-dl { height: 3px; border-radius: 2px; background: rgba(139,130,232,0.4); margin-bottom: 4px; }
-  .hi-dl:nth-child(1) { width: 100%; } .hi-dl:nth-child(2) { width: 70%; } .hi-dl:nth-child(3) { width: 85%; } .hi-dl:nth-child(4) { width: 55%; } .hi-dl:nth-child(5) { width: 75%; background: rgba(91,82,204,0.5); } .hi-dl:nth-child(6) { width: 40%; }
-  @keyframes hiDoc1 { 0%,100% { transform: rotate(8deg) translateY(0); } 50% { transform: rotate(10deg) translateY(-4px); } }
-  @keyframes hiDoc2 { 0%,100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-5deg) translateY(4px); } }
+  @keyframes shimmerX { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .hi-line:nth-child(1) { width: 100%; } .hi-line:nth-child(2) { width: 80%; } .hi-line:nth-child(3) { width: 65%; }
+  .hi-chip { position: absolute; bottom: 14px; left: 18px; width: 22px; height: 18px; border-radius: 3px; background: linear-gradient(135deg,#FFD700,#DAA520); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); }
+  .hi-dl { height: 3px; border-radius: 2px; background: rgba(139,130,232,0.45); margin-bottom: 5px; }
+  .hi-dl:nth-child(1) { width: 100%; } .hi-dl:nth-child(2) { width: 70%; } .hi-dl:nth-child(3) { width: 85%; } .hi-dl:nth-child(4) { width: 55%; } .hi-dl:nth-child(5) { width: 75%; background: rgba(91,82,204,0.55); } .hi-dl:nth-child(6) { width: 40%; }
   .hi-stamp {
-    position: absolute; right: 18px; top: 80px;
-    width: 70px; height: 70px; border-radius: 999px;
+    position: absolute; right: 24px; bottom: 14px;
+    width: 80px; height: 80px; border-radius: 999px;
     border: 4px solid #FF6B35; color: #FF6B35;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 9px; line-height: 1.1;
-    text-transform: uppercase; letter-spacing: 0.5px;
+    font-weight: 800; font-size: 10px; line-height: 1.1;
+    text-transform: uppercase; letter-spacing: 0.8px;
     transform: rotate(-12deg) scale(0); opacity: 0;
-    animation: hiStamp 4.5s ease-in-out infinite;
-    z-index: 3;
-    background: rgba(15,13,34,0.45);
-    backdrop-filter: blur(2px);
-    box-shadow: 0 0 0 3px rgba(255,107,53,0.2), 0 6px 16px rgba(255,107,53,0.5);
+    animation: stampDown 4.5s ease-in-out infinite;
+    z-index: 5;
+    background: rgba(11,10,28,0.55); backdrop-filter: blur(3px);
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.18), 0 8px 24px rgba(255,107,53,0.55);
   }
-  .hi-stamp::before { content: '✓'; font-size: 28px; line-height: 1; }
+  .hi-stamp::before { content: '✓'; font-size: 32px; line-height: 1; margin-bottom: 1px; }
   .hi-stamp::after { content: 'APPROVED'; }
-  @keyframes hiStamp { 0% { transform: rotate(-12deg) scale(2); opacity: 0; } 18% { transform: rotate(-12deg) scale(1.1); opacity: 1; } 25% { transform: rotate(-12deg) scale(1); } 75% { transform: rotate(-12deg) scale(1); opacity: 1; } 90% { opacity: 0.8; } 100% { transform: rotate(-12deg) scale(2); opacity: 0; } }
-
-  .hero-stats {
-    display: flex; justify-content: center; gap: 56px; flex-wrap: wrap;
-    margin: 28px auto 36px;
-    animation: fadeUp 0.8s ease 0.4s both;
+  @keyframes stampDown {
+    0% { transform: rotate(-12deg) scale(2.4); opacity: 0; }
+    18% { transform: rotate(-12deg) scale(1.1); opacity: 1; }
+    25%, 75% { transform: rotate(-12deg) scale(1); opacity: 1; }
+    90% { opacity: 0.85; }
+    100% { transform: rotate(-12deg) scale(2.2); opacity: 0; }
   }
-  .hero-stat { text-align: center; }
-  .hero-stat-num {
-    font-size: 42px; font-weight: 800;
-    background: linear-gradient(135deg, var(--gold), var(--gold2));
+  .hi-particle {
+    position: absolute; width: 5px; height: 5px; border-radius: 999px;
+    background: rgba(139,130,232,0.7);
+    box-shadow: 0 0 12px rgba(139,130,232,0.85);
+    animation: particleUp 6s linear infinite;
+    z-index: 4;
+  }
+  @keyframes particleUp {
+    0% { transform: translateY(220px) translateX(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-30px) translateX(20px); opacity: 0; }
+  }
+  .hi-p1 { left: 14%; animation-delay: 0s; }
+  .hi-p2 { left: 32%; animation-delay: 1.4s; }
+  .hi-p3 { left: 60%; animation-delay: 2.8s; background: rgba(255,107,53,0.7); box-shadow: 0 0 12px rgba(255,107,53,0.85); }
+  .hi-p4 { left: 82%; animation-delay: 4.2s; background: rgba(74,222,128,0.7); box-shadow: 0 0 12px rgba(74,222,128,0.85); }
+
+  /* ───── HERO STATS ───── */
+  .hero-stats {
+    display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;
+    margin: 36px auto 40px;
+    animation: fadeUp 0.9s ease 0.4s both;
+  }
+  .hs { text-align: center; min-width: 110px; }
+  .hs-num {
+    font-size: 46px; font-weight: 800; line-height: 1;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(253,224,71,0.25);
+    font-variant-numeric: tabular-nums;
   }
-  .hero-stat-lbl {
-    font-size: 12px; color: var(--txt3);
-    text-transform: uppercase; letter-spacing: 1.5px;
-    margin-top: 6px;
-  }
+  .hs-lbl { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: 1.8px; margin-top: 8px; font-weight: 600; }
 
   .cta-primary {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 18px 42px; border: none; border-radius: 16px;
     font-size: 17px; font-weight: 700; cursor: pointer;
     background: linear-gradient(135deg, var(--p400), #9978ff);
-    color: #fff;
-    box-shadow: 0 12px 32px rgba(124,92,252,0.45);
-    transition: all 0.2s ease;
-    font-family: inherit;
-    text-decoration: none;
+    color: #fff; box-shadow: 0 12px 32px rgba(124,92,252,0.45);
+    transition: all 0.25s cubic-bezier(0.23,1,0.32,1);
+    font-family: inherit; text-decoration: none;
+    animation: pulseGlow 3.5s ease-in-out infinite;
   }
-  .cta-primary:hover {
-    color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(124,92,252,0.6);
-  }
+  .cta-primary:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 20px 50px rgba(124,92,252,0.65); animation: none; }
   .cta-secondary {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 16px 32px; border-radius: 14px;
-    background: rgba(139,130,232,0.12);
+    background: rgba(139,130,232,0.1);
     border: 1px solid rgba(139,130,232,0.3);
-    color: var(--p100);
-    font-size: 15px; font-weight: 600;
-    transition: all 0.15s ease;
+    color: var(--p100); font-size: 15px; font-weight: 600;
+    transition: all 0.2s ease; backdrop-filter: blur(10px);
   }
-  .cta-secondary:hover { background: rgba(139,130,232,0.22); color: var(--txt); }
+  .cta-secondary:hover { background: rgba(139,130,232,0.22); color: var(--txt); transform: translateY(-2px); }
 
-  /* ───── SECTION ───── */
-  .section { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
+  /* ───── WAVE DIVIDER ───── */
+  .wave-div { width: 100%; height: 40px; display: block; }
+  .wave-div path { fill: rgba(139,130,232,0.05); }
+
+  /* ───── SECTIONS ───── */
+  .section { padding: 90px 24px; max-width: 1200px; margin: 0 auto; position: relative; }
   .section.narrow { max-width: 980px; }
   .section-pill {
-    display: inline-block;
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(124,92,252,0.15);
-    border: 1px solid rgba(124,92,252,0.3);
-    color: var(--p200);
-    font-size: 12px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1px;
-    margin-bottom: 14px;
+    display: inline-block; padding: 7px 16px; border-radius: 999px;
+    background: linear-gradient(135deg, rgba(124,92,252,0.18), rgba(124,92,252,0.08));
+    border: 1px solid rgba(124,92,252,0.35); color: var(--p100);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 16px;
   }
-  .section-title {
-    font-size: clamp(28px, 3.6vw, 42px);
-    font-weight: 800; letter-spacing: -0.01em;
-    margin-bottom: 14px;
-  }
-  .section-sub {
-    font-size: 16px; color: var(--txt2);
-    max-width: 720px;
-    margin-bottom: 48px;
-  }
-  .section-head { text-align: center; margin-bottom: 56px; }
+  .section-title { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -0.015em; margin-bottom: 16px; line-height: 1.1; }
+  .section-sub { font-size: 17px; color: var(--txt2); max-width: 720px; margin-bottom: 56px; line-height: 1.6; }
+  .section-head { text-align: center; margin-bottom: 60px; }
   .section-head .section-sub { margin-left: auto; margin-right: auto; }
 
-  /* ───── TRUSTED BY ───── */
-  .trust-strip {
-    padding: 50px 24px 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    border-top: 1px solid rgba(139,130,232,0.1);
-    border-bottom: 1px solid rgba(139,130,232,0.1);
-  }
-  .trust-label {
-    font-size: 12px; color: var(--txt3);
-    text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
-    margin-bottom: 22px;
-  }
-  .trust-team-strip {
-    display: flex; justify-content: center;
-    margin: 28px 0 18px;
-  }
-  .trust-team-strip .tts-photo {
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    margin-left: -14px;
-    border: 3px solid var(--bg);
-    background-size: cover; background-position: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: transform 0.2s ease, z-index 0.2s ease;
-    position: relative;
-  }
-  .trust-team-strip .tts-photo:first-child { margin-left: 0; }
-  .trust-team-strip .tts-photo:hover { transform: translateY(-4px) scale(1.05); z-index: 10; }
-  .trust-badges {
-    display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
-    margin-top: 24px;
-  }
-  .trust-badge-item {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--txt2); font-size: 13px; font-weight: 600;
-  }
-  .trust-badge-item .tbi-ico {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: rgba(124,92,252,0.12);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-
-  /* ───── COMPANIES STRIP ───── */
-  .co-strip {
-    display: flex; justify-content: center; align-items: center;
-    gap: 48px; flex-wrap: wrap;
-    margin-top: 18px;
-    opacity: 0.65;
-  }
-  .co-logo {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 17px; font-weight: 700;
-    color: var(--txt2);
+  /* ───── TRUST STRIP ───── */
+  .trust-strip { padding: 56px 24px 36px; max-width: 1200px; margin: 0 auto; text-align: center; border-top: 1px solid rgba(139,130,232,0.1); border-bottom: 1px solid rgba(139,130,232,0.1); }
+  .trust-label { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 2.5px; font-weight: 700; margin-bottom: 26px; }
+  .co-strip { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .co-tile {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 20px; border-radius: 12px;
+    background: var(--card);
+    border: 1px solid rgba(139,130,232,0.2);
+    color: var(--txt2); font-size: 14px; font-weight: 600;
     transition: all 0.2s ease;
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid rgba(139,130,232,0.18);
-    background: var(--card);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
-  .co-logo:hover { color: var(--txt); opacity: 1; }
-  .co-logo .co-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--p400); }
+  .co-tile:hover { border-color: rgba(139,130,232,0.5); transform: translateY(-3px); box-shadow: var(--shadow-1); }
+  .co-tile b { color: var(--txt); font-weight: 800; font-size: 16px; }
+  .co-tile .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .trust-badges { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-top: 30px; }
+  .tb { display: inline-flex; align-items: center; gap: 9px; color: var(--txt2); font-size: 13px; font-weight: 600; }
+  .tb-ic { width: 34px; height: 34px; border-radius: 9px; background: rgba(124,92,252,0.14); display: inline-flex; align-items: center; justify-content: center; font-size: 17px; }
 
-  /* ───── TEAM SECTION ───── */
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 22px;
-  }
-  .team-card {
-    background: var(--card);
-    border: 1px solid rgba(139,130,232,0.2);
-    border-radius: 22px;
-    padding: 24px;
-    text-align: center;
-    transition: all 0.25s ease;
-  }
-  .team-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(139,130,232,0.4);
-  }
-  .team-photo {
-    width: 110px; height: 110px;
-    border-radius: 50%;
-    margin: 0 auto 18px;
-    background-size: cover; background-position: center;
-    border: 3px solid rgba(124,92,252,0.4);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-  }
-  .team-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-  .team-role { font-size: 13px; color: var(--p200); margin-bottom: 12px; }
-  .team-bio { font-size: 13px; color: var(--txt3); line-height: 1.6; }
-  .team-tags {
-    margin-top: 14px;
-    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
-  }
-  .team-tag {
-    font-size: 11px; color: var(--p200);
-    background: rgba(139,130,232,0.12);
-    padding: 3px 8px; border-radius: 999px;
-  }
-
-  /* ───── VALUE PROPS ───── */
-  .vp-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 22px;
-  }
+  /* ───── VALUE PROPS — 3D TILT ───── */
+  .vp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
   .vp-card {
-    background: var(--card);
-    border: 1px solid rgba(139,130,232,0.2);
+    background: linear-gradient(135deg, rgba(45,40,105,0.45), rgba(20,16,55,0.35));
+    border: 1px solid rgba(139,130,232,0.22);
     border-radius: 22px;
-    padding: 30px 26px;
-    transition: all 0.25s ease;
+    padding: 32px 28px;
+    transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.3s ease, box-shadow 0.3s ease;
     position: relative; overflow: hidden;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
+    will-change: transform;
   }
   .vp-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 0% 0%, rgba(124,92,252,0.15), transparent 60%);
+    content: ''; position: absolute; inset: -1px; border-radius: 22px;
+    background: linear-gradient(135deg, rgba(124,92,252,0.45), transparent 50%, rgba(255,107,53,0.25));
     opacity: 0; transition: opacity 0.3s ease;
+    z-index: -1; padding: 1px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
   }
-  .vp-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(139,130,232,0.45);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  }
+  .vp-card:hover { border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2), var(--glow); }
   .vp-card:hover::before { opacity: 1; }
   .vp-icon {
-    width: 56px; height: 56px;
-    border-radius: 16px;
+    width: 60px; height: 60px; border-radius: 17px;
     display: inline-flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    background: linear-gradient(135deg, rgba(124,92,252,0.2), rgba(124,92,252,0.05));
-    border: 1px solid rgba(124,92,252,0.25);
-    margin-bottom: 18px;
-    position: relative; z-index: 1;
+    font-size: 30px;
+    background: linear-gradient(135deg, rgba(124,92,252,0.28), rgba(124,92,252,0.05));
+    border: 1px solid rgba(124,92,252,0.3);
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(124,92,252,0.2);
   }
-  .vp-title {
-    font-size: 19px; font-weight: 700;
-    margin-bottom: 10px;
-    position: relative; z-index: 1;
-  }
-  .vp-desc {
-    font-size: 14px; color: var(--txt2); line-height: 1.65;
-    position: relative; z-index: 1;
-  }
+  .vp-title { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .vp-desc { font-size: 14px; color: var(--txt2); line-height: 1.65; }
 
   /* ───── PROCESS TIMELINE ───── */
-  .timeline {
-    position: relative;
-    padding: 20px 0;
-  }
+  .timeline { position: relative; padding: 20px 0; }
   .timeline::before {
-    content: ''; position: absolute;
-    left: 32px; top: 0; bottom: 0;
-    width: 2px; background: linear-gradient(to bottom, var(--p400), transparent);
+    content: ''; position: absolute; left: 32px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--p400) 0%, var(--p500) 50%, transparent 100%);
   }
-  .step {
-    display: flex; gap: 24px;
-    margin-bottom: 36px;
-    align-items: flex-start;
-    position: relative;
-  }
+  .step { display: flex; gap: 28px; margin-bottom: 38px; align-items: flex-start; position: relative; }
   .step-num {
-    flex-shrink: 0;
-    width: 64px; height: 64px;
-    border-radius: 18px;
+    flex-shrink: 0; width: 66px; height: 66px; border-radius: 18px;
     background: linear-gradient(135deg, var(--p400), #9978ff);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
+    color: #fff; display: flex; align-items: center; justify-content: center;
     font-size: 24px; font-weight: 800;
-    box-shadow: 0 8px 24px rgba(124,92,252,0.4);
+    box-shadow: 0 10px 28px rgba(124,92,252,0.45);
     position: relative; z-index: 1;
   }
-  .step-content {
-    flex: 1; padding-top: 8px;
-  }
-  .step-title {
-    font-size: 18px; font-weight: 700; margin-bottom: 6px;
-  }
-  .step-desc {
-    font-size: 14px; color: var(--txt2); line-height: 1.65;
-  }
-  .step-meta {
-    margin-top: 8px;
-    display: inline-flex; gap: 12px; flex-wrap: wrap;
-  }
-  .step-meta-item {
-    font-size: 12px; color: var(--p200);
-    background: rgba(139,130,232,0.12);
-    padding: 4px 10px; border-radius: 999px;
-  }
+  .step-content { flex: 1; padding-top: 8px; }
+  .step-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: var(--txt2); line-height: 1.65; }
+  .step-meta { margin-top: 10px; display: inline-flex; gap: 10px; flex-wrap: wrap; }
+  .step-meta-item { font-size: 12px; color: var(--p200); background: rgba(139,130,232,0.12); padding: 5px 11px; border-radius: 999px; font-weight: 500; }
 
   /* ───── INDUSTRIES ───── */
-  .ind-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 18px;
-  }
+  .ind-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
   .ind-card {
-    background: var(--card);
-    border: 1px solid rgba(139,130,232,0.2);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.25s ease;
-    cursor: pointer;
+    background: var(--card); border: 1px solid rgba(139,130,232,0.22);
+    border-radius: 22px; overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
   }
-  .ind-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(139,130,232,0.4);
-    background: var(--cardhi);
-  }
-  .ind-photo {
-    width: 100%; height: 140px;
-    background-size: cover; background-position: center;
-    position: relative;
-  }
-  .ind-photo::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(15,13,34,0.85) 100%);
-  }
-  .ind-body { padding: 18px 22px 24px; }
-  .ind-emoji {
-    font-size: 28px;
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    background: var(--card);
-    border: 2px solid var(--bg);
-    display: inline-flex; align-items: center; justify-content: center;
-    margin-top: -38px;
-    margin-bottom: 12px;
-    position: relative; z-index: 2;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  }
+  .ind-card:hover { transform: translateY(-6px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
+  .ind-photo { width: 100%; height: 150px; background-size: cover; background-position: center; position: relative; }
+  .ind-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(11,10,28,0.92) 100%); }
+  .ind-body { padding: 20px 24px 26px; }
+  .ind-emoji { font-size: 28px; width: 58px; height: 58px; border-radius: 14px; background: var(--bg2); border: 2px solid var(--bg); display: inline-flex; align-items: center; justify-content: center; margin-top: -42px; margin-bottom: 14px; position: relative; z-index: 2; box-shadow: 0 8px 18px rgba(0,0,0,0.4); }
   .ind-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
   .ind-desc { font-size: 13px; color: var(--txt3); line-height: 1.6; margin-bottom: 12px; }
   .ind-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .ind-tag { font-size: 11px; color: var(--p200); background: rgba(139,130,232,0.12); padding: 3px 8px; border-radius: 999px; }
+  .ind-tag { font-size: 11px; color: var(--p200); background: rgba(139,130,232,0.13); padding: 4px 9px; border-radius: 999px; }
 
-  /* ───── CALCULATOR EXPANDED ───── */
+  /* ───── PREMIUM CALCULATOR ───── */
   .calc-wrap {
-    background: linear-gradient(135deg, rgba(45,40,105,0.6), rgba(30,27,75,0.4));
+    background: linear-gradient(135deg, rgba(45,40,105,0.55), rgba(20,16,55,0.4));
     border: 1px solid rgba(139,130,232,0.3);
-    border-radius: 28px;
-    padding: 40px;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    border-radius: 32px; padding: 44px;
+    box-shadow: var(--shadow-3);
+    backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+    position: relative; overflow: hidden;
   }
-  .calc-grid {
-    display: grid; grid-template-columns: 1.5fr 1fr;
-    gap: 40px;
+  .calc-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--p400), #9978ff, var(--gold), var(--green));
   }
-  @media (max-width: 900px) {
-    .calc-grid { grid-template-columns: 1fr; gap: 28px; }
-    .calc-wrap { padding: 28px 22px; }
-  }
-  .calc-section {
-    margin-bottom: 26px;
-  }
-  .calc-section-h {
-    font-size: 13px; color: var(--p200);
-    text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
+  @media (max-width: 900px) { .calc-wrap { padding: 28px 22px; } }
+
+  .calc-presets {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 28px; padding-bottom: 24px;
     border-bottom: 1px solid rgba(139,130,232,0.15);
   }
-  .calc-control { margin-bottom: 18px; }
-  .calc-control-label {
-    display: flex; justify-content: space-between; align-items: baseline;
-    margin-bottom: 8px;
+  .calc-preset {
+    padding: 10px 18px; border-radius: 12px;
+    background: rgba(139,130,232,0.08);
+    border: 1px solid rgba(139,130,232,0.25);
+    color: var(--txt2); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s ease;
   }
+  .calc-preset:hover { background: rgba(139,130,232,0.18); color: var(--txt); }
+  .calc-preset.active { background: linear-gradient(135deg, var(--p400), #9978ff); color: #fff; border-color: var(--p400); }
+
+  .calc-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; }
+  @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+  .calc-col { display: flex; flex-direction: column; gap: 22px; }
+  .calc-section { }
+  .calc-section-h {
+    font-size: 12px; color: var(--p300); text-transform: uppercase; letter-spacing: 1.3px; font-weight: 700;
+    margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(139,130,232,0.15);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .calc-control { margin-bottom: 16px; }
+  .calc-control:last-child { margin-bottom: 0; }
+  .calc-control-lbl { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .calc-control-name { font-size: 13px; color: var(--txt2); font-weight: 500; }
-  .calc-control-value { font-size: 17px; font-weight: 700; color: var(--p200); }
+  .calc-control-val {
+    font-size: 17px; font-weight: 700; color: var(--p100);
+    background: rgba(124,92,252,0.15); padding: 4px 12px; border-radius: 8px;
+    font-variant-numeric: tabular-nums;
+    transition: all 0.3s ease;
+  }
   .calc-slider {
-    width: 100%; appearance: none; height: 6px;
-    background: rgba(139,130,232,0.2); border-radius: 3px;
-    outline: none;
+    width: 100%; appearance: none; -webkit-appearance: none;
+    height: 8px; background: rgba(139,130,232,0.2); border-radius: 4px; outline: none;
+    cursor: pointer;
   }
   .calc-slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 22px; height: 22px; border-radius: 50%;
+    appearance: none; -webkit-appearance: none;
+    width: 24px; height: 24px; border-radius: 50%;
     background: linear-gradient(135deg, var(--p400), #9978ff);
-    cursor: pointer; box-shadow: 0 4px 12px rgba(124,92,252,0.5);
-    border: 2px solid #fff;
-  }
-  .calc-segments {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 6px;
-  }
-  .calc-segment {
-    padding: 10px 6px;
-    border: 1px solid rgba(139,130,232,0.25);
-    border-radius: 10px;
-    background: rgba(139,130,232,0.05);
-    font-size: 12px; font-weight: 600;
-    text-align: center; cursor: pointer;
-    color: var(--txt2);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(124,92,252,0.55);
+    border: 3px solid #fff;
     transition: all 0.15s ease;
   }
-  .calc-segment:hover { background: rgba(139,130,232,0.13); color: var(--txt); }
-  .calc-segment.active {
+  .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: 0 6px 18px rgba(124,92,252,0.8); }
+  .calc-slider::-moz-range-thumb {
+    width: 24px; height: 24px; border-radius: 50%;
     background: linear-gradient(135deg, var(--p400), #9978ff);
-    color: #fff;
-    border-color: var(--p400);
-    box-shadow: 0 4px 12px rgba(124,92,252,0.4);
+    border: 3px solid #fff; cursor: pointer;
+  }
+  .calc-segs { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; }
+  .calc-seg {
+    padding: 10px 8px; border: 1px solid rgba(139,130,232,0.25);
+    border-radius: 10px; background: rgba(139,130,232,0.05);
+    font-size: 12px; font-weight: 600; text-align: center;
+    cursor: pointer; color: var(--txt2);
+    transition: all 0.18s ease;
+  }
+  .calc-seg:hover { background: rgba(139,130,232,0.14); color: var(--txt); }
+  .calc-seg.active {
+    background: linear-gradient(135deg, var(--p400), #9978ff);
+    color: #fff; border-color: var(--p400);
+    box-shadow: 0 4px 14px rgba(124,92,252,0.45);
   }
 
-  .calc-result {
-    background: rgba(15,13,34,0.5);
-    border: 1px solid rgba(124,92,252,0.3);
-    border-radius: 22px;
-    padding: 30px;
-    display: flex; flex-direction: column; gap: 18px;
-    height: fit-content;
-    position: sticky; top: 90px;
+  .calc-toggle {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; border-radius: 10px;
+    background: rgba(139,130,232,0.06);
+    border: 1px solid rgba(139,130,232,0.18);
+    cursor: pointer; user-select: none;
   }
-  .calc-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding-bottom: 14px;
+  .calc-toggle:hover { background: rgba(139,130,232,0.12); }
+  .calc-toggle-sw {
+    width: 38px; height: 22px; border-radius: 999px;
+    background: rgba(255,255,255,0.15);
+    position: relative; transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+  .calc-toggle-sw::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #fff; transition: transform 0.2s ease;
+  }
+  .calc-toggle.on .calc-toggle-sw { background: var(--p400); }
+  .calc-toggle.on .calc-toggle-sw::after { transform: translateX(16px); }
+  .calc-toggle-lbl { font-size: 13px; color: var(--txt); font-weight: 500; flex: 1; }
+  .calc-toggle-hint { font-size: 11px; color: var(--txt3); margin-top: 2px; }
+
+  /* ───── CALC RESULT DASHBOARD ───── */
+  .calc-result {
+    background: rgba(11,10,28,0.5);
+    border: 1px solid rgba(124,92,252,0.35);
+    border-radius: 24px; padding: 30px;
+    display: flex; flex-direction: column; gap: 22px;
+    height: fit-content; position: sticky; top: 100px;
+  }
+  .calc-result-hero {
+    text-align: center; padding: 8px 0 18px;
     border-bottom: 1px solid rgba(139,130,232,0.15);
   }
-  .calc-row:last-of-type { border: none; padding-bottom: 0; }
-  .calc-row-lbl { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.5px; }
-  .calc-row-val { font-size: 22px; font-weight: 700; transition: all 0.3s ease; }
-  .calc-row.savings .calc-row-val {
-    font-size: 32px;
+  .calc-result-hero-lbl { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px; }
+  .calc-result-hero-val {
+    font-size: 44px; font-weight: 800; line-height: 1;
     background: linear-gradient(135deg, var(--green), var(--green2));
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-variant-numeric: tabular-nums;
+    transition: all 0.3s ease;
   }
+  .calc-result-hero-sub { font-size: 12px; color: var(--txt3); margin-top: 6px; }
+
+  .calc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .calc-row-lbl { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.5px; }
+  .calc-row-val { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; transition: all 0.3s ease; }
   .calc-strike { text-decoration: line-through; color: var(--txt3); font-weight: 500; }
+
+  /* ───── CHART ───── */
+  .chart-bars { padding: 6px 0; }
+  .chart-row { margin-bottom: 14px; }
+  .chart-row:last-child { margin-bottom: 0; }
+  .chart-row-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+  .chart-row-lbl { font-size: 12px; color: var(--txt3); font-weight: 500; }
+  .chart-row-val { font-size: 13px; font-weight: 700; color: var(--txt); font-variant-numeric: tabular-nums; }
+  .chart-bar { height: 10px; border-radius: 5px; background: rgba(139,130,232,0.12); overflow: hidden; }
+  .chart-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s cubic-bezier(0.23,1,0.32,1); }
+  .chart-bar-fill.retail { background: linear-gradient(90deg, #ef4444, #f59e0b); }
+  .chart-bar-fill.b2b    { background: linear-gradient(90deg, var(--green), var(--green2)); }
+
+  /* ───── INCLUDED PILLS ───── */
+  .calc-incl { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 16px; border-top: 1px solid rgba(139,130,232,0.15); }
+  .calc-incl-pill {
+    font-size: 11px; color: var(--green); background: rgba(74,222,128,0.1);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(74,222,128,0.25);
+    font-weight: 600;
+  }
+
   .calc-note {
     font-size: 11px; color: var(--txt3); line-height: 1.5;
-    padding-top: 10px;
-    border-top: 1px solid rgba(139,130,232,0.12);
+    padding-top: 14px; border-top: 1px solid rgba(139,130,232,0.12);
   }
 
   /* ───── COMPARISON TABLE ───── */
-  .table-wrap {
-    background: var(--card);
-    border: 1px solid rgba(139,130,232,0.2);
-    border-radius: 24px;
-    padding: 32px;
-    overflow-x: auto;
-  }
-  .ctable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .ctable th, .ctable td {
-    padding: 16px 18px;
-    text-align: left;
-    font-size: 14px;
-  }
-  .ctable th {
-    color: var(--txt3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-    font-size: 12px;
-    border-bottom: 1px solid rgba(139,130,232,0.2);
-  }
-  .ctable td {
-    border-bottom: 1px solid rgba(139,130,232,0.1);
-  }
-  .ctable th.b2b, .ctable td.b2b {
-    background: rgba(124,92,252,0.07);
-    border-left: 1px solid rgba(124,92,252,0.2);
-    border-right: 1px solid rgba(124,92,252,0.2);
-  }
-  .ctable th.b2b {
-    color: var(--p200);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    border-top: 2px solid var(--p400);
-  }
+  .table-wrap { background: var(--card); border: 1px solid rgba(139,130,232,0.22); border-radius: 24px; padding: 32px; overflow-x: auto; backdrop-filter: blur(16px); }
+  .ctable { width: 100%; border-collapse: collapse; }
+  .ctable th, .ctable td { padding: 16px 18px; text-align: left; font-size: 14px; }
+  .ctable th { color: var(--txt3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 12px; border-bottom: 1px solid rgba(139,130,232,0.2); }
+  .ctable td { border-bottom: 1px solid rgba(139,130,232,0.1); }
+  .ctable th.b2b, .ctable td.b2b { background: rgba(124,92,252,0.07); border-left: 1px solid rgba(124,92,252,0.2); border-right: 1px solid rgba(124,92,252,0.2); }
+  .ctable th.b2b { color: var(--p100); border-top-left-radius: 12px; border-top-right-radius: 12px; border-top: 2px solid var(--p400); }
   .ctable .check { color: var(--green); font-weight: 700; }
   .ctable .cross { color: var(--txt3); }
 
+  /* ───── TEAM ROLES ───── */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .team-card { background: var(--card); border: 1px solid rgba(139,130,232,0.22); border-radius: 22px; padding: 28px 24px; text-align: center; transition: all 0.3s ease; backdrop-filter: blur(16px); }
+  .team-card:hover { transform: translateY(-5px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
+  .team-photo { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 18px; background: linear-gradient(135deg, var(--p500), var(--p400)); display: flex; align-items: center; justify-content: center; font-size: 48px; border: 3px solid rgba(124,92,252,0.4); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
+  .team-role { font-size: 18px; font-weight: 700; margin-top: 12px; }
+  .team-bio { font-size: 13px; color: var(--txt3); line-height: 1.6; margin-top: 10px; }
+  .team-tags { margin-top: 16px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .team-tag { font-size: 11px; color: var(--p200); background: rgba(139,130,232,0.13); padding: 4px 9px; border-radius: 999px; }
+
   /* ───── TESTIMONIALS ───── */
-  .sp-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 22px;
-  }
-  .sp-card {
-    background: var(--card); border: 1px solid rgba(139,130,232,0.2);
-    border-radius: 22px; padding: 28px;
-    display: flex; flex-direction: column;
-    transition: all 0.25s ease;
-  }
-  .sp-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(139,130,232,0.4);
-  }
+  .sp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
+  .sp-card { background: var(--card); border: 1px solid rgba(139,130,232,0.22); border-radius: 22px; padding: 30px; display: flex; flex-direction: column; transition: all 0.3s ease; backdrop-filter: blur(16px); }
+  .sp-card:hover { transform: translateY(-4px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
   .sp-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
-  .sp-quote {
-    font-size: 15px; color: var(--txt); line-height: 1.65;
-    margin-bottom: 22px;
-    flex: 1;
-  }
-  .sp-author {
-    display: flex; align-items: center; gap: 14px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(139,130,232,0.15);
-  }
-  .sp-avatar {
-    width: 48px; height: 48px; border-radius: 50%;
-    background-size: cover; background-position: center;
-    border: 2px solid rgba(139,130,232,0.3);
-  }
-  .sp-name { font-weight: 700; font-size: 14px; }
-  .sp-role { color: var(--txt3); font-size: 12px; margin-top: 2px; }
+  .sp-quote { font-size: 15px; color: var(--txt); line-height: 1.65; margin-bottom: 22px; flex: 1; font-style: italic; }
+  .sp-author { display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(139,130,232,0.15); }
+  .sp-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--p500), var(--p400)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+  .sp-role { font-size: 13px; color: var(--txt2); font-weight: 600; }
 
   /* ───── FAQ ───── */
   .faq-list { max-width: 820px; margin: 0 auto; }
-  .faq-item {
-    background: var(--card);
-    border: 1px solid rgba(139,130,232,0.18);
-    border-radius: 16px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s ease;
-  }
-  .faq-item:hover { border-color: rgba(139,130,232,0.35); }
-  .faq-q {
-    padding: 18px 22px;
-    cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 15px; font-weight: 600;
-    color: var(--txt);
-  }
-  .faq-q::after {
-    content: '+';
-    font-size: 24px; font-weight: 300;
-    color: var(--p300);
-    transition: transform 0.2s ease;
-  }
+  .faq-item { background: var(--card); border: 1px solid rgba(139,130,232,0.18); border-radius: 16px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.2s ease; backdrop-filter: blur(12px); }
+  .faq-item:hover { border-color: rgba(139,130,232,0.4); }
+  .faq-q { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; color: var(--txt); }
+  .faq-q::after { content: '+'; font-size: 26px; font-weight: 300; color: var(--p300); transition: transform 0.2s ease; }
   .faq-item.open .faq-q::after { transform: rotate(45deg); }
-  .faq-a {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    padding: 0 22px;
-    font-size: 14px; color: var(--txt2); line-height: 1.7;
-  }
-  .faq-item.open .faq-a {
-    max-height: 360px;
-    padding: 0 22px 20px;
-  }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 24px; font-size: 14px; color: var(--txt2); line-height: 1.7; }
+  .faq-item.open .faq-a { max-height: 400px; padding: 0 24px 22px; }
 
-  /* ───── CTA FORM ───── */
-  .form-wrap {
-    max-width: 620px; margin: 0 auto;
-    background: linear-gradient(135deg, rgba(45,40,105,0.6), rgba(30,27,75,0.4));
-    border: 1px solid rgba(139,130,232,0.3);
-    border-radius: 28px; padding: 40px;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-  }
-  .form-input, .form-textarea {
-    width: 100%; padding: 14px 18px;
-    background: rgba(15,13,34,0.6);
-    border: 1px solid rgba(139,130,232,0.25);
-    border-radius: 12px;
-    font-size: 15px; color: var(--txt);
-    margin-bottom: 14px;
-    outline: none; transition: border-color 0.15s ease;
-    font-family: inherit;
-  }
-  .form-input:focus, .form-textarea:focus { border-color: var(--p400); }
+  /* ───── FORM ───── */
+  .form-wrap { max-width: 620px; margin: 0 auto; background: linear-gradient(135deg, rgba(45,40,105,0.55), rgba(20,16,55,0.4)); border: 1px solid rgba(139,130,232,0.3); border-radius: 28px; padding: 40px; box-shadow: var(--shadow-3); backdrop-filter: blur(28px); }
+  .form-input, .form-textarea { width: 100%; padding: 14px 18px; background: rgba(11,10,28,0.6); border: 1px solid rgba(139,130,232,0.25); border-radius: 12px; font-size: 15px; color: var(--txt); margin-bottom: 14px; outline: none; transition: all 0.2s ease; font-family: inherit; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--p400); box-shadow: 0 0 0 3px rgba(124,92,252,0.18); }
   .form-input::placeholder, .form-textarea::placeholder { color: var(--txt3); }
   .form-textarea { resize: vertical; min-height: 100px; }
 
   /* ───── FOOTER ───── */
-  footer {
-    padding: 50px 24px 36px;
-    text-align: center;
-    color: var(--txt3);
-    font-size: 13px;
-    border-top: 1px solid rgba(139,130,232,0.1);
-    margin-top: 80px;
-  }
+  footer { padding: 56px 24px 40px; text-align: center; color: var(--txt3); font-size: 13px; border-top: 1px solid rgba(139,130,232,0.1); margin-top: 80px; }
   footer a { margin: 0 12px; }
   footer .ft-logo { display: inline-block; margin-bottom: 18px; }
-  footer .ft-logo svg { width: 36px; height: 32px; vertical-align: middle; }
+  footer .ft-logo svg { width: 38px; height: 34px; vertical-align: middle; }
 
   /* ───── MOBILE ───── */
   @media (max-width: 600px) {
-    .hero { padding: 56px 20px 24px; }
-    .hero-stats { gap: 24px; }
-    .hero-stat-num { font-size: 32px; }
-    .section { padding: 56px 20px; }
+    .hero { padding: 56px 20px 28px; }
+    .hero-stats { gap: 28px; }
+    .hs-num { font-size: 36px; }
+    .section { padding: 64px 20px; }
     .header-right .nav-back { display: none; }
-    .step-num { width: 52px; height: 52px; font-size: 19px; border-radius: 14px; }
+    .step-num { width: 54px; height: 54px; font-size: 19px; border-radius: 14px; }
     .timeline::before { left: 26px; }
+    .calc-result-hero-val { font-size: 36px; }
   }
 </style>
 </head>
@@ -758,32 +628,37 @@
 
 <header>
   <a href="/" class="logo">
-    <svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+    <svg width="32" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
     <span><b>Legal</b> Solutions</span>
   </a>
   <div class="header-right">
     <a href="/" class="nav-back" id="nav-back">← Main site</a>
-    <a href="#contact" class="nav-cta-btn" id="nav-cta">Get quote</a>
+    <a href="#contact" class="nav-cta" id="nav-cta">Get a quote</a>
   </div>
 </header>
 
-<!-- ═════════════════════════════════════════════ HERO ═════════════════════════════════════════════ -->
+<!-- ═════════════ HERO ═════════════ -->
 <section class="hero">
   <div class="hero-pill">💼 <span id="hero-pill-text">For Business · HR Teams · Volume Solutions</span></div>
   <h1 id="hero-h1">Legalize your foreign workforce<br>in Poland — <em>at scale</em></h1>
-  <p class="hero-sub" id="hero-sub">For HR teams hiring 5+ foreigners per year. Bulk pricing, dedicated account manager, corporate dashboard, priority queue. We've handled 3,000+ cases with 98% approval rate.</p>
+  <p class="hero-sub" id="hero-sub">For HR teams hiring 5+ foreigners per year. Bulk pricing, dedicated account manager, real-time dashboard, priority queue. We've handled 3,000+ cases with 98% approval rate.</p>
 
-  <div class="hero-illustration">
-    <div class="hi-doc hi-doc-2">
+  <div class="hi-stage">
+    <div class="hi-glow"></div>
+    <div class="hi-particle hi-p1"></div>
+    <div class="hi-particle hi-p2"></div>
+    <div class="hi-particle hi-p3"></div>
+    <div class="hi-particle hi-p4"></div>
+    <div class="hi-card hi-card-2">
       <div class="hi-dl"></div><div class="hi-dl"></div><div class="hi-dl"></div>
       <div class="hi-dl"></div><div class="hi-dl"></div><div class="hi-dl"></div>
     </div>
-    <div class="hi-doc hi-doc-1">
+    <div class="hi-card hi-card-3">
       <div class="hi-dl"></div><div class="hi-dl"></div><div class="hi-dl"></div>
       <div class="hi-dl"></div><div class="hi-dl"></div><div class="hi-dl"></div>
     </div>
-    <div class="hi-karta">
-      <div><span class="hi-flag"></span><span class="hi-eu">EU</span></div>
+    <div class="hi-card hi-card-1">
+      <div><span class="hi-flag"></span><span class="hi-eu">EU · POLAND</span></div>
       <div class="hi-portrait"></div>
       <div class="hi-lines">
         <div class="hi-line"></div>
@@ -796,51 +671,37 @@
   </div>
 
   <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-count="35" data-suffix="%">0%</div>
-      <div class="hero-stat-lbl" id="hs1">max volume discount</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-count="3000" data-suffix="+">0</div>
-      <div class="hero-stat-lbl" id="hs2">cases handled</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-count="98" data-suffix="%">0%</div>
-      <div class="hero-stat-lbl" id="hs3">approval rate</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-count="15" data-suffix="min">0min</div>
-      <div class="hero-stat-lbl" id="hs4">manager response</div>
-    </div>
+    <div class="hs"><div class="hs-num" data-count="35" data-suffix="%">0%</div><div class="hs-lbl" id="hs1">max volume discount</div></div>
+    <div class="hs"><div class="hs-num" data-count="3000" data-suffix="+">0</div><div class="hs-lbl" id="hs2">cases handled</div></div>
+    <div class="hs"><div class="hs-num" data-count="98" data-suffix="%">0%</div><div class="hs-lbl" id="hs3">approval rate</div></div>
+    <div class="hs"><div class="hs-num" data-count="15" data-suffix="min">0min</div><div class="hs-lbl" id="hs4">manager response</div></div>
   </div>
   <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-    <a href="#calc" class="cta-primary"><span id="cta1">Calculate Savings</span> →</a>
+    <a href="#calc" class="cta-primary"><span id="cta1">Calculate my savings</span> →</a>
     <a href="#contact" class="cta-secondary" id="cta-talk">📞 Talk to a manager</a>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ TRUSTED BY ═════════════════════════════════════════════ -->
+<!-- ═════════════ TRUST ═════════════ -->
 <section class="trust-strip anim-on-scroll">
   <div class="trust-label" id="trust-label">Trusted by HR teams across Poland</div>
-
   <div class="co-strip">
-    <span class="co-logo"><span class="co-dot" style="background:#FF6B35"></span><b>60+</b>&nbsp;<span style="opacity:.75" id="cs1-l">HR teams</span></span>
-    <span class="co-logo"><span class="co-dot" style="background:#5B52CC"></span><b>5</b>&nbsp;<span style="opacity:.75" id="cs2-l">industries</span></span>
-    <span class="co-logo"><span class="co-dot" style="background:#22c55e"></span><b>3000+</b>&nbsp;<span style="opacity:.75" id="cs3-l">cases handled</span></span>
-    <span class="co-logo"><span class="co-dot" style="background:#fde047"></span><b>98%</b>&nbsp;<span style="opacity:.75" id="cs4-l">approval rate</span></span>
-    <span class="co-logo"><span class="co-dot" style="background:#8B82E8"></span><b>6 yrs</b>&nbsp;<span style="opacity:.75" id="cs5-l">in immigration law</span></span>
-    <span class="co-logo"><span class="co-dot" style="background:#ef4444"></span><b>Warsaw</b>&nbsp;<span style="opacity:.75" id="cs6-l">based · Poland-wide</span></span>
+    <span class="co-tile"><span class="dot" style="background:#FF6B35"></span><b>60+</b><span id="cs1-l">HR teams</span></span>
+    <span class="co-tile"><span class="dot" style="background:#5B52CC"></span><b>5</b><span id="cs2-l">industries</span></span>
+    <span class="co-tile"><span class="dot" style="background:#22c55e"></span><b>3000+</b><span id="cs3-l">cases handled</span></span>
+    <span class="co-tile"><span class="dot" style="background:#fde047"></span><b>98%</b><span id="cs4-l">approval rate</span></span>
+    <span class="co-tile"><span class="dot" style="background:#8B82E8"></span><b>6 yrs</b><span id="cs5-l">in immigration law</span></span>
+    <span class="co-tile"><span class="dot" style="background:#ef4444"></span><b>Warsaw</b><span id="cs6-l">based · Poland-wide</span></span>
   </div>
-
   <div class="trust-badges">
-    <div class="trust-badge-item"><span class="tbi-ico">⚖️</span><span id="tb1">Licensed legal advisors</span></div>
-    <div class="trust-badge-item"><span class="tbi-ico">🛡️</span><span id="tb2">GDPR-compliant data handling</span></div>
-    <div class="trust-badge-item"><span class="tbi-ico">🤝</span><span id="tb3">NDA available before review</span></div>
-    <div class="trust-badge-item"><span class="tbi-ico">⚡</span><span id="tb4">15-min response SLA</span></div>
+    <div class="tb"><span class="tb-ic">⚖️</span><span id="tb1">Licensed legal advisors</span></div>
+    <div class="tb"><span class="tb-ic">🛡️</span><span id="tb2">GDPR-compliant data handling</span></div>
+    <div class="tb"><span class="tb-ic">🤝</span><span id="tb3">NDA available before review</span></div>
+    <div class="tb"><span class="tb-ic">⚡</span><span id="tb4">15-min response SLA</span></div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ VALUE PROPS ═════════════════════════════════════════════ -->
+<!-- ═════════════ VALUE PROPS ═════════════ -->
 <section class="section anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="vp-pill">WHY HR CHOOSES US</div>
@@ -848,16 +709,16 @@
     <p class="section-sub" id="vp-sub">From 5 to 500+ legalizations per year — same single contact, transparent pricing, predictable timelines.</p>
   </div>
   <div class="vp-grid">
-    <div class="vp-card"><div class="vp-icon">💰</div><div class="vp-title" id="vp1-t">Volume discounts up to 35%</div><div class="vp-desc" id="vp1-d">5+ apps: 10% off · 10+: 15% · 20+: 25% · 50+: 30% · 100+: 35%. Locked-in rates with annual contract — predictable budget for HR.</div></div>
-    <div class="vp-card"><div class="vp-icon">👨‍💼</div><div class="vp-title" id="vp2-t">Dedicated account manager</div><div class="vp-desc" id="vp2-d">One contact across all employees, all processes. Speaks English, Russian, Ukrainian, Polish. WhatsApp + email response within 15 minutes.</div></div>
-    <div class="vp-card"><div class="vp-icon">📊</div><div class="vp-title" id="vp3-t">Corporate dashboard</div><div class="vp-desc" id="vp3-d">Real-time status of every application, document checklist per employee, exportable reports for HR and finance. SSO via Google/Microsoft.</div></div>
-    <div class="vp-card"><div class="vp-icon">⚖️</div><div class="vp-title" id="vp4-t">Legal advisory for HR</div><div class="vp-desc" id="vp4-d">Monthly Q&amp;A with our immigration lawyers. Custom policy templates. Sponsorship document drafting. Internal training for HR team.</div></div>
-    <div class="vp-card"><div class="vp-icon">⚡</div><div class="vp-title" id="vp5-t">Priority queue</div><div class="vp-desc" id="vp5-d">Express filing 2× faster than standard. Critical hires processed in 14 business days. Overnight document review available.</div></div>
-    <div class="vp-card"><div class="vp-icon">🛡️</div><div class="vp-title" id="vp6-t">Compliance audit</div><div class="vp-desc" id="vp6-d">Full review of existing employee documents, identification of compliance gaps, action plan to fix risks before audit/inspection.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">💰</div><div class="vp-title" id="vp1-t">Volume discounts up to 35%</div><div class="vp-desc" id="vp1-d">5+ apps: 10% off · 10+: 15% · 20+: 25% · 50+: 30% · 100+: 35%. Locked-in rates with annual contract — predictable budget for HR.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">👨‍💼</div><div class="vp-title" id="vp2-t">Dedicated account manager</div><div class="vp-desc" id="vp2-d">One contact across all employees, all processes. Speaks English, Russian, Ukrainian, Polish. WhatsApp + email response within 15 minutes.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">📊</div><div class="vp-title" id="vp3-t">Corporate dashboard</div><div class="vp-desc" id="vp3-d">Real-time status of every application, document checklist per employee, exportable reports for HR and finance. SSO via Google/Microsoft.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">⚖️</div><div class="vp-title" id="vp4-t">Legal advisory for HR</div><div class="vp-desc" id="vp4-d">Monthly Q&amp;A with our immigration lawyers. Custom policy templates. Sponsorship document drafting. Internal training for HR team.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">⚡</div><div class="vp-title" id="vp5-t">Priority queue</div><div class="vp-desc" id="vp5-d">Express filing 2× faster than standard. Critical hires processed in 14 business days. Overnight document review available.</div></div>
+    <div class="vp-card stagger-child" data-tilt><div class="vp-icon">🛡️</div><div class="vp-title" id="vp6-t">Compliance audit</div><div class="vp-desc" id="vp6-d">Full review of existing employee documents, identification of compliance gaps, action plan to fix risks before audit/inspection.</div></div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ PROCESS ═════════════════════════════════════════════ -->
+<!-- ═════════════ PROCESS ═════════════ -->
 <section class="section narrow anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="proc-pill">HOW IT WORKS</div>
@@ -865,45 +726,17 @@
     <p class="section-sub" id="proc-sub">Predictable, transparent process. No surprises.</p>
   </div>
   <div class="timeline">
-    <div class="step"><div class="step-num">1</div><div class="step-content">
-      <div class="step-title" id="step1-t">Discovery call</div>
-      <div class="step-desc" id="step1-d">30-min Zoom/WhatsApp call: we map your hiring pipeline, evaluate compliance status, identify volume needs.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ Day 1</span><span class="step-meta-item">🆓 Free</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-content">
-      <div class="step-title" id="step2-t">Tailored proposal</div>
-      <div class="step-desc" id="step2-d">Within 24h — pricing matrix per service, expected timelines, contract draft. We never bill for review.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ 24h</span><span class="step-meta-item">📑 Custom rates</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-content">
-      <div class="step-title" id="step3-t">Annual contract signed</div>
-      <div class="step-desc" id="step3-d">Lock in volume rates. SLA on response times. NDA covered. Either party may terminate with 30-day notice.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ 1-3 days</span><span class="step-meta-item">⚖️ Standard NDA</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-content">
-      <div class="step-title" id="step4-t">Onboarding to dashboard</div>
-      <div class="step-desc" id="step4-d">Your HR team gets accounts on our portal. Live training session. SSO integration with Google/Microsoft.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ 1-2 days</span><span class="step-meta-item">🔐 SSO ready</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-content">
-      <div class="step-title" id="step5-t">First batch submission</div>
-      <div class="step-desc" id="step5-d">You upload employee data via CSV or portal. We pre-fill applications, request missing docs, file with urzęd. Status updates daily.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ Days 5-14</span><span class="step-meta-item">📤 Bulk upload</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">6</div><div class="step-content">
-      <div class="step-title" id="step6-t">Track + intervene</div>
-      <div class="step-desc" id="step6-d">Real-time dashboard shows each application's status. We attend hearings, respond to urząd queries, escalate stalled cases.</div>
-      <div class="step-meta"><span class="step-meta-item">⏱ Ongoing</span><span class="step-meta-item">🎯 98% approval</span></div>
-    </div></div>
-    <div class="step"><div class="step-num">7</div><div class="step-content">
-      <div class="step-title" id="step7-t">Cards delivered → renewals</div>
-      <div class="step-desc" id="step7-d">Cards arrive at your office. We schedule renewals automatically — no expiry slips through. Annual compliance audit included.</div>
-      <div class="step-meta"><span class="step-meta-item">📅 Auto-renewal</span><span class="step-meta-item">🛡️ Audit included</span></div>
-    </div></div>
+    <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title" id="step1-t">Discovery call</div><div class="step-desc" id="step1-d">30-min Zoom/WhatsApp call: we map your hiring pipeline, evaluate compliance status, identify volume needs.</div><div class="step-meta"><span class="step-meta-item">⏱ Day 1</span><span class="step-meta-item">🆓 Free</span></div></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title" id="step2-t">Tailored proposal</div><div class="step-desc" id="step2-d">Within 24h — pricing matrix per service, expected timelines, contract draft. We never bill for review.</div><div class="step-meta"><span class="step-meta-item">⏱ 24h</span><span class="step-meta-item">📑 Custom rates</span></div></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title" id="step3-t">Annual contract signed</div><div class="step-desc" id="step3-d">Lock in volume rates. SLA on response times. NDA covered. Either party may terminate with 30-day notice.</div><div class="step-meta"><span class="step-meta-item">⏱ 1-3 days</span><span class="step-meta-item">⚖️ Standard NDA</span></div></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title" id="step4-t">Onboarding to dashboard</div><div class="step-desc" id="step4-d">Your HR team gets accounts on our portal. Live training session. SSO integration with Google/Microsoft.</div><div class="step-meta"><span class="step-meta-item">⏱ 1-2 days</span><span class="step-meta-item">🔐 SSO ready</span></div></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title" id="step5-t">First batch submission</div><div class="step-desc" id="step5-d">You upload employee data via CSV or portal. We pre-fill applications, request missing docs, file with urzęd. Status updates daily.</div><div class="step-meta"><span class="step-meta-item">⏱ Days 5-14</span><span class="step-meta-item">📤 Bulk upload</span></div></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><div class="step-title" id="step6-t">Track + intervene</div><div class="step-desc" id="step6-d">Real-time dashboard shows each application's status. We attend hearings, respond to urząd queries, escalate stalled cases.</div><div class="step-meta"><span class="step-meta-item">⏱ Ongoing</span><span class="step-meta-item">🎯 98% approval</span></div></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><div class="step-title" id="step7-t">Cards delivered → renewals</div><div class="step-desc" id="step7-d">Cards arrive at your office. We schedule renewals automatically — no expiry slips through. Annual compliance audit included.</div><div class="step-meta"><span class="step-meta-item">📅 Auto-renewal</span><span class="step-meta-item">🛡️ Audit included</span></div></div></div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ INDUSTRIES ═════════════════════════════════════════════ -->
+<!-- ═════════════ INDUSTRIES ═════════════ -->
 <section class="section anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="ind-pill">INDUSTRY EXPERTISE</div>
@@ -911,171 +744,161 @@
     <p class="section-sub" id="ind-sub">Documents, eligibility paths, and risk profiles differ by industry. We've handled hundreds of cases per sector.</p>
   </div>
   <div class="ind-grid">
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">📦</div>
-        <div class="ind-title" id="ind1-t">Logistics &amp; warehousing</div>
-        <div class="ind-desc" id="ind1-d">Bulk Karta Pobytu for warehouse workers. Standard package: passport, employer letter, accommodation, insurance.</div>
-        <div class="ind-tags"><span class="ind-tag">Karta Pobytu</span><span class="ind-tag">Mass hiring</span></div>
-      </div>
-    </div>
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">💻</div>
-        <div class="ind-title" id="ind2-t">IT &amp; tech</div>
-        <div class="ind-desc" id="ind2-d">Blue Card EU for senior engineers. 18-month residency path. Salary 150% of national avg required — we handle declaration.</div>
-        <div class="ind-tags"><span class="ind-tag">Blue Card</span><span class="ind-tag">Senior talent</span></div>
-      </div>
-    </div>
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">🏗️</div>
-        <div class="ind-title" id="ind3-t">Construction</div>
-        <div class="ind-desc" id="ind3-d">Work permits + residence. Sponsorship paperwork for construction crews from Asia. Certificate of practical training.</div>
-        <div class="ind-tags"><span class="ind-tag">Work permit</span><span class="ind-tag">Skilled labor</span></div>
-      </div>
-    </div>
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">🏥</div>
-        <div class="ind-title" id="ind4-t">Healthcare</div>
-        <div class="ind-desc" id="ind4-d">Medical staff legalization. Diploma recognition (nostrification). Polish language requirement waivers where eligible.</div>
-        <div class="ind-tags"><span class="ind-tag">Recognition</span><span class="ind-tag">Special path</span></div>
-      </div>
-    </div>
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">🍽️</div>
-        <div class="ind-title" id="ind5-t">Hospitality</div>
-        <div class="ind-desc" id="ind5-d">Hotels &amp; restaurants. Seasonal vs permanent permits. We optimize between cost and renewal frequency.</div>
-        <div class="ind-tags"><span class="ind-tag">Seasonal</span><span class="ind-tag">Service sector</span></div>
-      </div>
-    </div>
-    <div class="ind-card">
-      <div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600');"></div>
-      <div class="ind-body">
-        <div class="ind-emoji">🏭</div>
-        <div class="ind-title" id="ind6-t">Manufacturing</div>
-        <div class="ind-desc" id="ind6-d">Factory workers, line operators, technicians. Polish &amp; CIS hires. Group filings synced with shift schedules.</div>
-        <div class="ind-tags"><span class="ind-tag">Group filings</span><span class="ind-tag">Volume rates</span></div>
-      </div>
-    </div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=600');"></div><div class="ind-body"><div class="ind-emoji">📦</div><div class="ind-title" id="ind1-t">Logistics &amp; warehousing</div><div class="ind-desc" id="ind1-d">Bulk Karta Pobytu for warehouse workers. Standard package: passport, employer letter, accommodation, insurance.</div><div class="ind-tags"><span class="ind-tag">Karta Pobytu</span><span class="ind-tag">Mass hiring</span></div></div></div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600');"></div><div class="ind-body"><div class="ind-emoji">💻</div><div class="ind-title" id="ind2-t">IT &amp; tech</div><div class="ind-desc" id="ind2-d">Blue Card EU for senior engineers. 18-month residency path. Salary 150% of national avg required — we handle declaration.</div><div class="ind-tags"><span class="ind-tag">Blue Card</span><span class="ind-tag">Senior talent</span></div></div></div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=600');"></div><div class="ind-body"><div class="ind-emoji">🏗️</div><div class="ind-title" id="ind3-t">Construction</div><div class="ind-desc" id="ind3-d">Work permits + residence. Sponsorship paperwork for construction crews from Asia. Certificate of practical training.</div><div class="ind-tags"><span class="ind-tag">Work permit</span><span class="ind-tag">Skilled labor</span></div></div></div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600');"></div><div class="ind-body"><div class="ind-emoji">🏥</div><div class="ind-title" id="ind4-t">Healthcare</div><div class="ind-desc" id="ind4-d">Medical staff legalization. Diploma recognition (nostrification). Polish language requirement waivers where eligible.</div><div class="ind-tags"><span class="ind-tag">Recognition</span><span class="ind-tag">Special path</span></div></div></div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600');"></div><div class="ind-body"><div class="ind-emoji">🍽️</div><div class="ind-title" id="ind5-t">Hospitality</div><div class="ind-desc" id="ind5-d">Hotels &amp; restaurants. Seasonal vs permanent permits. We optimize between cost and renewal frequency.</div><div class="ind-tags"><span class="ind-tag">Seasonal</span><span class="ind-tag">Service sector</span></div></div></div>
+    <div class="ind-card stagger-child"><div class="ind-photo" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600');"></div><div class="ind-body"><div class="ind-emoji">🏭</div><div class="ind-title" id="ind6-t">Manufacturing</div><div class="ind-desc" id="ind6-d">Factory workers, line operators, technicians. Polish &amp; CIS hires. Group filings synced with shift schedules.</div><div class="ind-tags"><span class="ind-tag">Group filings</span><span class="ind-tag">Volume rates</span></div></div></div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ CALCULATOR ═════════════════════════════════════════════ -->
+<!-- ═════════════ PREMIUM CALCULATOR ═════════════ -->
 <section class="section anim-on-scroll" id="calc">
   <div class="section-head">
     <div class="section-pill" id="calc-pill">SAVINGS CALCULATOR</div>
-    <h2 class="section-title" id="calc-title">See your savings in seconds</h2>
-    <p class="section-sub" id="calc-sub">Real numbers based on our actual rates. Not a placeholder — this is what your contract would look like.</p>
+    <h2 class="section-title" id="calc-title">See your savings — instantly</h2>
+    <p class="section-sub" id="calc-sub">Pick a preset or fine-tune the inputs. Your numbers update live with bar chart, breakdown, and 3-year projection.</p>
   </div>
 
   <div class="calc-wrap">
+    <!-- Industry presets -->
+    <div class="calc-presets">
+      <span style="font-size:13px;color:var(--txt3);align-self:center;font-weight:600;margin-right:8px;" id="presets-lbl">Quick presets:</span>
+      <div class="calc-preset" data-preset="warehouse" id="pre-warehouse">📦 Warehouse standard</div>
+      <div class="calc-preset" data-preset="it" id="pre-it">💻 IT senior team</div>
+      <div class="calc-preset" data-preset="construction" id="pre-construction">🏗️ Construction mass</div>
+      <div class="calc-preset" data-preset="hospitality" id="pre-hospitality">🍽️ Hospitality seasonal</div>
+      <div class="calc-preset" data-preset="custom" id="pre-custom">⚙️ Custom</div>
+    </div>
+
     <div class="calc-grid">
-      <div>
+      <div class="calc-col">
         <div class="calc-section">
-          <div class="calc-section-h" id="cs1">📊 Workforce</div>
+          <div class="calc-section-h"><span id="cs1">📊 Workforce</span></div>
           <div class="calc-control">
-            <div class="calc-control-label">
-              <span class="calc-control-name" id="cl-emp">Employees per year</span>
-              <span class="calc-control-value"><span id="cv-emp">10</span></span>
-            </div>
+            <div class="calc-control-lbl"><span class="calc-control-name" id="cl-emp">Employees per year</span><span class="calc-control-val"><span id="cv-emp">10</span></span></div>
             <input type="range" class="calc-slider" id="sl-emp" min="1" max="200" value="10"/>
           </div>
-        </div>
-
-        <div class="calc-section">
-          <div class="calc-section-h" id="cs2">🌍 Employee nationality (most common)</div>
-          <div class="calc-segments" id="seg-nat">
-            <div class="calc-segment active" data-nat="any">🌍 Mixed</div>
-            <div class="calc-segment" data-nat="india">🇮🇳 India</div>
-            <div class="calc-segment" data-nat="bangladesh">🇧🇩 Bangladesh</div>
-            <div class="calc-segment" data-nat="srilanka">🇱🇰 Sri Lanka</div>
-            <div class="calc-segment" data-nat="ukraine">🇺🇦 Ukraine</div>
-            <div class="calc-segment" data-nat="belarus">🇧🇾 Belarus</div>
+          <div class="calc-control">
+            <div class="calc-control-lbl"><span class="calc-control-name" id="cl-fam">Family members per employee (avg)</span><span class="calc-control-val"><span id="cv-fam">0</span></span></div>
+            <input type="range" class="calc-slider" id="sl-fam" min="0" max="4" value="0" step="0.5"/>
+          </div>
+          <div class="calc-control">
+            <div class="calc-control-lbl"><span class="calc-control-name" id="cl-renew">% renewals (vs first-time)</span><span class="calc-control-val"><span id="cv-renew">30</span>%</span></div>
+            <input type="range" class="calc-slider" id="sl-renew" min="0" max="100" value="30"/>
           </div>
         </div>
 
         <div class="calc-section">
-          <div class="calc-section-h" id="cs3">🏭 Industry</div>
-          <div class="calc-segments" id="seg-ind">
-            <div class="calc-segment active" data-ind="logistics">📦 Logistics</div>
-            <div class="calc-segment" data-ind="it">💻 IT</div>
-            <div class="calc-segment" data-ind="construction">🏗️ Construction</div>
-            <div class="calc-segment" data-ind="healthcare">🏥 Healthcare</div>
-            <div class="calc-segment" data-ind="hospitality">🍽️ Hospitality</div>
-            <div class="calc-segment" data-ind="manufacturing">🏭 Manufacturing</div>
+          <div class="calc-section-h"><span id="cs2">🌍 Workforce nationality (most common)</span></div>
+          <div class="calc-segs" id="seg-nat">
+            <div class="calc-seg active" data-nat="any">🌍 Mixed</div>
+            <div class="calc-seg" data-nat="india">🇮🇳 India</div>
+            <div class="calc-seg" data-nat="srilanka">🇱🇰 Sri Lanka</div>
+            <div class="calc-seg" data-nat="bangladesh">🇧🇩 Bangladesh</div>
+            <div class="calc-seg" data-nat="nepal">🇳🇵 Nepal</div>
+            <div class="calc-seg" data-nat="philippines">🇵🇭 Philippines</div>
+            <div class="calc-seg" data-nat="ukraine">🇺🇦 Ukraine</div>
           </div>
         </div>
 
         <div class="calc-section">
-          <div class="calc-section-h" id="cs4">📋 Service mix</div>
-          <div class="calc-segments" id="seg-svc">
-            <div class="calc-segment active" data-svc="kp">Karta Pobytu</div>
-            <div class="calc-segment" data-svc="bluecard">Blue Card EU</div>
-            <div class="calc-segment" data-svc="permanent">Permanent Res.</div>
-            <div class="calc-segment" data-svc="mix">Mix (avg)</div>
+          <div class="calc-section-h"><span id="cs3">📋 Service mix</span></div>
+          <div class="calc-segs" id="seg-svc">
+            <div class="calc-seg active" data-svc="kp">Karta Pobytu</div>
+            <div class="calc-seg" data-svc="bluecard">Blue Card EU</div>
+            <div class="calc-seg" data-svc="permanent">Permanent Res.</div>
+            <div class="calc-seg" data-svc="mix">Mix (avg)</div>
           </div>
         </div>
 
         <div class="calc-section">
-          <div class="calc-section-h" id="cs5">📑 Document readiness</div>
-          <div class="calc-segments" id="seg-doc">
-            <div class="calc-segment active" data-doc="full">✅ All docs ready</div>
-            <div class="calc-segment" data-doc="partial">⚠️ Some missing</div>
-            <div class="calc-segment" data-doc="none">📭 Need help collecting</div>
+          <div class="calc-section-h"><span id="cs4">📑 Document readiness</span></div>
+          <div class="calc-segs" id="seg-doc">
+            <div class="calc-seg active" data-doc="full">✅ All docs ready</div>
+            <div class="calc-seg" data-doc="partial">⚠️ Some missing</div>
+            <div class="calc-seg" data-doc="none">📭 Need help collecting</div>
           </div>
         </div>
 
         <div class="calc-section">
-          <div class="calc-section-h" id="cs6">⚡ Urgency</div>
-          <div class="calc-segments" id="seg-urg">
-            <div class="calc-segment active" data-urg="standard">Standard</div>
-            <div class="calc-segment" data-urg="express">Express +50%</div>
-            <div class="calc-segment" data-urg="critical">Critical 2×</div>
+          <div class="calc-section-h"><span id="cs5">⚡ Urgency</span></div>
+          <div class="calc-segs" id="seg-urg">
+            <div class="calc-seg active" data-urg="standard">Standard</div>
+            <div class="calc-seg" data-urg="express">Express +50%</div>
+            <div class="calc-seg" data-urg="critical">Critical 2×</div>
+          </div>
+        </div>
+
+        <div class="calc-section">
+          <div class="calc-section-h"><span id="cs6">📅 Contract length</span></div>
+          <div class="calc-segs" id="seg-term">
+            <div class="calc-seg active" data-term="1">1 year</div>
+            <div class="calc-seg" data-term="2">2 years (−5%)</div>
+            <div class="calc-seg" data-term="3">3 years (−8%)</div>
+          </div>
+        </div>
+
+        <div class="calc-section">
+          <div class="calc-section-h"><span id="cs7">➕ Add-ons</span></div>
+          <div class="calc-toggle" id="tg-audit" style="margin-bottom:8px;">
+            <div class="calc-toggle-sw"></div>
+            <div><div class="calc-toggle-lbl" id="ad-audit-l">Annual compliance audit</div><div class="calc-toggle-hint" id="ad-audit-h">+ thorough review of all current employee permits</div></div>
+          </div>
+          <div class="calc-toggle" id="tg-trans">
+            <div class="calc-toggle-sw"></div>
+            <div><div class="calc-toggle-lbl" id="ad-trans-l">Sworn document translations included</div><div class="calc-toggle-hint" id="ad-trans-h">+ EN/RU/UA/HI/UR → PL by certified translators</div></div>
           </div>
         </div>
       </div>
 
-      <div class="calc-result">
-        <div class="calc-row">
-          <span class="calc-row-lbl" id="cr-retail">Retail price total</span>
-          <span class="calc-row-val calc-strike" id="cv-retail">— zł</span>
+      <!-- RESULT DASHBOARD -->
+      <div>
+        <div class="calc-result">
+          <div class="calc-result-hero">
+            <div class="calc-result-hero-lbl" id="cr-hero-l">You save / year</div>
+            <div class="calc-result-hero-val" id="cv-save">— zł</div>
+            <div class="calc-result-hero-sub"><span id="cv-savePct">—</span>% <span id="cr-vs">vs paying retail per case</span></div>
+          </div>
+
+          <div class="chart-bars">
+            <div class="chart-row">
+              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-retail">Retail (year)</span><span class="chart-row-val calc-strike" id="cv-retail">— zł</span></div>
+              <div class="chart-bar"><div class="chart-bar-fill retail" id="bar-retail" style="width:100%;"></div></div>
+            </div>
+            <div class="chart-row">
+              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-b2b">B2B contract (year)</span><span class="chart-row-val" id="cv-b2b">— zł</span></div>
+              <div class="chart-bar"><div class="chart-bar-fill b2b" id="bar-b2b" style="width:65%;"></div></div>
+            </div>
+            <div class="chart-row" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(139,130,232,0.15);">
+              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-3y">3-year cumulative savings</span><span class="chart-row-val" id="cv-3y" style="color:var(--green)">— zł</span></div>
+              <div class="chart-bar"><div class="chart-bar-fill b2b" id="bar-3y" style="width:90%;"></div></div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;padding-top:18px;border-top:1px solid rgba(139,130,232,0.15);">
+            <div class="calc-row"><span class="calc-row-lbl" id="cr-perEmp">Per employee</span><span class="calc-row-val" id="cv-perEmp">— zł</span></div>
+            <div class="calc-row"><span class="calc-row-lbl" id="cr-disc">Volume discount</span><span class="calc-row-val" id="cv-disc">—%</span></div>
+            <div class="calc-row"><span class="calc-row-lbl" id="cr-time">Avg time per case</span><span class="calc-row-val" id="cv-time">— days</span></div>
+          </div>
+
+          <div class="calc-incl" id="incl-pills">
+            <span class="calc-incl-pill">✓ Account manager</span>
+            <span class="calc-incl-pill">✓ Dashboard</span>
+            <span class="calc-incl-pill">✓ Lawyer monthly Q&amp;A</span>
+            <span class="calc-incl-pill">✓ Renewal reminders</span>
+          </div>
+
+          <a href="#contact" class="cta-primary" style="margin-top:8px;justify-content:center;text-align:center;width:100%;"><span id="cta2">Lock this rate</span> →</a>
+          <p class="calc-note" id="calc-note">⚠️ <b>Pricing examples</b> — base rates here are illustrative. Final B2B rate is tailored to your exact volume, services and timeline after a discovery call. The discount tiers and structure shown here reflect our actual model.</p>
         </div>
-        <div class="calc-row">
-          <span class="calc-row-lbl" id="cr-b2b">B2B contract price</span>
-          <span class="calc-row-val" id="cv-b2b">— zł</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-row-lbl" id="cr-perEmp">Per employee</span>
-          <span class="calc-row-val" id="cv-perEmp">— zł</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-row-lbl" id="cr-disc">Volume discount</span>
-          <span class="calc-row-val" id="cv-disc">—%</span>
-        </div>
-        <div class="calc-row savings">
-          <span class="calc-row-lbl" id="cr-save">Annual savings</span>
-          <span class="calc-row-val" id="cv-save">— zł</span>
-        </div>
-        <div class="calc-row">
-          <span class="calc-row-lbl" id="cr-time">Avg time per case</span>
-          <span class="calc-row-val" id="cv-time">— days</span>
-        </div>
-        <a href="#contact" class="cta-primary" style="margin-top:8px;justify-content:center;text-align:center;width:100%;"><span id="cta2">Lock this rate</span> →</a>
-        <p class="calc-note" id="calc-note">⚠️ <b>Pricing examples</b> — base rates here are illustrative and may differ from current contract pricing. Final B2B rate is tailored to your exact volume, services and timeline after a discovery call. The discount tiers and structure shown here reflect our actual model.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ COMPARISON ═════════════════════════════════════════════ -->
+<!-- ═════════════ COMPARISON ═════════════ -->
 <section class="section narrow anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="cmp-pill">RETAIL VS B2B</div>
@@ -1083,11 +906,7 @@
   </div>
   <div class="table-wrap">
     <table class="ctable">
-      <thead><tr>
-        <th id="cmp-h-feat">Feature</th>
-        <th id="cmp-h-retail">Retail (per case)</th>
-        <th class="b2b" id="cmp-h-b2b">B2B contract</th>
-      </tr></thead>
+      <thead><tr><th id="cmp-h-feat">Feature</th><th id="cmp-h-retail">Retail (per case)</th><th class="b2b" id="cmp-h-b2b">B2B contract</th></tr></thead>
       <tbody>
         <tr><td id="cmp-r1">Price per Karta Pobytu</td><td>2 800 zł</td><td class="b2b">1 820 zł (35% off)</td></tr>
         <tr><td id="cmp-r2">Manager response</td><td>4-24h</td><td class="b2b">15 min · WhatsApp</td></tr>
@@ -1102,94 +921,52 @@
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ TEAM ROLES ═════════════════════════════════════════════ -->
+<!-- ═════════════ TEAM ═════════════ -->
 <section class="section anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="team-pill">YOUR DEDICATED TEAM</div>
     <h2 class="section-title" id="team-title">Three roles working on your cases end-to-end</h2>
-    <p class="section-sub" id="team-sub">No call centers, no outsourcing. The same dedicated team manages all your applications. We introduce you to the people behind the role on the kickoff call.</p>
+    <p class="section-sub" id="team-sub">No call centers, no outsourcing. Same dedicated team manages all your applications. We introduce you to the people behind the role on the kickoff call.</p>
   </div>
   <div class="team-grid">
-    <div class="team-card">
-      <div class="team-photo" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;font-size:48px;">🤝</div>
-      <div class="team-role" id="t1-r" style="font-size:18px;font-weight:700;color:var(--txt);margin-top:12px;">Senior Account Manager</div>
+    <div class="team-card stagger-child">
+      <div class="team-photo">🤝</div>
+      <div class="team-role" id="t1-r">Senior Account Manager</div>
       <div class="team-bio" id="t1-b">Your single point of contact. WhatsApp + email response within 15 minutes. Coordinates all employees and processes.</div>
       <div class="team-tags"><span class="team-tag">PL · EN · RU</span><span class="team-tag">15-min SLA</span></div>
     </div>
-    <div class="team-card">
-      <div class="team-photo" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;font-size:48px;">⚖️</div>
-      <div class="team-role" id="t2-r" style="font-size:18px;font-weight:700;color:var(--txt);margin-top:12px;">Immigration Lawyer</div>
+    <div class="team-card stagger-child">
+      <div class="team-photo">⚖️</div>
+      <div class="team-role" id="t2-r">Immigration Lawyer</div>
       <div class="team-bio" id="t2-b">Licensed legal advisor. Drafts complex sponsorship letters, represents at appeals, hearings and urząd inspections.</div>
       <div class="team-tags"><span class="team-tag">Polish Bar member</span><span class="team-tag">3K+ cases</span></div>
     </div>
-    <div class="team-card">
-      <div class="team-photo" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;font-size:48px;">🛡️</div>
-      <div class="team-role" id="t3-r" style="font-size:18px;font-weight:700;color:var(--txt);margin-top:12px;">Compliance &amp; Audit Specialist</div>
+    <div class="team-card stagger-child">
+      <div class="team-photo">🛡️</div>
+      <div class="team-role" id="t3-r">Compliance &amp; Audit Specialist</div>
       <div class="team-bio" id="t3-b">Reviews existing employee documents, identifies expired permits, prepares you for ZUS / PIP / Cudzoziemcy inspections.</div>
       <div class="team-tags"><span class="team-tag">UA · EN · PL</span><span class="team-tag">Audit ready</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ TESTIMONIALS ═════════════════════════════════════════════ -->
+<!-- ═════════════ TESTIMONIALS ═════════════ -->
 <section class="section anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="sp-pill">CLIENT STORIES</div>
     <h2 class="section-title" id="sp-title">HR teams trust us with their hardest hires</h2>
   </div>
   <div class="sp-grid">
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp1-q">"They handled dozens of Karta Pobytu applications for our warehouse staff. One contact, weekly status reports, no surprises. Saved significantly vs retail rates."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">HR</div>
-        <div><div class="sp-role" id="sp1-r" style="font-weight:600;color:var(--txt);">HR Director · Logistics · Warsaw</div></div>
-      </div>
-    </div>
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp2-q">"We brought in IT engineers from India on Blue Card EU. The dedicated manager handled paperwork while we focused on onboarding. Best vendor decision we made this year."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">IT</div>
-        <div><div class="sp-role" id="sp2-r" style="font-weight:600;color:var(--txt);">Head of Talent · IT Consulting · Kraków</div></div>
-      </div>
-    </div>
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp3-q">"Compliance audit found expired permits we didn't know about. Fixed before our annual ZUS inspection. Worth the engagement on its own."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">🏗</div>
-        <div><div class="sp-role" id="sp3-r" style="font-weight:600;color:var(--txt);">CEO · Construction firm · Wrocław</div></div>
-      </div>
-    </div>
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp4-q">"Hospitality has constant seasonal permit renewals. The dashboard fixed it — I see status of every employee's card in one screen."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">🏨</div>
-        <div><div class="sp-role" id="sp4-r" style="font-weight:600;color:var(--txt);">HR Manager · Hospitality · Gdańsk</div></div>
-      </div>
-    </div>
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp5-q">"Negotiated rate for manufacturing workers from Bangladesh. Saved meaningful percent vs our previous lawyer. Manager actually picks up WhatsApp."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">🏭</div>
-        <div><div class="sp-role" id="sp5-r" style="font-weight:600;color:var(--txt);">Operations Director · Manufacturing · Łódź</div></div>
-      </div>
-    </div>
-    <div class="sp-card">
-      <div class="sp-stars">★ ★ ★ ★ ★</div>
-      <div class="sp-quote" id="sp6-q">"We needed Blue Card EU for engineers from India. Other firms quoted 6+ months. Legal Solutions did it in under 4. Senior talent secured before competitors poached them."</div>
-      <div class="sp-author">
-        <div class="sp-avatar" style="background:linear-gradient(135deg,#5B52CC,#7C5CFC);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">VP</div>
-        <div><div class="sp-role" id="sp6-r" style="font-weight:600;color:var(--txt);">VP People · SaaS company · Warsaw</div></div>
-      </div>
-    </div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp1-q">"They handled dozens of Karta Pobytu applications for our warehouse staff. One contact, weekly status reports, no surprises. Saved significantly vs retail rates."</div><div class="sp-author"><div class="sp-avatar">HR</div><div><div class="sp-role" id="sp1-r">HR Director · Logistics · Warsaw</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp2-q">"We brought in IT engineers from India on Blue Card EU. The dedicated manager handled paperwork while we focused on onboarding. Best vendor decision we made this year."</div><div class="sp-author"><div class="sp-avatar">IT</div><div><div class="sp-role" id="sp2-r">Head of Talent · IT Consulting · Kraków</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp3-q">"Compliance audit found expired permits we didn't know about. Fixed before our annual ZUS inspection. Worth the engagement on its own."</div><div class="sp-author"><div class="sp-avatar">🏗</div><div><div class="sp-role" id="sp3-r">CEO · Construction firm · Wrocław</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp4-q">"Hospitality has constant seasonal permit renewals. The dashboard fixed it — I see status of every employee's card in one screen."</div><div class="sp-author"><div class="sp-avatar">🏨</div><div><div class="sp-role" id="sp4-r">HR Manager · Hospitality · Gdańsk</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp5-q">"Negotiated rate for manufacturing workers from Bangladesh. Saved meaningful percent vs our previous lawyer. Manager actually picks up WhatsApp."</div><div class="sp-author"><div class="sp-avatar">🏭</div><div><div class="sp-role" id="sp5-r">Operations Director · Manufacturing · Łódź</div></div></div></div>
+    <div class="sp-card stagger-child"><div class="sp-stars">★ ★ ★ ★ ★</div><div class="sp-quote" id="sp6-q">"We needed Blue Card EU for engineers from India. Other firms quoted 6+ months. Legal Solutions did it in under 4. Senior talent secured before competitors poached them."</div><div class="sp-author"><div class="sp-avatar">VP</div><div><div class="sp-role" id="sp6-r">VP People · SaaS company · Warsaw</div></div></div></div>
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ FAQ ═════════════════════════════════════════════ -->
+<!-- ═════════════ FAQ ═════════════ -->
 <section class="section narrow anim-on-scroll">
   <div class="section-head">
     <div class="section-pill" id="faq-pill">FAQ</div>
@@ -1207,7 +984,7 @@
   </div>
 </section>
 
-<!-- ═════════════════════════════════════════════ CONTACT ═════════════════════════════════════════════ -->
+<!-- ═════════════ CONTACT ═════════════ -->
 <section class="section narrow anim-on-scroll" id="contact">
   <div class="section-head">
     <div class="section-pill" id="form-pill">GET STARTED</div>
@@ -1227,11 +1004,8 @@
 </section>
 
 <footer>
-  <a href="/" class="ft-logo"><svg width="34" height="32" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg></a><br>
-  <a href="/" id="ft-home">Home</a> ·
-  <a href="/blog" id="ft-blog">Blog</a> ·
-  <a href="/privacy" id="ft-priv">Privacy</a> ·
-  <a href="/terms" id="ft-terms">Terms</a><br><br>
+  <a href="/" class="ft-logo"><svg width="38" height="34" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg></a><br>
+  <a href="/" id="ft-home">Home</a> · <a href="/blog" id="ft-blog">Blog</a> · <a href="/privacy" id="ft-priv">Privacy</a> · <a href="/terms" id="ft-terms">Terms</a><br><br>
   <span id="ft-copy">© 2026 Legal Solutions · Warszawa, Polska · WhatsApp-first immigration services for businesses</span>
 </footer>
 
@@ -1239,56 +1013,61 @@
 (function(){
   // ───── Animate stat counters ─────
   function animateCount(el, target, suffix, duration) {
-    var start = 0;
-    var startTime = null;
+    var start = 0, startTime = null;
     function step(ts) {
       if (!startTime) startTime = ts;
-      var progress = Math.min((ts - startTime) / duration, 1);
-      var ease = 1 - Math.pow(1 - progress, 3);
-      var val = Math.floor(start + (target - start) * ease);
-      el.textContent = val.toLocaleString('en-US').replace(/,/g,' ') + (suffix || '');
-      if (progress < 1) requestAnimationFrame(step);
+      var p = Math.min((ts - startTime) / duration, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      var v = Math.floor(start + (target - start) * ease);
+      el.textContent = v.toLocaleString('en-US').replace(/,/g,' ') + (suffix || '');
+      if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
-  function startCounters() {
+  setTimeout(function(){
     document.querySelectorAll('[data-count]').forEach(function(el){
-      var target = parseInt(el.getAttribute('data-count'));
-      var suffix = el.getAttribute('data-suffix') || '';
-      animateCount(el, target, suffix, 1500);
+      animateCount(el, parseInt(el.getAttribute('data-count')), el.getAttribute('data-suffix') || '', 1500);
     });
-  }
-  // start after small delay
-  setTimeout(startCounters, 300);
+  }, 300);
 
-  // ───── Scroll fade-in ─────
+  // ───── Scroll fade-in (IntersectionObserver) ─────
   if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.anim-on-scroll').forEach(function(el){ observer.observe(el); });
+    document.querySelectorAll('.anim-on-scroll').forEach(function(el){ io.observe(el); });
   } else {
     document.querySelectorAll('.anim-on-scroll').forEach(function(el){ el.classList.add('visible'); });
   }
 
-  // ───── FAQ accordion ─────
-  document.querySelectorAll('.faq-item').forEach(function(item){
-    item.querySelector('.faq-q').addEventListener('click', function(){
-      item.classList.toggle('open');
+  // ───── 3D tilt on cards ─────
+  document.querySelectorAll('[data-tilt]').forEach(function(el){
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = 'perspective(900px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-4px)';
     });
+    el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
   });
 
-  // ───── Calculator ─────
+  // ───── FAQ accordion ─────
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){ item.classList.toggle('open'); });
+  });
+
+  // ───── PREMIUM CALCULATOR ─────
   var BASE = { kp: 2800, bluecard: 4200, permanent: 3500, mix: 3500 };
   var URG_MULT = { standard: 1.0, express: 1.5, critical: 2.0 };
   var DOC_MULT = { full: 1.0, partial: 1.15, none: 1.30 };
   var IND_MULT = { logistics: 1.0, it: 1.10, construction: 1.05, healthcare: 1.20, hospitality: 1.0, manufacturing: 1.0 };
   var TIME_BASE = { kp: 60, bluecard: 90, permanent: 120, mix: 75 };
+  var TERM_DISC = { '1': 0, '2': 0.05, '3': 0.08 };
+  var RENEWAL_FACTOR = 0.75;  // renewals 25% cheaper than first-time
+  var FAMILY_FACTOR = 0.7;    // family member application is 70% of full case
+  var AUDIT_PRICE = 8000;     // /year if enabled (offset by saving headaches)
+  var TRANS_FACTOR = 0.10;    // +10% if translations included
+
   function discount(n){
     if (n>=100) return 0.35;
     if (n>=50) return 0.30;
@@ -1297,32 +1076,86 @@
     if (n>=5) return 0.10;
     return 0;
   }
-  var state = { emp: 10, nat: 'any', ind: 'logistics', svc: 'kp', doc: 'full', urg: 'standard' };
+
+  var state = { emp: 10, fam: 0, renew: 30, nat: 'any', svc: 'kp', doc: 'full', urg: 'standard', term: '1', audit: false, trans: false };
 
   function fmt(n){ return Math.round(n).toLocaleString('en-US').replace(/,/g,' ') + ' zł'; }
-  function recalc(){
-    var unit = BASE[state.svc] * URG_MULT[state.urg] * DOC_MULT[state.doc] * IND_MULT[state.ind];
-    var retail = unit * state.emp;
-    var disc = discount(state.emp);
-    var b2b = retail * (1 - disc);
-    var save = retail - b2b;
-    var perEmp = b2b / state.emp;
-    var time = Math.round(TIME_BASE[state.svc] * (state.urg === 'express' ? 0.6 : state.urg === 'critical' ? 0.4 : 1));
+  function fmtPlain(n){ return Math.round(n).toLocaleString('en-US').replace(/,/g,' '); }
 
-    document.getElementById('cv-emp').textContent = state.emp + (state.emp >= 200 ? '+' : '');
-    document.getElementById('cv-retail').textContent = fmt(retail);
-    document.getElementById('cv-b2b').textContent = fmt(b2b);
-    document.getElementById('cv-perEmp').textContent = fmt(perEmp);
-    document.getElementById('cv-disc').textContent = (disc*100).toFixed(0) + '%';
-    document.getElementById('cv-save').textContent = fmt(save);
-    document.getElementById('cv-time').textContent = time + ' days';
+  // smooth number transition for result-hero values
+  var prevVals = {};
+  function smoothFmt(elId, target, fn){
+    var el = document.getElementById(elId);
+    if (!el) return;
+    var prev = prevVals[elId] || 0;
+    var startTime = null;
+    var dur = 350;
+    function step(ts){
+      if (!startTime) startTime = ts;
+      var p = Math.min((ts - startTime) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      var v = Math.floor(prev + (target - prev) * ease);
+      el.textContent = fn ? fn(v) : v;
+      if (p < 1) requestAnimationFrame(step);
+      else prevVals[elId] = target;
+    }
+    requestAnimationFrame(step);
   }
 
-  document.getElementById('sl-emp').addEventListener('input', function(e){
-    state.emp = parseInt(e.target.value);
-    recalc();
+  function recalc(){
+    var unit = BASE[state.svc] * URG_MULT[state.urg] * DOC_MULT[state.doc];
+    if (state.trans) unit *= (1 + TRANS_FACTOR);
+
+    // employee cases (renewals are cheaper)
+    var firstTime = state.emp * (1 - state.renew/100);
+    var renewals  = state.emp * (state.renew/100);
+    var employeeCases = firstTime * unit + renewals * unit * RENEWAL_FACTOR;
+    var familyCases = state.emp * state.fam * unit * FAMILY_FACTOR;
+
+    var retail = employeeCases + familyCases;
+    if (state.audit) retail += AUDIT_PRICE * 1.5;  // retail audit costs more
+
+    var disc = discount(state.emp + state.emp * state.fam);
+    var termDisc = TERM_DISC[state.term];
+    var b2b = retail * (1 - disc) * (1 - termDisc);
+    if (state.audit) b2b += AUDIT_PRICE;  // explicitly add audit at B2B price
+
+    var save = retail - b2b;
+    var savePct = retail > 0 ? Math.round((save / retail) * 100) : 0;
+    var perEmp = state.emp > 0 ? b2b / state.emp : 0;
+    var time = Math.round(TIME_BASE[state.svc] * (state.urg === 'express' ? 0.6 : state.urg === 'critical' ? 0.4 : 1));
+    var threeY = save * 3;
+
+    document.getElementById('cv-emp').textContent = state.emp + (state.emp >= 200 ? '+' : '');
+    document.getElementById('cv-fam').textContent = state.fam.toFixed(1).replace('.0','');
+    document.getElementById('cv-renew').textContent = state.renew;
+
+    smoothFmt('cv-save', save, fmt);
+    document.getElementById('cv-savePct').textContent = savePct;
+    smoothFmt('cv-retail', retail, fmt);
+    smoothFmt('cv-b2b', b2b, fmt);
+    smoothFmt('cv-3y', threeY, fmt);
+    smoothFmt('cv-perEmp', perEmp, fmt);
+    document.getElementById('cv-disc').textContent = ((disc + termDisc) * 100).toFixed(0) + '%';
+    document.getElementById('cv-time').textContent = time + ' days';
+
+    // chart bars
+    var maxVal = Math.max(retail, b2b);
+    document.getElementById('bar-retail').style.width = '100%';
+    document.getElementById('bar-b2b').style.width = (maxVal > 0 ? (b2b / maxVal * 100) : 0) + '%';
+    document.getElementById('bar-3y').style.width = '100%';
+  }
+
+  // wire sliders
+  ['emp', 'fam', 'renew'].forEach(function(k){
+    document.getElementById('sl-' + k).addEventListener('input', function(e){
+      state[k] = parseFloat(e.target.value);
+      recalc();
+    });
   });
-  function setupSegs(name, key){
+
+  // wire segments
+  function wireSegs(name, key){
     document.querySelectorAll('[data-' + name + ']').forEach(function(seg){
       seg.addEventListener('click', function(){
         document.querySelectorAll('[data-' + name + ']').forEach(function(s){ s.classList.remove('active'); });
@@ -1332,17 +1165,62 @@
       });
     });
   }
-  setupSegs('nat', 'nat');
-  setupSegs('ind', 'ind');
-  setupSegs('svc', 'svc');
-  setupSegs('doc', 'doc');
-  setupSegs('urg', 'urg');
+  wireSegs('nat', 'nat');
+  wireSegs('svc', 'svc');
+  wireSegs('doc', 'doc');
+  wireSegs('urg', 'urg');
+  wireSegs('term', 'term');
+
+  // wire toggles
+  document.getElementById('tg-audit').addEventListener('click', function(){
+    this.classList.toggle('on');
+    state.audit = this.classList.contains('on');
+    recalc();
+  });
+  document.getElementById('tg-trans').addEventListener('click', function(){
+    this.classList.toggle('on');
+    state.trans = this.classList.contains('on');
+    recalc();
+  });
+
+  // presets
+  var PRESETS = {
+    warehouse: { emp: 30, fam: 0.5, renew: 20, svc: 'kp', doc: 'partial', urg: 'standard', term: '2', audit: true, trans: true, nat: 'india', ind: 'logistics' },
+    it: { emp: 12, fam: 1.5, renew: 10, svc: 'bluecard', doc: 'full', urg: 'express', term: '2', audit: true, trans: false, nat: 'india', ind: 'it' },
+    construction: { emp: 75, fam: 0, renew: 40, svc: 'kp', doc: 'none', urg: 'standard', term: '3', audit: true, trans: true, nat: 'bangladesh', ind: 'construction' },
+    hospitality: { emp: 25, fam: 0, renew: 60, svc: 'mix', doc: 'partial', urg: 'standard', term: '1', audit: false, trans: true, nat: 'srilanka', ind: 'hospitality' },
+    custom: null,
+  };
+  function applyPreset(name){
+    var p = PRESETS[name];
+    if (!p) return;
+    state = Object.assign(state, p);
+    document.getElementById('sl-emp').value = state.emp;
+    document.getElementById('sl-fam').value = state.fam;
+    document.getElementById('sl-renew').value = state.renew;
+    ['nat', 'svc', 'doc', 'urg', 'term'].forEach(function(k){
+      document.querySelectorAll('[data-' + k + ']').forEach(function(s){
+        s.classList.toggle('active', s.getAttribute('data-' + k) === state[k]);
+      });
+    });
+    document.getElementById('tg-audit').classList.toggle('on', state.audit);
+    document.getElementById('tg-trans').classList.toggle('on', state.trans);
+    recalc();
+  }
+  document.querySelectorAll('[data-preset]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('[data-preset]').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      applyPreset(btn.getAttribute('data-preset'));
+    });
+  });
+
   recalc();
 
   // ───── Form submit ─────
   window.b2bSubmit = function(e){
     e.preventDefault();
-    var fields = {
+    var f = {
       name: document.getElementById('f-name').value,
       company: document.getElementById('f-company').value,
       email: document.getElementById('f-email').value,
@@ -1351,20 +1229,31 @@
       notes: document.getElementById('f-notes').value || ''
     };
     var msg = 'B2B INQUIRY\n\n'
-      + 'Name: ' + fields.name + '\n'
-      + 'Company: ' + fields.company + '\n'
-      + 'Email: ' + fields.email + '\n'
-      + 'Phone: ' + fields.phone + '\n'
-      + 'Annual hires: ' + fields.count + '\n\n'
+      + 'Name: ' + f.name + '\n'
+      + 'Company: ' + f.company + '\n'
+      + 'Email: ' + f.email + '\n'
+      + 'Phone: ' + f.phone + '\n'
+      + 'Annual hires: ' + f.count + '\n\n'
       + 'Calculator state:\n'
-      + '· ' + state.emp + ' employees · ' + state.nat + ' · ' + state.ind + '\n'
-      + '· Service: ' + state.svc + ' · Docs: ' + state.doc + ' · Urgency: ' + state.urg + '\n'
+      + '· ' + state.emp + ' employees · family ' + state.fam + ' · ' + state.renew + '% renewals\n'
+      + '· ' + state.nat + ' · ' + state.svc + ' · docs:' + state.doc + ' · urg:' + state.urg + '\n'
+      + '· ' + state.term + 'yr term · audit:' + state.audit + ' · trans:' + state.trans + '\n'
       + '· Estimated B2B price: ' + document.getElementById('cv-b2b').textContent + '\n'
-      + '· Estimated savings: ' + document.getElementById('cv-save').textContent + '\n\n';
-    if (fields.notes) msg += 'Notes:\n' + fields.notes + '\n\n';
+      + '· Estimated savings: ' + document.getElementById('cv-save').textContent + '/yr\n\n';
+    if (f.notes) msg += 'Notes:\n' + f.notes + '\n\n';
     msg += 'Please send a tailored proposal.';
     window.open('https://wa.me/48735248525?text=' + encodeURIComponent(msg), '_blank');
   };
+
+  // ───── Header parallax (subtle) ─────
+  var hiStage = document.querySelector('.hi-stage');
+  if (hiStage) {
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if (y > 600) return;
+      hiStage.style.transform = 'translateY(' + (y * 0.15) + 'px)';
+    }, { passive: true });
+  }
 })();
 </script>
 </body>
