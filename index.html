@@ -3575,6 +3575,216 @@ updateTicker('ru');
 
 
 
+<!-- ─────────────── HERO LEAD FORM ─────────────── -->
+<section id="hero-lead" class="hlead-section">
+  <div class="hlead-inner">
+
+    <div class="hlead-left">
+      <div class="hlead-badge"><span class="hlead-badge-dot"></span><span id="hlead-badge">Без квиза · 30 секунд</span></div>
+      <h2 class="hlead-title" id="hlead-title">Не хотите ждать?<br><em>Оставьте заявку — перезвоним за 15 минут</em></h2>
+      <p class="hlead-desc" id="hlead-desc">Бесплатная консультация. Разберём вашу ситуацию и скажем что делать дальше.</p>
+
+      <div class="hlead-trust">
+        <div class="hlead-tb"><span class="hlead-tb-ic">🛡️</span><span id="hlead-tb1">98% одобрений</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">💬</span><span id="hlead-tb2">Ответ за 15 мин</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">⭐</span><span id="hlead-tb3">3000+ клиентов</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">🔒</span><span id="hlead-tb4">Без спама</span></div>
+      </div>
+    </div>
+
+    <div class="hlead-right">
+      <form class="hlead-form" onsubmit="event.preventDefault();submitHlead();" novalidate>
+        <input class="hlead-in" id="hlead-name" placeholder="Ваше имя" autocomplete="name"/>
+
+        <div class="hlead-phone-row">
+          <div class="ls-cp" data-default="+48">
+            <button type="button" data-cp-trigger aria-haspopup="listbox" aria-expanded="false">
+              <span data-cp-flag>🇵🇱</span>
+              <span data-cp-code>+48</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div data-cp-menu role="listbox">
+              <input type="text" data-cp-search placeholder="Search country or code…" autocomplete="off"/>
+              <div data-cp-list></div>
+            </div>
+            <input type="hidden" data-cp-hidden id="hlead-phone-cc" value="+48"/>
+          </div>
+          <input class="hlead-in hlead-phone-num" id="hlead-phone" placeholder="600 123 456" type="tel" inputmode="numeric" autocomplete="tel-national"/>
+        </div>
+
+        <!-- Service picker (custom dark dropdown) -->
+        <div class="hlead-svc" id="hlead-svc">
+          <button type="button" class="hlead-svc-trigger" id="hlead-svc-trigger" onclick="hleadSvcToggle(event)" aria-haspopup="listbox" aria-expanded="false">
+            <span class="hlead-svc-text" id="hlead-svc-text">Не знаю — нужна консультация</span>
+            <svg class="hlead-svc-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="hlead-svc-menu" id="hlead-svc-menu" role="listbox">
+            <div class="hlead-svc-opt hlead-svc-muted" data-key="" onclick="hleadSvcSelect(this)">Не знаю — нужна консультация</div>
+            <div class="hlead-svc-opt" data-key="karta_pobytu" onclick="hleadSvcSelect(this)">Карта побыту / вид на жительство</div>
+            <div class="hlead-svc-opt" data-key="permanent_residence" onclick="hleadSvcSelect(this)">ПМЖ (постоянный побыт)</div>
+            <div class="hlead-svc-opt" data-key="citizenship" onclick="hleadSvcSelect(this)">Гражданство Польши</div>
+            <div class="hlead-svc-opt" data-key="blue_card" onclick="hleadSvcSelect(this)">Blue Card (ЕС)</div>
+            <div class="hlead-svc-opt" data-key="appeals" onclick="hleadSvcSelect(this)">Апелляция по отказу</div>
+            <div class="hlead-svc-opt" data-key="company" onclick="hleadSvcSelect(this)">Регистрация компании</div>
+            <div class="hlead-svc-opt" data-key="accounting" onclick="hleadSvcSelect(this)">Бухгалтерский учёт</div>
+            <div class="hlead-svc-opt" data-key="pesel" onclick="hleadSvcSelect(this)">Помощь с PESEL</div>
+            <div class="hlead-svc-opt" data-key="profil_zaufany" onclick="hleadSvcSelect(this)">Profil Zaufany</div>
+            <div class="hlead-svc-opt" data-key="driving" onclick="hleadSvcSelect(this)">Замена прав</div>
+            <div class="hlead-svc-opt" data-key="international_protection" onclick="hleadSvcSelect(this)">Международная защита</div>
+          </div>
+          <input type="hidden" id="hlead-service" value=""/>
+        </div>
+
+        <button type="submit" class="hlead-btn" id="hlead-btn">
+          <span id="hlead-btn-text">Оставить заявку — ответим за 15 минут →</span>
+        </button>
+
+        <div class="hlead-fine" id="hlead-fine">Без спама · Конфиденциально · Не передаём данные третьим лицам</div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.hlead-section{position:relative;padding:80px 24px;background:linear-gradient(180deg,var(--bg) 0%,rgba(45,40,105,.18) 100%);}
+.hlead-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:center;}
+.hlead-left{}
+.hlead-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:60px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.28);color:#4ade80;font-size:12px;font-weight:600;letter-spacing:.05em;margin-bottom:18px;}
+.hlead-badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:hleadDot 1.4s ease-in-out infinite;box-shadow:0 0 0 0 rgba(74,222,128,.5);}
+@keyframes hleadDot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5);}70%{box-shadow:0 0 0 5px rgba(74,222,128,0);}}
+.hlead-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,46px);font-weight:900;line-height:1.15;margin:0 0 14px;letter-spacing:-.02em;color:#fff;}
+.hlead-title em{font-style:italic;color:var(--p300);}
+.hlead-desc{font-size:16px;line-height:1.6;color:rgba(255,255,255,.7);margin:0 0 28px;max-width:540px;}
+.hlead-trust{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:480px;}
+.hlead-tb{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.2);border-radius:12px;color:rgba(255,255,255,.85);font-size:13.5px;font-weight:600;}
+.hlead-tb-ic{font-size:18px;line-height:1;flex-shrink:0;}
+
+.hlead-right{}
+.hlead-form{background:linear-gradient(160deg,rgba(45,40,105,.6) 0%,rgba(30,27,75,.85) 100%);border:1px solid rgba(139,130,232,.25);border-radius:24px;padding:30px;box-shadow:0 24px 60px rgba(0,0,0,.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.hlead-in{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.25);border-radius:14px;padding:13px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;display:block;transition:border-color .15s,background .15s;box-sizing:border-box;}
+.hlead-in:focus{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+.hlead-in::placeholder{color:rgba(255,255,255,.35);}
+
+.hlead-phone-row{display:flex;gap:8px;margin-bottom:10px;align-items:stretch;}
+.hlead-phone-row .hlead-phone-num{flex:1;margin-bottom:0;}
+.hlead-phone-row .ls-cp{margin-bottom:0;}
+
+.hlead-svc{position:relative;margin-bottom:14px;}
+.hlead-svc-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.25);border-radius:14px;padding:13px 16px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s;text-align:left;}
+.hlead-svc-trigger:hover{background:rgba(139,130,232,.10);border-color:rgba(139,130,232,.45);}
+.hlead-svc-trigger.hsvc-open{border-color:#7F77DD;background:rgba(127,119,221,.10);}
+.hlead-svc-text{flex:1;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hlead-svc-arrow{flex-shrink:0;color:#7F77DD;transition:transform .25s ease;}
+.hlead-svc-trigger.hsvc-open .hlead-svc-arrow{transform:rotate(180deg);}
+.hlead-svc-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:100;background:rgba(30,27,75,.97);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(139,130,232,.35);border-radius:14px;padding:6px;box-shadow:0 16px 48px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top center;transition:opacity .2s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility .2s;max-height:340px;overflow-y:auto;}
+.hlead-svc-menu.hsvc-open{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.hlead-svc-menu::-webkit-scrollbar{width:6px;}
+.hlead-svc-menu::-webkit-scrollbar-thumb{background:rgba(139,130,232,.3);border-radius:3px;}
+.hlead-svc-opt{padding:10px 13px;border-radius:8px;color:rgba(255,255,255,.85);font-size:13.5px;cursor:pointer;transition:background .12s ease,color .12s ease;user-select:none;}
+.hlead-svc-opt:hover{background:rgba(127,119,221,.18);color:#fff;}
+.hlead-svc-opt.hsvc-selected{background:linear-gradient(135deg,rgba(127,119,221,.28),rgba(83,74,183,.22));color:#fff;font-weight:600;}
+.hlead-svc-muted{margin-bottom:4px;border-bottom:1px solid rgba(139,130,232,.18);padding-bottom:12px;color:rgba(255,255,255,.7);font-style:italic;}
+.hlead-svc-muted:hover{color:#fff;font-style:normal;}
+
+.hlead-btn{width:100%;background:linear-gradient(135deg,#7F77DD 0%,#534AB7 100%);color:#fff;border:none;padding:16px 22px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;box-shadow:0 8px 24px rgba(127,119,221,.4);}
+.hlead-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(127,119,221,.55);filter:brightness(1.08);}
+.hlead-btn:active{transform:translateY(0);}
+.hlead-btn:disabled{opacity:.6;cursor:not-allowed;}
+.hlead-fine{font-size:11.5px;color:rgba(255,255,255,.4);text-align:center;margin-top:14px;}
+
+@media (max-width:980px){
+  .hlead-inner{grid-template-columns:1fr;gap:36px;}
+  .hlead-right{order:0;}
+  .hlead-left{order:1;}
+  .hlead-trust{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:480px){
+  .hlead-section{padding:60px 16px;}
+  .hlead-form{padding:22px;}
+}
+</style>
+
+<script>
+function hleadSvcToggle(e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  var t=document.getElementById('hlead-svc-trigger'),m=document.getElementById('hlead-svc-menu');
+  if(!t||!m)return;
+  if(m.classList.contains('hsvc-open'))hleadSvcClose();else hleadSvcOpen();
+}
+function hleadSvcOpen(){
+  var t=document.getElementById('hlead-svc-trigger'),m=document.getElementById('hlead-svc-menu');
+  if(!t||!m)return;
+  m.classList.add('hsvc-open');t.classList.add('hsvc-open');t.setAttribute('aria-expanded','true');
+}
+function hleadSvcClose(){
+  var t=document.getElementById('hlead-svc-trigger'),m=document.getElementById('hlead-svc-menu');
+  if(!t||!m)return;
+  m.classList.remove('hsvc-open');t.classList.remove('hsvc-open');t.setAttribute('aria-expanded','false');
+}
+function hleadSvcSelect(el){
+  if(!el)return;
+  var hidden=document.getElementById('hlead-service'),txt=document.getElementById('hlead-svc-text');
+  var key=el.getAttribute('data-key')||'';
+  if(hidden)hidden.value=key;
+  if(txt)txt.textContent=el.textContent.trim();
+  document.querySelectorAll('#hlead-svc-menu .hlead-svc-opt').forEach(function(o){o.classList.remove('hsvc-selected');});
+  el.classList.add('hsvc-selected');
+  hleadSvcClose();
+}
+document.addEventListener('click',function(e){
+  var p=document.getElementById('hlead-svc');
+  if(p && !p.contains(e.target))hleadSvcClose();
+});
+
+function submitHlead(){
+  var name=(document.getElementById('hlead-name')||{}).value||'';
+  var phEl=document.getElementById('hlead-phone'),raw=phEl?phEl.value.trim():'';
+  var digits=raw.replace(/\D/g,'');
+  if(!raw || digits.length<6){
+    if(phEl){phEl.style.borderColor='#ef4444';setTimeout(function(){phEl.style.borderColor='';},2000);phEl.focus();}
+    return;
+  }
+  var ccEl=document.getElementById('hlead-phone-cc'),cc=ccEl?ccEl.value:'+48';
+  var phoneFull=cc+' '+raw.replace(/^\+?\s*/,'').replace(/^0+/,'');
+  var svcKey=(document.getElementById('hlead-service')||{}).value||'';
+  var svcText=(document.getElementById('hlead-svc-text')||{}).textContent||'';
+  var btn=document.getElementById('hlead-btn');
+  if(btn)btn.disabled=true;
+
+  // Используем ту же _sendLead из основного модального скрипта
+  if(typeof _sendLead==='function'){
+    _sendLead({
+      name:name.trim(),
+      phone:phoneFull,
+      service:(svcText && svcKey)?svcText.trim():'',
+      message:'',
+      source:'hero_lead_form',
+      page:location.pathname,
+      lang:typeof _lsLang==='function'?_lsLang():(document.documentElement.lang||'en'),
+      utm:typeof _utmObject==='function'?_utmObject():{},
+      ref:document.referrer||''
+    });
+  }
+
+  // Показываем красивое окно подтверждения с WhatsApp-кнопкой (та же модалка как в основной форме)
+  if(typeof showLeadSuccess==='function'){
+    showLeadSuccess({name:name.trim(),phone:phoneFull,service:svcText.trim()});
+  }
+
+  // Очистить форму
+  setTimeout(function(){
+    if(document.getElementById('hlead-name'))document.getElementById('hlead-name').value='';
+    if(phEl)phEl.value='';
+    if(document.getElementById('hlead-service'))document.getElementById('hlead-service').value='';
+    var t=document.getElementById('hlead-svc-text');
+    if(t)t.textContent=_lsLang && _lsLang()==='en'?'Not sure — need advice':'Не знаю — нужна консультация';
+    document.querySelectorAll('#hlead-svc-menu .hlead-svc-opt').forEach(function(o){o.classList.remove('hsvc-selected');});
+    if(btn)btn.disabled=false;
+  },800);
+}
+</script>
+
 <!-- DOC CALCULATOR — 5 steps -->
 
 <div id="calc-section" style="padding:80px 60px 100px;background:var(--bg);">
