@@ -1471,6 +1471,7 @@
   recalc();
 
   // ───── Form submit ─────
+  var LEAD_URL = 'https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
   window.b2bSubmit = function(e){
     e.preventDefault();
     var f = {
@@ -1481,18 +1482,40 @@
       count: document.getElementById('f-count').value || '?',
       notes: document.getElementById('f-notes').value || ''
     };
+
+    // 1. Send to Apps Script → Sheet + Telegram bot
+    var calcState = state.emp + ' emp · ' + state.fam + ' fam · ' + state.renew + '% renew · '
+                  + state.nat + ' · ' + state.svc + ' · docs:' + state.doc + ' · urg:' + state.urg + ' · '
+                  + state.term + 'yr term · audit:' + state.audit + ' · trans:' + state.trans
+                  + ' → B2B: ' + document.getElementById('cv-b2b').textContent
+                  + ' / saves ' + document.getElementById('cv-save').textContent + '/yr';
+    var leadPayload = {
+      name: f.name,
+      phone: f.phone,
+      email: f.email,
+      service: 'B2B Inquiry · ' + f.company + ' · ' + f.count + ' annual hires',
+      message: (f.notes ? f.notes + '\n\n' : '') + 'Calculator: ' + calcState,
+      source: 'b2b_form',
+      page: '/business',
+      lang: (document.documentElement.lang || 'en').toLowerCase().slice(0,2)
+    };
+    try {
+      fetch(LEAD_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(leadPayload)
+      }).catch(function(){});
+    } catch(_) {}
+
+    // 2. Also open WhatsApp with formatted message
     var msg = 'B2B INQUIRY\n\n'
       + 'Name: ' + f.name + '\n'
       + 'Company: ' + f.company + '\n'
       + 'Email: ' + f.email + '\n'
       + 'Phone: ' + f.phone + '\n'
       + 'Annual hires: ' + f.count + '\n\n'
-      + 'Calculator state:\n'
-      + '· ' + state.emp + ' employees · family ' + state.fam + ' · ' + state.renew + '% renewals\n'
-      + '· ' + state.nat + ' · ' + state.svc + ' · docs:' + state.doc + ' · urg:' + state.urg + '\n'
-      + '· ' + state.term + 'yr term · audit:' + state.audit + ' · trans:' + state.trans + '\n'
-      + '· Estimated B2B price: ' + document.getElementById('cv-b2b').textContent + '\n'
-      + '· Estimated savings: ' + document.getElementById('cv-save').textContent + '/yr\n\n';
+      + 'Calculator: ' + calcState + '\n\n';
     if (f.notes) msg += 'Notes:\n' + f.notes + '\n\n';
     msg += 'Please send a tailored proposal.';
     window.open('https://wa.me/48735248525?text=' + encodeURIComponent(msg), '_blank');
