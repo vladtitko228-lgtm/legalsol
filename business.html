@@ -1252,9 +1252,31 @@
     box-shadow: 0 4px 14px rgba(124,92,252,0.5);
   }
   .lang-pick.active .flag { transform: scale(1.1); }
-  /* Fade content during language change */
-  body.lang-swap main, body.lang-swap header, body.lang-swap section, body.lang-swap footer {
-    opacity: 0.4; transition: opacity 0.18s ease;
+  /* Hide all content during language change — eliminates visible layout shift */
+  body.lang-swap .hero,
+  body.lang-swap .section,
+  body.lang-swap .trust-strip,
+  body.lang-swap footer,
+  body.lang-swap header > .logo,
+  body.lang-swap header > .header-right > a,
+  body.lang-swap header > .header-right > .nav-cta {
+    opacity: 0; transition: opacity 0.25s ease;
+  }
+  /* Restore — header lang-switch always visible */
+  body:not(.lang-swap) .hero,
+  body:not(.lang-swap) .section,
+  body:not(.lang-swap) .trust-strip,
+  body:not(.lang-swap) footer,
+  body:not(.lang-swap) header > .logo,
+  body:not(.lang-swap) header > .header-right > a,
+  body:not(.lang-swap) header > .header-right > .nav-cta {
+    transition: opacity 0.25s ease;
+  }
+  /* View Transitions API for modern browsers */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   @media (max-width: 600px) {
     .lang-switch { padding: 3px; }
@@ -2511,18 +2533,26 @@
         b.classList.toggle('active', b.getAttribute('data-lang') === lang);
       });
     }
-    if (isInitial) {
-      doSwap();
+    if (isInitial) { doSwap(); return; }
+
+    // Best path: View Transitions API (Chrome/Edge/Safari 18+)
+    if (document.startViewTransition) {
+      document.startViewTransition(doSwap);
       return;
     }
-    // smooth fade-out → swap → fade-in
+
+    // Fallback: longer fade-out (250ms) → swap → fade-in
+    // body.lang-swap hides content fully so layout shift isn't visible
     document.body.classList.add('lang-swap');
     setTimeout(function(){
       doSwap();
+      // wait one more frame so browser computes new layout invisible
       requestAnimationFrame(function(){
-        document.body.classList.remove('lang-swap');
+        requestAnimationFrame(function(){
+          document.body.classList.remove('lang-swap');
+        });
       });
-    }, 180);
+    }, 270);
   }
   // wire switcher
   document.querySelectorAll('.lang-pick').forEach(function(b){
