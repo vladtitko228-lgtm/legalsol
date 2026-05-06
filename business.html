@@ -840,6 +840,93 @@
     padding-top: 14px; border-top: 1px solid rgba(139,130,232,0.12);
   }
 
+  /* ───── INCLUDED MATRIX ───── */
+  .incl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 800px) { .incl-grid { grid-template-columns: 1fr; } }
+  .incl-card {
+    background: var(--card); border: 1px solid rgba(139,130,232,0.25);
+    border-radius: 22px; padding: 30px 28px;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
+  }
+  .incl-card:hover { border-color: rgba(139,130,232,0.5); transform: translateY(-3px); }
+  .incl-card-h { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(139,130,232,0.15); }
+  .incl-card-ic {
+    width: 48px; height: 48px; border-radius: 13px;
+    background: linear-gradient(135deg, var(--p400), #9978ff);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff;
+    box-shadow: 0 6px 16px rgba(124,92,252,0.4);
+  }
+  .incl-card-t { font-size: 18px; font-weight: 700; }
+  .incl-card-st { font-size: 12px; color: var(--txt3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .incl-list { display: flex; flex-direction: column; gap: 12px; }
+  .incl-row { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.5; }
+  .incl-row::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; font-size: 16px; line-height: 1.5; }
+  .incl-row b { color: var(--txt); }
+  .incl-row span { color: var(--txt2); }
+
+  /* ───── SCENARIOS ───── */
+  .sc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
+  .sc-card {
+    background: linear-gradient(135deg, rgba(45,40,105,0.45), rgba(20,16,55,0.35));
+    border: 1px solid rgba(139,130,232,0.22);
+    border-radius: 22px; padding: 28px 26px;
+    backdrop-filter: blur(16px);
+    position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .sc-card:hover { transform: translateY(-5px); border-color: rgba(139,130,232,0.5); box-shadow: var(--shadow-2); }
+  .sc-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--p400), var(--gold));
+  }
+  .sc-flag { font-size: 30px; margin-bottom: 12px; }
+  .sc-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .sc-context { font-size: 13px; color: var(--txt3); margin-bottom: 18px; line-height: 1.6; }
+  .sc-stats { display: flex; flex-direction: column; gap: 8px; padding: 14px; background: rgba(11,10,28,0.4); border-radius: 12px; margin-bottom: 16px; border: 1px solid rgba(139,130,232,0.15); }
+  .sc-stat { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; }
+  .sc-stat-l { color: var(--txt3); }
+  .sc-stat-v { font-weight: 700; color: var(--txt); font-variant-numeric: tabular-nums; }
+  .sc-stat.savings .sc-stat-v {
+    background: linear-gradient(135deg, var(--green), var(--green2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 18px;
+  }
+  .sc-strike { text-decoration: line-through; color: var(--txt3); font-size: 12px; margin-right: 6px; }
+
+  /* ───── FEES TABLE ───── */
+  .fees-wrap {
+    background: var(--card); border: 1px solid rgba(139,130,232,0.25);
+    border-radius: 22px; padding: 30px;
+    backdrop-filter: blur(16px);
+  }
+  .fees-intro { font-size: 14px; color: var(--txt2); line-height: 1.65; margin-bottom: 22px; padding: 14px 16px; background: rgba(124,92,252,0.08); border-left: 3px solid var(--p400); border-radius: 8px; }
+  .fees-intro b { color: var(--p100); }
+  .fees-table { width: 100%; border-collapse: collapse; }
+  .fees-table th { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.8px; padding: 12px 14px; text-align: left; border-bottom: 1px solid rgba(139,130,232,0.2); font-weight: 600; }
+  .fees-table td { padding: 14px; font-size: 14px; border-bottom: 1px solid rgba(139,130,232,0.1); }
+  .fees-table td:nth-child(2) { font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .fees-table td:nth-child(3) { color: var(--txt3); font-size: 13px; }
+  .fees-foot { margin-top: 14px; font-size: 12px; color: var(--txt3); line-height: 1.5; padding-top: 14px; border-top: 1px solid rgba(139,130,232,0.15); }
+
+  /* ───── RESPONSIBILITY MATRIX ───── */
+  .resp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 22px; overflow: hidden; border: 1px solid rgba(139,130,232,0.22); backdrop-filter: blur(16px); }
+  @media (max-width: 700px) { .resp-grid { grid-template-columns: 1fr; } }
+  .resp-col { padding: 28px; }
+  .resp-col-you { background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,107,53,0.02)); border-right: 1px solid rgba(139,130,232,0.18); }
+  @media (max-width: 700px) { .resp-col-you { border-right: none; border-bottom: 1px solid rgba(139,130,232,0.18); } }
+  .resp-col-us { background: linear-gradient(135deg, rgba(124,92,252,0.12), rgba(124,92,252,0.04)); }
+  .resp-h { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(139,130,232,0.18); }
+  .resp-h-ic { width: 38px; height: 38px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; }
+  .resp-col-you .resp-h-ic { background: rgba(255,107,53,0.2); color: #FF6B35; }
+  .resp-col-us .resp-h-ic { background: rgba(124,92,252,0.25); color: #B8B2F5; }
+  .resp-h-t { font-size: 16px; font-weight: 700; }
+  .resp-h-st { font-size: 11px; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+  .resp-list { display: flex; flex-direction: column; gap: 10px; }
+  .resp-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--txt2); }
+  .resp-item::before { content: '•'; color: var(--p300); font-weight: 800; flex-shrink: 0; font-size: 16px; line-height: 1.4; }
+
   /* ───── COMPARISON TABLE ───── */
   .table-wrap { background: var(--card); border: 1px solid rgba(139,130,232,0.22); border-radius: 24px; padding: 32px; overflow-x: auto; backdrop-filter: blur(16px); }
   .ctable { width: 100%; border-collapse: collapse; }
@@ -1378,6 +1465,193 @@
       </tbody>
     </table>
   </div>
+</section>
+<!-- ═════════════ INCLUDED ═════════════ -->
+<section class="section anim-on-scroll">
+  <div class="section-head">
+    <div class="section-pill" id="incl-pill">WHAT'S INCLUDED</div>
+    <h2 class="section-title" id="incl-title">Exactly what you get with a B2B contract</h2>
+    <p class="section-sub" id="incl-sub">No surprises. Per-case work and account-wide value broken down so HR knows what they're buying.</p>
+  </div>
+  <div class="incl-grid">
+    <div class="incl-card stagger-child">
+      <div class="incl-card-h">
+        <span class="incl-card-ic">📋</span>
+        <div>
+          <div class="incl-card-t" id="incl1-t">Per case (every employee)</div>
+          <div class="incl-card-st" id="incl1-st">Karta Pobytu / Blue Card / etc.</div>
+        </div>
+      </div>
+      <div class="incl-list">
+        <div class="incl-row"><div><b id="ir1-1t">Eligibility review</b> <span id="ir1-1d">— we map the right legal basis (work / family / study) to maximize approval odds</span></div></div>
+        <div class="incl-row"><div><b id="ir1-2t">Document prep</b> <span id="ir1-2d">— filling forms, sworn translations from EN/RU/UA/HI/UR, apostille coordination</span></div></div>
+        <div class="incl-row"><div><b id="ir1-3t">Sponsor letter drafting</b> <span id="ir1-3d">— employer declaration, work conditions, accommodation proof — written by lawyer</span></div></div>
+        <div class="incl-row"><div><b id="ir1-4t">Filing with urząd</b> <span id="ir1-4d">— online (MOS) or in-person, fee payment coordination, receipt with case number</span></div></div>
+        <div class="incl-row"><div><b id="ir1-5t">Tracking + escalation</b> <span id="ir1-5d">— daily status checks, response to urząd queries, attendance at hearings if needed</span></div></div>
+        <div class="incl-row"><div><b id="ir1-6t">Card delivery</b> <span id="ir1-6d">— physical card delivered to your office; renewal date auto-scheduled</span></div></div>
+      </div>
+    </div>
+    <div class="incl-card stagger-child">
+      <div class="incl-card-h">
+        <span class="incl-card-ic">🏢</span>
+        <div>
+          <div class="incl-card-t" id="incl2-t">Account-wide (annual)</div>
+          <div class="incl-card-st" id="incl2-st">Across all your hires</div>
+        </div>
+      </div>
+      <div class="incl-list">
+        <div class="incl-row"><div><b id="ir2-1t">Dedicated account manager</b> <span id="ir2-1d">— single contact, WhatsApp + email, 15-min response SLA during business hours</span></div></div>
+        <div class="incl-row"><div><b id="ir2-2t">Real-time corporate dashboard</b> <span id="ir2-2d">— status of every case, document checklist per employee, exportable reports</span></div></div>
+        <div class="incl-row"><div><b id="ir2-3t">Monthly Q&amp;A with immigration lawyer</b> <span id="ir2-3d">— 30-min call, ad-hoc questions about new hires, policy templates</span></div></div>
+        <div class="incl-row"><div><b id="ir2-4t">Annual compliance audit</b> <span id="ir2-4d">— full review of permits, expiry flags, action plan before ZUS / PIP / Cudzoziemcy inspection</span></div></div>
+        <div class="incl-row"><div><b id="ir2-5t">Auto-renewal scheduling</b> <span id="ir2-5d">— we track every employee's expiry; renewal kickoff 90 days before — no expiry slips through</span></div></div>
+        <div class="incl-row"><div><b id="ir2-6t">SSO + API integration</b> <span id="ir2-6d">— Google Workspace / Microsoft 365 SSO, REST API for HRIS (BambooHR / Workday / SAP)</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ GOVT FEES TRANSPARENCY ═════════════ -->
+<section class="section narrow anim-on-scroll">
+  <div class="section-head">
+    <div class="section-pill" id="fees-pill">PRICING TRANSPARENCY</div>
+    <h2 class="section-title" id="fees-title">Government fees we don't keep — what you actually pay urząd</h2>
+    <p class="section-sub" id="fees-sub">Our service fee is separate from official Polish government charges. Below is exactly what goes to urząd, not us.</p>
+  </div>
+  <div class="fees-wrap">
+    <div class="fees-intro" id="fees-intro">💡 <b>Important:</b> these are statutory fees set by Polish law. They're paid directly to the urząd (or via marka skarbowa stamps). We coordinate the payment but don't add a markup — what you pay urząd is what's charged by Polish state.</div>
+    <table class="fees-table">
+      <thead><tr>
+        <th id="fees-th-1">Fee</th>
+        <th id="fees-th-2">Amount</th>
+        <th id="fees-th-3">When applicable</th>
+      </tr></thead>
+      <tbody>
+        <tr><td id="fee-r1-1">Karta Pobytu — TRC application fee</td><td>340 zł</td><td id="fee-r1-3">Every first-time and renewal application</td></tr>
+        <tr><td id="fee-r2-1">Blue Card EU — application fee</td><td>440 zł</td><td id="fee-r2-3">Blue Card path only</td></tr>
+        <tr><td id="fee-r3-1">Permanent residence — application fee</td><td>640 zł</td><td id="fee-r3-3">Pobyt stały (after 5+ years TRC)</td></tr>
+        <tr><td id="fee-r4-1">Marka skarbowa (stamp duty)</td><td>17 zł</td><td id="fee-r4-3">Stamped on application</td></tr>
+        <tr><td id="fee-r5-1">Card production fee (after approval)</td><td>50 zł</td><td id="fee-r5-3">Paid before card pickup</td></tr>
+        <tr><td id="fee-r6-1">Apostille (foreign document legalization)</td><td>~60 zł / doc</td><td id="fee-r6-3">If birth/marriage cert from abroad</td></tr>
+        <tr><td id="fee-r7-1">Sworn translation (PL)</td><td>~50 zł / page</td><td id="fee-r7-3">Per page of foreign-language document</td></tr>
+        <tr><td id="fee-r8-1">Work permit type A/B/C</td><td>50-200 zł</td><td id="fee-r8-3">Depends on permit type</td></tr>
+      </tbody>
+    </table>
+    <div class="fees-foot" id="fees-foot">⚠️ Amounts current as of 2026. Polish government may update fees — we always quote the latest. Translation/apostille costs vary by document complexity. Our B2B contract covers coordination of these payments at no extra service fee.</div>
+  </div>
+</section>
+
+<!-- ═════════════ RESPONSIBILITY MATRIX ═════════════ -->
+<section class="section narrow anim-on-scroll">
+  <div class="section-head">
+    <div class="section-pill" id="resp-pill">CLEAR OWNERSHIP</div>
+    <h2 class="section-title" id="resp-title">Who does what — no grey areas</h2>
+    <p class="section-sub" id="resp-sub">From day one we split the work clearly. You collect the things only your company has access to. We handle everything that touches Polish bureaucracy.</p>
+  </div>
+  <div class="resp-grid">
+    <div class="resp-col resp-col-you">
+      <div class="resp-h">
+        <span class="resp-h-ic">📤</span>
+        <div>
+          <div class="resp-h-t" id="resp-you-t">You provide</div>
+          <div class="resp-h-st" id="resp-you-st">From your HR / employees</div>
+        </div>
+      </div>
+      <div class="resp-list">
+        <div class="resp-item" id="ry-1">Employee list with full names, contact emails &amp; phones</div>
+        <div class="resp-item" id="ry-2">Company KRS / NIP / REGON certificates (one-time setup)</div>
+        <div class="resp-item" id="ry-3">Trade license / business registration documents</div>
+        <div class="resp-item" id="ry-4">Employee passport scans (we accept WhatsApp uploads)</div>
+        <div class="resp-item" id="ry-5">Employment contracts (signed copies)</div>
+        <div class="resp-item" id="ry-6">Salary declarations (for Blue Card eligibility)</div>
+        <div class="resp-item" id="ry-7">Address of employee accommodation (rental contract or letter)</div>
+        <div class="resp-item" id="ry-8">Health insurance proof (NFZ or private — we help if missing)</div>
+      </div>
+    </div>
+    <div class="resp-col resp-col-us">
+      <div class="resp-h">
+        <span class="resp-h-ic">⚙️</span>
+        <div>
+          <div class="resp-h-t" id="resp-us-t">We do</div>
+          <div class="resp-h-st" id="resp-us-st">End-to-end legal &amp; admin</div>
+        </div>
+      </div>
+      <div class="resp-list">
+        <div class="resp-item" id="ru-1">Eligibility analysis per employee (right legal path)</div>
+        <div class="resp-item" id="ru-2">Sworn translations + apostille coordination</div>
+        <div class="resp-item" id="ru-3">Application form preparation (in Polish, by lawyer)</div>
+        <div class="resp-item" id="ru-4">Sponsor letter drafting (employer declaration)</div>
+        <div class="resp-item" id="ru-5">Filing with urząd (online MOS or in-person)</div>
+        <div class="resp-item" id="ru-6">Government fee payments (we coordinate, you reimburse exact)</div>
+        <div class="resp-item" id="ru-7">Tracking, escalation, response to urząd queries</div>
+        <div class="resp-item" id="ru-8">Hearing attendance + appeals if needed</div>
+        <div class="resp-item" id="ru-9">Card pickup + delivery to your office</div>
+        <div class="resp-item" id="ru-10">Renewal scheduling 90 days before expiry</div>
+        <div class="resp-item" id="ru-11">Monthly status reports to your HR + finance</div>
+        <div class="resp-item" id="ru-12">Annual compliance audit before inspections</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ SCENARIOS ═════════════ -->
+<section class="section anim-on-scroll">
+  <div class="section-head">
+    <div class="section-pill" id="sc-pill">REAL SCENARIOS</div>
+    <h2 class="section-title" id="sc-title">What B2B looks like in numbers</h2>
+    <p class="section-sub" id="sc-sub">Anonymized examples from our actual contract patterns. Your numbers will vary based on volume, urgency and document state.</p>
+  </div>
+  <div class="sc-grid">
+    <div class="sc-card stagger-child">
+      <div class="sc-flag">📦 🇧🇩</div>
+      <div class="sc-title" id="sc1-t">Logistics company — 30 warehouse hires from Bangladesh</div>
+      <div class="sc-context" id="sc1-c">Full Karta Pobytu cycle. 30 employees + 12 family members (spouses). Standard urgency, partial documents, 2-year contract.</div>
+      <div class="sc-stats">
+        <div class="sc-stat"><span class="sc-stat-l" id="sc1-l1">Volume</span><span class="sc-stat-v">30 emp + 12 family</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc1-l2">Timeline</span><span class="sc-stat-v">5 months</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc1-l3">Retail price</span><span class="sc-stat-v"><span class="sc-strike">~140 000 zł</span></span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc1-l4">B2B contract</span><span class="sc-stat-v">~84 000 zł</span></div>
+        <div class="sc-stat savings"><span class="sc-stat-l" id="sc1-l5">Savings / yr</span><span class="sc-stat-v">56 000 zł · 40%</span></div>
+      </div>
+    </div>
+    <div class="sc-card stagger-child">
+      <div class="sc-flag">💻 🇮🇳</div>
+      <div class="sc-title" id="sc2-t">IT consulting — 12 senior engineers from India (Blue Card EU)</div>
+      <div class="sc-context" id="sc2-c">Blue Card EU path with EU mobility. 12 employees + 8 family members. Express urgency (4 critical hires), full docs ready, 2-year contract.</div>
+      <div class="sc-stats">
+        <div class="sc-stat"><span class="sc-stat-l" id="sc2-l1">Volume</span><span class="sc-stat-v">12 emp + 8 family</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc2-l2">Timeline</span><span class="sc-stat-v">3.5 months</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc2-l3">Retail price</span><span class="sc-stat-v"><span class="sc-strike">~95 000 zł</span></span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc2-l4">B2B contract</span><span class="sc-stat-v">~71 000 zł</span></div>
+        <div class="sc-stat savings"><span class="sc-stat-l" id="sc2-l5">Savings / yr</span><span class="sc-stat-v">24 000 zł · 25%</span></div>
+      </div>
+    </div>
+    <div class="sc-card stagger-child">
+      <div class="sc-flag">🏗️ 🇳🇵</div>
+      <div class="sc-title" id="sc3-t">Construction firm — 75 workers from Nepal (mass hiring)</div>
+      <div class="sc-context" id="sc3-c">Karta Pobytu + work permits. 75 employees, no families. Standard urgency, none of the docs prepared, 3-year contract.</div>
+      <div class="sc-stats">
+        <div class="sc-stat"><span class="sc-stat-l" id="sc3-l1">Volume</span><span class="sc-stat-v">75 employees</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc3-l2">Timeline</span><span class="sc-stat-v">7 months</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc3-l3">Retail price</span><span class="sc-stat-v"><span class="sc-strike">~315 000 zł</span></span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc3-l4">B2B contract</span><span class="sc-stat-v">~189 000 zł</span></div>
+        <div class="sc-stat savings"><span class="sc-stat-l" id="sc3-l5">Savings / yr</span><span class="sc-stat-v">126 000 zł · 40%</span></div>
+      </div>
+    </div>
+    <div class="sc-card stagger-child">
+      <div class="sc-flag">🍽️ 🇱🇰</div>
+      <div class="sc-title" id="sc4-t">Hotel chain — 25 seasonal staff from Sri Lanka</div>
+      <div class="sc-context" id="sc4-c">Mix of Karta Pobytu and short-term work permits. High renewal rate (60% returning seasonal workers). Standard urgency, 1-year contract.</div>
+      <div class="sc-stats">
+        <div class="sc-stat"><span class="sc-stat-l" id="sc4-l1">Volume</span><span class="sc-stat-v">25 emp · 60% renewals</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc4-l2">Timeline</span><span class="sc-stat-v">4 months</span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc4-l3">Retail price</span><span class="sc-stat-v"><span class="sc-strike">~67 000 zł</span></span></div>
+        <div class="sc-stat"><span class="sc-stat-l" id="sc4-l4">B2B contract</span><span class="sc-stat-v">~48 000 zł</span></div>
+        <div class="sc-stat savings"><span class="sc-stat-l" id="sc4-l5">Savings / yr</span><span class="sc-stat-v">19 000 zł · 28%</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:30px;font-size:13px;color:var(--txt3);" id="sc-disclaim">⚠️ <b>Numbers are illustrative</b> — actual contract pricing is calculated based on your specific volume, services, urgency, and document state. Use the calculator above for a live estimate or request a tailored quote below.</p>
 </section>
 
 <!-- ═════════════ TEAM ═════════════ -->
