@@ -789,26 +789,100 @@
 
   /* ───── CALC RESULT DASHBOARD ───── */
   .calc-result {
-    background: rgba(11,10,28,0.5);
+    background: linear-gradient(135deg, rgba(20,16,55,0.85), rgba(11,10,28,0.7));
     border: 1px solid rgba(124,92,252,0.35);
     border-radius: 24px; padding: 30px;
     display: flex; flex-direction: column; gap: 22px;
     height: fit-content; position: sticky; top: 100px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+    overflow: hidden;
   }
+  .calc-result::before {
+    content: ''; position: absolute; top: -100px; left: -50%; width: 200%; height: 200px;
+    background: radial-gradient(ellipse, rgba(74,222,128,0.18) 0%, transparent 60%);
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(20px); }
+  }
+  .calc-result > * { position: relative; z-index: 1; }
+
   .calc-result-hero {
-    text-align: center; padding: 8px 0 18px;
+    text-align: center; padding: 8px 0 22px;
     border-bottom: 1px solid rgba(139,130,232,0.15);
+    position: relative;
   }
-  .calc-result-hero-lbl { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px; }
+  .calc-result-hero-lbl {
+    font-size: 11px; color: var(--green); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+    margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 999px;
+    background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.3);
+  }
+  .calc-result-hero-lbl::before { content: '🎯'; font-size: 14px; }
   .calc-result-hero-val {
-    font-size: 44px; font-weight: 800; line-height: 1;
-    background: linear-gradient(135deg, var(--green), var(--green2));
+    font-size: 52px; font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, var(--green) 0%, var(--green2) 50%, #16a34a 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
     font-variant-numeric: tabular-nums;
     transition: all 0.3s ease;
+    text-shadow: 0 0 40px rgba(74,222,128,0.4);
+    letter-spacing: -0.02em;
   }
-  .calc-result-hero-sub { font-size: 12px; color: var(--txt3); margin-top: 6px; }
+  .calc-result-hero-sub { font-size: 13px; color: var(--txt3); margin-top: 8px; }
+  .calc-result-hero-sub b { color: var(--green); font-weight: 700; }
+
+  /* Tier progress indicator */
+  .tier-badge {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(124,92,252,0.18), rgba(124,92,252,0.06));
+    border: 1px solid rgba(124,92,252,0.35);
+    margin-bottom: 4px;
+  }
+  .tier-badge-l { font-size: 12px; color: var(--p200); font-weight: 600; }
+  .tier-badge-l b { color: var(--p100); font-weight: 800; font-size: 13px; }
+  .tier-badge-pct { font-size: 18px; font-weight: 800; color: var(--p100); font-variant-numeric: tabular-nums; }
+  .tier-progress {
+    width: 100%; height: 6px; border-radius: 3px;
+    background: rgba(124,92,252,0.15); overflow: hidden; margin-top: 8px;
+  }
+  .tier-progress-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--p400), #9978ff, var(--gold));
+    transition: width 0.6s cubic-bezier(0.23,1,0.32,1);
+    box-shadow: 0 0 12px rgba(124,92,252,0.6);
+  }
+  .tier-next {
+    font-size: 11px; color: var(--txt3); margin-top: 6px;
+    text-align: right;
+  }
+
+  /* Year timeline mini-cards */
+  .year-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .year-card {
+    background: rgba(11,10,28,0.6);
+    border: 1px solid rgba(139,130,232,0.2);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+  }
+  .year-card.highlight {
+    background: linear-gradient(135deg, rgba(74,222,128,0.15), rgba(74,222,128,0.05));
+    border-color: rgba(74,222,128,0.45);
+    transform: scale(1.04);
+    box-shadow: 0 8px 20px rgba(74,222,128,0.25);
+  }
+  .year-card-lbl { font-size: 10px; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
+  .year-card-val { font-size: 16px; font-weight: 800; color: var(--txt); font-variant-numeric: tabular-nums; }
+  .year-card.highlight .year-card-val { color: var(--green); }
 
   .calc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .calc-row-lbl { font-size: 12px; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -909,6 +983,54 @@
   .fees-table td:nth-child(2) { font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
   .fees-table td:nth-child(3) { color: var(--txt3); font-size: 13px; }
   .fees-foot { margin-top: 14px; font-size: 12px; color: var(--txt3); line-height: 1.5; padding-top: 14px; border-top: 1px solid rgba(139,130,232,0.15); }
+
+  /* Stagger reveal in incl-list rows */
+  .incl-list .incl-row { opacity: 0; transform: translateX(-12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .visible .incl-list .incl-row { opacity: 1; transform: translateX(0); }
+  .visible .incl-list .incl-row:nth-child(1) { transition-delay: 50ms; }
+  .visible .incl-list .incl-row:nth-child(2) { transition-delay: 130ms; }
+  .visible .incl-list .incl-row:nth-child(3) { transition-delay: 210ms; }
+  .visible .incl-list .incl-row:nth-child(4) { transition-delay: 290ms; }
+  .visible .incl-list .incl-row:nth-child(5) { transition-delay: 370ms; }
+  .visible .incl-list .incl-row:nth-child(6) { transition-delay: 450ms; }
+
+  /* Fees table row stagger */
+  .visible .fees-table tbody tr { opacity: 0; transform: translateY(8px); animation: fadeUp 0.5s ease forwards; }
+  .visible .fees-table tbody tr:nth-child(1) { animation-delay: 80ms; }
+  .visible .fees-table tbody tr:nth-child(2) { animation-delay: 160ms; }
+  .visible .fees-table tbody tr:nth-child(3) { animation-delay: 240ms; }
+  .visible .fees-table tbody tr:nth-child(4) { animation-delay: 320ms; }
+  .visible .fees-table tbody tr:nth-child(5) { animation-delay: 400ms; }
+  .visible .fees-table tbody tr:nth-child(6) { animation-delay: 480ms; }
+  .visible .fees-table tbody tr:nth-child(7) { animation-delay: 560ms; }
+  .visible .fees-table tbody tr:nth-child(8) { animation-delay: 640ms; }
+
+  /* Resp-list items stagger */
+  .resp-list .resp-item { opacity: 0; transform: translateX(-10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .visible .resp-list .resp-item { opacity: 1; transform: translateX(0); }
+  .visible .resp-col-you .resp-item:nth-child(1) { transition-delay: 50ms; }
+  .visible .resp-col-you .resp-item:nth-child(2) { transition-delay: 100ms; }
+  .visible .resp-col-you .resp-item:nth-child(3) { transition-delay: 150ms; }
+  .visible .resp-col-you .resp-item:nth-child(4) { transition-delay: 200ms; }
+  .visible .resp-col-you .resp-item:nth-child(5) { transition-delay: 250ms; }
+  .visible .resp-col-you .resp-item:nth-child(6) { transition-delay: 300ms; }
+  .visible .resp-col-you .resp-item:nth-child(7) { transition-delay: 350ms; }
+  .visible .resp-col-you .resp-item:nth-child(8) { transition-delay: 400ms; }
+  .visible .resp-col-us .resp-item:nth-child(1) { transition-delay: 100ms; }
+  .visible .resp-col-us .resp-item:nth-child(2) { transition-delay: 150ms; }
+  .visible .resp-col-us .resp-item:nth-child(3) { transition-delay: 200ms; }
+  .visible .resp-col-us .resp-item:nth-child(4) { transition-delay: 250ms; }
+  .visible .resp-col-us .resp-item:nth-child(5) { transition-delay: 300ms; }
+  .visible .resp-col-us .resp-item:nth-child(6) { transition-delay: 350ms; }
+  .visible .resp-col-us .resp-item:nth-child(7) { transition-delay: 400ms; }
+  .visible .resp-col-us .resp-item:nth-child(8) { transition-delay: 450ms; }
+  .visible .resp-col-us .resp-item:nth-child(9) { transition-delay: 500ms; }
+  .visible .resp-col-us .resp-item:nth-child(10) { transition-delay: 550ms; }
+  .visible .resp-col-us .resp-item:nth-child(11) { transition-delay: 600ms; }
+  .visible .resp-col-us .resp-item:nth-child(12) { transition-delay: 650ms; }
+
+  /* Sc-card glow on hover */
+  .sc-card:hover .sc-flag { animation: iconBob 0.7s ease; }
 
   /* ───── RESPONSIBILITY MATRIX ───── */
   .resp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 22px; overflow: hidden; border: 1px solid rgba(139,130,232,0.22); backdrop-filter: blur(16px); }
@@ -1403,30 +1525,63 @@
       <div>
         <div class="calc-result">
           <div class="calc-result-hero">
-            <div class="calc-result-hero-lbl" id="cr-hero-l">You save / year</div>
+            <div class="calc-result-hero-lbl" id="cr-hero-l">Your annual savings</div>
             <div class="calc-result-hero-val" id="cv-save">— zł</div>
-            <div class="calc-result-hero-sub"><span id="cv-savePct">—</span>% <span id="cr-vs">vs paying retail per case</span></div>
+            <div class="calc-result-hero-sub"><b><span id="cv-savePct">—</span>%</b> <span id="cr-vs">cheaper than paying retail per case</span></div>
           </div>
 
+          <!-- Tier badge with progress to next -->
+          <div>
+            <div class="tier-badge">
+              <div class="tier-badge-l" id="cr-tier-l">Volume tier · <b id="cv-tier-name">5+ apps</b></div>
+              <div class="tier-badge-pct"><span id="cv-tier-pct">10</span>%</div>
+            </div>
+            <div class="tier-progress"><div class="tier-progress-fill" id="tier-fill" style="width:20%;"></div></div>
+            <div class="tier-next" id="cv-tier-next">Add 5 more cases for 15% tier →</div>
+          </div>
+
+          <!-- Year timeline -->
+          <div class="year-grid">
+            <div class="year-card" id="yc-1">
+              <div class="year-card-lbl" id="yc1-l">Year 1</div>
+              <div class="year-card-val" id="yc1-v">— zł</div>
+            </div>
+            <div class="year-card" id="yc-2">
+              <div class="year-card-lbl" id="yc2-l">Year 2</div>
+              <div class="year-card-val" id="yc2-v">— zł</div>
+            </div>
+            <div class="year-card highlight" id="yc-3">
+              <div class="year-card-lbl" id="yc3-l">3-yr total</div>
+              <div class="year-card-val" id="yc3-v">— zł</div>
+            </div>
+          </div>
+
+          <!-- Bar chart -->
           <div class="chart-bars">
             <div class="chart-row">
-              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-retail">Retail (year)</span><span class="chart-row-val calc-strike" id="cv-retail">— zł</span></div>
+              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-retail">Retail (annual)</span><span class="chart-row-val calc-strike" id="cv-retail">— zł</span></div>
               <div class="chart-bar"><div class="chart-bar-fill retail" id="bar-retail" style="width:100%;"></div></div>
             </div>
             <div class="chart-row">
-              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-b2b">B2B contract (year)</span><span class="chart-row-val" id="cv-b2b">— zł</span></div>
+              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-b2b">B2B contract (annual)</span><span class="chart-row-val" id="cv-b2b">— zł</span></div>
               <div class="chart-bar"><div class="chart-bar-fill b2b" id="bar-b2b" style="width:65%;"></div></div>
-            </div>
-            <div class="chart-row" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(139,130,232,0.15);">
-              <div class="chart-row-h"><span class="chart-row-lbl" id="cr-bar-3y">3-year cumulative savings</span><span class="chart-row-val" id="cv-3y" style="color:var(--green)">— zł</span></div>
-              <div class="chart-bar"><div class="chart-bar-fill b2b" id="bar-3y" style="width:90%;"></div></div>
             </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:12px;padding-top:18px;border-top:1px solid rgba(139,130,232,0.15);">
-            <div class="calc-row"><span class="calc-row-lbl" id="cr-perEmp">Per employee</span><span class="calc-row-val" id="cv-perEmp">— zł</span></div>
-            <div class="calc-row"><span class="calc-row-lbl" id="cr-disc">Volume discount</span><span class="calc-row-val" id="cv-disc">—%</span></div>
-            <div class="calc-row"><span class="calc-row-lbl" id="cr-time">Avg time per case</span><span class="calc-row-val" id="cv-time">— days</span></div>
+          <!-- Compact per-emp + time -->
+          <div style="display:flex;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid rgba(139,130,232,0.15);">
+            <div style="text-align:center;flex:1;">
+              <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.8px;font-weight:700;margin-bottom:4px;" id="cr-perEmp">Per employee</div>
+              <div style="font-size:18px;font-weight:800;color:var(--p100);font-variant-numeric:tabular-nums;" id="cv-perEmp">— zł</div>
+            </div>
+            <div style="text-align:center;flex:1;border-left:1px solid rgba(139,130,232,0.15);border-right:1px solid rgba(139,130,232,0.15);">
+              <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.8px;font-weight:700;margin-bottom:4px;" id="cr-disc">Total discount</div>
+              <div style="font-size:18px;font-weight:800;color:var(--p100);font-variant-numeric:tabular-nums;" id="cv-disc">—%</div>
+            </div>
+            <div style="text-align:center;flex:1;">
+              <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:0.8px;font-weight:700;margin-bottom:4px;" id="cr-time">Avg time</div>
+              <div style="font-size:18px;font-weight:800;color:var(--p100);font-variant-numeric:tabular-nums;" id="cv-time">— days</div>
+            </div>
           </div>
 
           <div class="calc-incl" id="incl-pills">
@@ -1434,9 +1589,10 @@
             <span class="calc-incl-pill">✓ Dashboard</span>
             <span class="calc-incl-pill">✓ Lawyer monthly Q&amp;A</span>
             <span class="calc-incl-pill">✓ Renewal reminders</span>
+            <span class="calc-incl-pill">✓ Compliance audit</span>
           </div>
 
-          <a href="#contact" class="cta-primary" style="margin-top:8px;justify-content:center;text-align:center;width:100%;"><span id="cta2">Lock this rate</span> →</a>
+          <a href="#contact" class="cta-primary" style="margin-top:4px;justify-content:center;text-align:center;width:100%;"><span id="cta2">Lock this rate</span> →</a>
           <p class="calc-note" id="calc-note">⚠️ <b>Pricing examples</b> — base rates here are illustrative. Final B2B rate is tailored to your exact volume, services and timeline after a discovery call. The discount tiers and structure shown here reflect our actual model.</p>
         </div>
       </div>
@@ -1835,6 +1991,26 @@
     requestAnimationFrame(step);
   }
 
+  // Tier helper
+  function tierInfo(n) {
+    var tiers = [
+      { min: 100, name: '100+ cases', pct: 35 },
+      { min: 50, name: '50+ cases', pct: 30 },
+      { min: 20, name: '20+ cases', pct: 25 },
+      { min: 10, name: '10+ cases', pct: 15 },
+      { min: 5, name: '5+ cases', pct: 10 },
+      { min: 0, name: 'Below tier', pct: 0 },
+    ];
+    for (var i = 0; i < tiers.length; i++) {
+      if (n >= tiers[i].min) {
+        var next = tiers[i-1] || null;
+        var prog = next ? Math.min(100, ((n - tiers[i].min) / (next.min - tiers[i].min)) * 100) : 100;
+        return { current: tiers[i], next: next, progress: prog, toNext: next ? next.min - n : 0 };
+      }
+    }
+    return { current: tiers[tiers.length-1], next: tiers[tiers.length-2], progress: 0, toNext: 5 - n };
+  }
+
   function recalc(){
     var unit = BASE[state.svc] * URG_MULT[state.urg] * DOC_MULT[state.doc];
     if (state.trans) unit *= (1 + TRANS_FACTOR);
@@ -1846,18 +2022,18 @@
     var familyCases = state.emp * state.fam * unit * FAMILY_FACTOR;
 
     var retail = employeeCases + familyCases;
-    if (state.audit) retail += AUDIT_PRICE * 1.5;  // retail audit costs more
+    if (state.audit) retail += AUDIT_PRICE * 1.5;
 
-    var disc = discount(state.emp + state.emp * state.fam);
+    var totalCases = state.emp + state.emp * state.fam;
+    var disc = discount(totalCases);
     var termDisc = TERM_DISC[state.term];
     var b2b = retail * (1 - disc) * (1 - termDisc);
-    if (state.audit) b2b += AUDIT_PRICE;  // explicitly add audit at B2B price
+    if (state.audit) b2b += AUDIT_PRICE;
 
     var save = retail - b2b;
     var savePct = retail > 0 ? Math.round((save / retail) * 100) : 0;
     var perEmp = state.emp > 0 ? b2b / state.emp : 0;
     var time = Math.round(TIME_BASE[state.svc] * (state.urg === 'express' ? 0.6 : state.urg === 'critical' ? 0.4 : 1));
-    var threeY = save * 3;
 
     document.getElementById('cv-emp').textContent = state.emp + (state.emp >= 200 ? '+' : '');
     document.getElementById('cv-fam').textContent = state.fam.toFixed(1).replace('.0','');
@@ -1867,16 +2043,33 @@
     document.getElementById('cv-savePct').textContent = savePct;
     smoothFmt('cv-retail', retail, fmt);
     smoothFmt('cv-b2b', b2b, fmt);
-    smoothFmt('cv-3y', threeY, fmt);
     smoothFmt('cv-perEmp', perEmp, fmt);
     document.getElementById('cv-disc').textContent = ((disc + termDisc) * 100).toFixed(0) + '%';
     document.getElementById('cv-time').textContent = time + ' days';
+
+    // Tier badge
+    var ti = tierInfo(totalCases);
+    document.getElementById('cv-tier-name').textContent = ti.current.name;
+    document.getElementById('cv-tier-pct').textContent = ti.current.pct;
+    document.getElementById('tier-fill').style.width = (ti.next ? ti.progress : 100) + '%';
+    var nextEl = document.getElementById('cv-tier-next');
+    if (ti.next && ti.toNext > 0) {
+      nextEl.textContent = 'Add ' + Math.ceil(ti.toNext) + ' more case' + (Math.ceil(ti.toNext) > 1 ? 's' : '') + ' for ' + ti.next.pct + '% tier →';
+      nextEl.style.color = 'var(--txt3)';
+    } else {
+      nextEl.textContent = '🏆 Top tier reached — maximum discount unlocked';
+      nextEl.style.color = 'var(--gold)';
+    }
+
+    // Year cards
+    smoothFmt('yc1-v', save, fmt);
+    smoothFmt('yc2-v', save * 2, fmt);
+    smoothFmt('yc3-v', save * 3, fmt);
 
     // chart bars
     var maxVal = Math.max(retail, b2b);
     document.getElementById('bar-retail').style.width = '100%';
     document.getElementById('bar-b2b').style.width = (maxVal > 0 ? (b2b / maxVal * 100) : 0) + '%';
-    document.getElementById('bar-3y').style.width = '100%';
   }
 
   // wire sliders
