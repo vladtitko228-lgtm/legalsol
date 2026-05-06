@@ -1,33 +1,85 @@
 {
-    "redirects": [
-        { "source": "/blog/mos-online-karta-pobytu-2026-en",            "destination": "/blog/mos-online-submission-en",             "permanent": true },
-        { "source": "/blog/mos-online-karta-pobytu-2026",               "destination": "/blog/mos-online-submission",                "permanent": true },
-        { "source": "/blog/how-to-open-bank-account-poland-foreigner-ru", "destination": "/blog/how-to-open-bank-account-poland-foreigner", "permanent": true }
-    ],
-    "rewrites": [
-          { "source": "/blog/:slug", "destination": "/api/blog/:slug" },
-          { "source": "/blog", "destination": "/api/blog-listing" },
-          { "source": "/sitemap.xml", "destination": "/api/sitemap" },
-          { "source": "/privacy", "destination": "/privacy.html" },
-          { "source": "/terms", "destination": "/terms.html" }
-    ],
-    "headers": [
-          {
-                  "source": "/(.*)",
-                  "headers": [
-                            { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-                            { "key": "X-Content-Type-Options", "value": "nosniff" },
-                            { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-                            { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-                  ]
-          },
-          {
-                  "source": "/api/(.*)",
-                  "headers": [
-                            { "key": "X-Content-Type-Options", "value": "nosniff" },
-                            { "key": "X-Frame-Options", "value": "DENY" }
-                  ]
-          }
-    ]
+  "redirects": [
+    {
+      "source": "/blog/mos-online-karta-pobytu-2026-en",
+      "destination": "/blog/mos-online-submission-en",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mos-online-karta-pobytu-2026",
+      "destination": "/blog/mos-online-submission",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-open-bank-account-poland-foreigner-ru",
+      "destination": "/blog/how-to-open-bank-account-poland-foreigner",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/blog/:slug",
+      "destination": "/api/blog/:slug"
+    },
+    {
+      "source": "/blog",
+      "destination": "/api/blog-listing"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/business",
+      "destination": "/business.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    }
+  ]
 }
