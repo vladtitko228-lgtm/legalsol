@@ -233,6 +233,49 @@
     50% { opacity: 1; transform: rotate(8deg) translateX(30px); }
   }
 
+  /* ───── PARTICLE NETWORK CANVAS ───── */
+  #particle-net {
+    position: fixed; inset: 0; pointer-events: none;
+    z-index: -1; opacity: 0.65;
+  }
+
+  /* ───── WARSAW SKYLINE (bottom decoration) ───── */
+  .skyline {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 220px; pointer-events: none;
+    z-index: -1; opacity: 0.55;
+    background: linear-gradient(180deg, transparent 0%, transparent 30%, rgba(11,10,28,0.55) 75%, rgba(11,10,28,0.85) 100%);
+  }
+  .skyline svg {
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: max(1400px, 100%);
+    height: 220px;
+    filter: drop-shadow(0 -4px 24px rgba(124,92,252,0.5));
+  }
+  /* tiny window lights blink */
+  .sky-window { fill: rgba(255,225,128,0.85); }
+  .sky-blink-1 { animation: blink 4s ease-in-out infinite; }
+  .sky-blink-2 { animation: blink 6s ease-in-out infinite -2s; }
+  .sky-blink-3 { animation: blink 5s ease-in-out infinite -3s; }
+  @keyframes blink { 0%, 100% { opacity: 0.85; } 50% { opacity: 0.2; } }
+
+  /* ───── CONFETTI (form submit celebration) ───── */
+  .confetti-host {
+    position: fixed; inset: 0; pointer-events: none;
+    z-index: 9999;
+  }
+  .confetti-piece {
+    position: absolute; top: -20px;
+    width: 12px; height: 12px;
+    animation: confettiFall var(--dur, 3s) ease-in forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) translateX(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(var(--drift, 50px)) rotate(720deg); opacity: 0; }
+  }
+
   /* Scroll progress bar at top */
   #scroll-progress {
     position: fixed; top: 0; left: 0; height: 3px; width: 0%;
@@ -899,12 +942,93 @@
 <!-- Scroll progress bar -->
 <div id="scroll-progress"></div>
 
+<!-- Particle network -->
+<canvas id="particle-net"></canvas>
+
 <!-- Animated grid -->
 <div class="bg-grid"></div>
 
 <!-- Light beams -->
 <div class="bg-beam bg-beam-1"></div>
 <div class="bg-beam bg-beam-2"></div>
+
+<!-- Warsaw skyline silhouette -->
+<div class="skyline" aria-hidden="true">
+  <svg viewBox="0 0 1400 220" preserveAspectRatio="xMidYEnd slice">
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(45,40,105,0.4)"/>
+        <stop offset="100%" stop-color="rgba(11,10,28,0.95)"/>
+      </linearGradient>
+    </defs>
+    <!-- background buildings (smaller, lighter) -->
+    <g fill="rgba(91,82,204,0.22)">
+      <rect x="40" y="120" width="60" height="100"/>
+      <rect x="110" y="100" width="50" height="120"/>
+      <rect x="170" y="130" width="80" height="90"/>
+      <rect x="260" y="80" width="40" height="140"/>
+      <rect x="310" y="110" width="70" height="110"/>
+      <rect x="900" y="120" width="50" height="100"/>
+      <rect x="960" y="90" width="80" height="130"/>
+      <rect x="1050" y="115" width="45" height="105"/>
+      <rect x="1100" y="100" width="60" height="120"/>
+      <rect x="1170" y="125" width="55" height="95"/>
+      <rect x="1240" y="105" width="70" height="115"/>
+      <rect x="1320" y="130" width="50" height="90"/>
+    </g>
+    <!-- foreground buildings (darker, sharper) -->
+    <g fill="url(#skyGrad)">
+      <rect x="0" y="150" width="80" height="70"/>
+      <rect x="80" y="135" width="55" height="85"/>
+      <rect x="135" y="115" width="65" height="105"/>
+      <rect x="200" y="125" width="50" height="95"/>
+      <rect x="250" y="100" width="60" height="120"/>
+      <!-- Palace of Culture (centerpiece) -->
+      <polygon points="380,220 380,90 405,75 420,30 435,75 460,90 460,220"/>
+      <rect x="420" y="0" width="2" height="35"/>
+      <circle cx="421" cy="0" r="3" fill="#FF6B35"/>
+      <!-- more buildings -->
+      <rect x="475" y="120" width="55" height="100"/>
+      <rect x="530" y="100" width="70" height="120"/>
+      <rect x="600" y="130" width="50" height="90"/>
+      <rect x="650" y="115" width="80" height="105"/>
+      <rect x="730" y="95" width="60" height="125"/>
+      <rect x="790" y="125" width="55" height="95"/>
+      <rect x="845" y="110" width="70" height="110"/>
+      <rect x="915" y="135" width="50" height="85"/>
+      <rect x="965" y="120" width="65" height="100"/>
+      <rect x="1030" y="100" width="55" height="120"/>
+      <rect x="1085" y="130" width="60" height="90"/>
+      <rect x="1145" y="115" width="75" height="105"/>
+      <rect x="1220" y="105" width="50" height="115"/>
+      <rect x="1270" y="125" width="65" height="95"/>
+      <rect x="1335" y="115" width="65" height="105"/>
+    </g>
+    <!-- window lights (yellow, blinking) -->
+    <g class="sky-windows">
+      <rect class="sky-window sky-blink-1" x="155" y="135" width="3" height="3"/>
+      <rect class="sky-window sky-blink-2" x="170" y="155" width="3" height="3"/>
+      <rect class="sky-window" x="270" y="115" width="3" height="3"/>
+      <rect class="sky-window sky-blink-3" x="290" y="145" width="3" height="3"/>
+      <rect class="sky-window" x="395" y="120" width="3" height="3"/>
+      <rect class="sky-window sky-blink-1" x="425" y="100" width="3" height="3"/>
+      <rect class="sky-window" x="440" y="135" width="3" height="3"/>
+      <rect class="sky-window sky-blink-2" x="490" y="140" width="3" height="3"/>
+      <rect class="sky-window" x="555" y="125" width="3" height="3"/>
+      <rect class="sky-window sky-blink-3" x="660" y="140" width="3" height="3"/>
+      <rect class="sky-window" x="745" y="115" width="3" height="3"/>
+      <rect class="sky-window sky-blink-1" x="755" y="145" width="3" height="3"/>
+      <rect class="sky-window" x="870" y="135" width="3" height="3"/>
+      <rect class="sky-window sky-blink-2" x="980" y="140" width="3" height="3"/>
+      <rect class="sky-window" x="1045" y="125" width="3" height="3"/>
+      <rect class="sky-window sky-blink-3" x="1100" y="155" width="3" height="3"/>
+      <rect class="sky-window" x="1170" y="135" width="3" height="3"/>
+      <rect class="sky-window sky-blink-1" x="1240" y="125" width="3" height="3"/>
+      <rect class="sky-window" x="1290" y="145" width="3" height="3"/>
+      <rect class="sky-window sky-blink-2" x="1360" y="135" width="3" height="3"/>
+    </g>
+  </svg>
+</div>
 
 <!-- Floating ambient orbs -->
 <div class="orb orb-1"></div>
@@ -1585,7 +1709,10 @@
       }).catch(function(){});
     } catch(_) {}
 
-    // 2. Also open WhatsApp with formatted message
+    // 2. Confetti celebration!
+    fireConfetti();
+
+    // 3. Open WhatsApp after a brief moment (so user sees confetti)
     var msg = 'B2B INQUIRY\n\n'
       + 'Name: ' + f.name + '\n'
       + 'Company: ' + f.company + '\n'
@@ -1595,8 +1722,112 @@
       + 'Calculator: ' + calcState + '\n\n';
     if (f.notes) msg += 'Notes:\n' + f.notes + '\n\n';
     msg += 'Please send a tailored proposal.';
-    window.open('https://wa.me/48735248525?text=' + encodeURIComponent(msg), '_blank');
+    setTimeout(function(){
+      window.open('https://wa.me/48735248525?text=' + encodeURIComponent(msg), '_blank');
+    }, 800);
   };
+
+  // ───── CONFETTI ─────
+  function fireConfetti() {
+    var host = document.createElement('div');
+    host.className = 'confetti-host';
+    document.body.appendChild(host);
+    var colors = ['#7C5CFC', '#9978ff', '#FF6B35', '#fde047', '#4ade80', '#B8B2F5', '#DC143C', '#fff'];
+    var shapes = ['rect', 'circle', 'star'];
+    for (var i = 0; i < 80; i++) {
+      var p = document.createElement('div');
+      p.className = 'confetti-piece';
+      var color = colors[i % colors.length];
+      var shape = shapes[i % shapes.length];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.background = color;
+      p.style.setProperty('--dur', (2.5 + Math.random() * 2) + 's');
+      p.style.setProperty('--delay', (Math.random() * 0.4) + 's');
+      p.style.setProperty('--drift', (Math.random() * 200 - 100) + 'px');
+      if (shape === 'circle') p.style.borderRadius = '50%';
+      else if (shape === 'star') {
+        p.style.background = 'transparent';
+        p.style.color = color;
+        p.innerHTML = '✦';
+        p.style.fontSize = '16px';
+        p.style.lineHeight = '1';
+        p.style.width = 'auto'; p.style.height = 'auto';
+      } else {
+        p.style.borderRadius = '2px';
+      }
+      host.appendChild(p);
+    }
+    setTimeout(function(){ host.remove(); }, 5000);
+  }
+  // expose for testing
+  window._fireConfetti = fireConfetti;
+
+  // ───── PARTICLE NETWORK CANVAS ─────
+  (function initParticles(){
+    var canvas = document.getElementById('particle-net');
+    if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ctx = canvas.getContext('2d');
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H, particles;
+    var COUNT = window.innerWidth < 768 ? 30 : 60;
+    var MAX_DIST = 140;
+
+    function resize(){
+      W = canvas.width = window.innerWidth * DPR;
+      H = canvas.height = window.innerHeight * DPR;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+    }
+    function spawn(){
+      particles = [];
+      for (var i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.5 * DPR,
+          vy: (Math.random() - 0.5) * 0.5 * DPR,
+          r: (1.5 + Math.random() * 1.5) * DPR,
+          c: ['rgba(184,178,245,', 'rgba(255,107,53,', 'rgba(74,222,128,'][Math.floor(Math.random() * 3)]
+        });
+      }
+    }
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      // draw lines
+      var maxD = MAX_DIST * DPR;
+      for (var i = 0; i < particles.length; i++) {
+        var a = particles[i];
+        for (var j = i + 1; j < particles.length; j++) {
+          var b = particles[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var d = Math.sqrt(dx*dx + dy*dy);
+          if (d < maxD) {
+            var alpha = (1 - d / maxD) * 0.3;
+            ctx.strokeStyle = 'rgba(139,130,232,' + alpha + ')';
+            ctx.lineWidth = 1 * DPR;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // draw dots
+      for (var k = 0; k < particles.length; k++) {
+        var p = particles[k];
+        ctx.fillStyle = p.c + '0.7)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        // update position
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+      }
+      requestAnimationFrame(draw);
+    }
+    resize(); spawn(); draw();
+    window.addEventListener('resize', function(){ resize(); spawn(); }, { passive: true });
+  })();
 
   // ───── Scroll progress bar + Header scrolled state + Hero parallax ─────
   var hiStage = document.querySelector('.hi-stage');
