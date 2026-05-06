@@ -27,11 +27,13 @@
     --glow: 0 0 40px rgba(124,92,252,0.35);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif; line-height: 1.55; overflow-x: hidden; scroll-behavior: smooth; }
+  html { background: var(--bg); }
+  html, body { color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif; line-height: 1.55; overflow-x: hidden; scroll-behavior: smooth; }
+  body { background: transparent; position: relative; }
 
   /* ───── ANIMATED MESH BACKGROUND ───── */
   body::before {
-    content: ''; position: fixed; inset: 0; z-index: -2;
+    content: ''; position: fixed; inset: 0; z-index: 0;
     background:
       radial-gradient(circle at 12% 8%, rgba(124,92,252,0.42), transparent 50%),
       radial-gradient(circle at 88% 22%, rgba(255,107,53,0.22), transparent 55%),
@@ -41,7 +43,7 @@
     animation: meshDrift 25s ease-in-out infinite;
   }
   body::after {
-    content: ''; position: fixed; inset: 0; z-index: -1;
+    content: ''; position: fixed; inset: 0; z-index: 0;
     background-image:
       radial-gradient(circle, rgba(139,130,232,0.08) 1px, transparent 1.2px);
     background-size: 28px 28px;
@@ -57,6 +59,9 @@
 
   a { color: var(--p200); text-decoration: none; transition: color 0.2s ease; }
   a:hover { color: var(--p100); }
+
+  /* All sections above bg layer */
+  header, .hero, .section, .trust-strip, footer { position: relative; z-index: 1; }
 
   /* ───── HEADER ───── */
   header {
@@ -135,7 +140,7 @@
   /* Ambient orbs (background floating gradients) */
   .orb {
     position: fixed; border-radius: 50%; filter: blur(60px);
-    pointer-events: none; z-index: -1; opacity: 0.55;
+    pointer-events: none; z-index: 0; opacity: 0.55;
     animation: orbFloat 20s ease-in-out infinite;
   }
   .orb-1 { width: 360px; height: 360px; background: radial-gradient(circle, rgba(124,92,252,0.35), transparent 70%); top: 8%; left: -100px; animation-delay: 0s; }
@@ -145,7 +150,7 @@
   /* ───── BACKGROUND: FLOATING DOCUMENTS ───── */
   .bg-docs {
     position: fixed; inset: 0; pointer-events: none;
-    z-index: -1; overflow: hidden;
+    z-index: 0; overflow: hidden;
   }
   .bg-doc {
     position: absolute; opacity: 0.14;
@@ -184,7 +189,7 @@
   /* ───── ACCENT FLOATING DOTS (Polish flag colors) ───── */
   .bg-dot {
     position: fixed; width: 6px; height: 6px; border-radius: 50%;
-    pointer-events: none; z-index: -1;
+    pointer-events: none; z-index: 0;
     animation: dotFloat 15s ease-in-out infinite;
     box-shadow: 0 0 20px currentColor;
   }
@@ -218,7 +223,7 @@
   /* ───── LIGHT BEAMS (vertical streaks) ───── */
   .bg-beam {
     position: fixed; top: -20%; width: 180px; height: 140vh;
-    pointer-events: none; z-index: -1;
+    pointer-events: none; z-index: 0;
     background: linear-gradient(180deg, transparent 0%, rgba(124,92,252,0.10) 30%, rgba(124,92,252,0.18) 50%, rgba(124,92,252,0.10) 70%, transparent 100%);
     filter: blur(20px);
     transform: rotate(8deg);
