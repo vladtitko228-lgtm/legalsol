@@ -15,6 +15,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="Volume discounts up to 35% · dedicated manager · corporate dashboard · priority processing. We legalize foreign workforce for Polish businesses — Karta Pobytu, Blue Card, work permits. 3000+ cases · 98% approval."/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="canonical" href="https://www.legalsol.pl/business"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Legal Solutions for Business — Bulk Immigration in Poland"/>
 <meta property="og:description" content="Volume discounts up to 35%, dedicated manager, corporate dashboard."/>
@@ -87,10 +90,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .logo:hover svg rect:nth-child(2) { animation: bounceIn 0.5s ease 0.05s; }
   .logo:hover svg rect:nth-child(3) { animation: bounceIn 0.5s ease 0.1s; }
   .logo:hover svg rect:nth-child(4) { animation: bounceIn 0.5s ease 0.15s; }
-  .logo { font-weight: 700; font-size: 17px; color: var(--txt); display: flex; align-items: center; gap: 12px; }
+  .logo { color: var(--txt); display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
   .logo svg { width: 32px; height: 28px; }
-  .logo b { font-weight: 800; }
-  .logo span { font-weight: 500; opacity: 0.85; }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; color: #fff; line-height: 1; }
+  .logo-sub { font-size: 8px; letter-spacing: 3px; color: var(--p400); margin-top: 4px; line-height: 1; }
+  @media (max-width: 600px) {
+    .logo-name { font-size: 14px; letter-spacing: 1.5px; }
+    .logo-sub { font-size: 7px; letter-spacing: 2px; }
+  }
+  /* Logo SVG animation (matches main site) */
+  .logo svg rect { transform-origin: center bottom; }
+  @keyframes logoColIn { 0% { transform: translateY(-25px) scaleY(0.3); opacity: 0; } 55% { transform: translateY(0) scaleY(1.15); opacity: 1; } 100% { transform: translateY(0) scaleY(1); opacity: 1; } }
+  @keyframes logoBarIn { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+  .logo svg rect:nth-child(1) { animation: logoColIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.15s both; }
+  .logo svg rect:nth-child(2) { animation: logoColIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.25s both; }
+  .logo svg rect:nth-child(3) { animation: logoColIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.35s both; }
+  .logo svg rect:nth-child(4) { animation: logoColIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.45s both; }
+  .logo svg rect:nth-child(5) { transform-origin: left center; animation: logoBarIn 0.5s ease 0.6s both; }
+  .logo svg rect:nth-child(6) { transform-origin: left center; animation: logoBarIn 0.5s ease 0.7s both; }
+  @keyframes logoHoverBounce { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-3px) scaleY(1.05); } }
+  .logo:hover svg rect:nth-child(1) { animation: logoHoverBounce 0.45s cubic-bezier(0.4,0,0.2,1) 0s; }
+  .logo:hover svg rect:nth-child(2) { animation: logoHoverBounce 0.45s cubic-bezier(0.4,0,0.2,1) 0.06s; }
+  .logo:hover svg rect:nth-child(3) { animation: logoHoverBounce 0.45s cubic-bezier(0.4,0,0.2,1) 0.12s; }
+  .logo:hover svg rect:nth-child(4) { animation: logoHoverBounce 0.45s cubic-bezier(0.4,0,0.2,1) 0.18s; }
   .header-right { display: flex; gap: 14px; align-items: center; }
   .nav-back { font-size: 14px; color: var(--txt2); padding: 9px 14px; border-radius: 10px; transition: all 0.2s ease; }
   .nav-back:hover { background: rgba(139,130,232,0.1); color: var(--txt); }
@@ -1284,6 +1306,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .ldp-btn:hover .ldp-name { opacity: 1; }
   .ldp-btn:hover .ldp-flag { animation: flagWave 0.5s ease-in-out; }
   @keyframes flagWave { 0%, 100% { transform: skewX(0); } 25% { transform: skewX(-3deg); } 75% { transform: skewX(3deg); } }
+
+  /* MOBILE: bottom sheet (slides up from bottom) */
+  @media (max-width: 700px) {
+    .lang-dd-panel {
+      position: fixed !important;
+      top: auto !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 0 !important;
+      border-radius: 24px 24px 0 0 !important;
+      padding: 22px 18px 32px !important;
+      gap: 4px !important;
+      background: rgba(11,10,28,0.98) !important;
+      box-shadow: 0 -24px 60px rgba(0,0,0,0.7) !important;
+      transform: translateY(100%);
+      display: flex !important;
+      visibility: hidden;
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.32s;
+      animation: none !important;
+    }
+    .lang-dd.open .lang-dd-panel {
+      transform: translateY(0);
+      visibility: visible;
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s;
+    }
+    .lang-dd-panel::before {
+      content: '';
+      display: block;
+      width: 38px; height: 4px; border-radius: 2px;
+      background: rgba(139,130,232,0.4);
+      margin: 0 auto 14px;
+    }
+    .ldp-btn {
+      padding: 14px 16px !important;
+      gap: 14px !important;
+      font-size: 14px;
+    }
+    .ldp-flag { width: 28px; height: 19px; }
+    .ldp-code { font-size: 14px; min-width: 28px; }
+    .ldp-name { font-size: 14px; }
+    /* backdrop */
+    .lang-dd.open::before {
+      content: ''; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9998;
+      animation: fadeIn 0.25s ease;
+    }
+  }
   /* Hide all content during language change — eliminates visible layout shift */
   body.lang-swap .hero,
   body.lang-swap .section,
@@ -1464,7 +1537,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <header>
   <a href="/" class="logo">
     <svg width="32" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
-    <span><b>Legal</b> Solutions</span>
+    <div><div class="logo-name">LEGAL SOLUTIONS</div><div class="logo-sub">B2B · BUSINESS</div></div>
   </a>
   <div class="header-right">
     <div class="lang-dd" id="lang-dd">
