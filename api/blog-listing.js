@@ -552,13 +552,32 @@ module.exports = async function handler(req, res) {
       };
     });
 
-    // Show only EN posts in the public feed
-    const filtered = articles.filter(a => a.language === "EN");
+    // Determine language preference: query ?lang=ru → return RU posts, else EN
+    const reqLang = (req.query && req.query.lang) ? String(req.query.lang).toUpperCase() : "EN";
+    const wantLang = (reqLang === "RU") ? "RU" : "EN";
+    const filtered = articles.filter(a => a.language === wantLang);
 
     // Aggressive edge caching: 10 min fresh, then serve stale up to 24h while revalidating in background
     res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
     res.setHeader("CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
     res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+
+    // JSON mode: ?format=json — used by homepage blog cards to render fresh data
+    if (req.query && req.query.format === "json") {
+      const limit = Math.min(50, parseInt(req.query.limit, 10) || 12);
+      const slim = filtered.slice(0, limit).map(a => ({
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        seoDescription: a.seoDescription,
+        coverImage: a.coverImage,
+        publishedDate: a.publishedDate,
+      }));
+      res.setHeader("Content-Type", "application/json; charset=utf-8");
+      res.status(200).send(JSON.stringify({ articles: slim, lang: wantLang }));
+      return;
+    }
+
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(filtered));
 
