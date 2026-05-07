@@ -49,7 +49,16 @@ function loadClarity(){
 
 <link rel="canonical" href="https://www.legalsol.pl/"/>
 
-<!-- hreflang removed 2026-04-24 — all 5 tags pointed to the same URL (invalid). Will be re-added with real language routes. -->
+<!-- hreflang: 8 language variants via ?lang= query param. Bootstrap reads URL on load and triggers setLang(). -->
+<link rel="alternate" hreflang="en" href="https://www.legalsol.pl/?lang=en"/>
+<link rel="alternate" hreflang="ru" href="https://www.legalsol.pl/?lang=ru"/>
+<link rel="alternate" hreflang="uk" href="https://www.legalsol.pl/?lang=uk"/>
+<link rel="alternate" hreflang="pl" href="https://www.legalsol.pl/?lang=pl"/>
+<link rel="alternate" hreflang="es" href="https://www.legalsol.pl/?lang=es"/>
+<link rel="alternate" hreflang="tr" href="https://www.legalsol.pl/?lang=tr"/>
+<link rel="alternate" hreflang="az" href="https://www.legalsol.pl/?lang=az"/>
+<link rel="alternate" hreflang="hi" href="https://www.legalsol.pl/?lang=hi"/>
+<link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/"/>
 
 <!-- Open Graph -->
 
@@ -22271,8 +22280,17 @@ function _doInit(){
 
   _initFlags();
 
-  var _sl=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
   var _allLangs=['en','ru','uk','pl','es','tr','az','hi'];
+  // ?lang=xx in URL takes priority (for hreflang SEO + share links)
+  var _urlLang=null;
+  try{
+    var _qm=window.location.search.match(/[?&]lang=([a-z]{2})\b/i);
+    if(_qm&&_allLangs.indexOf(_qm[1].toLowerCase())!==-1){
+      _urlLang=_qm[1].toLowerCase();
+      try{localStorage.setItem('ls-lang',_urlLang);}catch(e){}
+    }
+  }catch(e){}
+  var _sl=_urlLang||(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
   setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
 
   // Preloader: first visit = percentage, repeat = docs animation
