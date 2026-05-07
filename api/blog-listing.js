@@ -555,7 +555,10 @@ module.exports = async function handler(req, res) {
     // Show only EN posts in the public feed
     const filtered = articles.filter(a => a.language === "EN");
 
-    res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=120");
+    // Aggressive edge caching: 10 min fresh, then serve stale up to 24h while revalidating in background
+    res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+    res.setHeader("CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(filtered));
 

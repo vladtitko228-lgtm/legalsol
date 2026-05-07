@@ -1713,7 +1713,10 @@ module.exports = async function handler(req, res) {
 
 
 
-    res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate=3600");
+    // Aggressive edge caching: 30 min fresh, then serve stale up to 24h
+    res.setHeader("Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
+    res.setHeader("CDN-Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
+    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
 
