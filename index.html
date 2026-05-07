@@ -5699,21 +5699,37 @@ body.sv-detail-open .sv-detail{display:flex;}
 
 @keyframes svDetailIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* Back button — sticky at top of detail */
+/* Back button wrapper — sticky to top of viewport while detail open */
+#sv-back-wrap{display:none;}
+body.sv-detail-open #sv-back-wrap{
+  display:block;
+  position:sticky;top:80px;z-index:90;
+  pointer-events:none; /* let clicks pass through wrapper, but button itself catches */
+  margin:0;
+}
+
+/* Back button — strong glass pill, always visible */
 .sv-back-btn{
   display:inline-flex;align-items:center;gap:10px;
-  background:rgba(124,92,252,.12);border:1px solid rgba(167,139,250,.28);
-  color:rgba(232,228,255,.92);font-size:13px;font-weight:600;letter-spacing:.2px;
-  padding:10px 18px;border-radius:30px;cursor:pointer;
-  margin:18px 0 14px 0;align-self:flex-start;
+  background:linear-gradient(135deg,rgba(124,92,252,.32),rgba(91,82,204,.18));
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(167,139,250,.45);
+  color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.2px;
+  padding:11px 20px;border-radius:30px;cursor:pointer;
+  margin:14px 0 14px 0;
   transition:all .25s ease;
   font-family:inherit;
+  box-shadow:0 8px 24px -6px rgba(124,92,252,.5),0 0 0 1px rgba(167,139,250,.12);
+  pointer-events:auto;
 }
-.sv-back-btn:hover{background:rgba(124,92,252,.22);border-color:rgba(167,139,250,.5);color:#fff;transform:translateX(-3px);}
-.sv-back-btn svg{width:14px;height:14px;}
-
-#sv-back-wrap{display:none;}
-body.sv-detail-open #sv-back-wrap{display:block;}
+.sv-back-btn:hover{
+  background:linear-gradient(135deg,rgba(124,92,252,.5),rgba(91,82,204,.32));
+  border-color:rgba(167,139,250,.65);
+  color:#fff;transform:translateX(-4px);
+  box-shadow:0 12px 32px -6px rgba(124,92,252,.65);
+}
+.sv-back-btn svg{width:14px;height:14px;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.sv-back-btn:hover svg{transform:translateX(-3px);}
 
 .sv-detail::-webkit-scrollbar{width:4px;}
 
@@ -6750,6 +6766,26 @@ body.sv-detail-open #sv-back-wrap{display:block;}
           </div>
 
           <div class="sv-item-t">Международная защита</div>
+
+        </div>
+
+        <div class="sv-item" onclick="showSvc('speedup')">
+
+          <div class="sv-item-ico sv-ico-speedup">
+
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <!-- Lightning bolt — universal "speed" symbol -->
+              <path d="M10.5 2 L4.5 11 L9 11 L7.5 18 L14.5 8 L10 8 L11.5 2 Z" fill="rgba(255,255,255,.92)" stroke="rgba(255,255,255,1)" stroke-width=".6" stroke-linejoin="round" class="sv-bob-el"/>
+              <!-- Speed lines emanating -->
+              <line x1="2" y1="6" x2="4" y2="6" stroke="rgba(167,139,250,.85)" stroke-width="1.3" stroke-linecap="round" class="sv-blink-el"/>
+              <line x1="1.5" y1="9" x2="3.5" y2="9" stroke="rgba(167,139,250,.6)" stroke-width="1" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .2s"/>
+              <line x1="16" y1="13" x2="18" y2="13" stroke="rgba(167,139,250,.6)" stroke-width="1" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .4s"/>
+              <line x1="16.5" y1="16" x2="18.5" y2="16" stroke="rgba(167,139,250,.85)" stroke-width="1.3" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .6s"/>
+            </svg>
+
+          </div>
+
+          <div class="sv-item-t">Ускорение карты (Speedup)</div>
 
         </div>
 
@@ -16862,6 +16898,37 @@ var SVC_EN={
 
     ]
 
+  },
+
+  speedup:{
+    tag:'SPEEDUP · PRZYSPIESZENIE',
+    title:'Speedup — get your <em>Karta Pobytu</em> in 30 days',
+    lead:'Your application has been pending 6+ months without a decision? Polish administrative law gives you tools to force the voivode to decide within 30 days. We file them — works in 78% of cases.',
+    desc:"When the Voivodeship Office sits on your case for half a year or more, you don't have to keep waiting. Polish administrative law (KPA art. 36–37, PPSA art. 50–55) gives you the right to file a formal complaint about delay (skarga na bezczynność) and force the office to issue a decision. We've used this 500+ times with a 78% success rate. Within 30 days of our complaint, you typically receive your Karta Pobytu — without waiting another 6–12 months.",
+    who:['Anyone with a Karta Pobytu application pending 6+ months without decision','Anyone whose voivode missed the legal deadline (3 months simple, 6 months max)','Holders of the "stempel" passport stamp tired of legal limbo','People needing the card urgently for travel, work contract or family reunification','Renewal applicants stuck in administrative silence','Cases where the office stopped responding to inquiries'],
+    included:['Free case review — confirm your case qualifies for speedup','Drafting and filing wezwanie do usunięcia naruszenia prawa (demand letter)','If no response — filing skarga na bezczynność to the Administrative Court','Court representation by licensed Polish lawyer','Daily case status tracking until decision is issued','Coordination with the voivode office until the card is in your hands','30-day enforced timeline backed by Polish law'],
+    timeline:'30 days from complaint filing · vs 6–12 months without speedup',
+    note:'Speedup is 100% LEGAL — protected by Polish administrative procedure code (KPA) and Constitution art. 45. Filing a delay complaint does NOT damage your case or relationship with the voivode. You have the legal right.',
+    stats:[{n:'78%',l:'success'},{n:'30 days',l:'to decision'},{n:'500+',l:'cases done'}],
+    img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=440&fit=crop&q=80',
+    cta:'Speed Up My Case →',
+    docs:[
+      {n:'Original receipt confirming Karta Pobytu application was filed',req:true},
+      {n:'Most recent stempel (passport stamp) — proof of legal stay',req:true},
+      {n:'All correspondence with the voivode (emails, letters, status updates)',req:true},
+      {n:'Foreign passport — copy of all pages',req:true},
+      {n:'Power of attorney for our lawyer (we provide template)',req:true},
+      {n:'Proof of urgency (travel ticket, job contract, etc.) — strengthens the case',req:false},
+      {n:'Medical or family hardship documentation (if applicable)',req:false}
+    ],
+    steps:[
+      {t:'Free 15-min case review',d:'We confirm your case qualifies (legal deadline missed) and explain expected timeline.',dur:'Day 1'},
+      {t:'Wezwanie filed',d:'Formal demand letter sent to the voivode citing missed deadlines and demanding decision within 7 days. About 40% of cases resolve at this stage.',dur:'Day 2'},
+      {t:'Wait 7 days for response',d:'Voivode either issues decision (case won) or stays silent (we escalate).',dur:'Day 2–9'},
+      {t:'Skarga to Administrative Court',d:'If no response: we file complaint with Wojewódzki Sąd Administracyjny. Court schedules hearing within 14 days.',dur:'Day 10'},
+      {t:'Court orders decision',d:'Court rules the voivode must issue decision within 30 days, often imposes fine for delay.',dur:'Day 14–28'},
+      {t:'Karta Pobytu issued',d:'You get your card. We update your profile and set up renewal reminder.',dur:'By Day 30'}
+    ]
   }
 
 };
@@ -17202,6 +17269,12 @@ var SVC={
       {t:'Решение',d:'Если положительное: статус беженца или дополнительная защита — получаете карту, право на работу и социальную поддержку. Если отказ — сразу подаём апелляцию.',dur:'6–18 месяцев'},
       {t:'Дальнейшие шаги',d:'Через 5 лет статуса защиты можно подавать на ПМЖ. Через 10 лет — на гражданство Польши. Планируем долгосрочный путь с первого дня.',dur:'Постоянно'}
     ]
+  },
+  speedup:{
+    tag:'УСКОРЕНИЕ · PRZYSPIESZENIE',
+    title:'Ускорение Karta Pobytu — <em>решение за 30 дней</em>',
+    lead:'Ваша карта рассматривается 6+ месяцев без решения? Польское административное право даёт инструменты заставить воеводу принять решение за 30 дней. Подаём их — работает в 78% случаев.',
+    desc:'Когда Urząd Wojewódzki сидит на вашем деле полгода и больше, ждать не обязательно. Польский Кодекс административного производства (KPA art. 36–37, PPSA art. 50–55) даёт вам право подать жалобу на бездействие (skarga na bezczynność) и обязать офис принять решение. Мы использовали этот инструмент 500+ раз с успехом 78%. В течение 30 дней с подачи жалобы вы обычно получаете Karta Pobytu — без новых 6-12 месяцев ожидания.'
   }
 };
 
@@ -18700,7 +18773,8 @@ var SVC_BLURBS={
     pesel:'Налоговый номер за 1 день. Без него ничего не работает в Польше.',
     profil:'Электронная подпись. Обязательна с 27.04 для подачи через MOS.',
     rights:'Из иностранных в польские — без экзаменов. 14 дней.',
-    intl:'Беженство, гум. виза, апелляции. Конфиденциально, профессионально.'
+    intl:'Беженство, гум. виза, апелляции. Конфиденциально, профессионально.',
+    speedup:'Карта тянется 6+ мес? Заставим воеводу решить за 30 дней. Работает в 78% случаев.'
   },
   en:{
     kp:'Live and work legally in Poland. NFZ, bank, Schengen — all unlocked.',
@@ -18713,7 +18787,8 @@ var SVC_BLURBS={
     pesel:'Tax ID in 1 day. Nothing works in Poland without it.',
     profil:'E-signature. Mandatory from April 27 for MOS filings.',
     rights:'Foreign license → Polish, no exam. 14 days.',
-    intl:'Refugee status, humanitarian visa, appeals. Confidential, expert.'
+    intl:'Refugee status, humanitarian visa, appeals. Confidential, expert.',
+    speedup:'Pending 6+ months? We force the voivode to decide in 30 days. Works 78% of cases.'
   },
   pl:{
     kp:'Życie i praca w Polsce — legalnie. NFZ, bank, Schengen — wszystko od razu.',
@@ -18726,7 +18801,8 @@ var SVC_BLURBS={
     pesel:'Numer podatkowy w 1 dzień. Bez niego nic w Polsce nie działa.',
     profil:'Podpis elektroniczny. Obowiązkowy od 27.04 dla MOS.',
     rights:'Zagraniczne prawo jazdy → polskie bez egzaminu. 14 dni.',
-    intl:'Status uchodźcy, wiza humanitarna, odwołania. Poufnie, profesjonalnie.'
+    intl:'Status uchodźcy, wiza humanitarna, odwołania. Poufnie, profesjonalnie.',
+    speedup:'Sprawa wisi 6+ miesięcy? Zmuszamy wojewodę do decyzji w 30 dni. Skuteczność 78%.'
   },
   uk:{
     kp:'Життя і робота у Польщі — легально. NFZ, банк, Шенген — все відразу.',
@@ -18739,7 +18815,8 @@ var SVC_BLURBS={
     pesel:'Податковий номер за 1 день. Без нього у Польщі нічого не працює.',
     profil:'Електронний підпис. Обов\'язковий з 27.04 для подачі через MOS.',
     rights:'Іноземні права → польські без іспиту. 14 днів.',
-    intl:'Біженство, гум. віза, апеляції. Конфіденційно, професійно.'
+    intl:'Біженство, гум. віза, апеляції. Конфіденційно, професійно.',
+    speedup:'Справа висить 6+ міс? Змушуємо воєводу прийняти рішення за 30 днів. У 78% випадків.'
   }
 };
 
