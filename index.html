@@ -5340,77 +5340,85 @@ function submitHlead(){
 
 /* ── Hero ── */
 
-.svd-hero-v2{position:relative;height:420px;overflow:hidden;flex-shrink:0;}
+/* ── Hero — refined: shorter, calmer, subtle violet wash overlay ── */
+.svd-hero-v2{position:relative;height:340px;overflow:hidden;flex-shrink:0;}
 
-.svd-hero-img{width:100%;height:100%;object-fit:cover;transition:transform 10s ease;}
+.svd-hero-img{width:100%;height:100%;object-fit:cover;transition:transform 10s ease;filter:saturate(.85) brightness(.85);}
 
-.svd-hero-v2:hover .svd-hero-img{transform:scale(1.07);}
+.svd-hero-v2:hover .svd-hero-img{transform:scale(1.04);}
 
-.svd-hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,22,1) 0%,rgba(8,6,22,.9) 25%,rgba(8,6,22,.4) 60%,transparent 100%);pointer-events:none;}
+.svd-hero-gradient{position:absolute;inset:0;background:
+  linear-gradient(to top,rgba(8,6,22,1) 0%,rgba(8,6,22,.92) 35%,rgba(8,6,22,.55) 70%,rgba(8,6,22,.2) 100%),
+  radial-gradient(ellipse at 80% 30%,rgba(124,92,252,.18),transparent 55%);
+  pointer-events:none;}
 
-.svd-hero-content{position:absolute;bottom:0;left:0;right:0;padding:32px 36px 28px;}
+.svd-hero-content{position:absolute;bottom:0;left:0;right:0;padding:32px 38px 28px;}
 
-.svd-badge{display:inline-block;background:rgba(253,224,71,.12);border:1px solid rgba(253,224,71,.3);border-radius:60px;padding:5px 14px;font-size:9px;font-weight:700;letter-spacing:2.5px;color:var(--gold2);margin-bottom:12px;}
+/* Badge: yellow alarm → soft violet pill */
+.svd-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,92,252,.14);border:1px solid rgba(167,139,250,.32);border-radius:60px;padding:5px 14px;font-size:9.5px;font-weight:700;letter-spacing:2.5px;color:rgba(196,181,253,.95);margin-bottom:14px;text-transform:uppercase;}
+.svd-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:#a78bfa;box-shadow:0 0 8px #a78bfa;}
 
-.svd-title{font-size:28px;font-weight:800;line-height:1.18;margin-bottom:10px;}
+.svd-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;line-height:1.1;margin-bottom:10px;letter-spacing:-.5px;}
 
-.svd-title em{color:var(--gold2);font-style:italic;}
+/* Title accent: gold → site brand violet→cyan gradient */
+.svd-title em{font-style:italic;background:linear-gradient(135deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-.svd-lead{font-size:14px;color:rgba(255,255,255,.78);line-height:1.62;margin-bottom:18px;max-width:560px;}
+.svd-lead{font-size:14.5px;color:rgba(232,228,255,.82);line-height:1.65;margin-bottom:20px;max-width:600px;}
 
-.svd-stats-bar{display:flex;background:rgba(8,6,22,.7);backdrop-filter:blur(14px);border:1px solid rgba(91,82,204,.22);border-radius:14px;overflow:hidden;max-width:460px;}
+/* Stats: cleaner, no separator borders, refined typography */
+.svd-stats-bar{display:flex;background:rgba(14,11,38,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(167,139,250,.22);border-radius:14px;overflow:hidden;max-width:480px;}
 
-.svd-stat{flex:1;text-align:center;padding:12px 8px;border-right:1px solid rgba(91,82,204,.15);}
+.svd-stat{flex:1;text-align:center;padding:14px 10px;position:relative;}
 
-.svd-stat:last-child{border-right:none;}
+.svd-stat:not(:last-child)::after{content:"";position:absolute;right:0;top:24%;bottom:24%;width:1px;background:linear-gradient(to bottom,transparent,rgba(167,139,250,.22),transparent);}
 
-.svd-stat-n{font-size:20px;font-weight:800;color:var(--p200);line-height:1;}
+.svd-stat-n{font-size:22px;font-weight:800;line-height:1;background:linear-gradient(135deg,#fff,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-.svd-stat-l{font-size:8px;color:var(--txt3);margin-top:3px;letter-spacing:.5px;text-transform:uppercase;}
+.svd-stat-l{font-size:8.5px;color:rgba(232,228,255,.55);margin-top:5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:600;}
 
 
 
 /* ── Content body ── */
 
-.svd-body{padding:30px 36px 10px;}
+.svd-body{padding:36px 38px 12px;}
 
 
 
 /* ── Info pills row ── */
 
-.svd-tl-banner{display:flex;align-items:center;gap:12px;background:rgba(91,82,204,.1);border:1px solid rgba(91,82,204,.25);border-radius:12px;padding:13px 18px;margin-bottom:12px;font-size:13px;color:rgba(255,255,255,.85);font-weight:500;}
+.svd-tl-banner{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(124,92,252,.14),rgba(124,92,252,.04));border:1px solid rgba(167,139,250,.22);border-radius:12px;padding:14px 20px;margin-bottom:14px;font-size:13.5px;color:rgba(232,228,255,.92);font-weight:500;}
 
 .svd-tl-banner svg{width:18px;height:18px;flex-shrink:0;color:var(--p300);}
 
 
 
-/* ── Note callout ── */
+/* ── Note callout — yellow alarm → unified violet, less shouty ── */
 
-.svd-note-card{display:flex;gap:16px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:14px;padding:18px 22px;margin-bottom:26px;}
+.svd-note-card{display:flex;gap:16px;background:linear-gradient(135deg,rgba(124,92,252,.08),rgba(91,82,204,.04));border:1px solid rgba(167,139,250,.2);border-left:3px solid rgba(167,139,250,.55);border-radius:12px;padding:18px 22px;margin-bottom:28px;}
 
-.svd-note-icon-wrap{width:38px;height:38px;border-radius:10px;background:rgba(251,191,36,.14);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.svd-note-icon-wrap{width:38px;height:38px;border-radius:10px;background:rgba(124,92,252,.18);border:1px solid rgba(167,139,250,.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 
-.svd-note-icon-wrap svg{width:18px;height:18px;color:#fbbf24;}
+.svd-note-icon-wrap svg{width:18px;height:18px;color:#a78bfa;}
 
-.svd-note-label{font-size:9px;font-weight:700;letter-spacing:2px;color:#fbbf24;margin-bottom:5px;text-transform:uppercase;}
+.svd-note-label{font-size:9.5px;font-weight:700;letter-spacing:2.5px;color:rgba(196,181,253,.95);margin-bottom:6px;text-transform:uppercase;}
 
-.svd-note-card p{font-size:13px;color:rgba(255,255,255,.83);line-height:1.7;margin:0;}
+.svd-note-card p{font-size:13.5px;color:rgba(232,228,255,.86);line-height:1.7;margin:0;}
 
 
 
 /* ── Description ── */
 
-.svd-desc-full{font-size:14px;color:var(--txt2);line-height:1.95;margin-bottom:28px;}
+.svd-desc-full{font-size:14.5px;color:rgba(232,228,255,.78);line-height:1.85;margin-bottom:32px;max-width:760px;}
 
 
 
-/* ── Section heading (replaces old section labels) ── */
+/* ── Section heading — calmer, more consistent ── */
 
-.svd-sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.svd-sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px;margin-top:8px;}
 
-.svd-sec-head-line{flex:1;height:1px;background:linear-gradient(to right,rgba(91,82,204,.3),transparent);}
+.svd-sec-head-line{flex:1;height:1px;background:linear-gradient(to right,rgba(167,139,250,.28),rgba(167,139,250,.04) 60%,transparent);}
 
-.svd-sec-title{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--p300);text-transform:uppercase;white-space:nowrap;}
+.svd-sec-title{font-size:10.5px;font-weight:700;letter-spacing:3.5px;color:rgba(196,181,253,.85);text-transform:uppercase;white-space:nowrap;}
 
 
 
@@ -5422,9 +5430,9 @@ function submitHlead(){
 
 .svd-who-card:hover{background:rgba(91,82,204,.15);border-color:rgba(91,82,204,.36);transform:translateY(-2px);}
 
-.svd-who-icon{width:32px;height:32px;border-radius:9px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.svd-who-icon{width:32px;height:32px;border-radius:9px;background:rgba(124,92,252,.16);border:1px solid rgba(167,139,250,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 
-.svd-who-icon svg{width:16px;height:16px;color:#4ade80;}
+.svd-who-icon svg{width:16px;height:16px;color:#a78bfa;}
 
 
 
@@ -5514,9 +5522,18 @@ function submitHlead(){
 
 
 
-/* ── CTA bar ── */
+/* ── CTA bar — refined, sticks to bottom of detail panel ── */
 
-.svd-cta{padding:24px 36px 32px;display:flex;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(91,82,204,.12);background:rgba(8,6,22,.6);margin-top:10px;}
+.svd-cta{padding:26px 38px 32px;display:flex;gap:14px;flex-wrap:wrap;border-top:1px solid rgba(167,139,250,.12);background:linear-gradient(180deg,rgba(8,6,22,.5),rgba(124,92,252,.06));margin-top:14px;position:relative;}
+
+.svd-cta::before{content:"";position:absolute;left:38px;right:38px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.4),transparent);}
+
+/* Override gold CTA in services panel — match site brand violet */
+.svd-cta .btn-gold{background:linear-gradient(135deg,#7c5cfc,#a78bfa)!important;color:#fff!important;border:none!important;box-shadow:0 8px 22px -4px rgba(124,92,252,.5)!important;font-weight:600!important;}
+.svd-cta .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 32px -4px rgba(124,92,252,.65)!important;}
+
+.svd-cta .btn-ghost{background:transparent!important;border:1px solid rgba(167,139,250,.32)!important;color:rgba(232,228,255,.92)!important;}
+.svd-cta .btn-ghost:hover{background:rgba(124,92,252,.1)!important;border-color:rgba(167,139,250,.5)!important;}
 
 
 
