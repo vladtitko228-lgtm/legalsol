@@ -5476,20 +5476,40 @@ body.sv-detail-open .sv-sidebar{display:none;}
     linear-gradient(135deg,rgba(28,22,68,.85),rgba(14,11,38,.88));
 }
 
-/* Reveal animation: stagger fade-in when scrolling into view */
-.sv-item{opacity:0;transform:translateY(20px);animation:svCardIn .6s cubic-bezier(.4,0,.2,1) forwards;}
-.sv-item:nth-child(1){animation-delay:.05s;}
-.sv-item:nth-child(2){animation-delay:.10s;}
-.sv-item:nth-child(3){animation-delay:.15s;}
-.sv-item:nth-child(4){animation-delay:.20s;}
-.sv-item:nth-child(5){animation-delay:.25s;}
-.sv-item:nth-child(6){animation-delay:.30s;}
-.sv-item:nth-child(7){animation-delay:.35s;}
-.sv-item:nth-child(8){animation-delay:.40s;}
-.sv-item:nth-child(9){animation-delay:.45s;}
-.sv-item:nth-child(10){animation-delay:.50s;}
-.sv-item:nth-child(11){animation-delay:.55s;}
-@keyframes svCardIn{to{opacity:1;transform:translateY(0);}}
+/* ─── 3D tilt + scroll-reveal — cards feel alive ─── */
+
+/* Container needs perspective for child 3D transforms */
+.sv-sidebar{perspective:1200px;perspective-origin:50% 50%;}
+
+/* Cards have transform-style preserve to allow real 3D tilt */
+.sv-item{transform-style:preserve-3d;will-change:transform;}
+
+/* Initial state for scroll-reveal — hidden by default; .sv-revealed adds visibility */
+.sv-item:not(.sv-revealed){opacity:0;transform:translateY(40px) scale(.96);}
+.sv-item.sv-revealed{
+  animation:svCardReveal .7s cubic-bezier(.16,.84,.32,1) forwards;
+}
+@keyframes svCardReveal{
+  0%{opacity:0;transform:translateY(40px) scale(.96);}
+  60%{opacity:1;}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Speed-line accents that emanate from card edges on hover */
+.sv-item .sv-speed-line{
+  position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.6),transparent);
+  opacity:0;pointer-events:none;z-index:2;
+}
+.sv-item .sv-speed-line.left{left:-30%;top:30%;width:60%;}
+.sv-item .sv-speed-line.right{right:-30%;top:65%;width:60%;}
+.sv-item:hover .sv-speed-line.left{animation:svSpeedL .7s cubic-bezier(.4,0,.2,1) forwards;}
+.sv-item:hover .sv-speed-line.right{animation:svSpeedR .7s cubic-bezier(.4,0,.2,1) .1s forwards;}
+@keyframes svSpeedL{0%{opacity:0;transform:translateX(-30%);}50%{opacity:1;}100%{opacity:0;transform:translateX(60%);}}
+@keyframes svSpeedR{0%{opacity:0;transform:translateX(30%);}50%{opacity:1;}100%{opacity:0;transform:translateX(-60%);}}
+
+/* Image parallax: when card tilts, image shifts in opposite direction (depth illusion) */
+.sv-card-image{transform:translateZ(0);}
+.sv-item .sv-card-image img{will-change:transform;}
 
 /* legacy hooks (active state on grid not used anymore) */
 .sv-item.active{background:radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));}
@@ -17961,11 +17981,38 @@ window.addEventListener('resize',function(){
         it.appendChild(arr);
       }
 
-      // Mouse-tracked spotlight
+      // Add speed-line decorative elements
+      if(!it.querySelector('.sv-speed-line.left')){
+        var sl=document.createElement('div');sl.className='sv-speed-line left';it.appendChild(sl);
+        var sr=document.createElement('div');sr.className='sv-speed-line right';it.appendChild(sr);
+      }
+
+      // Mouse-tracked spotlight + 3D tilt + image parallax
+      var rafId=null;
       it.addEventListener('mousemove',function(e){
         var r=it.getBoundingClientRect();
-        it.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-        it.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+        var px=(e.clientX-r.left)/r.width;
+        var py=(e.clientY-r.top)/r.height;
+        it.style.setProperty('--mx',(px*100)+'%');
+        it.style.setProperty('--my',(py*100)+'%');
+        // 3D tilt (max ±7deg) — capped so it's elegant not dizzy
+        var rotX=(0.5-py)*7;
+        var rotY=(px-0.5)*7;
+        if(rafId)cancelAnimationFrame(rafId);
+        rafId=requestAnimationFrame(function(){
+          it.style.transform='translateY(-6px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) scale(1.005)';
+          // Inverse parallax on image — moves opposite direction for depth
+          var img=it.querySelector('.sv-card-image img');
+          if(img){
+            img.style.transform='scale(1.1) translate('+((px-0.5)*-14).toFixed(1)+'px,'+((py-0.5)*-10).toFixed(1)+'px)';
+          }
+        });
+      });
+      it.addEventListener('mouseleave',function(){
+        if(rafId)cancelAnimationFrame(rafId);
+        it.style.transform='';
+        var img=it.querySelector('.sv-card-image img');
+        if(img)img.style.transform='';
       });
 
       // Remove sidebar "active" state from initial render — grid mode shouldn't highlight one
@@ -17977,6 +18024,25 @@ window.addEventListener('resize',function(){
 
     // Translate back-button label
     translateBackBtn();
+
+    // ── Scroll-reveal: cards animate in when they enter viewport ──
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            // Stagger by index in row to create cascading wave
+            var idx=Array.prototype.indexOf.call(entry.target.parentNode.children,entry.target);
+            entry.target.style.animationDelay=(idx*0.07)+'s';
+            entry.target.classList.add('sv-revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+      document.querySelectorAll('#tab-services .sv-item').forEach(function(it){io.observe(it);});
+    } else {
+      // Fallback: reveal all immediately
+      document.querySelectorAll('#tab-services .sv-item').forEach(function(it){it.classList.add('sv-revealed');});
+    }
   }
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',setup);
