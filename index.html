@@ -5257,7 +5257,65 @@ function submitHlead(){
    No sidebar. No cramped 280px column.
    ────────────────────────────────────────────────────────── */
 
-.sv-layout{display:block;margin-top:36px;position:relative;}
+/* ─── Decorative bg layer for services section ─── */
+.sv-bg-fx{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;
+}
+#sv-particle-net{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:.55;pointer-events:none;
+}
+.sv-bg-docs{position:absolute;inset:0;}
+.sv-bg-doc{
+  position:absolute;opacity:.13;will-change:transform;
+  animation:svBgDocFloat var(--dur,40s) linear infinite;
+  animation-delay:var(--delay,0s);
+}
+.sv-bg-doc svg{display:block;filter:drop-shadow(0 0 16px rgba(124,92,252,.45));}
+@keyframes svBgDocFloat{
+  0%{transform:translateY(110%) rotate(var(--rs,-10deg));}
+  100%{transform:translateY(-30%) rotate(var(--re,10deg));}
+}
+
+/* "OK Stamp" circles drifting slowly */
+.sv-bg-stamp{
+  position:absolute;width:90px;height:90px;
+  border:3px solid rgba(34,211,238,.32);border-radius:50%;
+  box-shadow:inset 0 0 18px rgba(34,211,238,.12);
+  animation:svBgStampDrift var(--dur,60s) linear infinite;opacity:.55;
+}
+.sv-bg-stamp::before{
+  content:'✓';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(34,211,238,.4);font-size:34px;font-weight:800;
+}
+@keyframes svBgStampDrift{
+  0%{transform:translate(0,0) rotate(0deg);}
+  50%{transform:translate(-30px,-25px) rotate(180deg);}
+  100%{transform:translate(0,0) rotate(360deg);}
+}
+
+/* Diagonal light beam — slow rotating sweep across section */
+.sv-bg-beam{
+  position:absolute;top:-25%;left:50%;width:140%;height:200%;
+  background:linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(124,92,252,.06) 48%,
+    rgba(167,139,250,.10) 50%,
+    rgba(124,92,252,.06) 52%,
+    transparent 60%);
+  transform:translateX(-50%) rotate(0deg);
+  transform-origin:center center;
+  animation:svBgBeam 18s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes svBgBeam{
+  0%,100%{transform:translateX(-55%) rotate(-2deg);opacity:.5;}
+  50%{transform:translateX(-45%) rotate(3deg);opacity:1;}
+}
+
+.sv-layout{display:block;margin-top:36px;position:relative;z-index:1;}
 
 /* Ambient backdrop for the whole services section — floating blurred orbs */
 .sv-layout::before{
@@ -6363,9 +6421,39 @@ body.sv-detail-open #sv-back-wrap{display:block;}
 
 </style>
 
-<section class="section" style="background:var(--bg);padding-top:120px;">
+<section class="section" style="background:var(--bg);padding-top:120px;position:relative;overflow:hidden;">
 
-  <div class="s-inner">
+  <!-- Decorative bg layer for services — floating documents + particle network -->
+  <div class="sv-bg-fx" aria-hidden="true">
+    <canvas id="sv-particle-net"></canvas>
+    <div class="sv-bg-docs">
+      <div class="sv-bg-doc" style="left:6%;--dur:42s;--delay:0s;--rs:-12deg;--re:8deg;">
+        <svg width="78" height="50" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="2"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><circle cx="18" cy="20" r="4" fill="#c4b5fd"/><path d="M11 32 Q18 26 25 32" stroke="#c4b5fd" stroke-width="1.5" fill="none"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="30" x2="64" y2="30" stroke="#a78bfa" stroke-width="2"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:78%;--dur:50s;--delay:-12s;--rs:14deg;--re:-6deg;">
+        <svg width="56" height="74" viewBox="0 0 60 80"><rect x="2" y="2" width="56" height="76" rx="4" fill="none" stroke="#a78bfa" stroke-width="2"/><circle cx="30" cy="20" r="6" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><path d="M22 32 Q30 26 38 32" stroke="#c4b5fd" stroke-width="1.5" fill="none"/><text x="30" y="58" font-size="8" fill="#a78bfa" text-anchor="middle" font-family="monospace" font-weight="bold">PASSPORT</text><line x1="12" y1="68" x2="48" y2="68" stroke="#a78bfa" stroke-width="1"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:22%;--dur:55s;--delay:-22s;--rs:-18deg;--re:6deg;">
+        <svg width="64" height="84" viewBox="0 0 70 92"><rect x="2" y="2" width="66" height="88" rx="3" fill="none" stroke="#a78bfa" stroke-width="2"/><line x1="10" y1="14" x2="60" y2="14" stroke="#c4b5fd" stroke-width="2"/><line x1="10" y1="24" x2="50" y2="24" stroke="#c4b5fd" stroke-width="1.5"/><line x1="10" y1="32" x2="58" y2="32" stroke="#c4b5fd" stroke-width="1.5"/><line x1="10" y1="40" x2="44" y2="40" stroke="#c4b5fd" stroke-width="1.5"/><circle cx="50" cy="74" r="11" fill="none" stroke="#22d3ee" stroke-width="2.5"/><text x="50" y="76" font-size="6" fill="#22d3ee" text-anchor="middle" font-weight="bold">OK</text></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:90%;--dur:46s;--delay:-32s;--rs:8deg;--re:-14deg;">
+        <svg width="48" height="66" viewBox="0 0 60 80"><rect x="2" y="2" width="56" height="76" rx="4" fill="none" stroke="#22d3ee" stroke-width="2" opacity=".7"/><circle cx="30" cy="20" r="6" fill="none" stroke="#67e8f9" stroke-width="1.5"/><path d="M22 32 Q30 26 38 32" stroke="#67e8f9" stroke-width="1.5" fill="none"/><line x1="12" y1="50" x2="48" y2="50" stroke="#67e8f9" stroke-width="1"/><line x1="12" y1="58" x2="44" y2="58" stroke="#67e8f9" stroke-width="1"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:46%;--dur:58s;--delay:-18s;--rs:6deg;--re:-10deg;">
+        <svg width="68" height="44" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="2"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="30" x2="64" y2="30" stroke="#a78bfa" stroke-width="2"/><rect x="62" y="36" width="12" height="9" rx="1" fill="#fde047" opacity="0.5"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:62%;--dur:62s;--delay:-40s;--rs:-6deg;--re:18deg;">
+        <svg width="48" height="32" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="1.7" opacity=".75"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.3"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="1.7"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="1.7"/></svg>
+      </div>
+      <!-- Drifting "OK stamps" -->
+      <div class="sv-bg-stamp" style="left:33%;top:55%;--dur:70s;"></div>
+      <div class="sv-bg-stamp" style="right:14%;top:22%;--dur:78s;animation-delay:-30s;"></div>
+    </div>
+    <!-- Subtle light beam -->
+    <div class="sv-bg-beam"></div>
+  </div>
+
+  <div class="s-inner" style="position:relative;z-index:1;">
 
     <div class="s-tag reveal">Наши услуги</div>
 
@@ -18357,6 +18445,90 @@ window.addEventListener('resize',function(){
     document.body.classList.remove('sv-detail-open');
   }
 });
+
+// ─── Particle network for services section ───
+(function _initSvcParticles(){
+  function init(){
+    var canvas=document.getElementById('sv-particle-net');
+    if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    var W,H,particles=[];
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var rafId=null,running=false;
+
+    function resize(){
+      var parent=canvas.parentElement;
+      if(!parent)return;
+      var r=parent.getBoundingClientRect();
+      W=r.width;H=r.height;
+      canvas.width=W*dpr;canvas.height=H*dpr;
+      canvas.style.width=W+'px';canvas.style.height=H+'px';
+      ctx.scale(dpr,dpr);
+      var count=Math.min(60,Math.floor((W*H)/22000));
+      particles=[];
+      for(var i=0;i<count;i++){
+        particles.push({
+          x:Math.random()*W,y:Math.random()*H,
+          vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+          r:Math.random()*1.6+0.6
+        });
+      }
+    }
+
+    function draw(){
+      if(!running){rafId=null;return;}
+      ctx.clearRect(0,0,W,H);
+      // Lines between close particles
+      for(var i=0;i<particles.length;i++){
+        var a=particles[i];
+        for(var j=i+1;j<particles.length;j++){
+          var b=particles[j];
+          var dx=a.x-b.x,dy=a.y-b.y;
+          var d2=dx*dx+dy*dy;
+          if(d2<14400){
+            var alpha=(1-d2/14400)*0.4;
+            ctx.strokeStyle='rgba(167,139,250,'+alpha+')';
+            ctx.lineWidth=0.6;
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+          }
+        }
+      }
+      // Particles
+      for(var k=0;k<particles.length;k++){
+        var p=particles[k];
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>W)p.vx*=-1;
+        if(p.y<0||p.y>H)p.vy*=-1;
+        ctx.fillStyle='rgba(196,181,253,.7)';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
+      }
+      rafId=requestAnimationFrame(draw);
+    }
+
+    function start(){if(running)return;running=true;draw();}
+    function stop(){running=false;if(rafId){cancelAnimationFrame(rafId);rafId=null;}}
+
+    resize();
+    window.addEventListener('resize',resize,{passive:true});
+
+    // Pause when tab not visible
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting)start();else stop();});
+      },{threshold:0});
+      io.observe(canvas.parentElement);
+    } else {
+      start();
+    }
+
+    // Pause when page hidden
+    document.addEventListener('visibilitychange',function(){
+      if(document.hidden)stop();else if(canvas.getBoundingClientRect().bottom>0)start();
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
 
 // Rewire all sv-item cards: grid view uses openSvc (full-page), no auto-active
 (function _initSvcGrid(){
