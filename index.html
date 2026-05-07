@@ -5259,11 +5259,11 @@ function submitHlead(){
 
 .sv-layout{display:block;margin-top:36px;}
 
-/* Grid view — visible by default, hidden when a service is opened */
+/* Grid view — bigger, more breathing, premium feel */
 .sv-sidebar{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
-  gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:20px;
   background:transparent;border:none;
   position:static;max-height:none;overflow:visible;
   padding:0;
@@ -5273,75 +5273,151 @@ body.sv-detail-open .sv-sidebar{display:none;}
 /* Hide the old "CHOOSE A SERVICE" header — cards speak for themselves */
 .sv-sidebar-hd{display:none;}
 
-/* Card style — replaces sidebar list rows */
+/* ─── PREMIUM CARD v2: bigger, with layered ambient animations ─── */
 .sv-item{
   position:relative;
-  display:flex;align-items:flex-start;gap:16px;
-  padding:22px 24px 22px 22px;
+  display:flex;flex-direction:column;
+  padding:30px 32px 76px 30px;
   cursor:pointer;
-  background:linear-gradient(135deg,rgba(28,22,68,.78),rgba(14,11,38,.82));
-  border:1px solid rgba(139,130,232,.16);
-  border-radius:18px;
-  transition:transform .35s cubic-bezier(.4,0,.2,1), border-color .3s ease, box-shadow .3s ease;
+  background:
+    radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),
+    linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));
+  border:1px solid rgba(139,130,232,.18);
+  border-radius:22px;
+  transition:transform .45s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
   overflow:hidden;
-  min-height:108px;
+  min-height:200px;
+  isolation:isolate;
 }
 .sv-item:hover{
-  transform:translateY(-3px);
-  border-color:rgba(167,139,250,.42);
-  box-shadow:0 16px 36px -10px rgba(124,92,252,.38);
+  transform:translateY(-6px);
+  border-color:rgba(167,139,250,.5);
+  box-shadow:
+    0 22px 48px -12px rgba(124,92,252,.42),
+    0 0 0 1px rgba(167,139,250,.18);
 }
 
-/* Glowing top edge */
+/* Top-edge glow line — pulses on hover */
 .sv-item::before{
   content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(167,139,250,.55),transparent);
-  opacity:.4;transition:opacity .3s ease;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent);
+  opacity:.4;transition:opacity .3s ease;z-index:2;
 }
-.sv-item:hover::before{opacity:1;}
+.sv-item:hover::before{opacity:1;animation:svTopGlow 2.5s ease-in-out infinite;}
+@keyframes svTopGlow{0%,100%{opacity:.5;}50%{opacity:1;}}
 
-/* Mouse-tracked spotlight */
+/* Mouse-tracked spotlight + ambient orb (drifts continuously) */
 .sv-item::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(167,139,250,.16),transparent 50%);
-  opacity:0;transition:opacity .35s ease;
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(167,139,250,.18),transparent 50%);
+  opacity:0;transition:opacity .4s ease;
 }
 .sv-item:hover::after{opacity:1;}
 
-.sv-item-ico{
-  width:46px;height:46px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,rgba(124,92,252,.32),rgba(91,82,204,.18));
-  border:1px solid rgba(167,139,250,.22);
-  box-shadow:0 4px 14px -4px rgba(124,92,252,.4);
-  transition:background .3s ease,border-color .3s ease,transform .3s ease,box-shadow .3s ease;
+/* Decorative drifting orb behind icon — uses pseudo on a child */
+.sv-item-ico-wrap{position:relative;flex-shrink:0;}
+.sv-item-ico-wrap::before{
+  content:"";position:absolute;inset:-22px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.22),transparent 60%);
+  opacity:.55;
+  animation:svOrb 8s ease-in-out infinite;
+  z-index:0;pointer-events:none;
 }
-.sv-item:hover .sv-item-ico{
-  background:linear-gradient(135deg,rgba(124,92,252,.55),rgba(91,82,204,.32));
-  border-color:rgba(167,139,250,.45);
-  box-shadow:0 8px 22px -4px rgba(124,92,252,.55);
-  transform:scale(1.05);
+@keyframes svOrb{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.5;}
+  33%{transform:translate(8px,-6px) scale(1.12);opacity:.75;}
+  66%{transform:translate(-6px,8px) scale(.92);opacity:.4;}
 }
 
-/* Arrow that sits in bottom-right of card */
-.sv-card-arrow{
-  position:absolute;right:18px;bottom:18px;
-  width:30px;height:30px;border-radius:50%;
-  background:rgba(124,92,252,.14);border:1px solid rgba(167,139,250,.22);
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(196,181,253,.85);
-  transition:all .3s cubic-bezier(.4,0,.2,1);
+/* Animated gradient ring around icon on hover — rotates slowly */
+.sv-item-ico-wrap::after{
+  content:"";position:absolute;inset:-3px;border-radius:18px;
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(167,139,250,.5) 60deg,transparent 120deg,transparent 360deg);
+  opacity:0;transition:opacity .4s ease;animation:svRing 4s linear infinite;
+  z-index:0;pointer-events:none;
 }
+.sv-item:hover .sv-item-ico-wrap::after{opacity:.7;}
+@keyframes svRing{to{transform:rotate(360deg);}}
+
+.sv-item-ico{
+  position:relative;z-index:1;
+  width:64px;height:64px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(124,92,252,.42),rgba(91,82,204,.22));
+  border:1px solid rgba(167,139,250,.28);
+  box-shadow:
+    0 6px 20px -4px rgba(124,92,252,.42),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transition:background .35s ease,border-color .35s ease,transform .45s cubic-bezier(.4,0,.2,1),box-shadow .35s ease;
+  overflow:hidden;
+}
+.sv-item-ico svg{width:30px!important;height:30px!important;}
+
+.sv-item:hover .sv-item-ico{
+  background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.42));
+  border-color:rgba(167,139,250,.55);
+  box-shadow:
+    0 12px 32px -4px rgba(124,92,252,.6),
+    inset 0 1px 0 rgba(255,255,255,.14);
+  transform:scale(1.08) rotate(-3deg);
+}
+
+/* Shimmer sweep across icon on hover */
+.sv-item-ico::after{
+  content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-20deg);
+  transition:left .8s cubic-bezier(.4,0,.2,1);
+}
+.sv-item:hover .sv-item-ico::after{left:140%;}
+
+/* Card content wrapper */
+.sv-item-content{flex:1;min-width:0;margin-top:20px;position:relative;z-index:1;}
+
+/* Arrow in bottom-right — bigger, animated */
+.sv-card-arrow{
+  position:absolute;right:24px;bottom:24px;z-index:2;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(124,92,252,.16);border:1px solid rgba(167,139,250,.28);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(196,181,253,.9);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.sv-card-arrow svg{width:14px;height:14px;}
 .sv-item:hover .sv-card-arrow{
   background:linear-gradient(135deg,#7c5cfc,#a78bfa);
   border-color:rgba(167,139,250,.6);
   color:#fff;
-  transform:translateX(3px);
-  box-shadow:0 4px 14px -2px rgba(124,92,252,.5);
+  transform:translateX(6px);
+  box-shadow:0 8px 22px -4px rgba(124,92,252,.6);
+  width:48px;
 }
 
+/* Subtle grain noise — premium texture (only on hover, very faint) */
+.sv-item:hover{
+  background-image:
+    radial-gradient(circle at 70% 20%,rgba(124,92,252,.14),transparent 55%),
+    radial-gradient(circle at 20% 80%,rgba(34,211,238,.06),transparent 50%),
+    linear-gradient(135deg,rgba(28,22,68,.85),rgba(14,11,38,.88));
+}
+
+/* Reveal animation: stagger fade-in when scrolling into view */
+.sv-item{opacity:0;transform:translateY(20px);animation:svCardIn .6s cubic-bezier(.4,0,.2,1) forwards;}
+.sv-item:nth-child(1){animation-delay:.05s;}
+.sv-item:nth-child(2){animation-delay:.10s;}
+.sv-item:nth-child(3){animation-delay:.15s;}
+.sv-item:nth-child(4){animation-delay:.20s;}
+.sv-item:nth-child(5){animation-delay:.25s;}
+.sv-item:nth-child(6){animation-delay:.30s;}
+.sv-item:nth-child(7){animation-delay:.35s;}
+.sv-item:nth-child(8){animation-delay:.40s;}
+.sv-item:nth-child(9){animation-delay:.45s;}
+.sv-item:nth-child(10){animation-delay:.50s;}
+.sv-item:nth-child(11){animation-delay:.55s;}
+@keyframes svCardIn{to{opacity:1;transform:translateY(0);}}
+
 /* legacy hooks (active state on grid not used anymore) */
-.sv-item.active{background:linear-gradient(135deg,rgba(28,22,68,.78),rgba(14,11,38,.82));}
+.sv-item.active{background:radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));}
 
 /* sv-ico-* legacy classes intentionally not styled — unified via .sv-item-ico above */
 
@@ -5381,15 +5457,25 @@ body.sv-detail-open .sv-sidebar{display:none;}
 
 .sv-blink-el{animation:svBlink 1.4s ease-in-out infinite;}
 
-/* Card title (was sidebar list label) */
-.sv-item-t{font-size:16px;font-weight:700;color:rgba(255,255,255,.96);line-height:1.28;letter-spacing:-.2px;transition:color .25s ease;margin-bottom:8px;display:block;}
+/* Card title — bigger, refined */
+.sv-item-t{
+  font-size:19px;font-weight:700;color:rgba(255,255,255,.98);
+  line-height:1.25;letter-spacing:-.3px;
+  margin-bottom:10px;display:block;
+  transition:color .25s ease,transform .35s cubic-bezier(.4,0,.2,1);
+  font-family:inherit;
+}
+.sv-item:hover .sv-item-t{color:#fff;transform:translateX(2px);}
 
-/* Optional one-line description below title — set via JS from service data lead */
-.sv-card-desc{font-size:13px;color:rgba(232,228,255,.62);line-height:1.5;display:block;margin-top:0;padding-right:36px;}
-
-.sv-item-content{flex:1;min-width:0;}
-
-.sv-item:hover .sv-item-t{color:#fff;}
+/* Description: more visible, comfortable line-height, 2 lines reserved */
+.sv-card-desc{
+  font-size:13.5px;color:rgba(232,228,255,.7);
+  line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+  margin-top:0;padding-right:50px;
+  transition:color .25s ease;
+}
+.sv-item:hover .sv-card-desc{color:rgba(232,228,255,.86);}
 
 
 /* ══ SERVICE DETAIL v3 — long scroll article ══ */
@@ -17755,6 +17841,15 @@ window.addEventListener('resize',function(){
         it.addEventListener('click',function(){openSvc(key);});
       }
 
+      // Wrap icon in .sv-item-ico-wrap so orbiting/glow pseudos can attach
+      var icoEl=it.querySelector('.sv-item-ico');
+      if(icoEl && !it.querySelector('.sv-item-ico-wrap')){
+        var icoWrap=document.createElement('div');
+        icoWrap.className='sv-item-ico-wrap';
+        icoEl.parentNode.insertBefore(icoWrap,icoEl);
+        icoWrap.appendChild(icoEl);
+      }
+
       // Wrap title in a content div, add card description placeholder, add arrow
       var titleEl=it.querySelector('.sv-item-t');
       if(titleEl && !it.querySelector('.sv-item-content')){
@@ -17770,7 +17865,7 @@ window.addEventListener('resize',function(){
       if(!it.querySelector('.sv-card-arrow')){
         var arr=document.createElement('div');
         arr.className='sv-card-arrow';
-        arr.innerHTML='<svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        arr.innerHTML='<svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         it.appendChild(arr);
       }
 
@@ -17814,10 +17909,10 @@ function fillSvcCardDescs(){
     } else if(SVC_EN[key] && SVC_EN[key].lead){
       lead=SVC_EN[key].lead;
     }
-    // Truncate to ~110 chars at word boundary
-    if(lead.length>120){
-      var cut=lead.lastIndexOf(' ',115);
-      if(cut<60)cut=115;
+    // Truncate to ~150 chars at word boundary (cards now show 3 lines comfortably)
+    if(lead.length>165){
+      var cut=lead.lastIndexOf(' ',158);
+      if(cut<80)cut=158;
       lead=lead.substring(0,cut)+'…';
     }
     el.textContent=lead;
