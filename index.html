@@ -5257,7 +5257,40 @@ function submitHlead(){
    No sidebar. No cramped 280px column.
    ────────────────────────────────────────────────────────── */
 
-.sv-layout{display:block;margin-top:36px;}
+.sv-layout{display:block;margin-top:36px;position:relative;}
+
+/* Ambient backdrop for the whole services section — floating blurred orbs */
+.sv-layout::before{
+  content:"";position:absolute;top:-80px;left:-100px;width:520px;height:520px;
+  background:radial-gradient(circle,rgba(124,92,252,.18) 0%,rgba(124,92,252,.05) 35%,transparent 65%);
+  filter:blur(40px);pointer-events:none;z-index:-1;
+  animation:svBg1 22s ease-in-out infinite;
+}
+.sv-layout::after{
+  content:"";position:absolute;bottom:-100px;right:-100px;width:580px;height:580px;
+  background:radial-gradient(circle,rgba(34,211,238,.14) 0%,rgba(34,211,238,.04) 40%,transparent 70%);
+  filter:blur(50px);pointer-events:none;z-index:-1;
+  animation:svBg2 28s ease-in-out infinite;
+}
+@keyframes svBg1{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(60px,40px) scale(1.15);}
+}
+@keyframes svBg2{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(-50px,-60px) scale(.9);}
+}
+
+/* Subtle dot pattern as base layer — adds texture without distraction */
+#tab-services{position:relative;}
+#tab-services::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:-2;
+  background-image:radial-gradient(rgba(167,139,250,.08) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);
+  opacity:.6;
+}
 
 /* Grid view — bigger, more breathing, premium feel */
 .sv-sidebar{
@@ -5273,11 +5306,11 @@ body.sv-detail-open .sv-sidebar{display:none;}
 /* Hide the old "CHOOSE A SERVICE" header — cards speak for themselves */
 .sv-sidebar-hd{display:none;}
 
-/* ─── PREMIUM CARD v2: bigger, with layered ambient animations ─── */
+/* ─── PREMIUM CARD v3: image header + content + ambient animations ─── */
 .sv-item{
   position:relative;
   display:flex;flex-direction:column;
-  padding:30px 32px 76px 30px;
+  padding:0;
   cursor:pointer;
   background:
     radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),
@@ -5286,8 +5319,46 @@ body.sv-detail-open .sv-sidebar{display:none;}
   border-radius:22px;
   transition:transform .45s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
   overflow:hidden;
-  min-height:200px;
+  min-height:380px;
   isolation:isolate;
+}
+
+/* Image header — top 180px */
+.sv-card-image{
+  position:relative;width:100%;height:180px;flex-shrink:0;overflow:hidden;
+  background:#1a1545;
+}
+.sv-card-image img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.9) brightness(.78);
+  transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter .5s ease;
+}
+.sv-item:hover .sv-card-image img{transform:scale(1.08);filter:saturate(1) brightness(.85);}
+
+/* Image-to-content gradient blend — bottom of image fades into card bg */
+.sv-card-image::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:55%;
+  background:linear-gradient(to top,rgba(14,11,38,.95) 0%,rgba(14,11,38,.55) 50%,transparent 100%);
+  pointer-events:none;
+}
+
+/* Tag pill on image — top-left */
+.sv-card-tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:30px;
+  background:rgba(8,6,22,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(167,139,250,.32);
+  font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(196,181,253,.95);
+  text-transform:uppercase;
+}
+.sv-card-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:#a78bfa;box-shadow:0 0 8px #a78bfa;}
+
+/* Card body below image — padding-top accounts for icon overlap */
+.sv-card-body{
+  position:relative;z-index:1;
+  padding:54px 28px 76px 28px;
+  flex:1;display:flex;flex-direction:column;
 }
 .sv-item:hover{
   transform:translateY(-6px);
@@ -5314,40 +5385,44 @@ body.sv-detail-open .sv-sidebar{display:none;}
 }
 .sv-item:hover::after{opacity:1;}
 
-/* Decorative drifting orb behind icon — uses pseudo on a child */
-.sv-item-ico-wrap{position:relative;flex-shrink:0;}
+/* Icon — floats on bottom-left of image header, overlapping into body */
+.sv-item-ico-wrap{
+  position:absolute;top:140px;left:22px;z-index:3;
+  flex-shrink:0;
+}
 .sv-item-ico-wrap::before{
-  content:"";position:absolute;inset:-22px;border-radius:50%;
-  background:radial-gradient(circle,rgba(167,139,250,.22),transparent 60%);
-  opacity:.55;
+  content:"";position:absolute;inset:-18px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.32),transparent 60%);
+  opacity:.7;
   animation:svOrb 8s ease-in-out infinite;
   z-index:0;pointer-events:none;
 }
 @keyframes svOrb{
-  0%,100%{transform:translate(0,0) scale(1);opacity:.5;}
-  33%{transform:translate(8px,-6px) scale(1.12);opacity:.75;}
-  66%{transform:translate(-6px,8px) scale(.92);opacity:.4;}
+  0%,100%{transform:translate(0,0) scale(1);opacity:.55;}
+  33%{transform:translate(6px,-4px) scale(1.15);opacity:.8;}
+  66%{transform:translate(-4px,6px) scale(.92);opacity:.4;}
 }
 
 /* Animated gradient ring around icon on hover — rotates slowly */
 .sv-item-ico-wrap::after{
   content:"";position:absolute;inset:-3px;border-radius:18px;
-  background:conic-gradient(from 0deg,transparent 0deg,rgba(167,139,250,.5) 60deg,transparent 120deg,transparent 360deg);
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(167,139,250,.6) 60deg,transparent 120deg,transparent 360deg);
   opacity:0;transition:opacity .4s ease;animation:svRing 4s linear infinite;
   z-index:0;pointer-events:none;
 }
-.sv-item:hover .sv-item-ico-wrap::after{opacity:.7;}
+.sv-item:hover .sv-item-ico-wrap::after{opacity:.8;}
 @keyframes svRing{to{transform:rotate(360deg);}}
 
 .sv-item-ico{
   position:relative;z-index:1;
   width:64px;height:64px;border-radius:16px;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,rgba(124,92,252,.42),rgba(91,82,204,.22));
-  border:1px solid rgba(167,139,250,.28);
+  background:linear-gradient(135deg,rgba(124,92,252,.6),rgba(91,82,204,.4));
+  border:1px solid rgba(167,139,250,.45);
   box-shadow:
-    0 6px 20px -4px rgba(124,92,252,.42),
-    inset 0 1px 0 rgba(255,255,255,.08);
+    0 10px 28px -4px rgba(124,92,252,.55),
+    0 0 0 4px rgba(8,6,22,.6),
+    inset 0 1px 0 rgba(255,255,255,.12);
   transition:background .35s ease,border-color .35s ease,transform .45s cubic-bezier(.4,0,.2,1),box-shadow .35s ease;
   overflow:hidden;
 }
@@ -17841,26 +17916,43 @@ window.addEventListener('resize',function(){
         it.addEventListener('click',function(){openSvc(key);});
       }
 
-      // Wrap icon in .sv-item-ico-wrap so orbiting/glow pseudos can attach
+      // Inject image header with tag pill — pulled from SVC_EN[key]
+      if(key && !it.querySelector('.sv-card-image') && typeof SVC_EN!=='undefined' && SVC_EN[key]){
+        var svc=SVC_EN[key];
+        var imgUrl=svc.img||'https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&h=440&fit=crop&q=80';
+        var tagTxt=(svc.tag||'').toString();
+        var imgWrap=document.createElement('div');
+        imgWrap.className='sv-card-image';
+        imgWrap.innerHTML='<img src="'+imgUrl+'" alt="'+tagTxt+'" loading="lazy" decoding="async"/>'+
+          (tagTxt?'<div class="sv-card-tag" data-tag-key="'+key+'">'+tagTxt+'</div>':'');
+        it.insertBefore(imgWrap,it.firstChild);
+      }
+
+      // Wrap icon in .sv-item-ico-wrap so orbiting/glow pseudos can attach.
+      // Icon-wrap is positioned absolutely, so it lives at root level of card.
       var icoEl=it.querySelector('.sv-item-ico');
       if(icoEl && !it.querySelector('.sv-item-ico-wrap')){
         var icoWrap=document.createElement('div');
         icoWrap.className='sv-item-ico-wrap';
         icoEl.parentNode.insertBefore(icoWrap,icoEl);
         icoWrap.appendChild(icoEl);
+        it.appendChild(icoWrap);
       }
 
-      // Wrap title in a content div, add card description placeholder, add arrow
+      // Wrap title + description in .sv-card-body
       var titleEl=it.querySelector('.sv-item-t');
-      if(titleEl && !it.querySelector('.sv-item-content')){
-        var wrap=document.createElement('div');
-        wrap.className='sv-item-content';
-        titleEl.parentNode.insertBefore(wrap,titleEl);
-        wrap.appendChild(titleEl);
+      if(titleEl && !it.querySelector('.sv-card-body')){
+        var body=document.createElement('div');
+        body.className='sv-card-body';
+        var contentInner=document.createElement('div');
+        contentInner.className='sv-item-content';
+        body.appendChild(contentInner);
+        titleEl.parentNode.insertBefore(body,titleEl);
+        contentInner.appendChild(titleEl);
         var desc=document.createElement('div');
         desc.className='sv-card-desc';
         desc.setAttribute('data-svc-key',key||'');
-        wrap.appendChild(desc);
+        contentInner.appendChild(desc);
       }
       if(!it.querySelector('.sv-card-arrow')){
         var arr=document.createElement('div');
@@ -17893,14 +17985,13 @@ window.addEventListener('resize',function(){
   }
 })();
 
-// Fill card description text (truncated lead) — runs at init and after setLang
+// Fill card description text (truncated lead) + tag pill — runs at init and after setLang
 function fillSvcCardDescs(){
   if(typeof SVC_EN==='undefined')return;
   var lang=(typeof L!=='undefined')?L:'en';
   document.querySelectorAll('#tab-services .sv-card-desc').forEach(function(el){
     var key=el.getAttribute('data-svc-key');
     if(!key)return;
-    // Pull lead from same priority as showSvc: SVC_LANG[lang][key] -> SVC[key] (ru) -> SVC_EN[key]
     var lead='';
     if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].lead){
       lead=SVC_LANG[lang][key].lead;
@@ -17909,13 +18000,26 @@ function fillSvcCardDescs(){
     } else if(SVC_EN[key] && SVC_EN[key].lead){
       lead=SVC_EN[key].lead;
     }
-    // Truncate to ~150 chars at word boundary (cards now show 3 lines comfortably)
     if(lead.length>165){
       var cut=lead.lastIndexOf(' ',158);
       if(cut<80)cut=158;
       lead=lead.substring(0,cut)+'…';
     }
     el.textContent=lead;
+  });
+  // Update tag pill text per language
+  document.querySelectorAll('#tab-services .sv-card-tag').forEach(function(el){
+    var key=el.getAttribute('data-tag-key');
+    if(!key)return;
+    var tag='';
+    if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].tag){
+      tag=SVC_LANG[lang][key].tag;
+    } else if(lang==='ru' && typeof SVC!=='undefined' && SVC[key] && SVC[key].tag){
+      tag=SVC[key].tag;
+    } else if(SVC_EN[key] && SVC_EN[key].tag){
+      tag=SVC_EN[key].tag;
+    }
+    if(tag)el.textContent=tag;
   });
 }
 
