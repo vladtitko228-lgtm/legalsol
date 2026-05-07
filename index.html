@@ -5330,10 +5330,19 @@ body.sv-detail-open .sv-sidebar{display:none;}
 }
 .sv-card-image img{
   width:100%;height:100%;object-fit:cover;
-  filter:saturate(.9) brightness(.78);
-  transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter .5s ease;
+  filter:saturate(.85) brightness(.72) contrast(1.05);
+  transition:transform 1.4s cubic-bezier(.2,.8,.2,1),filter .6s ease;
 }
-.sv-item:hover .sv-card-image img{transform:scale(1.08);filter:saturate(1) brightness(.85);}
+.sv-item:hover .sv-card-image img{transform:scale(1.18);filter:saturate(1.15) brightness(.95) contrast(1.1);}
+
+/* Scanning light bar across image on hover */
+.sv-card-image::before{
+  content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.32),rgba(255,255,255,.15),rgba(167,139,250,.32),transparent);
+  transform:skewX(-25deg);pointer-events:none;
+  transition:left 1s cubic-bezier(.4,0,.2,1);
+}
+.sv-item:hover .sv-card-image::before{left:150%;}
 
 /* Image-to-content gradient blend — bottom of image fades into card bg */
 .sv-card-image::after{
@@ -5361,21 +5370,43 @@ body.sv-detail-open .sv-sidebar{display:none;}
   flex:1;display:flex;flex-direction:column;
 }
 .sv-item:hover{
-  transform:translateY(-6px);
-  border-color:rgba(167,139,250,.5);
+  transform:translateY(-10px);
+  border-color:rgba(167,139,250,.6);
   box-shadow:
-    0 22px 48px -12px rgba(124,92,252,.42),
-    0 0 0 1px rgba(167,139,250,.18);
+    0 32px 64px -12px rgba(124,92,252,.55),
+    0 0 0 1px rgba(167,139,250,.3),
+    0 0 60px -10px rgba(167,139,250,.4);
 }
 
-/* Top-edge glow line — pulses on hover */
-.sv-item::before{
-  content:"";position:absolute;top:0;left:14%;right:14%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent);
-  opacity:.4;transition:opacity .3s ease;z-index:2;
+/* Animated gradient border on hover — rainbow/violet hue shift sweeping */
+.sv-item{position:relative;}
+.sv-item .sv-glow-border{
+  position:absolute;inset:-1px;border-radius:22px;pointer-events:none;z-index:3;
+  opacity:0;transition:opacity .4s ease;
+  background:conic-gradient(from var(--ang,0deg),
+    rgba(167,139,250,.7) 0deg,
+    rgba(34,211,238,.5) 90deg,
+    rgba(167,139,250,.7) 180deg,
+    rgba(124,92,252,.6) 270deg,
+    rgba(167,139,250,.7) 360deg);
+  -webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  padding:1.5px;
+  animation:svGlowRotate 4s linear infinite;
 }
-.sv-item:hover::before{opacity:1;animation:svTopGlow 2.5s ease-in-out infinite;}
-@keyframes svTopGlow{0%,100%{opacity:.5;}50%{opacity:1;}}
+@keyframes svGlowRotate{to{--ang:360deg;}}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false;}
+.sv-item:hover .sv-glow-border{opacity:1;}
+
+/* Top-edge glow line — pulses on hover, brighter */
+.sv-item::before{
+  content:"";position:absolute;top:0;left:14%;right:14%;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.9) 30%,rgba(34,211,238,.7) 50%,rgba(167,139,250,.9) 70%,transparent);
+  opacity:.5;transition:opacity .3s ease;z-index:2;
+  box-shadow:0 0 12px rgba(167,139,250,.5);
+}
+.sv-item:hover::before{opacity:1;animation:svTopGlow 1.8s ease-in-out infinite;}
+@keyframes svTopGlow{0%,100%{opacity:.6;transform:scaleX(.9);}50%{opacity:1;transform:scaleX(1);}}
 
 /* Mouse-tracked spotlight + ambient orb (drifts continuously) */
 .sv-item::after{
@@ -5495,21 +5526,50 @@ body.sv-detail-open .sv-sidebar{display:none;}
   100%{opacity:1;transform:translateY(0) scale(1);}
 }
 
-/* Speed-line accents that emanate from card edges on hover */
+/* Speed-line accents — 4 lines now, repeat on hover */
 .sv-item .sv-speed-line{
-  position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.6),transparent);
-  opacity:0;pointer-events:none;z-index:2;
+  position:absolute;height:1.5px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.85),rgba(255,255,255,.4),rgba(167,139,250,.85),transparent);
+  opacity:0;pointer-events:none;z-index:5;
+  box-shadow:0 0 8px rgba(167,139,250,.5);
+  border-radius:2px;
 }
-.sv-item .sv-speed-line.left{left:-30%;top:30%;width:60%;}
-.sv-item .sv-speed-line.right{right:-30%;top:65%;width:60%;}
-.sv-item:hover .sv-speed-line.left{animation:svSpeedL .7s cubic-bezier(.4,0,.2,1) forwards;}
-.sv-item:hover .sv-speed-line.right{animation:svSpeedR .7s cubic-bezier(.4,0,.2,1) .1s forwards;}
-@keyframes svSpeedL{0%{opacity:0;transform:translateX(-30%);}50%{opacity:1;}100%{opacity:0;transform:translateX(60%);}}
-@keyframes svSpeedR{0%{opacity:0;transform:translateX(30%);}50%{opacity:1;}100%{opacity:0;transform:translateX(-60%);}}
+.sv-item .sv-speed-line.line-1{left:-30%;top:25%;width:55%;}
+.sv-item .sv-speed-line.line-2{right:-30%;top:42%;width:55%;}
+.sv-item .sv-speed-line.line-3{left:-30%;top:62%;width:55%;}
+.sv-item .sv-speed-line.line-4{right:-30%;top:82%;width:55%;}
+.sv-item:hover .sv-speed-line.line-1{animation:svSpeedR .9s cubic-bezier(.4,0,.2,1) infinite;}
+.sv-item:hover .sv-speed-line.line-2{animation:svSpeedL .9s cubic-bezier(.4,0,.2,1) .15s infinite;}
+.sv-item:hover .sv-speed-line.line-3{animation:svSpeedR .9s cubic-bezier(.4,0,.2,1) .3s infinite;}
+.sv-item:hover .sv-speed-line.line-4{animation:svSpeedL .9s cubic-bezier(.4,0,.2,1) .45s infinite;}
+@keyframes svSpeedR{
+  0%{opacity:0;transform:translateX(0);}
+  20%{opacity:.9;}
+  100%{opacity:0;transform:translateX(170%);}
+}
+@keyframes svSpeedL{
+  0%{opacity:0;transform:translateX(0);}
+  20%{opacity:.9;}
+  100%{opacity:0;transform:translateX(-170%);}
+}
 
 /* Image parallax: when card tilts, image shifts in opposite direction (depth illusion) */
 .sv-card-image{transform:translateZ(0);}
 .sv-item .sv-card-image img{will-change:transform;}
+
+/* Click ripple — radial wave from click point */
+.sv-ripple{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.7),rgba(167,139,250,0));
+  pointer-events:none;transform:translate(-50%,-50%);z-index:6;
+  animation:svRipple .7s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes svRipple{
+  0%{width:8px;height:8px;opacity:.9;}
+  100%{width:600px;height:600px;opacity:0;}
+}
+
+/* Icon-wrap also transitions for the cursor-follow effect */
+.sv-item-ico-wrap{transition:transform .35s cubic-bezier(.2,.8,.2,1);}
 
 /* legacy hooks (active state on grid not used anymore) */
 .sv-item.active{background:radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));}
@@ -17981,13 +18041,21 @@ window.addEventListener('resize',function(){
         it.appendChild(arr);
       }
 
-      // Add speed-line decorative elements
-      if(!it.querySelector('.sv-speed-line.left')){
-        var sl=document.createElement('div');sl.className='sv-speed-line left';it.appendChild(sl);
-        var sr=document.createElement('div');sr.className='sv-speed-line right';it.appendChild(sr);
+      // Add 4 speed-line decorative elements
+      if(!it.querySelector('.sv-speed-line.line-1')){
+        for(var i=1;i<=4;i++){
+          var ln=document.createElement('div');
+          ln.className='sv-speed-line line-'+i;
+          it.appendChild(ln);
+        }
       }
 
-      // Mouse-tracked spotlight + 3D tilt + image parallax
+      // Add animated gradient border (rotating conic — turns on at hover)
+      if(!it.querySelector('.sv-glow-border')){
+        var gb=document.createElement('div');gb.className='sv-glow-border';it.appendChild(gb);
+      }
+
+      // Mouse-tracked spotlight + 3D tilt + image parallax — cranked up
       var rafId=null;
       it.addEventListener('mousemove',function(e){
         var r=it.getBoundingClientRect();
@@ -17995,16 +18063,21 @@ window.addEventListener('resize',function(){
         var py=(e.clientY-r.top)/r.height;
         it.style.setProperty('--mx',(px*100)+'%');
         it.style.setProperty('--my',(py*100)+'%');
-        // 3D tilt (max ±7deg) — capped so it's elegant not dizzy
-        var rotX=(0.5-py)*7;
-        var rotY=(px-0.5)*7;
+        // 3D tilt — cranked to ±12deg for dramatic feel
+        var rotX=(0.5-py)*12;
+        var rotY=(px-0.5)*12;
         if(rafId)cancelAnimationFrame(rafId);
         rafId=requestAnimationFrame(function(){
-          it.style.transform='translateY(-6px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) scale(1.005)';
-          // Inverse parallax on image — moves opposite direction for depth
+          it.style.transform='translateY(-10px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) scale(1.012)';
+          // Stronger inverse parallax on image
           var img=it.querySelector('.sv-card-image img');
           if(img){
-            img.style.transform='scale(1.1) translate('+((px-0.5)*-14).toFixed(1)+'px,'+((py-0.5)*-10).toFixed(1)+'px)';
+            img.style.transform='scale(1.18) translate('+((px-0.5)*-26).toFixed(1)+'px,'+((py-0.5)*-18).toFixed(1)+'px)';
+          }
+          // Icon orbits subtly with cursor for extra liveliness
+          var ico=it.querySelector('.sv-item-ico-wrap');
+          if(ico){
+            ico.style.transform='translate('+((px-0.5)*8).toFixed(1)+'px,'+((py-0.5)*6).toFixed(1)+'px)';
           }
         });
       });
@@ -18013,6 +18086,19 @@ window.addEventListener('resize',function(){
         it.style.transform='';
         var img=it.querySelector('.sv-card-image img');
         if(img)img.style.transform='';
+        var ico=it.querySelector('.sv-item-ico-wrap');
+        if(ico)ico.style.transform='';
+      });
+
+      // Click ripple effect — radial wave from click point
+      it.addEventListener('mousedown',function(e){
+        var r=it.getBoundingClientRect();
+        var ripple=document.createElement('span');
+        ripple.className='sv-ripple';
+        ripple.style.left=(e.clientX-r.left)+'px';
+        ripple.style.top=(e.clientY-r.top)+'px';
+        it.appendChild(ripple);
+        setTimeout(function(){ripple.remove();},700);
       });
 
       // Remove sidebar "active" state from initial render — grid mode shouldn't highlight one
@@ -18051,27 +18137,92 @@ window.addEventListener('resize',function(){
   }
 })();
 
-// Fill card description text (truncated lead) + tag pill — runs at init and after setLang
+// Punchy marketing-style 1-line descriptions per service per language.
+// Override the auto-generated lead text with these for premium card feel.
+var SVC_BLURBS={
+  ru:{
+    kp:'Жизнь и работа в Польше — легально. NFZ, банк, Шенген — всё разом.',
+    pmzh:'Бессрочный статус. Работа без разрешений. Путь к гражданству ЕС.',
+    citizen:'Польский паспорт = весь ЕС. Безвиз в 190 стран. Полные права.',
+    bluecard:'Карта для IT и высоких зарплат. Семья сразу, упрощённый процесс.',
+    appeal:'Получили отказ? Возвращаем 76%. Бесплатно для наших клиентов.',
+    company:'Sp. z o.o. за 2 недели. JDG, KRS, REGON — под ключ.',
+    accounting:'ZUS, налоги, отчёты — ведём всё. Спите спокойно.',
+    pesel:'Налоговый номер за 1 день. Без него ничего не работает в Польше.',
+    profil:'Электронная подпись. Обязательна с 27.04 для подачи через MOS.',
+    rights:'Из иностранных в польские — без экзаменов. 14 дней.',
+    intl:'Беженство, гум. виза, апелляции. Конфиденциально, профессионально.'
+  },
+  en:{
+    kp:'Live and work legally in Poland. NFZ, bank, Schengen — all unlocked.',
+    pmzh:'Permanent status. Work without permits. Path to EU citizenship.',
+    citizen:'Polish passport = all of EU. Visa-free to 190 countries. Full rights.',
+    bluecard:'For IT and top salaries. Family from day one, simplified process.',
+    appeal:'Rejected? We win 76% back. Free for our clients.',
+    company:'Sp. z o.o. in 2 weeks. JDG, KRS, REGON — turnkey setup.',
+    accounting:'ZUS, taxes, reports — we handle everything. Sleep tight.',
+    pesel:'Tax ID in 1 day. Nothing works in Poland without it.',
+    profil:'E-signature. Mandatory from April 27 for MOS filings.',
+    rights:'Foreign license → Polish, no exam. 14 days.',
+    intl:'Refugee status, humanitarian visa, appeals. Confidential, expert.'
+  },
+  pl:{
+    kp:'Życie i praca w Polsce — legalnie. NFZ, bank, Schengen — wszystko od razu.',
+    pmzh:'Status bezterminowy. Praca bez zezwoleń. Droga do obywatelstwa UE.',
+    citizen:'Polski paszport = cała UE. Bez wizy do 190 krajów. Pełne prawa.',
+    bluecard:'Dla IT i wysokich pensji. Rodzina od razu, uproszczony proces.',
+    appeal:'Odmowa? Wygrywamy 76% z powrotem. Bezpłatnie dla naszych klientów.',
+    company:'Sp. z o.o. w 2 tygodnie. JDG, KRS, REGON — pod klucz.',
+    accounting:'ZUS, podatki, sprawozdania — prowadzimy wszystko. Śpij spokojnie.',
+    pesel:'Numer podatkowy w 1 dzień. Bez niego nic w Polsce nie działa.',
+    profil:'Podpis elektroniczny. Obowiązkowy od 27.04 dla MOS.',
+    rights:'Zagraniczne prawo jazdy → polskie bez egzaminu. 14 dni.',
+    intl:'Status uchodźcy, wiza humanitarna, odwołania. Poufnie, profesjonalnie.'
+  },
+  uk:{
+    kp:'Життя і робота у Польщі — легально. NFZ, банк, Шенген — все відразу.',
+    pmzh:'Безстроковий статус. Робота без дозволів. Шлях до громадянства ЄС.',
+    citizen:'Польський паспорт = весь ЄС. Безвіз у 190 країн. Повні права.',
+    bluecard:'Карта для IT та високих зарплат. Сім\'я одразу, спрощений процес.',
+    appeal:'Отримали відмову? Повертаємо 76%. Безкоштовно для наших клієнтів.',
+    company:'Sp. z o.o. за 2 тижні. JDG, KRS, REGON — під ключ.',
+    accounting:'ZUS, податки, звіти — ведемо все. Спіть спокійно.',
+    pesel:'Податковий номер за 1 день. Без нього у Польщі нічого не працює.',
+    profil:'Електронний підпис. Обов\'язковий з 27.04 для подачі через MOS.',
+    rights:'Іноземні права → польські без іспиту. 14 днів.',
+    intl:'Біженство, гум. віза, апеляції. Конфіденційно, професійно.'
+  }
+};
+
+// Fill card description text + tag pill — runs at init and after setLang
 function fillSvcCardDescs(){
   if(typeof SVC_EN==='undefined')return;
   var lang=(typeof L!=='undefined')?L:'en';
   document.querySelectorAll('#tab-services .sv-card-desc').forEach(function(el){
     var key=el.getAttribute('data-svc-key');
     if(!key)return;
-    var lead='';
-    if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].lead){
-      lead=SVC_LANG[lang][key].lead;
-    } else if(lang==='ru' && typeof SVC!=='undefined' && SVC[key] && SVC[key].lead){
-      lead=SVC[key].lead;
-    } else if(SVC_EN[key] && SVC_EN[key].lead){
-      lead=SVC_EN[key].lead;
+    var blurb='';
+    // Priority: custom punchy blurb > truncated lead
+    if(SVC_BLURBS[lang] && SVC_BLURBS[lang][key]){
+      blurb=SVC_BLURBS[lang][key];
+    } else {
+      // Fallback to lead from service data
+      var lead='';
+      if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].lead){
+        lead=SVC_LANG[lang][key].lead;
+      } else if(lang==='ru' && typeof SVC!=='undefined' && SVC[key] && SVC[key].lead){
+        lead=SVC[key].lead;
+      } else if(SVC_EN[key] && SVC_EN[key].lead){
+        lead=SVC_EN[key].lead;
+      }
+      if(lead.length>120){
+        var cut=lead.lastIndexOf(' ',114);
+        if(cut<60)cut=114;
+        lead=lead.substring(0,cut)+'…';
+      }
+      blurb=lead;
     }
-    if(lead.length>165){
-      var cut=lead.lastIndexOf(' ',158);
-      if(cut<80)cut=158;
-      lead=lead.substring(0,cut)+'…';
-    }
-    el.textContent=lead;
+    el.textContent=blurb;
   });
   // Update tag pill text per language
   document.querySelectorAll('#tab-services .sv-card-tag').forEach(function(el){
