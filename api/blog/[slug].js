@@ -760,27 +760,42 @@ function renderPage(a, contentHtml) {
 
 
 
-    /* BACK BUTTON */
+    /* BACK BUTTON — STICKY: остаётся видимой при скролле статьи */
 
-    .back-btn {
-
-      display:inline-flex;align-items:center;gap:8px;
-
-      color:#fff;font-size:13px;font-weight:600;text-decoration:none;
-
-      background:rgba(91,82,204,.45);border:1px solid rgba(139,130,232,.5);
-
-      padding:8px 16px;border-radius:30px;
-
-      transition:all .25s;
-
-      animation:backPulse 3s ease-in-out infinite;
-
+    .back-btn-wrap {
+      position:sticky;
+      top:14px;
+      z-index:50;
+      max-width:900px;
+      margin:14px auto 0;
+      padding:0 24px;
+      pointer-events:none; /* wrapper не ловит клики, только сам button */
     }
 
-    .back-btn:hover{background:rgba(91,82,204,.4);border-color:var(--p400);color:#fff;transform:translateX(-3px);}
+    .back-btn {
+      pointer-events:auto;
+      display:inline-flex;align-items:center;gap:9px;
+      color:#fff;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.2px;
+      background:linear-gradient(135deg,rgba(124,92,252,.55),rgba(91,82,204,.4));
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border:1px solid rgba(167,139,250,.5);
+      padding:10px 20px;border-radius:60px;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+      box-shadow:0 8px 24px -6px rgba(124,92,252,.5);
+    }
 
-    @keyframes backPulse{0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,.0);}50%{box-shadow:0 0 0 6px rgba(91,82,204,.15);}}
+    .back-btn:hover {
+      background:linear-gradient(135deg,rgba(124,92,252,.75),rgba(91,82,204,.55));
+      border-color:rgba(167,139,250,.75);
+      color:#fff;
+      transform:translateX(-4px);
+      box-shadow:0 12px 32px -6px rgba(124,92,252,.65);
+    }
+
+    @media (max-width: 768px) {
+      .back-btn-wrap { top:8px; padding:0 14px; }
+      .back-btn { font-size:12.5px; padding:8px 16px; }
+    }
 
 
 
@@ -1076,9 +1091,9 @@ function renderPage(a, contentHtml) {
 
 
 
-  <div style="max-width:900px;margin:84px auto 0;padding:0 24px 0;">
+  <div class="back-btn-wrap">
 
-    <a href="https://www.legalsol.pl#tab-blog" class="back-btn">${isRu ? '← Все статьи' : '← All articles'}</a>
+    <a href="https://www.legalsol.pl/blog" class="back-btn">${isRu ? '← Все статьи' : '← All articles'}</a>
 
   </div>
 
