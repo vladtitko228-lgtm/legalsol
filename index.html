@@ -962,6 +962,33 @@ h1 .acc{color:var(--p300);}
 .trc-arr{color:var(--gold);font-size:12px;opacity:.45;flex-shrink:0;margin-bottom:18px;}
 
 .hero-btns{display:flex;gap:12px;margin-bottom:36px;flex-wrap:wrap;}
+/* ── Hero quick-service tiles (Карта · ПМЖ · Бизнес) ── */
+.hero-svc-row{display:flex;gap:10px;margin:18px 0 28px;flex-wrap:wrap;}
+.hero-svc-eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin:24px 0 10px;}
+.hero-svc-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 18px;border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  color:rgba(255,255,255,.92);font-size:14px;font-weight:600;
+  text-decoration:none;cursor:pointer;
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+  font-family:'Inter',sans-serif;
+}
+.hero-svc-btn:hover{
+  background:rgba(91,82,204,.18);
+  border-color:rgba(91,82,204,.55);
+  transform:translateY(-2px);
+  box-shadow:0 6px 22px rgba(91,82,204,.25);
+}
+.hero-svc-btn .hsb-icon{font-size:18px;line-height:1;}
+.hero-svc-btn .hsb-label{display:block;font-size:14px;line-height:1.1;}
+.hero-svc-btn .hsb-sub{display:block;font-size:10.5px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.3px;margin-top:2px;}
+@media (max-width:768px){
+  .hero-svc-row{gap:8px;}
+  .hero-svc-btn{padding:10px 14px;font-size:13px;}
+  .hero-svc-btn .hsb-icon{font-size:16px;}
+}
 
 .hero-stats{display:flex;gap:0;}
 
@@ -3163,6 +3190,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="hero-desc" id="hero-desc">Берём на себя всё — от консультации до документа в руках.</p>
 
     <a class="hero-mega-cta" href="#calc-section" id="hero-mega-cta" onclick="event.preventDefault();document.getElementById('calc-section').scrollIntoView({behavior:'smooth',block:'start'});">УЗНАТЬ ШАНСЫ НА КАРТУ ПОБЫТА →</a>
+
+    <div class="hero-svc-eyebrow" id="hero-svc-eyebrow">Или выберите услугу</div>
+    <div class="hero-svc-row">
+      <a href="#" class="hero-svc-btn" onclick="event.preventDefault();openModalForService('karta_pobytu');" id="hero-svc-kp">
+        <span class="hsb-icon">🪪</span>
+        <span class="hsb-label" id="hero-svc-kp-label">Карта побыту</span>
+      </a>
+      <a href="#" class="hero-svc-btn" onclick="event.preventDefault();openModalForService('permanent_residence');" id="hero-svc-pmj">
+        <span class="hsb-icon">🏠</span>
+        <span class="hsb-label" id="hero-svc-pmj-label">ПМЖ</span>
+      </a>
+      <a href="/business" class="hero-svc-btn" id="hero-svc-biz">
+        <span class="hsb-icon">💼</span>
+        <span class="hsb-label" id="hero-svc-biz-label">Для бизнеса</span>
+      </a>
+    </div>
 
     <div class="hero-btns">
 
@@ -14712,6 +14755,20 @@ function showTab(name){
 
 function openModal(){document.getElementById('modal').classList.add('on');}
 
+/* Открыть модалку с предвыбранной услугой (key = karta_pobytu | permanent_residence | citizenship | blue_card | …) */
+function openModalForService(key){
+  openModal();
+  try{
+    var opt=document.querySelector('#cs-menu .cs-option[data-key="'+key+'"]');
+    if(opt && typeof csSelect==='function')csSelect(opt);
+  }catch(e){}
+  /* GA-событие — какую услугу выбрали через хиро-кнопку */
+  try{
+    window.dataLayer=window.dataLayer||[];
+    window.dataLayer.push({event:'hero_service_click',hero_service:key});
+  }catch(e){}
+}
+
 function closeModal(){document.getElementById('modal').classList.remove('on');csClose();}
 
 /* ── i18n для форм + лидов ── */
@@ -17630,6 +17687,10 @@ var T={
     'hero-desc':'Берём на себя все юридические вопросы — от первой консультации до документа в руках. Вы живёте — мы заботимся о вашем статусе.',
 
     'hero-btn2':'Все услуги →',
+    'hero-svc-eyebrow':'Или выберите услугу',
+    'hero-svc-kp-label':'Карта побыту',
+    'hero-svc-pmj-label':'ПМЖ',
+    'hero-svc-biz-label':'Для бизнеса',
 
     'hero-card-cta':'Правовой анализ — бесплатно →','hero-ref-btn':'🎁 Приводи друзей — зарабатывай',
 
@@ -18205,6 +18266,10 @@ var T={
     'hero-h1':'Residence Permit<br><em>professional &amp; stress-free</em>',
 
     'hero-btn2':'All services →',
+    'hero-svc-eyebrow':'Or choose a service',
+    'hero-svc-kp-label':'Residence permit',
+    'hero-svc-pmj-label':'Permanent residency',
+    'hero-svc-biz-label':'For business',
 
     'hero-card-cta':'Legal analysis — free →','hero-ref-btn':'🎁 Refer friends — earn money',
 
@@ -18790,6 +18855,10 @@ var T={
     'hero-desc':'Zajmujemy się wszystkimi kwestiami prawnymi — od pierwszej konsultacji do dokumentu w rękach. Ty żyjesz — my dbamy o Twój status.',
 
     'hero-btn2':'Wszystkie usługi →',
+    'hero-svc-eyebrow':'Lub wybierz usługę',
+    'hero-svc-kp-label':'Karta pobytu',
+    'hero-svc-pmj-label':'Pobyt stały',
+    'hero-svc-biz-label':'Dla biznesu',
 
     'hero-card-cta':'Analiza prawna — bezpłatnie →','hero-ref-btn':'🎁 Polecaj znajomych — zarabiaj',
 
@@ -19365,6 +19434,10 @@ var T={
     'hero-desc':'Nos encargamos de todo lo legal — desde la primera consulta hasta el documento en sus manos.',
 
     'hero-btn2':'Todos los servicios →','hero-card-cta':'Análisis legal — gratis →','hero-ref-btn':'🎁 Refiere amigos — gana dinero',
+    'hero-svc-eyebrow':'O elige un servicio',
+    'hero-svc-kp-label':'Permiso de residencia',
+    'hero-svc-pmj-label':'Residencia permanente',
+    'hero-svc-biz-label':'Para empresas',
 
     'hero-mega-cta':'VERIFICAR MIS POSIBILIDADES →',
 
@@ -19936,6 +20009,10 @@ var T={
     'hero-desc':'İlk danışmadan belgenize kadar her şeyi üstleniyoruz.',
 
     'hero-btn2':'Tüm hizmetler →','hero-card-cta':'Hukuki analiz — ücretsiz →','hero-ref-btn':'🎁 Arkadaş getir — kazan',
+    'hero-svc-eyebrow':'Veya bir hizmet seçin',
+    'hero-svc-kp-label':'Oturma izni'den',
+    'hero-svc-pmj-label':'Sürekli oturum'den',
+    'hero-svc-biz-label':'İşletmeler için',
 
     'hero-mega-cta':'OTURMA İZNİ ŞANSIMI ÖĞREN →',
 
@@ -20507,6 +20584,10 @@ var T={
     'hero-desc':'İlk məsləhətdən sənədinizə qədər hər şeyi öz üzərimizə götürürük.',
 
     'hero-btn2':'Bütün xidmətlər →','hero-card-cta':'Hüquqi analiz — pulsuz →','hero-ref-btn':'🎁 Dost gətir — qazan',
+    'hero-svc-eyebrow':'Və ya xidmət seçin',
+    'hero-svc-kp-label':'İqamət icazəsi',
+    'hero-svc-pmj-label':'Daimi yaşayış',
+    'hero-svc-biz-label':'Biznes üçün',
 
     'hero-mega-cta':'İQAMƏT İCAZƏSİ ŞANSIMI ÖYRƏN →',
 
@@ -21078,6 +21159,10 @@ var T={
     'hero-desc':'पहली परामर्श से दस्तावेज़ मिलने तक सब कुछ हम संभालते हैं।',
 
     'hero-btn2':'सभी सेवाएं →','hero-card-cta':'कानूनी विश्लेषण — मुफ्त →','hero-ref-btn':'🎁 दोस्त लाओ — कमाओ',
+    'hero-svc-eyebrow':'या सेवा चुनें',
+    'hero-svc-kp-label':'निवास परमिट',
+    'hero-svc-pmj-label':'स्थायी निवास',
+    'hero-svc-biz-label':'व्यवसाय के लिए',
 
     'hero-mega-cta':'निवास परमिट की संभावना जानें →',
 
@@ -21649,6 +21734,10 @@ var T={
     'hero-desc':'Беремо на себе всі юридичні питання — від першої консультації до документа в руках. Ви живете — ми піклуємося про ваш статус.',
 
     'hero-btn2':'Усі послуги →','hero-card-cta':'Правовий аналіз — безкоштовно →','hero-ref-btn':'🎁 Приводь друзів — заробляй',
+    'hero-svc-eyebrow':'Або оберіть послугу',
+    'hero-svc-kp-label':'Карта побиту',
+    'hero-svc-pmj-label':'ПМП',
+    'hero-svc-biz-label':'Для бізнесу',
 
     'hero-mega-cta':'ДІЗНАТИСЬ ШАНСИ НА КАРТУ ПОБИТУ →',
 
