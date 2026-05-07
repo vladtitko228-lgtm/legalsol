@@ -22874,6 +22874,95 @@ function setLang(lang){
 
   // Blog tab
 
+  // ════════════════════════════════════════════════════════════════
+  // Homepage blog tab: replace 6 hardcoded placeholder cards with REAL
+  // latest posts from Notion via /api/blog-listing?format=json
+  // (fixes mismatch: card said "How to Get a Residence Permit" but
+  //  clicking opened "Karta Pobytu for Bangladesh Citizens 2026" etc.)
+  // ════════════════════════════════════════════════════════════════
+  (function _bindRealBlogCards(){
+    function loadCards(){
+      var lang = (typeof L !== 'undefined') ? L : 'en';
+      var apiLang = (lang === 'ru') ? 'ru' : 'en';
+      var grid = document.querySelector('#tab-blog .blog-grid');
+      if (!grid) return;
+      // Don't refetch if already loaded for this lang
+      if (grid.getAttribute('data-loaded-lang') === apiLang) return;
+
+      fetch('/api/blog-listing?format=json&limit=6&lang=' + apiLang, { cache: 'force-cache' })
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (!data || !data.articles || data.articles.length === 0) return;
+          var cats = ['ВИД НА ЖИТЕЛЬСТВО','НАЛОГИ','PESEL','PROFIL ZAUFANY','АПЕЛЛЯЦИИ','БИЗНЕС'];
+          var readEN = 'Read →', readRU = 'Читать →', readPL = 'Czytaj →', readUK = 'Читати →',
+              readES = 'Leer →', readTR = 'Oku →', readAZ = 'Oxu →', readHI = 'पढ़ें →';
+          var readMap = {ru:readRU,en:readEN,pl:readPL,uk:readUK,es:readES,tr:readTR,az:readAZ,hi:readHI};
+          var readText = readMap[lang] || readEN;
+          var fallbackCover = 'https://images.unsplash.com/photo-1521791055366-0d553872952f?w=600&h=280&fit=crop&q=75';
+          var html = '';
+          data.articles.slice(0, 6).forEach(function(a){
+            var slugClean = (a.slug || '').replace(/-en$/, '');
+            // Real link: /blog/{ru-slug} for RU lang, /blog/{slug} (with -en) for others
+            var href = (apiLang === 'ru') ? ('/blog/' + slugClean) : ('/blog/' + (a.slug || slugClean));
+            var cat = (a.category || '').toUpperCase();
+            var cover = a.coverImage || fallbackCover;
+            // Format date: 2026-05-08 → 08.05.2026 for RU, May 8, 2026 for others
+            var d = (a.publishedDate || '').split('-');
+            var dateFmt = '';
+            if (d.length === 3) {
+              if (lang === 'ru' || lang === 'uk') dateFmt = d[2]+'.'+d[1]+'.'+d[0];
+              else {
+                var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                dateFmt = months[parseInt(d[1],10)-1] + ' ' + parseInt(d[2],10) + ', ' + d[0];
+              }
+            }
+            var title = a.title || '';
+            var desc = a.seoDescription || '';
+            html += '<a class="blog-card reveal" href="'+href+'" style="text-decoration:none;display:block;color:inherit">'
+                  + '<div class="blog-thumb" style="overflow:hidden;background:#1a1638;">'
+                  +   '<img src="'+cover+'" alt="'+title.replace(/"/g,'&quot;')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.78;"/>'
+                  +   '<div class="blog-cat">'+cat+'</div>'
+                  + '</div>'
+                  + '<div class="blog-body">'
+                  +   '<div class="blog-date">'+dateFmt+'</div>'
+                  +   '<div class="blog-t">'+title+'</div>'
+                  +   '<div class="blog-e">'+desc+'</div>'
+                  +   '<span class="blog-read">'+readText+'</span>'
+                  + '</div>'
+                  + '</a>';
+          });
+          grid.innerHTML = html;
+          grid.setAttribute('data-loaded-lang', apiLang);
+          // Trigger reveal animation on new cards
+          if (typeof window.IntersectionObserver !== 'undefined') {
+            grid.querySelectorAll('.blog-card.reveal').forEach(function(el){
+              setTimeout(function(){el.classList.add('on');}, 50);
+            });
+          }
+        })
+        .catch(function(e){ console.warn('[blog cards] fetch failed:', e); });
+    }
+    // Load on first activation of blog tab + on lang change
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadCards);
+    } else {
+      loadCards();
+    }
+    // Hook setLang so cards refresh on language change
+    var origSL = window.setLang;
+    if (typeof origSL === 'function') {
+      window.setLang = function(){
+        var r = origSL.apply(this, arguments);
+        try {
+          var grid = document.querySelector('#tab-blog .blog-grid');
+          if (grid) grid.removeAttribute('data-loaded-lang');
+          loadCards();
+        } catch(e){}
+        return r;
+      };
+    }
+  })();
+
   var bTag=document.querySelector('#tab-blog .s-tag');
 
   var bTitle=document.querySelector('#tab-blog .s-title');
