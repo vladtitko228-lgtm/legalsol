@@ -1704,6 +1704,20 @@ function renderPage(a, contentHtml) {
 
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeConsultModal();});
 
+    /* Tracking — WhatsApp & phone clicks → GA4 (через GTM dataLayer) */
+    document.addEventListener('click',function(e){
+      var a=e.target.closest && e.target.closest('a'); if(!a) return;
+      var href=a.getAttribute('href')||'';
+      try{
+        window.dataLayer=window.dataLayer||[];
+        if(href.indexOf('wa.me/')!==-1){
+          window.dataLayer.push({event:'whatsapp_click',wa_link:href.split('?')[0],lead_page:location.pathname});
+        } else if(href.indexOf('tel:')===0){
+          window.dataLayer.push({event:'phone_click',tel_link:href,lead_page:location.pathname});
+        }
+      }catch(_){}
+    });
+
   </script>
 
 </body>
