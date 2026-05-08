@@ -8735,12 +8735,9 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 
     </div>
 
-    <div class="blog-cta-wrap reveal" style="text-align:center;margin-top:48px;">
-      <a href="/blog" class="blog-all-btn" id="blog-all-btn">
-        <span data-blog-all-lbl>Все статьи</span>
-        <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
+    <!-- "All articles" CTA — рендерится через JS в loadCards() ниже,
+         чтобы гарантированно иметь только ОДНУ кнопку (раньше был дубль из-за browser cache) -->
+    <div id="blog-cta-mount"></div>
 
   </div>
 
@@ -24440,11 +24437,25 @@ function setLang(lang){
               setTimeout(function(){el.classList.add('on');}, 50);
             });
           }
-          // Translate "Все статьи" button label
+          // Render "All articles" button — гарантированно ОДНА (рендерится JS, в HTML нет)
           var allLabels = {ru:'Все статьи',en:'All articles',pl:'Wszystkie artykuły',uk:'Усі статті',es:'Todos los artículos',tr:'Tüm makaleler',az:'Bütün məqalələr',hi:'सभी लेख'};
-          document.querySelectorAll('[data-blog-all-lbl]').forEach(function(el){
-            el.textContent = allLabels[lang] || allLabels.en;
-          });
+          var btnLabel = allLabels[lang] || allLabels.en;
+          var mount = document.getElementById('blog-cta-mount');
+          if (mount) {
+            mount.innerHTML = '<div class="blog-cta-wrap reveal on" style="text-align:center;margin-top:48px;">'
+              + '<a href="/blog" class="blog-all-btn" id="blog-all-btn">'
+              + '<span>' + btnLabel + '</span>'
+              + '<svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+              + '</a></div>';
+          }
+          // Last-ditch dedup: если откуда-то ещё появились .blog-all-btn — оставляем только первую
+          var btns = document.querySelectorAll('#tab-blog .blog-all-btn');
+          if (btns.length > 1) {
+            for (var k = 1; k < btns.length; k++) {
+              var w = btns[k].closest('.blog-cta-wrap') || btns[k];
+              w.parentNode && w.parentNode.removeChild(w);
+            }
+          }
         })
         .catch(function(e){ console.warn('[blog cards] fetch failed:', e); });
     }
