@@ -24448,12 +24448,37 @@ function setLang(lang){
         })
         .catch(function(e){ console.warn('[blog cards] fetch failed:', e); });
     }
+    // Defensive: убираем любые дубликаты blog-all-btn / blog-cta-wrap
+    // (могут возникать от browser cache, service worker, extension и т.п.)
+    function _dedupBlogCTAs(){
+      var wraps = document.querySelectorAll('#tab-blog .blog-cta-wrap');
+      if (wraps.length > 1) {
+        for (var i = 1; i < wraps.length; i++) {
+          wraps[i].parentNode && wraps[i].parentNode.removeChild(wraps[i]);
+        }
+      }
+      var btns = document.querySelectorAll('#tab-blog .blog-all-btn');
+      if (btns.length > 1) {
+        for (var j = 1; j < btns.length; j++) {
+          btns[j].parentNode && btns[j].parentNode.removeChild(btns[j]);
+        }
+      }
+    }
+
     // Load on first activation of blog tab + on lang change
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadCards);
+      document.addEventListener('DOMContentLoaded', function(){
+        loadCards();
+        _dedupBlogCTAs();
+      });
     } else {
       loadCards();
+      _dedupBlogCTAs();
     }
+    // Run dedup again periodically (in case dynamic content adds duplicates)
+    setTimeout(_dedupBlogCTAs, 500);
+    setTimeout(_dedupBlogCTAs, 2000);
+
     // Hook setLang so cards refresh on language change
     var origSL = window.setLang;
     if (typeof origSL === 'function') {
@@ -24463,6 +24488,7 @@ function setLang(lang){
           var grid = document.querySelector('#tab-blog .blog-grid');
           if (grid) grid.removeAttribute('data-loaded-lang');
           loadCards();
+          _dedupBlogCTAs();
         } catch(e){}
         return r;
       };
