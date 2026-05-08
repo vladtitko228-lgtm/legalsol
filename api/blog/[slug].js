@@ -830,41 +830,45 @@ function renderPage(a, contentHtml) {
 
 
 
-    /* BACK BUTTON — STICKY: остаётся видимой при скролле статьи */
+    /* BACK BUTTON — FIXED к viewport: всегда виден при скролле статьи */
 
     .back-btn-wrap {
-      position:sticky;
+      position:fixed;
       top:14px;
-      z-index:50;
-      max-width:900px;
-      margin:14px auto 0;
-      padding:0 24px;
-      pointer-events:none; /* wrapper не ловит клики, только сам button */
+      left:max(20px, calc((100vw - 900px)/2 - 60px));
+      z-index:200;
+      pointer-events:none;
+      animation:backFadeIn .4s cubic-bezier(.4,0,.2,1);
+    }
+
+    @keyframes backFadeIn {
+      from { opacity:0; transform:translateY(-8px); }
+      to { opacity:1; transform:translateY(0); }
     }
 
     .back-btn {
       pointer-events:auto;
       display:inline-flex;align-items:center;gap:9px;
       color:#fff;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.2px;
-      background:linear-gradient(135deg,rgba(124,92,252,.55),rgba(91,82,204,.4));
-      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-      border:1px solid rgba(167,139,250,.5);
-      padding:10px 20px;border-radius:60px;
+      background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.5));
+      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border:1px solid rgba(167,139,250,.55);
+      padding:11px 20px;border-radius:60px;
       transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
-      box-shadow:0 8px 24px -6px rgba(124,92,252,.5);
+      box-shadow:0 12px 32px -6px rgba(124,92,252,.6), 0 0 0 1px rgba(167,139,250,.18);
     }
 
     .back-btn:hover {
-      background:linear-gradient(135deg,rgba(124,92,252,.75),rgba(91,82,204,.55));
-      border-color:rgba(167,139,250,.75);
+      background:linear-gradient(135deg,rgba(124,92,252,.85),rgba(91,82,204,.65));
+      border-color:rgba(167,139,250,.8);
       color:#fff;
       transform:translateX(-4px);
-      box-shadow:0 12px 32px -6px rgba(124,92,252,.65);
+      box-shadow:0 16px 40px -8px rgba(124,92,252,.75);
     }
 
     @media (max-width: 768px) {
-      .back-btn-wrap { top:8px; padding:0 14px; }
-      .back-btn { font-size:12.5px; padding:8px 16px; }
+      .back-btn-wrap { top:10px; left:14px; }
+      .back-btn { font-size:12.5px; padding:9px 16px; gap:8px; }
     }
 
 
