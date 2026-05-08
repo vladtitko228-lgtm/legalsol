@@ -5278,36 +5278,386 @@ function submitHlead(){
 
 <style>
 
-.sv-layout{display:grid;grid-template-columns:280px 1fr;gap:0;margin-top:44px;border:1px solid rgba(139,130,232,.15);border-radius:20px;overflow:hidden;align-items:start;}
+/* ──────────────────────────────────────────────────────────
+   FULL-PAGE LAYOUT v2 (2026-05-07)
+   Grid view → click card → detail expands to full width.
+   No sidebar. No cramped 280px column.
+   ────────────────────────────────────────────────────────── */
 
-.sv-sidebar{background:linear-gradient(180deg,rgba(22,18,55,.85) 0%,rgba(14,11,38,.85) 100%);border-right:1px solid rgba(139,130,232,.14);position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-
-.sv-sidebar-hd{padding:22px 24px 18px;border-bottom:1px solid rgba(139,130,232,.08);font-size:10px;letter-spacing:3.5px;color:rgba(167,139,250,.7);font-weight:600;text-transform:uppercase;}
-
-.sv-item{position:relative;display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;border-bottom:1px solid rgba(139,130,232,.05);transition:background .25s ease,padding .25s ease;}
-
-/* premium left accent bar (replaces solid 3px border-left) */
-.sv-item::before{content:"";position:absolute;left:0;top:18%;bottom:18%;width:2px;border-radius:0 2px 2px 0;background:linear-gradient(180deg,#a78bfa,#7c5cfc);opacity:0;transform:scaleY(.4);transition:opacity .25s ease,transform .3s cubic-bezier(.4,0,.2,1);}
-
-.sv-item:hover{background:rgba(91,82,204,.08);}
-.sv-item:hover::before{opacity:.45;transform:scaleY(.7);}
-
-.sv-item.active{background:linear-gradient(90deg,rgba(124,92,252,.16) 0%,rgba(124,92,252,.04) 80%,transparent 100%);}
-.sv-item.active::before{opacity:1;transform:scaleY(1);box-shadow:0 0 12px rgba(167,139,250,.55);}
-
-.sv-item-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(45,38,110,.45));border:1px solid rgba(167,139,250,.12);transition:background .3s ease,border-color .3s ease,transform .3s ease,box-shadow .3s ease;}
-
-.sv-item:hover .sv-item-ico{border-color:rgba(167,139,250,.28);transform:translateY(-1px);}
-
-.sv-item.active .sv-item-ico{
-  background:linear-gradient(135deg,rgba(124,92,252,.5),rgba(91,82,204,.32));
-  border-color:rgba(167,139,250,.4);
-  box-shadow:0 6px 18px -4px rgba(124,92,252,.45),inset 0 1px 0 rgba(255,255,255,.08);
+/* ─── Decorative bg layer for services section ─── */
+.sv-bg-fx{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;
+}
+#sv-particle-net{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:.55;pointer-events:none;
+}
+.sv-bg-docs{position:absolute;inset:0;}
+.sv-bg-doc{
+  position:absolute;opacity:.13;will-change:transform;
+  animation:svBgDocFloat var(--dur,40s) linear infinite;
+  animation-delay:var(--delay,0s);
+}
+.sv-bg-doc svg{display:block;filter:drop-shadow(0 0 16px rgba(124,92,252,.45));}
+@keyframes svBgDocFloat{
+  0%{transform:translateY(110%) rotate(var(--rs,-10deg));}
+  100%{transform:translateY(-30%) rotate(var(--re,10deg));}
 }
 
-/* icon shimmer on active — subtle highlight sweep */
-.sv-item-ico::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.08) 50%,transparent 70%);opacity:0;transition:opacity .3s ease;pointer-events:none;}
-.sv-item.active .sv-item-ico::after{opacity:1;}
+/* "OK Stamp" circles drifting slowly */
+.sv-bg-stamp{
+  position:absolute;width:90px;height:90px;
+  border:3px solid rgba(34,211,238,.32);border-radius:50%;
+  box-shadow:inset 0 0 18px rgba(34,211,238,.12);
+  animation:svBgStampDrift var(--dur,60s) linear infinite;opacity:.55;
+}
+.sv-bg-stamp::before{
+  content:'✓';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(34,211,238,.4);font-size:34px;font-weight:800;
+}
+@keyframes svBgStampDrift{
+  0%{transform:translate(0,0) rotate(0deg);}
+  50%{transform:translate(-30px,-25px) rotate(180deg);}
+  100%{transform:translate(0,0) rotate(360deg);}
+}
+
+/* Diagonal light beam — slow rotating sweep across section */
+.sv-bg-beam{
+  position:absolute;top:-25%;left:50%;width:140%;height:200%;
+  background:linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(124,92,252,.06) 48%,
+    rgba(167,139,250,.10) 50%,
+    rgba(124,92,252,.06) 52%,
+    transparent 60%);
+  transform:translateX(-50%) rotate(0deg);
+  transform-origin:center center;
+  animation:svBgBeam 18s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes svBgBeam{
+  0%,100%{transform:translateX(-55%) rotate(-2deg);opacity:.5;}
+  50%{transform:translateX(-45%) rotate(3deg);opacity:1;}
+}
+
+.sv-layout{display:block;margin-top:36px;position:relative;z-index:1;}
+
+/* Ambient backdrop for the whole services section — floating blurred orbs */
+.sv-layout::before{
+  content:"";position:absolute;top:-80px;left:-100px;width:520px;height:520px;
+  background:radial-gradient(circle,rgba(124,92,252,.18) 0%,rgba(124,92,252,.05) 35%,transparent 65%);
+  filter:blur(40px);pointer-events:none;z-index:-1;
+  animation:svBg1 22s ease-in-out infinite;
+}
+.sv-layout::after{
+  content:"";position:absolute;bottom:-100px;right:-100px;width:580px;height:580px;
+  background:radial-gradient(circle,rgba(34,211,238,.14) 0%,rgba(34,211,238,.04) 40%,transparent 70%);
+  filter:blur(50px);pointer-events:none;z-index:-1;
+  animation:svBg2 28s ease-in-out infinite;
+}
+@keyframes svBg1{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(60px,40px) scale(1.15);}
+}
+@keyframes svBg2{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(-50px,-60px) scale(.9);}
+}
+
+/* Subtle dot pattern as base layer — adds texture without distraction */
+#tab-services{position:relative;}
+#tab-services::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:-2;
+  background-image:radial-gradient(rgba(167,139,250,.08) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 30%,transparent 80%);
+  opacity:.6;
+}
+
+/* Grid view — bigger, more breathing, premium feel */
+.sv-sidebar{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:20px;
+  background:transparent;border:none;
+  position:static;max-height:none;overflow:visible;
+  padding:0;
+}
+body.sv-detail-open .sv-sidebar{display:none;}
+
+/* Hide the old "CHOOSE A SERVICE" header — cards speak for themselves */
+.sv-sidebar-hd{display:none;}
+
+/* ─── PREMIUM CARD v3: image header + content + ambient animations ─── */
+.sv-item{
+  position:relative;
+  display:flex;flex-direction:column;
+  padding:0;
+  cursor:pointer;
+  background:
+    radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),
+    linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));
+  border:1px solid rgba(139,130,232,.18);
+  border-radius:22px;
+  transition:transform .45s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
+  overflow:hidden;
+  min-height:380px;
+  isolation:isolate;
+}
+
+/* Image header — top 180px */
+.sv-card-image{
+  position:relative;width:100%;height:180px;flex-shrink:0;overflow:hidden;
+  background:#1a1545;
+}
+.sv-card-image img{
+  width:100%;height:100%;object-fit:cover;
+  filter:saturate(.85) brightness(.72) contrast(1.05);
+  transition:transform 1.4s cubic-bezier(.2,.8,.2,1),filter .6s ease;
+}
+.sv-item:hover .sv-card-image img{transform:scale(1.18);filter:saturate(1.15) brightness(.95) contrast(1.1);}
+
+/* Scanning light bar across image on hover */
+.sv-card-image::before{
+  content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.32),rgba(255,255,255,.15),rgba(167,139,250,.32),transparent);
+  transform:skewX(-25deg);pointer-events:none;
+  transition:left 1s cubic-bezier(.4,0,.2,1);
+}
+.sv-item:hover .sv-card-image::before{left:150%;}
+
+/* Image-to-content gradient blend — bottom of image fades into card bg */
+.sv-card-image::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:55%;
+  background:linear-gradient(to top,rgba(14,11,38,.95) 0%,rgba(14,11,38,.55) 50%,transparent 100%);
+  pointer-events:none;
+}
+
+/* Tag pill on image — top-left */
+.sv-card-tag{
+  position:absolute;top:14px;left:14px;z-index:2;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 11px;border-radius:30px;
+  background:rgba(8,6,22,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(167,139,250,.32);
+  font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(196,181,253,.95);
+  text-transform:uppercase;
+}
+.sv-card-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:#a78bfa;box-shadow:0 0 8px #a78bfa;}
+
+/* Card body below image — padding-top accounts for icon overlap */
+.sv-card-body{
+  position:relative;z-index:1;
+  padding:54px 28px 76px 28px;
+  flex:1;display:flex;flex-direction:column;
+}
+.sv-item:hover{
+  transform:translateY(-10px);
+  border-color:rgba(167,139,250,.6);
+  box-shadow:
+    0 32px 64px -12px rgba(124,92,252,.55),
+    0 0 0 1px rgba(167,139,250,.3),
+    0 0 60px -10px rgba(167,139,250,.4);
+}
+
+/* Animated gradient border on hover — rainbow/violet hue shift sweeping */
+.sv-item{position:relative;}
+.sv-item .sv-glow-border{
+  position:absolute;inset:-1px;border-radius:22px;pointer-events:none;z-index:3;
+  opacity:0;transition:opacity .4s ease;
+  background:conic-gradient(from var(--ang,0deg),
+    rgba(167,139,250,.7) 0deg,
+    rgba(34,211,238,.5) 90deg,
+    rgba(167,139,250,.7) 180deg,
+    rgba(124,92,252,.6) 270deg,
+    rgba(167,139,250,.7) 360deg);
+  -webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  padding:1.5px;
+  animation:svGlowRotate 4s linear infinite;
+}
+@keyframes svGlowRotate{to{--ang:360deg;}}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false;}
+.sv-item:hover .sv-glow-border{opacity:1;}
+
+/* Top-edge glow line — pulses on hover, brighter */
+.sv-item::before{
+  content:"";position:absolute;top:0;left:14%;right:14%;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.9) 30%,rgba(34,211,238,.7) 50%,rgba(167,139,250,.9) 70%,transparent);
+  opacity:.5;transition:opacity .3s ease;z-index:2;
+  box-shadow:0 0 12px rgba(167,139,250,.5);
+}
+.sv-item:hover::before{opacity:1;animation:svTopGlow 1.8s ease-in-out infinite;}
+@keyframes svTopGlow{0%,100%{opacity:.6;transform:scaleX(.9);}50%{opacity:1;transform:scaleX(1);}}
+
+/* Mouse-tracked spotlight + ambient orb (drifts continuously) */
+.sv-item::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(167,139,250,.18),transparent 50%);
+  opacity:0;transition:opacity .4s ease;
+}
+.sv-item:hover::after{opacity:1;}
+
+/* Icon — floats on bottom-left of image header, overlapping into body */
+.sv-item-ico-wrap{
+  position:absolute;top:140px;left:22px;z-index:3;
+  flex-shrink:0;
+}
+.sv-item-ico-wrap::before{
+  content:"";position:absolute;inset:-18px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.32),transparent 60%);
+  opacity:.7;
+  animation:svOrb 8s ease-in-out infinite;
+  z-index:0;pointer-events:none;
+}
+@keyframes svOrb{
+  0%,100%{transform:translate(0,0) scale(1);opacity:.55;}
+  33%{transform:translate(6px,-4px) scale(1.15);opacity:.8;}
+  66%{transform:translate(-4px,6px) scale(.92);opacity:.4;}
+}
+
+/* Animated gradient ring around icon on hover — rotates slowly */
+.sv-item-ico-wrap::after{
+  content:"";position:absolute;inset:-3px;border-radius:18px;
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(167,139,250,.6) 60deg,transparent 120deg,transparent 360deg);
+  opacity:0;transition:opacity .4s ease;animation:svRing 4s linear infinite;
+  z-index:0;pointer-events:none;
+}
+.sv-item:hover .sv-item-ico-wrap::after{opacity:.8;}
+@keyframes svRing{to{transform:rotate(360deg);}}
+
+.sv-item-ico{
+  position:relative;z-index:1;
+  width:64px;height:64px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(124,92,252,.6),rgba(91,82,204,.4));
+  border:1px solid rgba(167,139,250,.45);
+  box-shadow:
+    0 10px 28px -4px rgba(124,92,252,.55),
+    0 0 0 4px rgba(8,6,22,.6),
+    inset 0 1px 0 rgba(255,255,255,.12);
+  transition:background .35s ease,border-color .35s ease,transform .45s cubic-bezier(.4,0,.2,1),box-shadow .35s ease;
+  overflow:hidden;
+}
+.sv-item-ico svg{width:30px!important;height:30px!important;}
+
+.sv-item:hover .sv-item-ico{
+  background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.42));
+  border-color:rgba(167,139,250,.55);
+  box-shadow:
+    0 12px 32px -4px rgba(124,92,252,.6),
+    inset 0 1px 0 rgba(255,255,255,.14);
+  transform:scale(1.08) rotate(-3deg);
+}
+
+/* Shimmer sweep across icon on hover */
+.sv-item-ico::after{
+  content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transform:skewX(-20deg);
+  transition:left .8s cubic-bezier(.4,0,.2,1);
+}
+.sv-item:hover .sv-item-ico::after{left:140%;}
+
+/* Card content wrapper */
+.sv-item-content{flex:1;min-width:0;margin-top:20px;position:relative;z-index:1;}
+
+/* Arrow in bottom-right — bigger, animated */
+.sv-card-arrow{
+  position:absolute;right:24px;bottom:24px;z-index:2;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(124,92,252,.16);border:1px solid rgba(167,139,250,.28);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(196,181,253,.9);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.sv-card-arrow svg{width:14px;height:14px;}
+.sv-item:hover .sv-card-arrow{
+  background:linear-gradient(135deg,#7c5cfc,#a78bfa);
+  border-color:rgba(167,139,250,.6);
+  color:#fff;
+  transform:translateX(6px);
+  box-shadow:0 8px 22px -4px rgba(124,92,252,.6);
+  width:48px;
+}
+
+/* Subtle grain noise — premium texture (only on hover, very faint) */
+.sv-item:hover{
+  background-image:
+    radial-gradient(circle at 70% 20%,rgba(124,92,252,.14),transparent 55%),
+    radial-gradient(circle at 20% 80%,rgba(34,211,238,.06),transparent 50%),
+    linear-gradient(135deg,rgba(28,22,68,.85),rgba(14,11,38,.88));
+}
+
+/* ─── 3D tilt + scroll-reveal — cards feel alive ─── */
+
+/* Container needs perspective for child 3D transforms */
+.sv-sidebar{perspective:1200px;perspective-origin:50% 50%;}
+
+/* Cards have transform-style preserve to allow real 3D tilt */
+.sv-item{transform-style:preserve-3d;will-change:transform;}
+
+/* Initial state for scroll-reveal — hidden by default; .sv-revealed adds visibility */
+.sv-item:not(.sv-revealed){opacity:0;transform:translateY(40px) scale(.96);}
+.sv-item.sv-revealed{
+  animation:svCardReveal .7s cubic-bezier(.16,.84,.32,1) forwards;
+}
+@keyframes svCardReveal{
+  0%{opacity:0;transform:translateY(40px) scale(.96);}
+  60%{opacity:1;}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Speed-line accents — 4 lines now, repeat on hover */
+.sv-item .sv-speed-line{
+  position:absolute;height:1.5px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.85),rgba(255,255,255,.4),rgba(167,139,250,.85),transparent);
+  opacity:0;pointer-events:none;z-index:5;
+  box-shadow:0 0 8px rgba(167,139,250,.5);
+  border-radius:2px;
+}
+.sv-item .sv-speed-line.line-1{left:-30%;top:25%;width:55%;}
+.sv-item .sv-speed-line.line-2{right:-30%;top:42%;width:55%;}
+.sv-item .sv-speed-line.line-3{left:-30%;top:62%;width:55%;}
+.sv-item .sv-speed-line.line-4{right:-30%;top:82%;width:55%;}
+.sv-item:hover .sv-speed-line.line-1{animation:svSpeedR .9s cubic-bezier(.4,0,.2,1) infinite;}
+.sv-item:hover .sv-speed-line.line-2{animation:svSpeedL .9s cubic-bezier(.4,0,.2,1) .15s infinite;}
+.sv-item:hover .sv-speed-line.line-3{animation:svSpeedR .9s cubic-bezier(.4,0,.2,1) .3s infinite;}
+.sv-item:hover .sv-speed-line.line-4{animation:svSpeedL .9s cubic-bezier(.4,0,.2,1) .45s infinite;}
+@keyframes svSpeedR{
+  0%{opacity:0;transform:translateX(0);}
+  20%{opacity:.9;}
+  100%{opacity:0;transform:translateX(170%);}
+}
+@keyframes svSpeedL{
+  0%{opacity:0;transform:translateX(0);}
+  20%{opacity:.9;}
+  100%{opacity:0;transform:translateX(-170%);}
+}
+
+/* Image parallax: when card tilts, image shifts in opposite direction (depth illusion) */
+.sv-card-image{transform:translateZ(0);}
+.sv-item .sv-card-image img{will-change:transform;}
+
+/* Click ripple — radial wave from click point */
+.sv-ripple{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.7),rgba(167,139,250,0));
+  pointer-events:none;transform:translate(-50%,-50%);z-index:6;
+  animation:svRipple .7s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes svRipple{
+  0%{width:8px;height:8px;opacity:.9;}
+  100%{width:600px;height:600px;opacity:0;}
+}
+
+/* Icon-wrap also transitions for the cursor-follow effect */
+.sv-item-ico-wrap{transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+
+/* legacy hooks (active state on grid not used anymore) */
+.sv-item.active{background:radial-gradient(ellipse at 70% 20%,rgba(124,92,252,.10),transparent 55%),linear-gradient(135deg,rgba(28,22,68,.82),rgba(14,11,38,.86));}
 
 /* sv-ico-* legacy classes intentionally not styled — unified via .sv-item-ico above */
 
@@ -5347,15 +5697,66 @@ function submitHlead(){
 
 .sv-blink-el{animation:svBlink 1.4s ease-in-out infinite;}
 
-.sv-item-t{font-size:13.5px;font-weight:500;color:rgba(232,228,255,.78);line-height:1.32;letter-spacing:.1px;transition:color .25s ease,transform .25s ease;}
+/* Card title — bigger, refined */
+.sv-item-t{
+  font-size:19px;font-weight:700;color:rgba(255,255,255,.98);
+  line-height:1.25;letter-spacing:-.3px;
+  margin-bottom:10px;display:block;
+  transition:color .25s ease,transform .35s cubic-bezier(.4,0,.2,1);
+  font-family:inherit;
+}
+.sv-item:hover .sv-item-t{color:#fff;transform:translateX(2px);}
 
-.sv-item:hover .sv-item-t{color:rgba(255,255,255,.95);}
-.sv-item.active .sv-item-t{color:#fff;font-weight:600;}
+/* Description: more visible, comfortable line-height, 2 lines reserved */
+.sv-card-desc{
+  font-size:13.5px;color:rgba(232,228,255,.7);
+  line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+  margin-top:0;padding-right:50px;
+  transition:color .25s ease;
+}
+.sv-item:hover .sv-card-desc{color:rgba(232,228,255,.86);}
 
 
 /* ══ SERVICE DETAIL v3 — long scroll article ══ */
 
-.sv-detail{display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 80px);}
+/* Detail view — full width when active, hidden by default */
+.sv-detail{display:none;flex-direction:column;background:linear-gradient(135deg,rgba(20,16,52,.6),rgba(10,8,32,.6));border:1px solid rgba(139,130,232,.15);border-radius:22px;overflow:hidden;animation:svDetailIn .4s cubic-bezier(.4,0,.2,1);}
+body.sv-detail-open .sv-detail{display:flex;}
+
+@keyframes svDetailIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* Back button wrapper — sticky to top of viewport while detail open */
+#sv-back-wrap{display:none;}
+body.sv-detail-open #sv-back-wrap{
+  display:block;
+  position:sticky;top:80px;z-index:90;
+  pointer-events:none; /* let clicks pass through wrapper, but button itself catches */
+  margin:0;
+}
+
+/* Back button — strong glass pill, always visible */
+.sv-back-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,rgba(124,92,252,.32),rgba(91,82,204,.18));
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(167,139,250,.45);
+  color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.2px;
+  padding:11px 20px;border-radius:30px;cursor:pointer;
+  margin:14px 0 14px 0;
+  transition:all .25s ease;
+  font-family:inherit;
+  box-shadow:0 8px 24px -6px rgba(124,92,252,.5),0 0 0 1px rgba(167,139,250,.12);
+  pointer-events:auto;
+}
+.sv-back-btn:hover{
+  background:linear-gradient(135deg,rgba(124,92,252,.5),rgba(91,82,204,.32));
+  border-color:rgba(167,139,250,.65);
+  color:#fff;transform:translateX(-4px);
+  box-shadow:0 12px 32px -6px rgba(124,92,252,.65);
+}
+.sv-back-btn svg{width:14px;height:14px;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.sv-back-btn:hover svg{transform:translateX(-3px);}
 
 .sv-detail::-webkit-scrollbar{width:4px;}
 
@@ -5540,6 +5941,100 @@ function submitHlead(){
 .svd-benefit-card p{font-size:13px;color:rgba(255,255,255,.82);line-height:1.6;margin:0;}
 
 
+
+/* ──────────────────────────────────────────────────────────
+   COMPARISON BLOCK (Без нас vs С нами)
+   ────────────────────────────────────────────────────────── */
+.svd-section{padding:32px 38px 18px;}
+.svd-compare-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:24px;color:#fff;}
+.svd-compare-title em{font-style:italic;background:linear-gradient(135deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.svd-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.svd-compare-col{padding:24px 26px;border-radius:18px;border:1px solid rgba(139,130,232,.16);position:relative;overflow:hidden;}
+.svd-compare-bad{background:linear-gradient(135deg,rgba(60,20,30,.4),rgba(30,12,18,.4));border-color:rgba(248,113,113,.2);}
+.svd-compare-good{background:linear-gradient(135deg,rgba(124,92,252,.16),rgba(28,22,68,.5));border-color:rgba(167,139,250,.32);}
+.svd-compare-good::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent);}
+.svd-compare-head{margin-bottom:14px;}
+.svd-compare-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:4px 12px;border-radius:30px;background:rgba(248,113,113,.14);color:rgba(252,165,165,.95);border:1px solid rgba(248,113,113,.28);}
+.svd-compare-tag-good{background:rgba(167,139,250,.16);color:rgba(196,181,253,.95);border-color:rgba(167,139,250,.36);}
+.svd-compare-list{list-style:none;padding:0;margin:0;}
+.svd-compare-list li{display:flex;align-items:flex-start;gap:11px;padding:9px 0;font-size:13.5px;line-height:1.5;color:rgba(232,228,255,.86);}
+.svd-compare-list li svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;}
+.svd-compare-bad .svd-compare-list li svg{color:#f87171;}
+.svd-compare-good .svd-compare-list li svg{color:#a78bfa;}
+
+/* ──────────────────────────────────────────────────────────
+   INLINE LEAD FORM
+   ────────────────────────────────────────────────────────── */
+.svd-leadform{
+  margin:14px 38px;padding:34px 38px 30px;border-radius:22px;
+  background:
+    radial-gradient(ellipse at 20% 30%,rgba(124,92,252,.18),transparent 55%),
+    radial-gradient(ellipse at 90% 80%,rgba(34,211,238,.10),transparent 55%),
+    linear-gradient(135deg,rgba(28,22,68,.78),rgba(14,11,38,.82));
+  border:1px solid rgba(167,139,250,.28);position:relative;overflow:hidden;
+}
+.svd-form-glow{position:absolute;top:-150px;right:-150px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.18),transparent 60%);filter:blur(40px);pointer-events:none;animation:svFormGlow 14s ease-in-out infinite;}
+@keyframes svFormGlow{50%{transform:translate(40px,30px) scale(1.2);}}
+.svd-form-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;letter-spacing:-.6px;line-height:1.1;margin-bottom:10px;color:#fff;position:relative;z-index:1;}
+.svd-form-title em{font-style:italic;background:linear-gradient(135deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.svd-form-sub{font-size:14.5px;color:rgba(232,228,255,.78);line-height:1.6;margin-bottom:22px;max-width:580px;position:relative;z-index:1;}
+.svd-form-grid{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;}
+.svd-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.svd-form-grid label{display:flex;flex-direction:column;gap:6px;}
+.svd-form-lbl{font-size:11px;font-weight:600;letter-spacing:1.5px;color:rgba(196,181,253,.85);text-transform:uppercase;}
+.svd-form-input{
+  width:100%;padding:13px 16px;font-size:14px;font-family:inherit;
+  background:rgba(8,6,22,.55);border:1px solid rgba(167,139,250,.22);border-radius:12px;
+  color:#fff;outline:none;transition:border-color .25s ease,background .25s ease,box-shadow .25s ease;box-sizing:border-box;
+}
+.svd-form-input::placeholder{color:rgba(232,228,255,.4);}
+.svd-form-input:focus{border-color:rgba(167,139,250,.55);background:rgba(8,6,22,.75);box-shadow:0 0 0 3px rgba(124,92,252,.16);}
+.svd-form-textarea{resize:vertical;min-height:60px;font-family:inherit;line-height:1.5;}
+.svd-form-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px;}
+.svd-form-submit{
+  flex:1;min-width:200px;padding:14px 22px;font-size:14px;font-weight:700;font-family:inherit;
+  background:linear-gradient(135deg,#7c5cfc,#a78bfa);color:#fff;border:none;border-radius:14px;cursor:pointer;
+  box-shadow:0 8px 22px -4px rgba(124,92,252,.55);
+  transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+  letter-spacing:.2px;position:relative;overflow:hidden;
+}
+.svd-form-submit::before{
+  content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transform:skewX(-20deg);transition:left .8s ease;
+}
+.svd-form-submit:hover{transform:translateY(-2px);box-shadow:0 14px 32px -4px rgba(124,92,252,.7);}
+.svd-form-submit:hover::before{left:140%;}
+.svd-form-wa{
+  display:inline-flex;align-items:center;gap:9px;padding:14px 22px;font-size:14px;font-weight:600;text-decoration:none;
+  background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.42);border-radius:14px;color:#34d399;
+  transition:all .25s ease;font-family:inherit;
+}
+.svd-form-wa:hover{background:rgba(37,211,102,.22);border-color:rgba(37,211,102,.6);transform:translateY(-2px);box-shadow:0 8px 22px -4px rgba(37,211,102,.4);}
+.svd-form-fine{font-size:11.5px;color:rgba(232,228,255,.55);text-align:center;margin-top:4px;letter-spacing:.3px;}
+
+/* Form success state */
+.svd-form-success{display:none;}
+.svd-form-success.on{display:block;animation:svdFormOk .5s cubic-bezier(.16,.84,.32,1);}
+@keyframes svdFormOk{from{opacity:0;transform:translateY(12px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+.svd-form-success-card{display:flex;align-items:center;gap:16px;padding:24px 28px;background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(34,211,238,.10));border:1px solid rgba(167,139,250,.36);border-radius:18px;}
+.svd-form-success-ico{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(124,92,252,.55),rgba(91,82,204,.32));display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 8px 22px -4px rgba(124,92,252,.5);}
+.svd-form-success-ico svg{width:26px;height:26px;}
+.svd-form-success-t{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
+.svd-form-success-b{font-size:13.5px;color:rgba(232,228,255,.78);line-height:1.5;}
+
+/* Scroll-fade-in for detail sections */
+.svd-section{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.32,1),transform .7s cubic-bezier(.16,.84,.32,1);}
+.svd-section.svd-revealed{opacity:1;transform:translateY(0);}
+
+/* Mobile */
+@media(max-width:760px){
+  .svd-section{padding:26px 20px 12px;}
+  .svd-leadform{margin:14px 20px;padding:26px 22px 22px;}
+  .svd-compare-grid{grid-template-columns:1fr;gap:12px;}
+  .svd-form-row{grid-template-columns:1fr;}
+  .svd-compare-title,.svd-form-title{font-size:24px;}
+}
 
 /* ── CTA bar ── */
 
@@ -5969,9 +6464,39 @@ function submitHlead(){
 
 </style>
 
-<section class="section" style="background:var(--bg);padding-top:120px;">
+<section class="section" style="background:var(--bg);padding-top:120px;position:relative;overflow:hidden;">
 
-  <div class="s-inner">
+  <!-- Decorative bg layer for services — floating documents + particle network -->
+  <div class="sv-bg-fx" aria-hidden="true">
+    <canvas id="sv-particle-net"></canvas>
+    <div class="sv-bg-docs">
+      <div class="sv-bg-doc" style="left:6%;--dur:42s;--delay:0s;--rs:-12deg;--re:8deg;">
+        <svg width="78" height="50" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="2"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><circle cx="18" cy="20" r="4" fill="#c4b5fd"/><path d="M11 32 Q18 26 25 32" stroke="#c4b5fd" stroke-width="1.5" fill="none"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="30" x2="64" y2="30" stroke="#a78bfa" stroke-width="2"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:78%;--dur:50s;--delay:-12s;--rs:14deg;--re:-6deg;">
+        <svg width="56" height="74" viewBox="0 0 60 80"><rect x="2" y="2" width="56" height="76" rx="4" fill="none" stroke="#a78bfa" stroke-width="2"/><circle cx="30" cy="20" r="6" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><path d="M22 32 Q30 26 38 32" stroke="#c4b5fd" stroke-width="1.5" fill="none"/><text x="30" y="58" font-size="8" fill="#a78bfa" text-anchor="middle" font-family="monospace" font-weight="bold">PASSPORT</text><line x1="12" y1="68" x2="48" y2="68" stroke="#a78bfa" stroke-width="1"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:22%;--dur:55s;--delay:-22s;--rs:-18deg;--re:6deg;">
+        <svg width="64" height="84" viewBox="0 0 70 92"><rect x="2" y="2" width="66" height="88" rx="3" fill="none" stroke="#a78bfa" stroke-width="2"/><line x1="10" y1="14" x2="60" y2="14" stroke="#c4b5fd" stroke-width="2"/><line x1="10" y1="24" x2="50" y2="24" stroke="#c4b5fd" stroke-width="1.5"/><line x1="10" y1="32" x2="58" y2="32" stroke="#c4b5fd" stroke-width="1.5"/><line x1="10" y1="40" x2="44" y2="40" stroke="#c4b5fd" stroke-width="1.5"/><circle cx="50" cy="74" r="11" fill="none" stroke="#22d3ee" stroke-width="2.5"/><text x="50" y="76" font-size="6" fill="#22d3ee" text-anchor="middle" font-weight="bold">OK</text></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:90%;--dur:46s;--delay:-32s;--rs:8deg;--re:-14deg;">
+        <svg width="48" height="66" viewBox="0 0 60 80"><rect x="2" y="2" width="56" height="76" rx="4" fill="none" stroke="#22d3ee" stroke-width="2" opacity=".7"/><circle cx="30" cy="20" r="6" fill="none" stroke="#67e8f9" stroke-width="1.5"/><path d="M22 32 Q30 26 38 32" stroke="#67e8f9" stroke-width="1.5" fill="none"/><line x1="12" y1="50" x2="48" y2="50" stroke="#67e8f9" stroke-width="1"/><line x1="12" y1="58" x2="44" y2="58" stroke="#67e8f9" stroke-width="1"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:46%;--dur:58s;--delay:-18s;--rs:6deg;--re:-10deg;">
+        <svg width="68" height="44" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="2"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.5"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="2"/><line x1="36" y1="30" x2="64" y2="30" stroke="#a78bfa" stroke-width="2"/><rect x="62" y="36" width="12" height="9" rx="1" fill="#fde047" opacity="0.5"/></svg>
+      </div>
+      <div class="sv-bg-doc" style="left:62%;--dur:62s;--delay:-40s;--rs:-6deg;--re:18deg;">
+        <svg width="48" height="32" viewBox="0 0 80 52"><rect width="80" height="52" rx="6" fill="none" stroke="#a78bfa" stroke-width="1.7" opacity=".75"/><rect x="8" y="10" width="20" height="26" rx="2" fill="none" stroke="#c4b5fd" stroke-width="1.3"/><line x1="36" y1="14" x2="68" y2="14" stroke="#a78bfa" stroke-width="1.7"/><line x1="36" y1="22" x2="60" y2="22" stroke="#a78bfa" stroke-width="1.7"/></svg>
+      </div>
+      <!-- Drifting "OK stamps" -->
+      <div class="sv-bg-stamp" style="left:33%;top:55%;--dur:70s;"></div>
+      <div class="sv-bg-stamp" style="right:14%;top:22%;--dur:78s;animation-delay:-30s;"></div>
+    </div>
+    <!-- Subtle light beam -->
+    <div class="sv-bg-beam"></div>
+  </div>
+
+  <div class="s-inner" style="position:relative;z-index:1;">
 
     <div class="s-tag reveal">Наши услуги</div>
 
@@ -6271,6 +6796,33 @@ function submitHlead(){
 
         </div>
 
+        <div class="sv-item" onclick="showSvc('speedup')">
+
+          <div class="sv-item-ico sv-ico-speedup">
+
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <!-- Lightning bolt — universal "speed" symbol -->
+              <path d="M10.5 2 L4.5 11 L9 11 L7.5 18 L14.5 8 L10 8 L11.5 2 Z" fill="rgba(255,255,255,.92)" stroke="rgba(255,255,255,1)" stroke-width=".6" stroke-linejoin="round" class="sv-bob-el"/>
+              <!-- Speed lines emanating -->
+              <line x1="2" y1="6" x2="4" y2="6" stroke="rgba(167,139,250,.85)" stroke-width="1.3" stroke-linecap="round" class="sv-blink-el"/>
+              <line x1="1.5" y1="9" x2="3.5" y2="9" stroke="rgba(167,139,250,.6)" stroke-width="1" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .2s"/>
+              <line x1="16" y1="13" x2="18" y2="13" stroke="rgba(167,139,250,.6)" stroke-width="1" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .4s"/>
+              <line x1="16.5" y1="16" x2="18.5" y2="16" stroke="rgba(167,139,250,.85)" stroke-width="1.3" stroke-linecap="round" style="animation:svBlink 1.4s ease-in-out infinite .6s"/>
+            </svg>
+
+          </div>
+
+          <div class="sv-item-t">Ускорение карты (Speedup)</div>
+
+        </div>
+
+      </div>
+
+      <div id="sv-back-wrap">
+        <button class="sv-back-btn" onclick="closeSvc()" type="button">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-back-lbl>← Все услуги</span>
+        </button>
       </div>
 
       <div class="sv-detail" id="sv-detail">
@@ -16380,6 +16932,37 @@ var SVC_EN={
 
     ]
 
+  },
+
+  speedup:{
+    tag:'SPEEDUP · PRZYSPIESZENIE',
+    title:'Speedup — get your <em>Karta Pobytu</em> in 30 days',
+    lead:'Your application has been pending 6+ months without a decision? Polish administrative law gives you tools to force the voivode to decide within 30 days. We file them — works in 78% of cases.',
+    desc:"When the Voivodeship Office sits on your case for half a year or more, you don't have to keep waiting. Polish administrative law (KPA art. 36–37, PPSA art. 50–55) gives you the right to file a formal complaint about delay (skarga na bezczynność) and force the office to issue a decision. We've used this 500+ times with a 78% success rate. Within 30 days of our complaint, you typically receive your Karta Pobytu — without waiting another 6–12 months.",
+    who:['Anyone with a Karta Pobytu application pending 6+ months without decision','Anyone whose voivode missed the legal deadline (3 months simple, 6 months max)','Holders of the "stempel" passport stamp tired of legal limbo','People needing the card urgently for travel, work contract or family reunification','Renewal applicants stuck in administrative silence','Cases where the office stopped responding to inquiries'],
+    included:['Free case review — confirm your case qualifies for speedup','Drafting and filing wezwanie do usunięcia naruszenia prawa (demand letter)','If no response — filing skarga na bezczynność to the Administrative Court','Court representation by licensed Polish lawyer','Daily case status tracking until decision is issued','Coordination with the voivode office until the card is in your hands','30-day enforced timeline backed by Polish law'],
+    timeline:'30 days from complaint filing · vs 6–12 months without speedup',
+    note:'Speedup is 100% LEGAL — protected by Polish administrative procedure code (KPA) and Constitution art. 45. Filing a delay complaint does NOT damage your case or relationship with the voivode. You have the legal right.',
+    stats:[{n:'78%',l:'success'},{n:'30 days',l:'to decision'},{n:'500+',l:'cases done'}],
+    img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=440&fit=crop&q=80',
+    cta:'Speed Up My Case →',
+    docs:[
+      {n:'Original receipt confirming Karta Pobytu application was filed',req:true},
+      {n:'Most recent stempel (passport stamp) — proof of legal stay',req:true},
+      {n:'All correspondence with the voivode (emails, letters, status updates)',req:true},
+      {n:'Foreign passport — copy of all pages',req:true},
+      {n:'Power of attorney for our lawyer (we provide template)',req:true},
+      {n:'Proof of urgency (travel ticket, job contract, etc.) — strengthens the case',req:false},
+      {n:'Medical or family hardship documentation (if applicable)',req:false}
+    ],
+    steps:[
+      {t:'Free 15-min case review',d:'We confirm your case qualifies (legal deadline missed) and explain expected timeline.',dur:'Day 1'},
+      {t:'Wezwanie filed',d:'Formal demand letter sent to the voivode citing missed deadlines and demanding decision within 7 days. About 40% of cases resolve at this stage.',dur:'Day 2'},
+      {t:'Wait 7 days for response',d:'Voivode either issues decision (case won) or stays silent (we escalate).',dur:'Day 2–9'},
+      {t:'Skarga to Administrative Court',d:'If no response: we file complaint with Wojewódzki Sąd Administracyjny. Court schedules hearing within 14 days.',dur:'Day 10'},
+      {t:'Court orders decision',d:'Court rules the voivode must issue decision within 30 days, often imposes fine for delay.',dur:'Day 14–28'},
+      {t:'Karta Pobytu issued',d:'You get your card. We update your profile and set up renewal reminder.',dur:'By Day 30'}
+    ]
   }
 
 };
@@ -16720,6 +17303,35 @@ var SVC={
       {t:'Решение',d:'Если положительное: статус беженца или дополнительная защита — получаете карту, право на работу и социальную поддержку. Если отказ — сразу подаём апелляцию.',dur:'6–18 месяцев'},
       {t:'Дальнейшие шаги',d:'Через 5 лет статуса защиты можно подавать на ПМЖ. Через 10 лет — на гражданство Польши. Планируем долгосрочный путь с первого дня.',dur:'Постоянно'}
     ]
+  },
+  speedup:{
+    tag:'УСКОРЕНИЕ · PRZYSPIESZENIE',
+    title:'Ускорение Karta Pobytu — <em>решение за 30 дней</em>',
+    lead:'Ваша карта рассматривается 6+ месяцев без решения? Польское административное право даёт инструменты заставить воеводу принять решение за 30 дней. Работает в 78% случаев.',
+    desc:'Когда Urząd Wojewódzki сидит на вашем деле полгода и больше, ждать не обязательно. Польский Кодекс административного производства (KPA art. 36–37, PPSA art. 50–55) даёт вам право подать жалобу на бездействие воеводы (skarga na bezczynność) и обязать офис принять решение. Мы использовали этот инструмент 500+ раз с успехом 78%. В течение 30 дней с подачи жалобы вы обычно получаете Karta Pobytu — без новых 6-12 месяцев ожидания. Это законное право, а не «давление» — Конституция Польши, ст. 45.',
+    who:['Те, у кого карта рассматривается 6+ месяцев без решения','Те, у кого воевода превысил законный срок (3 мес для простых дел, 6 мес максимум)','Обладатели «штампа» (stempel) уставшие от подвешенного состояния','Те, кому карта срочно нужна для поездки, контракта, воссоединения семьи','Заявители на продление, застрявшие в административной тишине','Случаи, когда офис перестал отвечать на запросы'],
+    included:['Бесплатный анализ дела — подтверждаем что случай подходит для ускорения','Составление и подача wezwanie do usunięcia naruszenia prawa (требование)','Если нет ответа — подача skarga na bezczynność в воеводский админ. суд','Представительство в суде лицензированным польским адвокатом','Ежедневный мониторинг статуса дела до решения','Координация с воеводой до момента, пока карта не у вас в руках','30-дневный срок, обеспеченный польским законом'],
+    timeline:'30 дней с подачи жалобы · вместо 6-12 месяцев без ускорения',
+    note:'Speedup — 100% ЗАКОННЫЙ инструмент, защищён Кодексом административного производства Польши (KPA) и Конституцией ст. 45. Подача жалобы НЕ повредит вашему делу и не испортит отношения с воеводой. Это ваше законное право.',
+    stats:[{n:'78%',l:'успех'},{n:'30 дней',l:'до решения'},{n:'500+',l:'дел'}],
+    cta:'Ускорить мою карту →',
+    steps:[
+      {t:'Бесплатный 15-мин разбор дела',d:'Подтверждаем что случай подходит (срок превышен) и объясняем ожидаемый таймлайн.',dur:'День 1'},
+      {t:'Wezwanie подано',d:'Формальное требование воеводе с указанием превышенных сроков и требованием решения за 7 дней. Около 40% дел решаются здесь.',dur:'День 2'},
+      {t:'Ждём 7 дней ответа',d:'Воевода либо выдаёт решение (дело выиграно), либо молчит (эскалируем).',dur:'День 2-9'},
+      {t:'Skarga в админ. суд',d:'Если ответа нет — подаём жалобу в Wojewódzki Sąd Administracyjny. Суд назначает заседание в 14 дней.',dur:'День 10'},
+      {t:'Суд обязывает решить',d:'Суд постановляет, что воевода должен выдать решение за 30 дней, часто налагает штраф за просрочку.',dur:'День 14-28'},
+      {t:'Karta Pobytu выдана',d:'Получаете карту. Обновляем профиль и ставим напоминание на продление.',dur:'К дню 30'}
+    ],
+    docs:[
+      {n:'Оригинал расписки о подаче заявления на Karta Pobytu',req:true},
+      {n:'Свежий штамп (stempel) в паспорте — подтверждение легального пребывания',req:true},
+      {n:'Вся переписка с воеводой (письма, имейлы, статусы)',req:true},
+      {n:'Заграничный паспорт — копии всех страниц',req:true},
+      {n:'Доверенность на нашего адвоката (шаблон даём)',req:true},
+      {n:'Доказательство срочности (билет, контракт и т.п.) — усиливает дело',req:false},
+      {n:'Документы о медицинских/семейных обстоятельствах (если есть)',req:false}
+    ]
   }
 };
 
@@ -16911,7 +17523,9 @@ var SVC_LANG={
 
     rights:{tag:'WYMIANA PRAWA JAZDY',title:'Zagraniczne prawo jazdy → <em>polskie</em>',lead:'Jeździsz z ukraińskim lub białoruskim prawem jazdy? Wymieniamy na polskie bez egzaminu — legalnie i szybko.',cta:'Wymień prawo jazdy →',desc:'Polska pozwala na wymianę zagranicznych praw jazdy na polskie odpowiedniki bez egzaminów w większości przypadków — warunkiem jest umowa o wzajemnym uznawaniu między Polską a krajem wydającym (Ukraina, Białoruś, Gruzja, Armenia i inne). Obsługujemy każdy etap i przetwarzamy również Kod 95.',who:['Ukraińcy wymieniający prawa w ramach UE Tymczasowej Ochrony','Białorusini, Gruzini, Ormianie i inni posiadacze praw spoza UE','Kierowcy zawodowi (CE, DE) potrzebujący Kodu 95','Osoby, których zagraniczne prawo jazdy wygasa','Cudzoziemcy bez dostępu do kraju wydania prawa jazdy'],included:['Sprawdzenie kategorii i kraju uprawnień','Certyfikowane polskie tłumaczenie prawa jazdy','Apostille jeśli wymagane przez kraj wydania','Rezerwacja wizyty w WORD (bez kolejki)','Złożenie w Starostwie Powiatowym','Kod 95 dla kategorii zawodowych (C, D, CE, DE)','Śledzenie do wydania polskiego prawa jazdy'],timeline:'14–30 dni · Bez egzaminu teoretycznego i praktycznego',note:'Ukraińskie prawa jazdy wymieniane bez apostille (Tymczasowa Ochrona UE). Białoruskie wymagają apostille z Ministerstwa Spraw Zagranicznych Białorusi.',steps:[{t:'Sprawdzenie uprawnień i kategorii',d:'Weryfikujemy kraj wydania i kategorię pod kątem polskich zasad wymiany.',dur:'Dzień 1'},{t:'Tłumaczenie i apostille',d:'Certyfikowane tłumaczenie w 1–3 dni. Apostille jeśli wymagane.',dur:'1–5 dni'},{t:'Wizyta w WORD',d:'Rezerwujemy termin w Ośrodku Ruchu Drogowego.',dur:'1–3 dni'},{t:'Złożenie w Starostwie',d:'Kompletny wniosek złożony w Starostwie Powiatowym.',dur:'Dzień 7–14'},{t:'Polskie prawo jazdy gotowe',d:'Nowe polskie prawo jazdy gotowe do odbioru w Starostwie.',dur:'14–30 dni łącznie'}]},
 
-    intl:{tag:'OCHRONA MIĘDZYNARODOWA',title:'Ochrona międzynarodowa — <em>azyl</em> w Polsce',lead:'W niebezpiecznej sytuacji? Polska udziela ochrony międzynarodowej. Pomożemy przejść procedurę prawidłowo.',cta:'Uzyskaj konsultację →',desc:'Ochrona międzynarodowa to formalny status przyznawany przez polskie władze osobom uciekającym przed prześladowaniem, konfliktem zbrojnym lub poważną krzywdą. Obejmuje status uchodźcy i ochronę uzupełniającą. Złożenie wniosku gwarantuje legalny pobyt w Polsce przez cały czas trwania procedury.',who:['Osoby uciekające przed prześladowaniem ze względu na rasę, religię, narodowość lub poglądy','Osoby z aktywnych stref konfliktów bez możliwości bezpiecznego powrotu','Ofiary handlu ludźmi, które nie mogą bezpiecznie wrócić','Bezpaństwowcy bez skutecznej ochrony','Osoby odrzucone w innym kraju UE z nowymi podstawami'],included:['Natychmiastowa poufna konsultacja (w ciągu 24 godzin)','Złożenie wniosku do Straży Granicznej','Przygotowanie do rozmowy z UDSC — coaching','Reprezentacja prawna na wszystkich przesłuchaniach','Wsparcie z zakwaterowaniem i pomocą społeczną','Odwołanie przy odrzuceniu wniosku','Wskazówki dotyczące dokumentów i praw w trakcie procedury'],timeline:'6–18 miesięcy procedury · Legalne przebywanie przez cały czas',note:'Złożenie wniosku natychmiast daje prawo do legalnego pobytu. Tymczasowe dokumenty, pomoc społeczna i po 6 miesiącach — prawo do pracy. CAŁKOWICIE POUFNE.',steps:[{t:'Natychmiastowa konsultacja',d:'Kontakt o każdej porze. Oceniamy sytuację i wyjaśniamy opcje ochrony.',dur:'W ciągu 24h — bezpłatnie'},{t:'Złożenie wniosku',d:'Do Straży Granicznej. Od tego momentu legalny pobyt jest zagwarantowany.',dur:'Dzień 1–3'},{t:'Przygotowanie do rozmowy z UDSC',d:'Kluczowy krok — gruntowne przygotowanie, co i jak mówić.',dur:'Tygodnie 2–4'},{t:'Reprezentacja prawna',d:'Prawnik na wszystkich przesłuchaniach i odpowiedzi na oficjalne pisma.',dur:'Przez cały czas'},{t:'Decyzja',d:'Jeśli przyznana: status uchodźcy lub ochrona uzupełniająca. Jeśli odmowa — natychmiast odwołujemy.',dur:'6–18 miesięcy'},{t:'Następne kroki',d:'Po 5 latach — stały pobyt. Po 10 latach — obywatelstwo. Planujemy Twoją ścieżkę.',dur:'Ciągłe'}]}
+    intl:{tag:'OCHRONA MIĘDZYNARODOWA',title:'Ochrona międzynarodowa — <em>azyl</em> w Polsce',lead:'W niebezpiecznej sytuacji? Polska udziela ochrony międzynarodowej. Pomożemy przejść procedurę prawidłowo.',cta:'Uzyskaj konsultację →',desc:'Ochrona międzynarodowa to formalny status przyznawany przez polskie władze osobom uciekającym przed prześladowaniem, konfliktem zbrojnym lub poważną krzywdą. Obejmuje status uchodźcy i ochronę uzupełniającą. Złożenie wniosku gwarantuje legalny pobyt w Polsce przez cały czas trwania procedury.',who:['Osoby uciekające przed prześladowaniem ze względu na rasę, religię, narodowość lub poglądy','Osoby z aktywnych stref konfliktów bez możliwości bezpiecznego powrotu','Ofiary handlu ludźmi, które nie mogą bezpiecznie wrócić','Bezpaństwowcy bez skutecznej ochrony','Osoby odrzucone w innym kraju UE z nowymi podstawami'],included:['Natychmiastowa poufna konsultacja (w ciągu 24 godzin)','Złożenie wniosku do Straży Granicznej','Przygotowanie do rozmowy z UDSC — coaching','Reprezentacja prawna na wszystkich przesłuchaniach','Wsparcie z zakwaterowaniem i pomocą społeczną','Odwołanie przy odrzuceniu wniosku','Wskazówki dotyczące dokumentów i praw w trakcie procedury'],timeline:'6–18 miesięcy procedury · Legalne przebywanie przez cały czas',note:'Złożenie wniosku natychmiast daje prawo do legalnego pobytu. Tymczasowe dokumenty, pomoc społeczna i po 6 miesiącach — prawo do pracy. CAŁKOWICIE POUFNE.',steps:[{t:'Natychmiastowa konsultacja',d:'Kontakt o każdej porze. Oceniamy sytuację i wyjaśniamy opcje ochrony.',dur:'W ciągu 24h — bezpłatnie'},{t:'Złożenie wniosku',d:'Do Straży Granicznej. Od tego momentu legalny pobyt jest zagwarantowany.',dur:'Dzień 1–3'},{t:'Przygotowanie do rozmowy z UDSC',d:'Kluczowy krok — gruntowne przygotowanie, co i jak mówić.',dur:'Tygodnie 2–4'},{t:'Reprezentacja prawna',d:'Prawnik na wszystkich przesłuchaniach i odpowiedzi na oficjalne pisma.',dur:'Przez cały czas'},{t:'Decyzja',d:'Jeśli przyznana: status uchodźcy lub ochrona uzupełniająca. Jeśli odmowa — natychmiast odwołujemy.',dur:'6–18 miesięcy'},{t:'Następne kroki',d:'Po 5 latach — stały pobyt. Po 10 latach — obywatelstwo. Planujemy Twoją ścieżkę.',dur:'Ciągłe'}]},
+
+    speedup:{tag:'PRZYSPIESZENIE · SPEEDUP',title:'Przyspieszenie Karta Pobytu — <em>decyzja w 30 dni</em>',lead:'Twój wniosek czeka 6+ miesięcy bez decyzji? Polskie prawo administracyjne daje narzędzia, by zmusić wojewodę do decyzji w 30 dni. Skuteczność 78%.',cta:'Przyspieszyć moją sprawę →',desc:'Gdy Urząd Wojewódzki czeka pół roku lub dłużej z decyzją, nie musisz dalej czekać. Polski Kodeks Postępowania Administracyjnego (KPA art. 36–37, PPSA art. 50–55) daje prawo złożenia skargi na bezczynność i zmuszenia urzędu do wydania decyzji. Wykorzystaliśmy to 500+ razy ze skutecznością 78%. W ciągu 30 dni od złożenia skargi zwykle otrzymujesz Kartę Pobytu — bez kolejnych 6-12 miesięcy oczekiwania. To Twoje prawo, nie "nacisk" — Konstytucja RP art. 45.',who:['Osoby z wnioskiem o Kartę Pobytu czekającym 6+ miesięcy bez decyzji','Osoby, którym wojewoda przekroczył termin (3 mies. proste, 6 mies. max)','Posiadacze stempla zmęczeni zawieszonym stanem','Pilnie potrzebujący karty: wyjazd, kontrakt, łączenie rodziny','Wnioskujący o przedłużenie utknięci w administracyjnej ciszy','Sprawy, gdzie urząd przestał odpowiadać'],included:['Bezpłatna analiza sprawy — potwierdzamy kwalifikację','Przygotowanie i złożenie wezwania do usunięcia naruszenia prawa','Brak odpowiedzi → skarga na bezczynność do WSA','Reprezentacja w sądzie przez licencjonowanego prawnika','Codzienne śledzenie statusu sprawy do decyzji','Koordynacja z wojewodą do otrzymania karty','30-dniowy termin egzekwowany przez prawo'],timeline:'30 dni od złożenia skargi · vs 6-12 miesięcy bez przyspieszenia',note:'Przyspieszenie jest 100% LEGALNE — chronione przez KPA i Konstytucję art. 45. Złożenie skargi NIE zaszkodzi sprawie ani relacji z wojewodą. To Twoje prawo.',stats:[{n:'78%',l:'skuteczność'},{n:'30 dni',l:'do decyzji'},{n:'500+',l:'spraw'}],steps:[{t:'Bezpłatna analiza 15 min',d:'Potwierdzamy że sprawa kwalifikuje się (termin przekroczony) i wyjaśniamy harmonogram.',dur:'Dzień 1'},{t:'Wezwanie złożone',d:'Formalne wezwanie do wojewody z żądaniem decyzji w 7 dni. Ok. 40% spraw rozwiązuje się tu.',dur:'Dzień 2'},{t:'7 dni na odpowiedź',d:'Wojewoda wydaje decyzję (wygrana) lub milczy (eskalujemy).',dur:'Dzień 2-9'},{t:'Skarga do WSA',d:'Brak odpowiedzi — składamy skargę. Sąd wyznacza rozprawę w 14 dni.',dur:'Dzień 10'},{t:'Sąd nakazuje decyzję',d:'WSA orzeka, że wojewoda ma 30 dni na decyzję, często z grzywną.',dur:'Dzień 14-28'},{t:'Karta wydana',d:'Otrzymujesz kartę. Aktualizujemy profil i ustawiamy przypomnienie.',dur:'Do dnia 30'}]}
 
   },
 
@@ -16937,7 +17551,9 @@ var SVC_LANG={
 
     rights:{tag:'ЗАМІНА ПРАВ',title:'Іноземні права → <em>польські</em>',lead:'Їздите з українськими правами? Замінюємо на польські без іспиту — законно і швидко.',cta:'Замінити права →',desc:'Польща дозволяє обмін іноземних водійських посвідчень на польські без екзаменів у більшості випадків — за умови, що країна-видавець має угоду з Польщею (Україна, Білорусь, Грузія, Вірменія та інші). Ми займаємося всіма етапами, включаючи Код 95.',who:['Українці, що обмінюють права за умовами ТЗ ЄС','Білоруси, грузини, вірмени та інші власники прав не з ЄС','Професійні водії (CE, DE), яким потрібен Код 95','Особи, в яких закінчується термін іноземних прав','Іноземці без доступу до країни видачі прав'],included:['Перевірка категорії та країни видачі','Сертифікований переклад прав польською','Апостиль якщо вимагається','Запис у WORD (без черги)','Подача у Starostwo Powiatowe','Код 95 для професійних категорій (C, D, CE, DE)','Відстеження до видачі польських прав'],timeline:'14–30 днів · Без теоретичного та практичного іспиту',note:'Українські права обмінюються без апостилю (Тимчасовий захист ЄС). Білоруські потребують апостилю від Міністерства закордонних справ.',steps:[{t:'Перевірка прав та категорії',d:'Перевіряємо країну видачі та категорію відповідно до польських правил обміну.',dur:'День 1'},{t:'Переклад та апостиль',d:'Сертифікований переклад за 1–3 дні. Апостиль якщо вимагається.',dur:'1–5 днів'},{t:'Візит у WORD',d:'Записуємо на прийом до Ośrodek Ruchu Drogowego.',dur:'1–3 дні'},{t:'Подача у Starostwo',d:'Повний пакет документів поданий у Starostwo Powiatowe.',dur:'День 7–14'},{t:'Польські права готові',d:'Нові польські права готові для отримання у Starostwo.',dur:'14–30 днів разом'}]},
 
-    intl:{tag:'МІЖНАРОДНИЙ ЗАХИСТ',title:'Міжнародний захист — <em>притулок</em> в Польщі',lead:'В небезпечній ситуації? Польща надає міжнародний захист. Допоможемо пройти процедуру правильно.',cta:'Отримати консультацію →',desc:'Міжнародний захист — формальний статус, що надається польськими органами особам, які рятуються від переслідувань, збройного конфлікту або серйозної шкоди. Включає статус біженця та додатковий захист. Подача заяви гарантує законне перебування в Польщі під час усієї процедури.',who:['Особи, що тікають від переслідувань за расою, релігією, національністю або поглядами','Особи з активних зон конфлікту без можливості повернення','Жертви торгівлі людьми, які не можуть безпечно повернутись','Особи без громадянства без ефективного захисту','Особи, яким відмовлено в іншій країні ЄС з новими підставами'],included:['Негайна конфіденційна консультація (протягом 24 годин)','Подача заяви до Прикордонної охорони','Підготовка до співбесіди з UDSC — коучинг','Юридичне представництво на всіх слуханнях','Допомога з реєстрацією житла та соціальної допомоги','Апеляція при відхиленні заяви','Рекомендації щодо документів та прав під час процедури'],timeline:'6–18 місяців процедури · Легальне перебування весь час',note:'Подача заяви негайно дає право на легальне перебування в Польщі. Тимчасові документи, соціальна допомога та після 6 місяців — право на роботу. ПОВНІСТЮ КОНФІДЕНЦІЙНО.',steps:[{t:'Негайна конфіденційна консультація',d:'Зв\'яжіться в будь-який час. Оцінюємо ситуацію та пояснюємо варіанти захисту.',dur:'Протягом 24 год — безкоштовно'},{t:'Подача заяви',d:'До Прикордонної охорони. З цього моменту легальне перебування гарантоване.',dur:'День 1–3'},{t:'Підготовка до співбесіди з UDSC',d:'Ключовий крок — детальна підготовка, що і як говорити.',dur:'Тижні 2–4'},{t:'Юридичне представництво',d:'Адвокат на всіх слуханнях та відповіді на офіційні листи.',dur:'Весь час'},{t:'Рішення',d:'Якщо надано: статус біженця або субсидіарний захист. Якщо відмова — негайно оскаржуємо.',dur:'6–18 місяців'},{t:'Наступні кроки',d:'Після 5 років — постійне проживання. Після 10 років — громадянство.',dur:'Постійно'}]}
+    intl:{tag:'МІЖНАРОДНИЙ ЗАХИСТ',title:'Міжнародний захист — <em>притулок</em> в Польщі',lead:'В небезпечній ситуації? Польща надає міжнародний захист. Допоможемо пройти процедуру правильно.',cta:'Отримати консультацію →',desc:'Міжнародний захист — формальний статус, що надається польськими органами особам, які рятуються від переслідувань, збройного конфлікту або серйозної шкоди. Включає статус біженця та додатковий захист. Подача заяви гарантує законне перебування в Польщі під час усієї процедури.',who:['Особи, що тікають від переслідувань за расою, релігією, національністю або поглядами','Особи з активних зон конфлікту без можливості повернення','Жертви торгівлі людьми, які не можуть безпечно повернутись','Особи без громадянства без ефективного захисту','Особи, яким відмовлено в іншій країні ЄС з новими підставами'],included:['Негайна конфіденційна консультація (протягом 24 годин)','Подача заяви до Прикордонної охорони','Підготовка до співбесіди з UDSC — коучинг','Юридичне представництво на всіх слуханнях','Допомога з реєстрацією житла та соціальної допомоги','Апеляція при відхиленні заяви','Рекомендації щодо документів та прав під час процедури'],timeline:'6–18 місяців процедури · Легальне перебування весь час',note:'Подача заяви негайно дає право на легальне перебування в Польщі. Тимчасові документи, соціальна допомога та після 6 місяців — право на роботу. ПОВНІСТЮ КОНФІДЕНЦІЙНО.',steps:[{t:'Негайна конфіденційна консультація',d:'Зв\'яжіться в будь-який час. Оцінюємо ситуацію та пояснюємо варіанти захисту.',dur:'Протягом 24 год — безкоштовно'},{t:'Подача заяви',d:'До Прикордонної охорони. З цього моменту легальне перебування гарантоване.',dur:'День 1–3'},{t:'Підготовка до співбесіди з UDSC',d:'Ключовий крок — детальна підготовка, що і як говорити.',dur:'Тижні 2–4'},{t:'Юридичне представництво',d:'Адвокат на всіх слуханнях та відповіді на офіційні листи.',dur:'Весь час'},{t:'Рішення',d:'Якщо надано: статус біженця або субсидіарний захист. Якщо відмова — негайно оскаржуємо.',dur:'6–18 місяців'},{t:'Наступні кроки',d:'Після 5 років — постійне проживання. Після 10 років — громадянство.',dur:'Постійно'}]},
+
+    speedup:{tag:'ПРИСКОРЕННЯ · PRZYSPIESZENIE',title:'Прискорення Karta Pobytu — <em>рішення за 30 днів</em>',lead:'Ваша заява чекає 6+ місяців без рішення? Польське адміністративне право дає інструменти, щоб змусити воєводу прийняти рішення за 30 днів. У 78% випадків.',cta:'Прискорити мою справу →',desc:'Коли Urząd Wojewódzki сидить на справі півроку чи довше, чекати не обов\'язково. Польський КПА (ст. 36–37, PPSA ст. 50–55) дає право подати скаргу на бездіяльність воєводи і змусити офіс прийняти рішення. Ми використовували це 500+ разів з успіхом 78%. Протягом 30 днів з подачі скарги зазвичай отримуєте Karta Pobytu — без нових 6-12 місяців очікування. Це ваше право, а не «тиск» — Конституція Польщі ст. 45.',who:['Ті, у кого карта розглядається 6+ місяців без рішення','Ті, у кого воєвода перевищив законний термін (3 міс простих, 6 міс макс)','Власники штампа втомлені від підвішеного стану','Ті, кому карта потрібна терміново для поїздки, контракту, возз\'єднання сім\'ї','Заявники на продовження, що застрягли в адміністративній тиші','Випадки, коли офіс перестав відповідати'],included:['Безкоштовний аналіз справи — підтверджуємо що випадок підходить','Складання та подача wezwanie do usunięcia naruszenia prawa','Якщо немає відповіді — подача skarga na bezczynność до WSA','Представництво в суді ліцензованим польським адвокатом','Щоденний моніторинг статусу справи до рішення','Координація з воєводою до отримання карти','30-денний термін, забезпечений польським законом'],timeline:'30 днів з подачі скарги · замість 6-12 місяців без прискорення',note:'Speedup — 100% ЗАКОННИЙ інструмент, захищений Кодексом адміністративного провадження Польщі (KPA) і Конституцією ст. 45. Подача скарги НЕ зашкодить справі. Це ваше законне право.',stats:[{n:'78%',l:'успіх'},{n:'30 днів',l:'до рішення'},{n:'500+',l:'справ'}],steps:[{t:'Безкоштовний 15-хв розбір справи',d:'Підтверджуємо, що випадок підходить (термін перевищений) та пояснюємо очікуваний таймлайн.',dur:'День 1'},{t:'Wezwanie подано',d:'Формальна вимога воєводі з зазначенням перевищених термінів і вимогою рішення за 7 днів. Близько 40% справ вирішуються тут.',dur:'День 2'},{t:'Чекаємо 7 днів',d:'Воєвода або видає рішення (справу виграно), або мовчить (ескалуємо).',dur:'День 2-9'},{t:'Skarga до адмін. суду',d:'Якщо відповіді немає — подаємо скаргу до WSA. Суд призначає засідання за 14 днів.',dur:'День 10'},{t:'Суд зобов\'язує рішити',d:'Суд постановляє, що воєвода має видати рішення за 30 днів, часто накладає штраф.',dur:'День 14-28'},{t:'Karta Pobytu видана',d:'Отримуєте картку. Оновлюємо профіль і ставимо нагадування на продовження.',dur:'До дня 30'}]}
 
   },
 
@@ -17046,6 +17662,266 @@ var SVC_LANG={
   }
 
 };
+
+// ═══════════════════════════════════════════════════════════════════════
+// Detail panel additions: comparison block + inline lead form
+// ═══════════════════════════════════════════════════════════════════════
+
+var _SVD_COMPARE={
+  ru:{
+    tag:'РАЗНИЦА',
+    title:'Без нас <em>vs</em> с нами',
+    without:[
+      'Часы в очередях в Urząd Wojewódzki',
+      'Один документ не так — подача с нуля',
+      'Бюрократия на польском без помощи',
+      'Стресс: подадут или откажут'
+    ],
+    with:[
+      'Без очередей — записываем заранее',
+      'AI-проверка каждого документа до подачи',
+      'Полный пакет на польском, всё переведено',
+      'Спокойно: ведём весь процесс до карты'
+    ],
+    wt:'Сами',
+    wmt:'С Legal Solutions'
+  },
+  en:{
+    tag:'THE DIFFERENCE',
+    title:'Without us <em>vs</em> with us',
+    without:[
+      'Hours in queues at the Voivodeship Office',
+      'One wrong document — start from scratch',
+      'Polish bureaucracy without help',
+      'Stress: will they approve or reject?'
+    ],
+    with:[
+      'No queues — we book your slot in advance',
+      'AI-verifies every document before filing',
+      'Full Polish package, everything translated',
+      'Peace of mind: we handle the entire process'
+    ],
+    wt:'Going alone',
+    wmt:'With Legal Solutions'
+  },
+  pl:{
+    tag:'RÓŻNICA',
+    title:'Bez nas <em>vs</em> z nami',
+    without:[
+      'Godziny w kolejkach w Urzędzie',
+      'Jeden zły dokument — od nowa',
+      'Polska biurokracja bez pomocy',
+      'Stres: zaakceptują czy odrzucą?'
+    ],
+    with:[
+      'Bez kolejek — rezerwujemy z wyprzedzeniem',
+      'AI weryfikuje każdy dokument przed złożeniem',
+      'Pełny pakiet po polsku, wszystko przetłumaczone',
+      'Spokój: prowadzimy cały proces do końca'
+    ],
+    wt:'Samemu',
+    wmt:'Z Legal Solutions'
+  },
+  uk:{
+    tag:'РІЗНИЦЯ',
+    title:'Без нас <em>vs</em> з нами',
+    without:[
+      'Години у чергах в Urząd',
+      'Один документ не так — подача з нуля',
+      'Бюрократія польською без допомоги',
+      'Стрес: подадуть чи відмовлять'
+    ],
+    with:[
+      'Без черг — записуємо заздалегідь',
+      'AI перевіряє кожен документ перед подачею',
+      'Повний пакет польською, все перекладено',
+      'Спокійно: ведемо весь процес до картки'
+    ],
+    wt:'Самостійно',
+    wmt:'З Legal Solutions'
+  }
+};
+
+function _renderCompareBlock(lang){
+  var t=_SVD_COMPARE[lang]||_SVD_COMPARE.en;
+  var withoutItems=t.without.map(function(x){
+    return '<li><svg viewBox="0 0 16 16" fill="none"><path d="M5 5l6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>'+x+'</span></li>';
+  }).join('');
+  var withItems=t.with.map(function(x){
+    return '<li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>'+x+'</span></li>';
+  }).join('');
+  return '<div class="svd-section svd-compare">'+
+    '<div class="svd-sec-head"><div class="svd-sec-title">'+t.tag+'</div><div class="svd-sec-head-line"></div></div>'+
+    '<h3 class="svd-compare-title">'+t.title+'</h3>'+
+    '<div class="svd-compare-grid">'+
+      '<div class="svd-compare-col svd-compare-bad">'+
+        '<div class="svd-compare-head"><span class="svd-compare-tag">'+t.wt+'</span></div>'+
+        '<ul class="svd-compare-list">'+withoutItems+'</ul>'+
+      '</div>'+
+      '<div class="svd-compare-col svd-compare-good">'+
+        '<div class="svd-compare-head"><span class="svd-compare-tag svd-compare-tag-good">'+t.wmt+'</span></div>'+
+        '<ul class="svd-compare-list">'+withItems+'</ul>'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+
+var _SVD_FORM={
+  ru:{
+    tag:'ЗАЯВКА',
+    title:'Получите <em>бесплатную консультацию</em> по этой услуге',
+    sub:'Расскажите ситуацию — ответим в WhatsApp за 15 минут. Без обязательств.',
+    nameLbl:'Ваше имя',
+    namePh:'Имя',
+    phoneLbl:'Телефон / WhatsApp',
+    phonePh:'+48 ...',
+    msgLbl:'Кратко о ситуации (необязательно)',
+    msgPh:'Например: первая карта побыту, виза заканчивается через месяц...',
+    submit:'Отправить заявку →',
+    wa:'Написать в WhatsApp',
+    fine:'Без спама · Конфиденциально · Ответ за 15 минут',
+    okTitle:'✅ Заявка отправлена!',
+    okBody:'Свяжемся в WhatsApp в течение 15 минут.',
+    err:'Ошибка отправки. Напишите нам в WhatsApp.'
+  },
+  en:{
+    tag:'GET STARTED',
+    title:'Get a <em>free consultation</em> for this service',
+    sub:'Tell us your situation — we reply on WhatsApp in 15 minutes. No obligation.',
+    nameLbl:'Your name',
+    namePh:'Name',
+    phoneLbl:'Phone / WhatsApp',
+    phonePh:'+48 ...',
+    msgLbl:'Briefly about your situation (optional)',
+    msgPh:'E.g.: first karta pobytu, visa expires in a month...',
+    submit:'Send request →',
+    wa:'Message us on WhatsApp',
+    fine:'No spam · Confidential · Reply in 15 minutes',
+    okTitle:'✅ Request sent!',
+    okBody:"We'll contact you on WhatsApp within 15 minutes.",
+    err:'Submission error. Please WhatsApp us instead.'
+  },
+  pl:{
+    tag:'ZGŁOSZENIE',
+    title:'Uzyskaj <em>bezpłatną konsultację</em> dla tej usługi',
+    sub:'Opisz sytuację — odpowiadamy na WhatsApp w 15 minut. Bez zobowiązań.',
+    nameLbl:'Twoje imię',
+    namePh:'Imię',
+    phoneLbl:'Telefon / WhatsApp',
+    phonePh:'+48 ...',
+    msgLbl:'Krótko o sytuacji (opcjonalnie)',
+    msgPh:'Np.: pierwsza karta pobytu, wiza wygasa za miesiąc...',
+    submit:'Wyślij zgłoszenie →',
+    wa:'Napisz na WhatsApp',
+    fine:'Bez spamu · Poufnie · Odpowiedź w 15 minut',
+    okTitle:'✅ Zgłoszenie wysłane!',
+    okBody:'Skontaktujemy się przez WhatsApp w ciągu 15 minut.',
+    err:'Błąd wysyłki. Napisz do nas na WhatsApp.'
+  },
+  uk:{
+    tag:'ЗАЯВКА',
+    title:'Отримайте <em>безкоштовну консультацію</em> з цієї послуги',
+    sub:'Розкажіть ситуацію — відповімо у WhatsApp за 15 хвилин. Без зобов\'язань.',
+    nameLbl:'Ваше ім\'я',
+    namePh:'Ім\'я',
+    phoneLbl:'Телефон / WhatsApp',
+    phonePh:'+48 ...',
+    msgLbl:'Коротко про ситуацію (необов\'язково)',
+    msgPh:'Напр.: перша карта побуту, віза закінчується за місяць...',
+    submit:'Надіслати →',
+    wa:'Написати в WhatsApp',
+    fine:'Без спаму · Конфіденційно · Відповідь за 15 хв',
+    okTitle:'✅ Заявку надіслано!',
+    okBody:'Зв\'яжемося в WhatsApp протягом 15 хвилин.',
+    err:'Помилка. Напишіть нам у WhatsApp.'
+  }
+};
+
+function _renderLeadForm(key,d,lang){
+  var t=_SVD_FORM[lang]||_SVD_FORM.en;
+  var serviceName=d.tag||key;
+  var formId='svd-form-'+key;
+  return '<div class="svd-section svd-leadform" id="'+formId+'">'+
+    '<div class="svd-form-glow"></div>'+
+    '<div class="svd-sec-head"><div class="svd-sec-title">'+t.tag+'</div><div class="svd-sec-head-line"></div></div>'+
+    '<h3 class="svd-form-title">'+t.title+'</h3>'+
+    '<p class="svd-form-sub">'+t.sub+'</p>'+
+    '<form class="svd-form-grid" onsubmit="return _svdSubmit(event,\''+key+'\',\''+serviceName.replace(/'/g,"\\'")+'\')">'+
+      '<div class="svd-form-row">'+
+        '<label>'+
+          '<span class="svd-form-lbl">'+t.nameLbl+'</span>'+
+          '<input type="text" name="name" placeholder="'+t.namePh+'" required class="svd-form-input"/>'+
+        '</label>'+
+        '<label>'+
+          '<span class="svd-form-lbl">'+t.phoneLbl+'</span>'+
+          '<input type="tel" name="phone" placeholder="'+t.phonePh+'" required class="svd-form-input"/>'+
+        '</label>'+
+      '</div>'+
+      '<label class="svd-form-msg-wrap">'+
+        '<span class="svd-form-lbl">'+t.msgLbl+'</span>'+
+        '<textarea name="message" rows="2" placeholder="'+t.msgPh+'" class="svd-form-input svd-form-textarea"></textarea>'+
+      '</label>'+
+      '<div class="svd-form-actions">'+
+        '<button type="submit" class="svd-form-submit"><span>'+t.submit+'</span></button>'+
+        '<a href="https://wa.me/48735248525?text=Hello,%20I%20want%20a%20consultation%20about%20'+encodeURIComponent(serviceName)+'" target="_blank" rel="noopener" class="svd-form-wa">'+
+          '<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 22a10 10 0 010-20 10 10 0 010 20m0-21a11 11 0 100 22 11 11 0 000-22z"/></svg>'+
+          '<span>'+t.wa+'</span>'+
+        '</a>'+
+      '</div>'+
+      '<div class="svd-form-fine">'+t.fine+'</div>'+
+    '</form>'+
+    '<div class="svd-form-success" data-ok-title="'+t.okTitle+'" data-ok-body="'+t.okBody+'"></div>'+
+  '</div>';
+}
+
+function _svdSubmit(e,key,serviceName){
+  e.preventDefault();
+  var form=e.target;
+  var data=new FormData(form);
+  var name=(data.get('name')||'').toString().trim();
+  var phone=(data.get('phone')||'').toString().trim();
+  var msg=(data.get('message')||'').toString().trim();
+  var lang=(typeof L!=='undefined')?L:'en';
+  var t=_SVD_FORM[lang]||_SVD_FORM.en;
+
+  if(!phone){alert(t.err);return false;}
+
+  var btn=form.querySelector('.svd-form-submit');
+  if(btn){btn.disabled=true;btn.style.opacity='.6';}
+
+  // Send via existing _sendLead pipeline (Apps Script → TG bot + Sheet)
+  try{
+    _sendLead({
+      source:'service-detail-'+key,
+      service:key,
+      service_name:serviceName,
+      name:name,
+      phone:phone,
+      message:msg,
+      lang:lang,
+      page:location.pathname+location.hash,
+      utm:_utmObject?_utmObject():{},
+      ts:new Date().toISOString()
+    });
+  }catch(err){console.warn('[svd lead]',err);}
+
+  // Inline success state
+  var wrap=form.parentNode;
+  form.style.display='none';
+  var ok=wrap.querySelector('.svd-form-success');
+  if(ok){
+    ok.innerHTML='<div class="svd-form-success-card">'+
+      '<div class="svd-form-success-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
+      '<div><div class="svd-form-success-t">'+ok.getAttribute('data-ok-title')+'</div>'+
+      '<div class="svd-form-success-b">'+ok.getAttribute('data-ok-body')+'</div></div>'+
+    '</div>';
+    ok.classList.add('on');
+  }
+
+  return false;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 
 function showSvc(key){
 
@@ -17439,6 +18315,10 @@ function showSvc(key){
 
     incHtml+
 
+    _renderCompareBlock(L)+
+
+    _renderLeadForm(key,d,L)+
+
     '<div class="svd-cta">'+
 
       '<button class="btn-gold" onclick="openModal()" style="font-size:14px;padding:14px 28px;">'+d.cta+'</button>'+
@@ -17647,9 +18527,427 @@ function showSvc(key){
 
 }
 
-// Init default service
+// ════════════════════════════════════════════════════════════
+// Full-page services layout v2 (2026-05-07): grid → detail
+// ════════════════════════════════════════════════════════════
 
-showSvc('kp');
+// Open service detail. Desktop = full-page swap; mobile = existing accordion behavior.
+function openSvc(key){
+  showSvc(key);
+  if(window.innerWidth>960){
+    document.body.classList.add('sv-detail-open');
+    var sec=document.getElementById('tab-services');
+    if(sec){
+      var y=sec.getBoundingClientRect().top+window.pageYOffset-80;
+      window.scrollTo({top:y,behavior:'smooth'});
+    }
+  }
+  // Wire scroll-reveal animation for the freshly-rendered detail sections
+  setTimeout(function(){
+    if(!('IntersectionObserver' in window)){
+      document.querySelectorAll('#sv-detail .svd-section').forEach(function(s){s.classList.add('svd-revealed');});
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('svd-revealed');
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('#sv-detail .svd-section').forEach(function(s){
+      s.classList.remove('svd-revealed');
+      io.observe(s);
+    });
+  },80);
+}
+
+// Return to grid view (desktop only — mobile uses its existing accordion close)
+function closeSvc(){
+  document.body.classList.remove('sv-detail-open');
+  var sec=document.getElementById('tab-services');
+  if(sec){
+    var y=sec.getBoundingClientRect().top+window.pageYOffset-80;
+    window.scrollTo({top:y,behavior:'smooth'});
+  }
+}
+
+// Reset to grid view if window resizes from mobile to desktop while a service is open
+window.addEventListener('resize',function(){
+  if(window.innerWidth<=960 && document.body.classList.contains('sv-detail-open')){
+    document.body.classList.remove('sv-detail-open');
+  }
+});
+
+// ─── Particle network for services section ───
+(function _initSvcParticles(){
+  function init(){
+    var canvas=document.getElementById('sv-particle-net');
+    if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    var W,H,particles=[];
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var rafId=null,running=false;
+
+    function resize(){
+      var parent=canvas.parentElement;
+      if(!parent)return;
+      var r=parent.getBoundingClientRect();
+      W=r.width;H=r.height;
+      canvas.width=W*dpr;canvas.height=H*dpr;
+      canvas.style.width=W+'px';canvas.style.height=H+'px';
+      ctx.scale(dpr,dpr);
+      var count=Math.min(60,Math.floor((W*H)/22000));
+      particles=[];
+      for(var i=0;i<count;i++){
+        particles.push({
+          x:Math.random()*W,y:Math.random()*H,
+          vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,
+          r:Math.random()*1.6+0.6
+        });
+      }
+    }
+
+    function draw(){
+      if(!running){rafId=null;return;}
+      ctx.clearRect(0,0,W,H);
+      // Lines between close particles
+      for(var i=0;i<particles.length;i++){
+        var a=particles[i];
+        for(var j=i+1;j<particles.length;j++){
+          var b=particles[j];
+          var dx=a.x-b.x,dy=a.y-b.y;
+          var d2=dx*dx+dy*dy;
+          if(d2<14400){
+            var alpha=(1-d2/14400)*0.4;
+            ctx.strokeStyle='rgba(167,139,250,'+alpha+')';
+            ctx.lineWidth=0.6;
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+          }
+        }
+      }
+      // Particles
+      for(var k=0;k<particles.length;k++){
+        var p=particles[k];
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>W)p.vx*=-1;
+        if(p.y<0||p.y>H)p.vy*=-1;
+        ctx.fillStyle='rgba(196,181,253,.7)';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fill();
+      }
+      rafId=requestAnimationFrame(draw);
+    }
+
+    function start(){if(running)return;running=true;draw();}
+    function stop(){running=false;if(rafId){cancelAnimationFrame(rafId);rafId=null;}}
+
+    resize();
+    window.addEventListener('resize',resize,{passive:true});
+
+    // Pause when tab not visible
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting)start();else stop();});
+      },{threshold:0});
+      io.observe(canvas.parentElement);
+    } else {
+      start();
+    }
+
+    // Pause when page hidden
+    document.addEventListener('visibilitychange',function(){
+      if(document.hidden)stop();else if(canvas.getBoundingClientRect().bottom>0)start();
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+
+// Rewire all sv-item cards: grid view uses openSvc (full-page), no auto-active
+(function _initSvcGrid(){
+  function setup(){
+    var items=document.querySelectorAll('#tab-services .sv-item');
+    items.forEach(function(it){
+      // Override onclick to use openSvc (mobile flow on small screens stays via showSvc fallback inside openSvc)
+      var key=null;
+      var oc=it.getAttribute('onclick')||'';
+      var m=oc.match(/showSvc\('([^']+)'\)/);
+      if(m)key=m[1];
+      if(key){
+        it.removeAttribute('onclick');
+        it.addEventListener('click',function(){openSvc(key);});
+      }
+
+      // Inject image header with tag pill — pulled from SVC_EN[key]
+      if(key && !it.querySelector('.sv-card-image') && typeof SVC_EN!=='undefined' && SVC_EN[key]){
+        var svc=SVC_EN[key];
+        var imgUrl=svc.img||'https://images.unsplash.com/photo-1521791055366-0d553872952f?w=800&h=440&fit=crop&q=80';
+        var tagTxt=(svc.tag||'').toString();
+        var imgWrap=document.createElement('div');
+        imgWrap.className='sv-card-image';
+        imgWrap.innerHTML='<img src="'+imgUrl+'" alt="'+tagTxt+'" loading="lazy" decoding="async"/>'+
+          (tagTxt?'<div class="sv-card-tag" data-tag-key="'+key+'">'+tagTxt+'</div>':'');
+        it.insertBefore(imgWrap,it.firstChild);
+      }
+
+      // Wrap icon in .sv-item-ico-wrap so orbiting/glow pseudos can attach.
+      // Icon-wrap is positioned absolutely, so it lives at root level of card.
+      var icoEl=it.querySelector('.sv-item-ico');
+      if(icoEl && !it.querySelector('.sv-item-ico-wrap')){
+        var icoWrap=document.createElement('div');
+        icoWrap.className='sv-item-ico-wrap';
+        icoEl.parentNode.insertBefore(icoWrap,icoEl);
+        icoWrap.appendChild(icoEl);
+        it.appendChild(icoWrap);
+      }
+
+      // Wrap title + description in .sv-card-body
+      var titleEl=it.querySelector('.sv-item-t');
+      if(titleEl && !it.querySelector('.sv-card-body')){
+        var body=document.createElement('div');
+        body.className='sv-card-body';
+        var contentInner=document.createElement('div');
+        contentInner.className='sv-item-content';
+        body.appendChild(contentInner);
+        titleEl.parentNode.insertBefore(body,titleEl);
+        contentInner.appendChild(titleEl);
+        var desc=document.createElement('div');
+        desc.className='sv-card-desc';
+        desc.setAttribute('data-svc-key',key||'');
+        contentInner.appendChild(desc);
+      }
+      if(!it.querySelector('.sv-card-arrow')){
+        var arr=document.createElement('div');
+        arr.className='sv-card-arrow';
+        arr.innerHTML='<svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        it.appendChild(arr);
+      }
+
+      // Add 4 speed-line decorative elements
+      if(!it.querySelector('.sv-speed-line.line-1')){
+        for(var i=1;i<=4;i++){
+          var ln=document.createElement('div');
+          ln.className='sv-speed-line line-'+i;
+          it.appendChild(ln);
+        }
+      }
+
+      // Add animated gradient border (rotating conic — turns on at hover)
+      if(!it.querySelector('.sv-glow-border')){
+        var gb=document.createElement('div');gb.className='sv-glow-border';it.appendChild(gb);
+      }
+
+      // Mouse-tracked spotlight + 3D tilt + image parallax — cranked up
+      var rafId=null;
+      it.addEventListener('mousemove',function(e){
+        var r=it.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width;
+        var py=(e.clientY-r.top)/r.height;
+        it.style.setProperty('--mx',(px*100)+'%');
+        it.style.setProperty('--my',(py*100)+'%');
+        // 3D tilt — cranked to ±12deg for dramatic feel
+        var rotX=(0.5-py)*12;
+        var rotY=(px-0.5)*12;
+        if(rafId)cancelAnimationFrame(rafId);
+        rafId=requestAnimationFrame(function(){
+          it.style.transform='translateY(-10px) rotateX('+rotX.toFixed(2)+'deg) rotateY('+rotY.toFixed(2)+'deg) scale(1.012)';
+          // Stronger inverse parallax on image
+          var img=it.querySelector('.sv-card-image img');
+          if(img){
+            img.style.transform='scale(1.18) translate('+((px-0.5)*-26).toFixed(1)+'px,'+((py-0.5)*-18).toFixed(1)+'px)';
+          }
+          // Icon orbits subtly with cursor for extra liveliness
+          var ico=it.querySelector('.sv-item-ico-wrap');
+          if(ico){
+            ico.style.transform='translate('+((px-0.5)*8).toFixed(1)+'px,'+((py-0.5)*6).toFixed(1)+'px)';
+          }
+        });
+      });
+      it.addEventListener('mouseleave',function(){
+        if(rafId)cancelAnimationFrame(rafId);
+        it.style.transform='';
+        var img=it.querySelector('.sv-card-image img');
+        if(img)img.style.transform='';
+        var ico=it.querySelector('.sv-item-ico-wrap');
+        if(ico)ico.style.transform='';
+      });
+
+      // Click ripple effect — radial wave from click point
+      it.addEventListener('mousedown',function(e){
+        var r=it.getBoundingClientRect();
+        var ripple=document.createElement('span');
+        ripple.className='sv-ripple';
+        ripple.style.left=(e.clientX-r.left)+'px';
+        ripple.style.top=(e.clientY-r.top)+'px';
+        it.appendChild(ripple);
+        setTimeout(function(){ripple.remove();},700);
+      });
+
+      // Remove sidebar "active" state from initial render — grid mode shouldn't highlight one
+      it.classList.remove('active');
+    });
+
+    // Populate card descriptions from service data (current language)
+    fillSvcCardDescs();
+
+    // Translate back-button label
+    translateBackBtn();
+
+    // ── Scroll-reveal: cards animate in when they enter viewport ──
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            // Stagger by index in row to create cascading wave
+            var idx=Array.prototype.indexOf.call(entry.target.parentNode.children,entry.target);
+            entry.target.style.animationDelay=(idx*0.07)+'s';
+            entry.target.classList.add('sv-revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+      document.querySelectorAll('#tab-services .sv-item').forEach(function(it){io.observe(it);});
+    } else {
+      // Fallback: reveal all immediately
+      document.querySelectorAll('#tab-services .sv-item').forEach(function(it){it.classList.add('sv-revealed');});
+    }
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',setup);
+  } else {
+    setup();
+  }
+})();
+
+// Punchy marketing-style 1-line descriptions per service per language.
+// Override the auto-generated lead text with these for premium card feel.
+var SVC_BLURBS={
+  ru:{
+    kp:'Жизнь и работа в Польше — легально. NFZ, банк, Шенген — всё разом.',
+    pmzh:'Бессрочный статус. Работа без разрешений. Путь к гражданству ЕС.',
+    citizen:'Польский паспорт = весь ЕС. Безвиз в 190 стран. Полные права.',
+    bluecard:'Карта для IT и высоких зарплат. Семья сразу, упрощённый процесс.',
+    appeal:'Получили отказ? Возвращаем 76%. Бесплатно для наших клиентов.',
+    company:'Sp. z o.o. за 2 недели. JDG, KRS, REGON — под ключ.',
+    accounting:'ZUS, налоги, отчёты — ведём всё. Спите спокойно.',
+    pesel:'Налоговый номер за 1 день. Без него ничего не работает в Польше.',
+    profil:'Электронная подпись. Обязательна с 27.04 для подачи через MOS.',
+    rights:'Из иностранных в польские — без экзаменов. 14 дней.',
+    intl:'Беженство, гум. виза, апелляции. Конфиденциально, профессионально.',
+    speedup:'Карта тянется 6+ мес? Заставим воеводу решить за 30 дней. Работает в 78% случаев.'
+  },
+  en:{
+    kp:'Live and work legally in Poland. NFZ, bank, Schengen — all unlocked.',
+    pmzh:'Permanent status. Work without permits. Path to EU citizenship.',
+    citizen:'Polish passport = all of EU. Visa-free to 190 countries. Full rights.',
+    bluecard:'For IT and top salaries. Family from day one, simplified process.',
+    appeal:'Rejected? We win 76% back. Free for our clients.',
+    company:'Sp. z o.o. in 2 weeks. JDG, KRS, REGON — turnkey setup.',
+    accounting:'ZUS, taxes, reports — we handle everything. Sleep tight.',
+    pesel:'Tax ID in 1 day. Nothing works in Poland without it.',
+    profil:'E-signature. Mandatory from April 27 for MOS filings.',
+    rights:'Foreign license → Polish, no exam. 14 days.',
+    intl:'Refugee status, humanitarian visa, appeals. Confidential, expert.',
+    speedup:'Pending 6+ months? We force the voivode to decide in 30 days. Works 78% of cases.'
+  },
+  pl:{
+    kp:'Życie i praca w Polsce — legalnie. NFZ, bank, Schengen — wszystko od razu.',
+    pmzh:'Status bezterminowy. Praca bez zezwoleń. Droga do obywatelstwa UE.',
+    citizen:'Polski paszport = cała UE. Bez wizy do 190 krajów. Pełne prawa.',
+    bluecard:'Dla IT i wysokich pensji. Rodzina od razu, uproszczony proces.',
+    appeal:'Odmowa? Wygrywamy 76% z powrotem. Bezpłatnie dla naszych klientów.',
+    company:'Sp. z o.o. w 2 tygodnie. JDG, KRS, REGON — pod klucz.',
+    accounting:'ZUS, podatki, sprawozdania — prowadzimy wszystko. Śpij spokojnie.',
+    pesel:'Numer podatkowy w 1 dzień. Bez niego nic w Polsce nie działa.',
+    profil:'Podpis elektroniczny. Obowiązkowy od 27.04 dla MOS.',
+    rights:'Zagraniczne prawo jazdy → polskie bez egzaminu. 14 dni.',
+    intl:'Status uchodźcy, wiza humanitarna, odwołania. Poufnie, profesjonalnie.',
+    speedup:'Sprawa wisi 6+ miesięcy? Zmuszamy wojewodę do decyzji w 30 dni. Skuteczność 78%.'
+  },
+  uk:{
+    kp:'Життя і робота у Польщі — легально. NFZ, банк, Шенген — все відразу.',
+    pmzh:'Безстроковий статус. Робота без дозволів. Шлях до громадянства ЄС.',
+    citizen:'Польський паспорт = весь ЄС. Безвіз у 190 країн. Повні права.',
+    bluecard:'Карта для IT та високих зарплат. Сім\'я одразу, спрощений процес.',
+    appeal:'Отримали відмову? Повертаємо 76%. Безкоштовно для наших клієнтів.',
+    company:'Sp. z o.o. за 2 тижні. JDG, KRS, REGON — під ключ.',
+    accounting:'ZUS, податки, звіти — ведемо все. Спіть спокійно.',
+    pesel:'Податковий номер за 1 день. Без нього у Польщі нічого не працює.',
+    profil:'Електронний підпис. Обов\'язковий з 27.04 для подачі через MOS.',
+    rights:'Іноземні права → польські без іспиту. 14 днів.',
+    intl:'Біженство, гум. віза, апеляції. Конфіденційно, професійно.',
+    speedup:'Справа висить 6+ міс? Змушуємо воєводу прийняти рішення за 30 днів. У 78% випадків.'
+  }
+};
+
+// Fill card description text + tag pill — runs at init and after setLang
+function fillSvcCardDescs(){
+  if(typeof SVC_EN==='undefined')return;
+  var lang=(typeof L!=='undefined')?L:'en';
+  document.querySelectorAll('#tab-services .sv-card-desc').forEach(function(el){
+    var key=el.getAttribute('data-svc-key');
+    if(!key)return;
+    var blurb='';
+    // Priority: custom punchy blurb > truncated lead
+    if(SVC_BLURBS[lang] && SVC_BLURBS[lang][key]){
+      blurb=SVC_BLURBS[lang][key];
+    } else {
+      // Fallback to lead from service data
+      var lead='';
+      if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].lead){
+        lead=SVC_LANG[lang][key].lead;
+      } else if(lang==='ru' && typeof SVC!=='undefined' && SVC[key] && SVC[key].lead){
+        lead=SVC[key].lead;
+      } else if(SVC_EN[key] && SVC_EN[key].lead){
+        lead=SVC_EN[key].lead;
+      }
+      if(lead.length>120){
+        var cut=lead.lastIndexOf(' ',114);
+        if(cut<60)cut=114;
+        lead=lead.substring(0,cut)+'…';
+      }
+      blurb=lead;
+    }
+    el.textContent=blurb;
+  });
+  // Update tag pill text per language
+  document.querySelectorAll('#tab-services .sv-card-tag').forEach(function(el){
+    var key=el.getAttribute('data-tag-key');
+    if(!key)return;
+    var tag='';
+    if(lang!=='en' && lang!=='ru' && typeof SVC_LANG!=='undefined' && SVC_LANG[lang] && SVC_LANG[lang][key] && SVC_LANG[lang][key].tag){
+      tag=SVC_LANG[lang][key].tag;
+    } else if(lang==='ru' && typeof SVC!=='undefined' && SVC[key] && SVC[key].tag){
+      tag=SVC[key].tag;
+    } else if(SVC_EN[key] && SVC_EN[key].tag){
+      tag=SVC_EN[key].tag;
+    }
+    if(tag)el.textContent=tag;
+  });
+}
+
+// Translate back-button label per current lang
+function translateBackBtn(){
+  var lang=(typeof L!=='undefined')?L:'en';
+  var labels={en:'All services',ru:'Все услуги',pl:'Wszystkie usługi',uk:'Всі послуги',es:'Todos los servicios',tr:'Tüm hizmetler',az:'Bütün xidmətlər',hi:'सभी सेवाएँ'};
+  document.querySelectorAll('[data-back-lbl]').forEach(function(el){
+    el.textContent=labels[lang]||labels.en;
+  });
+}
+
+// Hook: when language changes, re-fill card descriptions and back btn
+(function(){
+  var origSetLang=window.setLang;
+  if(typeof origSetLang==='function'){
+    window.setLang=function(){
+      var r=origSetLang.apply(this,arguments);
+      try{fillSvcCardDescs();translateBackBtn();}catch(e){}
+      return r;
+    };
+  }
+})();
+
 
 
 
