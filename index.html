@@ -24323,9 +24323,10 @@ function setLang(lang){
       var grid = document.querySelector('#tab-blog .blog-grid');
       if (!grid) return;
       // Don't refetch if already loaded for this lang
-      if (grid.getAttribute('data-loaded-lang') === apiLang) return;
+      // Не блокируем рефетч между визитами — последний пост должен сразу появиться
+      // (раньше data-loaded-lang кешировал намертво, теперь обновляем при каждом show)
 
-      fetch('/api/blog-listing?format=json&limit=12&lang=' + apiLang, { cache: 'force-cache' })
+      fetch('/api/blog-listing?format=json&limit=12&lang=' + apiLang + '&_t=' + Math.floor(Date.now() / 60000))
         .then(function(r){ return r.json(); })
         .then(function(data){
           if (!data || !data.articles || data.articles.length === 0) return;
