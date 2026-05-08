@@ -557,13 +557,12 @@ module.exports = async function handler(req, res) {
     const wantLang = (reqLang === "RU") ? "RU" : "EN";
     const filtered = articles.filter(a => a.language === wantLang);
 
-    // Aggressive edge caching: 10 min fresh, then serve stale up to 24h while revalidating in background
-    res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
-    res.setHeader("CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
-    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
-
-    // JSON mode: ?format=json — used by homepage blog cards to render fresh data
+    // JSON mode (homepage cards): короткий cache 60s — чтобы новый пост сразу появился
+    // HTML mode (full /blog page): обычный 10 min, не критично если устарел на чуть-чуть
     if (req.query && req.query.format === "json") {
+      res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
+      res.setHeader("CDN-Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
+      res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
       const limit = Math.min(50, parseInt(req.query.limit, 10) || 12);
       const slim = filtered.slice(0, limit).map(a => ({
         title: a.title,
@@ -578,6 +577,10 @@ module.exports = async function handler(req, res) {
       return;
     }
 
+    // HTML mode: 10 min cache + 24h SWR
+    res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+    res.setHeader("CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
+    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=600, stale-while-revalidate=86400");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(filtered));
 
