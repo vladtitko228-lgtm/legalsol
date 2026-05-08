@@ -5726,37 +5726,52 @@ body.sv-detail-open .sv-detail{display:flex;}
 
 @keyframes svDetailIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* Back button wrapper — sticky to top of viewport while detail open */
+/* Back button — FIXED к viewport, всегда виден при скролле детальной страницы услуги */
 #sv-back-wrap{display:none;}
 body.sv-detail-open #sv-back-wrap{
   display:block;
-  position:sticky;top:80px;z-index:90;
-  pointer-events:none; /* let clicks pass through wrapper, but button itself catches */
+  position:fixed;
+  top:90px;
+  left:max(24px, calc((100vw - 1200px)/2 + 24px));
+  z-index:200;
+  pointer-events:none;
   margin:0;
+  animation:svBackFadeIn .4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes svBackFadeIn{
+  from{opacity:0;transform:translateY(-8px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-/* Back button — strong glass pill, always visible */
+/* Back button — premium glass pill */
 .sv-back-btn{
   display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,rgba(124,92,252,.32),rgba(91,82,204,.18));
+  background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.45));
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border:1px solid rgba(167,139,250,.45);
+  border:1px solid rgba(167,139,250,.6);
   color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.2px;
-  padding:11px 20px;border-radius:30px;cursor:pointer;
-  margin:14px 0 14px 0;
-  transition:all .25s ease;
+  padding:12px 22px;border-radius:60px;cursor:pointer;
+  transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
   font-family:inherit;
-  box-shadow:0 8px 24px -6px rgba(124,92,252,.5),0 0 0 1px rgba(167,139,250,.12);
+  box-shadow:0 12px 32px -8px rgba(124,92,252,.6), 0 0 0 1px rgba(167,139,250,.18);
   pointer-events:auto;
 }
 .sv-back-btn:hover{
-  background:linear-gradient(135deg,rgba(124,92,252,.5),rgba(91,82,204,.32));
-  border-color:rgba(167,139,250,.65);
+  background:linear-gradient(135deg,rgba(124,92,252,.85),rgba(91,82,204,.6));
+  border-color:rgba(167,139,250,.8);
   color:#fff;transform:translateX(-4px);
-  box-shadow:0 12px 32px -6px rgba(124,92,252,.65);
+  box-shadow:0 16px 40px -8px rgba(124,92,252,.75);
 }
 .sv-back-btn svg{width:14px;height:14px;transition:transform .3s cubic-bezier(.4,0,.2,1);}
 .sv-back-btn:hover svg{transform:translateX(-3px);}
+
+/* Mobile: top corner, smaller */
+@media (max-width: 768px){
+  body.sv-detail-open #sv-back-wrap{
+    top:72px;left:14px;
+  }
+  .sv-back-btn{font-size:12.5px;padding:10px 16px;gap:8px;}
+}
 
 .sv-detail::-webkit-scrollbar{width:4px;}
 
@@ -16944,7 +16959,7 @@ var SVC_EN={
     timeline:'30 days from complaint filing · vs 6–12 months without speedup',
     note:'Speedup is 100% LEGAL — protected by Polish administrative procedure code (KPA) and Constitution art. 45. Filing a delay complaint does NOT damage your case or relationship with the voivode. You have the legal right.',
     stats:[{n:'78%',l:'success'},{n:'30 days',l:'to decision'},{n:'500+',l:'cases done'}],
-    img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=440&fit=crop&q=80',
+    img:'https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=800&h=440&fit=crop&q=80',
     cta:'Speed Up My Case →',
     docs:[
       {n:'Original receipt confirming Karta Pobytu application was filed',req:true},
