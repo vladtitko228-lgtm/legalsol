@@ -995,94 +995,132 @@ h1 .acc{color:var(--p300);}
 @keyframes hsvcEyebrowShine{0%{background-position:220% 0;}100%{background-position:-220% 0;}}
 @keyframes hsvcDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.55);opacity:.5;}}
 
-.hero-svc-row{display:flex;gap:14px;margin:0 0 32px;flex-wrap:wrap;perspective:900px;}
+.hero-svc-row{
+  display:flex;gap:14px;margin:0 0 32px;flex-wrap:wrap;
+  perspective:1100px;perspective-origin:50% 0%;
+}
 
 .hero-svc-btn{
-  --mx:50%;--my:50%;
+  --mx:50%;--my:50%;--rx:0deg;--ry:0deg;
   position:relative;isolation:isolate;
   display:inline-flex;align-items:center;gap:12px;
   padding:15px 24px;border-radius:16px;
   background:
-    radial-gradient(140px 140px at var(--mx) var(--my),rgba(184,178,245,.25),transparent 60%),
-    linear-gradient(135deg,rgba(91,82,204,.10) 0%,rgba(255,255,255,.03) 100%);
+    radial-gradient(180px 180px at var(--mx) var(--my),rgba(184,178,245,.30),transparent 65%),
+    linear-gradient(135deg,rgba(91,82,204,.12) 0%,rgba(255,255,255,.03) 100%);
   -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
   border:1px solid rgba(184,178,245,.22);
   color:rgba(255,255,255,.97);font-size:15px;font-weight:600;letter-spacing:.2px;
   text-decoration:none;cursor:pointer;
   font-family:'Inter',sans-serif;overflow:hidden;
+  transform-style:preserve-3d;
   box-shadow:0 8px 26px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.06);
-  transition:transform .4s cubic-bezier(.2,.8,.2,1),
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),
              border-color .35s ease,
-             box-shadow .35s ease,
-             background-color .35s ease;
-  opacity:0;transform:translateY(28px) scale(.92);
-  animation:hsvcBtnIn .85s cubic-bezier(.34,1.56,.64,1) forwards;
+             box-shadow .35s ease;
+  opacity:0;
+  will-change:transform;
 }
-.hero-svc-btn:nth-child(1){animation-delay:.10s;}
-.hero-svc-btn:nth-child(2){animation-delay:.22s;}
-.hero-svc-btn:nth-child(3){animation-delay:.34s;}
+.hero-svc-btn:nth-child(1){animation:hsvcBtnIn 1s cubic-bezier(.34,1.56,.64,1) .08s forwards,hsvcBreathe 3.6s ease-in-out 1.2s infinite;}
+.hero-svc-btn:nth-child(2){animation:hsvcBtnIn 1s cubic-bezier(.34,1.56,.64,1) .20s forwards,hsvcBreathe 3.6s ease-in-out 1.5s infinite;}
+.hero-svc-btn:nth-child(3){animation:hsvcBtnIn 1s cubic-bezier(.34,1.56,.64,1) .32s forwards,hsvcBreathe 3.6s ease-in-out 1.8s infinite;}
 @keyframes hsvcBtnIn{
-  0%{opacity:0;transform:translateY(28px) scale(.92);}
-  60%{opacity:1;transform:translateY(-3px) scale(1.02);}
-  100%{opacity:1;transform:translateY(0) scale(1);}
+  0%{opacity:0;transform:translateY(40px) rotateX(-25deg) scale(.86);}
+  55%{opacity:1;transform:translateY(-6px) rotateX(4deg) scale(1.04);}
+  80%{transform:translateY(2px) rotateX(-1deg) scale(.99);}
+  100%{opacity:1;transform:translateY(0) rotateX(0) scale(1);}
+}
+@keyframes hsvcBreathe{
+  0%,100%{box-shadow:0 8px 26px rgba(0,0,0,.20),0 0 0 rgba(91,82,204,0),inset 0 1px 0 rgba(255,255,255,.06);}
+  50%{box-shadow:0 10px 30px rgba(0,0,0,.22),0 0 32px rgba(91,82,204,.22),inset 0 1px 0 rgba(255,255,255,.08);}
 }
 
 /* Sweep-блик пробегает при hover */
 .hero-svc-btn::before{
   content:'';position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(115deg,transparent 28%,rgba(255,255,255,.20) 48%,rgba(184,178,245,.12) 54%,transparent 72%);
-  transform:translateX(-115%);
-  transition:transform .85s cubic-bezier(.4,0,.2,1);
+  background:linear-gradient(115deg,
+    transparent 25%,
+    rgba(255,255,255,.28) 47%,
+    rgba(184,178,245,.20) 53%,
+    transparent 75%);
+  transform:translateX(-115%) skewX(-12deg);
+  transition:transform .9s cubic-bezier(.4,0,.2,1);
   pointer-events:none;
 }
-/* Вращающееся гра́диент-кольцо вокруг кнопки на hover */
+/* Вращающееся conic-кольцо */
 .hero-svc-btn::after{
-  content:'';position:absolute;inset:-1.5px;border-radius:17.5px;z-index:-2;
+  content:'';position:absolute;inset:-2px;border-radius:18px;z-index:-2;
   background:conic-gradient(from 0deg,
-    rgba(91,82,204,0) 0%,
-    rgba(184,178,245,.85) 18%,
-    rgba(91,82,204,.30) 33%,
-    rgba(184,178,245,.10) 50%,
-    rgba(91,82,204,.30) 66%,
-    rgba(184,178,245,.85) 82%,
-    rgba(91,82,204,0) 100%);
+    transparent 0%,
+    rgba(184,178,245,1) 13%,
+    rgba(91,82,204,.6) 28%,
+    transparent 50%,
+    rgba(91,82,204,.6) 72%,
+    rgba(184,178,245,1) 87%,
+    transparent 100%);
   opacity:0;
   transition:opacity .4s ease;
-  animation:hsvcRing 4s linear infinite;
+  animation:hsvcRing 3.2s linear infinite;
   pointer-events:none;
+  filter:blur(.5px);
 }
 @keyframes hsvcRing{to{transform:rotate(360deg);}}
 
 .hero-svc-btn:hover{
-  transform:translateY(-4px) scale(1.02);
-  border-color:rgba(184,178,245,.0);
-  box-shadow:0 18px 44px rgba(91,82,204,.40),
-             0 0 0 1px rgba(184,178,245,.30) inset,
-             inset 0 1px 0 rgba(255,255,255,.10);
+  transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-6px) scale(1.05);
+  border-color:rgba(184,178,245,0);
+  box-shadow:0 26px 56px rgba(91,82,204,.55),
+             0 0 0 1px rgba(184,178,245,.45) inset,
+             inset 0 1px 0 rgba(255,255,255,.16);
+  animation-play-state:paused;
 }
-.hero-svc-btn:hover::before{transform:translateX(115%);}
+.hero-svc-btn:hover::before{transform:translateX(115%) skewX(-12deg);}
 .hero-svc-btn:hover::after{opacity:1;}
-.hero-svc-btn:active{transform:translateY(-1px) scale(.99);transition-duration:.12s;}
+.hero-svc-btn:active{
+  transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-2px) scale(1.01);
+  transition-duration:.12s;
+}
 
 .hero-svc-btn .hsb-icon{
-  font-size:22px;line-height:1;
-  filter:drop-shadow(0 2px 8px rgba(91,82,204,.55));
+  font-size:23px;line-height:1;
+  filter:drop-shadow(0 3px 10px rgba(91,82,204,.65));
   transition:transform .5s cubic-bezier(.2,.8,.2,1);
   display:inline-block;
+  transform:translateZ(20px);
 }
 .hero-svc-btn:hover .hsb-icon{
-  animation:hsvcIcon .65s cubic-bezier(.25,1.5,.5,1);
+  animation:hsvcIcon .75s cubic-bezier(.25,1.5,.5,1);
 }
 @keyframes hsvcIcon{
-  0%{transform:scale(1) rotate(0);}
-  30%{transform:scale(1.40) rotate(-14deg);}
-  60%{transform:scale(.94) rotate(5deg);}
-  100%{transform:scale(1.20) rotate(-8deg);}
+  0%{transform:translateZ(20px) scale(1) rotate(0);}
+  25%{transform:translateZ(40px) scale(1.45) rotate(-16deg);}
+  55%{transform:translateZ(28px) scale(.92) rotate(8deg);}
+  100%{transform:translateZ(32px) scale(1.22) rotate(-9deg);}
 }
 .hero-svc-btn .hsb-label{
   display:block;font-size:15px;line-height:1.1;font-weight:600;
-  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.92) 100%);
+  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.85) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
+  transform:translateZ(10px);
+  transition:filter .35s ease;
+}
+.hero-svc-btn:hover .hsb-label{
+  filter:drop-shadow(0 1px 5px rgba(184,178,245,.65));
+}
+
+/* Click-ripple — расходящаяся волна от точки клика */
+.hsb-ripple{
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(184,178,245,.6) 0%,rgba(91,82,204,.3) 40%,transparent 70%);
+  pointer-events:none;
+  width:8px;height:8px;
+  transform:translate(-50%,-50%) scale(0);
+  animation:hsbRipple .8s cubic-bezier(.4,0,.2,1) forwards;
+  z-index:-1;
+}
+@keyframes hsbRipple{
+  to{transform:translate(-50%,-50%) scale(60);opacity:0;}
 }
 
 @media (max-width:768px){
@@ -15472,20 +15510,49 @@ function openModalForService(key){
   }catch(e){}
 }
 
-/* Cursor-following glow внутри hero-кнопок выбора услуги */
+/* Hero quick-service buttons: 3D tilt + cursor glow + click ripple */
 (function(){
   function init(){
     var btns=document.querySelectorAll('.hero-svc-btn');
     if(!btns.length)return;
+    var TILT_MAX=12; // макс наклон в градусах
+
     btns.forEach(function(b){
-      b.addEventListener('mousemove',function(e){
+      var raf=null,pendingX=0,pendingY=0;
+      function apply(){
+        raf=null;
         var r=b.getBoundingClientRect();
-        b.style.setProperty('--mx',(e.clientX-r.left)+'px');
-        b.style.setProperty('--my',(e.clientY-r.top)+'px');
+        var x=pendingX-r.left, y=pendingY-r.top;
+        // glow
+        b.style.setProperty('--mx',x+'px');
+        b.style.setProperty('--my',y+'px');
+        // 3D tilt: курсор слева → rotateY отрицательный, сверху → rotateX положительный
+        var nx=(x/r.width)-0.5, ny=(y/r.height)-0.5;
+        var ry=nx*TILT_MAX*2;     // -TILT_MAX..+TILT_MAX
+        var rx=-ny*TILT_MAX*2;
+        b.style.setProperty('--ry',ry.toFixed(2)+'deg');
+        b.style.setProperty('--rx',rx.toFixed(2)+'deg');
+      }
+      b.addEventListener('mousemove',function(e){
+        pendingX=e.clientX;pendingY=e.clientY;
+        if(!raf)raf=requestAnimationFrame(apply);
       },{passive:true});
       b.addEventListener('mouseleave',function(){
+        if(raf){cancelAnimationFrame(raf);raf=null;}
         b.style.setProperty('--mx','50%');
         b.style.setProperty('--my','50%');
+        b.style.setProperty('--rx','0deg');
+        b.style.setProperty('--ry','0deg');
+      });
+      // Click ripple — волна от точки клика
+      b.addEventListener('click',function(e){
+        var r=b.getBoundingClientRect();
+        var rip=document.createElement('span');
+        rip.className='hsb-ripple';
+        rip.style.left=(e.clientX-r.left)+'px';
+        rip.style.top=(e.clientY-r.top)+'px';
+        b.appendChild(rip);
+        setTimeout(function(){if(rip.parentNode)rip.parentNode.removeChild(rip);},800);
       });
     });
   }
