@@ -1061,24 +1061,17 @@ h1 .acc{color:var(--p300);}
   transition:transform .9s cubic-bezier(.4,0,.2,1);
   pointer-events:none;
 }
-/* Вращающееся conic-кольцо */
+/* Мягкое статичное свечение по периметру на hover (без вращения) */
 .hero-svc-btn::after{
-  content:'';position:absolute;inset:-2px;border-radius:18px;z-index:-2;
-  background:conic-gradient(from 0deg,
-    transparent 0%,
-    rgba(184,178,245,1) 13%,
-    rgba(91,82,204,.6) 28%,
-    transparent 50%,
-    rgba(91,82,204,.6) 72%,
-    rgba(184,178,245,1) 87%,
+  content:'';position:absolute;inset:-1px;border-radius:18px;z-index:-2;
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--c2) 45%,transparent) 0%,
+    color-mix(in srgb,var(--c1) 22%,transparent) 50%,
     transparent 100%);
   opacity:0;
   transition:opacity .4s ease;
-  animation:hsvcRing 3.2s linear infinite;
   pointer-events:none;
-  filter:blur(.5px);
 }
-@keyframes hsvcRing{to{transform:rotate(360deg);}}
 
 .hero-svc-btn:hover{
   transform:perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-7px) scale(1.04);
