@@ -851,27 +851,27 @@ function renderPage(a, contentHtml) {
 
     .back-btn {
       pointer-events:auto;
-      display:inline-flex;align-items:center;gap:9px;
-      color:#fff;font-size:13.5px;font-weight:600;text-decoration:none;letter-spacing:.2px;
-      background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.5));
-      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-      border:1px solid rgba(167,139,250,.55);
-      padding:11px 20px;border-radius:60px;
-      transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
-      box-shadow:0 12px 32px -6px rgba(124,92,252,.6), 0 0 0 1px rgba(167,139,250,.18);
+      display:inline-flex;align-items:center;gap:8px;
+      color:rgba(232,228,255,.85);font-size:12.5px;font-weight:500;text-decoration:none;letter-spacing:.15px;
+      background:rgba(20,16,52,.72);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border:1px solid rgba(167,139,250,.22);
+      padding:9px 16px;border-radius:60px;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+      box-shadow:0 4px 14px -4px rgba(0,0,0,.35);
     }
 
     .back-btn:hover {
-      background:linear-gradient(135deg,rgba(124,92,252,.85),rgba(91,82,204,.65));
-      border-color:rgba(167,139,250,.8);
+      background:rgba(124,92,252,.32);
+      border-color:rgba(167,139,250,.45);
       color:#fff;
-      transform:translateX(-4px);
-      box-shadow:0 16px 40px -8px rgba(124,92,252,.75);
+      transform:translateX(-3px);
+      box-shadow:0 8px 20px -4px rgba(124,92,252,.35);
     }
 
     @media (max-width: 768px) {
       .back-btn-wrap { top:10px; left:14px; }
-      .back-btn { font-size:12.5px; padding:9px 16px; gap:8px; }
+      .back-btn { font-size:11.5px; padding:8px 14px; gap:7px; }
     }
 
 
