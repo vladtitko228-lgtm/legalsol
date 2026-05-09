@@ -6007,34 +6007,34 @@ body.sv-detail-open #sv-back-wrap{
   to{opacity:1;transform:translateY(0);}
 }
 
-/* Back button — premium glass pill */
+/* Back button — subtle glass pill (toned down for less visual weight) */
 .sv-back-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,rgba(124,92,252,.7),rgba(91,82,204,.45));
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border:1px solid rgba(167,139,250,.6);
-  color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.2px;
-  padding:12px 22px;border-radius:60px;cursor:pointer;
-  transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(20,16,52,.72);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(167,139,250,.22);
+  color:rgba(232,228,255,.85);font-size:12.5px;font-weight:500;letter-spacing:.15px;
+  padding:9px 16px;border-radius:60px;cursor:pointer;
+  transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
   font-family:inherit;
-  box-shadow:0 12px 32px -8px rgba(124,92,252,.6), 0 0 0 1px rgba(167,139,250,.18);
+  box-shadow:0 4px 14px -4px rgba(0,0,0,.35);
   pointer-events:auto;
 }
 .sv-back-btn:hover{
-  background:linear-gradient(135deg,rgba(124,92,252,.85),rgba(91,82,204,.6));
-  border-color:rgba(167,139,250,.8);
-  color:#fff;transform:translateX(-4px);
-  box-shadow:0 16px 40px -8px rgba(124,92,252,.75);
+  background:rgba(124,92,252,.32);
+  border-color:rgba(167,139,250,.45);
+  color:#fff;transform:translateX(-3px);
+  box-shadow:0 8px 20px -4px rgba(124,92,252,.35);
 }
-.sv-back-btn svg{width:14px;height:14px;transition:transform .3s cubic-bezier(.4,0,.2,1);}
-.sv-back-btn:hover svg{transform:translateX(-3px);}
+.sv-back-btn svg{width:13px;height:13px;transition:transform .3s cubic-bezier(.4,0,.2,1);opacity:.75;}
+.sv-back-btn:hover svg{transform:translateX(-2px);opacity:1;}
 
 /* Mobile: top corner, smaller */
 @media (max-width: 768px){
   body.sv-detail-open #sv-back-wrap{
     top:72px;left:14px;
   }
-  .sv-back-btn{font-size:12.5px;padding:10px 16px;gap:8px;}
+  .sv-back-btn{font-size:11.5px;padding:8px 14px;gap:7px;}
 }
 
 .sv-detail::-webkit-scrollbar{width:4px;}
