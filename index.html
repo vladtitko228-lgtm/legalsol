@@ -24703,21 +24703,29 @@ function setLang(lang){
         })
         .catch(function(e){ console.warn('[blog cards] fetch failed:', e); });
     }
-    // Defensive: убираем любые дубликаты blog-all-btn / blog-cta-wrap
-    // (могут возникать от browser cache, service worker, extension и т.п.)
+    // AGGRESSIVE dedup: ищем ВСЕ ссылки на /blog с текстом "All articles/Все статьи/..."
+    // в #tab-blog и оставляем максимум одну. Защищает от cache/SW/extension артефактов.
     function _dedupBlogCTAs(){
-      var wraps = document.querySelectorAll('#tab-blog .blog-cta-wrap');
-      if (wraps.length > 1) {
-        for (var i = 1; i < wraps.length; i++) {
-          wraps[i].parentNode && wraps[i].parentNode.removeChild(wraps[i]);
+      var allLabels = ['All articles','Все статьи','Wszystkie artykuły','Усі статті','Todos los artículos','Tüm makaleler','Bütün məqalələr','सभी लेख'];
+      var seen = false;
+      var tabBlog = document.getElementById('tab-blog');
+      if (!tabBlog) return;
+      // Find anything that looks like an "All articles" CTA
+      var candidates = tabBlog.querySelectorAll('a[href*="/blog"], button[onclick*="blog"]');
+      candidates.forEach(function(el){
+        var txt = (el.textContent || '').trim();
+        var isAllBtn = allLabels.some(function(l){ return txt.indexOf(l) !== -1; });
+        if (!isAllBtn) return;
+        // Skip the cards (they're inside .blog-grid) — we only want CTAs after grid
+        if (el.closest('.blog-grid')) return;
+        if (seen) {
+          // Remove this duplicate (and its wrapper if any)
+          var wrap = el.closest('.blog-cta-wrap') || el;
+          wrap.parentNode && wrap.parentNode.removeChild(wrap);
+        } else {
+          seen = true;
         }
-      }
-      var btns = document.querySelectorAll('#tab-blog .blog-all-btn');
-      if (btns.length > 1) {
-        for (var j = 1; j < btns.length; j++) {
-          btns[j].parentNode && btns[j].parentNode.removeChild(btns[j]);
-        }
-      }
+      });
     }
 
     // Load on first activation of blog tab + on lang change
@@ -24730,9 +24738,10 @@ function setLang(lang){
       loadCards();
       _dedupBlogCTAs();
     }
-    // Run dedup again periodically (in case dynamic content adds duplicates)
-    setTimeout(_dedupBlogCTAs, 500);
-    setTimeout(_dedupBlogCTAs, 2000);
+    // Run dedup repeatedly to catch late-arriving duplicates
+    [200, 500, 1000, 2000, 5000].forEach(function(ms){ setTimeout(_dedupBlogCTAs, ms); });
+    // Also re-run on visibility change (when tab regains focus after cache warm-up)
+    document.addEventListener('visibilitychange', _dedupBlogCTAs);
 
     // Hook setLang so cards refresh on language change
     var origSL = window.setLang;
