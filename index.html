@@ -3303,6 +3303,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </button>
 
+  <a class="mob-nav-btn" href="/business" onclick="closeMobNav()" style="color:#5eead4;text-decoration:none;">
+
+    <span class="mnav-ico" style="color:#5eead4;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 12h2m2 0h2M9 16h2m2 0h2"/></svg></span>
+
+    <span id="mnbtn-business">B2B · Для бизнеса</span>
+
+  </a>
+
   <button class="mob-nav-btn" onclick="showTab('referral');closeMobNav()" style="color:#fde047;">
 
     <span class="mnav-ico" style="color:#fde047;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="20,12 20,22 4,22 4,12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
@@ -18792,6 +18800,11 @@ function openSvc(key){
   showSvc(key);
   if(window.innerWidth>960){
     document.body.classList.add('sv-detail-open');
+    // PORTAL the back button wrap to body root — гарантирует position:fixed без багов containing block
+    var backWrap=document.getElementById('sv-back-wrap');
+    if(backWrap && backWrap.parentNode!==document.body){
+      document.body.appendChild(backWrap);
+    }
     var sec=document.getElementById('tab-services');
     if(sec){
       var y=sec.getBoundingClientRect().top+window.pageYOffset-80;

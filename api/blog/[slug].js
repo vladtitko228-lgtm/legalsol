@@ -1722,6 +1722,22 @@ function renderPage(a, contentHtml) {
       }catch(_){}
     });
 
+    // PORTAL .back-btn-wrap to body root — гарантирует position:fixed работает в Safari
+    // (containing block баг с overflow ancestors решается перемещением на верх DOM)
+    (function _portalBackBtn(){
+      function move(){
+        var w=document.querySelector('.back-btn-wrap');
+        if(w && w.parentNode!==document.body){
+          document.body.appendChild(w);
+        }
+      }
+      if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',move);
+      } else {
+        move();
+      }
+    })();
+
   </script>
 
 </body>
