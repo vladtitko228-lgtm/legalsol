@@ -996,25 +996,37 @@ h1 .acc{color:var(--p300);}
 @keyframes hsvcDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.55);opacity:.5;}}
 
 .hero-svc-row{
-  display:flex;gap:14px;margin:0 0 32px;flex-wrap:wrap;
-  perspective:1100px;perspective-origin:50% 0%;
+  display:flex;gap:14px;margin:0 0 36px;flex-wrap:wrap;
+  perspective:1200px;perspective-origin:50% 0%;
 }
+
+/* Цветовые темы для каждой кнопки */
+.hsb-kp { --c1:#7C6FE8; --c2:#B8B2F5; --c3:#5B52CC; }   /* фиолет (бренд) */
+.hsb-pmj{ --c1:#10B981; --c2:#5EEAD4; --c3:#0E9F6E; }   /* изумруд */
+.hsb-biz{ --c1:#F59E0B; --c2:#FBBF24; --c3:#D97706; }   /* янтарь */
 
 .hero-svc-btn{
   --mx:50%;--my:50%;--rx:0deg;--ry:0deg;
   position:relative;isolation:isolate;
-  display:inline-flex;align-items:center;gap:12px;
-  padding:15px 24px;border-radius:16px;
+  display:inline-flex;align-items:center;gap:14px;
+  min-width:220px;
+  padding:16px 22px;border-radius:18px;
   background:
-    radial-gradient(180px 180px at var(--mx) var(--my),rgba(184,178,245,.30),transparent 65%),
-    linear-gradient(135deg,rgba(91,82,204,.12) 0%,rgba(255,255,255,.03) 100%);
-  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
-  border:1px solid rgba(184,178,245,.22);
-  color:rgba(255,255,255,.97);font-size:15px;font-weight:600;letter-spacing:.2px;
+    radial-gradient(220px 180px at var(--mx) var(--my),
+      color-mix(in srgb,var(--c1) 35%,transparent),transparent 70%),
+    linear-gradient(135deg,
+      color-mix(in srgb,var(--c1) 14%,#0f0d22) 0%,
+      color-mix(in srgb,var(--c3) 8%,#181530) 100%);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  border:1px solid color-mix(in srgb,var(--c1) 35%,transparent);
+  color:#fff;font-family:'Inter',sans-serif;
   text-decoration:none;cursor:pointer;
-  font-family:'Inter',sans-serif;overflow:hidden;
+  overflow:hidden;
   transform-style:preserve-3d;
-  box-shadow:0 8px 26px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.06);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.30),
+    0 0 0 1px color-mix(in srgb,var(--c1) 15%,transparent) inset,
+    inset 0 1px 0 rgba(255,255,255,.07);
   transition:transform .35s cubic-bezier(.2,.8,.2,1),
              border-color .35s ease,
              box-shadow .35s ease;
@@ -1067,46 +1079,97 @@ h1 .acc{color:var(--p300);}
 @keyframes hsvcRing{to{transform:rotate(360deg);}}
 
 .hero-svc-btn:hover{
-  transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-6px) scale(1.05);
-  border-color:rgba(184,178,245,0);
-  box-shadow:0 26px 56px rgba(91,82,204,.55),
-             0 0 0 1px rgba(184,178,245,.45) inset,
-             inset 0 1px 0 rgba(255,255,255,.16);
+  transform:perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-7px) scale(1.04);
+  border-color:color-mix(in srgb,var(--c2) 70%,transparent);
+  box-shadow:
+    0 28px 60px color-mix(in srgb,var(--c1) 50%,transparent),
+    0 0 0 1px color-mix(in srgb,var(--c2) 55%,transparent) inset,
+    inset 0 1px 0 rgba(255,255,255,.18);
   animation-play-state:paused;
 }
 .hero-svc-btn:hover::before{transform:translateX(115%) skewX(-12deg);}
 .hero-svc-btn:hover::after{opacity:1;}
 .hero-svc-btn:active{
-  transform:perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-2px) scale(1.01);
+  transform:perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-2px) scale(1.01);
   transition-duration:.12s;
 }
 
+/* Иконка в круглом «контейнере» с градиентом темы */
+.hero-svc-btn .hsb-iwrap{
+  flex:0 0 auto;
+  width:46px;height:46px;border-radius:13px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 30% 30%,color-mix(in srgb,var(--c2) 60%,transparent) 0%,transparent 60%),
+    linear-gradient(135deg,var(--c1) 0%,var(--c3) 100%);
+  box-shadow:
+    0 6px 20px color-mix(in srgb,var(--c1) 55%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.30),
+    inset 0 -1px 0 rgba(0,0,0,.20);
+  transform:translateZ(22px);
+  transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;
+  position:relative;overflow:hidden;
+}
+.hero-svc-btn .hsb-iwrap::before{
+  content:'';position:absolute;inset:-50%;
+  background:conic-gradient(from 90deg,
+    transparent 0%,
+    rgba(255,255,255,.20) 25%,
+    transparent 50%,
+    rgba(255,255,255,.20) 75%,
+    transparent 100%);
+  animation:hsvcShineSpin 6s linear infinite;
+  opacity:.5;
+}
+@keyframes hsvcShineSpin{to{transform:rotate(360deg);}}
+
 .hero-svc-btn .hsb-icon{
-  font-size:23px;line-height:1;
-  filter:drop-shadow(0 3px 10px rgba(91,82,204,.65));
+  font-size:24px;line-height:1;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));
   transition:transform .5s cubic-bezier(.2,.8,.2,1);
   display:inline-block;
-  transform:translateZ(20px);
+}
+.hero-svc-btn:hover .hsb-iwrap{
+  transform:translateZ(40px) rotate(-6deg);
+  box-shadow:
+    0 12px 28px color-mix(in srgb,var(--c1) 70%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.40),
+    inset 0 -1px 0 rgba(0,0,0,.30);
 }
 .hero-svc-btn:hover .hsb-icon{
   animation:hsvcIcon .75s cubic-bezier(.25,1.5,.5,1);
 }
 @keyframes hsvcIcon{
-  0%{transform:translateZ(20px) scale(1) rotate(0);}
-  25%{transform:translateZ(40px) scale(1.45) rotate(-16deg);}
-  55%{transform:translateZ(28px) scale(.92) rotate(8deg);}
-  100%{transform:translateZ(32px) scale(1.22) rotate(-9deg);}
+  0%{transform:scale(1) rotate(0);}
+  30%{transform:scale(1.30) rotate(12deg);}
+  60%{transform:scale(.95) rotate(-6deg);}
+  100%{transform:scale(1.10) rotate(6deg);}
+}
+
+/* Текстовый блок: title + sub */
+.hero-svc-btn .hsb-text{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+  transform:translateZ(12px);
 }
 .hero-svc-btn .hsb-label{
-  display:block;font-size:15px;line-height:1.1;font-weight:600;
-  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.85) 100%);
+  display:block;font-size:15.5px;line-height:1.15;font-weight:700;letter-spacing:.1px;
+  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.88) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  transform:translateZ(10px);
-  transition:filter .35s ease;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
 }
-.hero-svc-btn:hover .hsb-label{
-  filter:drop-shadow(0 1px 5px rgba(184,178,245,.65));
+.hero-svc-btn .hsb-sub{
+  display:block;font-size:11px;font-weight:600;letter-spacing:.4px;
+  color:color-mix(in srgb,var(--c2) 90%,#fff);
+  opacity:0;max-height:0;
+  transform:translateY(-3px);
+  transition:opacity .3s ease,max-height .3s ease,transform .3s ease;
+  text-transform:uppercase;
 }
+.hero-svc-btn:hover .hsb-sub{
+  opacity:.95;max-height:20px;transform:translateY(0);
+}
+.hero-svc-btn:hover .hsb-label{transform:translateY(-1px);}
 
 /* Click-ripple — расходящаяся волна от точки клика */
 .hsb-ripple{
@@ -1125,10 +1188,15 @@ h1 .acc{color:var(--p300);}
 
 @media (max-width:768px){
   .hero-svc-eyebrow{font-size:10px;letter-spacing:2.5px;margin:22px 0 12px;}
-  .hero-svc-row{gap:8px;}
-  .hero-svc-btn{padding:12px 16px;font-size:14px;border-radius:13px;}
-  .hero-svc-btn .hsb-icon{font-size:19px;}
+  .hero-svc-row{gap:10px;}
+  .hero-svc-btn{padding:12px 16px;border-radius:14px;min-width:0;flex:1 1 calc(50% - 5px);}
+  .hero-svc-btn .hsb-iwrap{width:38px;height:38px;border-radius:11px;}
+  .hero-svc-btn .hsb-icon{font-size:20px;}
   .hero-svc-btn .hsb-label{font-size:14px;}
+  .hero-svc-btn .hsb-sub{font-size:10px;}
+}
+@media (max-width:480px){
+  .hero-svc-btn{flex:1 1 100%;}
 }
 @media (prefers-reduced-motion:reduce){
   .hero-svc-eyebrow,.hero-svc-btn{animation:none;opacity:1;transform:none;}
@@ -3374,17 +3442,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-svc-eyebrow" id="hero-svc-eyebrow">Или выберите услугу</div>
     <div class="hero-svc-row">
-      <a href="#" class="hero-svc-btn" onclick="event.preventDefault();openModalForService('karta_pobytu');" id="hero-svc-kp">
-        <span class="hsb-icon">🪪</span>
-        <span class="hsb-label" id="hero-svc-kp-label">Карта побыту</span>
+      <a href="#" class="hero-svc-btn hsb-kp" onclick="event.preventDefault();openModalForService('karta_pobytu');" id="hero-svc-kp">
+        <span class="hsb-iwrap"><span class="hsb-icon">🪪</span></span>
+        <span class="hsb-text">
+          <span class="hsb-label" id="hero-svc-kp-label">Карта побыту</span>
+          <span class="hsb-sub" id="hero-svc-kp-sub">Оставить заявку →</span>
+        </span>
       </a>
-      <a href="#" class="hero-svc-btn" onclick="event.preventDefault();openModalForService('permanent_residence');" id="hero-svc-pmj">
-        <span class="hsb-icon">🏠</span>
-        <span class="hsb-label" id="hero-svc-pmj-label">ПМЖ</span>
+      <a href="#" class="hero-svc-btn hsb-pmj" onclick="event.preventDefault();openModalForService('permanent_residence');" id="hero-svc-pmj">
+        <span class="hsb-iwrap"><span class="hsb-icon">🏠</span></span>
+        <span class="hsb-text">
+          <span class="hsb-label" id="hero-svc-pmj-label">ПМЖ</span>
+          <span class="hsb-sub" id="hero-svc-pmj-sub">Оставить заявку →</span>
+        </span>
       </a>
-      <a href="/business" class="hero-svc-btn" id="hero-svc-biz">
-        <span class="hsb-icon">💼</span>
-        <span class="hsb-label" id="hero-svc-biz-label">Для бизнеса</span>
+      <a href="/business" class="hero-svc-btn hsb-biz" id="hero-svc-biz">
+        <span class="hsb-iwrap"><span class="hsb-icon">💼</span></span>
+        <span class="hsb-text">
+          <span class="hsb-label" id="hero-svc-biz-label">Для бизнеса</span>
+          <span class="hsb-sub" id="hero-svc-biz-sub">Перейти →</span>
+        </span>
       </a>
     </div>
 
@@ -19241,6 +19318,9 @@ var T={
     'hero-svc-kp-label':'Карта побыту',
     'hero-svc-pmj-label':'ПМЖ',
     'hero-svc-biz-label':'Для бизнеса',
+    'hero-svc-kp-sub':'Оставить заявку →',
+    'hero-svc-pmj-sub':'Оставить заявку →',
+    'hero-svc-biz-sub':'Перейти →',
 
     'hero-card-cta':'Правовой анализ — бесплатно →','hero-ref-btn':'🎁 Приводи друзей — зарабатывай',
 
@@ -19820,6 +19900,9 @@ var T={
     'hero-svc-kp-label':'Residence permit',
     'hero-svc-pmj-label':'Permanent residency',
     'hero-svc-biz-label':'For business',
+    'hero-svc-kp-sub':'Get a quote →',
+    'hero-svc-pmj-sub':'Get a quote →',
+    'hero-svc-biz-sub':'Open →',
 
     'hero-card-cta':'Legal analysis — free →','hero-ref-btn':'🎁 Refer friends — earn money',
 
@@ -20409,6 +20492,9 @@ var T={
     'hero-svc-kp-label':'Karta pobytu',
     'hero-svc-pmj-label':'Pobyt stały',
     'hero-svc-biz-label':'Dla biznesu',
+    'hero-svc-kp-sub':'Wyślij zgłoszenie →',
+    'hero-svc-pmj-sub':'Wyślij zgłoszenie →',
+    'hero-svc-biz-sub':'Otwórz →',
 
     'hero-card-cta':'Analiza prawna — bezpłatnie →','hero-ref-btn':'🎁 Polecaj znajomych — zarabiaj',
 
@@ -20988,6 +21074,9 @@ var T={
     'hero-svc-kp-label':'Permiso de residencia',
     'hero-svc-pmj-label':'Residencia permanente',
     'hero-svc-biz-label':'Para empresas',
+    'hero-svc-kp-sub':'Solicitar →',
+    'hero-svc-pmj-sub':'Solicitar →',
+    'hero-svc-biz-sub':'Abrir →',
 
     'hero-mega-cta':'VERIFICAR MIS POSIBILIDADES →',
 
@@ -21563,6 +21652,9 @@ var T={
     'hero-svc-kp-label':'Oturma izni',
     'hero-svc-pmj-label':'Sürekli oturum',
     'hero-svc-biz-label':'İşletmeler için',
+    'hero-svc-kp-sub':'Başvuru gönder →',
+    'hero-svc-pmj-sub':'Başvuru gönder →',
+    'hero-svc-biz-sub':'Aç →',
 
     'hero-mega-cta':'OTURMA İZNİ ŞANSIMI ÖĞREN →',
 
@@ -22138,6 +22230,9 @@ var T={
     'hero-svc-kp-label':'İqamət icazəsi',
     'hero-svc-pmj-label':'Daimi yaşayış',
     'hero-svc-biz-label':'Biznes üçün',
+    'hero-svc-kp-sub':'Müraciət göndər →',
+    'hero-svc-pmj-sub':'Müraciət göndər →',
+    'hero-svc-biz-sub':'Aç →',
 
     'hero-mega-cta':'İQAMƏT İCAZƏSİ ŞANSIMI ÖYRƏN →',
 
@@ -22713,6 +22808,9 @@ var T={
     'hero-svc-kp-label':'निवास परमिट',
     'hero-svc-pmj-label':'स्थायी निवास',
     'hero-svc-biz-label':'व्यवसाय के लिए',
+    'hero-svc-kp-sub':'अनुरोध भेजें →',
+    'hero-svc-pmj-sub':'अनुरोध भेजें →',
+    'hero-svc-biz-sub':'खोलें →',
 
     'hero-mega-cta':'निवास परमिट की संभावना जानें →',
 
@@ -23288,6 +23386,9 @@ var T={
     'hero-svc-kp-label':'Карта побиту',
     'hero-svc-pmj-label':'ПМП',
     'hero-svc-biz-label':'Для бізнесу',
+    'hero-svc-kp-sub':'Залишити заявку →',
+    'hero-svc-pmj-sub':'Залишити заявку →',
+    'hero-svc-biz-sub':'Перейти →',
 
     'hero-mega-cta':'ДІЗНАТИСЬ ШАНСИ НА КАРТУ ПОБИТУ →',
 
