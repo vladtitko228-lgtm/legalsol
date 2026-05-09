@@ -377,7 +377,10 @@ function renderPage(a, contentHtml) {
 
   <script type="application/ld+json">
 
-  {"@context":"https://schema.org","@type":"Article","headline":"${esc(title)}","description":"${esc(seoDescription)}","url":"${canonical}",${coverImage ? `"image":"${esc(coverImage)}",` : ""}"datePublished":"${publishedDate || new Date().toISOString()}","author":{"@type":"Organization","name":"Legal Solutions","url":"https://www.legalsol.pl"},"publisher":{"@type":"Organization","name":"Legal Solutions"}}
+  {"@context":"https://schema.org","@type":"Article","headline":"${esc(title)}","description":"${esc(seoDescription)}","url":"${canonical}","mainEntityOfPage":{"@type":"WebPage","@id":"${canonical}"},${coverImage ? `"image":"${esc(coverImage)}",` : ""}"datePublished":"${publishedDate || new Date().toISOString()}","dateModified":"${publishedDate || new Date().toISOString()}","author":{"@type":"Organization","name":"Legal Solutions","url":"https://www.legalsol.pl"},"publisher":{"@type":"Organization","name":"Legal Solutions","logo":{"@type":"ImageObject","url":"https://www.legalsol.pl/favicon-512.png"}}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.legalsol.pl"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.legalsol.pl/blog"},{"@type":"ListItem","position":3,"name":"${esc(title)}","item":"${canonical}"}]}
 
   </script>
 
@@ -1832,10 +1835,11 @@ module.exports = async function handler(req, res) {
 
 
 
-    // Aggressive edge caching: 30 min fresh, then serve stale up to 24h
-    res.setHeader("Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
-    res.setHeader("CDN-Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
-    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=1800, stale-while-revalidate=86400");
+    // Aggressive edge caching: 24h fresh, 7-day SWR. Articles change rarely;
+    // we redeploy on each new post which invalidates cache anyway.
+    res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
+    res.setHeader("CDN-Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
+    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
 

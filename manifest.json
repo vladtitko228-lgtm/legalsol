@@ -1,0 +1,26 @@
+{
+  "name": "Legal Solutions",
+  "short_name": "LegalSol",
+  "description": "Immigration law firm in Warsaw, Poland — Karta Pobytu, PESEL, Blue Card, Citizenship. 98% approval, 3000+ clients.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0820",
+  "theme_color": "#7c5cfc",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "en",
+  "categories": ["business", "legal", "immigration"]
+}
