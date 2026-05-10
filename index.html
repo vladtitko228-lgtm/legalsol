@@ -1906,6 +1906,123 @@ h1 .acc{color:var(--p300);}
 
 #modal.on{opacity:1;visibility:visible;}
 
+/* ════════════════════════════════════════════════════════════════
+   BOOKING MODAL — premium 3-step flow
+   ════════════════════════════════════════════════════════════════ */
+.book-modal{position:fixed;inset:0;z-index:9998;background:rgba(5,4,20,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:20px;overflow-y:auto;}
+.book-modal.on{opacity:1;visibility:visible;}
+.bm-box{
+  position:relative;width:100%;max-width:520px;
+  background:linear-gradient(160deg,rgba(28,22,68,.95) 0%,rgba(14,11,38,.97) 100%);
+  border:1px solid rgba(167,139,250,.32);
+  border-radius:24px;padding:36px 32px;
+  box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(167,139,250,.08),inset 0 1px 0 rgba(255,255,255,.06);
+  transform:scale(.94);opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+  overflow:hidden;
+}
+.book-modal.on .bm-box{transform:scale(1);opacity:1;}
+@media(max-height:780px){.book-modal{align-items:flex-start;padding-top:40px;padding-bottom:40px;}}
+@media(max-width:560px){.bm-box{padding:28px 22px;}}
+
+/* Ambient orbs */
+.bm-orb{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none;}
+.bm-orb-1{top:-80px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(124,92,252,.32),transparent 60%);animation:bmOrb1 14s ease-in-out infinite;}
+.bm-orb-2{bottom:-100px;left:-80px;width:280px;height:280px;background:radial-gradient(circle,rgba(34,211,238,.20),transparent 60%);animation:bmOrb2 16s ease-in-out infinite;}
+@keyframes bmOrb1{50%{transform:translate(20px,30px) scale(1.15);}}
+@keyframes bmOrb2{50%{transform:translate(-15px,-25px) scale(1.1);}}
+
+.bm-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:5;}
+.bm-close:hover{background:rgba(255,255,255,.18);color:#fff;transform:rotate(90deg);}
+
+.bm-hero{position:relative;z-index:2;text-align:center;margin-bottom:26px;}
+.bm-tag{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:2.5px;color:rgba(196,181,253,.95);background:rgba(124,92,252,.18);border:1px solid rgba(167,139,250,.4);padding:5px 14px;border-radius:30px;margin-bottom:14px;text-transform:uppercase;}
+.bm-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#a78bfa;box-shadow:0 0 8px #a78bfa;animation:bmPulse 2s infinite;}
+@keyframes bmPulse{50%{opacity:.4;}}
+.bm-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;line-height:1.15;letter-spacing:-.5px;color:#fff;margin-bottom:8px;}
+.bm-title em{font-style:italic;background:linear-gradient(135deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.bm-sub{font-size:13.5px;color:rgba(232,228,255,.72);line-height:1.55;max-width:420px;margin:0 auto;}
+
+.bm-step{position:relative;z-index:2;animation:bmStepIn .4s cubic-bezier(.4,0,.2,1);}
+@keyframes bmStepIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.bm-step-h{font-size:13px;font-weight:600;color:rgba(232,228,255,.92);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.bm-tz{font-size:11px;color:rgba(232,228,255,.55);font-weight:400;}
+
+/* Date picker — горизонтальный скролл карточек */
+.bm-dates{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px;}
+@media(max-width:560px){.bm-dates{grid-template-columns:repeat(4,1fr);}}
+.bm-date{
+  background:rgba(20,16,52,.6);border:1px solid rgba(167,139,250,.18);border-radius:12px;
+  padding:10px 4px;text-align:center;cursor:pointer;transition:all .2s ease;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.bm-date:hover{background:rgba(124,92,252,.18);border-color:rgba(167,139,250,.45);transform:translateY(-2px);}
+.bm-date.bm-disabled{opacity:.3;cursor:not-allowed;}
+.bm-date.bm-disabled:hover{background:rgba(20,16,52,.6);border-color:rgba(167,139,250,.18);transform:none;}
+.bm-date-dow{font-size:9.5px;font-weight:600;letter-spacing:1.2px;color:rgba(196,181,253,.7);text-transform:uppercase;}
+.bm-date-num{font-size:18px;font-weight:700;color:#fff;line-height:1;margin:1px 0;}
+.bm-date-mo{font-size:9px;color:rgba(232,228,255,.55);letter-spacing:.5px;text-transform:uppercase;}
+.bm-date.bm-today .bm-date-dow{color:#fde047;}
+
+/* Time slots */
+.bm-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+@media(max-width:560px){.bm-slots{grid-template-columns:repeat(2,1fr);}}
+.bm-slot{
+  background:rgba(20,16,52,.6);border:1px solid rgba(167,139,250,.18);border-radius:30px;
+  padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s ease;
+  font-size:13.5px;font-weight:600;color:rgba(232,228,255,.92);font-family:inherit;
+}
+.bm-slot:hover{background:linear-gradient(135deg,rgba(124,92,252,.32),rgba(91,82,204,.18));border-color:rgba(167,139,250,.55);transform:translateY(-2px);box-shadow:0 6px 18px -4px rgba(124,92,252,.4);}
+.bm-back{
+  background:transparent;border:none;color:rgba(196,181,253,.7);font-size:12.5px;cursor:pointer;
+  padding:8px 0;font-family:inherit;transition:color .2s,transform .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.bm-back:hover{color:#fff;transform:translateX(-3px);}
+
+/* Form */
+.bm-summary{
+  background:linear-gradient(135deg,rgba(124,92,252,.16),rgba(34,211,238,.08));
+  border:1px solid rgba(167,139,250,.3);border-radius:14px;padding:12px 16px;margin-bottom:18px;
+  font-size:13.5px;color:#fff;display:flex;align-items:center;gap:10px;
+}
+.bm-summary svg{flex-shrink:0;color:#a78bfa;}
+.bm-form{display:flex;flex-direction:column;gap:10px;}
+.bm-input{
+  width:100%;padding:13px 16px;font-size:14px;font-family:inherit;
+  background:rgba(8,6,22,.65);border:1px solid rgba(167,139,250,.22);border-radius:12px;
+  color:#fff;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;box-sizing:border-box;
+}
+.bm-input::placeholder{color:rgba(232,228,255,.4);}
+.bm-input:focus{border-color:rgba(167,139,250,.55);background:rgba(8,6,22,.85);box-shadow:0 0 0 3px rgba(124,92,252,.15);}
+.bm-textarea{resize:vertical;min-height:60px;line-height:1.5;}
+.bm-submit{
+  margin-top:6px;padding:14px 20px;font-size:14px;font-weight:700;font-family:inherit;
+  background:linear-gradient(135deg,#7c5cfc,#a78bfa);color:#fff;border:none;border-radius:14px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 8px 24px -4px rgba(124,92,252,.55);
+  transition:transform .2s,box-shadow .2s,opacity .2s;
+  position:relative;overflow:hidden;
+}
+.bm-submit::before{content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);transition:left .8s;}
+.bm-submit:hover{transform:translateY(-2px);box-shadow:0 14px 32px -4px rgba(124,92,252,.7);}
+.bm-submit:hover::before{left:140%;}
+.bm-submit:disabled{opacity:.55;cursor:not-allowed;}
+.bm-fine{font-size:11.5px;color:rgba(232,228,255,.5);text-align:center;margin-top:4px;letter-spacing:.3px;}
+
+/* Success */
+.bm-success{text-align:center;padding:14px 0;}
+.bm-check{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,rgba(34,211,238,.22),rgba(124,92,252,.32));display:inline-flex;align-items:center;justify-content:center;color:#22d3ee;margin-bottom:18px;animation:bmCheckIn .6s cubic-bezier(.34,1.56,.64,1);box-shadow:0 0 40px -8px rgba(34,211,238,.5);}
+@keyframes bmCheckIn{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
+.bm-success-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.15;}
+.bm-success-time{font-size:15px;color:#a78bfa;font-weight:600;margin-bottom:8px;}
+.bm-success-sub{font-size:13.5px;color:rgba(232,228,255,.72);line-height:1.55;margin-bottom:22px;max-width:400px;margin-left:auto;margin-right:auto;}
+.bm-success-wa{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 24px;
+  background:rgba(37,211,102,.16);border:1px solid rgba(37,211,102,.45);border-radius:14px;
+  color:#34d399;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;
+}
+.bm-success-wa:hover{background:rgba(37,211,102,.28);border-color:rgba(37,211,102,.65);transform:translateY(-2px);}
+
 .modal-box{background:rgba(28,25,72,.75);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid rgba(139,130,232,.22);border-radius:var(--r);padding:42px;max-width:440px;width:90%;position:relative;transform:scale(.95);transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 32px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);}
 
 #modal.on .modal-box{transform:scale(1);}
@@ -3079,7 +3196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-<button id="fab" onclick="openModal()"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></button>
+<button id="fab" onclick="openBookModal()"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></button>
 
 <!-- Social FABs -->
 
@@ -3096,6 +3213,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </a>
 
 
+
+<!-- ════════════════════════════════════════════════════════════════
+     BOOK CONSULTATION MODAL — premium 3-step flow (date → slot → form)
+     Outputs lead via _sendLead with source:'consultation-booking'
+     Slot tracking: visual only (admin manages real calendar in TG)
+═══════════════════════════════════════════════════════════════════ -->
+
+<div id="book-modal" class="book-modal" onclick="if(event.target===this)closeBookModal()">
+  <div class="bm-box">
+    <button class="bm-close" onclick="closeBookModal()" aria-label="Close">×</button>
+
+    <!-- Ambient glow orbs -->
+    <div class="bm-orb bm-orb-1"></div>
+    <div class="bm-orb bm-orb-2"></div>
+
+    <div class="bm-hero">
+      <div class="bm-tag" data-bm-tag>FREE 15 MIN · ZOOM / WHATSAPP</div>
+      <h2 class="bm-title" data-bm-title>Запишитесь на <em>бесплатную консультацию</em></h2>
+      <p class="bm-sub" data-bm-sub>Выберите удобное время — пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.</p>
+    </div>
+
+    <!-- Step 1: Date picker -->
+    <div class="bm-step" data-step="date">
+      <div class="bm-step-h" data-bm-pick-date>📅 Выберите день</div>
+      <div class="bm-dates" id="bm-dates"></div>
+    </div>
+
+    <!-- Step 2: Slot picker -->
+    <div class="bm-step" data-step="slot" style="display:none;">
+      <div class="bm-step-h" data-bm-pick-time>🕐 Выберите время <span class="bm-tz">(Варшава, CET)</span></div>
+      <div class="bm-slots" id="bm-slots"></div>
+      <button class="bm-back" onclick="bmBack('date')" data-bm-back>← Изменить дату</button>
+    </div>
+
+    <!-- Step 3: Form -->
+    <div class="bm-step" data-step="form" style="display:none;">
+      <div class="bm-summary" id="bm-summary"></div>
+      <div class="bm-step-h" data-bm-your-details>✏️ Ваши данные</div>
+      <form class="bm-form" onsubmit="event.preventDefault();bmSubmit();" novalidate>
+        <input id="bm-name" class="bm-input" placeholder="Имя" data-bm-name-ph autocomplete="name" required/>
+        <input id="bm-phone" class="bm-input" type="tel" placeholder="+48 600 123 456" data-bm-phone-ph autocomplete="tel" required/>
+        <textarea id="bm-notes" class="bm-input bm-textarea" rows="2" placeholder="Кратко о вашей ситуации (необязательно)" data-bm-notes-ph></textarea>
+        <button type="submit" class="bm-submit" id="bm-submit">
+          <span data-bm-submit>Подтвердить запись</span>
+          <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="bm-back" onclick="bmBack('slot')" data-bm-back>← Изменить время</button>
+        <p class="bm-fine" data-bm-fine>Без спама · Конфиденциально · Бесплатно</p>
+      </form>
+    </div>
+
+    <!-- Step 4: Success -->
+    <div class="bm-step bm-success" data-step="success" style="display:none;">
+      <div class="bm-check">
+        <svg viewBox="0 0 52 52" width="52" height="52"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M14 26l8 8 16-18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 class="bm-success-title" data-bm-success-title>Запись подтверждена!</h2>
+      <p class="bm-success-time" id="bm-confirmed"></p>
+      <p class="bm-success-sub" data-bm-success-sub>Пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.</p>
+      <a class="bm-success-wa" id="bm-success-wa" href="https://wa.me/48735248525" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4M12 22a10 10 0 010-20 10 10 0 010 20m0-21a11 11 0 100 22 11 11 0 000-22z"/></svg>
+        <span data-bm-wa-label>Написать в WhatsApp</span>
+      </a>
+    </div>
+
+  </div>
+</div>
 
 <!-- MODAL -->
 
@@ -3570,7 +3754,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
 
-    <button class="hero-card-cta" onclick="openModal()" id="hero-card-cta">Правовой анализ — бесплатно →</button>
+    <button class="hero-card-cta" onclick="openBookModal()" id="hero-card-cta">Правовой анализ — бесплатно →</button>
 
     <button class="hero-ref-btn" onclick="showTab('referral')" onmouseenter="spawnCoins(this,'💰')" id="hero-ref-btn" style="display:none;">
 
@@ -7122,7 +7306,7 @@ body.sv-detail-open #sv-back-wrap{
 
   <p class="cta-desc reveal">Звоните или пишите в WhatsApp · +48 735 248 525</p>
 
-  <button class="btn-gold reveal" onclick="openModal()" style="font-size:16px;padding:16px 36px;">Бесплатная консультация →</button>
+  <button class="btn-gold reveal" onclick="openBookModal()" style="font-size:16px;padding:16px 36px;">Бесплатная консультация →</button>
 
 </section>
 
@@ -15579,6 +15763,169 @@ function showTab(name){
 // Modal
 
 function openModal(){document.getElementById('modal').classList.add('on');}
+
+// ════════════════════════════════════════════════════════════════
+// BOOKING MODAL — premium 3-step flow
+// ════════════════════════════════════════════════════════════════
+var bmState={date:null,slot:null,dateLabel:''};
+var BM_SLOTS=['09:00','11:00','14:00','16:00','18:00','20:00'];
+var BM_T={
+  ru:{tag:'БЕСПЛАТНО · 15 МИН · ZOOM / WHATSAPP',title:'Запишитесь на <em>бесплатную консультацию</em>',sub:'Выберите удобное время — пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',pickDate:'📅 Выберите день',pickTime:'🕐 Выберите время',tz:'(Варшава, CET)',yourDetails:'✏️ Ваши данные',name:'Имя',phone:'+48 600 123 456',notes:'Кратко о вашей ситуации (необязательно)',submit:'Подтвердить запись',backDate:'← Изменить дату',backSlot:'← Изменить время',fine:'Без спама · Конфиденциально · Бесплатно',successTitle:'Запись подтверждена!',successSub:'Пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',waLabel:'Написать в WhatsApp',dows:['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек']},
+  en:{tag:'FREE 15 MIN · ZOOM / WHATSAPP',title:'Book your <em>free consultation</em>',sub:'Pick a time that works for you — we send the Zoom link to your WhatsApp 5 minutes before.',pickDate:'📅 Pick a day',pickTime:'🕐 Pick time',tz:'(Warsaw, CET)',yourDetails:'✏️ Your details',name:'Name',phone:'+48 600 123 456',notes:'Briefly about your situation (optional)',submit:'Confirm booking',backDate:'← Change date',backSlot:'← Change time',fine:'No spam · Confidential · Free',successTitle:'Booking confirmed!',successSub:"We'll send the Zoom link to your WhatsApp 5 minutes before.",waLabel:'Message us on WhatsApp',dows:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
+  pl:{tag:'BEZPŁATNIE · 15 MIN · ZOOM / WHATSAPP',title:'Zarezerwuj <em>bezpłatną konsultację</em>',sub:'Wybierz dogodny termin — link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',pickDate:'📅 Wybierz dzień',pickTime:'🕐 Wybierz godzinę',tz:'(Warszawa, CET)',yourDetails:'✏️ Twoje dane',name:'Imię',phone:'+48 600 123 456',notes:'Krótko o sytuacji (opcjonalnie)',submit:'Potwierdź rezerwację',backDate:'← Zmień datę',backSlot:'← Zmień godzinę',fine:'Bez spamu · Poufnie · Bezpłatnie',successTitle:'Rezerwacja potwierdzona!',successSub:'Link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',waLabel:'Napisz na WhatsApp',dows:['Nd','Pn','Wt','Śr','Cz','Pt','Sb'],months:['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']},
+  uk:{tag:'БЕЗКОШТОВНО · 15 ХВ · ZOOM / WHATSAPP',title:'Запишіться на <em>безкоштовну консультацію</em>',sub:'Оберіть зручний час — надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',pickDate:'📅 Оберіть день',pickTime:'🕐 Оберіть час',tz:'(Варшава, CET)',yourDetails:'✏️ Ваші дані',name:'Ім\'я',phone:'+48 600 123 456',notes:'Коротко про ситуацію (необов\'язково)',submit:'Підтвердити запис',backDate:'← Змінити дату',backSlot:'← Змінити час',fine:'Без спаму · Конфіденційно · Безкоштовно',successTitle:'Запис підтверджено!',successSub:'Надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',waLabel:'Написати в WhatsApp',dows:['Нд','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру']}
+};
+
+function _bmLang(){return BM_T[(typeof L!=='undefined')?L:'en']?((typeof L!=='undefined')?L:'en'):'en';}
+function _bmT(){return BM_T[_bmLang()];}
+
+function openBookModal(){
+  _bmTranslate();
+  bmState={date:null,slot:null,dateLabel:''};
+  _bmShowStep('date');
+  _bmRenderDates();
+  document.getElementById('book-modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeBookModal(){
+  document.getElementById('book-modal').classList.remove('on');
+  document.body.style.overflow='';
+}
+function _bmShowStep(step){
+  document.querySelectorAll('#book-modal [data-step]').forEach(function(el){
+    el.style.display=(el.getAttribute('data-step')===step)?'':'none';
+  });
+}
+function _bmTranslate(){
+  var t=_bmT();
+  var bm=document.getElementById('book-modal');
+  if(!bm)return;
+  var sel=function(s){return bm.querySelector(s);};
+  if(sel('[data-bm-tag]'))sel('[data-bm-tag]').textContent=t.tag;
+  if(sel('[data-bm-title]'))sel('[data-bm-title]').innerHTML=t.title;
+  if(sel('[data-bm-sub]'))sel('[data-bm-sub]').textContent=t.sub;
+  if(sel('[data-bm-pick-date]'))sel('[data-bm-pick-date]').textContent=t.pickDate;
+  if(sel('[data-bm-pick-time]')){
+    var h=sel('[data-bm-pick-time]');
+    h.innerHTML=t.pickTime+' <span class="bm-tz">'+t.tz+'</span>';
+  }
+  if(sel('[data-bm-your-details]'))sel('[data-bm-your-details]').textContent=t.yourDetails;
+  if(sel('#bm-name'))sel('#bm-name').placeholder=t.name;
+  if(sel('#bm-phone'))sel('#bm-phone').placeholder=t.phone;
+  if(sel('#bm-notes'))sel('#bm-notes').placeholder=t.notes;
+  if(sel('[data-bm-submit]'))sel('[data-bm-submit]').textContent=t.submit;
+  if(sel('[data-bm-fine]'))sel('[data-bm-fine]').textContent=t.fine;
+  if(sel('[data-bm-success-title]'))sel('[data-bm-success-title]').textContent=t.successTitle;
+  if(sel('[data-bm-success-sub]'))sel('[data-bm-success-sub]').textContent=t.successSub;
+  if(sel('[data-bm-wa-label]'))sel('[data-bm-wa-label]').textContent=t.waLabel;
+  bm.querySelectorAll('[data-bm-back]').forEach(function(el){
+    var p=el.closest('[data-step]');
+    el.textContent=(p&&p.getAttribute('data-step')==='form')?t.backSlot:t.backDate;
+  });
+}
+function _bmRenderDates(){
+  var t=_bmT();
+  var grid=document.getElementById('bm-dates');
+  if(!grid)return;
+  grid.innerHTML='';
+  var now=new Date();
+  for(var i=0;i<7;i++){
+    var d=new Date(now);d.setDate(now.getDate()+i);
+    var dow=d.getDay();
+    var disabled=(dow===0); // disable sundays only
+    var iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    var cls='bm-date'+(i===0?' bm-today':'')+(disabled?' bm-disabled':'');
+    var html='<div class="'+cls+'" '+(disabled?'':'onclick="bmPickDate(\''+iso+'\','+d.getDate()+','+d.getMonth()+','+dow+')"')+'>'
+      +'<div class="bm-date-dow">'+t.dows[dow]+'</div>'
+      +'<div class="bm-date-num">'+d.getDate()+'</div>'
+      +'<div class="bm-date-mo">'+t.months[d.getMonth()]+'</div>'
+      +'</div>';
+    grid.insertAdjacentHTML('beforeend',html);
+  }
+}
+function bmPickDate(iso,day,monthIdx,dow){
+  var t=_bmT();
+  bmState.date=iso;
+  bmState.dateLabel=t.dows[dow]+', '+day+' '+t.months[monthIdx];
+  _bmRenderSlots();
+  _bmShowStep('slot');
+}
+function _bmRenderSlots(){
+  var grid=document.getElementById('bm-slots');
+  if(!grid)return;
+  grid.innerHTML='';
+  // If today, only show slots that are >2h from now
+  var now=new Date();
+  var picked=new Date(bmState.date);
+  var isToday=(now.toDateString()===picked.toDateString());
+  BM_SLOTS.forEach(function(slot){
+    var hr=parseInt(slot.split(':')[0],10);
+    if(isToday && hr<now.getHours()+2)return; // skip past slots
+    grid.insertAdjacentHTML('beforeend','<button type="button" class="bm-slot" onclick="bmPickSlot(\''+slot+'\')">'+slot+'</button>');
+  });
+  if(!grid.children.length){
+    grid.innerHTML='<p style="grid-column:1/-1;color:rgba(232,228,255,.65);font-size:13px;text-align:center;padding:14px 0;">No slots left today — pick another day.</p>';
+  }
+}
+function bmPickSlot(slot){
+  bmState.slot=slot;
+  var t=_bmT();
+  var summary=document.getElementById('bm-summary');
+  if(summary){
+    summary.innerHTML='<svg viewBox="0 0 20 20" fill="none" width="18" height="18"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+      +'<span>'+bmState.dateLabel+' · <strong>'+slot+'</strong></span>';
+  }
+  _bmShowStep('form');
+  setTimeout(function(){var n=document.getElementById('bm-name');if(n)n.focus();},150);
+}
+function bmBack(toStep){_bmShowStep(toStep);}
+function bmSubmit(){
+  var name=(document.getElementById('bm-name')||{}).value||'';
+  var phone=(document.getElementById('bm-phone')||{}).value||'';
+  var notes=(document.getElementById('bm-notes')||{}).value||'';
+  if(!name.trim() || name.trim().length<2){
+    var n=document.getElementById('bm-name');if(n){n.style.borderColor='#ef4444';n.focus();setTimeout(function(){n.style.borderColor='';},2000);}
+    return;
+  }
+  if(phone.replace(/\D/g,'').length<6){
+    var p=document.getElementById('bm-phone');if(p){p.style.borderColor='#ef4444';p.focus();setTimeout(function(){p.style.borderColor='';},2000);}
+    return;
+  }
+  var btn=document.getElementById('bm-submit');if(btn){btn.disabled=true;}
+  // Send via existing _sendLead pipeline
+  if(typeof _sendLead==='function'){
+    _sendLead({
+      name:name.trim(),
+      phone:phone.trim(),
+      service:'Booked Consultation',
+      message:'📅 BOOKED: '+bmState.dateLabel+' at '+bmState.slot+' Warsaw time'+(notes?'\n'+notes:''),
+      source:'consultation-booking',
+      booking_date:bmState.date,
+      booking_slot:bmState.slot,
+      lang:typeof _lsLang==='function'?_lsLang():(document.documentElement.lang||'en'),
+      page:location.pathname,
+      utm:typeof _utmObject==='function'?_utmObject():{},
+      ts:new Date().toISOString()
+    });
+  }
+  // Show success state
+  var conf=document.getElementById('bm-confirmed');
+  if(conf){conf.textContent=bmState.dateLabel+' · '+bmState.slot+' Warsaw';}
+  // Update WhatsApp link with prefilled context
+  var waLink=document.getElementById('bm-success-wa');
+  if(waLink){
+    var prefill=encodeURIComponent('Hi! I booked a consultation: '+bmState.dateLabel+' at '+bmState.slot+'. ('+name+')');
+    waLink.href='https://wa.me/48735248525?text='+prefill;
+  }
+  _bmShowStep('success');
+}
+// Re-translate when setLang fires
+(function(){
+  var origSL=window.setLang;
+  if(typeof origSL==='function'){
+    window.setLang=function(){var r=origSL.apply(this,arguments);try{_bmTranslate();}catch(e){}return r;};
+  }
+})();
 
 /* Открыть модалку с предвыбранной услугой (key = karta_pobytu | permanent_residence | citizenship | blue_card | …) */
 function openModalForService(key){
