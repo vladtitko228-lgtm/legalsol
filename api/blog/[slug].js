@@ -1065,13 +1065,31 @@ function renderPage(a, contentHtml) {
 
   </style>
 
-  <!-- Microsoft Clarity (analytics) -->
+  <!-- Microsoft Clarity (gated by cookie consent — GDPR compliance) -->
   <script>
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window,document,"clarity","script","wispohj28j");
+    (function loadClarity(){
+      function shouldLoad(){
+        try {
+          // Check various consent storage formats
+          var cc=localStorage.getItem('cc_cookie')||localStorage.getItem('cc-cookie')||'';
+          if(cc.indexOf('analytics')!==-1||cc.indexOf('all')!==-1||cc.indexOf('accepted')!==-1)return true;
+          // Fallback: explicit accept flag
+          if(localStorage.getItem('clarity_consent')==='1')return true;
+        } catch(e){}
+        return false;
+      }
+      function init(){
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window,document,"clarity","script","wispohj28j");
+      }
+      if(shouldLoad()){init();return;}
+      // Re-check after 2s in case consent comes via main site -> cross-tab
+      setTimeout(function(){if(shouldLoad())init();},2000);
+      window.addEventListener('storage',function(e){if(e.key&&e.key.indexOf('cc')===0&&shouldLoad())init();});
+    })();
   </script>
 </head>
 
