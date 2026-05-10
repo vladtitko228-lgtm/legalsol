@@ -837,9 +837,9 @@ function renderPage(a, contentHtml) {
 
     .back-btn-wrap {
       position:fixed;
-      top:14px;
+      top:80px;  /* было 14px — пряталась под top-nav (z-index:500, высота ~68px) */
       left:max(20px, calc((100vw - 900px)/2 - 60px));
-      z-index:200;
+      z-index:550;  /* было 200 — поднял выше nav на всякий случай */
       pointer-events:none;
       animation:backFadeIn .4s cubic-bezier(.4,0,.2,1);
     }
@@ -870,7 +870,7 @@ function renderPage(a, contentHtml) {
     }
 
     @media (max-width: 768px) {
-      .back-btn-wrap { top:10px; left:14px; }
+      .back-btn-wrap { top:72px; left:14px; }  /* было 10px — пряталась под mobile nav */
       .back-btn { font-size:11.5px; padding:8px 14px; gap:7px; }
     }
 
