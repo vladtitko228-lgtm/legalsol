@@ -40,6 +40,10 @@
     {
       "source": "/business",
       "destination": "/business.html"
+    },
+    {
+      "source": "/polish",
+      "destination": "/polish.html"
     }
   ],
   "headers": [
