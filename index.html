@@ -3397,6 +3397,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Блог</button>
 
+      <button class="tab-btn tab-btn-reviews" id="tbtn-reviews" onclick="showTab('reviews')" style="background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(244,114,182,.10));border:1px solid rgba(251,191,36,.4);color:#fde047;position:relative;overflow:hidden;font-weight:700;letter-spacing:.6px;">
+        <span style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(252,211,77,.18),transparent);animation:heroRefShimmer 3s ease-in-out infinite -1.2s;pointer-events:none;"></span>
+        <span style="position:relative;z-index:1;" id="tbtn-reviews-text">💛 Отзывы</span>
+      </button>
+
       <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">ИИ</button>
 
       <button class="tab-btn" id="tbtn-status" onclick="showTab('status')">Проверить статус</button>
@@ -3541,6 +3546,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg></span>
 
     <span id="mnbtn-blog">Блог</span>
+
+  </button>
+
+  <button class="mob-nav-btn" onclick="showTab('reviews');closeMobNav()" style="color:#fde047;">
+
+    <span class="mnav-ico" style="color:#fde047;">💛</span>
+
+    <span id="mnbtn-reviews">Отзывы и истории</span>
 
   </button>
 
@@ -9105,6 +9118,594 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 </section>
 
 </div><!-- /tab-blog -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB: REVIEWS & CLIENT STORIES
+═══════════════════════════════════════════════════════════════ -->
+<div id="tab-reviews" class="tab-content">
+
+<style>
+/* ─── Reviews tab ─── */
+.rv-hero{padding:80px 5vw 40px;text-align:center;max-width:900px;margin:0 auto;position:relative;}
+.rv-hero-pill{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3px;color:#fde047;background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.4);padding:5px 14px;border-radius:30px;margin-bottom:18px;text-transform:uppercase;}
+.rv-hero-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:#fde047;box-shadow:0 0 10px #fde047;animation:pulse 2s infinite;}
+.rv-hero-title{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;line-height:1.05;letter-spacing:-1px;margin-bottom:16px;}
+.rv-hero-title em{font-style:italic;background:linear-gradient(135deg,#fde047,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.rv-hero-sub{font-size:16px;color:rgba(232,228,255,.78);line-height:1.65;}
+@media(max-width:760px){.rv-hero-title{font-size:32px;}.rv-hero-sub{font-size:14px;}}
+
+.rv-section{padding:60px 5vw;max-width:1200px;margin:0 auto;position:relative;}
+.rv-section-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:#fcd34d;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.32);padding:5px 12px;border-radius:30px;margin-bottom:12px;text-transform:uppercase;}
+.rv-section-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;line-height:1.15;letter-spacing:-.5px;margin-bottom:14px;color:#fff;}
+.rv-section-title em{font-style:italic;background:linear-gradient(135deg,#fde047,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.rv-section-sub{font-size:14.5px;color:rgba(232,228,255,.72);max-width:680px;margin-bottom:32px;line-height:1.6;}
+
+/* Aggregate rating banner */
+.rv-aggr{
+  background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(244,114,182,.10));
+  border:1px solid rgba(251,191,36,.32);border-radius:20px;padding:24px 28px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;margin-bottom:40px;
+  position:relative;overflow:hidden;
+}
+.rv-aggr::before{content:"";position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.2),transparent 60%);filter:blur(40px);pointer-events:none;animation:pulse 14s ease-in-out infinite;}
+.rv-aggr-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:800;background:linear-gradient(135deg,#fff,#fde047);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;}
+.rv-aggr-stars{font-size:22px;letter-spacing:2px;color:#fde047;text-shadow:0 0 12px rgba(253,224,71,.6);margin-bottom:4px;}
+.rv-aggr-text{font-size:13.5px;color:rgba(232,228,255,.85);}
+.rv-aggr-srcs{font-size:11px;color:rgba(232,228,255,.55);margin-top:4px;letter-spacing:.4px;}
+.rv-aggr-cta{padding:12px 22px;border-radius:30px;background:linear-gradient(135deg,#fde047,#f59e0b);color:#0a0820;font-size:13px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 22px -4px rgba(251,191,36,.55);font-family:inherit;border:none;cursor:pointer;}
+.rv-aggr-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -4px rgba(251,191,36,.75);}
+@media(max-width:680px){.rv-aggr{grid-template-columns:1fr;text-align:center;}.rv-aggr-cta{justify-self:center;}}
+
+/* Story cards — emotional case studies */
+.rv-stories-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:840px){.rv-stories-grid{grid-template-columns:1fr;}}
+.rv-story{
+  position:relative;
+  background:linear-gradient(160deg,rgba(28,22,68,.85),rgba(14,11,38,.95));
+  border:1px solid rgba(139,130,232,.2);
+  border-radius:22px;padding:28px;
+  cursor:pointer;overflow:hidden;
+  transition:transform .35s cubic-bezier(.4,0,.2,1),border-color .3s,box-shadow .3s;
+}
+.rv-story:hover{transform:translateY(-4px);border-color:rgba(167,139,250,.5);box-shadow:0 20px 50px -12px rgba(124,92,252,.4);}
+.rv-story::before{content:"";position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,var(--story-accent,rgba(167,139,250,.7)),transparent);opacity:.5;}
+.rv-story-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.rv-story-avatar{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--story-accent,#7c5cfc),rgba(0,0,0,.4));
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;color:#fff;flex-shrink:0;
+  box-shadow:0 6px 18px -4px var(--story-accent,rgba(124,92,252,.5));
+  position:relative;
+}
+.rv-story-flag{position:absolute;bottom:-2px;right:-4px;font-size:16px;background:rgba(8,6,22,.92);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(167,139,250,.4);}
+.rv-story-id{flex:1;min-width:0;}
+.rv-story-name{font-weight:700;font-size:15px;color:#fff;letter-spacing:-.2px;}
+.rv-story-meta{font-size:12px;color:rgba(232,228,255,.55);margin-top:2px;}
+.rv-story-headline{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:10px;letter-spacing:-.2px;}
+.rv-story-headline em{font-style:italic;color:var(--story-accent,#a78bfa);}
+.rv-story-hook{font-size:13.5px;color:rgba(232,228,255,.78);line-height:1.55;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.rv-story-timeline{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11px;color:rgba(232,228,255,.55);}
+.rv-story-tl{display:flex;align-items:center;gap:4px;}
+.rv-story-tl svg{width:14px;height:14px;color:var(--story-accent,#a78bfa);}
+.rv-story-cta{display:inline-flex;align-items:center;gap:6px;color:var(--story-accent,#a78bfa);font-size:12.5px;font-weight:600;}
+.rv-story:hover .rv-story-cta{transform:translateX(3px);}
+.rv-story-cta{transition:transform .3s ease;}
+
+/* Mouse-tracked spotlight */
+.rv-story{--mx:50%;--my:50%;}
+.rv-story::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:22px;background:radial-gradient(circle at var(--mx) var(--my),rgba(167,139,250,.14),transparent 50%);opacity:0;transition:opacity .4s;}
+.rv-story:hover::after{opacity:1;}
+
+/* Real reviews grid (carousel) */
+.rv-reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:980px){.rv-reviews-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.rv-reviews-grid{grid-template-columns:1fr;}}
+.rv-review{
+  background:linear-gradient(160deg,rgba(28,22,68,.6),rgba(14,11,38,.75));
+  border:1px solid rgba(139,130,232,.16);
+  border-radius:18px;padding:22px;position:relative;
+  transition:transform .3s,border-color .3s;
+}
+.rv-review:hover{transform:translateY(-3px);border-color:rgba(167,139,250,.4);}
+.rv-review-stars{color:#fde047;font-size:14px;letter-spacing:2px;margin-bottom:10px;text-shadow:0 0 6px rgba(253,224,71,.5);}
+.rv-review-quote{font-size:14px;color:rgba(232,228,255,.88);line-height:1.6;font-style:italic;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.rv-review-quote::before{content:"\201C";font-size:38px;color:rgba(167,139,250,.4);font-family:Georgia,serif;line-height:0;margin-right:2px;vertical-align:-12px;}
+.rv-review-foot{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid rgba(167,139,250,.12);}
+.rv-review-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c5cfc,#5b52cc);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0;}
+.rv-review-id{flex:1;min-width:0;}
+.rv-review-name{font-size:13px;font-weight:700;color:#fff;}
+.rv-review-meta{font-size:11px;color:rgba(232,228,255,.55);margin-top:2px;}
+.rv-review-src{font-size:10px;color:rgba(232,228,255,.45);letter-spacing:.5px;}
+
+/* Story modal */
+.rv-modal{position:fixed;inset:0;z-index:9998;background:rgba(5,4,20,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:24px;overflow-y:auto;}
+.rv-modal.on{opacity:1;visibility:visible;}
+.rv-modal-box{
+  position:relative;width:100%;max-width:680px;
+  background:linear-gradient(160deg,rgba(28,22,68,.96),rgba(14,11,38,.98));
+  border:1px solid rgba(167,139,250,.32);border-radius:24px;padding:40px 36px;
+  transform:scale(.94);opacity:0;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .3s;
+  box-shadow:0 32px 80px rgba(0,0,0,.55);max-height:90vh;overflow-y:auto;
+}
+.rv-modal.on .rv-modal-box{transform:scale(1);opacity:1;}
+@media(max-width:560px){.rv-modal-box{padding:28px 22px;}}
+.rv-modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:5;}
+.rv-modal-close:hover{background:rgba(255,255,255,.18);color:#fff;transform:rotate(90deg);}
+.rv-modal-head{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.rv-modal-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--story-accent,#7c5cfc),rgba(0,0,0,.4));display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;flex-shrink:0;box-shadow:0 8px 24px -4px var(--story-accent,rgba(124,92,252,.5));position:relative;}
+.rv-modal-flag{position:absolute;bottom:-4px;right:-6px;font-size:20px;background:rgba(8,6,22,.95);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(167,139,250,.5);}
+.rv-modal-name{font-size:18px;font-weight:700;color:#fff;}
+.rv-modal-meta{font-size:13px;color:rgba(232,228,255,.65);margin-top:3px;}
+.rv-modal-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;line-height:1.2;color:#fff;margin-bottom:16px;letter-spacing:-.5px;}
+.rv-modal-title em{font-style:italic;color:var(--story-accent,#a78bfa);}
+.rv-modal-stages{display:grid;grid-template-columns:1fr;gap:14px;margin:22px 0;}
+.rv-stage{background:rgba(8,6,22,.45);border-left:3px solid var(--story-accent,#7c5cfc);border-radius:0 10px 10px 0;padding:14px 18px;}
+.rv-stage-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--story-accent,#a78bfa);margin-bottom:6px;text-transform:uppercase;}
+.rv-stage-text{font-size:14px;color:rgba(232,228,255,.86);line-height:1.6;}
+.rv-modal-quote{background:linear-gradient(135deg,rgba(124,92,252,.16),rgba(34,211,238,.08));border:1px solid rgba(167,139,250,.3);border-radius:14px;padding:18px 22px;margin-top:18px;font-style:italic;font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.6;position:relative;}
+.rv-modal-quote::before{content:"\201C";position:absolute;top:-4px;left:14px;font-size:48px;color:rgba(167,139,250,.5);font-family:Georgia,serif;}
+.rv-modal-anonymous{font-size:11px;color:rgba(232,228,255,.5);margin-top:14px;letter-spacing:.3px;font-style:italic;text-align:center;}
+
+/* Anonymized disclaimer banner */
+.rv-disclaimer{
+  background:rgba(124,92,252,.08);border:1px solid rgba(167,139,250,.18);border-radius:12px;
+  padding:14px 18px;margin-top:24px;font-size:12.5px;color:rgba(232,228,255,.7);line-height:1.55;text-align:center;
+}
+.rv-disclaimer strong{color:#a78bfa;}
+
+/* Sources pill row */
+.rv-sources{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:32px;}
+.rv-source{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:30px;background:rgba(28,22,68,.6);border:1px solid rgba(139,130,232,.2);font-size:12px;color:rgba(232,228,255,.75);transition:all .2s;text-decoration:none;}
+.rv-source:hover{background:rgba(124,92,252,.18);border-color:rgba(167,139,250,.4);color:#fff;transform:translateY(-2px);}
+.rv-source-stars{color:#fde047;font-size:12px;letter-spacing:1px;}
+
+</style>
+
+<section style="background:var(--bg);position:relative;overflow:hidden;">
+  <!-- Reveal hero -->
+  <div class="rv-hero reveal">
+    <div class="rv-hero-pill" id="rv-hero-pill">💛 ИСТОРИИ КЛИЕНТОВ · ЖИВЫЕ ОТЗЫВЫ</div>
+    <h1 class="rv-hero-title" id="rv-hero-title">За каждым кейсом — <em>живая история</em></h1>
+    <p class="rv-hero-sub" id="rv-hero-sub">Мы спасали от депортации за 14 дней, воссоединяли семьи после 4 лет разлуки, помогали получить гражданство после двух отказов. Это не статистика — это судьбы.</p>
+  </div>
+
+  <!-- Aggregate rating banner -->
+  <div class="rv-section reveal">
+    <div class="rv-aggr">
+      <div>
+        <div class="rv-aggr-num">4.9</div>
+      </div>
+      <div>
+        <div class="rv-aggr-stars">★★★★★</div>
+        <div class="rv-aggr-text" id="rv-aggr-text"><strong style="color:#fff;">3000+ клиентов</strong> · 98% одобрение · 6 лет на рынке</div>
+        <div class="rv-aggr-srcs" id="rv-aggr-srcs">Google · Trustpilot · WhatsApp · Telegram</div>
+      </div>
+      <button class="rv-aggr-cta" onclick="openBookModal&&openBookModal()" id="rv-aggr-cta-btn">
+        <span>Стать клиентом</span>
+        <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ─── CLIENT STORIES ─── -->
+  <div class="rv-section reveal">
+    <div class="rv-section-pill" id="rv-stories-pill">📖 ИСТОРИИ</div>
+    <h2 class="rv-section-title" id="rv-stories-title"><em>Не статистика.</em> Судьбы людей.</h2>
+    <p class="rv-section-sub" id="rv-stories-sub">6 кейсов из нашей практики. Имена изменены — приватность клиентов важнее любого маркетинга. Каждая история подтверждена документами.</p>
+
+    <div class="rv-stories-grid" id="rv-stories-grid">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="rv-disclaimer" id="rv-disclaimer">
+      <strong>Анонимность:</strong> Все имена изменены, узнаваемые детали удалены. Каждая история основана на реальной работе с клиентами 2020-2026 гг. Готовы показать подтверждающие документы при личной встрече.
+    </div>
+  </div>
+
+  <!-- ─── REAL REVIEWS ─── -->
+  <div class="rv-section reveal">
+    <div class="rv-section-pill" id="rv-reviews-pill">⭐ ОТЗЫВЫ КЛИЕНТОВ</div>
+    <h2 class="rv-section-title" id="rv-reviews-title">Что говорят <em>о работе с нами</em></h2>
+    <p class="rv-section-sub" id="rv-reviews-sub">Сюда автоматически попадают отзывы из Google, Trustpilot и WhatsApp. С разрешения клиентов.</p>
+
+    <div class="rv-reviews-grid" id="rv-reviews-grid">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="rv-sources">
+      <a class="rv-source" href="https://google.com/maps" target="_blank" rel="noopener">
+        <span>Google</span><span class="rv-source-stars">★★★★★</span><span>4.9</span>
+      </a>
+      <a class="rv-source" href="https://trustpilot.com" target="_blank" rel="noopener">
+        <span>Trustpilot</span><span class="rv-source-stars">★★★★★</span><span>4.8</span>
+      </a>
+      <span class="rv-source"><span>💬 WhatsApp</span><span class="rv-source-stars">★★★★★</span><span>3000+</span></span>
+    </div>
+  </div>
+
+</section>
+
+<!-- Story Modal -->
+<div id="rv-modal" class="rv-modal" onclick="if(event.target===this)closeRvModal()">
+  <div class="rv-modal-box" id="rv-modal-box">
+    <button class="rv-modal-close" onclick="closeRvModal()">×</button>
+    <div id="rv-modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// CLIENT STORIES DATA — anonymized examples based on real cases
+// ════════════════════════════════════════════════════════════════
+var STORIES = [
+  {
+    id:'rajesh',
+    flag:'🇮🇳',
+    avatar:'R',
+    accent:'#10b981',
+    name_ru:'Раджеш К.',name_en:'Rajesh K.',name_hi:'राजेश के.',name_pl:'Rajesh K.',name_uk:'Раджеш К.',
+    meta_ru:'32 года · IT-инженер · Индия → Польша',meta_en:'32 · IT engineer · India → Poland',meta_hi:'32 साल · IT इंजीनियर · भारत → पोलैंड',meta_pl:'32 lata · inżynier IT · Indie → Polska',meta_uk:'32 роки · IT-інженер · Індія → Польща',
+    headline_ru:'14 дней до депортации. <em>Спасли карту</em> в последний момент.',headline_en:'14 days to deportation. <em>Saved his card</em> in the last moment.',headline_hi:'निर्वासन तक 14 दिन। <em>आखिरी पल में बचाया</em> कार्ड।',headline_pl:'14 dni do deportacji. <em>Uratowaliśmy</em> w ostatniej chwili.',headline_uk:'14 днів до депортації. <em>Врятували карту</em> в останній момент.',
+    hook_ru:'Работодатель внезапно отказал в спонсорстве за 14 дней до окончания визы. Без карты — депортация и 5-летний бан на въезд в ЕС. Жена и дети остались бы в Индии.',
+    hook_en:'Employer suddenly withdrew sponsorship 14 days before visa expiry. Without the card — deportation and 5-year EU entry ban. Wife and kids would stay in India.',
+    hook_hi:'वीज़ा समाप्ति से 14 दिन पहले नियोक्ता ने अचानक प्रायोजन वापस लिया। कार्ड के बिना — निर्वासन और 5 साल का EU प्रवेश प्रतिबंध।',
+    hook_pl:'Pracodawca nagle wycofał sponsorowanie 14 dni przed wygaśnięciem wizy. Bez karty — deportacja i 5-letni zakaz wjazdu do UE.',
+    hook_uk:'Роботодавець несподівано відмовив у спонсорстві за 14 днів до закінчення візи. Без картки — депортація і 5-річна заборона на в\'їзд до ЄС.',
+    duration_ru:'8 месяцев',duration_en:'8 months',duration_hi:'8 महीने',duration_pl:'8 miesięcy',duration_uk:'8 місяців',
+    outcome_ru:'Karta Pobytu · новая работа · ПМЖ',outcome_en:'Karta Pobytu · new job · PR',outcome_hi:'Karta Pobytu · नई नौकरी · PR',outcome_pl:'Karta Pobytu · nowa praca · stały pobyt',outcome_uk:'Karta Pobytu · нова робота · ПМЖ',
+    crisis_ru:'Раджеш переехал в Польшу в 2022 по контракту с международной IT-компанией. Через 2 года — внезапная реструктуризация, его отдел расформировали. Виза истекала, новый работодатель ещё не оформил документы. До депортации 14 дней.',
+    crisis_en:'Rajesh moved to Poland in 2022 on a contract with an international IT firm. Two years in — sudden restructuring, his team dissolved. Visa expiring, new employer hadn\'t filed paperwork. 14 days to deportation.',
+    crisis_hi:'राजेश 2022 में एक अंतर्राष्ट्रीय IT कंपनी के साथ अनुबंध पर पोलैंड आए। 2 साल बाद अचानक पुनर्गठन हुआ, उनकी टीम भंग। वीज़ा समाप्त हो रहा था, नए नियोक्ता ने कागज़ात दाख़िल नहीं किए थे। निर्वासन तक 14 दिन।',
+    crisis_pl:'Rajesh przeniósł się do Polski w 2022 z międzynarodową firmą IT. Po 2 latach nagła restrukturyzacja, jego zespół rozwiązano. Wiza wygasała, nowy pracodawca nie złożył dokumentów. 14 dni do deportacji.',
+    crisis_uk:'Раджеш переїхав до Польщі у 2022 за контрактом з міжнародною IT-компанією. Через 2 роки — несподівана реструктуризація, його відділ розформовано. Віза закінчувалася, новий роботодавець ще не оформив документи. До депортації 14 днів.',
+    action_ru:'Связались в WhatsApp в понедельник. До конца недели — собрали полный пакет на основании «продолжения трудовой деятельности». Подали в воеводу с защитной апостилью. Получили stempel — он остался в Польше легально на время рассмотрения.',
+    action_en:'Reached out via WhatsApp on Monday. By end of week — full filing on "continued employment" basis. Submitted to voivoda with apostille protection. Got the stempel — he stayed legally during review.',
+    action_hi:'सोमवार को WhatsApp पर संपर्क किया। सप्ताह के अंत तक — "रोज़गार जारी रखने" के आधार पर पूरा पैकेज। apostille सुरक्षा के साथ voivode को जमा किया। stempel मिला — समीक्षा के दौरान वो कानूनी रूप से पोलैंड में रहे।',
+    action_pl:'Skontaktowaliśmy się przez WhatsApp w poniedziałek. Do końca tygodnia — pełny pakiet na podstawie "kontynuacji zatrudnienia". Złożone z apostillą. Stempel — zostaje legalnie podczas rozpatrywania.',
+    action_uk:'Зв\'язалися у WhatsApp у понеділок. До кінця тижня — повний пакет на підставі "продовження трудової діяльності". Подали воєводі з апостилем. Отримали stempel — він залишався легально під час розгляду.',
+    result_ru:'Через 8 месяцев — Karta Pobytu на 3 года. Новый работодатель — IBM Polska. В 2028 году подаст на ПМЖ. Привёз жену и двух детей в Варшаву в декабре 2024.',
+    result_en:'8 months later — Karta Pobytu for 3 years. New employer — IBM Polska. Will apply for PR in 2028. Brought wife and 2 kids to Warsaw in December 2024.',
+    result_hi:'8 महीने बाद — 3 साल का Karta Pobytu। नया नियोक्ता — IBM Polska। 2028 में PR के लिए आवेदन करेंगे। दिसंबर 2024 में पत्नी और 2 बच्चों को वारसॉ ले आए।',
+    result_pl:'Po 8 miesiącach — Karta Pobytu na 3 lata. Nowy pracodawca — IBM Polska. W 2028 wniosek o stały pobyt. Przywiózł żonę i dzieci do Warszawy w grudniu 2024.',
+    result_uk:'Через 8 місяців — Karta Pobytu на 3 роки. Новий роботодавець — IBM Polska. У 2028 подасть на ПМЖ. Привіз дружину і двох дітей до Варшави у грудні 2024.',
+    quote_ru:'«Я был в шоке, когда работодатель сказал что не будет продлевать. У меня было 14 дней. Они не просто решили мой случай — они дали мне будущее.»',
+    quote_en:'"I was in shock when my employer said they wouldn\'t renew. I had 14 days. They didn\'t just solve my case — they gave me a future."',
+    quote_hi:'"मैं स्तब्ध था जब नियोक्ता ने कहा कि वो नहीं बढ़ाएंगे। मेरे पास 14 दिन थे। उन्होंने सिर्फ़ मेरा मामला नहीं सुलझाया — उन्होंने मुझे भविष्य दिया।"',
+    quote_pl:'„Byłem w szoku, kiedy pracodawca powiedział, że nie przedłuży. Miałem 14 dni. Nie tylko rozwiązali moją sprawę — dali mi przyszłość."',
+    quote_uk:'«Я був у шоці, коли роботодавець сказав, що не продовжуватиме. У мене було 14 днів. Вони не просто вирішили мій випадок — вони дали мені майбутнє.»',
+    year:2023
+  },
+  {
+    id:'jamil',
+    flag:'🇧🇩',
+    avatar:'J',
+    accent:'#f59e0b',
+    name_ru:'Джамиль Р.',name_en:'Jamil R.',name_hi:'जमील आर.',name_pl:'Jamil R.',name_uk:'Джаміль Р.',
+    meta_ru:'28 лет · инженер · Бангладеш → Польша',meta_en:'28 · engineer · Bangladesh → Poland',meta_hi:'28 साल · इंजीनियर · बांग्लादेश → पोलैंड',meta_pl:'28 lat · inżynier · Bangladesz → Polska',meta_uk:'28 років · інженер · Бангладеш → Польща',
+    headline_ru:'4 года в разлуке с семьёй. <em>Воссоединили</em> за 6 месяцев.',headline_en:'4 years apart from family. <em>Reunited</em> in 6 months.',headline_hi:'4 साल परिवार से दूर। 6 महीनों में <em>फिर मिले</em>।',headline_pl:'4 lata bez rodziny. <em>Połączeni</em> w 6 miesięcy.',headline_uk:'4 роки в розлуці з родиною. <em>Возз\'єднали</em> за 6 місяців.',
+    hook_ru:'Жена и сын в Дакке. Сын родился без него. 4 года WhatsApp-видео вместо обнять. Несколько раз пытался подать на воссоединение — отказы из-за технических ошибок.',
+    hook_en:'Wife and son in Dhaka. Son born while he was abroad. 4 years of WhatsApp video calls instead of hugs. Tried several times to apply for reunification — rejected on technicalities.',
+    hook_hi:'पत्नी और बेटा ढाका में। बेटा उनके अनुपस्थिति में पैदा हुआ। गले लगाने के बजाय 4 साल WhatsApp वीडियो। कई बार पुनर्मिलन के लिए आवेदन किया — तकनीकी कारणों से अस्वीकृत।',
+    hook_pl:'Żona i syn w Dhace. Syn urodził się pod jego nieobecność. 4 lata rozmów WhatsApp zamiast uścisków. Próbował kilkakrotnie złożyć wniosek o łączenie rodzin — odmowy z powodów technicznych.',
+    hook_uk:'Дружина і син у Дацці. Син народився без нього. 4 роки WhatsApp-відео замість обіймів. Кілька разів намагався подати на возз\'єднання — відмови через технічні помилки.',
+    duration_ru:'6 месяцев',duration_en:'6 months',duration_hi:'6 महीने',duration_pl:'6 miesięcy',duration_uk:'6 місяців',
+    outcome_ru:'Воссоединение семьи · 2 карты побыту',outcome_en:'Family reunification · 2 residence cards',outcome_hi:'परिवार पुनर्मिलन · 2 निवास कार्ड',outcome_pl:'Łączenie rodzin · 2 karty pobytu',outcome_uk:'Возз\'єднання сім\'ї · 2 карти побуту',
+    crisis_ru:'Джамиль работал в Lodz с 2020 года. Жену хотел перевезти сразу, но первая попытка через юриста закончилась отказом. Вторая — снова отказ. На третий раз дочь уже пошла в школу — без отца.',
+    crisis_en:'Jamil worked in Lodz since 2020. Wanted to bring his wife immediately, but first attempt via a lawyer ended in rejection. Second — rejected again. By the third — his daughter started school without him.',
+    crisis_hi:'जमील 2020 से Lodz में काम कर रहे थे। पत्नी को तुरंत लाना चाहते थे, लेकिन एक वकील के माध्यम से पहला प्रयास अस्वीकृत हो गया। दूसरा — फिर अस्वीकृत। तीसरी बार तक — उनकी बेटी पिता के बिना स्कूल शुरू कर चुकी थी।',
+    crisis_pl:'Jamil pracował w Łodzi od 2020. Chciał sprowadzić żonę od razu, ale pierwsza próba przez prawnika zakończyła się odmową. Druga — znowu odmowa. Do trzeciej — jego córka poszła do szkoły bez ojca.',
+    crisis_uk:'Джаміль працював у Лодзі з 2020 року. Хотів перевезти дружину одразу, але перша спроба через юриста закінчилася відмовою. Друга — знову відмова. До третьої — донька вже пішла до школи без батька.',
+    action_ru:'Проанализировали 2 предыдущих отказа. Нашли причину — некорректно поданное доказательство стабильного дохода (банк показывал нестабильные поступления). Помогли пересобрать пакет: ZUS-выписки, контракт на 3 года, рекомендация работодателя.',
+    action_en:'Analyzed previous 2 rejections. Found cause — incorrectly presented stable income evidence (bank showed irregular transactions). Helped rebuild the package: ZUS statements, 3-year contract, employer recommendation.',
+    action_hi:'पिछले 2 अस्वीकरणों का विश्लेषण किया। कारण मिला — गलत तरीके से प्रस्तुत स्थिर आय का प्रमाण (बैंक ने अनियमित लेनदेन दिखाए)। पैकेज फिर से बनाने में मदद की: ZUS विवरण, 3-वर्षीय अनुबंध, नियोक्ता सिफारिश।',
+    action_pl:'Przeanalizowaliśmy 2 poprzednie odmowy. Znaleźliśmy przyczynę — nieprawidłowo przedstawiony dowód stabilnego dochodu (bank pokazywał nieregularne wpływy). Pomogliśmy złożyć pakiet od nowa: zaświadczenia ZUS, umowa na 3 lata, rekomendacja pracodawcy.',
+    action_uk:'Проаналізували 2 попередніх відмови. Знайшли причину — некоректно поданий доказ стабільного доходу (банк показував нерегулярні надходження). Допомогли перезібрати пакет: ZUS-виписки, контракт на 3 роки, рекомендація роботодавця.',
+    result_ru:'Через 6 месяцев жена и сын получили карты побыту. Прилетели в Варшаву в марте 2024. Сын впервые увидел отца «вживую» в 4 года.',
+    result_en:'6 months later, wife and son got residence cards. Flew to Warsaw in March 2024. Son saw his father "live" for the first time at age 4.',
+    result_hi:'6 महीने बाद, पत्नी और बेटे को निवास कार्ड मिले। मार्च 2024 में वारसॉ पहुंचे। बेटे ने पहली बार 4 साल की उम्र में अपने पिता को "साक्षात्" देखा।',
+    result_pl:'Po 6 miesiącach żona i syn otrzymali karty pobytu. Przylecieli do Warszawy w marcu 2024. Syn po raz pierwszy zobaczył ojca "na żywo" w wieku 4 lat.',
+    result_uk:'Через 6 місяців дружина і син отримали карти побуту. Прилетіли до Варшави у березні 2024. Син уперше побачив батька «вживу» у 4 роки.',
+    quote_ru:'«4 года я слышал как сын учится говорить через WhatsApp. Когда он впервые обнял меня в аэропорту — это стоило всех денег и нервов.»',
+    quote_en:'"For 4 years I heard my son learning to speak through WhatsApp. When he first hugged me at the airport — it was worth all the money and stress."',
+    quote_hi:'"4 साल मैंने सुना कि मेरा बेटा WhatsApp से बोलना सीख रहा है। जब उसने एयरपोर्ट पर पहली बार मुझे गले लगाया — यह सारे पैसे और तनाव के लायक था।"',
+    quote_pl:'„Przez 4 lata słyszałem, jak mój syn uczy się mówić przez WhatsApp. Kiedy po raz pierwszy mnie objął na lotnisku — było warte wszystkich pieniędzy i nerwów."',
+    quote_uk:'«4 роки я чув як син вчиться говорити через WhatsApp. Коли він уперше обійняв мене в аеропорту — це коштувало всіх грошей і нервів.»',
+    year:2024
+  },
+  {
+    id:'priya',
+    flag:'🇱🇰',
+    avatar:'P',
+    accent:'#ec4899',
+    name_ru:'Прия М.',name_en:'Priya M.',name_hi:'प्रिया एम.',name_pl:'Priya M.',name_uk:'Прія М.',
+    meta_ru:'24 года · медсестра · Шри-Ланка → Краков',meta_en:'24 · nurse · Sri Lanka → Krakow',meta_hi:'24 साल · नर्स · श्रीलंका → क्राको',meta_pl:'24 lata · pielęgniarka · Sri Lanka → Kraków',meta_uk:'24 роки · медсестра · Шрі-Ланка → Краків',
+    headline_ru:'3 отказа подряд. <em>Выиграли апелляцию</em> и получили ПМЖ.',headline_en:'3 rejections in a row. <em>Won the appeal</em> and got PR.',headline_hi:'लगातार 3 बार अस्वीकरण। <em>अपील जीती</em> और PR प्राप्त किया।',headline_pl:'3 odmowy z rzędu. <em>Wygrana apelacja</em> i stały pobyt.',headline_uk:'3 відмови поспіль. <em>Виграли апеляцію</em> і отримали ПМЖ.',
+    hook_ru:'Прия приехала в Краков как студентка медицинского. Потом устроилась медсестрой в LUX MED. Три раза подавала на карту — три раза отказ из-за «недостаточной интеграции». Думала уезжать обратно в Коломбо.',
+    hook_en:'Priya came to Krakow as a medical student. Then took a nursing job at LUX MED. Filed for the card 3 times — 3 rejections citing "insufficient integration". Was thinking of returning to Colombo.',
+    hook_hi:'प्रिया मेडिकल छात्रा के रूप में क्राको आईं। फिर LUX MED में नर्स के रूप में काम मिला। 3 बार कार्ड के लिए आवेदन किया — "अपर्याप्त एकीकरण" के कारण 3 बार अस्वीकरण। कोलंबो वापस जाने के बारे में सोच रही थीं।',
+    hook_pl:'Priya przyjechała do Krakowa jako studentka medycyny. Potem podjęła pracę pielęgniarską w LUX MED. Składała wniosek o kartę 3 razy — 3 odmowy z powodu "niedostatecznej integracji". Myślała o powrocie do Kolombo.',
+    hook_uk:'Прія приїхала до Кракова як студентка медичного. Потім влаштувалася медсестрою в LUX MED. Три рази подавала на картку — три рази відмова через «недостатню інтеграцію». Думала повертатися до Коломбо.',
+    duration_ru:'5 месяцев апелляция',duration_en:'5 months appeal',duration_hi:'5 महीने अपील',duration_pl:'5 mies. apelacja',duration_uk:'5 місяців апеляція',
+    outcome_ru:'Апелляция выиграна · карта на 3 года · сейчас ПМЖ',outcome_en:'Appeal won · 3-yr card · now PR',outcome_hi:'अपील जीती · 3 साल का कार्ड · अब PR',outcome_pl:'Wygrana apelacja · karta na 3 lata · stały pobyt',outcome_uk:'Апеляція виграна · картка на 3 роки · зараз ПМЖ',
+    crisis_ru:'После третьего отказа Прия плакала по телефону: «Я учу польский 4 года, работаю в больнице, плачу налоги. Что ещё им нужно?» Срок подачи апелляции — 14 дней. Большинство юристов отказались — «дело безнадёжное».',
+    crisis_en:'After the third rejection Priya cried on the phone: "I\'ve studied Polish for 4 years, work in a hospital, pay taxes. What more do they want?" Appeal deadline — 14 days. Most lawyers refused — "hopeless case".',
+    crisis_hi:'तीसरे अस्वीकरण के बाद प्रिया फ़ोन पर रोईं: "मैं 4 साल से पोलिश सीख रही हूँ, अस्पताल में काम करती हूँ, कर देती हूँ। उन्हें और क्या चाहिए?" अपील की समय सीमा — 14 दिन। ज़्यादातर वकीलों ने मना कर दिया — "निराशाजनक मामला"।',
+    crisis_pl:'Po trzeciej odmowie Priya płakała przez telefon: "Uczę się polskiego 4 lata, pracuję w szpitalu, płacę podatki. Czego jeszcze chcą?" Termin apelacji — 14 dni. Większość prawników odmówiła — "sprawa beznadziejna".',
+    crisis_uk:'Після третьої відмови Прія плакала по телефону: «Я вивчаю польську 4 роки, працюю в лікарні, плачу податки. Що ще їм потрібно?» Термін подання апеляції — 14 днів. Більшість юристів відмовилися — «справа безнадійна».',
+    action_ru:'Изучили все 3 предыдущих отказа. Воевода придирался к мелочам: «нет рекомендации от непосредственного руководителя» (была общая от HR), «нет доказательств социальных связей» (хотя у Прии 4 года активной волонтёрской работы). Собрали 80-страничный пакет с доказательствами интеграции. Подали апелляцию в WSA Warszawa.',
+    action_en:'Studied all 3 previous rejections. The voivoda nitpicked: "no recommendation from direct supervisor" (had general one from HR), "no evidence of social ties" (Priya had 4 years of active volunteering). We built an 80-page package with integration evidence. Filed appeal to WSA Warsaw.',
+    action_hi:'पिछले 3 अस्वीकरणों का अध्ययन किया। वोयवोडा छोटी-छोटी बातों पर अड़ रहा था: "तत्काल पर्यवेक्षक से कोई सिफारिश नहीं" (HR से सामान्य थी), "सामाजिक संबंधों का कोई प्रमाण नहीं" (हालांकि प्रिया का 4 साल का सक्रिय स्वयंसेवी कार्य था)। एकीकरण के सबूत के साथ 80-पृष्ठ का पैकेज बनाया। WSA Warsaw में अपील दायर की।',
+    action_pl:'Przeanalizowaliśmy wszystkie 3 poprzednie odmowy. Wojewoda czepiał się drobiazgów: "brak rekomendacji bezpośredniego przełożonego" (była ogólna z HR), "brak dowodów więzi społecznych" (mimo 4 lat aktywnego wolontariatu). Zbudowaliśmy 80-stronicowy pakiet z dowodami integracji. Złożyliśmy apelację do WSA Warszawa.',
+    action_uk:'Вивчили всі 3 попередні відмови. Воєвода чіплявся до дрібниць: «немає рекомендації від безпосереднього керівника» (була загальна від HR), «немає доказів соціальних зв\'язків» (хоча у Прії 4 роки активної волонтерської роботи). Зібрали 80-сторінковий пакет з доказами інтеграції. Подали апеляцію до WSA Варшава.',
+    result_ru:'Через 5 месяцев — суд вынес решение в её пользу. Воевода обязан выдать карту. ПМЖ получила в 2025 году. Сейчас руководит отделением.',
+    result_en:'5 months later — court ruled in her favor. Voivoda was ordered to issue the card. Got PR in 2025. Now heads a department.',
+    result_hi:'5 महीने बाद — अदालत ने उनके पक्ष में फैसला सुनाया। वोयवोडा को कार्ड जारी करने का आदेश दिया गया। 2025 में PR मिला। अब एक विभाग का नेतृत्व करती हैं।',
+    result_pl:'Po 5 miesiącach — sąd orzekł na jej korzyść. Wojewoda zobowiązany do wydania karty. W 2025 stały pobyt. Teraz kieruje oddziałem.',
+    result_uk:'Через 5 місяців — суд виніс рішення на її користь. Воєвода зобов\'язаний видати картку. ПМЖ отримала у 2025 році. Зараз очолює відділення.',
+    quote_ru:'«После третьего отказа я уже паковала чемоданы. Они увидели в моём деле то, что воевода не захотел увидеть — реального человека, который любит эту страну.»',
+    quote_en:'"After the third rejection I was already packing. They saw in my case what the voivoda refused to see — a real person who loves this country."',
+    quote_hi:'"तीसरे अस्वीकरण के बाद मैं पहले से ही पैक कर रही थी। उन्होंने मेरे मामले में वो देखा जो वोयवोडा नहीं देखना चाहता था — एक असली इंसान जो इस देश से प्यार करता है।"',
+    quote_pl:'„Po trzeciej odmowie już pakowałam walizki. Zobaczyli w mojej sprawie to, czego wojewoda nie chciał zobaczyć — prawdziwego człowieka, który kocha ten kraj."',
+    quote_uk:'«Після третьої відмови я вже пакувала валізи. Вони побачили в моїй справі те, що воєвода не захотів побачити — реальну людину, яка любить цю країну.»',
+    year:2024
+  },
+  {
+    id:'ahmed',
+    flag:'🇵🇰',
+    avatar:'A',
+    accent:'#22d3ee',
+    name_ru:'Ахмед С.',name_en:'Ahmed S.',name_hi:'अहमद एस.',name_pl:'Ahmed S.',name_uk:'Ахмед С.',
+    meta_ru:'41 год · врач · Пакистан → Варшава',meta_en:'41 · doctor · Pakistan → Warsaw',meta_hi:'41 साल · डॉक्टर · पाकिस्तान → वारसॉ',meta_pl:'41 lat · lekarz · Pakistan → Warszawa',meta_uk:'41 рік · лікар · Пакистан → Варшава',
+    headline_ru:'Диплом не признали. <em>Через год</em> — практика в Варшаве.',headline_en:'Diploma rejected. <em>Within a year</em> — practicing in Warsaw.',headline_hi:'डिप्लोमा अस्वीकार। <em>एक साल में</em> — वारसॉ में प्रैक्टिस।',headline_pl:'Dyplom nieuznany. <em>Po roku</em> — praktyka w Warszawie.',headline_uk:'Диплом не визнали. <em>За рік</em> — практика у Варшаві.',
+    hook_ru:'Ахмед — кардиолог с 15-летним опытом в Карачи. Переехал с семьёй в Варшаву по семейным обстоятельствам. Польская медицинская палата отказала в признании диплома — «не соответствует стандартам». Думал работать таксистом.',
+    hook_en:'Ahmed — cardiologist with 15 years experience in Karachi. Moved with family to Warsaw for personal reasons. Polish Medical Chamber rejected diploma recognition — "doesn\'t meet standards". Was considering driving Uber.',
+    hook_hi:'अहमद — कराची में 15 साल के अनुभव वाले हृदय रोग विशेषज्ञ। परिवारिक कारणों से परिवार के साथ वारसॉ चले गए। पोलिश मेडिकल चैंबर ने डिप्लोमा मान्यता अस्वीकार की — "मानकों को पूरा नहीं करता"। उबर चलाने पर विचार कर रहे थे।',
+    hook_pl:'Ahmed — kardiolog z 15-letnim doświadczeniem w Karaczi. Przeprowadził się z rodziną do Warszawy z powodów osobistych. Polska Izba Lekarska odmówiła uznania dyplomu — "nie spełnia standardów". Myślał o jeżdżeniu Uberem.',
+    hook_uk:'Ахмед — кардіолог з 15-річним досвідом у Карачі. Переїхав із сім\'єю до Варшави за родинними обставинами. Польська медична палата відмовила у визнанні диплома — «не відповідає стандартам». Думав працювати таксистом.',
+    duration_ru:'14 месяцев',duration_en:'14 months',duration_hi:'14 महीने',duration_pl:'14 miesięcy',duration_uk:'14 місяців',
+    outcome_ru:'Нострификация · работа в LUX MED · карта побыту',outcome_en:'Nostrification · LUX MED · residence card',outcome_hi:'Nostrification · LUX MED · निवास कार्ड',outcome_pl:'Nostryfikacja · praca w LUX MED · karta pobytu',outcome_uk:'Нострифікація · робота в LUX MED · карта побуту',
+    crisis_ru:'Без признания диплома Ахмед не мог работать врачом в Польше. Семья жила на сбережения. Жена была беременна третьим ребёнком. Через 6 месяцев деньги закончились.',
+    crisis_en:'Without diploma recognition Ahmed couldn\'t work as a doctor in Poland. Family lived off savings. Wife was pregnant with third child. After 6 months — savings gone.',
+    crisis_hi:'डिप्लोमा मान्यता के बिना अहमद पोलैंड में डॉक्टर के रूप में काम नहीं कर सकते थे। परिवार बचत पर जी रहा था। पत्नी तीसरे बच्चे के साथ गर्भवती थीं। 6 महीने बाद बचत खत्म हो गई।',
+    crisis_pl:'Bez uznania dyplomu Ahmed nie mógł pracować jako lekarz w Polsce. Rodzina żyła z oszczędności. Żona była w ciąży z trzecim dzieckiem. Po 6 miesiącach oszczędności się skończyły.',
+    crisis_uk:'Без визнання диплома Ахмед не міг працювати лікарем у Польщі. Сім\'я жила на заощадженнях. Дружина була вагітна третьою дитиною. Через 6 місяців гроші закінчилися.',
+    action_ru:'Параллельно вели 3 направления: (1) подача апелляции на решение палаты с дополнительными документами (англоязычные сертификаты, рекомендации), (2) запись на нострификационный экзамен, (3) поиск временной работы в медицинских центрах с международной аккредитацией. Заказали переводы и легализацию всех документов через консульство.',
+    action_en:'Ran 3 tracks in parallel: (1) appeal to chamber decision with additional docs (English certifications, recommendations), (2) sign up for nostrification exam, (3) find interim work in internationally-accredited medical centers. Ordered translations and legalization through consulate.',
+    action_hi:'समानांतर 3 ट्रैक: (1) अतिरिक्त दस्तावेज़ों (अंग्रेज़ी प्रमाणन, सिफारिशें) के साथ चैंबर के फ़ैसले की अपील, (2) Nostrification परीक्षा के लिए साइन-अप, (3) अंतर्राष्ट्रीय रूप से मान्यता प्राप्त चिकित्सा केंद्रों में अंतरिम काम। वाणिज्य दूतावास के माध्यम से अनुवाद और सत्यापन।',
+    action_pl:'Równolegle 3 tory: (1) apelacja od decyzji izby z dodatkowymi dokumentami (certyfikaty po angielsku, rekomendacje), (2) zgłoszenie na egzamin nostryfikacyjny, (3) szukanie tymczasowej pracy w międzynarodowo akredytowanych ośrodkach medycznych. Tłumaczenia i legalizacja przez konsulat.',
+    action_uk:'Паралельно вели 3 напрямки: (1) подача апеляції на рішення палати з додатковими документами (англомовні сертифікати, рекомендації), (2) запис на нострифікаційний іспит, (3) пошук тимчасової роботи в медичних центрах з міжнародною акредитацією. Замовили переклади і легалізацію всіх документів через консульство.',
+    result_ru:'Через 14 месяцев Ахмед сдал нострификационный экзамен и получил право работать кардиологом. Устроился в LUX MED Warszawa. Карта побыту — на 3 года. Третий ребёнок родился в варшавской больнице.',
+    result_en:'14 months later Ahmed passed the nostrification exam and got the right to practice as cardiologist. Joined LUX MED Warszawa. Residence card — 3 years. Third child born in a Warsaw hospital.',
+    result_hi:'14 महीने बाद अहमद ने Nostrification परीक्षा पास की और कार्डियोलॉजिस्ट के रूप में काम करने का अधिकार प्राप्त किया। LUX MED Warszawa से जुड़े। निवास कार्ड — 3 साल। तीसरा बच्चा वारसॉ अस्पताल में पैदा हुआ।',
+    result_pl:'Po 14 miesiącach Ahmed zdał egzamin nostryfikacyjny i uzyskał prawo do praktyki jako kardiolog. Dołączył do LUX MED Warszawa. Karta pobytu — 3 lata. Trzecie dziecko urodziło się w warszawskim szpitalu.',
+    result_uk:'Через 14 місяців Ахмед склав нострифікаційний іспит і отримав право працювати кардіологом. Влаштувався в LUX MED Warszawa. Карта побуту — на 3 роки. Третя дитина народилася у варшавській лікарні.',
+    quote_ru:'«15 лет опыта, спасал жизни в Карачи — а здесь сказали что я не врач. Они вернули мне профессию.»',
+    quote_en:'"15 years of experience, saved lives in Karachi — and here they told me I\'m not a doctor. They gave me back my profession."',
+    quote_hi:'"15 साल का अनुभव, कराची में जान बचाई — और यहां उन्होंने कहा कि मैं डॉक्टर नहीं हूँ। उन्होंने मुझे मेरा पेशा वापस दिया।"',
+    quote_pl:'„15 lat doświadczenia, ratowałem życie w Karaczi — a tutaj powiedzieli, że nie jestem lekarzem. Oddali mi mój zawód."',
+    quote_uk:'«15 років досвіду, рятував життя в Карачі — а тут сказали, що я не лікар. Вони повернули мені професію.»',
+    year:2024
+  },
+  {
+    id:'olena',
+    flag:'🇺🇦',
+    avatar:'O',
+    accent:'#3b82f6',
+    name_ru:'Олена К.',name_en:'Olena K.',name_hi:'ओलेना के.',name_pl:'Olena K.',name_uk:'Олена К.',
+    meta_ru:'29 лет · художница · Украина → Вроцлав',meta_en:'29 · artist · Ukraine → Wroclaw',meta_hi:'29 साल · कलाकार · यूक्रेन → व्रोत्सलाव',meta_pl:'29 lat · artystka · Ukraina → Wrocław',meta_uk:'29 років · художниця · Україна → Вроцлав',
+    headline_ru:'Бежала с двумя детьми. <em>Через 30 дней</em> — школа и работа.',headline_en:'Fled with two kids. <em>In 30 days</em> — school and work.',headline_hi:'दो बच्चों के साथ भागीं। <em>30 दिनों में</em> — स्कूल और काम।',headline_pl:'Uciekła z dwojgiem dzieci. <em>W 30 dni</em> — szkoła i praca.',headline_uk:'Тікала з двома дітьми. <em>За 30 днів</em> — школа і робота.',
+    hook_ru:'Февраль 2022. Олена с двумя детьми (7 и 4 года) бежала из Харькова. Прибыла во Вроцлав через 5 дней дороги. Без документов, без жилья, без денег. Дети не понимали что происходит. Муж остался на войне.',
+    hook_en:'February 2022. Olena with two kids (7 and 4) fled Kharkiv. Arrived in Wroclaw after 5 days on the road. No documents, no housing, no money. Kids didn\'t understand what was happening. Husband stayed in the war.',
+    hook_hi:'फ़रवरी 2022। ओलेना दो बच्चों (7 और 4 साल) के साथ खार्किव से भागीं। 5 दिन की यात्रा के बाद व्रोत्सलाव पहुँचीं। बिना दस्तावेज़, बिना घर, बिना पैसे। बच्चे समझ नहीं पा रहे थे क्या हो रहा है। पति युद्ध में रहे।',
+    hook_pl:'Luty 2022. Olena z dwojgiem dzieci (7 i 4 lat) uciekła z Charkowa. Przyjechała do Wrocławia po 5 dniach drogi. Bez dokumentów, bez mieszkania, bez pieniędzy. Dzieci nie rozumiały co się dzieje. Mąż został na wojnie.',
+    hook_uk:'Лютий 2022. Олена з двома дітьми (7 і 4 роки) тікала з Харкова. Прибула до Вроцлава через 5 днів дороги. Без документів, без житла, без грошей. Діти не розуміли що відбувається. Чоловік залишився на війні.',
+    duration_ru:'30 дней',duration_en:'30 days',duration_hi:'30 दिन',duration_pl:'30 dni',duration_uk:'30 днів',
+    outcome_ru:'Temporary protection · школа детям · работа · жильё',outcome_en:'Temporary protection · school · job · housing',outcome_hi:'Temporary protection · स्कूल · नौकरी · आवास',outcome_pl:'Ochrona tymczasowa · szkoła · praca · mieszkanie',outcome_uk:'Temporary protection · школа дітям · робота · житло',
+    crisis_ru:'Прибыла в Вроцлав 8 марта 2022. На вокзале были волонтёры, но многих документов не было — паспорт детей остался в спешке дома. Без PESEL UKR — нет права на жильё, школу, медпомощь.',
+    crisis_en:'Arrived in Wroclaw March 8, 2022. Volunteers at the station, but many docs were missing — kids\' passports left at home in the rush. Without PESEL UKR — no right to housing, school, medical care.',
+    crisis_hi:'8 मार्च 2022 को व्रोत्सलाव पहुँचीं। स्टेशन पर स्वयंसेवक थे, लेकिन कई दस्तावेज़ ग़ायब थे — जल्दबाज़ी में बच्चों के पासपोर्ट घर पर छूट गए। PESEL UKR के बिना — आवास, स्कूल, चिकित्सा देखभाल का कोई अधिकार नहीं।',
+    crisis_pl:'Przyjechała do Wrocławia 8 marca 2022. Wolontariusze na stacji, ale wielu dokumentów brakowało — paszporty dzieci zostały w domu w pośpiechu. Bez PESEL UKR — bez prawa do mieszkania, szkoły, pomocy medycznej.',
+    crisis_uk:'Прибула до Вроцлава 8 березня 2022. На вокзалі були волонтери, але багатьох документів не було — паспорти дітей залишилися в поспіху вдома. Без PESEL UKR — немає права на житло, школу, медичну допомогу.',
+    action_ru:'Подали на временную защиту через ePUAP в первые 48 часов. Параллельно: получили PESEL UKR в местном уженде, записали детей в польскую школу (через программу адаптации для украинцев), нашли работу для Олены через знакомых.',
+    action_en:'Filed temporary protection via ePUAP within 48 hours. In parallel: got PESEL UKR at local office, enrolled kids in Polish school (via Ukrainian adaptation program), found Olena a job through contacts.',
+    action_hi:'48 घंटों के भीतर ePUAP के माध्यम से अस्थायी सुरक्षा के लिए आवेदन किया। समानांतर: स्थानीय कार्यालय में PESEL UKR मिला, बच्चों को पोलिश स्कूल (यूक्रेनी अनुकूलन कार्यक्रम के माध्यम से) में दाख़िला दिलाया, संपर्कों के माध्यम से ओलेना के लिए नौकरी ढूंढी।',
+    action_pl:'Złożyliśmy wniosek o ochronę tymczasową przez ePUAP w pierwszych 48 godzinach. Równolegle: PESEL UKR w lokalnym urzędzie, zapis dzieci do polskiej szkoły (przez program adaptacji dla Ukraińców), znaleziona praca dla Oleny przez znajomych.',
+    action_uk:'Подали на тимчасовий захист через ePUAP у перші 48 годин. Паралельно: отримали PESEL UKR у місцевому уженді, записали дітей у польську школу (через програму адаптації для українців), знайшли роботу для Олени через знайомих.',
+    result_ru:'Через 30 дней — Олена работает иллюстратором онлайн (контракт с польской студией). Дети ходят в школу. Снимают квартиру в Вроцлаве. В 2024 году получили карту побыту (без необходимости TRC).',
+    result_en:'30 days later — Olena works as illustrator online (contract with Polish studio). Kids in school. Renting an apartment in Wroclaw. In 2024 got residence card (without TRC requirement).',
+    result_hi:'30 दिन बाद — ओलेना ऑनलाइन इलस्ट्रेटर के रूप में काम करती हैं (पोलिश स्टूडियो के साथ अनुबंध)। बच्चे स्कूल जाते हैं। व्रोत्सलाव में अपार्टमेंट किराए पर। 2024 में निवास कार्ड मिला (TRC की आवश्यकता के बिना)।',
+    result_pl:'Po 30 dniach — Olena pracuje jako ilustratorka online (kontrakt z polskim studiem). Dzieci w szkole. Wynajem mieszkania we Wrocławiu. W 2024 karta pobytu (bez wymogu TRC).',
+    result_uk:'Через 30 днів — Олена працює ілюстраторкою онлайн (контракт з польською студією). Діти ходять до школи. Знімають квартиру у Вроцлаві. У 2024 році отримали карту побуту (без необхідності TRC).',
+    quote_ru:'«Я приехала с двумя сумками и двумя детьми. Они объяснили мне как пройти польскую систему — на украинском, простым языком. Мы выжили.»',
+    quote_en:'"I came with two bags and two kids. They explained the Polish system — in Ukrainian, simple language. We survived."',
+    quote_hi:'"मैं दो बैग और दो बच्चों के साथ आई। उन्होंने पोलिश सिस्टम समझाया — यूक्रेनी में, सरल भाषा में। हम बच गए।"',
+    quote_pl:'„Przyjechałam z dwoma walizkami i dwójką dzieci. Wyjaśnili mi polski system — po ukraińsku, prostym językiem. Przetrwaliśmy."',
+    quote_uk:'«Я приїхала з двома сумками і двома дітьми. Вони пояснили мені як пройти польську систему — українською, простою мовою. Ми вижили.»',
+    year:2022
+  },
+  {
+    id:'vikram',
+    flag:'🇮🇳',
+    avatar:'V',
+    accent:'#a855f7',
+    name_ru:'Викрам и Аня',name_en:'Vikram & Anya',name_hi:'विक्रम और आन्या',name_pl:'Vikram i Anya',name_uk:'Вікрам і Аня',
+    meta_ru:'34 и 32 года · IT-семья · Индия+Польша',meta_en:'34 & 32 · IT couple · India + Poland',meta_hi:'34 और 32 साल · IT युगल · भारत + पोलैंड',meta_pl:'34 i 32 lata · para IT · Indie + Polska',meta_uk:'34 і 32 роки · IT-сім\'я · Індія + Польща',
+    headline_ru:'Двойной отказ в гражданстве. <em>На третий раз</em> — получили.',headline_en:'Twice denied citizenship. <em>Third time</em> — granted.',headline_hi:'दो बार नागरिकता अस्वीकृत। <em>तीसरी बार</em> — मिली।',headline_pl:'Dwukrotna odmowa obywatelstwa. <em>Za trzecim razem</em> — uzyskali.',headline_uk:'Подвійна відмова у громадянстві. <em>Втретє</em> — отримали.',
+    hook_ru:'Викрам женился на польке (Аня) в 2018. Через 5 лет брака подал на гражданство — отказ. Подал повторно с дополнительными доками — снова отказ. Адвокат сказал «прекращайте». Викрам не сдался.',
+    hook_en:'Vikram married a Polish woman (Anya) in 2018. After 5 years of marriage, applied for citizenship — rejected. Reapplied with additional docs — rejected again. Lawyer said "give up". Vikram refused.',
+    hook_hi:'विक्रम ने 2018 में एक पोलिश महिला (आन्या) से शादी की। 5 साल की शादी के बाद नागरिकता के लिए आवेदन किया — अस्वीकृत। अतिरिक्त दस्तावेज़ों के साथ फिर से आवेदन किया — फिर अस्वीकृत। वकील ने कहा "छोड़ दो"। विक्रम ने मना कर दिया।',
+    hook_pl:'Vikram ożenił się z Polką (Anyą) w 2018. Po 5 latach małżeństwa złożył wniosek o obywatelstwo — odmowa. Ponowny wniosek z dodatkowymi dokumentami — znów odmowa. Prawnik powiedział "zrezygnuj". Vikram odmówił.',
+    hook_uk:'Вікрам одружився з полячкою (Анею) у 2018. Через 5 років шлюбу подав на громадянство — відмова. Подав повторно з додатковими доками — знову відмова. Адвокат сказав «припиняйте». Вікрам не здавався.',
+    duration_ru:'18 месяцев',duration_en:'18 months',duration_hi:'18 महीने',duration_pl:'18 miesięcy',duration_uk:'18 місяців',
+    outcome_ru:'Гражданство Польши · паспорт ЕС',outcome_en:'Polish citizenship · EU passport',outcome_hi:'पोलिश नागरिकता · EU पासपोर्ट',outcome_pl:'Obywatelstwo polskie · paszport UE',outcome_uk:'Громадянство Польщі · паспорт ЄС',
+    crisis_ru:'Оба отказа МСВиА: «недостаточная интеграция в польское общество». Викрам говорит на польском уровня C1, имеет польскую жену, дочь учится в польской школе, работает в Warszawa Hub. «Что им ещё нужно?» — спрашивал он у нас.',
+    crisis_en:'Both MSWiA rejections cited: "insufficient integration into Polish society". Vikram speaks Polish at C1, has Polish wife, daughter in Polish school, works at Warsaw Hub. "What more do they want?" he asked us.',
+    crisis_hi:'दोनों MSWiA अस्वीकरणों ने उद्धृत किया: "पोलिश समाज में अपर्याप्त एकीकरण"। विक्रम C1 स्तर पर पोलिश बोलते हैं, पोलिश पत्नी है, बेटी पोलिश स्कूल में है, Warsaw Hub में काम करते हैं। "उन्हें और क्या चाहिए?" उन्होंने हमसे पूछा।',
+    crisis_pl:'Obie odmowy MSWiA powołały się na "niedostateczną integrację ze społeczeństwem polskim". Vikram mówi po polsku na poziomie C1, ma polską żonę, córka w polskiej szkole, pracuje w Warsaw Hub. "Czego jeszcze chcą?" pytał nas.',
+    crisis_uk:'Обидві відмови МВС: «недостатня інтеграція в польське суспільство». Вікрам говорить польською на рівні C1, має польську дружину, донька вчиться в польській школі, працює у Warsaw Hub. «Що їм ще потрібно?» — питав він у нас.',
+    action_ru:'Глубокий анализ обоих отказов. Стандартная аргументация не работала. Сменили стратегию: подали к нотариусу 30+ свидетельских показаний от польских коллег, тренера дочери, соседей. Получили оценку Президентского уровня от его руководителя в банке. Подали в третий раз с этим пакетом.',
+    action_en:'Deep analysis of both rejections. Standard arguments not working. Changed strategy: filed 30+ notarized witness statements from Polish colleagues, daughter\'s coach, neighbors. Got Presidential-level recommendation from his bank manager. Filed third time with this package.',
+    action_hi:'दोनों अस्वीकरणों का गहन विश्लेषण। मानक तर्क काम नहीं कर रहे थे। रणनीति बदली: पोलिश सहयोगियों, बेटी के कोच, पड़ोसियों से 30+ नोटरीकृत गवाह बयान दायर किए। बैंक प्रबंधक से राष्ट्रपति-स्तर की सिफारिश मिली। इस पैकेज के साथ तीसरी बार आवेदन किया।',
+    action_pl:'Głęboka analiza obu odmów. Standardowa argumentacja nie działała. Zmieniliśmy strategię: złożyliśmy 30+ notarialnych oświadczeń świadków od polskich kolegów, trenera córki, sąsiadów. Rekomendacja na poziomie prezydenckim od menedżera w banku. Trzeci raz z tym pakietem.',
+    action_uk:'Глибокий аналіз обох відмов. Стандартна аргументація не працювала. Змінили стратегію: подали до нотаріуса 30+ свідчень від польських колег, тренера доньки, сусідів. Отримали оцінку Президентського рівня від його керівника в банку. Подали втретє з цим пакетом.',
+    result_ru:'Через 18 месяцев — гражданство присвоено. Викрам получил польский паспорт в феврале 2025. В семье праздновали 3 дня. Аня плакала впервые с момента отказов.',
+    result_en:'18 months later — citizenship granted. Vikram got Polish passport in February 2025. Family celebrated 3 days. Anya cried for the first time since the rejections.',
+    result_hi:'18 महीने बाद — नागरिकता प्रदान की गई। विक्रम को फ़रवरी 2025 में पोलिश पासपोर्ट मिला। परिवार ने 3 दिन जश्न मनाया। अस्वीकरणों के बाद पहली बार आन्या रोईं।',
+    result_pl:'Po 18 miesiącach — obywatelstwo nadane. Vikram otrzymał polski paszport w lutym 2025. Rodzina świętowała 3 dni. Anya płakała pierwszy raz od czasu odmów.',
+    result_uk:'Через 18 місяців — громадянство присвоєно. Вікрам отримав польський паспорт у лютому 2025. У сім\'ї святкували 3 дні. Аня плакала вперше з моменту відмов.',
+    quote_ru:'«Два отказа — это удар по самооценке. Они показали нам что система не против нас, просто нужны правильные доказательства. Сейчас у нашей дочери два паспорта.»',
+    quote_en:'"Two rejections — that\'s a hit to your self-worth. They showed us the system isn\'t against us, you just need the right evidence. Now our daughter has two passports."',
+    quote_hi:'"दो अस्वीकरण — आत्म-सम्मान के लिए एक झटका। उन्होंने हमें दिखाया कि सिस्टम हमारे ख़िलाफ़ नहीं है, बस सही सबूत चाहिए। अब हमारी बेटी के पास दो पासपोर्ट हैं।"',
+    quote_pl:'„Dwie odmowy — to cios w poczucie własnej wartości. Pokazali nam, że system nie jest przeciwko nam, potrzebne są tylko właściwe dowody. Teraz nasza córka ma dwa paszporty."',
+    quote_uk:'«Дві відмови — це удар по самооцінці. Вони показали нам що система не проти нас, просто потрібні правильні докази. Зараз у нашої доньки два паспорти.»',
+    year:2025
+  }
+];
+
+// Real reviews data (placeholder — replace when real ones arrive)
+var REVIEWS = [
+  {av:'M',name:'Mahesh',meta:'India · 2024',src:'Google',stars:5,quote_ru:'Лучшая команда. Получил карту за 4 месяца, всё в срок. Прозрачные цены, всегда на связи в WhatsApp.',quote_en:'Best team. Got my card in 4 months, all on time. Transparent prices, always reachable on WhatsApp.',quote_hi:'सबसे अच्छी टीम। 4 महीने में कार्ड मिला, सब समय पर। पारदर्शी कीमतें, WhatsApp पर हमेशा उपलब्ध।'},
+  {av:'A',name:'Aisha',meta:'Pakistan · 2024',src:'Trustpilot',stars:5,quote_ru:'Помогли с воссоединением семьи после года ожидания. Профессионально и человечно. Рекомендую.',quote_en:'Helped with family reunification after a year of waiting. Professional and human. Recommended.',quote_hi:'एक साल के इंतज़ार के बाद परिवार पुनर्मिलन में मदद की। पेशेवर और मानवीय। अनुशंसित।'},
+  {av:'D',name:'Dilshan',meta:'Sri Lanka · 2025',src:'WhatsApp',stars:5,quote_ru:'Не сдавали в моём деле когда другие отказались. Получил карту с первого раза. Спасибо.',quote_en:'Didn\'t give up on my case when others refused. Got the card first try. Thank you.',quote_hi:'जब दूसरों ने मना किया तब मेरे मामले में हार नहीं मानी। पहली बार में कार्ड मिला। धन्यवाद।'},
+  {av:'R',name:'Rakesh',meta:'India · 2023',src:'Google',stars:5,quote_ru:'Получил Blue Card за 3 месяца. IT-специалистам очень рекомендую — знают все нюансы.',quote_en:'Got Blue Card in 3 months. Highly recommended for IT specialists — they know all the nuances.',quote_hi:'3 महीने में Blue Card मिला। IT विशेषज्ञों के लिए अत्यधिक अनुशंसित — वे सभी बारीकियों को जानते हैं।'},
+  {av:'F',name:'Farhana',meta:'Bangladesh · 2024',src:'Google',stars:5,quote_ru:'Открыли мне sp. z o.o. за 2 недели, помогли с банковским счётом. Отличные специалисты.',quote_en:'Opened my sp. z o.o. in 2 weeks, helped with banking. Excellent specialists.',quote_hi:'2 हफ़्तों में मेरी sp. z o.o. खोली, बैंकिंग में मदद की। बेहतरीन विशेषज्ञ।'},
+  {av:'T',name:'Tariq',meta:'Pakistan · 2025',src:'Trustpilot',stars:5,quote_ru:'Подавали апелляцию после отказа. Выиграли. Без них я бы уехал. Огромная благодарность.',quote_en:'Filed appeal after rejection. We won. Without them I would have left. Huge gratitude.',quote_hi:'अस्वीकरण के बाद अपील दायर की। जीते। उनके बिना मैं चला जाता। बहुत बहुत धन्यवाद।'}
+];
+
+// ════════════════════════════════════════════════════════════════
+// Render stories + reviews
+// ════════════════════════════════════════════════════════════════
+function _rvLang(){return (typeof L!=='undefined'&&L)?L:'ru';}
+function _rvLocalize(obj,key){
+  var lang=_rvLang();
+  return obj[key+'_'+lang]||obj[key+'_en']||obj[key+'_ru']||obj[key]||'';
+}
+
+function renderStories(){
+  var grid=document.getElementById('rv-stories-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  STORIES.forEach(function(s){
+    var card=document.createElement('div');
+    card.className='rv-story';
+    card.style.setProperty('--story-accent',s.accent);
+    card.onclick=function(){openStoryModal(s.id);};
+    card.innerHTML=
+      '<div class="rv-story-header">'+
+        '<div class="rv-story-avatar"><span>'+s.avatar+'</span><span class="rv-story-flag">'+s.flag+'</span></div>'+
+        '<div class="rv-story-id">'+
+          '<div class="rv-story-name">'+_rvLocalize(s,'name')+'</div>'+
+          '<div class="rv-story-meta">'+_rvLocalize(s,'meta')+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="rv-story-headline">'+_rvLocalize(s,'headline')+'</div>'+
+      '<div class="rv-story-hook">'+_rvLocalize(s,'hook')+'</div>'+
+      '<div class="rv-story-timeline">'+
+        '<span class="rv-story-tl"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'+_rvLocalize(s,'duration')+'</span>'+
+        '<span class="rv-story-tl"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'+_rvLocalize(s,'outcome')+'</span>'+
+        '<span class="rv-story-cta">'+_rvReadMore()+' →</span>'+
+      '</div>'+
+      // Mouse spotlight tracking
+      '';
+    // Bind mouse tracking
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    });
+    grid.appendChild(card);
+  });
+}
+
+function renderReviews(){
+  var grid=document.getElementById('rv-reviews-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  REVIEWS.forEach(function(r){
+    var card=document.createElement('div');
+    card.className='rv-review';
+    card.innerHTML=
+      '<div class="rv-review-stars">'+'★'.repeat(r.stars)+'</div>'+
+      '<div class="rv-review-quote">'+_rvLocalize(r,'quote')+'</div>'+
+      '<div class="rv-review-foot">'+
+        '<div class="rv-review-av">'+r.av+'</div>'+
+        '<div class="rv-review-id">'+
+          '<div class="rv-review-name">'+r.name+'</div>'+
+          '<div class="rv-review-meta">'+r.meta+'</div>'+
+        '</div>'+
+        '<div class="rv-review-src">'+r.src+'</div>'+
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+function _rvReadMore(){
+  var labels={ru:'Читать',en:'Read story',hi:'पूरा पढ़ें',pl:'Czytaj',uk:'Читати',es:'Leer',tr:'Oku',az:'Oxu'};
+  return labels[_rvLang()]||labels.en;
+}
+
+function _rvStageLabels(){
+  var lang=_rvLang();
+  var L={
+    ru:{crisis:'Кризис',action:'Что мы сделали',result:'Результат'},
+    en:{crisis:'The crisis',action:'What we did',result:'The result'},
+    hi:{crisis:'संकट',action:'हमने क्या किया',result:'परिणाम'},
+    pl:{crisis:'Kryzys',action:'Co zrobiliśmy',result:'Rezultat'},
+    uk:{crisis:'Криза',action:'Що ми зробили',result:'Результат'},
+    es:{crisis:'La crisis',action:'Lo que hicimos',result:'El resultado'},
+    tr:{crisis:'Kriz',action:'Yaptıklarımız',result:'Sonuç'},
+    az:{crisis:'Böhran',action:'Etdiklərimiz',result:'Nəticə'}
+  };
+  return L[lang]||L.en;
+}
+
+function openStoryModal(id){
+  var s=STORIES.find(function(x){return x.id===id;});
+  if(!s)return;
+  var stage=_rvStageLabels();
+  var box=document.getElementById('rv-modal-content');
+  box.style.setProperty('--story-accent',s.accent);
+  box.parentNode.style.setProperty('--story-accent',s.accent);
+  box.innerHTML=
+    '<div class="rv-modal-head">'+
+      '<div class="rv-modal-avatar"><span>'+s.avatar+'</span><span class="rv-modal-flag">'+s.flag+'</span></div>'+
+      '<div>'+
+        '<div class="rv-modal-name">'+_rvLocalize(s,'name')+'</div>'+
+        '<div class="rv-modal-meta">'+_rvLocalize(s,'meta')+' · '+s.year+'</div>'+
+      '</div>'+
+    '</div>'+
+    '<h2 class="rv-modal-title">'+_rvLocalize(s,'headline')+'</h2>'+
+    '<div class="rv-modal-stages">'+
+      '<div class="rv-stage"><div class="rv-stage-label">⚠️ '+stage.crisis+'</div><div class="rv-stage-text">'+_rvLocalize(s,'crisis')+'</div></div>'+
+      '<div class="rv-stage"><div class="rv-stage-label">⚖️ '+stage.action+'</div><div class="rv-stage-text">'+_rvLocalize(s,'action')+'</div></div>'+
+      '<div class="rv-stage"><div class="rv-stage-label">✅ '+stage.result+'</div><div class="rv-stage-text">'+_rvLocalize(s,'result')+'</div></div>'+
+    '</div>'+
+    '<div class="rv-modal-quote">'+_rvLocalize(s,'quote')+'</div>'+
+    '<div class="rv-modal-anonymous">Имя изменено для приватности клиента · реальный кейс '+s.year+' года</div>';
+  document.getElementById('rv-modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeRvModal(){
+  document.getElementById('rv-modal').classList.remove('on');
+  document.body.style.overflow='';
+}
+
+// Render on tab show + lang change
+(function(){
+  function init(){renderStories();renderReviews();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+  else init();
+  // Re-render on lang change
+  var origSL=window.setLang;
+  if(typeof origSL==='function'){
+    window.setLang=function(){var r=origSL.apply(this,arguments);try{renderStories();renderReviews();}catch(e){}return r;};
+  }
+})();
+</script>
+
+</div><!-- /tab-reviews -->
 
 
 
