@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 36">
+  <!-- Variant C: "LS" monogram formed by column + scale arm (geometric, modern) -->
+  <defs>
+    <linearGradient id="v4col" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C4B5FD"/>
+      <stop offset="1" stop-color="#7C6FE8"/>
+    </linearGradient>
+    <linearGradient id="v4gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FCD34D"/>
+      <stop offset="0.5" stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#FCD34D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base plinth -->
+  <rect x="6" y="31" width="28" height="3.5" rx="1" fill="#8B82E8"/>
+
+  <!-- TWO inner columns, slightly narrower -->
+  <rect x="11" y="14" width="5" height="17" rx="0.6" fill="url(#v4col)"/>
+  <rect x="24" y="14" width="5" height="17" rx="0.6" fill="url(#v4col)"/>
+
+  <!-- Subtle fluting -->
+  <line x1="13" y1="15" x2="13" y2="30" stroke="#5B52CC" stroke-width="0.4" opacity="0.5"/>
+  <line x1="14" y1="15" x2="14" y2="30" stroke="#5B52CC" stroke-width="0.4" opacity="0.5"/>
+  <line x1="26" y1="15" x2="26" y2="30" stroke="#5B52CC" stroke-width="0.4" opacity="0.5"/>
+  <line x1="27" y1="15" x2="27" y2="30" stroke="#5B52CC" stroke-width="0.4" opacity="0.5"/>
+
+  <!-- Capital -->
+  <rect x="9" y="11.5" width="22" height="2.8" rx="0.8" fill="#8B82E8"/>
+
+  <!-- Scale beam — slightly wider than columns, balanced -->
+  <rect x="3" y="7" width="34" height="2" rx="1" fill="url(#v4gold)"/>
+
+  <!-- Central pivot post + jewel -->
+  <rect x="19" y="9" width="2" height="2.5" fill="#FBBF24"/>
+  <circle cx="20" cy="5.5" r="2" fill="url(#v4gold)" stroke="#F59E0B" stroke-width="0.4"/>
+
+  <!-- Hanging chains -->
+  <line x1="6"  y1="9" x2="6"  y2="11.5" stroke="#F59E0B" stroke-width="0.7" stroke-linecap="round"/>
+  <line x1="34" y1="9" x2="34" y2="11.5" stroke="#F59E0B" stroke-width="0.7" stroke-linecap="round"/>
+
+  <!-- Left scale dish (triangular wedge) -->
+  <path d="M 2 11.5 L 10 11.5 L 6 14 Z" fill="url(#v4gold)" stroke="#F59E0B" stroke-width="0.3"/>
+  <!-- Right scale dish -->
+  <path d="M 30 11.5 L 38 11.5 L 34 14 Z" fill="url(#v4gold)" stroke="#F59E0B" stroke-width="0.3"/>
+</svg>
