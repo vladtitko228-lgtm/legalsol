@@ -248,6 +248,91 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.84,.32,1),transform .7s cubic-bezier(.16,.84,.32,1);}
 .reveal.on{opacity:1;transform:translateY(0);}
 
+/* ─── EXTRA ANIMATIONS v2 ─── */
+/* Mouse-tracked spotlight on cards */
+.lv-card, .exam-card, .fmt-card, .pr-card{position:relative;will-change:transform;--mx:50%;--my:50%;}
+.lv-card::after, .exam-card::after, .fmt-card::after, .pr-card::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:1;
+  background:radial-gradient(circle at var(--mx) var(--my),rgba(52,211,153,.18),transparent 50%);
+  opacity:0;transition:opacity .4s ease;
+}
+.lv-card:hover::after,.exam-card:hover::after,.fmt-card:hover::after,.pr-card:hover::after{opacity:1;}
+.exam-card::after{background:radial-gradient(circle at var(--mx) var(--my),rgba(252,211,77,.18),transparent 50%);}
+.lv-card > *, .exam-card > *, .fmt-card > *, .pr-card > *{position:relative;z-index:2;}
+
+/* Card title micro-shift on hover */
+.lv-card .lv-name, .exam-card .exam-title, .fmt-card .fmt-name, .pr-card .pr-name{transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.lv-card:hover .lv-name, .exam-card:hover .exam-title, .pr-card:hover .pr-name{transform:translateX(3px);}
+
+/* Speed lines on hover */
+.lv-card .speed-line{
+  position:absolute;height:1px;left:-30%;width:50%;
+  background:linear-gradient(90deg,transparent,rgba(52,211,153,.7),transparent);
+  opacity:0;pointer-events:none;z-index:3;border-radius:2px;
+}
+.lv-card .sl-1{top:30%;}
+.lv-card .sl-2{top:65%;right:-30%;left:auto;background:linear-gradient(90deg,transparent,rgba(252,211,77,.7),transparent);}
+.lv-card:hover .sl-1{animation:speedR 1.1s linear infinite;}
+.lv-card:hover .sl-2{animation:speedL 1.1s linear infinite .25s;}
+@keyframes speedR{0%{opacity:0;transform:translateX(0);}20%{opacity:.9;}100%{opacity:0;transform:translateX(180%);}}
+@keyframes speedL{0%{opacity:0;transform:translateX(0);}20%{opacity:.9;}100%{opacity:0;transform:translateX(-180%);}}
+
+/* Hero text shimmer */
+.s-title em{position:relative;background-size:200% auto;animation:shimmerText 4s linear infinite;}
+@keyframes shimmerText{to{background-position:-200% center;}}
+
+/* Level badge glow pulse */
+.lv-badge{animation:badgeGlow 3s ease-in-out infinite;display:inline-block;}
+@keyframes badgeGlow{50%{filter:drop-shadow(0 0 14px rgba(52,211,153,.6));}}
+
+/* Format icon float */
+.fmt-icon{animation:iconFloat 4s ease-in-out infinite;}
+.fmt-card:nth-child(2) .fmt-icon{animation-delay:-1s;}
+.fmt-card:nth-child(3) .fmt-icon{animation-delay:-2s;}
+.fmt-card:nth-child(4) .fmt-icon{animation-delay:-3s;}
+@keyframes iconFloat{50%{transform:translateY(-6px);}}
+
+/* Animated conic border on hover (exam + pricing cards) */
+.exam-card .glow-border, .pr-card .glow-border{
+  position:absolute;inset:-1px;border-radius:24px;pointer-events:none;opacity:0;transition:opacity .4s;z-index:0;
+  background:conic-gradient(from var(--ang,0deg),rgba(52,211,153,.6) 0deg,rgba(252,211,77,.5) 90deg,rgba(52,211,153,.6) 180deg,rgba(16,185,129,.5) 270deg,rgba(52,211,153,.6) 360deg);
+  -webkit-mask:linear-gradient(#fff,#fff) content-box,linear-gradient(#fff,#fff);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  padding:1.5px;animation:rotConic 5s linear infinite;
+}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false;}
+@keyframes rotConic{to{--ang:360deg;}}
+.exam-card:hover .glow-border, .pr-card:hover .glow-border{opacity:1;}
+
+/* Stats counter — slight bounce on hover */
+.hs{cursor:default;transition:transform .25s;}
+.hs:hover{transform:translateY(-3px);}
+.hs-num{transition:transform .3s, text-shadow .3s;}
+.hs:hover .hs-num{transform:scale(1.06);text-shadow:0 0 24px rgba(52,211,153,.45);}
+
+/* Lang switcher in header */
+.lang-dd{position:relative;}
+.lang-dd-trigger{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:30px;background:rgba(16,185,129,.12);border:1px solid rgba(52,211,153,.32);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;}
+.lang-dd-trigger:hover{background:rgba(16,185,129,.22);border-color:rgba(52,211,153,.55);}
+.lang-dd-trigger .ldf svg{display:block;border-radius:2px;}
+.lang-dd-arrow{transition:transform .25s;opacity:.7;}
+.lang-dd.open .lang-dd-arrow{transform:rotate(180deg);}
+.lang-dd-panel{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:rgba(10,31,26,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(52,211,153,.28);border-radius:14px;padding:8px;
+  min-width:200px;opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .22s,transform .22s,visibility .22s;z-index:200;
+  box-shadow:0 16px 40px -8px rgba(0,0,0,.55);
+}
+.lang-dd.open .lang-dd-panel{opacity:1;visibility:visible;transform:translateY(0);}
+.ldp-btn{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;width:100%;background:transparent;border:none;color:rgba(220,252,231,.85);font-size:13.5px;cursor:pointer;font-family:inherit;text-align:left;transition:background .2s,color .2s;}
+.ldp-btn:hover,.ldp-btn.active{background:rgba(16,185,129,.18);color:#fff;}
+.ldp-btn svg{flex-shrink:0;border-radius:2px;}
+.ldp-code{font-weight:700;letter-spacing:.5px;font-size:12px;color:var(--gold-light);}
+.ldp-name{flex:1;}
+@media(max-width:560px){.lang-dd-panel{right:-20px;}}
+
 /* ─── Success toast ─── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 26px;border-radius:14px;box-shadow:0 14px 40px -6px rgba(16,185,129,.6);font-weight:600;z-index:9999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);font-size:14px;}
 .toast.on{transform:translateX(-50%) translateY(0);}
@@ -289,35 +374,43 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
     </div>
   </a>
   <div class="header-right">
-    <a href="/" class="nav-back">← Главный сайт</a>
-    <a href="#cta" class="nav-cta">Записаться на пробный →</a>
+    <div class="lang-dd" id="lang-dd">
+      <button class="lang-dd-trigger" id="lang-dd-trigger" type="button" onclick="document.getElementById('lang-dd').classList.toggle('open');event.stopPropagation();">
+        <span class="ldf" id="lang-dd-flag"></span>
+        <span id="lang-dd-cur">RU</span>
+        <svg class="lang-dd-arrow" width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="lang-dd-panel" id="lang-dd-panel"></div>
+    </div>
+    <a href="/" class="nav-back" data-i18n="nav.back">← Главный сайт</a>
+    <a href="#cta" class="nav-cta" data-i18n="nav.cta">Записаться на пробный →</a>
   </div>
 </header>
 
 <!-- ─── HERO ─── -->
 <section class="section hero">
-  <div class="s-pill">🇵🇱 POLISH FOR FOREIGNERS · ALL LEVELS A1–C2</div>
-  <h1 class="s-title">Польский — <em>быстро, для экзамена,</em> со 100% результатом</h1>
-  <p class="s-sub">От нуля до B2 за 6 месяцев. Подготовка к экзаменам Karta Pobytu (B1), гражданство (B2), университет (C1). Преподаватели — носители + методисты с 10+ летним опытом.</p>
+  <div class="s-pill" data-i18n="hero.pill">🇵🇱 POLISH FOR FOREIGNERS · ALL LEVELS A1–C2</div>
+  <h1 class="s-title" data-i18n="hero.title">Польский — <em>быстро, для экзамена,</em> со 100% результатом</h1>
+  <p class="s-sub" data-i18n="hero.sub">От нуля до B2 за 6 месяцев. Подготовка к экзаменам Karta Pobytu (B1), гражданство (B2), университет (C1). Преподаватели — носители + методисты с 10+ летним опытом.</p>
 
   <div class="hero-stats">
-    <div class="hs"><div class="hs-num">1500+</div><div class="hs-lbl">студентов</div></div>
-    <div class="hs"><div class="hs-num">95%</div><div class="hs-lbl">сдают с 1-го раза</div></div>
-    <div class="hs"><div class="hs-num">6 мес</div><div class="hs-lbl">до B1 в среднем</div></div>
-    <div class="hs"><div class="hs-num">10+</div><div class="hs-lbl">лет опыта</div></div>
+    <div class="hs"><div class="hs-num">1500+</div><div class="hs-lbl" data-i18n="hero.s1">студентов</div></div>
+    <div class="hs"><div class="hs-num">95%</div><div class="hs-lbl" data-i18n="hero.s2">сдают с 1-го раза</div></div>
+    <div class="hs"><div class="hs-num">6 мес</div><div class="hs-lbl" data-i18n="hero.s3">до B1 в среднем</div></div>
+    <div class="hs"><div class="hs-num">10+</div><div class="hs-lbl" data-i18n="hero.s4">лет опыта</div></div>
   </div>
 
   <div class="hero-cta-row">
-    <a href="#cta" class="btn-primary">📝 Бесплатный пробный урок <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#levels" class="btn-ghost">📊 Узнать свой уровень</a>
+    <a href="#cta" class="btn-primary"><span data-i18n="hero.cta1">📝 Бесплатный пробный урок</span> <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="#levels" class="btn-ghost" data-i18n="hero.cta2">📊 Узнать свой уровень</a>
   </div>
 </section>
 
 <!-- ─── LEVELS ─── -->
 <section class="section reveal" id="levels">
-  <div class="s-pill">📊 LEVELS</div>
-  <h2 class="s-title">От нуля до <em>академического</em> польского</h2>
-  <p class="s-sub">CEFR-сертифицированная программа. Каждый уровень — 60-80 часов, 4-6 месяцев в зависимости от темпа.</p>
+  <div class="s-pill" data-i18n="lvl.pill">📊 LEVELS</div>
+  <h2 class="s-title" data-i18n="lvl.title">От нуля до <em>академического</em> польского</h2>
+  <p class="s-sub" data-i18n="lvl.sub">CEFR-сертифицированная программа. Каждый уровень — 60-80 часов, 4-6 месяцев в зависимости от темпа.</p>
 
   <div class="lv-grid">
     <div class="lv-card reveal">
@@ -361,9 +454,9 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 
 <!-- ─── EXAM PREP ─── -->
 <section class="section reveal">
-  <div class="s-pill">🎯 EXAM PREP · 100% PASS RATE</div>
-  <h2 class="s-title">Подготовка к <em>любому экзамену</em></h2>
-  <p class="s-sub">Государственные экзамены Польши, академические тесты для университета, корпоративные сертификаты. Специализированные интенсивы.</p>
+  <div class="s-pill" data-i18n="exam.pill">🎯 EXAM PREP · 100% PASS RATE</div>
+  <h2 class="s-title" data-i18n="exam.title">Подготовка к <em>любому экзамену</em></h2>
+  <p class="s-sub" data-i18n="exam.sub">Государственные экзамены Польши, академические тесты для университета, корпоративные сертификаты. Специализированные интенсивы.</p>
 
   <div class="exam-grid">
     <div class="exam-card reveal">
@@ -411,9 +504,9 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 
 <!-- ─── FORMATS ─── -->
 <section class="section reveal">
-  <div class="s-pill">🎓 FORMATS</div>
-  <h2 class="s-title">Удобный формат <em>под ваш ритм</em></h2>
-  <p class="s-sub">Выбирайте: групповые занятия в Варшаве, индивидуально, онлайн или интенсив выходного дня.</p>
+  <div class="s-pill" data-i18n="fmt.pill">🎓 FORMATS</div>
+  <h2 class="s-title" data-i18n="fmt.title">Удобный формат <em>под ваш ритм</em></h2>
+  <p class="s-sub" data-i18n="fmt.sub">Выбирайте: групповые занятия в Варшаве, индивидуально, онлайн или интенсив выходного дня.</p>
 
   <div class="fmt-grid">
     <div class="fmt-card reveal">
@@ -441,9 +534,9 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 
 <!-- ─── PRICING ─── -->
 <section class="section reveal">
-  <div class="s-pill">💰 PRICING</div>
-  <h2 class="s-title">Прозрачные <em>цены</em>, без скрытого</h2>
-  <p class="s-sub">Все материалы, доступ к платформе, домашки с проверкой, чат поддержки и пробный экзамен — включено.</p>
+  <div class="s-pill" data-i18n="pr.pill">💰 PRICING</div>
+  <h2 class="s-title" data-i18n="pr.title">Прозрачные <em>цены</em>, без скрытого</h2>
+  <p class="s-sub" data-i18n="pr.sub">Все материалы, доступ к платформе, домашки с проверкой, чат поддержки и пробный экзамен — включено.</p>
 
   <div class="pr-grid">
     <div class="pr-card reveal">
@@ -491,32 +584,32 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 <!-- ─── CTA ─── -->
 <section class="section reveal" id="cta">
   <div class="cta-section">
-    <div class="s-pill">🎁 БЕСПЛАТНО</div>
-    <h2 class="s-title">Запишитесь на <em>пробный урок</em></h2>
-    <p class="s-sub" style="margin-left:auto;margin-right:auto;">30 минут с преподавателем. Определим ваш уровень, обсудим цели и подберём программу. Без обязательств.</p>
+    <div class="s-pill" data-i18n="cta.pill">🎁 БЕСПЛАТНО</div>
+    <h2 class="s-title" data-i18n="cta.title">Запишитесь на <em>пробный урок</em></h2>
+    <p class="s-sub" style="margin-left:auto;margin-right:auto;" data-i18n="cta.sub">30 минут с преподавателем. Определим ваш уровень, обсудим цели и подберём программу. Без обязательств.</p>
 
     <form class="cta-form" onsubmit="event.preventDefault();submitPolish();" novalidate>
-      <input id="pl-name" placeholder="Ваше имя" autocomplete="name" required/>
-      <input id="pl-phone" type="tel" placeholder="+48 600 123 456 (WhatsApp)" autocomplete="tel" required/>
+      <input id="pl-name" placeholder="Ваше имя" data-i18n-ph="cta.name" autocomplete="name" required/>
+      <input id="pl-phone" type="tel" placeholder="+48 600 123 456 (WhatsApp)" data-i18n-ph="cta.phone" autocomplete="tel" required/>
       <select id="pl-goal">
-        <option value="">Цель обучения...</option>
-        <option value="B1 для karta pobytu">B1 — Karta Pobytu</option>
-        <option value="B2 для гражданства">B2 — Гражданство</option>
-        <option value="C1 для университета">C1 — Университет</option>
-        <option value="С нуля">С нуля</option>
-        <option value="Профессиональный">Профессиональный (работа)</option>
-        <option value="Просто для жизни">Просто для жизни</option>
+        <option value="" data-i18n="goal.placeholder">Цель обучения...</option>
+        <option value="B1 для karta pobytu" data-i18n="goal.b1">B1 — Karta Pobytu</option>
+        <option value="B2 для гражданства" data-i18n="goal.b2">B2 — Гражданство</option>
+        <option value="C1 для университета" data-i18n="goal.c1">C1 — Университет</option>
+        <option value="С нуля" data-i18n="goal.beginner">С нуля</option>
+        <option value="Профессиональный" data-i18n="goal.pro">Профессиональный (работа)</option>
+        <option value="Просто для жизни" data-i18n="goal.life">Просто для жизни</option>
       </select>
-      <button type="submit">Записаться →</button>
+      <button type="submit" data-i18n="cta.submit">Записаться →</button>
     </form>
-    <div class="cta-fine">Без спама · Конфиденциально · Ответ за 15 минут</div>
+    <div class="cta-fine" data-i18n="cta.fine">Без спама · Конфиденциально · Ответ за 15 минут</div>
   </div>
 </section>
 
 <!-- ─── FAQ ─── -->
 <section class="section reveal">
-  <div class="s-pill">❓ FAQ</div>
-  <h2 class="s-title">Частые <em>вопросы</em></h2>
+  <div class="s-pill" data-i18n="faq.pill">❓ FAQ</div>
+  <h2 class="s-title" data-i18n="faq.title">Частые <em>вопросы</em></h2>
 
   <div class="faq-list">
     <details class="faq" open>
@@ -557,7 +650,278 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 <div class="toast" id="toast"></div>
 
 <script>
-// Reveal on scroll
+// ════════════════════════════════════════════════════════════════
+// i18n — 8 languages (RU/EN/PL/UK/HI/ES/TR/AZ)
+// ════════════════════════════════════════════════════════════════
+var T={
+  ru:{
+    'nav.back':'← Главный сайт','nav.cta':'Записаться на пробный →',
+    'hero.pill':'🇵🇱 Польский для иностранцев · все уровни A1–C2',
+    'hero.title':'Польский — <em>быстро, для экзамена,</em> со 100% результатом',
+    'hero.sub':'От нуля до B2 за 6 месяцев. Подготовка к экзаменам Karta Pobytu (B1), гражданство (B2), университет (C1). Преподаватели — носители + методисты с 10+ летним опытом.',
+    'hero.s1':'студентов','hero.s2':'сдают с 1-го раза','hero.s3':'до B1 в среднем','hero.s4':'лет опыта',
+    'hero.cta1':'📝 Бесплатный пробный урок','hero.cta2':'📊 Узнать свой уровень',
+    'lvl.pill':'📊 Уровни','lvl.title':'От нуля до <em>академического</em> польского',
+    'lvl.sub':'CEFR-сертифицированная программа. Каждый уровень — 60-80 часов, 4-6 месяцев в зависимости от темпа.',
+    'exam.pill':'🎯 Подготовка к экзаменам · 100% сдача',
+    'exam.title':'Подготовка к <em>любому экзамену</em>',
+    'exam.sub':'Государственные экзамены Польши, академические тесты для университета, корпоративные сертификаты. Специализированные интенсивы.',
+    'fmt.pill':'🎓 Форматы','fmt.title':'Удобный формат <em>под ваш ритм</em>',
+    'fmt.sub':'Выбирайте: групповые занятия в Варшаве, индивидуально, онлайн или интенсив выходного дня.',
+    'pr.pill':'💰 Цены','pr.title':'Прозрачные <em>цены</em>, без скрытого',
+    'pr.sub':'Все материалы, доступ к платформе, домашки с проверкой, чат поддержки и пробный экзамен — включено.',
+    'cta.pill':'🎁 Бесплатно','cta.title':'Запишитесь на <em>пробный урок</em>',
+    'cta.sub':'30 минут с преподавателем. Определим ваш уровень, обсудим цели и подберём программу. Без обязательств.',
+    'cta.name':'Ваше имя','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Цель обучения...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Гражданство','goal.c1':'C1 — Университет','goal.beginner':'С нуля','goal.pro':'Профессиональный (работа)','goal.life':'Просто для жизни',
+    'cta.submit':'Записаться →','cta.fine':'Без спама · Конфиденциально · Ответ за 15 минут',
+    'faq.pill':'❓ Частые вопросы','faq.title':'Частые <em>вопросы</em>',
+    'toast.ok':'✅ Заявка принята! Свяжемся в WhatsApp в течение 15 минут.'
+  },
+  en:{
+    'nav.back':'← Main site','nav.cta':'Book a trial lesson →',
+    'hero.pill':'🇵🇱 Polish for foreigners · all levels A1–C2',
+    'hero.title':'Polish — <em>fast, exam-ready,</em> with 100% results',
+    'hero.sub':'From zero to B2 in 6 months. Exam prep for Karta Pobytu (B1), citizenship (B2), university (C1). Native-speaker teachers with 10+ years of experience.',
+    'hero.s1':'students','hero.s2':'pass 1st try','hero.s3':'to B1 avg','hero.s4':'years experience',
+    'hero.cta1':'📝 Free trial lesson','hero.cta2':'📊 Check my level',
+    'lvl.pill':'📊 Levels','lvl.title':'From zero to <em>academic</em> Polish',
+    'lvl.sub':'CEFR-certified program. Each level — 60-80 hours, 4-6 months depending on pace.',
+    'exam.pill':'🎯 Exam prep · 100% pass rate',
+    'exam.title':'Prep for <em>any exam</em>',
+    'exam.sub':'Polish state exams, university admission tests, corporate certifications. Specialized intensives.',
+    'fmt.pill':'🎓 Formats','fmt.title':'Format <em>for your pace</em>',
+    'fmt.sub':'Choose: group classes in Warsaw, 1-on-1, online or weekend intensive.',
+    'pr.pill':'💰 Pricing','pr.title':'Transparent <em>prices</em>, nothing hidden',
+    'pr.sub':'All materials, platform access, graded homework, support chat and mock exam — included.',
+    'cta.pill':'🎁 Free','cta.title':'Book a <em>free trial lesson</em>',
+    'cta.sub':'30 min with a teacher. We assess your level, discuss goals and choose a program. No obligations.',
+    'cta.name':'Your name','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Your goal...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Citizenship','goal.c1':'C1 — University','goal.beginner':'Beginner (from zero)','goal.pro':'Professional (work)','goal.life':'Daily life',
+    'cta.submit':'Book →','cta.fine':'No spam · Confidential · Reply in 15 minutes',
+    'faq.pill':'❓ FAQ','faq.title':'Frequently <em>asked</em>',
+    'toast.ok':"✅ Booked! We'll reach out on WhatsApp within 15 minutes."
+  },
+  hi:{
+    'nav.back':'← मुख्य साइट','nav.cta':'ट्रायल बुक करें →',
+    'hero.pill':'🇵🇱 विदेशियों के लिए पोलिश · सभी स्तर A1–C2',
+    'hero.title':'पोलिश — <em>तेज़, परीक्षा के लिए,</em> 100% परिणाम',
+    'hero.sub':'शून्य से B2 तक 6 महीनों में। Karta Pobytu (B1), नागरिकता (B2), विश्वविद्यालय (C1) के लिए परीक्षा तैयारी। 10+ साल के अनुभव वाले पोलिश शिक्षक।',
+    'hero.s1':'छात्र','hero.s2':'पहली बार में पास','hero.s3':'B1 तक औसत','hero.s4':'साल अनुभव',
+    'hero.cta1':'📝 मुफ्त ट्रायल पाठ','hero.cta2':'📊 अपना स्तर जानें',
+    'lvl.pill':'📊 स्तर','lvl.title':'शून्य से <em>शैक्षणिक</em> पोलिश तक',
+    'lvl.sub':'CEFR-प्रमाणित कार्यक्रम। प्रत्येक स्तर — 60-80 घंटे, गति के आधार पर 4-6 महीने।',
+    'exam.pill':'🎯 परीक्षा तैयारी · 100% पास दर',
+    'exam.title':'किसी भी <em>परीक्षा</em> की तैयारी',
+    'exam.sub':'पोलिश राज्य परीक्षाएँ, विश्वविद्यालय प्रवेश परीक्षाएँ, कॉर्पोरेट प्रमाणन। विशेष इंटेन्सिव।',
+    'fmt.pill':'🎓 प्रारूप','fmt.title':'आपकी गति के <em>लिए</em>',
+    'fmt.sub':'चुनें: वारसॉ में समूह कक्षाएँ, व्यक्तिगत 1-on-1, ऑनलाइन या वीकेंड इंटेन्सिव।',
+    'pr.pill':'💰 कीमत','pr.title':'पारदर्शी <em>कीमतें</em>, कुछ छिपा नहीं',
+    'pr.sub':'सभी सामग्री, प्लेटफ़ॉर्म एक्सेस, गृहकार्य जांच, सहायता चैट और मॉक परीक्षा — शामिल।',
+    'cta.pill':'🎁 मुफ्त','cta.title':'<em>मुफ्त ट्रायल पाठ</em> बुक करें',
+    'cta.sub':'30 मिनट शिक्षक के साथ। हम आपके स्तर का आकलन करेंगे, लक्ष्यों पर चर्चा करेंगे और कार्यक्रम चुनेंगे। कोई दायित्व नहीं।',
+    'cta.name':'आपका नाम','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'आपका लक्ष्य...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — नागरिकता','goal.c1':'C1 — विश्वविद्यालय','goal.beginner':'शुरुआती (शून्य से)','goal.pro':'पेशेवर (काम)','goal.life':'दैनिक जीवन',
+    'cta.submit':'बुक करें →','cta.fine':'कोई स्पैम नहीं · गोपनीय · 15 मिनट में जवाब',
+    'faq.pill':'❓ अक्सर पूछे जाने वाले','faq.title':'अक्सर <em>पूछे जाने वाले</em>',
+    'toast.ok':'✅ बुकिंग पुष्ट! हम 15 मिनट में WhatsApp पर संपर्क करेंगे।'
+  },
+  pl:{
+    'nav.back':'← Strona główna','nav.cta':'Zarezerwuj próbną →',
+    'hero.pill':'🇵🇱 Polski dla obcokrajowców · wszystkie poziomy A1–C2',
+    'hero.title':'Polski — <em>szybko, na egzamin,</em> z gwarancją wyniku',
+    'hero.sub':'Od zera do B2 w 6 miesięcy. Przygotowanie do egzaminów Karta Pobytu (B1), obywatelstwo (B2), uniwersytet (C1). Nauczyciele — Polacy z 10+ letnim doświadczeniem.',
+    'hero.s1':'studentów','hero.s2':'zdaje za 1. razem','hero.s3':'do B1 średnio','hero.s4':'lat doświadczenia',
+    'hero.cta1':'📝 Bezpłatna lekcja próbna','hero.cta2':'📊 Sprawdź swój poziom',
+    'lvl.pill':'📊 Poziomy','lvl.title':'Od zera do <em>akademickiego</em> polskiego',
+    'lvl.sub':'Program zgodny z CEFR. Każdy poziom — 60-80 godzin, 4-6 miesięcy w zależności od tempa.',
+    'exam.pill':'🎯 Przygotowanie · 100% zdawalność',
+    'exam.title':'Przygotowanie do <em>każdego egzaminu</em>',
+    'exam.sub':'Polskie egzaminy państwowe, testy uniwersyteckie, certyfikaty korporacyjne. Wyspecjalizowane intensywy.',
+    'fmt.pill':'🎓 Formaty','fmt.title':'Format <em>w twoim rytmie</em>',
+    'fmt.sub':'Wybierz: zajęcia grupowe w Warszawie, indywidualnie, online lub weekendowy intensywny.',
+    'pr.pill':'💰 Cennik','pr.title':'Przejrzyste <em>ceny</em>, bez ukrytych',
+    'pr.sub':'Wszystkie materiały, dostęp do platformy, sprawdzane prace domowe, czat wsparcia i próbny egzamin — w cenie.',
+    'cta.pill':'🎁 Bezpłatnie','cta.title':'Zarezerwuj <em>lekcję próbną</em>',
+    'cta.sub':'30 min z nauczycielem. Oceniamy poziom, omawiamy cele i dobieramy program. Bez zobowiązań.',
+    'cta.name':'Twoje imię','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Twój cel...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Obywatelstwo','goal.c1':'C1 — Uniwersytet','goal.beginner':'Początkujący (od zera)','goal.pro':'Zawodowy (praca)','goal.life':'Codzienne życie',
+    'cta.submit':'Zarezerwuj →','cta.fine':'Bez spamu · Poufnie · Odpowiedź w 15 minut',
+    'faq.pill':'❓ FAQ','faq.title':'Najczęściej <em>zadawane</em>',
+    'toast.ok':'✅ Zarezerwowano! Skontaktujemy się na WhatsApp w ciągu 15 minut.'
+  },
+  uk:{
+    'nav.back':'← Головна сайту','nav.cta':'Записатися на пробний →',
+    'hero.pill':'🇵🇱 Польська для іноземців · всі рівні A1–C2',
+    'hero.title':'Польська — <em>швидко, для іспиту,</em> зі 100% результатом',
+    'hero.sub':'Від нуля до B2 за 6 місяців. Підготовка до Karta Pobytu (B1), громадянство (B2), університет (C1). Викладачі — поляки з 10+ роками досвіду.',
+    'hero.s1':'студентів','hero.s2':'складають з 1 разу','hero.s3':'до B1 у середньому','hero.s4':'років досвіду',
+    'hero.cta1':'📝 Безкоштовний пробний урок','hero.cta2':'📊 Дізнатися свій рівень',
+    'lvl.pill':'📊 Рівні','lvl.title':'Від нуля до <em>академічної</em> польської',
+    'lvl.sub':'CEFR-сертифікована програма. Кожен рівень — 60-80 годин, 4-6 місяців залежно від темпу.',
+    'exam.pill':'🎯 Підготовка · 100% складання',
+    'exam.title':'Підготовка до <em>будь-якого іспиту</em>',
+    'exam.sub':'Польські держіспити, університетські тести, корпоративні сертифікати. Спеціалізовані інтенсиви.',
+    'fmt.pill':'🎓 Формати','fmt.title':'Зручний формат <em>під ваш ритм</em>',
+    'fmt.sub':'Обирайте: групи у Варшаві, індивідуально, онлайн або інтенсив вихідного дня.',
+    'pr.pill':'💰 Ціни','pr.title':'Прозорі <em>ціни</em>, без прихованих',
+    'pr.sub':'Усі матеріали, доступ до платформи, домашки з перевіркою, чат підтримки та пробний іспит — включено.',
+    'cta.pill':'🎁 Безкоштовно','cta.title':'Запишіться на <em>пробний урок</em>',
+    'cta.sub':'30 хвилин з викладачем. Визначимо рівень, обговоримо цілі та підберемо програму. Без зобов\'язань.',
+    'cta.name':'Ваше ім\'я','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Ціль навчання...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Громадянство','goal.c1':'C1 — Університет','goal.beginner':'З нуля','goal.pro':'Професійна (робота)','goal.life':'Для життя',
+    'cta.submit':'Записатися →','cta.fine':'Без спаму · Конфіденційно · Відповідь за 15 хв',
+    'faq.pill':'❓ Часті питання','faq.title':'Часті <em>запитання</em>',
+    'toast.ok':'✅ Заявку прийнято! Зв\'яжемося у WhatsApp протягом 15 хвилин.'
+  },
+  es:{
+    'nav.back':'← Sitio principal','nav.cta':'Reservar clase de prueba →',
+    'hero.pill':'🇵🇱 Polaco para extranjeros · todos los niveles A1–C2',
+    'hero.title':'Polaco — <em>rápido, para examen,</em> con 100% de resultados',
+    'hero.sub':'De cero a B2 en 6 meses. Preparación para Karta Pobytu (B1), ciudadanía (B2), universidad (C1). Profesores polacos con 10+ años de experiencia.',
+    'hero.s1':'estudiantes','hero.s2':'aprueban a la 1.ª','hero.s3':'hasta B1 media','hero.s4':'años de experiencia',
+    'hero.cta1':'📝 Clase de prueba gratis','hero.cta2':'📊 Conocer mi nivel',
+    'lvl.pill':'📊 Niveles','lvl.title':'De cero al polaco <em>académico</em>',
+    'lvl.sub':'Programa certificado CEFR. Cada nivel — 60-80 horas, 4-6 meses según el ritmo.',
+    'exam.pill':'🎯 Preparación · 100% aprobación',
+    'exam.title':'Preparación para <em>cualquier examen</em>',
+    'exam.sub':'Exámenes estatales polacos, pruebas universitarias, certificaciones corporativas. Intensivos especializados.',
+    'fmt.pill':'🎓 Formatos','fmt.title':'Formato <em>a tu ritmo</em>',
+    'fmt.sub':'Elige: clases en grupo en Varsovia, individuales, online o intensivo de fin de semana.',
+    'pr.pill':'💰 Precios','pr.title':'Precios <em>transparentes</em>, sin ocultos',
+    'pr.sub':'Todos los materiales, acceso a la plataforma, deberes corregidos, chat de soporte y examen simulacro — incluidos.',
+    'cta.pill':'🎁 Gratis','cta.title':'Reserva una <em>clase de prueba</em>',
+    'cta.sub':'30 min con un profesor. Evaluamos tu nivel, discutimos objetivos y elegimos programa. Sin compromiso.',
+    'cta.name':'Tu nombre','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Tu objetivo...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Ciudadanía','goal.c1':'C1 — Universidad','goal.beginner':'Principiante (desde cero)','goal.pro':'Profesional (trabajo)','goal.life':'Vida cotidiana',
+    'cta.submit':'Reservar →','cta.fine':'Sin spam · Confidencial · Respuesta en 15 minutos',
+    'faq.pill':'❓ Preguntas frecuentes','faq.title':'Preguntas <em>frecuentes</em>',
+    'toast.ok':'✅ ¡Reserva confirmada! Te contactaremos por WhatsApp en 15 minutos.'
+  },
+  tr:{
+    'nav.back':'← Ana site','nav.cta':'Deneme dersi rezerve et →',
+    'hero.pill':'🇵🇱 Yabancılar için Lehçe · tüm seviyeler A1–C2',
+    'hero.title':'Lehçe — <em>hızlı, sınava hazır,</em> %100 sonuç',
+    'hero.sub':'Sıfırdan B2\'ye 6 ayda. Karta Pobytu (B1), vatandaşlık (B2), üniversite (C1) sınav hazırlığı. Polonyalı öğretmenler, 10+ yıl deneyim.',
+    'hero.s1':'öğrenci','hero.s2':'ilk denemede geçer','hero.s3':'B1\'e ortalama','hero.s4':'yıl deneyim',
+    'hero.cta1':'📝 Ücretsiz deneme dersi','hero.cta2':'📊 Seviyemi öğren',
+    'lvl.pill':'📊 Seviyeler','lvl.title':'Sıfırdan <em>akademik</em> Lehçeye',
+    'lvl.sub':'CEFR sertifikalı program. Her seviye — 60-80 saat, ritme göre 4-6 ay.',
+    'exam.pill':'🎯 Sınav hazırlığı · %100 geçme',
+    'exam.title':'<em>Her sınava</em> hazırlık',
+    'exam.sub':'Polonya devlet sınavları, üniversite testleri, kurumsal sertifikalar. Özel yoğun programlar.',
+    'fmt.pill':'🎓 Formatlar','fmt.title':'Sizin <em>ritminize</em> uygun',
+    'fmt.sub':'Seçin: Varşova\'da grup dersleri, birebir, online veya hafta sonu yoğun.',
+    'pr.pill':'💰 Fiyatlar','pr.title':'Şeffaf <em>fiyatlar</em>, gizli yok',
+    'pr.sub':'Tüm materyaller, platform erişimi, kontrol edilen ödevler, destek sohbeti ve deneme sınavı — dahil.',
+    'cta.pill':'🎁 Ücretsiz','cta.title':'<em>Deneme dersi</em> rezerve edin',
+    'cta.sub':'30 dakika öğretmenle. Seviyenizi belirler, hedefleri tartışır ve program seçeriz. Yükümlülük yok.',
+    'cta.name':'Adınız','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Hedefiniz...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Vatandaşlık','goal.c1':'C1 — Üniversite','goal.beginner':'Başlangıç (sıfırdan)','goal.pro':'Profesyonel (iş)','goal.life':'Günlük yaşam',
+    'cta.submit':'Rezerve et →','cta.fine':'Spam yok · Gizli · 15 dakika içinde yanıt',
+    'faq.pill':'❓ Sık sorulan','faq.title':'Sık <em>sorulan sorular</em>',
+    'toast.ok':'✅ Rezervasyon alındı! 15 dakika içinde WhatsApp\'tan ulaşacağız.'
+  },
+  az:{
+    'nav.back':'← Əsas sayt','nav.cta':'Sınaq dərs sifariş et →',
+    'hero.pill':'🇵🇱 Əcnəbilər üçün Polşa dili · bütün səviyyələr A1–C2',
+    'hero.title':'Polşa dili — <em>tez, imtahana,</em> 100% nəticə',
+    'hero.sub':'Sıfırdan B2-yə 6 ayda. Karta Pobytu (B1), vətəndaşlıq (B2), universitet (C1) imtahanlarına hazırlıq. Polşalı müəllimlər, 10+ il təcrübə.',
+    'hero.s1':'tələbə','hero.s2':'ilk dəfədə keçir','hero.s3':'B1-ə orta hesabla','hero.s4':'il təcrübə',
+    'hero.cta1':'📝 Pulsuz sınaq dərsi','hero.cta2':'📊 Səviyyəmi öyrən',
+    'lvl.pill':'📊 Səviyyələr','lvl.title':'Sıfırdan <em>akademik</em> Polşa dilinə',
+    'lvl.sub':'CEFR-sertifikatlı proqram. Hər səviyyə — 60-80 saat, sürətə görə 4-6 ay.',
+    'exam.pill':'🎯 İmtahan hazırlığı · 100% keçmə',
+    'exam.title':'<em>İstənilən imtahana</em> hazırlıq',
+    'exam.sub':'Polşa dövlət imtahanları, universitet testləri, korporativ sertifikatlar. İxtisaslaşmış intensivlər.',
+    'fmt.pill':'🎓 Formatlar','fmt.title':'Sizin <em>tempinizə</em> uyğun',
+    'fmt.sub':'Seçin: Varşavada qrup dərsləri, fərdi, onlayn və ya həftəsonu intensiv.',
+    'pr.pill':'💰 Qiymətlər','pr.title':'Şəffaf <em>qiymətlər</em>, gizli yox',
+    'pr.sub':'Bütün materiallar, platforma girişi, yoxlanılan ev tapşırıqları, dəstək çatı və sınaq imtahanı — daxildir.',
+    'cta.pill':'🎁 Pulsuz','cta.title':'<em>Sınaq dərsi</em> sifariş edin',
+    'cta.sub':'Müəllimlə 30 dəqiqə. Səviyyənizi qiymətləndirir, məqsədləri müzakirə edir və proqram seçirik. Öhdəlik yox.',
+    'cta.name':'Adınız','cta.phone':'+48 600 123 456 (WhatsApp)',
+    'goal.placeholder':'Məqsədiniz...','goal.b1':'B1 — Karta Pobytu','goal.b2':'B2 — Vətəndaşlıq','goal.c1':'C1 — Universitet','goal.beginner':'Başlanğıc (sıfırdan)','goal.pro':'Peşəkar (iş)','goal.life':'Gündəlik həyat',
+    'cta.submit':'Sifariş et →','cta.fine':'Spam yox · Məxfi · 15 dəqiqədə cavab',
+    'faq.pill':'❓ Tez-tez verilən','faq.title':'Tez-tez <em>verilən suallar</em>',
+    'toast.ok':'✅ Sifariş qəbul edildi! 15 dəqiqə ərzində WhatsApp-da əlaqə saxlayacağıq.'
+  }
+};
+
+var FLAGS={
+  ru:'<svg width="18" height="13" viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#fff"/><rect width="9" height="2" y="2" fill="#0039A6"/><rect width="9" height="2" y="4" fill="#D52B1E"/></svg>',
+  en:'<svg width="18" height="13" viewBox="0 0 60 30"><clipPath id="bf2"><rect width="60" height="30"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" clip-path="url(#bf2)"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#bf2)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>',
+  pl:'<svg width="18" height="13" viewBox="0 0 8 5"><rect width="8" height="2.5" y="0" fill="#fff"/><rect width="8" height="2.5" y="2.5" fill="#DC143C"/></svg>',
+  uk:'<svg width="18" height="13" viewBox="0 0 8 5"><rect width="8" height="2.5" y="0" fill="#0057B7"/><rect width="8" height="2.5" y="2.5" fill="#FFD700"/></svg>',
+  hi:'<svg width="18" height="13" viewBox="0 0 18 12"><rect width="18" height="4" y="0" fill="#FF9933"/><rect width="18" height="4" y="4" fill="#fff"/><rect width="18" height="4" y="8" fill="#138808"/><circle cx="9" cy="6" r="1.5" fill="#000080"/></svg>',
+  es:'<svg width="18" height="13" viewBox="0 0 30 20"><rect width="30" height="20" fill="#AA151B"/><rect width="30" height="10" y="5" fill="#F1BF00"/></svg>',
+  tr:'<svg width="18" height="13" viewBox="0 0 30 20"><rect width="30" height="20" fill="#E30A17"/><circle cx="11" cy="10" r="5" fill="#fff"/><circle cx="12.5" cy="10" r="4" fill="#E30A17"/></svg>',
+  az:'<svg width="18" height="13" viewBox="0 0 30 20"><rect width="30" height="6.67" y="0" fill="#3F9C35"/><rect width="30" height="6.67" y="6.67" fill="#ED2939"/><rect width="30" height="6.67" y="13.34" fill="#00B5E2"/></svg>'
+};
+var LANG_NAMES={ru:'Русский',en:'English',pl:'Polski',uk:'Українська',hi:'हिन्दी',es:'Español',tr:'Türkçe',az:'Azərbaycan'};
+var L='ru'; // default
+
+function setLangPolish(lang){
+  if(!T[lang])lang='ru';
+  L=lang;
+  try{localStorage.setItem('ls-lang',lang);}catch(e){}
+  document.documentElement.lang=lang;
+  // Apply text
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(T[lang][k])el.innerHTML=T[lang][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-ph');
+    if(T[lang][k])el.placeholder=T[lang][k];
+  });
+  // Update trigger
+  var trigCode=document.getElementById('lang-dd-cur');
+  if(trigCode)trigCode.textContent=lang.toUpperCase();
+  var trigFlag=document.getElementById('lang-dd-flag');
+  if(trigFlag)trigFlag.innerHTML=FLAGS[lang]||'';
+  // Update panel active state
+  document.querySelectorAll('.ldp-btn').forEach(function(b){
+    b.classList.toggle('active',b.getAttribute('data-lang')===lang);
+  });
+  // Update RTL-related (none for our supported langs)
+}
+
+function _renderLangPanel(){
+  var panel=document.getElementById('lang-dd-panel');
+  if(!panel)return;
+  var order=['ru','en','pl','uk','hi','es','tr','az'];
+  panel.innerHTML='';
+  order.forEach(function(lang){
+    var btn=document.createElement('button');
+    btn.className='ldp-btn'+(lang===L?' active':'');
+    btn.setAttribute('data-lang',lang);
+    btn.onclick=function(e){e.stopPropagation();setLangPolish(lang);document.getElementById('lang-dd').classList.remove('open');};
+    btn.innerHTML=FLAGS[lang]+'<span class="ldp-code">'+lang.toUpperCase()+'</span><span class="ldp-name">'+LANG_NAMES[lang]+'</span>';
+    panel.appendChild(btn);
+  });
+}
+
+// Init lang on load: query param > localStorage > browser > 'ru'
+(function _initLang(){
+  var urlLang=null;
+  try{var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);if(m&&T[m[1].toLowerCase()])urlLang=m[1].toLowerCase();}catch(e){}
+  var saved=null;try{saved=localStorage.getItem('ls-lang');}catch(e){}
+  var browser=(navigator.language||'').slice(0,2).toLowerCase();
+  var lang=urlLang||(T[saved]?saved:null)||(T[browser]?browser:null)||'ru';
+  _renderLangPanel();
+  setLangPolish(lang);
+})();
+
+// Close lang panel on outside click
+document.addEventListener('click',function(e){
+  var dd=document.getElementById('lang-dd');
+  if(dd&&!dd.contains(e.target))dd.classList.remove('open');
+});
+
+// ════════════════════════════════════════════════════════════════
+// Reveal on scroll + extra animations
+// ════════════════════════════════════════════════════════════════
 (function(){
   if(!('IntersectionObserver' in window)){
     document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('on');});
@@ -574,6 +938,65 @@ window.addEventListener('scroll',function(){
   document.getElementById('header').classList.toggle('scrolled',window.scrollY>40);
 });
 
+// Counter animation for hero stats (count-up on scroll into view)
+(function(){
+  var stats=document.querySelectorAll('.hs-num');
+  if(!stats.length||!('IntersectionObserver' in window))return;
+  function animateCount(el){
+    var raw=el.textContent.trim();
+    var m=raw.match(/^([\d,]+\.?\d*)(.*)$/);
+    if(!m)return;
+    var num=parseFloat(m[1].replace(/,/g,''));
+    if(isNaN(num)||num<=0)return;
+    var suffix=m[2];
+    var dur=1400, start=performance.now();
+    function step(now){
+      var p=Math.min(1,(now-start)/dur);
+      var eased=1-Math.pow(1-p,3);
+      var val=Math.floor(num*eased);
+      el.textContent=val+suffix;
+      if(p<1)requestAnimationFrame(step);
+      else el.textContent=Math.floor(num)+suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var iio=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){animateCount(e.target);iio.unobserve(e.target);}});
+  },{threshold:.5});
+  stats.forEach(function(el){iio.observe(el);});
+})();
+
+// Mouse-tracked spotlight on cards + add speed lines + click ripple
+(function(){
+  var cards=document.querySelectorAll('.lv-card, .exam-card, .fmt-card, .pr-card');
+  cards.forEach(function(c){
+    // Add speed lines for level cards
+    if(c.classList.contains('lv-card')){
+      var sl1=document.createElement('div');sl1.className='speed-line sl-1';c.appendChild(sl1);
+      var sl2=document.createElement('div');sl2.className='speed-line sl-2';c.appendChild(sl2);
+    }
+    // Add animated glow border for exam + pricing
+    if(c.classList.contains('exam-card')||c.classList.contains('pr-card')){
+      var gb=document.createElement('div');gb.className='glow-border';c.insertBefore(gb,c.firstChild);
+    }
+    // Mouse spotlight
+    c.addEventListener('mousemove',function(e){
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    });
+    // Click ripple
+    c.addEventListener('mousedown',function(e){
+      var r=c.getBoundingClientRect();
+      var rp=document.createElement('span');rp.className='ripple';
+      rp.style.left=(e.clientX-r.left)+'px';
+      rp.style.top=(e.clientY-r.top)+'px';
+      c.appendChild(rp);
+      setTimeout(function(){rp.remove();},700);
+    });
+  });
+})();
+
 // Lead form submit
 function submitPolish(){
   var name=(document.getElementById('pl-name')||{}).value||'';
@@ -585,7 +1008,6 @@ function submitPolish(){
   if(phone.replace(/\D/g,'').length<6){
     var p=document.getElementById('pl-phone');if(p){p.style.borderColor='#ef4444';p.focus();setTimeout(function(){p.style.borderColor='';},2000);}return;
   }
-  // POST to existing Apps Script (same as main site)
   var payload={
     name:name.trim(),
     phone:phone.trim(),
@@ -593,7 +1015,7 @@ function submitPolish(){
     message:'Цель: '+(goal||'не указана'),
     source:'polish-landing',
     page:'/polish',
-    lang:'ru',
+    lang:L,
     ts:new Date().toISOString()
   };
   try{
@@ -602,9 +1024,9 @@ function submitPolish(){
     }).catch(function(){});
   }catch(e){}
 
-  // Toast success
+  // Toast success — localized
   var toast=document.getElementById('toast');
-  toast.textContent='✅ Заявка принята! Свяжемся в WhatsApp в течение 15 минут.';
+  toast.textContent=(T[L]&&T[L]['toast.ok'])||'✅ Booked!';
   toast.classList.add('on');
   setTimeout(function(){toast.classList.remove('on');},5000);
 
@@ -614,9 +1036,21 @@ function submitPolish(){
   document.getElementById('pl-goal').value='';
 }
 
-// Microsoft Clarity (gated by simple cookie consent — accepted by default for now;
-// proper banner can be added later)
-(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","tn4tw11pri");
+// Microsoft Clarity (gated by cookie consent — only if accepted on main site)
+(function(){
+  function shouldLoad(){
+    try{var cc=localStorage.getItem('cc_cookie')||localStorage.getItem('cc-cookie')||'';
+      if(cc.indexOf('analytics')!==-1||cc.indexOf('all')!==-1||cc.indexOf('accepted')!==-1)return true;
+      if(localStorage.getItem('clarity_consent')==='1')return true;
+    }catch(e){}return false;
+  }
+  function init(){
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","tn4tw11pri");
+  }
+  if(shouldLoad()){init();return;}
+  setTimeout(function(){if(shouldLoad())init();},2000);
+  window.addEventListener('storage',function(e){if(e.key&&e.key.indexOf('cc')===0&&shouldLoad())init();});
+})();
 </script>
 
 </body>
