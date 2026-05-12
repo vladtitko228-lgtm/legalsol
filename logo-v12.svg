@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V12 · Person silhouette vs Document — weighing humanity & paperwork -->
+  <defs>
+    <linearGradient id="v12p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B8B2F5"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect x="28" y="68" width="24" height="4" rx="1" fill="#3D3585"/>
+  <rect x="32" y="64" width="16" height="4" rx="1" fill="#5B52CC"/>
+  <rect x="38" y="22" width="4" height="42" fill="#B8B2F5"/>
+  <circle cx="40" cy="22" r="3.5" fill="#fde047"/>
+
+  <g style="transform-origin:40px 24px;animation:v12tilt 5s ease-in-out infinite;">
+    <rect x="8" y="22" width="64" height="3" rx="1.5" fill="#fde047"/>
+
+    <!-- Left: person silhouette (head + torso) -->
+    <line x1="16" y1="25" x2="16" y2="30" stroke="#facc15" stroke-width="1.1"/>
+    <g style="transform-origin:16px 42px;">
+      <!-- Pan -->
+      <ellipse cx="16" cy="50" rx="10" ry="1.7" fill="#fde047"/>
+      <!-- Head -->
+      <circle cx="16" cy="36" r="3.5" fill="url(#v12p)"/>
+      <!-- Torso -->
+      <path d="M 10 50 Q 10 41 16 41 Q 22 41 22 50 Z" fill="url(#v12p)"/>
+    </g>
+
+    <!-- Right: document (stamped) -->
+    <line x1="64" y1="25" x2="64" y2="30" stroke="#facc15" stroke-width="1.1"/>
+    <g style="transform-origin:64px 42px;">
+      <ellipse cx="64" cy="50" rx="10" ry="1.7" fill="#fde047"/>
+      <rect x="57" y="33" width="14" height="16" rx="0.8" fill="#fff" stroke="#8B82E8" stroke-width="0.4"/>
+      <!-- Title bar -->
+      <rect x="58.5" y="34.5" width="11" height="1.5" rx="0.4" fill="#5B52CC"/>
+      <!-- Lines -->
+      <line x1="58.5" y1="38" x2="69.5" y2="38" stroke="#8B82E8" stroke-width="0.4"/>
+      <line x1="58.5" y1="40" x2="69.5" y2="40" stroke="#8B82E8" stroke-width="0.4"/>
+      <line x1="58.5" y1="42" x2="67" y2="42" stroke="#8B82E8" stroke-width="0.4"/>
+      <!-- Stamp circle (red traditional but tinted brand) -->
+      <circle cx="65.5" cy="45.5" r="2.8" fill="none" stroke="#22d3ee" stroke-width="0.7" opacity="0.9"/>
+      <path d="M 64 45.5 L 65 47 L 67 44" fill="none" stroke="#22d3ee" stroke-width="1" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <style>
+    @keyframes v12tilt { 0%,100% { transform: rotate(0deg); } 35% { transform: rotate(2deg); } 65% { transform: rotate(-2deg); } }
+  </style>
+</svg>

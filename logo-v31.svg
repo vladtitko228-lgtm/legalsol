@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V31 · Libra zodiac at BOTTOM, name space above — banner-style -->
+  <defs>
+    <linearGradient id="v31g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#fde047"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Big breathing dot above (could be the pivot or "balance point") -->
+  <circle cx="40" cy="20" r="6" fill="url(#v31g)" style="transform-origin:40px 20px;animation:v31breath 3s ease-in-out infinite;"/>
+
+  <!-- Libra zodiac symbol BELOW the dot -->
+  <g fill="none" stroke="url(#v31g)" stroke-width="4.5" stroke-linecap="round">
+    <path d="M 16 46 L 64 46"/>
+    <path d="M 26 60 Q 26 46 40 46 Q 54 46 54 60"/>
+    <path d="M 16 66 L 64 66"/>
+  </g>
+
+  <style>
+    @keyframes v31breath { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
+  </style>
+</svg>

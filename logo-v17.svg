@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V17 · Pill-shaped scales — everything pill/rounded -->
+  <defs>
+    <linearGradient id="v17g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Big rounded base pill -->
+  <rect x="18" y="62" width="44" height="12" rx="6" fill="url(#v17g)"/>
+
+  <!-- Soft stem (no flutes) -->
+  <rect x="36" y="22" width="8" height="40" rx="4" fill="url(#v17g)"/>
+
+  <!-- Top pivot (fat circle) -->
+  <circle cx="40" cy="22" r="6" fill="#fde047"/>
+
+  <!-- Beam — fat pill -->
+  <g style="transform-origin:40px 28px;animation:v17sway 4s ease-in-out infinite;">
+    <rect x="8" y="26" width="64" height="6" rx="3" fill="#fde047"/>
+
+    <!-- Left pan — rounded squircle -->
+    <g style="transform-origin:16px 44px;">
+      <rect x="6" y="38" width="20" height="14" rx="7" fill="url(#v17g)"/>
+    </g>
+
+    <!-- Right pan -->
+    <g style="transform-origin:64px 44px;">
+      <rect x="54" y="38" width="20" height="14" rx="7" fill="url(#v17g)"/>
+    </g>
+
+    <!-- Connectors (thick rounded lines) -->
+    <rect x="14.6" y="32" width="2.8" height="7" rx="1.4" fill="#fde047"/>
+    <rect x="62.6" y="32" width="2.8" height="7" rx="1.4" fill="#fde047"/>
+  </g>
+
+  <style>
+    @keyframes v17sway { 0%,100%{transform:rotate(0)} 30%{transform:rotate(2.5deg)} 70%{transform:rotate(-2.5deg)} }
+  </style>
+</svg>

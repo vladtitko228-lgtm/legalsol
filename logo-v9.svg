@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V9 · Scales weighing Karta Pobytu (left) vs Stamp (right) -->
+  <defs>
+    <linearGradient id="v9beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+    <linearGradient id="v9card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#0891b2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Stand -->
+  <rect x="28" y="68" width="24" height="4" rx="1" fill="#5B52CC"/>
+  <rect x="32" y="64" width="16" height="4" rx="1" fill="#8B82E8"/>
+  <rect x="38" y="22" width="4" height="42" fill="#B8B2F5"/>
+  <circle cx="40" cy="22" r="3.5" fill="#fde047" stroke="#facc15" stroke-width="0.5"/>
+
+  <!-- Beam group (tilts) -->
+  <g style="transform-origin:40px 24px;animation:v9tilt 4s ease-in-out infinite;">
+    <rect x="8" y="22" width="64" height="3" rx="1.5" fill="url(#v9beam)"/>
+
+    <!-- Left chain -->
+    <line x1="16" y1="25" x2="16" y2="36" stroke="#facc15" stroke-width="1.1"/>
+    <!-- KARTA POBYTU card (rounded rect, bluish, with stripes) -->
+    <g style="transform-origin:16px 42px;">
+      <rect x="6" y="36" width="20" height="13" rx="1.6" fill="url(#v9card)" stroke="#0891b2" stroke-width="0.5"/>
+      <!-- Photo box (small) -->
+      <rect x="8" y="38" width="5" height="6" rx="0.4" fill="#B8B2F5"/>
+      <!-- Text lines -->
+      <rect x="14" y="38.5" width="10" height="1.3" rx="0.4" fill="#fff" opacity="0.85"/>
+      <rect x="14" y="41" width="8" height="1" rx="0.3" fill="#fff" opacity="0.6"/>
+      <rect x="14" y="43" width="11" height="1" rx="0.3" fill="#fff" opacity="0.6"/>
+      <!-- EU stars hint (tiny dots top corner) -->
+      <circle cx="22.5" cy="38.5" r="0.5" fill="#fde047"/>
+      <circle cx="24" cy="39.4" r="0.5" fill="#fde047"/>
+      <circle cx="23.5" cy="40.7" r="0.5" fill="#fde047"/>
+    </g>
+
+    <!-- Right chain -->
+    <line x1="64" y1="25" x2="64" y2="36" stroke="#facc15" stroke-width="1.1"/>
+    <!-- STAMP (rounded, with checkmark) -->
+    <g style="transform-origin:64px 42px;">
+      <circle cx="64" cy="42" r="8" fill="#fde047" stroke="#facc15" stroke-width="1"/>
+      <circle cx="64" cy="42" r="5.5" fill="none" stroke="#1E1B4B" stroke-width="0.8"/>
+      <path d="M 60.5 42.5 L 63 45 L 67.5 39.5" fill="none" stroke="#1E1B4B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <style>
+    @keyframes v9tilt { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 75% { transform: rotate(-3deg); } }
+  </style>
+</svg>

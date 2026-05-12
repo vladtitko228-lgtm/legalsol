@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V35 · Holographic mesh-gradient blob — Cursor/Anthropic vibe -->
+  <defs>
+    <linearGradient id="v35a" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="0.5" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#fde047"/>
+    </linearGradient>
+    <linearGradient id="v35b" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f472b6"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <filter id="v35blur">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <!-- Two overlapping organic blobs with blur — mesh-gradient effect -->
+  <g style="transform-origin:40px 40px;animation:v35morph 6s ease-in-out infinite;">
+    <path d="M 40 12 Q 65 18 65 40 Q 65 62 40 68 Q 15 62 15 40 Q 15 18 40 12 Z" fill="url(#v35a)" filter="url(#v35blur)"/>
+  </g>
+  <g style="transform-origin:40px 40px;animation:v35morph2 5s ease-in-out 0.5s infinite;">
+    <path d="M 28 20 Q 60 22 58 45 Q 56 65 32 60 Q 12 55 18 32 Z" fill="url(#v35b)" filter="url(#v35blur)" opacity="0.85"/>
+  </g>
+
+  <!-- Tiny center dot for anchor -->
+  <circle cx="40" cy="40" r="3" fill="#fff" opacity="0.9"/>
+
+  <style>
+    @keyframes v35morph { 0%,100%{transform:scale(1) rotate(0)} 50%{transform:scale(1.08) rotate(15deg)} }
+    @keyframes v35morph2 { 0%,100%{transform:scale(1) rotate(0)} 50%{transform:scale(.92) rotate(-20deg)} }
+  </style>
+</svg>
