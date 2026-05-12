@@ -972,23 +972,7 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 h1{font-family:'DM Sans','Inter',sans-serif;font-size:clamp(40px,4.5vw,64px);font-weight:800;line-height:1.06;margin-bottom:20px;letter-spacing:-.8px;}
 
-h1 em{
-  font-style:italic;
-  background:linear-gradient(90deg,
-    var(--p400) 0%,
-    var(--p200) 22%,
-    #fde047 50%,
-    var(--p200) 78%,
-    var(--p400) 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-  animation:heroShimmer 6s linear infinite;
-}
-@keyframes heroShimmer{to{background-position:-200% center;}}
-@media(prefers-reduced-motion:reduce){h1 em{animation:none;}}
+h1 em{font-style:italic;color:var(--gold2);}
 
 h1 .acc{color:var(--p300);}
 
