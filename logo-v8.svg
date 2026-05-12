@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V8 · Bold filled scales with pulsing glow halo — premium-mark variant -->
+  <defs>
+    <radialGradient id="v8halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8B82E8" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#5B52CC" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#1E1B4B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="v8stem" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+    <linearGradient id="v8gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Glow halo (pulses) -->
+  <circle cx="40" cy="40" r="36" fill="url(#v8halo)"
+          style="animation:v8pulse 2.6s ease-in-out infinite;"/>
+
+  <!-- Stem -->
+  <rect x="38" y="22" width="4" height="42" rx="1" fill="url(#v8stem)"/>
+  <!-- Base step -->
+  <rect x="28" y="64" width="24" height="4" rx="1" fill="#5B52CC"/>
+  <rect x="24" y="68" width="32" height="3" rx="1" fill="#3D3585"/>
+
+  <!-- Top finial -->
+  <circle cx="40" cy="22" r="3.5" fill="url(#v8gold)" stroke="#facc15" stroke-width="0.6"/>
+
+  <!-- Scale group (gentle tilt) -->
+  <g style="transform-origin:40px 24px; animation:v8tilt 4s ease-in-out infinite;">
+    <!-- Beam — thick, prominent -->
+    <rect x="8" y="24" width="64" height="4" rx="2" fill="url(#v8gold)" stroke="#facc15" stroke-width="0.5"/>
+
+    <!-- Chains -->
+    <line x1="14" y1="28" x2="14" y2="36" stroke="#facc15" stroke-width="1.4"/>
+    <line x1="66" y1="28" x2="66" y2="36" stroke="#facc15" stroke-width="1.4"/>
+
+    <!-- Left pan (3D-ish) -->
+    <ellipse cx="14" cy="37" rx="9" ry="2.4" fill="url(#v8gold)"/>
+    <path d="M 5 37 Q 14 47 23 37" fill="none" stroke="#facc15" stroke-width="1.6"/>
+
+    <!-- Right pan -->
+    <ellipse cx="66" cy="37" rx="9" ry="2.4" fill="url(#v8gold)"/>
+    <path d="M 57 37 Q 66 47 75 37" fill="none" stroke="#facc15" stroke-width="1.6"/>
+  </g>
+
+  <!-- Sparkle dots that twinkle -->
+  <circle cx="14" cy="14" r="1.5" fill="#22d3ee" style="animation:v8twinkle 1.6s ease-in-out infinite;"/>
+  <circle cx="66" cy="14" r="1.5" fill="#fde047" style="animation:v8twinkle 1.6s ease-in-out 0.6s infinite;"/>
+
+  <style>
+    @keyframes v8pulse { 0%,100% { transform: scale(1); opacity:.85; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes v8tilt { 0%,100% { transform: rotate(0deg); } 30% { transform: rotate(2.5deg); } 70% { transform: rotate(-2.5deg); } }
+    @keyframes v8twinkle { 0%,100% { opacity: 0.3; transform: scale(0.7);} 50% { opacity: 1; transform: scale(1.4);} }
+    /* Pulse needs origin */
+    circle[style*="v8pulse"] { transform-origin: 40px 40px; }
+  </style>
+</svg>
