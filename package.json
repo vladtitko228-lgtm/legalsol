@@ -2,7 +2,7 @@
   "name": "legalsol-blog",
     "version": "1.0.0",
       "private": true,
-        "description": "Legal Solutions blog — Notion CMS with Vercel SSR",
+        "description": "LegalSol blog — Notion CMS with Vercel SSR",
           "dependencies": {
               "@notionhq/client": "^2.2.0"
                 }
