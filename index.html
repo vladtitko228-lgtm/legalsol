@@ -3047,6 +3047,99 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
 .mob-nav-btn.mob-nav-active .mnav-ico,.mob-nav-btn:hover .mnav-ico{background:rgba(91,82,204,.28);color:#fff;}
 
+/* ============================================================
+   MOBILE i18n STABILITY — prevent jitter when switching langs,
+   stop buttons getting clipped at viewport edge
+   ============================================================ */
+@media (max-width: 960px) {
+  /* Hero CTAs — stable wrap */
+  .hero-btns { flex-wrap: wrap !important; gap: 10px !important; }
+  .hero-btns > a, .hero-btns > button {
+    flex: 1 1 calc(50% - 5px) !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    text-align: center !important;
+    padding: 13px 14px !important;
+    font-size: 13.5px !important;
+    line-height: 1.25 !important;
+    box-sizing: border-box !important;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  /* Hero service-button row */
+  .hero-svc-btn { padding: 12px 14px !important; font-size: 13px !important; line-height: 1.3 !important; min-width: 0 !important; }
+
+  /* Mid-CTA — centered wrap */
+  .mid-cta { text-align: center; }
+  .mid-cta-buttons, .mid-cta-actions { flex-wrap: wrap !important; gap: 10px !important; justify-content: center !important; }
+  .mid-cta-buttons > *, .mid-cta-actions > * { flex: 1 1 auto !important; min-width: 0 !important; max-width: 100% !important; }
+
+  /* Trust numbers strip — wrap to 2×2 on mobile */
+  .trust-num-item { padding: 4px 10px !important; min-width: 0 !important; flex: 1 1 calc(50% - 8px) !important; justify-content: center !important; }
+  .trust-num-val { font-size: 19px !important; }
+  .trust-num-lbl { font-size: 11px !important; }
+
+  /* Reviews filters — wrap properly, no truncation */
+  .rv2-filters { padding: 0 6px !important; gap: 6px !important; }
+  .rv2-filter { padding: 7px 11px !important; font-size: 11.5px !important; flex: 0 0 auto !important; min-width: 0 !important; max-width: 100% !important; }
+
+  /* Reviews story cards — full width on mobile */
+  .rv2-story { width: 100%; min-width: 0; }
+  .rv2-story-photo-wrap { padding: 18px 18px 0 !important; gap: 12px !important; }
+  .rv2-story-body { padding: 14px 18px 18px !important; }
+
+  /* Reviews aggregate widget — wrap properly */
+  .rv2-aggr { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  .rv2-aggr-card { padding: 14px 16px !important; min-width: 0; }
+  .rv2-aggr-score { font-size: 24px !important; }
+  .rv2-aggr-logo { font-size: 11px !important; gap: 6px !important; }
+  .rv2-aggr-link { font-size: 10px !important; }
+
+  /* Service picker — ensure dropdown fits */
+  .cs-trigger { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+  .cs-trigger-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Mobile menu items — prevent text overflow */
+  .mob-nav-btn { padding: 13px 18px !important; font-size: 14.5px !important; overflow: hidden; }
+
+  /* Modals — fit screen edge-to-edge with margin */
+  .bm-box, .lc-box, .rv2-modal-box, .cp-modal { width: calc(100vw - 24px) !important; max-width: 100% !important; }
+  .bm-box, .lc-box, .rv2-modal-box { margin: 12px auto !important; }
+
+  /* Lang dropdown panel — fits screen */
+  .lang-dd-panel { max-width: calc(100vw - 16px) !important; }
+
+  /* Containment — reduce layout thrashing on text changes */
+  .section, .svc-item, .svc-card, .rev-card, .tab-content { contain: layout style; }
+
+  /* Any flex row with text-heavy children — wrap by default */
+  .badges, .tags, .chips, .pills { flex-wrap: wrap !important; }
+
+  /* Prevent any horizontal overflow on key wrappers */
+  .page, .container, .wrap, main { max-width: 100vw; overflow-x: clip; }
+
+  /* Section titles — wrap properly on mobile */
+  h1, h2, h3, .hero-h1, .section-title, .rv2-title, .rv2-h-title { word-break: keep-all; overflow-wrap: break-word; hyphens: none; }
+
+  /* Ensure all CTA-style buttons have minimum tappable height */
+  button, .btn, .btn-cta, .hero-btn, .cs-trigger { min-height: 44px; box-sizing: border-box; }
+}
+
+/* Tightest mobile (< 420px) — phones in portrait */
+@media (max-width: 420px) {
+  .hero-btns > a, .hero-btns > button {
+    flex: 1 1 100% !important;
+    font-size: 13px !important;
+  }
+  .rv2-filter { font-size: 11px !important; padding: 6px 10px !important; }
+  .rv2-aggr { grid-template-columns: 1fr !important; }
+  .rv2-aggr-score { font-size: 22px !important; }
+  .trust-num-val { font-size: 17px !important; }
+}
+
+/* Defer transitions during lang change to prevent visible jitter */
+html.lang-switching * { transition: none !important; animation: none !important; }
 </style>
 
 </head>
@@ -22189,6 +22282,10 @@ function setLang(lang){
 
   try{
 
+  // Freeze all transitions/animations briefly to prevent visible jitter on mobile
+  // when many elements reflow due to text length changes.
+  document.documentElement.classList.add('lang-switching');
+
   L=lang;
 
   document.documentElement.lang=lang==='uk'?'uk':lang==='ru'?'ru':lang==='pl'?'pl':lang==='es'?'es':lang==='tr'?'tr':lang==='az'?'az':lang==='hi'?'hi':'en';
@@ -23238,6 +23335,17 @@ function setLang(lang){
     if (svcMutedEl && defOpts[lang]) svcMutedEl.textContent = defOpts[lang];
   } catch(e) {}
     }catch(err){console.error('[setLang] error at lang='+lang+':',err);}
+
+  // Remove jitter-freeze class after layout settles (2 frames = ~33ms)
+  try{
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.documentElement.classList.remove('lang-switching');
+      });
+    });
+  }catch(e){
+    setTimeout(function(){document.documentElement.classList.remove('lang-switching');}, 50);
+  }
 
 }
 
