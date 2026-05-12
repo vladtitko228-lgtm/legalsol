@@ -2911,97 +2911,189 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 .mob-nav-btn.mob-nav-active .mnav-ico,.mob-nav-btn:hover .mnav-ico{background:rgba(91,82,204,.28);color:#fff;}
 
 /* ═══════════════════════════════════════════════════════════════
-   MOBILE PERFORMANCE OVERRIDES
-   Цель: ускорить first paint и удержать пользователя на мобайле
-   (Desktop avg session 447s vs Mobile 13s — фикс мобайла)
+   MOBILE — PREMIUM MINIMAL HERO
+   Цель: чистая, премиальная мобильная страница с одной фокусной
+   точкой. Без тяжёлых эффектов, но с элегантной типографикой
+   и едва заметными анимациями появления.
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width:768px){
-  /* — Убираем тяжёлый фон (aurora orbs с blur 80px) — */
+
+  /* ── Фон: вместо 3-х размытых орбов — лёгкий статичный градиент ── */
   .aurora-wrap{display:none !important;}
-
-  /* — Останавливаем «плавание» 3D-карты и убираем тяжёлый perspective — */
-  .kp-hero-wrap{animation:none !important;}
-  .kp-hero{
-    transform:none !important;
-    box-shadow:0 8px 24px rgba(0,0,0,.30) !important;
-    width:280px !important;
-    height:auto !important;
-    aspect-ratio:436/275;
-  }
-  .kp-hero-wrap::after{display:none !important;}
-  .kp-holo-card{display:none !important;}
-  .kp-holo-in{animation:none !important;}
-
-  /* — Чисто декоративные эффекты главной — отключаем — */
-  .hero-stats .stat-num{animation:none !important;}
-
-  /* — Лишние эффекты trust-блоков на мобайле — */
-  .tli-anim,.kp-holo-card,.rev-card,.hero-card,.trust-logo-item{will-change:auto !important;}
-
-  /* — Хиро становится компактнее: h1 меньше, padding меньше — */
   #hero{
-    grid-template-columns:1fr !important;
-    padding:88px 18px 32px !important;
-    min-height:auto !important;
-    gap:18px;
-  }
-  #hero-h1{font-size:34px !important;line-height:1.1 !important;letter-spacing:-.5px !important;}
-  .hero-desc{font-size:14px !important;margin-bottom:18px !important;}
-  .hero-mega-cta{
-    width:100% !important;text-align:center !important;
-    padding:16px 20px !important;font-size:14px !important;
+    background:
+      radial-gradient(60% 80% at 90% 0%,rgba(184,178,245,.22) 0%,transparent 60%),
+      radial-gradient(80% 60% at 0% 100%,rgba(91,82,204,.20) 0%,transparent 60%),
+      linear-gradient(180deg,#0E0B1F 0%,#15102A 100%);
   }
 
-  /* — Hero stats компактнее и в одну строку — */
+  /* ── 3D-карту ПРЯЧЕМ полностью — лишний шум на мобайле ── */
+  .kp-hero-wrap{display:none !important;}
+
+  /* ── HERO: 1 колонка, generous spacing, премиум-padding ── */
+  #hero{
+    display:flex !important;
+    flex-direction:column !important;
+    padding:96px 22px 40px !important;
+    min-height:90vh !important;
+    gap:0;
+    justify-content:center;
+  }
+
+  /* ── Бэйдж сверху — мельче, тише ── */
+  .hero-badge{
+    font-size:10.5px !important;letter-spacing:1.8px !important;
+    padding:6px 12px !important;
+    margin-bottom:24px !important;
+    opacity:0;animation:hMobIn .8s cubic-bezier(.2,.8,.2,1) .05s forwards;
+  }
+
+  /* ── H1 крупный, элегантный ── */
+  #hero-h1{
+    font-size:42px !important;
+    line-height:1.05 !important;
+    letter-spacing:-1px !important;
+    font-weight:800 !important;
+    margin:0 0 12px 0 !important;
+    opacity:0;animation:hMobIn .9s cubic-bezier(.2,.8,.2,1) .15s forwards;
+  }
+  #hero-h1 em{
+    display:block;
+    font-size:24px !important;
+    font-weight:400 !important;font-style:italic !important;
+    letter-spacing:-.3px !important;
+    color:rgba(255,255,255,.78) !important;
+    margin-top:6px !important;
+    line-height:1.2 !important;
+  }
+
+  /* ── Подзаголовок ── */
+  .hero-desc{
+    font-size:15px !important;line-height:1.5 !important;
+    color:rgba(255,255,255,.7) !important;
+    margin:18px 0 30px 0 !important;
+    max-width:90% !important;
+    opacity:0;animation:hMobIn .9s cubic-bezier(.2,.8,.2,1) .28s forwards;
+  }
+
+  /* ── Главный CTA — крупный, премиальный, gradient ── */
+  .hero-mega-cta{
+    display:block !important;
+    width:100% !important;text-align:center !important;
+    padding:18px 24px !important;
+    font-size:14px !important;font-weight:700 !important;
+    letter-spacing:.8px !important;
+    border-radius:16px !important;
+    background:linear-gradient(135deg,#7C6FE8 0%,#5B52CC 100%) !important;
+    box-shadow:0 12px 32px rgba(91,82,204,.45),inset 0 1px 0 rgba(255,255,255,.18) !important;
+    margin-bottom:14px !important;
+    opacity:0;animation:hMobIn .9s cubic-bezier(.2,.8,.2,1) .4s forwards;
+  }
+
+  /* ── Eyebrow «Или выберите услугу» — мельче на мобайле ── */
+  .hero-svc-eyebrow{
+    font-size:10px !important;letter-spacing:2.5px !important;
+    margin:24px 0 14px !important;
+    opacity:0;animation:hMobIn .9s cubic-bezier(.2,.8,.2,1) .55s forwards;
+  }
+
+  /* ── 3 кнопки услуг: в 1 ряд, ровные, без подзаголовков ── */
+  .hero-svc-row{
+    display:grid !important;
+    grid-template-columns:1fr 1fr 1fr !important;
+    gap:8px !important;margin-bottom:30px !important;
+    opacity:0;animation:hMobIn .9s cubic-bezier(.2,.8,.2,1) .7s forwards;
+  }
+  .hero-svc-btn{
+    flex-direction:column !important;justify-content:center !important;
+    padding:14px 8px !important;border-radius:14px !important;
+    gap:6px !important;text-align:center !important;
+    min-width:0 !important;
+  }
+  .hero-svc-btn .hsb-iwrap{width:36px !important;height:36px !important;}
+  .hero-svc-btn .hsb-icon{font-size:18px !important;}
+  .hero-svc-btn .hsb-label{font-size:11px !important;text-align:center !important;}
+
+  /* ── «Все услуги →» — тише, помельче ── */
+  .hero-btns{margin:0 0 24px !important;}
+  #hero-btn2{font-size:12px !important;color:rgba(255,255,255,.45) !important;}
+
+  /* ── Stats тонкая полоса с разделителями ── */
   .hero-stats{
     display:flex !important;
     gap:0 !important;
-    margin-top:16px !important;
     border-top:1px solid rgba(255,255,255,.10);
-    padding-top:14px !important;
+    padding-top:20px !important;margin-top:8px !important;
+    opacity:0;animation:hMobIn 1s cubic-bezier(.2,.8,.2,1) .85s forwards;
   }
-  .hero-stats .stat{flex:1;text-align:center;padding:0 4px;}
-  .hero-stats .stat-num{font-size:18px !important;}
-  .hero-stats .stat-lbl{font-size:9.5px !important;}
+  .hero-stats .stat{
+    flex:1;text-align:center;padding:0 4px;
+    position:relative;
+  }
+  .hero-stats .stat + .stat::before{
+    content:"";position:absolute;left:0;top:10%;bottom:10%;
+    width:1px;background:rgba(255,255,255,.08);
+  }
+  .hero-stats .stat-num{
+    font-size:22px !important;font-weight:800 !important;
+    background:linear-gradient(180deg,#fff 0%,#B8B2F5 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:none !important;
+  }
+  .hero-stats .stat-lbl{
+    font-size:9.5px !important;letter-spacing:1px !important;
+    text-transform:uppercase !important;
+    color:rgba(255,255,255,.55) !important;
+    margin-top:2px !important;
+  }
 
-  /* — Карту убираем под хиро (если место есть), либо скрываем вовсе на маленьких — */
-  .kp-hero-wrap{margin:6px auto 0;}
+  /* ── Hero entrance keyframe (одна на всё) ── */
+  @keyframes hMobIn{
+    from{opacity:0;transform:translateY(16px);}
+    to{opacity:1;transform:translateY(0);}
+  }
 
-  /* — Floating WhatsApp кнопка ВНИЗУ — главный CTA на мобайле — */
+  /* ── Floating WhatsApp кнопка ВНИЗУ — главный CTA на мобайле ── */
   #fab{
     display:flex !important;
     bottom:14px !important;right:14px !important;left:14px !important;
     background:linear-gradient(135deg,#25D366 0%,#1EB553 100%) !important;
-    box-shadow:0 6px 22px rgba(37,211,102,.55) !important;
-    padding:14px 18px !important;
-    border-radius:14px !important;
+    box-shadow:0 12px 36px rgba(37,211,102,.50),inset 0 1px 0 rgba(255,255,255,.22) !important;
+    padding:15px 20px !important;
+    border-radius:16px !important;
     justify-content:center !important;
-    font-size:14px !important;font-weight:700 !important;
+    font-size:14px !important;font-weight:700 !important;letter-spacing:.3px !important;
     z-index:900 !important;
+    opacity:0;animation:hMobIn .8s cubic-bezier(.2,.8,.2,1) 1.1s forwards;
   }
   #fab .fab-dot{
     background:#fff !important;
     box-shadow:0 0 0 0 rgba(255,255,255,.7);
-    animation:fabPulse 2s ease-in-out infinite;
+    animation:fabPulse 2.2s ease-in-out infinite;
   }
-  #fab #fab-text::before{
-    content:"💬 ";margin-right:4px;
-  }
+  #fab #fab-text::before{content:"💬 ";margin-right:6px;}
   @keyframes fabPulse{
     0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6);}
-    50%{box-shadow:0 0 0 8px rgba(255,255,255,0);}
+    50%{box-shadow:0 0 0 10px rgba(255,255,255,0);}
   }
 
-  /* — Отступ снизу страницы чтобы FAB не перекрывал footer — */
-  footer,.site-footer{padding-bottom:90px !important;}
+  /* ── Прячем доп. элементы которые шумят ── */
+  .hero-card,.hero-ref-btn,.hero-card-cta{display:none !important;}
 
-  /* — Тонко: отключаем will-change у крупных элементов чтобы экономить память — */
+  /* ── Отступ снизу страницы чтобы FAB не перекрывал ── */
+  footer,.site-footer{padding-bottom:96px !important;}
+
+  /* ── Освобождаем память от will-change ── */
   *{will-change:auto !important;}
 }
 
 /* — Уважение системной настройки «уменьшить движения» — */
 @media (prefers-reduced-motion:reduce){
   .aurora-orb,.kp-hero-wrap,.kp-holo-in,.hero-stats .stat-num{animation:none !important;}
+  .hero-badge,#hero-h1,.hero-desc,.hero-mega-cta,
+  .hero-svc-eyebrow,.hero-svc-row,.hero-stats,#fab{
+    animation:none !important;opacity:1 !important;transform:none !important;
+  }
   .kp-hero{transform:none !important;}
 }
 
