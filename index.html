@@ -3140,6 +3140,89 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
 /* Defer transitions during lang change to prevent visible jitter */
 html.lang-switching * { transition: none !important; animation: none !important; }
+
+/* ============================================================
+   FULL MOBILE OPTIMIZATION — phase 2
+   No element should overflow viewport horizontally.
+   All flex containers should wrap.
+   Touch targets are at least 44×44px.
+   ============================================================ */
+
+/* Universal safety net — nothing escapes viewport horizontally */
+@media (max-width: 960px) {
+  html, body { overflow-x: clip; max-width: 100vw; }
+  body * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  /* But allow nav specifically since it's `position:fixed` */
+  nav, nav * { max-width: none !important; }
+  /* And SVGs need natural width */
+  svg, svg * { max-width: none !important; }
+  /* And inline elements */
+  span, em, b, strong, code { max-width: none !important; }
+  /* And images can scale */
+  img { max-width: 100% !important; height: auto; }
+
+  /* Tables — ensure they scroll instead of overflow */
+  table, .table { display: block; overflow-x: auto; }
+
+  /* Hero — proper stacking + sizing */
+  .hero-pill { font-size: 10px !important; padding: 5px 10px !important; }
+  .hero-h1, .hero-title { font-size: clamp(28px, 8vw, 44px) !important; line-height: 1.1 !important; }
+  .hero-sub, .hero-desc { font-size: 14px !important; line-height: 1.55 !important; }
+
+  /* Sections — tighter on mobile */
+  .section { padding: 48px 16px !important; }
+  .section-title, .sec-title { font-size: clamp(24px, 6vw, 32px) !important; line-height: 1.15 !important; }
+
+  /* Service cards — full width, proper padding */
+  .svc-item, .svc-card { padding: 18px !important; min-width: 0 !important; }
+  .svc-title { font-size: 17px !important; }
+  .svc-desc { font-size: 13px !important; line-height: 1.55 !important; }
+
+  /* Modal content — fit screen */
+  .bm-box, .lc-box, .cp-modal, .rv2-modal-box,
+  [class*="-modal-box"], [class*="modal-content"] {
+    max-width: calc(100vw - 24px) !important;
+    width: 100% !important;
+  }
+
+  /* Forms — full width inputs */
+  input, textarea, select, .cs-trigger {
+    width: 100% !important; min-width: 0 !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important; /* prevents iOS zoom on focus */
+  }
+  .modal-in, .hlead-in, .bm-input, .cab-input, .cab-chat-in {
+    font-size: 16px !important;
+  }
+
+  /* Footer — proper grid wrap */
+  .ft-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .ft-grid > div:first-child { grid-column: span 1 !important; }
+}
+
+/* Very narrow phones (≤ 380px) — extra constraints */
+@media (max-width: 380px) {
+  .section { padding: 40px 12px !important; }
+  .hero-h1, .hero-title { font-size: 26px !important; }
+  .section-title, .sec-title { font-size: 22px !important; }
+  .btn, .btn-cta, button { padding: 10px 14px !important; font-size: 12.5px !important; }
+  .tag, .pill, .chip { font-size: 10.5px !important; padding: 4px 10px !important; }
+  .svc-title { font-size: 15px !important; }
+  .hero-svc-btn { font-size: 11.5px !important; padding: 10px 8px !important; line-height: 1.25 !important; }
+  .rv2-aggr-score { font-size: 20px !important; }
+}
+
+/* iOS-specific — disable auto-zoom on inputs */
+@media (max-width: 960px) {
+  input[type="text"], input[type="email"], input[type="tel"],
+  input[type="number"], textarea, select {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+  }
+}
 </style>
 
 </head>
@@ -23319,11 +23402,13 @@ function setLang(lang){
   } catch(err2) { console.warn('[setLang sv-item update]', err2); }
 
   
-  // hlead-* placeholders (set as attributes, not innerHTML)
+  // hlead-* + cab-chat + ref-phone placeholders (attributes, not innerHTML)
   try {
     var _phMap = {
       'hlead-name': {ru:'Ваше имя',en:'Your name',pl:'Imię i nazwisko',uk:'Ваше ім\'я',hi:'आपका नाम',az:'Adınız',tr:'Adınız',es:'Tu nombre'},
-      'hlead-phone': {ru:'600 123 456',en:'600 123 456',pl:'600 123 456',uk:'600 123 456',hi:'600 123 456',az:'600 123 456',tr:'600 123 456',es:'600 123 456'}
+      'hlead-phone': {ru:'600 123 456',en:'600 123 456',pl:'600 123 456',uk:'600 123 456',hi:'600 123 456',az:'600 123 456',tr:'600 123 456',es:'600 123 456'},
+      'cab-chat-in': {ru:'Написать сообщение...',en:'Type a message...',pl:'Napisz wiadomość...',uk:'Написати повідомлення...',hi:'संदेश लिखें...',az:'Mesaj yazın...',tr:'Mesaj yazın...',es:'Escribe un mensaje...'},
+      'ref-phone': {ru:'Ваш WhatsApp / телефон',en:'Your WhatsApp / phone',pl:'Twój WhatsApp / telefon',uk:'Ваш WhatsApp / телефон',hi:'आपका WhatsApp / फ़ोन',az:'WhatsApp / telefonunuz',tr:'WhatsApp / telefonunuz',es:'Tu WhatsApp / teléfono'}
     };
     Object.keys(_phMap).forEach(function(id){
       var el = document.getElementById(id);
