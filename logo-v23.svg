@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V23 · Squircle + shield + check — trust/security vibe -->
+  <defs>
+    <linearGradient id="v23bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle background -->
+  <rect x="4" y="4" width="72" height="72" rx="24" fill="url(#v23bg)"/>
+
+  <!-- Soft shield silhouette -->
+  <path d="M 40 18 Q 22 22 22 32 L 22 44 Q 22 56 40 64 Q 58 56 58 44 L 58 32 Q 58 22 40 18 Z" fill="#fff" opacity="0.95"/>
+
+  <!-- Inside shield: big rounded check -->
+  <path d="M 28 40 L 36 48 L 52 32" fill="none" stroke="#5B52CC" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="40" stroke-dashoffset="40" style="animation:v23draw .8s ease .3s forwards;"/>
+
+  <!-- Tiny scale dot on top -->
+  <g style="transform-origin:40px 14px;animation:v23sway 3.5s ease-in-out infinite;">
+    <rect x="32" y="12" width="16" height="2.5" rx="1.25" fill="#fde047"/>
+    <circle cx="40" cy="11" r="1.6" fill="#fde047"/>
+    <circle cx="34" cy="16" r="1.6" fill="#fde047"/>
+    <circle cx="46" cy="16" r="1.6" fill="#fde047"/>
+  </g>
+
+  <style>
+    @keyframes v23draw { to { stroke-dashoffset: 0; } }
+    @keyframes v23sway { 0%,100%{transform:rotate(0)} 50%{transform:rotate(2deg)} }
+  </style>
+</svg>
