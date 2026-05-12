@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V32 · Libra at bottom + soft moon/disc above — cosmic vibe -->
+  <defs>
+    <linearGradient id="v32bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E1B4B"/>
+      <stop offset="1" stop-color="#3D3585"/>
+    </linearGradient>
+    <radialGradient id="v32moon" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#v32bg)"/>
+
+  <!-- Soft glowing disc/moon above -->
+  <circle cx="40" cy="26" r="10" fill="url(#v32moon)" opacity="0.95"/>
+  <!-- Tiny stars scattered -->
+  <circle cx="18" cy="18" r="1" fill="#fff" opacity="0.7"/>
+  <circle cx="62" cy="20" r="0.8" fill="#fff" opacity="0.5"/>
+  <circle cx="68" cy="32" r="1" fill="#fff" opacity="0.7"/>
+  <circle cx="14" cy="30" r="0.8" fill="#fff" opacity="0.5"/>
+
+  <!-- Libra zodiac at bottom -->
+  <g fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round">
+    <path d="M 20 52 L 60 52"/>
+    <path d="M 27 64 Q 27 52 40 52 Q 53 52 53 64"/>
+    <path d="M 20 68 L 60 68"/>
+  </g>
+
+  <!-- Twinkling animation on stars -->
+  <style>
+    circle[opacity="0.7"] { animation: v32tw 2.4s ease-in-out infinite; }
+    circle[opacity="0.5"] { animation: v32tw 2.4s ease-in-out 1.2s infinite; }
+    @keyframes v32tw { 0%,100%{opacity:.4} 50%{opacity:1} }
+  </style>
+</svg>

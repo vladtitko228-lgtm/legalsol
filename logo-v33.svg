@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V33 · "L" letter above, Libra zodiac below — composed mark -->
+  <defs>
+    <linearGradient id="v33g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Big "L" formed by rounded thick lines -->
+  <g fill="url(#v33g)">
+    <rect x="22" y="10" width="8" height="32" rx="4"/>
+    <rect x="22" y="38" width="22" height="8" rx="4"/>
+  </g>
+
+  <!-- Libra zodiac symbol below the L, in gold -->
+  <g fill="none" stroke="#fde047" stroke-width="3.8" stroke-linecap="round">
+    <path d="M 14 56 L 66 56"/>
+    <path d="M 22 68 Q 22 56 40 56 Q 58 56 58 68"/>
+    <path d="M 14 72 L 66 72"/>
+  </g>
+
+  <!-- Tiny dot at center of arc (the pivot) -->
+  <circle cx="40" cy="56" r="2" fill="#22d3ee"/>
+</svg>
