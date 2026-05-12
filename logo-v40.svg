@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V40 · Spline-style 3D mesh — soft iridescent blob with subsurface glow -->
+  <defs>
+    <radialGradient id="v40c" cx="0.3" cy="0.25" r="0.9">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="0.35" stop-color="#f472b6"/>
+      <stop offset="0.7" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </radialGradient>
+    <radialGradient id="v40hl" cx="0.3" cy="0.2" r="0.5">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Big organic blob shape (3D-ish) -->
+  <g style="transform-origin:40px 40px;animation:v40rotate 14s ease-in-out infinite;">
+    <path d="M 40 8 Q 70 12 70 38 Q 70 60 50 70 Q 30 75 18 60 Q 6 42 14 22 Q 22 8 40 8 Z" fill="url(#v40c)"/>
+    <!-- Glass highlight -->
+    <path d="M 40 8 Q 60 12 64 28 Q 50 18 32 16 Q 28 12 40 8 Z" fill="url(#v40hl)"/>
+  </g>
+
+  <!-- Small bright dot accent -->
+  <circle cx="30" cy="26" r="2.5" fill="#fff" opacity="0.85"/>
+
+  <style>
+    @keyframes v40rotate { 0%,100%{transform:rotate(0) scale(1)} 50%{transform:rotate(8deg) scale(1.05)} }
+  </style>
+</svg>
