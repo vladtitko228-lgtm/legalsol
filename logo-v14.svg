@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V14 · Karta Pobytu card (centered, BIG) with column behind + tiny scales on top -->
+  <defs>
+    <linearGradient id="v14col" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5B52CC" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#3D3585" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="v14card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#0891b2"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Column silhouette behind (subtle) -->
+  <rect x="20" y="20" width="40" height="50" rx="2" fill="url(#v14col)"/>
+  <rect x="17" y="18" width="46" height="3" rx="0.6" fill="#5B52CC" opacity="0.7"/>
+  <rect x="17" y="70" width="46" height="4" rx="0.6" fill="#5B52CC" opacity="0.7"/>
+  <line x1="26" y1="22" x2="26" y2="68" stroke="#1E1B4B" stroke-width="0.5" opacity="0.5"/>
+  <line x1="32" y1="22" x2="32" y2="68" stroke="#1E1B4B" stroke-width="0.5" opacity="0.5"/>
+  <line x1="40" y1="22" x2="40" y2="68" stroke="#1E1B4B" stroke-width="0.5" opacity="0.5"/>
+  <line x1="48" y1="22" x2="48" y2="68" stroke="#1E1B4B" stroke-width="0.5" opacity="0.5"/>
+  <line x1="54" y1="22" x2="54" y2="68" stroke="#1E1B4B" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- Big Karta Pobytu card (rotated slightly) -->
+  <g style="transform-origin:40px 50px;animation:v14float 4s ease-in-out infinite;">
+    <g transform="rotate(-6 40 50)">
+      <!-- Card -->
+      <rect x="14" y="35" width="52" height="32" rx="3" fill="url(#v14card)" stroke="#0e7490" stroke-width="0.7"/>
+      <!-- Photo box -->
+      <rect x="18" y="40" width="13" height="17" rx="1" fill="#B8B2F5"/>
+      <!-- Tiny head silhouette in photo -->
+      <circle cx="24.5" cy="46" r="2.2" fill="#5B52CC"/>
+      <path d="M 20 56 Q 20 51 24.5 51 Q 29 51 29 56 Z" fill="#5B52CC"/>
+      <!-- Card details -->
+      <rect x="34" y="40" width="28" height="2" rx="0.4" fill="#fff" opacity="0.9"/>
+      <rect x="34" y="43.5" width="22" height="1.5" rx="0.3" fill="#fff" opacity="0.7"/>
+      <rect x="34" y="46.5" width="24" height="1.5" rx="0.3" fill="#fff" opacity="0.7"/>
+      <rect x="34" y="49.5" width="18" height="1.5" rx="0.3" fill="#fff" opacity="0.7"/>
+      <!-- KARTA POBYTU label -->
+      <text x="34" y="58" font-family="Arial,sans-serif" font-size="3" font-weight="700" fill="#fde047" letter-spacing="0.3">KARTA POBYTU</text>
+      <!-- EU stars (corner) -->
+      <circle cx="60" cy="62" r="0.8" fill="#fde047"/>
+      <circle cx="58" cy="63" r="0.8" fill="#fde047"/>
+      <circle cx="60" cy="64" r="0.8" fill="#fde047"/>
+    </g>
+  </g>
+
+  <!-- Tiny scales on top of column -->
+  <g style="transform-origin:40px 14px;animation:v14scale 3.5s ease-in-out infinite;">
+    <rect x="30" y="13" width="20" height="1.4" rx="0.7" fill="#fde047"/>
+    <circle cx="40" cy="11" r="1.8" fill="#fde047"/>
+    <line x1="33" y1="14.4" x2="33" y2="17" stroke="#facc15" stroke-width="0.6"/>
+    <line x1="47" y1="14.4" x2="47" y2="17" stroke="#facc15" stroke-width="0.6"/>
+    <ellipse cx="33" cy="17.5" rx="2.5" ry="0.7" fill="#fde047"/>
+    <ellipse cx="47" cy="17.5" rx="2.5" ry="0.7" fill="#fde047"/>
+  </g>
+
+  <style>
+    @keyframes v14float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+    @keyframes v14scale { 0%,100% { transform: rotate(0deg); } 30% { transform: rotate(2deg); } 70% { transform: rotate(-2deg); } }
+  </style>
+</svg>
