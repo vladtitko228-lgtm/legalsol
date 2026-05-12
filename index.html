@@ -10069,19 +10069,34 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     renderStories();
   });
 
-  // Initial render
+  // Initial render (may run with default L='en' before setLang fires)
   renderStories();
   renderReviews();
   applyRvT();
 
-  // Hook setLang
-  var origSL = window.setLang;
-  if(typeof origSL==='function'){
-    window.setLang = function(){
-      var r = origSL.apply(this, arguments);
-      try { renderStories(); renderReviews(); applyRvT(); } catch(e){}
-      return r;
-    };
+  // Defer setLang hook until DOMContentLoaded.
+  // setLang is defined LATER in the file (line ~25600), so at parse time
+  // window.setLang is undefined and a direct hook silently fails — that
+  // caused Reviews tab to stay in English while the menu showed Russian.
+  function _rvHookSetLang(){
+    var origSL = window.setLang;
+    if(typeof origSL === 'function'){
+      if(origSL.__rvWrapped) return; // idempotent
+      var wrapped = function(){
+        var r = origSL.apply(this, arguments);
+        try { renderStories(); renderReviews(); applyRvT(); } catch(e){}
+        return r;
+      };
+      wrapped.__rvWrapped = true;
+      window.setLang = wrapped;
+    }
+    // Re-render now that L reflects user's actual language
+    try { renderStories(); renderReviews(); applyRvT(); } catch(e){}
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', _rvHookSetLang);
+  } else {
+    _rvHookSetLang();
   }
 })();
 </script>
@@ -16925,11 +16940,23 @@ function bmSubmit(){
   }
   _bmShowStep('success');
 }
-// Re-translate when setLang fires
+// Re-translate booking modal when setLang fires.
+// setLang is defined later in the file — defer the hook to DOMContentLoaded.
 (function(){
-  var origSL=window.setLang;
-  if(typeof origSL==='function'){
-    window.setLang=function(){var r=origSL.apply(this,arguments);try{_bmTranslate();}catch(e){}return r;};
+  function _bmHookSetLang(){
+    var origSL = window.setLang;
+    if(typeof origSL === 'function'){
+      if(origSL.__bmWrapped) return; // idempotent
+      var wrapped = function(){var r=origSL.apply(this,arguments);try{_bmTranslate();}catch(e){}return r;};
+      wrapped.__bmWrapped = true;
+      window.setLang = wrapped;
+    }
+    try{_bmTranslate();}catch(e){}
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', _bmHookSetLang);
+  } else {
+    _bmHookSetLang();
   }
 })();
 
@@ -20642,15 +20669,27 @@ function translateBackBtn(){
   });
 }
 
-// Hook: when language changes, re-fill card descriptions and back btn
+// Hook: when language changes, re-fill card descriptions and back btn.
+// setLang is defined later — defer to DOMContentLoaded.
 (function(){
-  var origSetLang=window.setLang;
-  if(typeof origSetLang==='function'){
-    window.setLang=function(){
-      var r=origSetLang.apply(this,arguments);
-      try{fillSvcCardDescs();translateBackBtn();}catch(e){}
-      return r;
-    };
+  function _svcHookSetLang(){
+    var origSetLang = window.setLang;
+    if(typeof origSetLang === 'function'){
+      if(origSetLang.__svcWrapped) return; // idempotent
+      var wrapped = function(){
+        var r = origSetLang.apply(this, arguments);
+        try{fillSvcCardDescs();translateBackBtn();}catch(e){}
+        return r;
+      };
+      wrapped.__svcWrapped = true;
+      window.setLang = wrapped;
+    }
+    try{fillSvcCardDescs();translateBackBtn();}catch(e){}
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', _svcHookSetLang);
+  } else {
+    _svcHookSetLang();
   }
 })();
 
