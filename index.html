@@ -2910,6 +2910,101 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
 .mob-nav-btn.mob-nav-active .mnav-ico,.mob-nav-btn:hover .mnav-ico{background:rgba(91,82,204,.28);color:#fff;}
 
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PERFORMANCE OVERRIDES
+   Цель: ускорить first paint и удержать пользователя на мобайле
+   (Desktop avg session 447s vs Mobile 13s — фикс мобайла)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width:768px){
+  /* — Убираем тяжёлый фон (aurora orbs с blur 80px) — */
+  .aurora-wrap{display:none !important;}
+
+  /* — Останавливаем «плавание» 3D-карты и убираем тяжёлый perspective — */
+  .kp-hero-wrap{animation:none !important;}
+  .kp-hero{
+    transform:none !important;
+    box-shadow:0 8px 24px rgba(0,0,0,.30) !important;
+    width:280px !important;
+    height:auto !important;
+    aspect-ratio:436/275;
+  }
+  .kp-hero-wrap::after{display:none !important;}
+  .kp-holo-card{display:none !important;}
+  .kp-holo-in{animation:none !important;}
+
+  /* — Чисто декоративные эффекты главной — отключаем — */
+  .hero-stats .stat-num{animation:none !important;}
+
+  /* — Лишние эффекты trust-блоков на мобайле — */
+  .tli-anim,.kp-holo-card,.rev-card,.hero-card,.trust-logo-item{will-change:auto !important;}
+
+  /* — Хиро становится компактнее: h1 меньше, padding меньше — */
+  #hero{
+    grid-template-columns:1fr !important;
+    padding:88px 18px 32px !important;
+    min-height:auto !important;
+    gap:18px;
+  }
+  #hero-h1{font-size:34px !important;line-height:1.1 !important;letter-spacing:-.5px !important;}
+  .hero-desc{font-size:14px !important;margin-bottom:18px !important;}
+  .hero-mega-cta{
+    width:100% !important;text-align:center !important;
+    padding:16px 20px !important;font-size:14px !important;
+  }
+
+  /* — Hero stats компактнее и в одну строку — */
+  .hero-stats{
+    display:flex !important;
+    gap:0 !important;
+    margin-top:16px !important;
+    border-top:1px solid rgba(255,255,255,.10);
+    padding-top:14px !important;
+  }
+  .hero-stats .stat{flex:1;text-align:center;padding:0 4px;}
+  .hero-stats .stat-num{font-size:18px !important;}
+  .hero-stats .stat-lbl{font-size:9.5px !important;}
+
+  /* — Карту убираем под хиро (если место есть), либо скрываем вовсе на маленьких — */
+  .kp-hero-wrap{margin:6px auto 0;}
+
+  /* — Floating WhatsApp кнопка ВНИЗУ — главный CTA на мобайле — */
+  #fab{
+    display:flex !important;
+    bottom:14px !important;right:14px !important;left:14px !important;
+    background:linear-gradient(135deg,#25D366 0%,#1EB553 100%) !important;
+    box-shadow:0 6px 22px rgba(37,211,102,.55) !important;
+    padding:14px 18px !important;
+    border-radius:14px !important;
+    justify-content:center !important;
+    font-size:14px !important;font-weight:700 !important;
+    z-index:900 !important;
+  }
+  #fab .fab-dot{
+    background:#fff !important;
+    box-shadow:0 0 0 0 rgba(255,255,255,.7);
+    animation:fabPulse 2s ease-in-out infinite;
+  }
+  #fab #fab-text::before{
+    content:"💬 ";margin-right:4px;
+  }
+  @keyframes fabPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.6);}
+    50%{box-shadow:0 0 0 8px rgba(255,255,255,0);}
+  }
+
+  /* — Отступ снизу страницы чтобы FAB не перекрывал footer — */
+  footer,.site-footer{padding-bottom:90px !important;}
+
+  /* — Тонко: отключаем will-change у крупных элементов чтобы экономить память — */
+  *{will-change:auto !important;}
+}
+
+/* — Уважение системной настройки «уменьшить движения» — */
+@media (prefers-reduced-motion:reduce){
+  .aurora-orb,.kp-hero-wrap,.kp-holo-in,.hero-stats .stat-num{animation:none !important;}
+  .kp-hero{transform:none !important;}
+}
+
 </style>
 
 </head>
@@ -3079,7 +3174,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-<button id="fab" onclick="openModal()"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></button>
+<button id="fab" onclick="fabClick()"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></button>
+<script>
+/* На мобайле FAB ведёт прямо в WhatsApp (один тап → чат с готовым текстом)
+   На десктопе оставляем форму-модалку как было */
+function fabClick(){
+  var isMobile = window.matchMedia && window.matchMedia('(max-width:768px)').matches;
+  if(isMobile){
+    try{
+      var lang = (function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})()||'en';
+      var msgs = {
+        ru:'Здравствуйте! Хочу бесплатную консультацию по легализации в Польше.',
+        en:'Hello! I would like a free consultation about residence in Poland.',
+        pl:'Dzień dobry! Chciałbym/chciałabym bezpłatną konsultację dotyczącą pobytu w Polsce.',
+        uk:'Вітаю! Хочу безкоштовну консультацію щодо легалізації в Польщі.',
+        es:'¡Hola! Me gustaría una consulta gratuita sobre la residencia en Polonia.',
+        tr:'Merhaba! Polonya\'da ikamet hakkında ücretsiz danışmanlık almak istiyorum.',
+        az:'Salam! Polşada yaşayış icazəsi haqqında pulsuz məsləhət almaq istəyirəm.',
+        hi:'नमस्ते! मुझे पोलैंड में निवास के बारे में मुफ्त परामर्श चाहिए।'
+      };
+      var msg = msgs[lang] || msgs.en;
+      var url = 'https://wa.me/48735248525?text='+encodeURIComponent(msg);
+      /* Трекинг в GA4 */
+      try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_click',wa_source:'fab_mobile',lead_page:location.pathname});}catch(e){}
+      window.location.href = url;
+    }catch(e){openModal();}
+  } else {
+    openModal();
+  }
+}
+</script>
 
 <!-- Social FABs -->
 
