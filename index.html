@@ -2127,6 +2127,11 @@ h1 .acc{color:var(--p300);}
 .m-phone-row .m-phone-num{flex:1;margin-bottom:0;}
 .m-phone-row .ls-cp{margin-bottom:0;}
 
+/* Booking-modal phone row (reuses ls-cp country picker — same UX as the main modal & hero-lead) */
+.bm-phone-row{display:flex;gap:8px;align-items:stretch;}
+.bm-phone-row .bm-phone-num{flex:1;}
+.bm-phone-row .ls-cp{flex-shrink:0;}
+
 /* ── Exit Intent popup — золотой акцент, всплывает снизу ── */
 .ei-overlay{position:fixed;inset:0;z-index:200001;display:flex;align-items:center;justify-content:center;background:rgba(15,13,40,0);backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s,background-color .5s ease,backdrop-filter .5s ease,-webkit-backdrop-filter .5s ease;padding:20px;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif;}
 .ei-overlay.ei-on{opacity:1;visibility:visible;background:rgba(15,13,40,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
@@ -3687,7 +3692,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="bm-step-h" data-bm-your-details>✏️ Ваши данные</div>
       <form class="bm-form" onsubmit="event.preventDefault();bmSubmit();" novalidate>
         <input id="bm-name" class="bm-input" placeholder="Имя" data-bm-name-ph autocomplete="name" required/>
-        <input id="bm-phone" class="bm-input" type="tel" placeholder="+48 600 123 456" data-bm-phone-ph autocomplete="tel" required/>
+        <div class="bm-phone-row">
+          <div class="ls-cp" data-default="+48">
+            <button type="button" data-cp-trigger aria-haspopup="listbox" aria-expanded="false">
+              <span data-cp-flag>🇵🇱</span>
+              <span data-cp-code>+48</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div data-cp-menu role="listbox">
+              <input type="text" data-cp-search placeholder="Search country or code…" autocomplete="off"/>
+              <div data-cp-list></div>
+            </div>
+            <input type="hidden" data-cp-hidden id="bm-phone-cc" value="+48"/>
+          </div>
+          <input id="bm-phone" class="bm-input bm-phone-num" type="tel" placeholder="600 123 456" inputmode="numeric" autocomplete="tel-national" required/>
+        </div>
         <textarea id="bm-notes" class="bm-input bm-textarea" rows="2" placeholder="Кратко о вашей ситуации (необязательно)" data-bm-notes-ph></textarea>
         <button type="submit" class="bm-submit" id="bm-submit">
           <span data-bm-submit>Подтвердить запись</span>
@@ -17639,14 +17658,14 @@ function openModal(){document.getElementById('modal').classList.add('on');}
 var bmState={date:null,slot:null,dateLabel:''};
 var BM_SLOTS=['09:00','11:00','14:00','16:00','18:00','20:00'];
 var BM_T={
-  ru:{tag:'БЕСПЛАТНО · 15 МИН · ZOOM / WHATSAPP',title:'Запишитесь на <em>бесплатную консультацию</em>',sub:'Выберите удобное время — пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',pickDate:'📅 Выберите день',pickTime:'🕐 Выберите время',tz:'(Варшава, CET)',yourDetails:'✏️ Ваши данные',name:'Имя',phone:'+48 600 123 456',notes:'Кратко о вашей ситуации (необязательно)',submit:'Подтвердить запись',backDate:'← Изменить дату',backSlot:'← Изменить время',fine:'Без спама · Конфиденциально · Бесплатно',successTitle:'Запись подтверждена!',successSub:'Пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',waLabel:'Написать в WhatsApp',dows:['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек']},
-  en:{tag:'FREE 15 MIN · ZOOM / WHATSAPP',title:'Book your <em>free consultation</em>',sub:'Pick a time that works for you — we send the Zoom link to your WhatsApp 5 minutes before.',pickDate:'📅 Pick a day',pickTime:'🕐 Pick time',tz:'(Warsaw, CET)',yourDetails:'✏️ Your details',name:'Name',phone:'+48 600 123 456',notes:'Briefly about your situation (optional)',submit:'Confirm booking',backDate:'← Change date',backSlot:'← Change time',fine:'No spam · Confidential · Free',successTitle:'Booking confirmed!',successSub:"We'll send the Zoom link to your WhatsApp 5 minutes before.",waLabel:'Message us on WhatsApp',dows:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
-  pl:{tag:'BEZPŁATNIE · 15 MIN · ZOOM / WHATSAPP',title:'Zarezerwuj <em>bezpłatną konsultację</em>',sub:'Wybierz dogodny termin — link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',pickDate:'📅 Wybierz dzień',pickTime:'🕐 Wybierz godzinę',tz:'(Warszawa, CET)',yourDetails:'✏️ Twoje dane',name:'Imię',phone:'+48 600 123 456',notes:'Krótko o sytuacji (opcjonalnie)',submit:'Potwierdź rezerwację',backDate:'← Zmień datę',backSlot:'← Zmień godzinę',fine:'Bez spamu · Poufnie · Bezpłatnie',successTitle:'Rezerwacja potwierdzona!',successSub:'Link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',waLabel:'Napisz na WhatsApp',dows:['Nd','Pn','Wt','Śr','Cz','Pt','Sb'],months:['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']},
-  uk:{tag:'БЕЗКОШТОВНО · 15 ХВ · ZOOM / WHATSAPP',title:'Запишіться на <em>безкоштовну консультацію</em>',sub:'Оберіть зручний час — надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',pickDate:'📅 Оберіть день',pickTime:'🕐 Оберіть час',tz:'(Варшава, CET)',yourDetails:'✏️ Ваші дані',name:'Ім\'я',phone:'+48 600 123 456',notes:'Коротко про ситуацію (необов\'язково)',submit:'Підтвердити запис',backDate:'← Змінити дату',backSlot:'← Змінити час',fine:'Без спаму · Конфіденційно · Безкоштовно',successTitle:'Запис підтверджено!',successSub:'Надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',waLabel:'Написати в WhatsApp',dows:['Нд','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру']},
-  hi:{tag:'मुफ्त · 15 मिनट · ZOOM / WHATSAPP',title:'अपनी <em>मुफ्त परामर्श</em> बुक करें',sub:'अपने लिए सुविधाजनक समय चुनें — हम मीटिंग से 5 मिनट पहले Zoom लिंक WhatsApp पर भेजेंगे।',pickDate:'📅 दिन चुनें',pickTime:'🕐 समय चुनें',tz:'(वारसॉ, CET)',yourDetails:'✏️ आपकी जानकारी',name:'नाम',phone:'+48 600 123 456',notes:'अपनी स्थिति के बारे में संक्षेप में (वैकल्पिक)',submit:'बुकिंग पुष्टि करें',backDate:'← तारीख बदलें',backSlot:'← समय बदलें',fine:'कोई स्पैम नहीं · गोपनीय · मुफ्त',successTitle:'बुकिंग पुष्ट हुई!',successSub:'हम मीटिंग से 5 मिनट पहले Zoom लिंक WhatsApp पर भेजेंगे।',waLabel:'WhatsApp पर संदेश भेजें',dows:['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'],months:['जन','फर','मार्च','अप्रै','मई','जून','जुल','अग','सित','अक्ट','नव','दिस']},
-  es:{tag:'GRATIS · 15 MIN · ZOOM / WHATSAPP',title:'Reserva tu <em>consulta gratuita</em>',sub:'Elige una hora que te convenga — enviaremos el enlace de Zoom a tu WhatsApp 5 minutos antes.',pickDate:'📅 Elige el día',pickTime:'🕐 Elige la hora',tz:'(Varsovia, CET)',yourDetails:'✏️ Tus datos',name:'Nombre',phone:'+48 600 123 456',notes:'Brevemente sobre tu situación (opcional)',submit:'Confirmar reserva',backDate:'← Cambiar fecha',backSlot:'← Cambiar hora',fine:'Sin spam · Confidencial · Gratis',successTitle:'¡Reserva confirmada!',successSub:'Enviaremos el enlace de Zoom a tu WhatsApp 5 minutos antes.',waLabel:'Escríbenos por WhatsApp',dows:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],months:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']},
-  tr:{tag:'ÜCRETSİZ · 15 DK · ZOOM / WHATSAPP',title:'<em>Ücretsiz danışma</em> rezerve edin',sub:'Size uygun bir zaman seçin — toplantıdan 5 dakika önce Zoom linkini WhatsApp\'a göndereceğiz.',pickDate:'📅 Gün seçin',pickTime:'🕐 Saat seçin',tz:'(Varşova, CET)',yourDetails:'✏️ Bilgileriniz',name:'Adınız',phone:'+48 600 123 456',notes:'Durumunuz hakkında kısaca (isteğe bağlı)',submit:'Rezervasyonu onayla',backDate:'← Tarihi değiştir',backSlot:'← Saati değiştir',fine:'Spam yok · Gizli · Ücretsiz',successTitle:'Rezervasyon onaylandı!',successSub:'Toplantıdan 5 dakika önce Zoom linkini WhatsApp\'a göndereceğiz.',waLabel:'WhatsApp\'tan mesaj gönder',dows:['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'],months:['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara']},
-  az:{tag:'PULSUZ · 15 DƏQ · ZOOM / WHATSAPP',title:'<em>Pulsuz konsultasiya</em> sifariş edin',sub:'Sizə uyğun vaxtı seçin — görüşdən 5 dəqiqə əvvəl Zoom keçidini WhatsApp-a göndərəcəyik.',pickDate:'📅 Gün seçin',pickTime:'🕐 Vaxt seçin',tz:'(Varşava, CET)',yourDetails:'✏️ Məlumatlarınız',name:'Adınız',phone:'+48 600 123 456',notes:'Vəziyyətiniz haqqında qısaca (istəyə bağlı)',submit:'Sifarişi təsdiqlə',backDate:'← Tarixi dəyiş',backSlot:'← Vaxtı dəyiş',fine:'Spam yox · Məxfi · Pulsuz',successTitle:'Sifariş təsdiqləndi!',successSub:'Görüşdən 5 dəqiqə əvvəl Zoom keçidini WhatsApp-a göndərəcəyik.',waLabel:'WhatsApp-da mesaj göndər',dows:['Baz','B.e','Ç.a','Çər','C.a','Cüm','Şən'],months:['Yan','Fev','Mar','Apr','May','İyn','İyl','Avq','Sen','Okt','Noy','Dek']}
+  ru:{tag:'БЕСПЛАТНО · 15 МИН · ZOOM / WHATSAPP',title:'Запишитесь на <em>бесплатную консультацию</em>',sub:'Выберите удобное время — пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',pickDate:'📅 Выберите день',pickTime:'🕐 Выберите время',tz:'(Варшава, CET)',yourDetails:'✏️ Ваши данные',name:'Имя',phone:'600 123 456',notes:'Кратко о вашей ситуации (необязательно)',submit:'Подтвердить запись',backDate:'← Изменить дату',backSlot:'← Изменить время',fine:'Без спама · Конфиденциально · Бесплатно',successTitle:'Запись подтверждена!',successSub:'Пришлём ссылку на Zoom в WhatsApp за 5 минут до встречи.',waLabel:'Написать в WhatsApp',dows:['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек']},
+  en:{tag:'FREE 15 MIN · ZOOM / WHATSAPP',title:'Book your <em>free consultation</em>',sub:'Pick a time that works for you — we send the Zoom link to your WhatsApp 5 minutes before.',pickDate:'📅 Pick a day',pickTime:'🕐 Pick time',tz:'(Warsaw, CET)',yourDetails:'✏️ Your details',name:'Name',phone:'600 123 456',notes:'Briefly about your situation (optional)',submit:'Confirm booking',backDate:'← Change date',backSlot:'← Change time',fine:'No spam · Confidential · Free',successTitle:'Booking confirmed!',successSub:"We'll send the Zoom link to your WhatsApp 5 minutes before.",waLabel:'Message us on WhatsApp',dows:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
+  pl:{tag:'BEZPŁATNIE · 15 MIN · ZOOM / WHATSAPP',title:'Zarezerwuj <em>bezpłatną konsultację</em>',sub:'Wybierz dogodny termin — link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',pickDate:'📅 Wybierz dzień',pickTime:'🕐 Wybierz godzinę',tz:'(Warszawa, CET)',yourDetails:'✏️ Twoje dane',name:'Imię',phone:'600 123 456',notes:'Krótko o sytuacji (opcjonalnie)',submit:'Potwierdź rezerwację',backDate:'← Zmień datę',backSlot:'← Zmień godzinę',fine:'Bez spamu · Poufnie · Bezpłatnie',successTitle:'Rezerwacja potwierdzona!',successSub:'Link do Zoom wyślemy na WhatsApp 5 minut przed spotkaniem.',waLabel:'Napisz na WhatsApp',dows:['Nd','Pn','Wt','Śr','Cz','Pt','Sb'],months:['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']},
+  uk:{tag:'БЕЗКОШТОВНО · 15 ХВ · ZOOM / WHATSAPP',title:'Запишіться на <em>безкоштовну консультацію</em>',sub:'Оберіть зручний час — надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',pickDate:'📅 Оберіть день',pickTime:'🕐 Оберіть час',tz:'(Варшава, CET)',yourDetails:'✏️ Ваші дані',name:'Ім\'я',phone:'600 123 456',notes:'Коротко про ситуацію (необов\'язково)',submit:'Підтвердити запис',backDate:'← Змінити дату',backSlot:'← Змінити час',fine:'Без спаму · Конфіденційно · Безкоштовно',successTitle:'Запис підтверджено!',successSub:'Надішлемо посилання на Zoom у WhatsApp за 5 хвилин до зустрічі.',waLabel:'Написати в WhatsApp',dows:['Нд','Пн','Вт','Ср','Чт','Пт','Сб'],months:['Січ','Лют','Бер','Кві','Тра','Чер','Лип','Сер','Вер','Жов','Лис','Гру']},
+  hi:{tag:'मुफ्त · 15 मिनट · ZOOM / WHATSAPP',title:'अपनी <em>मुफ्त परामर्श</em> बुक करें',sub:'अपने लिए सुविधाजनक समय चुनें — हम मीटिंग से 5 मिनट पहले Zoom लिंक WhatsApp पर भेजेंगे।',pickDate:'📅 दिन चुनें',pickTime:'🕐 समय चुनें',tz:'(वारसॉ, CET)',yourDetails:'✏️ आपकी जानकारी',name:'नाम',phone:'600 123 456',notes:'अपनी स्थिति के बारे में संक्षेप में (वैकल्पिक)',submit:'बुकिंग पुष्टि करें',backDate:'← तारीख बदलें',backSlot:'← समय बदलें',fine:'कोई स्पैम नहीं · गोपनीय · मुफ्त',successTitle:'बुकिंग पुष्ट हुई!',successSub:'हम मीटिंग से 5 मिनट पहले Zoom लिंक WhatsApp पर भेजेंगे।',waLabel:'WhatsApp पर संदेश भेजें',dows:['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'],months:['जन','फर','मार्च','अप्रै','मई','जून','जुल','अग','सित','अक्ट','नव','दिस']},
+  es:{tag:'GRATIS · 15 MIN · ZOOM / WHATSAPP',title:'Reserva tu <em>consulta gratuita</em>',sub:'Elige una hora que te convenga — enviaremos el enlace de Zoom a tu WhatsApp 5 minutos antes.',pickDate:'📅 Elige el día',pickTime:'🕐 Elige la hora',tz:'(Varsovia, CET)',yourDetails:'✏️ Tus datos',name:'Nombre',phone:'600 123 456',notes:'Brevemente sobre tu situación (opcional)',submit:'Confirmar reserva',backDate:'← Cambiar fecha',backSlot:'← Cambiar hora',fine:'Sin spam · Confidencial · Gratis',successTitle:'¡Reserva confirmada!',successSub:'Enviaremos el enlace de Zoom a tu WhatsApp 5 minutos antes.',waLabel:'Escríbenos por WhatsApp',dows:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],months:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']},
+  tr:{tag:'ÜCRETSİZ · 15 DK · ZOOM / WHATSAPP',title:'<em>Ücretsiz danışma</em> rezerve edin',sub:'Size uygun bir zaman seçin — toplantıdan 5 dakika önce Zoom linkini WhatsApp\'a göndereceğiz.',pickDate:'📅 Gün seçin',pickTime:'🕐 Saat seçin',tz:'(Varşova, CET)',yourDetails:'✏️ Bilgileriniz',name:'Adınız',phone:'600 123 456',notes:'Durumunuz hakkında kısaca (isteğe bağlı)',submit:'Rezervasyonu onayla',backDate:'← Tarihi değiştir',backSlot:'← Saati değiştir',fine:'Spam yok · Gizli · Ücretsiz',successTitle:'Rezervasyon onaylandı!',successSub:'Toplantıdan 5 dakika önce Zoom linkini WhatsApp\'a göndereceğiz.',waLabel:'WhatsApp\'tan mesaj gönder',dows:['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'],months:['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara']},
+  az:{tag:'PULSUZ · 15 DƏQ · ZOOM / WHATSAPP',title:'<em>Pulsuz konsultasiya</em> sifariş edin',sub:'Sizə uyğun vaxtı seçin — görüşdən 5 dəqiqə əvvəl Zoom keçidini WhatsApp-a göndərəcəyik.',pickDate:'📅 Gün seçin',pickTime:'🕐 Vaxt seçin',tz:'(Varşava, CET)',yourDetails:'✏️ Məlumatlarınız',name:'Adınız',phone:'600 123 456',notes:'Vəziyyətiniz haqqında qısaca (istəyə bağlı)',submit:'Sifarişi təsdiqlə',backDate:'← Tarixi dəyiş',backSlot:'← Vaxtı dəyiş',fine:'Spam yox · Məxfi · Pulsuz',successTitle:'Sifariş təsdiqləndi!',successSub:'Görüşdən 5 dəqiqə əvvəl Zoom keçidini WhatsApp-a göndərəcəyik.',waLabel:'WhatsApp-da mesaj göndər',dows:['Baz','B.e','Ç.a','Çər','C.a','Cüm','Şən'],months:['Yan','Fev','Mar','Apr','May','İyn','İyl','Avq','Sen','Okt','Noy','Dek']}
 };
 
 function _bmLang(){return BM_T[(typeof L!=='undefined')?L:'en']?((typeof L!=='undefined')?L:'en'):'en';}
@@ -17754,22 +17773,26 @@ function bmPickSlot(slot){
 function bmBack(toStep){_bmShowStep(toStep);}
 function bmSubmit(){
   var name=(document.getElementById('bm-name')||{}).value||'';
-  var phone=(document.getElementById('bm-phone')||{}).value||'';
+  var phoneNum=(document.getElementById('bm-phone')||{}).value||'';
+  var phoneCC=(document.getElementById('bm-phone-cc')||{}).value||'+48';
   var notes=(document.getElementById('bm-notes')||{}).value||'';
   if(!name.trim() || name.trim().length<2){
     var n=document.getElementById('bm-name');if(n){n.style.borderColor='#ef4444';n.focus();setTimeout(function(){n.style.borderColor='';},2000);}
     return;
   }
-  if(phone.replace(/\D/g,'').length<6){
+  if(phoneNum.replace(/\D/g,'').length<6){
     var p=document.getElementById('bm-phone');if(p){p.style.borderColor='#ef4444';p.focus();setTimeout(function(){p.style.borderColor='';},2000);}
     return;
   }
+  // Combine country code + national number into a full E.164-ish string
+  var phone=(phoneCC+' '+phoneNum).replace(/\s+/g,' ').trim();
   var btn=document.getElementById('bm-submit');if(btn){btn.disabled=true;}
   // Send via existing _sendLead pipeline
   if(typeof _sendLead==='function'){
     _sendLead({
       name:name.trim(),
-      phone:phone.trim(),
+      phone:phone,
+      phone_cc:phoneCC,
       service:'Booked Consultation',
       message:'📅 BOOKED: '+bmState.dateLabel+' at '+bmState.slot+' Warsaw time'+(notes?'\n'+notes:''),
       source:'consultation-booking',
