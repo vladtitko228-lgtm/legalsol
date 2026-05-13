@@ -104,13 +104,14 @@ header.scrolled{background:rgba(10,31,26,.94);box-shadow:0 8px 24px rgba(0,0,0,.
 @media(max-width:760px){.nav-back{display:none;}.nav-cta{font-size:13px;padding:9px 16px;min-width:auto;}}
 @media(max-width:600px){.nav-cta{display:none!important;}}
 
-/* Sticky mobile FAB — primary CTA always reachable bottom-center */
+/* Sticky mobile FAB — primary CTA, only shown when hero CTA has scrolled out of view */
 .pl-fab{display:none;}
 @media(max-width:600px){
-  .pl-fab{display:inline-flex;align-items:center;justify-content:center;gap:7px;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:9990;padding:13px 24px;border-radius:60px;background:linear-gradient(135deg,#10b981 0%,#34d399 100%);color:#fff;font-size:14px;font-weight:700;letter-spacing:.3px;box-shadow:0 12px 30px rgba(16,185,129,.45),0 0 0 1px rgba(255,255,255,.08) inset;text-decoration:none;animation:plFabPulse 2.6s ease-in-out infinite;max-width:calc(100vw - 32px);}
-  .pl-fab:active{transform:translateX(-50%) scale(.96);}
+  .pl-fab{display:inline-flex;align-items:center;justify-content:center;gap:7px;position:fixed;bottom:18px;left:50%;transform:translate(-50%,80px);z-index:9990;padding:13px 24px;border-radius:60px;background:linear-gradient(135deg,#10b981 0%,#34d399 100%);color:#fff;font-size:14px;font-weight:700;letter-spacing:.3px;box-shadow:0 12px 30px rgba(16,185,129,.45),0 0 0 1px rgba(255,255,255,.08) inset;text-decoration:none;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s ease;}
+  .pl-fab.pl-fab-on{transform:translate(-50%,0);opacity:1;pointer-events:auto;animation:plFabPulse 2.6s ease-in-out infinite;}
+  .pl-fab.pl-fab-on:active{transform:translate(-50%,0) scale(.96);}
   @keyframes plFabPulse{0%,100%{box-shadow:0 12px 30px rgba(16,185,129,.45),0 0 0 1px rgba(255,255,255,.08) inset;}50%{box-shadow:0 16px 38px rgba(16,185,129,.65),0 0 0 6px rgba(16,185,129,.12) inset;}}
-  @media (prefers-reduced-motion:reduce){.pl-fab{animation:none;}}
+  @media (prefers-reduced-motion:reduce){.pl-fab.pl-fab-on{animation:none;}}
 }
 
 /* ─── Sections ─── */
@@ -415,9 +416,285 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 
   <div class="hero-cta-row">
     <a href="#cta" class="btn-primary"><span data-i18n="hero.cta1">📝 Бесплатный пробный урок</span> <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <a href="#levels" class="btn-ghost" data-i18n="hero.cta2">📊 Узнать свой уровень</a>
+    <button type="button" class="btn-ghost" onclick="plQuizOpen()" data-i18n="hero.cta2">📊 Узнать свой уровень</button>
   </div>
 </section>
+
+<!-- ─── MINI POLISH LEVEL TEST ─── -->
+<div class="plq-overlay" id="plq-overlay" onclick="if(event.target===this)plQuizClose()" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="plq-modal">
+    <button class="plq-close" type="button" onclick="plQuizClose()" aria-label="Close">✕</button>
+
+    <!-- Quiz step -->
+    <div class="plq-quiz" id="plq-quiz">
+      <div class="plq-progress">
+        <div class="plq-progress-bar" id="plq-progress-bar"></div>
+      </div>
+      <div class="plq-step-lbl"><span id="plq-step-cur">1</span> / <span id="plq-step-total">5</span></div>
+      <h3 class="plq-q" id="plq-question">Question</h3>
+      <div class="plq-answers" id="plq-answers"></div>
+      <button class="plq-back" type="button" onclick="plQuizBack()" id="plq-back" style="display:none;">← Back</button>
+    </div>
+
+    <!-- Result step -->
+    <div class="plq-result" id="plq-result" style="display:none;">
+      <div class="plq-badge" id="plq-badge">A1</div>
+      <h3 class="plq-result-title" id="plq-result-title">Your level: A1 — Beginner</h3>
+      <p class="plq-result-desc" id="plq-result-desc">Description</p>
+      <div class="plq-recommend" id="plq-recommend">
+        <div class="plq-rec-lbl">📚 Рекомендуем курс</div>
+        <div class="plq-rec-name" id="plq-rec-name">Beginner A1 → A2</div>
+        <div class="plq-rec-meta" id="plq-rec-meta">60-80 часов · 4-6 месяцев · от 80 zł/час</div>
+      </div>
+      <a href="#cta" class="plq-cta" onclick="plQuizClose();" id="plq-cta-text">📝 Записаться на пробный урок →</a>
+      <button class="plq-restart" id="plq-restart" type="button" onclick="plQuizRestart()">↻ Пройти заново</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ═══════ Mini Polish-level quiz modal ═══════ */
+.plq-overlay{position:fixed;inset:0;z-index:200000;display:flex;align-items:center;justify-content:center;background:rgba(8,6,22,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;padding:20px;font-family:inherit;}
+.plq-overlay.plq-on{opacity:1;visibility:visible;}
+.plq-modal{background:linear-gradient(160deg,rgba(20,20,40,.98),rgba(12,12,28,.99));border:1.5px solid rgba(16,185,129,.25);border-radius:24px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;padding:36px 32px 32px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(16,185,129,.12) inset;transform:translateY(20px) scale(.96);opacity:0;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .3s ease;}
+.plq-overlay.plq-on .plq-modal{transform:translateY(0) scale(1);opacity:1;}
+.plq-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.65);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
+.plq-close:hover{background:rgba(255,255,255,.14);color:#fff;}
+
+.plq-progress{height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin-bottom:14px;}
+.plq-progress-bar{height:100%;width:20%;background:linear-gradient(90deg,#10b981,#34d399);border-radius:4px;transition:width .45s cubic-bezier(.16,1,.3,1);box-shadow:0 0 12px rgba(16,185,129,.35);}
+.plq-step-lbl{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:18px;text-transform:uppercase;}
+.plq-q{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;line-height:1.25;color:#fff;margin:0 0 24px;letter-spacing:-.01em;}
+.plq-answers{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.plq-ans{display:flex;align-items:flex-start;gap:12px;padding:15px 18px;background:rgba(255,255,255,.04);border:1.5px solid rgba(139,130,232,.16);border-radius:14px;color:rgba(255,255,255,.85);font-size:14.5px;line-height:1.4;font-weight:500;font-family:inherit;cursor:pointer;text-align:left;width:100%;transition:background .2s,border-color .2s,color .2s,transform .2s;}
+.plq-ans:hover{background:rgba(16,185,129,.10);border-color:rgba(52,211,153,.45);color:#fff;transform:translateX(3px);}
+.plq-ans:active{transform:translateX(3px) scale(.99);}
+.plq-ans-bullet{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(16,185,129,.14);border:1.5px solid rgba(52,211,153,.32);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#34d399;margin-top:1px;}
+.plq-ans:hover .plq-ans-bullet{background:rgba(16,185,129,.32);border-color:#10b981;color:#fff;}
+.plq-back{margin-top:6px;background:none;border:none;color:rgba(255,255,255,.5);font-size:13px;cursor:pointer;padding:6px 12px;font-family:inherit;transition:color .2s;}
+.plq-back:hover{color:#fff;}
+
+.plq-result{text-align:center;padding:8px 0;}
+.plq-badge{display:inline-flex;align-items:center;justify-content:center;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#34d399,#10b981 60%,#059669);color:#fff;font-family:'Playfair Display',serif;font-size:36px;font-weight:900;letter-spacing:.5px;margin:0 auto 18px;box-shadow:0 20px 50px rgba(16,185,129,.45),inset 0 0 0 3px rgba(255,255,255,.18);animation:plqBadgePop .55s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes plqBadgePop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
+.plq-result-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:#fff;margin:0 0 10px;line-height:1.25;}
+.plq-result-desc{color:rgba(255,255,255,.78);font-size:14.5px;line-height:1.6;margin:0 0 22px;}
+.plq-recommend{background:linear-gradient(135deg,rgba(16,185,129,.10),rgba(251,191,36,.06));border:1px solid rgba(52,211,153,.25);border-radius:16px;padding:18px 20px;margin-bottom:22px;text-align:left;}
+.plq-rec-lbl{font-size:11px;letter-spacing:1.5px;color:#34d399;font-weight:700;margin-bottom:8px;text-transform:uppercase;}
+.plq-rec-name{font-size:17px;font-weight:800;color:#fff;margin-bottom:5px;}
+.plq-rec-meta{font-size:13px;color:rgba(255,255,255,.7);}
+.plq-cta{display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:14px 28px;border-radius:60px;font-size:14.5px;font-weight:700;text-decoration:none;transition:transform .25s,box-shadow .25s;box-shadow:0 8px 24px rgba(16,185,129,.4);}
+.plq-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(16,185,129,.6);}
+.plq-restart{display:block;margin:16px auto 0;background:none;border:none;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;font-family:inherit;transition:color .2s;}
+.plq-restart:hover{color:#fff;}
+
+@media (max-width:600px){
+  .plq-modal{padding:28px 22px 22px;border-radius:20px;}
+  .plq-q{font-size:18px;}
+  .plq-ans{padding:13px 14px;font-size:13.5px;}
+  .plq-badge{width:80px;height:80px;font-size:30px;margin-bottom:14px;}
+  .plq-result-title{font-size:20px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .plq-badge{animation:none;}
+  .plq-overlay,.plq-modal{transition:opacity .15s ease;}
+}
+</style>
+
+<script>
+/* Mini Polish-level quiz — 5 weighted questions → CEFR level (A1–C1) */
+(function(){
+  var STR={
+    ru:{
+      title:'Узнайте свой уровень польского',
+      total:'из 5',
+      back:'← Назад',
+      restart:'↻ Пройти заново',
+      ctaLabel:'📝 Записаться на пробный урок →',
+      recLbl:'📚 Рекомендуем курс',
+      questions:[
+        {q:'Сколько вы изучали польский?',a:[
+          {t:'Никогда не изучал',p:0},
+          {t:'Меньше года · отдельные слова',p:1},
+          {t:'1–2 года · могу говорить базово',p:2},
+          {t:'3+ года · уверенно общаюсь',p:4}
+        ]},
+        {q:'Можете ли заказать еду в кафе по-польски?',a:[
+          {t:'Нет, совсем',p:0},
+          {t:'С помощью жестов и пары слов',p:1},
+          {t:'Да, понимаю меню и могу заказать',p:2},
+          {t:'Да, без проблем + small talk с официантом',p:3}
+        ]},
+        {q:'Можете ли читать польскую новость?',a:[
+          {t:'Не понимаю ничего',p:0},
+          {t:'С переводчиком — общий смысл',p:1},
+          {t:'Понимаю большую часть',p:2},
+          {t:'Читаю свободно',p:4}
+        ]},
+        {q:'Сможете ли пройти собеседование на работу на польском?',a:[
+          {t:'Нет, мне нужен переводчик',p:0},
+          {t:'Только базовый разговор',p:1},
+          {t:'Да, с некоторыми сложностями',p:3},
+          {t:'Да, уверенно по сложным темам',p:5}
+        ]},
+        {q:'Какая ваша цель?',a:[
+          {t:'Базовая жизнь · покупки, документы',p:0},
+          {t:'Karta Pobytu (нужен B1)',p:2},
+          {t:'Гражданство (нужен B2)',p:3},
+          {t:'Университет в Польше (нужен C1)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Ваш уровень: A1 — Начальный',desc:'Вы только начинаете путь. Это нормально! 80% наших учеников приходят с этого уровня.',recName:'Курс Beginner A1 → A2',recMeta:'60–80 часов · 4–6 месяцев · от 80 zł/час'},
+        A2:{title:'Ваш уровень: A2 — Базовый',desc:'У вас есть основа. До B1 (нужен для Karta Pobytu) — около 3–4 месяцев интенсива.',recName:'Курс Elementary A2 → B1',recMeta:'80 часов · 4 месяца · от 80 zł/час'},
+        B1:{title:'Ваш уровень: B1 — Средний',desc:'Поздравляем — это уровень, который требует Karta Pobytu. Можете записаться на госэкзамен.',recName:'B1 Exam Prep · сдача за 1 попытку',recMeta:'8 недель · гарантия сдачи · от 4500 zł'},
+        B2:{title:'Ваш уровень: B2 — Уверенный',desc:'Этого хватает для гражданства Польши. Готовим к госэкзамену B2 за 8 недель.',recName:'B2 Exam Prep · обывательство',recMeta:'8 недель · гарантия сдачи · от 4500 zł'},
+        C1:{title:'Ваш уровень: C1 — Продвинутый',desc:'Польский на уровне университета. Можете подавать на бюджет в UW / AGH / PW.',recName:'C1 Academic · приёмные документы',recMeta:'10–12 недель · подготовка к сессии'}
+      }
+    },
+    en:{
+      title:'Find out your Polish level',
+      total:'of 5',
+      back:'← Back',
+      restart:'↻ Retake',
+      ctaLabel:'📝 Book a free trial lesson →',
+      recLbl:'📚 Recommended course',
+      questions:[
+        {q:'How long have you studied Polish?',a:[
+          {t:'Never',p:0},
+          {t:'Less than a year · a few words',p:1},
+          {t:'1–2 years · I can speak basic',p:2},
+          {t:'3+ years · I speak confidently',p:4}
+        ]},
+        {q:'Can you order food in a Polish café?',a:[
+          {t:'No, not at all',p:0},
+          {t:'With gestures and a few words',p:1},
+          {t:'Yes, I understand the menu and order',p:2},
+          {t:'Yes, with small talk to the server',p:3}
+        ]},
+        {q:'Can you read a Polish news article?',a:[
+          {t:'I understand nothing',p:0},
+          {t:'With a translator — the gist',p:1},
+          {t:'I understand most of it',p:2},
+          {t:'I read fluently',p:4}
+        ]},
+        {q:'Could you do a job interview in Polish?',a:[
+          {t:'No, I need a translator',p:0},
+          {t:'Only basic conversation',p:1},
+          {t:'Yes, with some difficulty',p:3},
+          {t:'Yes, confidently on complex topics',p:5}
+        ]},
+        {q:'What is your goal?',a:[
+          {t:'Basic life · shopping, paperwork',p:0},
+          {t:'Karta Pobytu (B1 required)',p:2},
+          {t:'Polish citizenship (B2 required)',p:3},
+          {t:'University in Poland (C1 required)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Your level: A1 — Beginner',desc:'You\'re just starting. That\'s fine — 80% of our students start here.',recName:'Beginner Course A1 → A2',recMeta:'60–80 hours · 4–6 months · from 80 zł/hour'},
+        A2:{title:'Your level: A2 — Elementary',desc:'You have the basics. About 3–4 months of intensive will get you to B1 (Karta Pobytu).',recName:'Elementary Course A2 → B1',recMeta:'80 hours · 4 months · from 80 zł/hour'},
+        B1:{title:'Your level: B1 — Intermediate',desc:'Congratulations — this is the level required for Karta Pobytu. Ready for the state exam.',recName:'B1 Exam Prep · 1-attempt pass',recMeta:'8 weeks · pass guarantee · from 4500 zł'},
+        B2:{title:'Your level: B2 — Upper-Intermediate',desc:'Enough for Polish citizenship. We prep for the state B2 exam in 8 weeks.',recName:'B2 Exam Prep · citizenship',recMeta:'8 weeks · pass guarantee · from 4500 zł'},
+        C1:{title:'Your level: C1 — Advanced',desc:'University-level Polish. You can apply to budget seats at UW / AGH / PW.',recName:'C1 Academic · admissions',recMeta:'10–12 weeks · exam preparation'}
+      }
+    },
+    pl:{
+      title:'Sprawdź swój poziom polskiego',
+      total:'z 5',
+      back:'← Wstecz',
+      restart:'↻ Powtórz',
+      ctaLabel:'📝 Zarejestruj się na bezpłatną lekcję próbną →',
+      recLbl:'📚 Polecany kurs',
+      questions:[
+        {q:'Jak długo uczysz się polskiego?',a:[
+          {t:'Nigdy nie uczyłem się',p:0},
+          {t:'Mniej niż rok · kilka słów',p:1},
+          {t:'1–2 lata · mówię podstawowo',p:2},
+          {t:'3+ lata · mówię swobodnie',p:4}
+        ]},
+        {q:'Czy zamówisz jedzenie w polskiej kawiarni?',a:[
+          {t:'Nie',p:0},
+          {t:'Gestami i paroma słowami',p:1},
+          {t:'Tak, rozumiem menu',p:2},
+          {t:'Tak, z small talkiem z kelnerem',p:3}
+        ]},
+        {q:'Czy przeczytasz polski artykuł?',a:[
+          {t:'Nic nie rozumiem',p:0},
+          {t:'Z tłumaczem — sens ogólny',p:1},
+          {t:'Rozumiem większość',p:2},
+          {t:'Czytam swobodnie',p:4}
+        ]},
+        {q:'Przejdziesz rozmowę o pracę po polsku?',a:[
+          {t:'Nie, potrzebuję tłumacza',p:0},
+          {t:'Tylko podstawowa rozmowa',p:1},
+          {t:'Tak, z pewnymi trudnościami',p:3},
+          {t:'Tak, swobodnie o trudnych tematach',p:5}
+        ]},
+        {q:'Jaki jest Twój cel?',a:[
+          {t:'Podstawowe życie · zakupy, dokumenty',p:0},
+          {t:'Karta Pobytu (potrzebny B1)',p:2},
+          {t:'Obywatelstwo (potrzebny B2)',p:3},
+          {t:'Studia w Polsce (potrzebny C1)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Twój poziom: A1 — Początkujący',desc:'Dopiero zaczynasz. To w porządku — 80% naszych uczniów zaczyna stąd.',recName:'Kurs Beginner A1 → A2',recMeta:'60–80 godz. · 4–6 mies. · od 80 zł/godz.'},
+        A2:{title:'Twój poziom: A2 — Podstawowy',desc:'Masz podstawy. Do B1 (Karta Pobytu) około 3–4 miesiące intensywnego kursu.',recName:'Kurs Elementary A2 → B1',recMeta:'80 godz. · 4 mies. · od 80 zł/godz.'},
+        B1:{title:'Twój poziom: B1 — Średnio-zaawansowany',desc:'Gratulacje — to poziom wymagany dla Karty Pobytu. Gotów do egzaminu państwowego.',recName:'B1 Exam Prep · zaliczenie za 1 razem',recMeta:'8 tygodni · gwarancja zaliczenia · od 4500 zł'},
+        B2:{title:'Twój poziom: B2 — Wyższy średni',desc:'Wystarcza do obywatelstwa polskiego. Przygotowanie do egzaminu B2 w 8 tygodni.',recName:'B2 Exam Prep · obywatelstwo',recMeta:'8 tygodni · gwarancja zaliczenia · od 4500 zł'},
+        C1:{title:'Twój poziom: C1 — Zaawansowany',desc:'Uniwersytecki poziom polskiego. Możesz aplikować na miejsca budżetowe (UW / AGH / PW).',recName:'C1 Academic · dokumenty na uczelnię',recMeta:'10–12 tygodni · przygotowanie do egzaminu'}
+      }
+    }
+  };
+
+  var state={step:0,score:0,answers:[]};
+
+  function getLang(){var l=(document.documentElement.lang||'').toLowerCase().slice(0,2);return STR[l]?l:(STR.ru?'ru':'en');}
+  function dict(){return STR[getLang()];}
+  function levelFromScore(s){if(s<=4)return'A1';if(s<=9)return'A2';if(s<=14)return'B1';if(s<=18)return'B2';return'C1';}
+
+  function render(){
+    var t=dict();
+    var qData=t.questions[state.step];
+    document.getElementById('plq-question').textContent=qData.q;
+    document.getElementById('plq-step-cur').textContent=String(state.step+1);
+    document.getElementById('plq-step-total').textContent=String(t.questions.length);
+    document.getElementById('plq-progress-bar').style.width=Math.round(((state.step+1)/t.questions.length)*100)+'%';
+    var box=document.getElementById('plq-answers');box.innerHTML='';
+    qData.a.forEach(function(opt,i){
+      var btn=document.createElement('button');btn.type='button';btn.className='plq-ans';
+      btn.innerHTML='<span class="plq-ans-bullet">'+String.fromCharCode(65+i)+'</span><span>'+opt.t+'</span>';
+      btn.addEventListener('click',function(){answer(opt.p);});
+      box.appendChild(btn);
+    });
+    document.getElementById('plq-back').style.display=state.step>0?'inline-block':'none';
+    document.getElementById('plq-back').textContent=t.back;
+  }
+  function answer(p){state.answers[state.step]=p;state.step++;if(state.step>=dict().questions.length){showResult();}else{render();}}
+  function showResult(){
+    var t=dict();state.score=state.answers.reduce(function(a,b){return a+b;},0);
+    var level=levelFromScore(state.score);var r=t.results[level];
+    document.getElementById('plq-badge').textContent=level;
+    document.getElementById('plq-result-title').textContent=r.title;
+    document.getElementById('plq-result-desc').textContent=r.desc;
+    document.getElementById('plq-rec-name').textContent=r.recName;
+    document.getElementById('plq-rec-meta').textContent=r.recMeta;
+    var lbl=document.querySelector('.plq-rec-lbl');if(lbl)lbl.textContent=t.recLbl;
+    var ctaText=document.getElementById('plq-cta-text');ctaText.textContent=t.ctaLabel;
+    document.getElementById('plq-restart').textContent=t.restart;
+    document.getElementById('plq-quiz').style.display='none';
+    document.getElementById('plq-result').style.display='';
+    try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'polish_quiz_complete',polish_level:level,polish_score:state.score});}catch(e){}
+  }
+  window.plQuizOpen=function(){state.step=0;state.score=0;state.answers=[];document.getElementById('plq-quiz').style.display='';document.getElementById('plq-result').style.display='none';render();var ov=document.getElementById('plq-overlay');ov.classList.add('plq-on');ov.setAttribute('aria-hidden','false');try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'polish_quiz_open'});}catch(e){}};
+  window.plQuizClose=function(){var ov=document.getElementById('plq-overlay');ov.classList.remove('plq-on');ov.setAttribute('aria-hidden','true');};
+  window.plQuizBack=function(){if(state.step>0){state.step--;render();}};
+  window.plQuizRestart=function(){state.step=0;state.score=0;state.answers=[];document.getElementById('plq-quiz').style.display='';document.getElementById('plq-result').style.display='none';render();};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('plq-overlay').classList.contains('plq-on'))plQuizClose();});
+})();
+</script>
+
 
 <!-- ─── LEVELS ─── -->
 <section class="section reveal" id="levels">
@@ -1098,15 +1375,14 @@ function submitPolish(){
 })();
 </script>
 
-<!-- Sticky mobile primary CTA — Polish School trial-lesson booking always reachable -->
-<a href="#trial-form" class="pl-fab" id="pl-fab-cta" aria-label="Book trial lesson">
+<!-- Sticky mobile primary CTA — only appears once the hero CTA has scrolled out of view -->
+<a href="#cta" class="pl-fab" id="pl-fab-cta" aria-label="Book trial lesson">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
   <span id="pl-fab-text">Book a trial lesson</span>
 </a>
 <script>
-// Sync the FAB label with the header CTA — same i18n source keeps RU/PL translations in sync.
-// nav-cta is targeted by class (not id), and a MutationObserver keeps the FAB in sync after later lang switches.
 (function(){
+  // Sync FAB label with header CTA (same i18n source — no duplicate dicts)
   function sync(){
     var src=document.querySelector('.nav-cta');
     var dst=document.getElementById('pl-fab-text');
@@ -1114,13 +1390,22 @@ function submitPolish(){
     var t=(src.textContent||'').replace(/\s*[→›]\s*$/,'').trim();
     if(t)dst.textContent=t;
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync);else sync();
-  setTimeout(sync,400);setTimeout(sync,1500);
-  // Re-sync whenever the nav-cta's text changes (covers language toggle)
-  document.addEventListener('DOMContentLoaded',function(){
-    var src=document.querySelector('.nav-cta');if(!src||!window.MutationObserver)return;
-    new MutationObserver(sync).observe(src,{characterData:true,childList:true,subtree:true});
-  });
+  function init(){
+    sync();setTimeout(sync,400);setTimeout(sync,1500);
+    var navCta=document.querySelector('.nav-cta');
+    if(navCta&&window.MutationObserver){
+      new MutationObserver(sync).observe(navCta,{characterData:true,childList:true,subtree:true});
+    }
+    // FAB shows ONLY when the hero CTA is OUT of view — avoids two CTAs on screen at once
+    var fab=document.getElementById('pl-fab-cta');
+    var heroCta=document.querySelector('.hero-cta-row .btn-primary');
+    if(!fab||!heroCta||!('IntersectionObserver' in window))return;
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){fab.classList.toggle('pl-fab-on',!e.isIntersecting);});
+    },{rootMargin:'-20px 0px -20px 0px',threshold:0});
+    io.observe(heroCta);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 
