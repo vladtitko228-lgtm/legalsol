@@ -127,10 +127,51 @@
     });
   }
 
+  // Re-render banner content when language switches (in case mounted with wrong lang)
+  function applyLang(newLang){
+    if (newLang === 'ua') newLang = 'uk';
+    var tt = L[newLang] || L.en;
+    var title = document.getElementById('ls-cb-title');
+    var desc = document.getElementById('ls-cb-desc');
+    var policy = document.getElementById('ls-cb-policy');
+    var accept = document.getElementById('ls-cb-accept');
+    if (title) title.textContent = tt.title;
+    if (desc) desc.textContent = tt.desc;
+    if (policy && policy.querySelector('span')) policy.querySelector('span').textContent = tt.policy;
+    if (accept) accept.textContent = tt.accept;
+  }
+  // Expose globally so setLang can call it
+  window._cbApplyLang = applyLang;
+  // Hook setLang if present (idempotent)
+  function hookCbToSetLang(){
+    var orig = window.setLang;
+    if (typeof orig === 'function' && !orig.__cbWrapped){
+      var wrapped = function(){
+        var r = orig.apply(this, arguments);
+        try { applyLang(arguments[0]); } catch(e){}
+        return r;
+      };
+      wrapped.__cbWrapped = true;
+      window.setLang = wrapped;
+    }
+    // Also retro-apply current lang in case setLang already ran
+    var cur = document.documentElement.lang || 'ru';
+    if (cur === 'ua') cur = 'uk';
+    setTimeout(function(){ applyLang(cur); }, 100);
+  }
+
   if (document.body) {
     mount();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hookCbToSetLang);
+    } else {
+      hookCbToSetLang();
+    }
   } else {
-    document.addEventListener('DOMContentLoaded', mount);
+    document.addEventListener('DOMContentLoaded', function(){
+      mount();
+      hookCbToSetLang();
+    });
   }
 })();
 
