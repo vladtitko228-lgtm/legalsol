@@ -4257,9 +4257,13 @@ updateTicker('ru');
 
 <style>
 
-.ss-card{background:rgba(20,18,52,.75);border:1px solid rgba(139,130,232,.15);border-radius:16px;padding:22px 16px;text-align:center;transition:transform .3s,box-shadow .3s,border-color .3s;cursor:default;}
+.ss-card{background:rgba(20,18,52,.75);border:1px solid rgba(139,130,232,.15);border-radius:16px;padding:22px 16px;text-align:center;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease;cursor:default;position:relative;overflow:hidden;}
 
-.ss-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(91,82,204,.2);border-color:rgba(139,130,232,.35);}
+/* Soft gradient sheen on hover — feels alive without being noisy */
+.ss-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,130,232,.18),transparent 70%);opacity:0;transition:opacity .35s ease;pointer-events:none;}
+.ss-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(91,82,204,.28);border-color:rgba(139,130,232,.45);}
+.ss-card:hover::before{opacity:1;}
+.ss-card:hover .ss-num{filter:drop-shadow(0 0 12px rgba(139,130,232,.5));}
 
 .ss-num{font-family:'Inter',sans-serif;font-size:clamp(28px,6vw,42px);font-weight:800;line-height:1;background:linear-gradient(135deg,#fff 0%,var(--p300) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
@@ -4687,9 +4691,16 @@ function submitHlead(){
 
 <!-- DOC CALCULATOR — 5 steps -->
 
-<div id="calc-section" style="padding:80px 60px 100px;background:var(--bg);">
+<div id="calc-section" style="padding:80px 60px 100px;background:var(--bg);position:relative;overflow:hidden;">
 
-  <div style="max-width:920px;margin:0 auto;text-align:center;">
+  <!-- Decorative aurora orbs (purely visual, behind content) -->
+  <div class="calc-aurora" aria-hidden="true">
+    <span class="calc-orb calc-orb-1"></span>
+    <span class="calc-orb calc-orb-2"></span>
+    <span class="calc-orb calc-orb-3"></span>
+  </div>
+
+  <div style="max-width:920px;margin:0 auto;text-align:center;position:relative;z-index:1;">
 
 
 
@@ -5041,7 +5052,27 @@ function submitHlead(){
 
 /* ── 5-STEP CALCULATOR ── */
 
-.cc-panel{animation:ccPanelIn .3s ease both;}
+/* Aurora orbs floating behind the calculator section */
+.calc-aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+.calc-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;will-change:transform;}
+.calc-orb-1{width:520px;height:520px;top:-180px;left:-120px;background:radial-gradient(circle,rgba(91,82,204,.55),rgba(91,82,204,0) 65%);animation:calcOrb1 14s ease-in-out infinite;}
+.calc-orb-2{width:420px;height:420px;bottom:-140px;right:-100px;background:radial-gradient(circle,rgba(139,130,232,.5),rgba(139,130,232,0) 65%);animation:calcOrb2 18s ease-in-out infinite;}
+.calc-orb-3{width:280px;height:280px;top:30%;left:55%;background:radial-gradient(circle,rgba(74,222,128,.18),rgba(74,222,128,0) 65%);animation:calcOrb3 16s ease-in-out infinite;}
+@keyframes calcOrb1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,30px) scale(1.08);}}
+@keyframes calcOrb2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-50px,-25px) scale(1.05);}}
+@keyframes calcOrb3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,40px) scale(1.12);}}
+@media(prefers-reduced-motion:reduce){.calc-orb{animation:none!important;}}
+
+/* Heading gradient sweep on emphasized "Карту Побыту" */
+#cc-heading em{background:linear-gradient(120deg,var(--p300) 0%,#c4bfff 35%,#fff 50%,#c4bfff 65%,var(--p300) 100%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:calcHeadGrad 6s linear infinite;}
+@keyframes calcHeadGrad{0%{background-position:240% 0;}100%{background-position:-240% 0;}}
+
+/* Calculator badge — subtle sheen on the "ЗАЙМЁТ 1 МИНУТУ · БЕСПЛАТНО" pill */
+#cc-badge{position:relative;overflow:hidden;}
+#cc-badge::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);transform:translateX(-100%);animation:calcBadgeSheen 4.5s ease-in-out 1s infinite;}
+@keyframes calcBadgeSheen{0%{transform:translateX(-100%);}55%{transform:translateX(100%);}100%{transform:translateX(100%);}}
+
+.cc-panel{animation:ccPanelIn .42s cubic-bezier(.16,1,.3,1) both;}
 
 
 
@@ -5061,11 +5092,16 @@ function submitHlead(){
 
 /* Country picker button */
 
-.cc-country-picker-btn{display:flex;align-items:center;gap:12px;background:rgba(91,82,204,.1);border:1.5px solid rgba(139,130,232,.3);color:rgba(255,255,255,.75);padding:16px 24px;border-radius:16px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .25s;width:100%;max-width:420px;margin:0 auto;}
+.cc-country-picker-btn{display:flex;align-items:center;gap:12px;background:rgba(91,82,204,.1);border:1.5px solid rgba(139,130,232,.3);color:rgba(255,255,255,.75);padding:16px 24px;border-radius:16px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .25s cubic-bezier(.16,1,.3,1);width:100%;max-width:420px;margin:0 auto;position:relative;overflow:hidden;}
 
-.cc-country-picker-btn:hover{background:rgba(91,82,204,.22);border-color:rgba(139,130,232,.7);color:#fff;transform:translateY(-1px);box-shadow:0 8px 28px rgba(91,82,204,.25);}
+/* Diagonal sheen sweeps when nothing is selected yet — invites the click */
+.cc-country-picker-btn:not(.cc-picker-selected)::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(139,130,232,.18),transparent);animation:calcPickerSheen 3.8s ease-in-out 1.5s infinite;pointer-events:none;}
+@keyframes calcPickerSheen{0%{left:-100%;}55%{left:160%;}100%{left:160%;}}
+
+.cc-country-picker-btn:hover{background:rgba(91,82,204,.22);border-color:rgba(139,130,232,.85);color:#fff;transform:translateY(-2px);box-shadow:0 12px 36px rgba(91,82,204,.32),0 0 0 3px rgba(139,130,232,.18);}
 
 .cc-country-picker-btn.cc-picker-selected{border-color:rgba(139,130,232,.7);background:rgba(91,82,204,.2);color:#fff;}
+.cc-country-picker-btn.cc-picker-selected::before{display:none;}
 
 .cc-picker-flag{font-size:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 
@@ -5139,15 +5175,23 @@ function submitHlead(){
 
 .cc-progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:40px;}
 
-.cc-prog-step{width:36px;height:36px;border-radius:50%;border:2px solid rgba(91,82,204,.3);background:rgba(91,82,204,.06);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.3);transition:all .4s ease;flex-shrink:0;}
+.cc-prog-step{width:36px;height:36px;border-radius:50%;border:2px solid rgba(91,82,204,.3);background:rgba(91,82,204,.06);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.3);transition:all .45s cubic-bezier(.16,1,.3,1);flex-shrink:0;position:relative;}
 
-.cc-prog-step.cc-ps-active{border-color:var(--p400);background:linear-gradient(135deg,var(--p500),var(--p400));color:#fff;box-shadow:0 4px 16px rgba(91,82,204,.5);}
+.cc-prog-step.cc-ps-active{border-color:var(--p400);background:linear-gradient(135deg,var(--p500),var(--p400));color:#fff;box-shadow:0 4px 16px rgba(91,82,204,.5);transform:scale(1.08);}
+/* Pulsing ring on the active step — draws the eye to "where you are" */
+.cc-prog-step.cc-ps-active::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(139,130,232,.6);opacity:0;animation:ccStepPulse 1.8s ease-out infinite;pointer-events:none;}
+@keyframes ccStepPulse{0%{transform:scale(.85);opacity:.9;}100%{transform:scale(1.35);opacity:0;}}
 
 .cc-prog-step.cc-ps-done{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.12);color:#4ade80;}
+/* Subtle "✓" overlay when step is done — purely additive */
+.cc-prog-step.cc-ps-done::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(74,222,128,.18) 0%,transparent 70%);animation:ccStepDone .5s ease-out 1;}
+@keyframes ccStepDone{0%{transform:scale(.6);opacity:0;}60%{opacity:1;}100%{transform:scale(1.4);opacity:0;}}
 
-.cc-prog-line{flex:1;max-width:60px;height:2px;background:rgba(91,82,204,.15);margin:0 4px;border-radius:2px;transition:background .4s ease;}
-
+.cc-prog-line{flex:1;max-width:60px;height:2px;background:rgba(91,82,204,.15);margin:0 4px;border-radius:2px;position:relative;overflow:hidden;transition:background .4s ease;}
+/* Animated gradient travels along the active connector line */
 .cc-prog-line.cc-pl-active{background:linear-gradient(90deg,var(--p400),rgba(74,222,128,.5));}
+.cc-prog-line.cc-pl-active::after{content:'';position:absolute;top:0;left:-30%;width:30%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:ccLineFlow 2.2s ease-in-out infinite;}
+@keyframes ccLineFlow{0%{left:-30%;}100%{left:100%;}}
 
 
 
@@ -5587,21 +5631,40 @@ function submitHlead(){
 
 <section style="padding:80px 24px;background:var(--bg);text-align:center;">
 
-  <div class="guar-inner-card" style="max-width:1100px;margin:0 auto;background:linear-gradient(135deg,rgba(45,40,105,.5),rgba(30,27,75,.8));border:1.5px solid rgba(74,222,128,.25);border-radius:28px;padding:56px 60px;position:relative;overflow:hidden;">
+  <div class="guar-inner-card reveal-scale" style="max-width:1100px;margin:0 auto;background:linear-gradient(135deg,rgba(45,40,105,.5),rgba(30,27,75,.8));border:1.5px solid rgba(74,222,128,.25);border-radius:28px;padding:56px 60px;position:relative;overflow:hidden;">
 
-    <div style="position:absolute;top:16px;right:20px;font-size:48px;opacity:.15;">🛡️</div>
+    <!-- Soft emerald aurora behind the guarantee card -->
+    <div class="guar-aurora" aria-hidden="true"></div>
 
-    <div id="guar-tag" style="font-size:11px;letter-spacing:4px;color:#4ade80;margin-bottom:12px;">ГАРАНТИЯ</div>
+    <div class="guar-shield">🛡️</div>
 
-    <h2 id="guar-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,36px);font-weight:900;margin-bottom:16px;">98% одобрений — <em style="color:#4ade80">или апелляция за наш счёт</em></h2>
+    <div id="guar-tag" style="font-size:11px;letter-spacing:4px;color:#4ade80;margin-bottom:12px;position:relative;z-index:1;">ГАРАНТИЯ</div>
 
-    <p id="guar-p" style="color:var(--txt2);font-size:15px;line-height:1.8;margin-bottom:28px;" class="guar-desc">За 5 лет работы мы добились одобрения в 98% случаев. Если ваше дело получит отказ — мы подаём апелляцию бесплатно. А если мы видим, что шансов нет — честно скажем на бесплатной консультации, ДО начала работы.</p>
+    <h2 id="guar-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,36px);font-weight:900;margin-bottom:16px;position:relative;z-index:1;"><span class="guar-pct">98%</span> одобрений — <em style="color:#4ade80">или апелляция за наш счёт</em></h2>
 
-    <button id="guar-btn" class="cta-btn" onclick="openModal()" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#0f172a;border:none;padding:14px 32px;border-radius:60px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Записаться на бесплатный анализ →</button>
+    <p id="guar-p" style="color:var(--txt2);font-size:15px;line-height:1.8;margin-bottom:28px;position:relative;z-index:1;" class="guar-desc">За 5 лет работы мы добились одобрения в 98% случаев. Если ваше дело получит отказ — мы подаём апелляцию бесплатно. А если мы видим, что шансов нет — честно скажем на бесплатной консультации, ДО начала работы.</p>
+
+    <button id="guar-btn" class="cta-btn guar-cta" onclick="openModal()" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#0f172a;border:none;padding:14px 32px;border-radius:60px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;position:relative;z-index:1;">Записаться на бесплатный анализ →</button>
 
   </div>
 
 </section>
+
+<style>
+.guar-aurora{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(74,222,128,.18),transparent 65%),radial-gradient(ellipse 60% 60% at 100% 100%,rgba(91,82,204,.15),transparent 65%);opacity:0;transition:opacity .8s ease;}
+.guar-inner-card.on .guar-aurora,.guar-inner-card:hover .guar-aurora{opacity:1;}
+.guar-shield{position:absolute;top:16px;right:20px;font-size:48px;opacity:.18;transform-origin:center;animation:guarShieldFloat 5s ease-in-out infinite;}
+@keyframes guarShieldFloat{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-8px) rotate(3deg);}}
+.guar-pct{display:inline-block;background:linear-gradient(135deg,#4ade80,#86efac);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 0 rgba(74,222,128,0));transition:filter .6s ease;}
+.guar-inner-card.on .guar-pct{animation:guarPctGlow 2.6s ease-in-out 1s infinite alternate;}
+@keyframes guarPctGlow{0%{filter:drop-shadow(0 0 0 rgba(74,222,128,0));}100%{filter:drop-shadow(0 0 22px rgba(74,222,128,.45));}}
+.guar-cta{transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 28px rgba(74,222,128,.35);}
+.guar-cta:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 16px 40px rgba(74,222,128,.55);}
+.guar-cta::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);}
+.guar-inner-card.on .guar-cta::before{animation:guarCtaSheen 4s ease-in-out 1.5s infinite;}
+@keyframes guarCtaSheen{0%{left:-100%;}55%{left:160%;}100%{left:160%;}}
+@media(prefers-reduced-motion:reduce){.guar-shield,.guar-pct,.guar-cta::before{animation:none!important;}}
+</style>
 
 
 
