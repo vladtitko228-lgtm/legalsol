@@ -714,15 +714,40 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 .tab-more-chev{transition:transform .25s ease;opacity:.7;}
 .tab-more-wrap.is-open .tab-more-chev{transform:rotate(180deg);}
 .tab-more-wrap.is-open > .tab-more-btn{background:rgba(139,130,232,.18);color:#fff;}
-.tab-more-panel{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:rgba(20,16,50,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(139,130,232,.22);border-radius:14px;padding:6px;box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(139,130,232,.08) inset;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top right;transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:120;}
+.tab-more-panel{position:absolute;top:calc(100% + 10px);right:0;min-width:240px;background:rgba(20,16,50,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(139,130,232,.22);border-radius:14px;padding:7px;box-shadow:0 22px 60px rgba(0,0,0,.6),0 0 0 1px rgba(139,130,232,.08) inset;opacity:0;visibility:hidden;transform:translateY(-12px) scale(.96);transform-origin:top right;transition:opacity .26s cubic-bezier(.16,1,.3,1),transform .32s cubic-bezier(.16,1,.3,1),visibility .32s;z-index:120;}
+/* Slim violet pointer that visually connects the panel to the "Ещё" trigger */
+.tab-more-panel::before{content:'';position:absolute;top:-6px;right:22px;width:12px;height:12px;background:rgba(20,16,50,.96);border-left:1px solid rgba(139,130,232,.22);border-top:1px solid rgba(139,130,232,.22);transform:rotate(45deg);}
 .tab-more-wrap.is-open .tab-more-panel{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
-.tab-more-row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;border-radius:9px;padding:9px 12px;font-size:13px;color:rgba(255,255,255,.82);text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:background .18s,color .18s;}
-.tab-more-row:hover{background:rgba(91,82,204,.22);color:#fff;}
-.tmr-ico{width:24px;height:24px;border-radius:7px;background:rgba(91,82,204,.18);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--p300);flex-shrink:0;}
-.tmr-ico-cy{background:rgba(34,211,238,.14);color:#5eead4;}
-.tmr-ico-pl{background:rgba(16,185,129,.14);font-size:13px;}
-.tmr-ico-gold{background:rgba(250,204,21,.14);font-size:13px;}
-.tmr-lbl{flex:1;line-height:1.2;}
+
+/* Each row slides down with a small stagger after the panel opens — feels like the menu "drops in" */
+.tab-more-row{display:flex;align-items:center;gap:11px;width:100%;background:none;border:1px solid transparent;border-radius:10px;padding:10px 12px;font-size:13px;color:rgba(255,255,255,.82);text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:background .2s,color .2s,border-color .2s,transform .2s;opacity:0;transform:translateY(-8px);position:relative;overflow:hidden;}
+.tab-more-wrap.is-open .tab-more-row{animation:tabMoreRowIn .32s cubic-bezier(.16,1,.3,1) forwards;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(1){animation-delay:.04s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(2){animation-delay:.10s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(3){animation-delay:.16s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(4){animation-delay:.22s;}
+@keyframes tabMoreRowIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+
+.tab-more-row:hover{transform:translateX(2px);}
+
+/* Per-row colored treatment — matches the original tab pill colors */
+#tbtn-status:hover{background:rgba(91,82,204,.22);color:#fff;border-color:rgba(139,130,232,.35);}
+
+#tbtn-business{background:linear-gradient(135deg,rgba(34,211,238,.10),rgba(16,185,129,.04));border-color:rgba(34,211,238,.22);color:#5eead4;}
+#tbtn-business:hover{background:linear-gradient(135deg,rgba(34,211,238,.22),rgba(16,185,129,.10));border-color:rgba(34,211,238,.55);color:#a5f3fc;box-shadow:0 4px 18px rgba(34,211,238,.22);}
+
+#tbtn-polish{background:linear-gradient(135deg,rgba(16,185,129,.10),rgba(251,191,36,.04));border-color:rgba(52,211,153,.22);color:#34d399;}
+#tbtn-polish:hover{background:linear-gradient(135deg,rgba(16,185,129,.22),rgba(251,191,36,.08));border-color:rgba(52,211,153,.5);color:#86efac;box-shadow:0 4px 18px rgba(16,185,129,.22);}
+
+#tbtn-referral{background:linear-gradient(135deg,rgba(250,204,21,.10),rgba(234,179,8,.04));border-color:rgba(250,204,21,.22);color:#fde047;}
+#tbtn-referral:hover{background:linear-gradient(135deg,rgba(250,204,21,.20),rgba(234,179,8,.08));border-color:rgba(250,204,21,.5);color:#fef08a;box-shadow:0 4px 18px rgba(250,204,21,.20);}
+
+.tmr-ico{width:26px;height:26px;border-radius:8px;background:rgba(91,82,204,.18);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--p300);flex-shrink:0;transition:transform .25s;}
+.tab-more-row:hover .tmr-ico{transform:scale(1.08);}
+.tmr-ico-cy{background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(16,185,129,.12));color:#5eead4;box-shadow:inset 0 0 0 1px rgba(34,211,238,.3);}
+.tmr-ico-pl{background:linear-gradient(135deg,rgba(16,185,129,.20),rgba(251,191,36,.12));font-size:13px;box-shadow:inset 0 0 0 1px rgba(52,211,153,.3);}
+.tmr-ico-gold{background:linear-gradient(135deg,rgba(250,204,21,.22),rgba(234,179,8,.10));font-size:13px;box-shadow:inset 0 0 0 1px rgba(250,204,21,.3);}
+.tmr-lbl{flex:1;line-height:1.2;font-weight:600;}
 
 .tab-btn.active,.tab-btn:hover:not(.active){background:var(--p500);color:#fff;box-shadow:0 2px 10px rgba(91,82,204,.4);}
 /* Polish nav button — green hover/active to match flag color (not generic violet) */
