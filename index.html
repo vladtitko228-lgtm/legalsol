@@ -1447,27 +1447,45 @@ h1 .acc{color:var(--p300);}
 
 .ahc-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(91,82,204,.1);}
 
-.ahc-metric{text-align:center;padding:14px 8px;border-right:1px solid rgba(91,82,204,.08);}
+.ahc-metric{text-align:center;padding:14px 8px;border-right:1px solid rgba(91,82,204,.08);position:relative;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);}
 
 .ahc-metric:last-child{border-right:none;}
 
+.ahc-dashboard.is-live .ahc-metric{opacity:1;transform:translateY(0) scale(1);}
+.ahc-dashboard.is-live .ahc-metric:nth-child(1){transition-delay:.05s;}
+.ahc-dashboard.is-live .ahc-metric:nth-child(2){transition-delay:.18s;}
+.ahc-dashboard.is-live .ahc-metric:nth-child(3){transition-delay:.31s;}
+
 .ahc-metric-val{font-family:'DM Sans','Courier New',monospace;font-size:18px;font-weight:800;color:var(--p200);line-height:1;margin-bottom:3px;}
+
+.ahc-dashboard.is-live .ahc-metric-val{animation:ahcValGlow 2.6s ease-in-out 1s infinite alternate;}
+@keyframes ahcValGlow{0%{text-shadow:0 0 0 rgba(139,130,232,0);}100%{text-shadow:0 0 14px rgba(139,130,232,.45);}}
 
 .ahc-metric-lbl{font-size:8px;color:var(--txt3);letter-spacing:1px;}
 
 .ahc-body{padding:16px;}
 
-.ahc-progress-row{margin-top:12px;padding:12px 14px;background:rgba(91,82,204,.06);border-radius:10px;border:1px solid rgba(91,82,204,.12);}
+.ahc-progress-row{margin-top:12px;padding:12px 14px;background:rgba(91,82,204,.06);border-radius:10px;border:1px solid rgba(91,82,204,.12);position:relative;overflow:hidden;}
+
+.ahc-progress-row::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(139,130,232,.08) 50%,transparent 70%);transform:translateX(-100%);pointer-events:none;}
+.ahc-dashboard.is-live .ahc-progress-row::before{animation:ahcSheen 4.5s ease-in-out 1.2s infinite;}
+@keyframes ahcSheen{0%{transform:translateX(-100%);}55%{transform:translateX(100%);}100%{transform:translateX(100%);}}
 
 .ahc-progress-label{font-size:9px;letter-spacing:2px;color:var(--p400);font-weight:700;margin-bottom:4px;}
 
-.ahc-progress-val{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:800;color:#4ade80;margin-bottom:6px;}
+.ahc-progress-val{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:800;color:#4ade80;margin-bottom:6px;text-shadow:0 0 0 rgba(74,222,128,0);}
+.ahc-dashboard.is-live .ahc-progress-val{animation:ahcProgGlow 2.4s ease-in-out 2s infinite alternate;}
+@keyframes ahcProgGlow{0%{text-shadow:0 0 0 rgba(74,222,128,0);}100%{text-shadow:0 0 16px rgba(74,222,128,.55);}}
 
 .ahc-track{height:5px;background:rgba(91,82,204,.15);border-radius:5px;overflow:hidden;}
 
-.ahc-fill{height:100%;width:0;background:linear-gradient(90deg,var(--p500),var(--p400),#4ade80);border-radius:5px;animation:ahcFill 2s .5s cubic-bezier(.4,0,.2,1) forwards;}
+.ahc-fill{height:100%;width:0;background:linear-gradient(90deg,var(--p500),var(--p400),#4ade80);border-radius:5px;box-shadow:0 0 12px rgba(74,222,128,.35);}
+.ahc-dashboard.is-live .ahc-fill{animation:ahcFill 2.2s .4s cubic-bezier(.4,0,.2,1) forwards;}
 
 @keyframes ahcFill{to{width:93%;}}
+
+.ahc-dashboard{transition:box-shadow .4s ease,border-color .4s ease;}
+.ahc-dashboard.is-live{box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 0 1px rgba(139,130,232,.18),0 0 60px rgba(91,82,204,.25);}
 
 @media(max-width:960px){.ai-home-cyber{grid-template-columns:1fr;padding:32px 24px;}.ai-home-cyber-right{display:none;}}
 
@@ -25898,6 +25916,23 @@ function initLsCookieConsent(){
 
 /* Открыть настройки cookies из любой ссылки в футере */
 function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsent.showPreferences();}
+
+/* AI-block: trigger reveal animations when dashboard scrolls into view */
+(function(){
+  function _ahcInit(){
+    var dash=document.querySelector('.ahc-dashboard');
+    if(!dash)return;
+    if(!('IntersectionObserver' in window)){dash.classList.add('is-live');return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){dash.classList.add('is-live');io.disconnect();}
+      });
+    },{threshold:.25});
+    io.observe(dash);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',_ahcInit);
+  else _ahcInit();
+})();
 </script>
 
 </body>
