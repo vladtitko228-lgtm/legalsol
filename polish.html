@@ -102,6 +102,16 @@ header.scrolled{background:rgba(10,31,26,.94);box-shadow:0 8px 24px rgba(0,0,0,.
 .nav-cta{font-size:14px;font-weight:600;padding:11px 22px;border-radius:12px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-width:160px;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 18px rgba(16,185,129,.4);font-family:inherit;}
 .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(16,185,129,.6);}
 @media(max-width:760px){.nav-back{display:none;}.nav-cta{font-size:13px;padding:9px 16px;min-width:auto;}}
+@media(max-width:600px){.nav-cta{display:none!important;}}
+
+/* Sticky mobile FAB — primary CTA always reachable bottom-center */
+.pl-fab{display:none;}
+@media(max-width:600px){
+  .pl-fab{display:inline-flex;align-items:center;justify-content:center;gap:7px;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:9990;padding:13px 24px;border-radius:60px;background:linear-gradient(135deg,#10b981 0%,#34d399 100%);color:#fff;font-size:14px;font-weight:700;letter-spacing:.3px;box-shadow:0 12px 30px rgba(16,185,129,.45),0 0 0 1px rgba(255,255,255,.08) inset;text-decoration:none;animation:plFabPulse 2.6s ease-in-out infinite;max-width:calc(100vw - 32px);}
+  .pl-fab:active{transform:translateX(-50%) scale(.96);}
+  @keyframes plFabPulse{0%,100%{box-shadow:0 12px 30px rgba(16,185,129,.45),0 0 0 1px rgba(255,255,255,.08) inset;}50%{box-shadow:0 16px 38px rgba(16,185,129,.65),0 0 0 6px rgba(16,185,129,.12) inset;}}
+  @media (prefers-reduced-motion:reduce){.pl-fab{animation:none;}}
+}
 
 /* ─── Sections ─── */
 .section{position:relative;z-index:1;padding:90px 5vw;max-width:1200px;margin:0 auto;}
@@ -1085,6 +1095,32 @@ function submitPolish(){
   if(shouldLoad()){init();return;}
   setTimeout(function(){if(shouldLoad())init();},2000);
   window.addEventListener('storage',function(e){if(e.key&&e.key.indexOf('cc')===0&&shouldLoad())init();});
+})();
+</script>
+
+<!-- Sticky mobile primary CTA — Polish School trial-lesson booking always reachable -->
+<a href="#trial-form" class="pl-fab" id="pl-fab-cta" aria-label="Book trial lesson">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+  <span id="pl-fab-text">Book a trial lesson</span>
+</a>
+<script>
+// Sync the FAB label with the header CTA — same i18n source keeps RU/PL translations in sync.
+// nav-cta is targeted by class (not id), and a MutationObserver keeps the FAB in sync after later lang switches.
+(function(){
+  function sync(){
+    var src=document.querySelector('.nav-cta');
+    var dst=document.getElementById('pl-fab-text');
+    if(!src||!dst)return;
+    var t=(src.textContent||'').replace(/\s*[→›]\s*$/,'').trim();
+    if(t)dst.textContent=t;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync);else sync();
+  setTimeout(sync,400);setTimeout(sync,1500);
+  // Re-sync whenever the nav-cta's text changes (covers language toggle)
+  document.addEventListener('DOMContentLoaded',function(){
+    var src=document.querySelector('.nav-cta');if(!src||!window.MutationObserver)return;
+    new MutationObserver(sync).observe(src,{characterData:true,childList:true,subtree:true});
+  });
 })();
 </script>
 

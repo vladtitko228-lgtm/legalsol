@@ -1260,9 +1260,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .hs-num { font-size: 36px; }
     .section { padding: 64px 20px; }
     .header-right .nav-back { display: none; }
+    /* Move the "Get a quote" CTA out of the cramped header — sticky FAB at bottom-right */
+    .header-right .nav-cta { display: none !important; }
     .step-num { width: 54px; height: 54px; font-size: 19px; border-radius: 14px; }
     .timeline::before { left: 26px; }
     .calc-result-hero-val { font-size: 36px; }
+  }
+
+  /* ── Sticky mobile FAB for the primary CTA ── */
+  .biz-fab{display:none;}
+  @media (max-width:600px){
+    .biz-fab{
+      display:inline-flex;align-items:center;justify-content:center;gap:7px;
+      position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+      z-index:9990;
+      padding:13px 22px;border-radius:60px;
+      background:linear-gradient(135deg,#7c5cfc 0%,#9978ff 100%);
+      color:#fff;font-size:14px;font-weight:700;letter-spacing:.3px;
+      box-shadow:0 12px 30px rgba(124,92,252,.45),0 0 0 1px rgba(255,255,255,.08) inset;
+      text-decoration:none;
+      animation:bizFabPulse 2.6s ease-in-out infinite;
+      max-width:calc(100vw - 32px);
+    }
+    .biz-fab:active{transform:translateX(-50%) scale(.96);}
+    @keyframes bizFabPulse{0%,100%{box-shadow:0 12px 30px rgba(124,92,252,.45),0 0 0 1px rgba(255,255,255,.08) inset;}50%{box-shadow:0 16px 38px rgba(124,92,252,.65),0 0 0 6px rgba(124,92,252,.10) inset;}}
+    @media (prefers-reduced-motion:reduce){.biz-fab{animation:none;}}
   }
 
   /* ───── LANG SWITCHER (matches main site format) ───── */
@@ -2741,6 +2763,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   });
   applyB2BLang(getB2BLang(), true);
 
+})();
+</script>
+
+<!-- Sticky mobile primary CTA — mirrors header "Get a quote" but always reachable -->
+<a href="#contact" class="biz-fab" id="biz-fab-cta" aria-label="Get a quote">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+  <span id="biz-fab-text">Get a quote</span>
+</a>
+<script>
+// Sync the FAB label with the header CTA — supports both id and class selectors + observes later lang switches
+(function(){
+  function sync(){
+    var src=document.getElementById('nav-cta')||document.querySelector('.nav-cta');
+    var dst=document.getElementById('biz-fab-text');
+    if(!src||!dst)return;
+    var t=(src.textContent||'').replace(/\s*[→›]\s*$/,'').trim();
+    if(t)dst.textContent=t;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync);else sync();
+  setTimeout(sync,400);setTimeout(sync,1500);
+  document.addEventListener('DOMContentLoaded',function(){
+    var src=document.getElementById('nav-cta')||document.querySelector('.nav-cta');
+    if(!src||!window.MutationObserver)return;
+    new MutationObserver(sync).observe(src,{characterData:true,childList:true,subtree:true});
+  });
 })();
 </script>
 </body>
