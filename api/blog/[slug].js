@@ -1091,6 +1091,36 @@ function renderPage(a, contentHtml) {
       window.addEventListener('storage',function(e){if(e.key&&e.key.indexOf('cc')===0&&shouldLoad())init();});
     })();
   </script>
+
+  <!-- Meta Pixel (FB/IG) — ID 1302017295233281. Загружается по marketing-консенту. На blog-странице фаерим PageView + ViewContent с топиком. -->
+  <script>
+    (function loadMetaPixel(){
+      function shouldLoad(){
+        try {
+          var cc=localStorage.getItem('cc_cookie')||localStorage.getItem('cc-cookie')||'';
+          if(cc.indexOf('marketing')!==-1||cc.indexOf('meta_pixel')!==-1||cc.indexOf('all')!==-1)return true;
+        } catch(e){}
+        return false;
+      }
+      function init(){
+        if(window._metaPixelLoaded)return;
+        window._metaPixelLoaded=true;
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init','1302017295233281');
+        fbq('track','PageView');
+        fbq('track','ViewContent',{content_name:${JSON.stringify(displayTitle)},content_category:'blog',content_ids:[${JSON.stringify(slug)}]});
+      }
+      if(shouldLoad()){init();}
+      else{
+        setTimeout(function(){if(shouldLoad())init();},2000);
+        window.addEventListener('storage',function(e){if(e.key&&e.key.indexOf('cc')===0&&shouldLoad())init();});
+      }
+      // Делегаты Contact/Lead — работают независимо от того, загружен ли pixel (fbq fail-safe)
+      document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
+      document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1302017295233281&ev=PageView&noscript=1"/></noscript>
 </head>
 
 <body>

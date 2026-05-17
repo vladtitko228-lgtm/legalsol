@@ -29,7 +29,25 @@ function loadClarity(){
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window,document,"clarity","script","wispohj28j");
 }
+// Meta Pixel — loaded after user grants marketing consent (см. ccConfig ниже).
+// Pixel ID 1302017295233281. Standard events: PageView (init), Contact (WhatsApp click), Lead (form submit).
+function loadMetaPixel(){
+  if(window._metaPixelLoaded)return;
+  window._metaPixelLoaded=true;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1302017295233281');
+  fbq('track','PageView');
+}
+// Делегат на клик по WhatsApp и сабмит форм — события не дублируются, fbq сам fail-safe если не загружен.
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[href*="wa.me/"]');
+  if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});
+});
+document.addEventListener('submit',function(e){
+  if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});
+},true);
 </script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1302017295233281&ev=PageView&noscript=1"/></noscript>
 <meta name="theme-color" content="#1E1B4B"/>
 <link rel="shortcut icon"                         href="/favicon.ico"/>
 <link rel="icon" type="image/x-icon"             href="/favicon.ico"/>
@@ -26238,10 +26256,24 @@ function initLsCookieConsent(){
             onAccept:function(){loadClarity();}
           }
         }
+      },
+      marketing:{enabled:false,readOnly:false,
+        services:{
+          meta_pixel:{label:'Meta Pixel (Facebook/Instagram)',
+            cookies:[{name:/^_fbp/},{name:/^_fbc/}],
+            onAccept:function(){loadMetaPixel();}
+          }
+        }
       }
     },
-    onConsent:function(){if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();},
-    onChange:function(){if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();},
+    onConsent:function(){
+      if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();
+      if(CookieConsent.acceptedService('meta_pixel','marketing'))loadMetaPixel();
+    },
+    onChange:function(){
+      if(CookieConsent.acceptedService('clarity','analytics'))loadClarity();
+      if(CookieConsent.acceptedService('meta_pixel','marketing'))loadMetaPixel();
+    },
     language:{
       default:'en',
       autoDetect:'document',
@@ -26249,15 +26281,16 @@ function initLsCookieConsent(){
         en:{
           consentModal:{
             title:'We use cookies',
-            description:'We use essential cookies to make our site work and analytics cookies (Microsoft Clarity) to improve it. You can accept all or manage your preferences. <a href="/privacy" target="_blank">Privacy Policy</a>.',
+            description:'We use essential cookies to make our site work, analytics cookies (Microsoft Clarity) to improve it, and marketing cookies (Meta Pixel) to measure our ads. You can accept all or manage your preferences. <a href="/privacy" target="_blank">Privacy Policy</a>.',
             acceptAllBtn:'Accept all',acceptNecessaryBtn:'Reject all',showPreferencesBtn:'Manage preferences'
           },
           preferencesModal:{
             title:'Cookie preferences',acceptAllBtn:'Accept all',acceptNecessaryBtn:'Reject all',savePreferencesBtn:'Save preferences',closeIconLabel:'Close',
             sections:[
-              {title:'Cookie usage',description:'We use cookies to ensure essential site functionality and to analyze usage with Microsoft Clarity. <a href="/privacy" target="_blank">Privacy Policy</a>.'},
+              {title:'Cookie usage',description:'We use cookies for essential functionality, analytics (Microsoft Clarity) and ad measurement (Meta Pixel). <a href="/privacy" target="_blank">Privacy Policy</a>.'},
               {title:'Strictly necessary',description:'These cookies are required for basic site operation (language preference, cookie consent itself).',linkedCategory:'necessary'},
               {title:'Analytics',description:'Microsoft Clarity collects anonymized session recordings and heatmaps to help us improve UX. No personal data captured.',linkedCategory:'analytics'},
+              {title:'Marketing',description:'Meta Pixel (Facebook/Instagram) measures the effectiveness of our ads — which page you visited, whether you contacted us. Used for retargeting and ad optimization.',linkedCategory:'marketing'},
               {title:'More information',description:'For questions, contact <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
             ]
           }
@@ -26265,15 +26298,16 @@ function initLsCookieConsent(){
         ru:{
           consentModal:{
             title:'Мы используем cookie',
-            description:'Мы используем необходимые cookie для работы сайта и аналитические (Microsoft Clarity) для его улучшения. Вы можете принять все или настроить. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.',
+            description:'Мы используем необходимые cookie для работы сайта, аналитические (Microsoft Clarity) для улучшения и маркетинговые (Meta Pixel) для измерения эффективности рекламы. Вы можете принять все или настроить. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.',
             acceptAllBtn:'Принять все',acceptNecessaryBtn:'Отклонить все',showPreferencesBtn:'Настроить'
           },
           preferencesModal:{
             title:'Настройки cookie',acceptAllBtn:'Принять все',acceptNecessaryBtn:'Отклонить все',savePreferencesBtn:'Сохранить',closeIconLabel:'Закрыть',
             sections:[
-              {title:'Использование cookie',description:'Используем cookie для базовой работы сайта и аналитики через Microsoft Clarity. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.'},
+              {title:'Использование cookie',description:'Используем cookie для базовой работы сайта, аналитики (Microsoft Clarity) и измерения рекламы (Meta Pixel). <a href="/privacy" target="_blank">Политика конфиденциальности</a>.'},
               {title:'Строго необходимые',description:'Нужны для базовой работы сайта (язык, согласие на cookie).',linkedCategory:'necessary'},
               {title:'Аналитика',description:'Microsoft Clarity собирает анонимизированные записи и тепловые карты для улучшения сайта. Личные данные не записываются.',linkedCategory:'analytics'},
+              {title:'Маркетинг',description:'Meta Pixel (Facebook/Instagram) измеряет эффективность нашей рекламы — какие страницы вы смотрели, связались ли с нами. Используется для ретаргетинга и оптимизации рекламы.',linkedCategory:'marketing'},
               {title:'Подробнее',description:'Вопросы — <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
             ]
           }
@@ -26281,15 +26315,16 @@ function initLsCookieConsent(){
         pl:{
           consentModal:{
             title:'Używamy plików cookie',
-            description:'Używamy niezbędnych plików cookie do działania strony oraz analitycznych (Microsoft Clarity) do jej ulepszania. Możesz zaakceptować wszystkie lub zarządzać preferencjami. <a href="/privacy" target="_blank">Polityka prywatności</a>.',
+            description:'Używamy niezbędnych plików cookie do działania strony, analitycznych (Microsoft Clarity) do jej ulepszania oraz marketingowych (Meta Pixel) do mierzenia skuteczności reklam. Możesz zaakceptować wszystkie lub zarządzać preferencjami. <a href="/privacy" target="_blank">Polityka prywatności</a>.',
             acceptAllBtn:'Akceptuj wszystkie',acceptNecessaryBtn:'Odrzuć wszystkie',showPreferencesBtn:'Zarządzaj'
           },
           preferencesModal:{
             title:'Preferencje cookie',acceptAllBtn:'Akceptuj wszystkie',acceptNecessaryBtn:'Odrzuć wszystkie',savePreferencesBtn:'Zapisz',closeIconLabel:'Zamknij',
             sections:[
-              {title:'Wykorzystanie cookie',description:'Używamy cookie do podstawowej funkcjonalności i analizy w Microsoft Clarity. <a href="/privacy" target="_blank">Polityka prywatności</a>.'},
+              {title:'Wykorzystanie cookie',description:'Używamy cookie do podstawowej funkcjonalności, analizy (Microsoft Clarity) i pomiaru reklam (Meta Pixel). <a href="/privacy" target="_blank">Polityka prywatności</a>.'},
               {title:'Ściśle niezbędne',description:'Wymagane do działania (preferencja języka, zgoda na cookie).',linkedCategory:'necessary'},
               {title:'Analityczne',description:'Microsoft Clarity zbiera zanonimizowane nagrania sesji i mapy ciepła. Bez danych osobowych.',linkedCategory:'analytics'},
+              {title:'Marketingowe',description:'Meta Pixel (Facebook/Instagram) mierzy skuteczność naszych reklam — jakie strony odwiedziłeś, czy się z nami skontaktowałeś. Używane do remarketingu i optymalizacji reklam.',linkedCategory:'marketing'},
               {title:'Więcej informacji',description:'Pytania: <a href="mailto:workvd75@gmail.com">workvd75@gmail.com</a>.'}
             ]
           }
