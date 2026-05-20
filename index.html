@@ -924,12 +924,23 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 .nav-soc-toggle:hover{background:rgba(139,130,232,.26);border-color:rgba(139,130,232,.5);}
 .nav-soc.open .nav-soc-toggle{background:linear-gradient(135deg,#7C5CFC,#5B52CC);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(124,92,252,.5);animation:none;}
 .nst-cluster{display:flex;align-items:center;}
-.nst-cluster i{width:14px;height:14px;border-radius:50%;margin-left:-4px;border:1.5px solid #161235;display:block;}
-.nst-cluster i:first-child{margin-left:0;}
-.nst-c-ig{background:linear-gradient(135deg,#833AB4,#E1306C,#F77737);}
-.nst-c-tt{background:#010101;}
-.nst-c-wa{background:#25D366;}
-.nst-c-tg{background:#2AABEE;}
+.nst-cluster .nst-c{width:19px;height:19px;border-radius:50%;margin-left:-6px;border:1.5px solid #161235;
+  display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+  transition:margin .32s cubic-bezier(.34,1.56,.64,1),transform .25s,box-shadow .25s;}
+.nst-cluster .nst-c:first-child{margin-left:0;}
+.nst-cluster .nst-c svg{width:11px;height:11px;display:block;}
+/* hover: иконки раздвигаются + чуть подрастают */
+.nav-soc-toggle:hover .nst-c{margin-left:1px;}
+.nav-soc-toggle:hover .nst-c:first-child{margin-left:0;}
+.nav-soc.open .nst-c{margin-left:1px;}
+.nav-soc.open .nst-c:first-child{margin-left:0;}
+/* idle — лёгкое покачивание по очереди */
+.nst-c-ig{background:linear-gradient(135deg,#833AB4,#E1306C,#F77737);animation:nstBob 2.8s ease-in-out infinite;}
+.nst-c-tt{background:#010101;animation:nstBob 2.8s ease-in-out infinite .18s;}
+.nst-c-wa{background:linear-gradient(135deg,#25D366,#128C7E);animation:nstBob 2.8s ease-in-out infinite .36s;}
+.nst-c-tg{background:linear-gradient(135deg,#2AABEE,#229ED9);animation:nstBob 2.8s ease-in-out infinite .54s;}
+@keyframes nstBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-2.5px);}}
+.nav-soc-toggle:hover .nst-c{animation-play-state:paused;}
 .nst-label{white-space:nowrap;}
 .nst-caret{transition:transform .3s;flex-shrink:0;}
 .nav-soc.open .nst-caret{transform:rotate(180deg);}
@@ -943,9 +954,18 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
   background:rgba(15,13,34,.98);border-left:1px solid rgba(139,130,232,.28);border-top:1px solid rgba(139,130,232,.28);transform:rotate(45deg);}
 .nav-soc.open .nav-soc-row{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
 .nav-soc-ic{display:flex;align-items:center;gap:11px;padding:8px 10px;border-radius:10px;text-decoration:none;
-  color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;transition:background .2s,transform .2s;}
-.nav-soc-ic:hover{background:rgba(139,130,232,.16);transform:translateX(2px);}
-.nsi-circle{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;}
+  color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+  opacity:0;transform:translateX(14px);
+  transition:background .2s,opacity .3s ease,transform .35s cubic-bezier(.34,1.56,.64,1);}
+.nav-soc.open .nav-soc-ic{opacity:1;transform:translateX(0);}
+.nav-soc.open .nsi-ig{transition-delay:.05s,.05s,.05s;}
+.nav-soc.open .nsi-tt{transition-delay:.05s,.11s,.11s;}
+.nav-soc.open .nsi-wa{transition-delay:.05s,.17s,.17s;}
+.nav-soc.open .nsi-tg{transition-delay:.05s,.23s,.23s;}
+.nav-soc-ic:hover{background:rgba(139,130,232,.16);transform:translateX(3px)!important;}
+.nsi-circle{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;}
+.nav-soc-ic:hover .nsi-circle{transform:scale(1.12) rotate(-6deg);box-shadow:0 4px 12px rgba(0,0,0,.35);}
 .nsi-ig .nsi-circle{background:linear-gradient(135deg,#833AB4,#E1306C,#F77737);}
 .nsi-tt .nsi-circle{background:#010101;border:1px solid rgba(255,255,255,.16);}
 .nsi-wa .nsi-circle{background:linear-gradient(135deg,#25D366,#128C7E);}
@@ -4034,7 +4054,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Social dropdown (drops down, labeled) -->
     <div class="nav-soc" id="navSoc">
       <button class="nav-soc-toggle" id="navSocToggle" onclick="toggleNavSoc(event)" aria-label="Social media" aria-expanded="false">
-        <span class="nst-cluster"><i class="nst-c-ig"></i><i class="nst-c-tt"></i><i class="nst-c-wa"></i><i class="nst-c-tg"></i></span>
+        <span class="nst-cluster">
+          <i class="nst-c nst-c-ig"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 4.71a5.13 5.13 0 100 10.26 5.13 5.13 0 000-10.26zm0 8.46a3.33 3.33 0 110-6.66 3.33 3.33 0 010 6.66zm6.54-8.66a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg></i>
+          <i class="nst-c nst-c-tt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 01-1.06-2.82h-3.1v12.3a2.59 2.59 0 01-2.58 2.5 2.59 2.59 0 01-2.59-2.59 2.59 2.59 0 013.39-2.46V9.6a5.66 5.66 0 00-.8-.06A5.69 5.69 0 004.2 15.2a5.69 5.69 0 0011.38 0V8.86a7.34 7.34 0 004.29 1.37V7.13a4.28 4.28 0 01-3.27-1.31z"/></svg></i>
+          <i class="nst-c nst-c-wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></i>
+          <i class="nst-c nst-c-tg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.94 8.23l-2 9.42c-.15.66-.54.82-1.09.51l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.05 5.52-4.99c.24-.21-.05-.33-.37-.12L6.09 13.6 3.1 12.67c-.65-.2-.66-.65.14-.96l11.61-4.48c.55-.2 1.03.13.85.96z"/></svg></i>
+        </span>
         <span class="nst-label">Follow us</span>
         <svg class="nst-caret" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
