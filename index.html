@@ -4237,9 +4237,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div id="hero-map"></div>
 
-      <a id="hero-map-poster" href="https://maps.google.com/?q=Marszałkowska+142+Warszawa" target="_blank" rel="noopener">
+      <a id="hero-map-poster" href="https://maps.google.com/?q=Marszałkowska+89+00-693+Warszawa" target="_blank" rel="noopener">
         <div class="hmp-pin"></div>
-        <div class="hmp-txt"><b>📍 Wolf Marszałkowska 142</b><span>Warsaw Centrum · tap to open map</span></div>
+        <div class="hmp-txt"><b>📍 Marszałkowska 89</b><span>00-693 Warszawa · tap to open map</span></div>
       </a>
 
     </div>
@@ -26421,7 +26421,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
   if(window.matchMedia('(max-width: 900px)').matches) return;
 
   mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
-  var OFFICE = [21.0123, 52.2304];
+  var OFFICE = [21.012191, 52.228065];
   var map = new mapboxgl.Map({
     container: 'hero-map',
     style: 'mapbox://styles/mapbox/dark-v11',
@@ -26436,7 +26436,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     map.addSource('off-tower',{type:'geojson',data:{type:'Feature',geometry:{type:'Polygon',coordinates:[ring(OFFICE,18)]}}});
     map.addLayer({id:'off-tower-3d',type:'fill-extrusion',source:'off-tower',paint:{'fill-extrusion-color':'#FBBF24','fill-extrusion-height':90,'fill-extrusion-base':0,'fill-extrusion-opacity':0.78}});
     var el=document.createElement('div');el.className='hm-pin';
-    var pop=new mapboxgl.Popup({closeButton:false,closeOnClick:false,offset:24,anchor:'bottom'}).setHTML('<div style="font-family:SF Mono,monospace;font-size:9.5px;color:#FBBF24;letter-spacing:1.5px;margin-bottom:3px;">★ LEGALSOL OFFICE</div><div style="font-size:14px;font-weight:700;color:#fff;">Wolf Marszałkowska 142</div><div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;">Coworking · 5 min from Świętokrzyska M1</div><a href="https://maps.google.com/?q=Marszałkowska+142+Warszawa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:#FBBF24;color:#1A0E00;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-decoration:none;">Open in Google Maps →</a>');
+    var pop=new mapboxgl.Popup({closeButton:false,closeOnClick:false,offset:24,anchor:'bottom'}).setHTML('<div style="font-family:SF Mono,monospace;font-size:9.5px;color:#FBBF24;letter-spacing:1.5px;margin-bottom:3px;">★ LEGALSOL OFFICE</div><div style="font-size:14px;font-weight:700;color:#fff;">Marszałkowska 89</div><div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;">00-693 Warszawa · Śródmieście</div><a href="https://maps.google.com/?q=Marszałkowska+89+00-693+Warszawa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:#FBBF24;color:#1A0E00;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-decoration:none;">Open in Google Maps →</a>');
     new mapboxgl.Marker({element:el}).setLngLat(OFFICE).setPopup(pop).addTo(map).togglePopup();
     var b=-32; (function rot(){b+=0.05;map.setBearing(b);requestAnimationFrame(rot);})();
   });
