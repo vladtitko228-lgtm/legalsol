@@ -81,7 +81,7 @@ h1 em{font-style:italic;font-weight:400;color:#A78BFA;}
     <p class="sub">Your law office in the heart of Warsaw. Walk in to Wolf coworking, or work with us online — whichever fits your life.</p>
     <button class="cta-btn">Check my chances for TRC →</button>
     <div class="below">
-      <span>📍 <b>Marszałkowska 142</b></span>
+      <span>📍 <b>Marszałkowska 89</b></span>
       <span>·</span>
       <span>🚇 <b>Metro M1</b> Świętokrzyska</span>
     </div>
@@ -109,8 +109,8 @@ h1 em{font-style:italic;font-weight:400;color:#A78BFA;}
 // Public Mapbox demo token (for preview only — production будет свой)
 mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
 
-// Координаты Wolf Marszałkowska 142, Warsaw
-const OFFICE = [21.0123, 52.2304];
+// Координаты Marszałkowska 89, Warsaw
+const OFFICE = [21.012191, 52.228065];
 
 const map = new mapboxgl.Map({
   container: 'map',
@@ -221,8 +221,8 @@ map.on('load', () => {
     closeButton: false, closeOnClick: false, offset: 24, anchor: 'bottom'
   }).setHTML(`
     <div style="font-family:'SF Mono',monospace;font-size:9.5px;color:#FBBF24;letter-spacing:1.5px;margin-bottom:3px;">★ LEGALSOL OFFICE</div>
-    <div style="font-size:14px;font-weight:700;color:#fff;">Wolf Marszałkowska 142</div>
-    <div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;margin-bottom:8px;">Coworking · 5 min from Świętokrzyska M1</div>
+    <div style="font-size:14px;font-weight:700;color:#fff;">Marszałkowska 89</div>
+    <div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;margin-bottom:8px;">00-693 Warszawa · Śródmieście</div>
     <a href="${GMAPS}" target="_blank" style="display:inline-block;background:#FBBF24;color:#1A0E00;font-size:10px;font-weight:700;text-decoration:none;padding:6px 12px;border-radius:8px;font-family:-apple-system,sans-serif;">Open in Google Maps →</a>
   `);
   pinEl.addEventListener('click', () => window.open(GMAPS, '_blank'));
