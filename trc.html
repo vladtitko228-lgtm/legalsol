@@ -287,15 +287,69 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer a{color:var(--p300)}
   .legal{margin-top:14px;font-size:11px;color:var(--txt4);font-family:ui-monospace,monospace;letter-spacing:.5px}
 
+  /* ───── richer animated background ───── */
+  .fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.45;mix-blend-mode:screen;will-change:transform}
+  .orb.o1{width:420px;height:420px;background:radial-gradient(circle,#7C5CFC,transparent 70%);top:-90px;left:-70px;animation:orbA 24s ease-in-out infinite}
+  .orb.o2{width:320px;height:320px;background:radial-gradient(circle,#22c55e,transparent 70%);bottom:8%;right:-70px;animation:orbB 30s ease-in-out infinite}
+  .orb.o3{width:360px;height:360px;background:radial-gradient(circle,#f59e0b,transparent 70%);top:42%;left:54%;opacity:.28;animation:orbA 27s ease-in-out infinite reverse}
+  @keyframes orbA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.15)}}
+  @keyframes orbB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,30px) scale(1.1)}}
+  .grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ───── section with photo backdrop ───── */
+  section.has-photo{position:relative;overflow:hidden}
+  section.has-photo .sec-photo{position:absolute;inset:0;z-index:0;overflow:hidden}
+  section.has-photo .sec-photo::before{content:'';position:absolute;inset:-8% 0;background:var(--img) center/cover no-repeat;transform:scale(1.08);animation:kenburns 22s ease-in-out infinite alternate;opacity:.52}
+  section.has-photo .sec-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,28,.9),rgba(11,10,28,.8) 45%,rgba(11,10,28,.95))}
+  section.has-photo .wrap{position:relative;z-index:1}
+  @keyframes kenburns{from{transform:scale(1.05) translateY(8px)}to{transform:scale(1.18) translateY(-14px)}}
+
+  /* ───── image + text feature ───── */
+  .feature{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-top:40px}
+  .feature .ph{border-radius:20px;overflow:hidden;aspect-ratio:4/3;position:relative;box-shadow:var(--shadow-3);border:1px solid rgba(139,130,232,.18)}
+  .feature .ph img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 1.4s cubic-bezier(.22,1,.36,1)}
+  .feature:hover .ph img{transform:scale(1.1)}
+  .feature .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(150deg,transparent 40%,rgba(124,92,252,.28));pointer-events:none}
+  .feature .ph .ph-tag{position:absolute;left:14px;bottom:14px;z-index:2;padding:7px 13px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:1px;background:rgba(11,10,28,.7);backdrop-filter:blur(8px);color:var(--p100);border:1px solid rgba(139,130,232,.3)}
+  .feature ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .feature li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--txt2)}
+  .feature li .ci{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(34,197,94,.2);color:var(--green);display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+  @media(max-width:760px){.feature{grid-template-columns:1fr;gap:20px}}
+
+  /* ───── full-width photo band ───── */
+  .photo-band{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;margin:0}
+  .photo-band .pbg{position:absolute;inset:-8% 0;background:var(--img) center/cover no-repeat;transform:scale(1.08);will-change:transform}
+  .photo-band.in .pbg{animation:kenburns 20s ease-in-out infinite alternate}
+  .photo-band::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(11,10,28,.55),rgba(11,10,28,.9))}
+  .photo-band .pb-inner{position:relative;z-index:2;max-width:780px;padding:48px 24px}
+  .photo-band h2{margin-bottom:8px}
+
+  /* ───── countries marquee ───── */
+  .marquee{overflow:hidden;margin-top:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .mq-track{display:flex;gap:34px;width:max-content;animation:marq 30s linear infinite}
+  .mq-track b{font-weight:700;font-size:17px;color:var(--txt);white-space:nowrap;letter-spacing:.5px}
+  .mq-track .d{color:var(--gold);margin:0 -10px}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  /* ───── reveal variants ───── */
+  .reveal-l,.reveal-r,.reveal-sc{opacity:0;transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .reveal-l{transform:translateX(-46px)}.reveal-r{transform:translateX(46px)}.reveal-sc{transform:scale(.92)}
+  .reveal-l.in,.reveal-r.in,.reveal-sc.in{opacity:1;transform:none}
+
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .reveal{opacity:1;transform:none}
+    .reveal,.reveal-l,.reveal-r,.reveal-sc{opacity:1;transform:none}
     .timeline .prog{height:calc(100% - 12px)}
+    .orb,.grain{display:none}
   }
 </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="fx" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+<div class="grain" aria-hidden="true"></div>
 
 <header>
   <a href="/" class="logo">
@@ -348,7 +402,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 
 <!-- ═════ PROBLEM ═════ -->
-<section>
+<section class="has-photo" style="--img:url(/assets/trc/documents.jpg)">
+  <div class="sec-photo"></div>
   <div class="wrap">
     <span class="eyebrow reveal">The problem</span>
     <h2 class="reveal s1">Do you know what is <em>happening</em> with your case?</h2>
@@ -376,6 +431,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="row good reveal s4"><div class="ic good">✓</div><div><h4>Deadlines protected</h4><p>Full deadline control. No fear of a negative decision. Legal stay secured.</p></div></div>
     </div>
     <div class="banner calm reveal s2">CONTROL · CLARITY · PEACE OF MIND</div>
+  </div>
+</section>
+
+<!-- ═════ THE URZĄD ═════ -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow reveal">We handle the hard part</span>
+    <h2 class="reveal s1">We deal with the <em>Urząd</em> — so you don't have to</h2>
+    <div class="accent-bar reveal s1"></div>
+    <div class="feature">
+      <div class="ph reveal-l">
+        <img src="/assets/trc/urzad.jpg" alt="Voivodeship Office (Urząd Wojewódzki) in Poland where TRC cases are decided" loading="lazy"/>
+        <span class="ph-tag">URZĄD WOJEWÓDZKI · IMMIGRATION OFFICE</span>
+      </div>
+      <div class="reveal-r">
+        <p class="sec-sub" style="margin-top:0">The Voivodeship Office is where your residence permit is decided. Most refusals and delays happen because applicants miss a letter, a deadline or a document. We stand between you and that office.</p>
+        <ul>
+          <li><span class="ci">✓</span> We file inquiries and follow up on your case status</li>
+          <li><span class="ci">✓</span> We read and answer every official letter in time</li>
+          <li><span class="ci">✓</span> We represent you under our lawyer's power of attorney</li>
+          <li><span class="ci">✓</span> We go with you to the fingerprinting appointment</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -446,7 +525,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 
 <!-- ═════ NUMBERS ═════ -->
-<section>
+<section class="has-photo" style="--img:url(/assets/trc/palace.jpg)">
+  <div class="sec-photo"></div>
   <div class="wrap center">
     <span class="eyebrow reveal">Trusted</span>
     <h2 class="reveal s1">Why foreigners <em>trust us</em></h2>
@@ -457,9 +537,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="nb reveal s3"><b class="cnt" data-count="16" data-suffix="">0</b><span>Voivodeships</span></div>
       <div class="nb reveal s4"><b class="cnt" data-count="300" data-suffix="+">0</b><span>Polish cities</span></div>
     </div>
-    <div class="countries reveal s2">UKRAINE · INDIA · BELARUS · TURKEY · BANGLADESH · AZERBAIJAN · KAZAKHSTAN
-      <small>From 75+ countries · since 2020</small>
+    <div class="marquee reveal s2" aria-label="Top countries we help">
+      <div class="mq-track">
+        <b>UKRAINE</b><b class="d">·</b><b>INDIA</b><b class="d">·</b><b>BELARUS</b><b class="d">·</b><b>TURKEY</b><b class="d">·</b><b>BANGLADESH</b><b class="d">·</b><b>AZERBAIJAN</b><b class="d">·</b><b>KAZAKHSTAN</b><b class="d">·</b><b>GEORGIA</b><b class="d">·</b><b>NEPAL</b><b class="d">·</b>
+        <b>UKRAINE</b><b class="d">·</b><b>INDIA</b><b class="d">·</b><b>BELARUS</b><b class="d">·</b><b>TURKEY</b><b class="d">·</b><b>BANGLADESH</b><b class="d">·</b><b>AZERBAIJAN</b><b class="d">·</b><b>KAZAKHSTAN</b><b class="d">·</b><b>GEORGIA</b><b class="d">·</b><b>NEPAL</b><b class="d">·</b>
+      </div>
     </div>
+    <div class="countries reveal s3"><small>From 75+ countries · since 2020</small></div>
   </div>
 </section>
 
@@ -485,7 +569,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </section>
 
 <!-- ═════ COVERAGE MAP ═════ -->
-<section>
+<section class="has-photo" style="--img:url(/assets/trc/warsaw-skyline.jpg)">
+  <div class="sec-photo"></div>
   <div class="wrap center">
     <span class="eyebrow reveal">Coverage</span>
     <h2 class="reveal s1">Across <em>all of Poland</em></h2>
@@ -560,6 +645,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
+<!-- ═════ OFFICE PHOTO BAND ═════ -->
+<section class="photo-band reveal" id="officeband" style="--img:url(/assets/trc/marszalkowska.jpg)">
+  <div class="pbg"></div>
+  <div class="pb-inner">
+    <span class="eyebrow" style="color:var(--gold)">Visit us</span>
+    <h2>A real office in <em>central Warsaw</em></h2>
+    <p class="sec-sub center" style="margin-top:8px">LegalSol Head Office — Marszałkowska 89, 00-693 Warszawa · Śródmieście. Not just a chat — a licensed company with a permanent address.</p>
+  </div>
+</section>
+
 <!-- ═════ FINAL CTA ═════ -->
 <section class="final">
   <div class="wrap">
@@ -586,7 +681,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/">Home</a> · <a href="/business">Business</a> · <a href="/blog">Blog</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a><br><br>
   <span>© 2026 LegalSol · Warszawa, Polska · WhatsApp-first immigration services</span>
   <div class="legal">BOLIDE Sp. z o.o. (LegalSol) · NIP 9462746135 · ul. Marszałkowska 89, 00-693 Warszawa</div>
+  <div class="legal" style="margin-top:6px">Photos via Wikimedia Commons: Pudelek (CC BY-SA 4.0) · Quintin Soloviev (CC BY 4.0) · Szczecinolog (CC BY 3.0) · documents photo CC0</div>
 </footer>
+<!--
+  Image credits (self-hosted, /assets/trc/):
+  palace.jpg       — "Palace of Culture and Science, Warsaw" by Pudelek — CC BY-SA 4.0 — commons.wikimedia.org
+  warsaw-skyline.jpg — "Skyline of Warsaw, Poland" by Quintin Soloviev — CC BY 4.0 — commons.wikimedia.org
+  marszalkowska.jpg — "18 Marszałkowska Street in Warsaw, 2021" by Szczecinolog — CC BY 3.0 — commons.wikimedia.org
+  urzad.jpg        — "Siedlce, Mazowiecki Urząd Wojewódzki" — CC BY-SA 3.0 — commons.wikimedia.org
+  documents.jpg    — "Passport documents desk" by Alex Robert — CC0 (public domain) — commons.wikimedia.org
+-->
 
 <a class="wa-float" href="https://wa.me/48735248525?text=Hi%20LegalSol!%20I%20have%20a%20question%20about%20TRC%20supervision." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <span class="wi"><svg viewBox="0 0 32 32" fill="#04110a"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.4.7 4.7 1.9 6.7L4 29l7-1.8c1.9 1 4 1.6 5 1.6 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.7c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.2 1.1 1.1-4.1-.2-.4c-1-1.6-1.5-3.4-1.5-5.3C5.5 9.6 10.3 5 16 5s10.5 4.6 10.5 10.5S21.7 25.7 16 25.7zm5.9-7.7c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg></span>
@@ -603,10 +707,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
   },{threshold:.16,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-sc').forEach(function(el){io.observe(el);});
 
   // timeline + map (special)
   ['timeline','mapcard'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+
+  // gentle parallax on photo backdrops
+  var pbgs=[].slice.call(document.querySelectorAll('.has-photo .sec-photo'));
+  var ticking=false;
+  function par(){
+    pbgs.forEach(function(el){
+      var host=el.closest('section');var r=host.getBoundingClientRect();
+      if(r.bottom<0||r.top>innerHeight)return;
+      var off=(r.top+r.height/2-innerHeight/2)/innerHeight*-26;
+      el.style.transform='translateY('+off.toFixed(1)+'px)';
+    });
+    ticking=false;
+  }
+  addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(par);ticking=true;}},{passive:true});par();
 
   // counters
   function animCount(el){
