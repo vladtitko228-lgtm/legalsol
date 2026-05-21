@@ -38,14 +38,12 @@ function loadMetaPixel(){
   fbq('init','1302017295233281');
   fbq('track','PageView');
 }
-// Делегат на клик по WhatsApp и сабмит форм — события не дублируются, fbq сам fail-safe если не загружен.
+// WhatsApp-клик → Contact. Lead фаерится внутри _sendLead (формы без нативного submit),
+// поэтому общий submit-листенер убран — он не срабатывал и мог дублировать.
 document.addEventListener('click',function(e){
   var a=e.target.closest('a[href*="wa.me/"]');
   if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});
 });
-document.addEventListener('submit',function(e){
-  if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});
-},true);
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1302017295233281&ev=PageView&noscript=1"/></noscript>
 <meta name="theme-color" content="#1E1B4B"/>
@@ -18268,6 +18266,9 @@ function _t(key){
 
 /* Отправка лида в Google Sheet (no-cors → fire-and-forget, обходит CORS preflight) */
 function _sendLead(payload){
+  // Никогда не отправляем пустую услугу — иначе слепая зона в аналитике/рекламе
+  var svc = (payload.service && String(payload.service).trim()) ? String(payload.service).trim() : 'general';
+  payload.service = svc;
   try{
     fetch(_LS_LEAD_URL,{
       method:'POST',
@@ -18276,15 +18277,24 @@ function _sendLead(payload){
       body:JSON.stringify(payload)
     }).catch(function(){});
   }catch(e){}
-  // Отправляем event в dataLayer для GTM/GA4
+  // GA4 / GTM
   try{
     window.dataLayer=window.dataLayer||[];
     window.dataLayer.push({
       event:'lead_submit',
       lead_source:payload.source||'unknown',
-      lead_service:payload.service||'',
+      lead_service:svc,
       lead_lang:payload.lang||'',
       lead_page:payload.page||location.pathname
+    });
+  }catch(e){}
+  // Meta Pixel Lead — фаерим ЗДЕСЬ (формы шлются через _sendLead, нативного submit нет).
+  // Без этого FB не видит конверсий и оптимизирует рекламу вслепую.
+  try{
+    if(window.fbq)fbq('track','Lead',{
+      content_name:svc,
+      content_category:payload.source||'form',
+      source_url:payload.page||location.pathname
     });
   }catch(e){}
 }
