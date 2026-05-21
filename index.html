@@ -3601,8 +3601,7 @@ html.lang-switching * { transition: none !important; animation: none !important;
 </style>
 
 
-<!-- Mapbox GL (hero 3D map) -->
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet"/>
+<!-- Mapbox GL (hero 3D map) — JS+CSS lazy-loaded on desktop only (see hero map script) -->
 <style>
 #hero-map-wrap{position:relative;width:100%;max-width:500px;margin:0 auto;height:470px;border-radius:24px;overflow:hidden;background:#0B0920;box-shadow:0 32px 64px rgba(0,0,0,0.45),inset 0 0 0 1px rgba(139,130,232,0.18);}
 #hero-map{position:absolute;inset:0;}
@@ -26595,11 +26594,10 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 </script>
 
 
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
 <script>
 (function(){
   var wrap = document.getElementById('hero-map-wrap');
-  if(!wrap || typeof mapboxgl === 'undefined') return;
+  if(!wrap) return;
   // Страховка: на тяжёлой карте/слабом устройстве убедимся что hero виден
   setTimeout(function(){
     document.querySelectorAll('.hero-enter-left,.hero-enter-right').forEach(function(el){
@@ -26607,9 +26605,29 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     });
   }, 1600);
 
-  // На мобиле карту НЕ грузим — показываем постер (экономим квоту + LCP)
+  // На мобиле карту НЕ грузим вообще — ни JS, ни CSS (показываем лёгкий постер).
+  // Экономит ~374 KB и не блокирует LCP — критично для рекламного мобильного трафика.
   if(window.matchMedia('(max-width: 900px)').matches) return;
 
+  // Десктоп: подгружаем Mapbox CSS + JS асинхронно (не блокируя рендер), потом инициализируем.
+  function lazyLoadMapbox(cb){
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css';
+    document.head.appendChild(css);
+    var s = document.createElement('script');
+    s.src = 'https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js';
+    s.async = true;
+    s.onload = cb;
+    document.head.appendChild(s);
+  }
+  // Запускаем после простоя браузера, чтобы не конкурировать с критичным рендером
+  var kick = function(){ lazyLoadMapbox(initHeroMap); };
+  if('requestIdleCallback' in window){ requestIdleCallback(kick, {timeout: 1500}); }
+  else { setTimeout(kick, 300); }
+
+  function initHeroMap(){
+  if(typeof mapboxgl === 'undefined') return;
   mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
   var OFFICE = [21.012191, 52.228065];
   var map = new mapboxgl.Map({
@@ -26630,6 +26648,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     new mapboxgl.Marker({element:el}).setLngLat(OFFICE).setPopup(pop).addTo(map).togglePopup();
     var b=-32; (function rot(){b+=0.05;map.setBearing(b);requestAnimationFrame(rot);})();
   });
+  } // end initHeroMap
 })();
 </script>
 
