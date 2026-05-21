@@ -44,6 +44,10 @@
     {
       "source": "/polish",
       "destination": "/polish.html"
+    },
+    {
+      "source": "/trc",
+      "destination": "/trc.html"
     }
   ],
   "headers": [
