@@ -26438,6 +26438,11 @@ window.addEventListener('load',function(){
 
 function initLsCookieConsent(){
   CookieConsent.run({
+    // Авто-баннер orestbida НЕ показываем — единственный видимый баннер это
+    // наш брендовый ls-cb. Он на «Accept» вызывает acceptCategory('all'),
+    // а «Open cookie policy» открывает showPreferences() (reject/granular для GDPR).
+    // Движок согласия при этом полностью активен (гейтит Clarity/Pixel).
+    autoShow:false,
     guiOptions:{
       consentModal:{layout:'box',position:'bottom right',equalWeightButtons:true,flipButtons:false},
       preferencesModal:{layout:'box',equalWeightButtons:true,flipButtons:false}
