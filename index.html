@@ -15,7 +15,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <!-- Cookie Consent (RODO/GDPR compliant) - loaded before any analytics -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+<!-- CSS неблокирующий: баннер появляется после загрузки, незачем держать первый пэйнт -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" media="print" onload="this.media='all'">
+<noscript><!-- CSS неблокирующий: баннер появляется после загрузки, незачем держать первый пэйнт -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" media="print" onload="this.media='\''all'\''">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css"></noscript></noscript>
 <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js" defer></script>
 
 <!-- Clarity is loaded dynamically only after user grants analytics consent (see ccConfig below) -->
