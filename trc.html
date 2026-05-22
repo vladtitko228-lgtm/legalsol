@@ -388,11 +388,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .reveal-l{transform:translateX(-46px)}.reveal-r{transform:translateX(46px)}.reveal-sc{transform:scale(.92)}
   .reveal-l.in,.reveal-r.in,.reveal-sc.in{opacity:1;transform:none}
 
+  /* ───── extra motion polish ───── */
+  .scroll-prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:300;background:linear-gradient(90deg,var(--p400),var(--gold));box-shadow:0 0 12px rgba(124,92,252,.6);transition:width .08s linear}
+  /* shimmering gradient on accent words */
+  h1 em,h2 em{background-size:220% auto;animation:shimmer 7s linear infinite}
+  @keyframes shimmer{to{background-position:220% center}}
+  /* blur-in reveal */
+  .reveal,.reveal-l,.reveal-r,.reveal-sc{filter:blur(7px)}
+  .reveal.in,.reveal-l.in,.reveal-r.in,.reveal-sc.in{filter:blur(0)}
+  /* accent bar draws in */
+  .accent-bar{width:0;transition:width .9s cubic-bezier(.22,1,.36,1) .15s}
+  .accent-bar.in{width:54px}
+  /* shine sweep on buttons */
+  .btn,.nav-cta{position:relative;overflow:hidden}
+  .btn::after,.nav-cta::after{content:'';position:absolute;top:0;left:-130%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s ease;pointer-events:none}
+  .btn:hover::after,.nav-cta:hover::after{left:140%}
+  /* WhatsApp float pulse ring */
+  .wa-float::before{content:'';position:absolute;inset:0;border-radius:30px;animation:waring 2.6s ease-out infinite;pointer-events:none}
+  @keyframes waring{0%{box-shadow:0 0 0 0 rgba(34,197,94,.45)}70%{box-shadow:0 0 0 16px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  /* pillar number pops on hover */
+  .pillar .num{transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .25s}
+  .pillar:hover .num{transform:translateY(-2px) rotate(-7deg) scale(1.08)}
+  /* timeline node soft glow */
+  .timeline.in .step .node{animation:nodeGlow 3.2s ease-in-out infinite}
+  @keyframes nodeGlow{0%,100%{box-shadow:0 0 0 0 rgba(124,92,252,0)}50%{box-shadow:0 0 14px 2px rgba(124,92,252,.35)}}
+  /* cards get cursor tilt via JS */
+  .pillar,.client-card,.nb,.feature .ph{will-change:transform}
+
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .reveal,.reveal-l,.reveal-r,.reveal-sc{opacity:1;transform:none}
+    .reveal,.reveal-l,.reveal-r,.reveal-sc{opacity:1;transform:none;filter:none}
     .timeline .prog{height:calc(100% - 12px)}
-    .orb,.grain{display:none}
+    .orb,.grain,.scroll-prog{display:none}
+    .accent-bar{width:54px}
   }
 </style>
 </head>
@@ -788,17 +816,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   },{threshold:.6});
   document.querySelectorAll('.cnt').forEach(function(el){cio.observe(el);});
 
-  // karta 3D tilt
-  var k=document.getElementById('karta');
-  if(k && matchMedia('(pointer:fine)').matches){
-    var stage=k.parentElement;
-    stage.addEventListener('mousemove',function(ev){
-      var r=stage.getBoundingClientRect();
-      var x=(ev.clientX-r.left)/r.width-0.5, y=(ev.clientY-r.top)/r.height-0.5;
-      k.style.animation='none';
-      k.style.transform='rotateY('+(x*16)+'deg) rotateX('+(-y*16)+'deg) translateY(-6px)';
+  // scroll progress bar
+  var sp=document.createElement('div');sp.className='scroll-prog';document.body.appendChild(sp);
+  function prog(){var h=document.documentElement;var d=h.scrollHeight-h.clientHeight;sp.style.width=(d>0?(h.scrollTop/d*100):0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+
+  // subtle cursor tilt on cards (fine pointers only)
+  if(matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.pillar,.client-card,.nb,.feature .ph').forEach(function(el){
+      el.addEventListener('mousemove',function(e){
+        var r=el.getBoundingClientRect();
+        var x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+        el.style.transform='perspective(720px) rotateY('+(x*5).toFixed(2)+'deg) rotateX('+(-y*5).toFixed(2)+'deg) translateY(-6px)';
+      });
+      el.addEventListener('mouseleave',function(){el.style.transform='';});
     });
-    stage.addEventListener('mouseleave',function(){k.style.animation='';k.style.transform='';});
   }
 })();
 </script>
