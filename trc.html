@@ -257,6 +257,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .quote .qm{font-family:'Playfair Display',serif;font-size:54px;color:var(--p300);line-height:.6}
   .quote p{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(17px,2.6vw,22px);color:#fff;margin:6px 0 14px}
   .quote .by{font-weight:700;color:var(--gold);font-size:14px}
+  /* real client cards */
+  .clients-sub{color:var(--txt2);font-size:14px;margin-top:26px;margin-bottom:2px}
+  .clients-sub b{color:#fff}
+  .clients{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+  .client-card{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid rgba(139,130,232,.16);transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s,border-color .28s}
+  .client-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-3);border-color:rgba(139,130,232,.4)}
+  .client-card .cphoto{position:relative;aspect-ratio:4/5;overflow:hidden}
+  .client-card .cphoto img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.22,1,.36,1)}
+  .client-card:hover .cphoto img{transform:scale(1.06)}
+  .client-card .cbadge{position:absolute;left:12px;bottom:12px;display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;background:rgba(11,10,28,.74);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(34,197,94,.45);font-size:11px;font-weight:700;color:var(--green)}
+  .client-card .cbadge .cv{width:16px;height:16px;border-radius:50%;background:var(--green);color:#04110a;display:grid;place-items:center;font-size:10px;font-weight:800}
+  .client-card .cbody{padding:18px 18px 20px}
+  .client-card .cname{font-weight:700;font-size:16px}
+  .client-card .cmeta{font-size:11.5px;color:var(--p300);font-family:ui-monospace,monospace;letter-spacing:.4px;margin:3px 0 11px}
+  .client-card .cstory{font-size:13.5px;color:var(--txt2);line-height:1.55}
+  .client-card .cstory b{color:#fff}
+  @media(max-width:760px){.clients{grid-template-columns:1fr;max-width:420px;margin:16px auto 0}}
 
   /* map */
   .map-card{margin-top:38px;padding:26px;border-radius:22px;background:var(--card);border:1px solid rgba(139,130,232,.16)}
@@ -593,6 +610,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="qm">“</div>
         <p>I got my Karta Pobytu in 4 months instead of 12. They handled everything — papers, fingerprints, even office visits.</p>
         <div class="by">— Rajesh K., India · IT Specialist</div>
+      </div>
+    </div>
+
+    <p class="clients-sub reveal">Real people, real cards — <b>not stock photos.</b> A few of our clients on the day they got their Karta Pobytu:</p>
+    <div class="clients">
+      <div class="client-card reveal s1">
+        <div class="cphoto"><img src="/assets/trc/client1.jpg" alt="LegalSol client holding her Polish residence card" loading="lazy"/><span class="cbadge"><span class="cv">✓</span> Karta Pobytu</span></div>
+        <div class="cbody">
+          <div class="cname">Ananya · India</div>
+          <div class="cmeta">WORK TRC · APPROVED IN 3 MONTHS</div>
+          <p class="cstory">Her case sat <b>8 months</b> at the Urząd with no reply. We took it over, found two missing documents and pushed it through — <b>card in hand in 3 months</b>.</p>
+        </div>
+      </div>
+      <div class="client-card reveal s2">
+        <div class="cphoto"><img src="/assets/trc/client2.jpg" alt="LegalSol client holding his Karta Pobytu (Republika Polska)" loading="lazy"/><span class="cbadge"><span class="cv">✓</span> Karta Pobytu</span></div>
+        <div class="cbody">
+          <div class="cname">Karan · India</div>
+          <div class="cmeta">REFUSED ELSEWHERE · APPEAL WON</div>
+          <p class="cstory">Another agency got him a <b>refusal</b>. We had 14 days to act — filed the appeal, argued it before the voivode, and <b>won a 3-year card</b>.</p>
+        </div>
+      </div>
+      <div class="client-card reveal s3">
+        <div class="cphoto"><img src="/assets/trc/client3.jpg" alt="LegalSol client holding his Polish residence card" loading="lazy"/><span class="cbadge"><span class="cv">✓</span> Karta Pobytu</span></div>
+        <div class="cbody">
+          <div class="cname">Rohit · India</div>
+          <div class="cmeta">WORK TRC · APPROVED FIRST TRY</div>
+          <p class="cstory">New job, no idea where to start. We collected the <b>employer documents</b>, prepared the dossier and went with him to fingerprints — <b>approved on the first attempt</b>.</p>
+        </div>
       </div>
     </div>
   </div>
