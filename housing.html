@@ -238,6 +238,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer a{margin:0 10px;}.ft-wm{font-weight:800;font-size:22px;letter-spacing:-.02em;color:#fff;display:inline-block;margin-bottom:14px;}
   .ft-wm .s{color:var(--v300);}
 
+  /* CALCULATOR */
+  .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(91,75,214,0.18),rgba(38,33,82,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);}
+  .calc-field{margin-bottom:18px;}
+  .calc-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--v200);margin-bottom:10px;display:block;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{padding:9px 15px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,0.04);color:var(--txt2);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s var(--ease);font-family:inherit;}
+  .chip:hover{border-color:var(--v400);color:var(--txt);transform:translateY(-1px);}
+  .chip.active{background:linear-gradient(135deg,var(--v500),var(--v600));border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(124,108,240,0.4);}
+  .range-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+  .range-val{font-size:20px;font-weight:800;color:var(--gold);}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:rgba(255,255,255,0.13);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));cursor:pointer;box-shadow:0 2px 10px rgba(245,196,81,0.55);}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold);cursor:pointer;border:none;}
+  .calc-res{background:#120f29;border:1px solid var(--line);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;}
+  .cr-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--txt2);}
+  .cr-row .v{font-weight:800;color:#fff;white-space:nowrap;}
+  .cr-total .v{color:var(--gold);font-size:23px;}
+  .calc-note{font-size:12px;color:var(--txt3);margin-top:13px;line-height:1.5;}
+  .calc-res .btn{margin-top:16px;width:100%;justify-content:center;}
+  @media(max-width:760px){.calc-wrap{grid-template-columns:1fr;padding:22px;}}
+
   .anim{opacity:0;transform:translateY(38px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
   .anim.in{opacity:1;transform:none;}
 
@@ -405,6 +426,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
+<!-- CALCULATOR -->
+<section class="section narrow" id="calc">
+  <div class="wrap">
+    <div class="section-head anim">
+      <div class="pill gold" id="ca-pill">Plan your move</div>
+      <h2 class="stitle" id="ca-title">Tell us what you want — see what it takes</h2>
+      <p class="ssub" id="ca-sub">Set your preferences and budget. We'll show roughly what moving in costs, then send it straight to Adam.</p>
+    </div>
+    <div class="calc-wrap anim">
+      <div class="calc-inputs">
+        <div class="calc-field"><span class="calc-label" id="ca-l-city">City</span><div class="chips" id="ca-city">
+          <button class="chip active" data-v="Warsaw" type="button">Warsaw</button><button class="chip" data-v="Kraków" type="button">Kraków</button><button class="chip" data-v="Wrocław" type="button">Wrocław</button><button class="chip" data-v="Gdańsk" type="button">Gdańsk</button><button class="chip" data-v="Other" type="button">Other</button>
+        </div></div>
+        <div class="calc-field"><span class="calc-label" id="ca-l-type">Looking for</span><div class="chips" id="ca-type">
+          <button class="chip active" data-v="Apartment" type="button">🏠 Apartment</button><button class="chip" data-v="Room" type="button">🚪 Room</button><button class="chip" data-v="Temporary" type="button">🏨 Temporary</button>
+        </div></div>
+        <div class="calc-field"><span class="calc-label" id="ca-l-people">People</span><div class="chips" id="ca-people">
+          <button class="chip active" data-v="1" type="button">1</button><button class="chip" data-v="2" type="button">2</button><button class="chip" data-v="3" type="button">3</button><button class="chip" data-v="4+" type="button">4+</button>
+        </div></div>
+        <div class="calc-field"><span class="calc-label" id="ca-l-when">Move-in</span><div class="chips" id="ca-when">
+          <button class="chip active" data-v="ASAP" type="button">ASAP</button><button class="chip" data-v="This month" type="button">This month</button><button class="chip" data-v="Flexible" type="button">Flexible</button>
+        </div></div>
+        <div class="calc-field"><div class="range-row"><span class="calc-label" id="ca-l-budget" style="margin:0;">Monthly budget</span><span class="range-val"><span id="ca-budget-val">3000</span> zł</span></div>
+          <input type="range" id="ca-budget" min="1200" max="8000" step="100" value="3000"/></div>
+      </div>
+      <div class="calc-res">
+        <div class="cr-row"><span id="ca-r1">Monthly rent (your budget)</span><span class="v"><span id="ca-out-rent">3000</span> zł</span></div>
+        <div class="cr-row"><span id="ca-r2">Deposit (≈ 1 month)</span><span class="v"><span id="ca-out-dep">3000</span> zł</span></div>
+        <div class="cr-row cr-total"><span id="ca-r3">≈ To move in</span><span class="v"><span id="ca-out-total">6000</span> zł</span></div>
+        <div class="cr-row"><span id="ca-r4">legalsol help</span><span class="v" id="ca-out-fee">free / fixed*</span></div>
+        <div class="calc-note" id="ca-note">* Often free for you (paid by partners) or one fixed fee, confirmed by Adam. Rent is what you choose; deposit is usually 1 month.</div>
+        <button class="btn btn-primary" id="ca-send" type="button" onclick="calcSend()">💬 Send to Adam</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="section narrow">
   <div class="wrap">
@@ -512,6 +570,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr2t':'Fixed service fee','pr2d':'For full move-in support (search + contract + meldunek + utilities) we charge one fixed fee, agreed before we start.',
       'pr3t':'Free first consultation','pr3d':"Tell us your situation on WhatsApp and we'll quote a clear price for your exact case — at no cost.",
       'pr-note':'✅ One contact for your visa, your residence card and your home — already knows your case, speaks your language.',
+      'ca-pill':'Plan your move','ca-title':'Tell us what you want — see what it takes','ca-sub':"Set your preferences and budget. We'll show roughly what moving in costs, then send it straight to Adam.",
+      'ca-l-city':'City','ca-l-type':'Looking for','ca-l-people':'People','ca-l-when':'Move-in','ca-l-budget':'Monthly budget',
+      'ca-r1':'Monthly rent (your budget)','ca-r2':'Deposit (≈ 1 month)','ca-r3':'≈ To move in','ca-r4':'legalsol help','ca-out-fee':'free / fixed*',
+      'ca-note':'* Often free for you (paid by partners) or one fixed fee, confirmed by Adam. Rent is what you choose; deposit is usually 1 month.','ca-send':'💬 Send to Adam',
       'fq-pill':'FAQ','fq-title':'Common questions',
       'fq1q':'Is housing only for legalsol legalization clients?','fq1a':"It works best for them — we already know your case. But anyone moving to Warsaw can use it. Message us and we'll help.",
       'fq2q':'Can you help before I arrive in Poland?','fq2a':'Yes. We search, do video viewings and can sign remotely, so a home is waiting on the day you land — plus a hotel for the first nights if needed.',
@@ -562,6 +624,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr2t':'Фиксированный сервисный сбор','pr2d':'За полное сопровождение (поиск + договор + meldunek + коммуналка) — один фиксированный сбор, согласованный заранее.',
       'pr3t':'Бесплатная первая консультация','pr3d':'Опишите ситуацию в WhatsApp — назовём чёткую цену под ваш случай бесплатно.',
       'pr-note':'✅ Один контакт для визы, карты побыту и жилья — уже знает ваше дело и говорит на вашем языке.',
+      'ca-pill':'Спланируйте переезд','ca-title':'Скажите, что хотите — увидите расклад','ca-sub':'Выберите параметры и бюджет. Покажем примерную стоимость въезда и отправим всё Adam\'у.',
+      'ca-l-city':'Город','ca-l-type':'Что ищете','ca-l-people':'Человек','ca-l-when':'Заселение','ca-l-budget':'Бюджет в месяц',
+      'ca-r1':'Аренда в месяц (ваш бюджет)','ca-r2':'Залог (≈ 1 месяц)','ca-r3':'≈ На въезд','ca-r4':'Помощь legalsol','ca-out-fee':'бесплатно / фикс.*',
+      'ca-note':'* Часто бесплатно для вас (платит партнёр) или один фикс. сбор — подтвердит Adam. Аренда — ваш выбор; залог обычно 1 месяц.','ca-send':'💬 Отправить Adam',
       'fq-pill':'Вопросы','fq-title':'Частые вопросы',
       'fq1q':'Жильё только для клиентов legalsol по легализации?','fq1a':'С ними удобнее всего — мы уже знаем ваше дело. Но услугой может воспользоваться любой, кто переезжает в Варшаву. Напишите — поможем.',
       'fq2q':'Можете помочь до приезда в Польшу?','fq2a':'Да. Ищем, проводим видео-просмотры, можем подписать удалённо — чтобы в день прилёта вас ждал дом, плюс отель на первые ночи при необходимости.',
@@ -612,6 +678,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr2t':'Stała opłata serwisowa','pr2d':'Za pełną obsługę (szukanie + umowa + meldunek + media) — jedna stała opłata, ustalona wcześniej.',
       'pr3t':'Bezpłatna pierwsza konsultacja','pr3d':'Opisz sytuację na WhatsApp — podamy jasną cenę dla Twojego przypadku, bezpłatnie.',
       'pr-note':'✅ Jeden kontakt do wizy, karty pobytu i mieszkania — zna już Twoją sprawę i mówi w Twoim języku.',
+      'ca-pill':'Zaplanuj przeprowadzkę','ca-title':'Powiedz, czego chcesz — zobacz, co potrzeba','ca-sub':'Ustaw preferencje i budżet. Pokażemy orientacyjny koszt wprowadzki i wyślemy wszystko do Adama.',
+      'ca-l-city':'Miasto','ca-l-type':'Czego szukasz','ca-l-people':'Osoby','ca-l-when':'Wprowadzka','ca-l-budget':'Budżet miesięczny',
+      'ca-r1':'Czynsz miesięczny (Twój budżet)','ca-r2':'Kaucja (≈ 1 miesiąc)','ca-r3':'≈ Na wprowadzkę','ca-r4':'Pomoc legalsol','ca-out-fee':'darmowe / stała*',
+      'ca-note':'* Często bezpłatnie dla Ciebie (płaci partner) lub jedna stała opłata — potwierdzi Adam. Czynsz to Twój wybór; kaucja to zwykle 1 miesiąc.','ca-send':'💬 Wyślij do Adama',
       'fq-pill':'FAQ','fq-title':'Częste pytania',
       'fq1q':'Czy mieszkania są tylko dla klientów legalizacyjnych legalsol?','fq1a':'Działa najlepiej dla nich — znamy już Twoją sprawę. Ale skorzystać może każdy, kto przeprowadza się do Warszawy. Napisz — pomożemy.',
       'fq2q':'Czy pomożecie zanim przyjadę do Polski?','fq2a':'Tak. Szukamy, robimy wideo-oglądania i podpisujemy zdalnie, więc dom czeka w dniu przylotu — plus hotel na pierwsze noce w razie potrzeby.',
@@ -637,6 +707,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
   };
   window.toggleFaq=function(q){ q.parentElement.classList.toggle('open'); };
+
+  var CALC_L={
+    en:{intro:"Hello Adam! From the legalsol Housing page — here's what I'm looking for:",city:'City',type:'Type',people:'People',when:'Move-in',budget:'Budget',outro:'Can you help?'},
+    ru:{intro:'Здравствуйте, Адам! Со страницы «Жильё» legalsol — вот что ищу:',city:'Город',type:'Тип',people:'Человек',when:'Заселение',budget:'Бюджет',outro:'Поможете?'},
+    pl:{intro:'Dzień dobry, Adam! Ze strony „Mieszkania" legalsol — oto czego szukam:',city:'Miasto',type:'Typ',people:'Osoby',when:'Wprowadzka',budget:'Budżet',outro:'Pomożecie?'}
+  };
+  window.calcSend=function(){
+    function g(grp){var a=document.querySelector('#ca-'+grp+' .chip.active');return a?a.getAttribute('data-v'):'-';}
+    var b=document.getElementById('ca-budget').value;
+    var L=CALC_L[lang]||CALC_L.en;
+    var msg=L.intro+'\n\n- '+L.city+': '+g('city')+'\n- '+L.type+': '+g('type')+'\n- '+L.people+': '+g('people')+'\n- '+L.when+': '+g('when')+'\n- '+L.budget+': ~'+b+' zł/mo\n\n'+L.outro;
+    try{ if(window.dataLayer) window.dataLayer.push({event:'wa_click',source:'housing_calc'}); }catch(e){}
+    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+  };
 
   function countUp(el){
     var target=parseInt(el.getAttribute('data-count'),10); var suf=el.getAttribute('data-suffix')||'';
@@ -670,6 +754,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if(prog){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=(h>0?(y/h*100):0)+'%'; }
       if(pimg && !rm && y<900) pimg.style.transform='translateY('+(y*0.08)+'px)';
     },{passive:true});
+
+    // calculator
+    var budget=document.getElementById('ca-budget');
+    function calcUpd(){
+      var v=parseInt(budget.value,10);
+      document.getElementById('ca-budget-val').textContent=v;
+      document.getElementById('ca-out-rent').textContent=v;
+      document.getElementById('ca-out-dep').textContent=v;
+      document.getElementById('ca-out-total').textContent=v*2;
+    }
+    if(budget){ budget.addEventListener('input',calcUpd); calcUpd(); }
+    ['city','type','people','when'].forEach(function(grp){
+      var box=document.getElementById('ca-'+grp); if(!box) return;
+      box.addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(!b) return;
+        box.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');}); b.classList.add('active'); });
+    });
   });
 })();
 </script>
