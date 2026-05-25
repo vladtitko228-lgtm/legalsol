@@ -14,6 +14,11 @@
       "source": "/blog/how-to-open-bank-account-poland-foreigner-ru",
       "destination": "/blog/how-to-open-bank-account-poland-foreigner",
       "permanent": true
+    },
+    {
+      "source": "/trc",
+      "destination": "/guide",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -44,10 +49,6 @@
     {
       "source": "/polish",
       "destination": "/polish.html"
-    },
-    {
-      "source": "/trc",
-      "destination": "/trc.html"
     },
     {
       "source": "/guide",
