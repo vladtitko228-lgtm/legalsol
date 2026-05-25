@@ -14,9 +14,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="legalsol handles your Polish residence permit — and now your home in Warsaw too. Apartment search, lawyer-reviewed rental contract, meldunek registration, deposit and utilities. One firm, your language, fully guaranteed."/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="canonical" href="https://www.legalsol.pl/housing"/>
-<link rel="alternate" hreflang="en" href="https://www.legalsol.pl/housing?lang=en"/>
-<link rel="alternate" hreflang="ru" href="https://www.legalsol.pl/housing?lang=ru"/>
-<link rel="alternate" hreflang="pl" href="https://www.legalsol.pl/housing?lang=pl"/>
+<link rel="alternate" hreflang="en" href="https://www.legalsol.pl/housing"/>
 <link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/housing"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -68,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .logo .wm .s{color:var(--v300);}
   .logo .tagm{font-size:9.5px;letter-spacing:.22em;color:var(--v300);font-weight:700;margin-top:1px;}
   .header-right{display:flex;align-items:center;gap:12px;}
-  .lang-dd{position:relative;}
+  .lang-dd{position:relative;display:none;}
   .lang-dd-trigger{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
     color:var(--txt);padding:8px 12px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
   .ldf svg{border-radius:2px;display:block;}
@@ -790,14 +788,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   document.addEventListener('DOMContentLoaded',function(){
-    var p=new URLSearchParams(location.search).get('lang');
-    var saved; try{ saved=localStorage.getItem('ls_housing_lang'); }catch(e){}
-    applyLang(p||saved||'en');
-
-    var dd=document.getElementById('lang-dd');
-    document.getElementById('lang-dd-trigger').addEventListener('click',function(e){ e.stopPropagation(); dd.classList.toggle('open'); });
-    document.querySelectorAll('.ldp-btn').forEach(function(b){ b.addEventListener('click',function(){ applyLang(b.getAttribute('data-lang')); dd.classList.remove('open'); }); });
-    document.addEventListener('click',function(){ dd.classList.remove('open'); });
+    applyLang('en'); // English only
 
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
       e.target.classList.add('in');
