@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .logo .wm .s{color:var(--v300);}
   .logo .tagm{font-size:9.5px;letter-spacing:.22em;color:var(--v300);font-weight:700;margin-top:1px;}
   .header-right{display:flex;align-items:center;gap:12px;}
-  .lang-dd{position:relative;display:none;}
+  .lang-dd{position:relative;}
   .lang-dd-trigger{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
     color:var(--txt);padding:8px 12px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
   .ldf svg{border-radius:2px;display:block;}
@@ -299,6 +299,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button class="ldp-btn" data-lang="en" type="button"><span class="ldp-flag"><svg viewBox="0 0 60 30"><clipPath id="bf"><rect width="60" height="30"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" clip-path="url(#bf)"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#bf)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg></span><span class="ldp-code">EN</span><span class="ldp-name">English</span></button>
         <button class="ldp-btn" data-lang="ru" type="button"><span class="ldp-flag"><svg viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#fff"/><rect width="9" height="2" y="2" fill="#0039A6"/><rect width="9" height="2" y="4" fill="#D52B1E"/></svg></span><span class="ldp-code">RU</span><span class="ldp-name">Русский</span></button>
         <button class="ldp-btn" data-lang="pl" type="button"><span class="ldp-flag"><svg viewBox="0 0 8 5"><rect width="8" height="2.5" y="0" fill="#fff"/><rect width="8" height="2.5" y="2.5" fill="#DC143C"/></svg></span><span class="ldp-code">PL</span><span class="ldp-name">Polski</span></button>
+        <button class="ldp-btn" data-lang="uk" type="button"><span class="ldp-flag"><svg viewBox="0 0 9 6"><rect width="9" height="3" y="0" fill="#0057B7"/><rect width="9" height="3" y="3" fill="#FFD700"/></svg></span><span class="ldp-code">UK</span><span class="ldp-name">Українська</span></button>
+        <button class="ldp-btn" data-lang="es" type="button"><span class="ldp-flag"><svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#c60b1e"/><rect width="3" height="1" y="0.5" fill="#ffc400"/></svg></span><span class="ldp-code">ES</span><span class="ldp-name">Español</span></button>
+        <button class="ldp-btn" data-lang="tr" type="button"><span class="ldp-flag"><svg viewBox="0 0 12 8"><rect width="12" height="8" fill="#E30A17"/><circle cx="4.5" cy="4" r="2" fill="#fff"/><circle cx="5.1" cy="4" r="1.6" fill="#E30A17"/><path d="M6.9 4l1.9-.62-1.17 1.6V3.02l1.17 1.6z" fill="#fff"/></svg></span><span class="ldp-code">TR</span><span class="ldp-name">Türkçe</span></button>
+        <button class="ldp-btn" data-lang="az" type="button"><span class="ldp-flag"><svg viewBox="0 0 12 6"><rect width="12" height="2" y="0" fill="#3F9C35"/><rect width="12" height="2" y="2" fill="#ED2939"/><rect width="12" height="2" y="4" fill="#00B5E2"/></svg></span><span class="ldp-code">AZ</span><span class="ldp-name">Azərbaycan</span></button>
+        <button class="ldp-btn" data-lang="hi" type="button"><span class="ldp-flag"><svg viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#FF9933"/><rect width="9" height="2" y="2" fill="#fff"/><rect width="9" height="2" y="4" fill="#138808"/><circle cx="4.5" cy="3" r="0.8" fill="none" stroke="#000080" stroke-width="0.15"/></svg></span><span class="ldp-code">HI</span><span class="ldp-name">हिन्दी</span></button>
       </div>
     </div>
     <a href="/" class="nav-back" id="nav-back">← Main site</a>
@@ -565,12 +570,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   var FLAGS={
     en:'<svg width="18" height="13" viewBox="0 0 60 30"><clipPath id="bf2"><rect width="60" height="30"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" clip-path="url(#bf2)"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#bf2)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>',
     ru:'<svg width="18" height="13" viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#fff"/><rect width="9" height="2" y="2" fill="#0039A6"/><rect width="9" height="2" y="4" fill="#D52B1E"/></svg>',
-    pl:'<svg width="18" height="13" viewBox="0 0 8 5"><rect width="8" height="2.5" y="0" fill="#fff"/><rect width="8" height="2.5" y="2.5" fill="#DC143C"/></svg>'
+    pl:'<svg width="18" height="13" viewBox="0 0 8 5"><rect width="8" height="2.5" y="0" fill="#fff"/><rect width="8" height="2.5" y="2.5" fill="#DC143C"/></svg>',
+    es:'<svg width="18" height="13" viewBox="0 0 3 2"><rect width="3" height="2" fill="#c60b1e"/><rect width="3" height="1" y="0.5" fill="#ffc400"/></svg>',
+    tr:'<svg width="18" height="13" viewBox="0 0 12 8"><rect width="12" height="8" fill="#E30A17"/><circle cx="4.5" cy="4" r="2" fill="#fff"/><circle cx="5.1" cy="4" r="1.6" fill="#E30A17"/><path d="M6.9 4l1.9-.62-1.17 1.6V3.02l1.17 1.6z" fill="#fff"/></svg>',
+    az:'<svg width="18" height="13" viewBox="0 0 12 6"><rect width="12" height="2" y="0" fill="#3F9C35"/><rect width="12" height="2" y="2" fill="#ED2939"/><rect width="12" height="2" y="4" fill="#00B5E2"/></svg>',
+    hi:'<svg width="18" height="13" viewBox="0 0 9 6"><rect width="9" height="2" y="0" fill="#FF9933"/><rect width="9" height="2" y="2" fill="#fff"/><rect width="9" height="2" y="4" fill="#138808"/><circle cx="4.5" cy="3" r="0.8" fill="none" stroke="#000080" stroke-width="0.15"/></svg>',
+    uk:'<svg width="18" height="13" viewBox="0 0 9 6"><rect width="9" height="3" y="0" fill="#0057B7"/><rect width="9" height="3" y="3" fill="#FFD700"/></svg>'
   };
   var WA_MSG={
     en:'Hello Adam! I\'m writing from the legalsol Housing page — I\'d like help finding a place to rent in Poland.\n\nMy request:\n- City / area: \n- Budget (PLN / month): \n- Move-in date: \n- People: \n- Type (apartment / room / temporary): \n\nThank you!',
     ru:'Здравствуйте, Адам! Пишу со страницы «Жильё» на сайте legalsol — нужна помощь с арендой жилья в Польше.\n\nМой запрос:\n- Город / район: \n- Бюджет (zł / мес): \n- Дата заселения: \n- Сколько человек: \n- Тип (квартира / комната / временно): \n\nСпасибо!',
-    pl:'Dzień dobry, Adam! Piszę ze strony „Mieszkania" legalsol — potrzebuję pomocy w wynajmie mieszkania w Polsce.\n\nMoja prośba:\n- Miasto / okolica: \n- Budżet (zł / mies.): \n- Data wprowadzki: \n- Ile osób: \n- Typ (mieszkanie / pokój / tymczasowo): \n\nDziękuję!'
+    pl:'Dzień dobry, Adam! Piszę ze strony „Mieszkania" legalsol — potrzebuję pomocy w wynajmie mieszkania w Polsce.\n\nMoja prośba:\n- Miasto / okolica: \n- Budżet (zł / mies.): \n- Data wprowadzki: \n- Ile osób: \n- Typ (mieszkanie / pokój / tymczasowo): \n\nDziękuję!',
+    es:'¡Hola, Adam! Escribo desde la página «Vivienda» de legalsol — necesito ayuda para alquilar una vivienda en Polonia.\n\nMi solicitud:\n- Ciudad / zona: \n- Presupuesto (zł / mes): \n- Fecha de entrada: \n- Número de personas: \n- Tipo (apartamento / habitación / temporal): \n\n¡Gracias!',
+    tr:'Merhaba Adam! legalsol „Konut" sayfasından yazıyorum — Polonya’da kiralık konut bulmakta yardıma ihtiyacım var.\n\nTalebim:\n- Şehir / bölge: \n- Bütçe (zł / ay): \n- Taşınma tarihi: \n- Kişi sayısı: \n- Tür (daire / oda / geçici): \n\nTeşekkürler!',
+    az:'Salam, Adam! legalsol «Yaşayış» səhifəsindən yazıram — Polşada mənzil kirayələməkdə köməyə ehtiyacım var.\n\nSorğum:\n- Şəhər / rayon: \n- Büdcə (zł / ay): \n- Köçmə tarixi: \n- Neçə nəfər: \n- Növ (mənzil / otaq / müvəqqəti): \n\nTəşəkkürlər!',
+    hi:'नमस्ते Adam! मैं legalsol के «आवास» पेज से लिख रहा हूँ — मुझे पोलैंड में किराये का घर ढूँढने में मदद चाहिए।\n\nमेरा अनुरोध:\n- शहर / क्षेत्र: \n- बजट (zł / माह): \n- प्रवेश तिथि: \n- कितने लोग: \n- प्रकार (अपार्टमेंट / कमरा / अस्थायी): \n\nधन्यवाद!',
+    uk:'Вітаю, Адаме! Пишу зі сторінки «Житло» legalsol — потрібна допомога з орендою житла в Польщі.\n\nМій запит:\n- Місто / район: \n- Бюджет (zł / міс): \n- Дата заселення: \n- Скільки людей: \n- Тип (квартира / кімната / тимчасово): \n\nДякую!'
   };
   var T={
     en:{
@@ -746,6 +761,296 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'fq4q':'W jakich miastach w Polsce działacie?','fq4a':'W całej Polsce. Warszawa to nasza baza, ale pomagamy znaleźć i podpisać mieszkanie w całym kraju — Kraków, Wrocław, Gdańsk, Poznań i inne.',
       'cta-title':'Legalizacja załatwiona. Zajmijmy się Twoim domem.','cta-sub':'Napisz budżet i terminy na WhatsApp. Odpowiemy szybko, w Twoim języku, z realnymi ofertami i jasną ceną.','cta-btn':'💬 Napisz na WhatsApp',
       'ft-home':'Główna','ft-biz':'Biznes','ft-blog':'Blog','ft-priv':'Prywatność','ft-terms':'Regulamin','ft-copy':'© 2026 legalsol · Warszawa, Polska · Imigracja i relokacja przez WhatsApp'
+    },
+    es:{
+      'logo-tag':'RESIDENCIA · RELOCALIZACIÓN','nav-back':'← Sitio principal','nav-cta':'Escríbenos',
+      'eyebrow':'Un servicio adicional para clientes de legalsol',
+      'hero-title':'Tu permiso de residencia, resuelto.<br><span class="accent">Tu hogar en Varsovia también.</span>',
+      'hero-sub':'legalsol es, ante todo, una firma de legalización: 6 años, más de 3000 casos de residencia, 98% de aprobación. La vivienda es el servicio que añadimos para nuestros clientes: encontramos tu piso y preparamos el contrato, el registro y el depósito para que apoyen tu caso de residencia, no lo compliquen.',
+      'hero-cta1':'💬 Pregunta por vivienda','hero-cta2':'Cómo funciona','hero-trust':'Más de 3000 extranjeros que legalizan su estancia en Polonia confían en nosotros',
+      'hb1':'Contratos revisados por abogados','hb2':'Varsovia y toda Polonia',
+      'ts1':'Anuncios verificados','ts2':'Contratos revisados por abogados','ts3':'Tarifa fija y transparente','ts4':'En tu idioma','fab-lbl':'Vivienda por WhatsApp',
+      'po-pill':'Primero la legalización','po-title':'Somos tu bufete de inmigración — la vivienda es el extra',
+      'po-p1':'La mayoría de las agencias solo te alquilan un piso y desaparecen. Nosotros ya gestionamos tu karta pobytu, PESEL o Blue Card — así que al encontrar tu hogar, el registro de dirección (meldunek) y el contrato se preparan para reforzar tu solicitud de residencia.',
+      'po-p2':'Una firma, un contacto, tu idioma. Tu visado, tu tarjeta de residencia y tu hogar — todo en sintonía.',
+      'ps1':'años en Polonia','ps2':'casos de residencia','ps3':'de aprobación',
+      'wd-pill':'Lo que gestionamos','wd-title':'Encontrar el piso es solo el principio','wd-sub':'Un servicio completo de instalación para recién llegados que aún no hablan polaco ni conocen la ciudad.',
+      'wd1t':'Lo encontramos','wd1d':'Presupuesto, zona, imprescindibles — preseleccionamos opciones reales y verificadas y descartamos las estafas dirigidas a extranjeros.',
+      'wd2t':'Negociamos','wd2d':'Tratamos con propietarios y agencias en polaco, revisamos las condiciones y conseguimos un precio justo y un depósito honesto.',
+      'wd3t':'Hacemos el papeleo','wd3d':'Contrato revisado por abogados, meldunek, depósito, suministros — explicados en tu idioma y vinculados a tu caso de residencia.',
+      'wd4t':'Te damos las llaves','wd4d':'Visitas, lista de entrada, fotos del inventario. Llegas a un hogar listo — no a un problema por resolver.',
+      'ty-pill':'Lo que podemos organizar','ty-title':'Desde un hotel la primera noche hasta un piso a largo plazo','ty-sub':'En cualquier etapa de la mudanza hay una opción para ti.',
+      'ty1t':'Alquiler de piso','ty1d':'Estudios y pisos de 1–3 habitaciones para estancias largas — la petición más común.','ty1g':'Largo plazo',
+      'ty2t':'Habitación en piso compartido','ty2d':'Habitaciones asequibles para estudiantes y quienes llegan solos, con compañeros verificados.','ty2g':'Económico',
+      'ty3t':'Hotel / estancia temporal','ty3d':'Un lugar seguro para tus primeras noches mientras buscamos — aparthoteles y hoteles asociados a precio justo.','ty3g':'Primeras noches',
+      'ty4t':'Vivienda para familias y estudiantes','ty4d':'Pisos más grandes cerca de colegios o habitaciones junto a tu universidad — según quién se mude contigo.','ty4g':'A medida',
+      'gu-pill':'Nuestras garantías','gu-title':'Por qué es seguro con legalsol','gu-sub':'Los mismos estándares que aplicamos a tu residencia — ahora a tu hogar.',
+      'gu1t':'Sin estafas — solo verificado','gu1d':'Cada anuncio, propietario y depósito se comprueba antes de mover un solo złoty. Si algo huele mal, lo paramos.',
+      'gu2t':'Contratos revisados por abogados','gu2d':'Tu contrato lo lee cláusula por cláusula el mismo equipo que lleva tu residencia — y te lo explica en tu idioma.',
+      'gu3t':'Tarifa fija y transparente','gu3d':'Un precio, acordado antes de empezar. Sin costes ocultos ni porcentaje eterno de tu alquiler.',
+      'gu4t':'Seguimos buscando','gu4d':'Si un trato se cae antes de la entrada, seguimos buscando sin coste extra hasta que tengas hogar.',
+      'gu5t':'Alineado con tu residencia','gu5d':'Tu dirección y registro se preparan para apoyar — nunca poner en riesgo — tu karta pobytu.',
+      'gu6t':'Siempre en tu idioma','gu6d':'EN · RU · UA · PL y más. Entiendes cada documento y cada conversación, de principio a fin.',
+      'gl-pill':'Hogares reales','gl-title':'Cómo podría ser tu hogar en Varsovia','gl-sub':'Algunos ejemplos del tipo de lugares a los que ayudamos a mudarse a nuestros clientes.',
+      'hw-pill':'Cómo funciona','hw-title':'Del primer mensaje a las llaves en mano','hw-sub':'Simple, transparente y en tu idioma en cada paso.',
+      's1t':'Dinos qué necesitas','s1d':'Escríbenos por WhatsApp: presupuesto, zona, fechas, cuántas personas. Gratis, sin compromiso.',
+      's2t':'Buscamos y preseleccionamos','s2d':'Sacamos opciones verificadas de nuestra red y agencias, quitamos las estafas y te enviamos una lista limpia.',
+      's3t':'Visitas, online o presenciales','s3d':'Tours en vídeo mientras estás fuera, en persona al llegar — participamos en cada visita.',
+      's4t':'Contrato y documentos','s4d':'Revisamos el contrato, explicamos cada cláusula, hacemos tu meldunek y damos de alta los suministros — bien a la primera.',
+      's5t':'Múdate','s5d':'Llaves, revisión de inventario, fotos de entrada. Y seguimos disponibles si surge algo después.',
+      'pr-pill':'Precios honestos','pr-title':'Cómo cobramos — sin costes ocultos','pr-sub':'Todo se acuerda por adelantado. Siempre sabes qué pagas y por qué.',
+      'pr-card-title':'Dos formas sencillas de cobrar',
+      'pr1t':'Comisión de socios','pr1d':'Con muchos pisos, hoteles y agencias con los que trabajamos, nuestra comisión la pagan ellos — así la búsqueda y la reserva pueden ser gratis para ti.',
+      'pr2t':'Tarifa de servicio fija','pr2d':'Para la instalación completa (búsqueda + contrato + meldunek + suministros) cobramos una tarifa fija, acordada antes de empezar.',
+      'pr3t':'Primera consulta gratis','pr3d':'Cuéntanos tu situación por WhatsApp y te daremos un precio claro para tu caso — sin coste.',
+      'pr-note':'✅ Un contacto para tu visado, tu tarjeta de residencia y tu hogar — ya conoce tu caso y habla tu idioma.',
+      'ca-pill':'Planifica tu mudanza','ca-title':'Dinos qué quieres — mira lo que conlleva','ca-sub':'Ajusta tus preferencias y presupuesto. Te mostramos aproximadamente lo que cuesta mudarse y lo enviamos directo a Adam.',
+      'ca-l-city':'Ciudad','ca-l-type':'Buscas','ca-l-people':'Personas','ca-l-when':'Entrada','ca-l-budget':'Presupuesto mensual',
+      'ca-r1':'Alquiler mensual (tu presupuesto)','ca-r2':'Depósito (≈ 1 mes)','ca-r3':'≈ Para mudarte','ca-r4':'Ayuda de legalsol','ca-out-fee':'gratis / fija*',
+      'ca-note':'* A menudo gratis para ti (lo pagan los socios) o una tarifa fija, confirmada por Adam. El alquiler lo eliges tú; el depósito suele ser 1 mes.','ca-send':'💬 Enviar a Adam',
+      'ai-pill':'Nos encargamos de todo','ai-title':'Tú solo dices qué quieres. Te lo servimos en bandeja.','ai-sub':'Los propietarios suelen desconfiar de los extranjeros que aún no tienen karta pobytu. Como tu firma de legalización, respondemos por ti y gestionamos cada documento — para que el dueño diga sí y tú solo firmes.',
+      'ai-you-tag':'Tú','ai-you1':'Dinos tu presupuesto, zona y qué necesitas','ai-you2':'Preséntate y firma — eso es todo','ai-we-tag':'legalsol hace el resto',
+      'ai1':'Encontrar y verificar opciones reales','ai2':'Responder ante el propietario de que estás legal en Polonia','ai3':'Aportar todos los documentos que prueban tu situación legal','ai4':'Cubrir el notario','ai5':'Cubrir el traductor jurado','ai6':'Preparar cada documento que exige el contrato','ai7':'Revisar el contrato y firmarlo contigo','ai8':'Registrar tu meldunek','ai9':'Dar de alta los suministros',
+      'ai-cost':'💛 Notario, traductor y documentos — todos los gastos los cubrimos nosotros.',
+      'fq-pill':'FAQ','fq-title':'Preguntas frecuentes',
+      'fq1q':'¿La vivienda es solo para clientes de legalización de legalsol?','fq1a':'Funciona mejor para ellos — ya conocemos tu caso. Pero puede usarla cualquiera que se mude a Varsovia. Escríbenos y te ayudamos.',
+      'fq2q':'¿Podéis ayudar antes de llegar a Polonia?','fq2a':'Sí. Buscamos, hacemos visitas en vídeo y podemos firmar a distancia, así tienes un hogar esperándote el día que aterrizas — más un hotel para las primeras noches si hace falta.',
+      'fq3q':'¿Cuánto cuesta el servicio?','fq3a':'Una reserva rápida suele ser gratis para ti (la pagan nuestros socios); la instalación completa es una tarifa fija. Siempre recibes un precio claro por WhatsApp antes de empezar.',
+      'fq4q':'¿En qué ciudades de Polonia trabajáis?','fq4a':'En toda Polonia. Varsovia es nuestra base, pero ayudamos a encontrar y firmar pisos en todo el país — Cracovia, Wrocław, Gdańsk, Poznań y más.',
+      'cta-title':'Legalización resuelta. Ocupémonos de tu hogar.','cta-sub':'Cuéntanos tu presupuesto y fechas por WhatsApp. Respondemos rápido, en tu idioma, con opciones reales y un precio claro.','cta-btn':'💬 Escríbenos por WhatsApp',
+      'ft-home':'Inicio','ft-biz':'Empresas','ft-blog':'Blog','ft-priv':'Privacidad','ft-terms':'Términos','ft-copy':'© 2026 legalsol · Varsovia, Polonia · Inmigración y relocalización por WhatsApp'
+    },
+    tr:{
+      'logo-tag':'OTURUM · TAŞINMA','nav-back':'← Ana site','nav-cta':'Bize yazın',
+      'eyebrow':'legalsol müşterileri için ek hizmet',
+      'hero-title':'Oturum izniniz bizde.<br><span class="accent">Varşova’daki eviniz de.</span>',
+      'hero-sub':'legalsol her şeyden önce bir yasallaştırma firmasıdır — 6 yıl, 3.000+ oturum dosyası, %98 onay. Konut, müşterilerimiz için eklediğimiz hizmettir: dairenizi buluruz ve sözleşme, adres kaydı (meldunek) ile depozitoyu oturum dosyanızı destekleyecek şekilde hazırlarız.',
+      'hero-cta1':'💬 Konut hakkında sorun','hero-cta2':'Nasıl çalışır','hero-trust':'Polonya’da yasallaşan 3.000+ yabancı bize güveniyor',
+      'hb1':'Avukat onaylı sözleşmeler','hb2':'Varşova ve tüm Polonya',
+      'ts1':'Doğrulanmış ilanlar','ts2':'Avukat onaylı sözleşmeler','ts3':'Sabit, şeffaf ücret','ts4':'Kendi dilinizde','fab-lbl':'WhatsApp’tan konut',
+      'po-pill':'Önce yasallaştırma','po-title':'Biz sizin göçmenlik firmanızız — konut ise bonus',
+      'po-p1':'Çoğu acente sadece daire kiralar ve kaybolur. Biz zaten karta pobytu, PESEL veya Blue Card işinizi yürütüyoruz — bu yüzden evinizi bulduğumuzda adres kaydı (meldunek) ve kira sözleşmesi oturum başvurunuzu güçlendirecek şekilde hazırlanır.',
+      'po-p2':'Tek firma, tek muhatap, kendi diliniz. Vizeniz, oturum kartınız ve eviniz — hepsi uyum içinde.',
+      'ps1':'yıl Polonya’da','ps2':'oturum dosyası','ps3':'onay oranı',
+      'wd-pill':'Neleri üstleniyoruz','wd-title':'Daireyi bulmak sadece başlangıç','wd-sub':'Henüz Lehçe bilmeyen ve şehri tanımayan yeni gelenler için eksiksiz yerleşme hizmeti.',
+      'wd1t':'Buluyoruz','wd1d':'Bütçe, semt, olmazsa olmazlar — gerçek ve doğrulanmış seçenekleri listeleriz, yabancıları hedef alan dolandırıcılıkları eleriz.',
+      'wd2t':'Pazarlık ederiz','wd2d':'Ev sahipleri ve acentelerle Lehçe konuşur, şartları kontrol eder, adil fiyat ve dürüst depozito için uğraşırız.',
+      'wd3t':'Evrak işini yaparız','wd3d':'Avukat onaylı kira sözleşmesi, meldunek, depozito, faturalar — kendi dilinizde anlatılır ve oturum dosyanıza bağlanır.',
+      'wd4t':'Anahtarı veririz','wd4d':'Görüntüleme, giriş kontrol listesi, envanter fotoğrafları. Çözülecek bir soruna değil, hazır bir eve gelirsiniz.',
+      'ty-pill':'Neler ayarlayabiliriz','ty-title':'İlk gece oteli ile uzun vadeli daire arası','ty-sub':'Taşınmanın hangi aşamasında olursanız olun size uygun bir seçenek var.',
+      'ty1t':'Daire kiralama','ty1d':'Uzun süreli kalışlar için stüdyo ve 1–3 odalı daireler — en sık gelen talep.','ty1g':'Uzun vadeli',
+      'ty2t':'Paylaşımlı dairede oda','ty2d':'Öğrenciler ve tek gelenler için uygun fiyatlı, doğrulanmış ev arkadaşlı odalar.','ty2g':'Ekonomik',
+      'ty3t':'Otel / geçici konaklama','ty3d':'Biz ararken ilk geceleriniz için güvenli yer — apart oteller ve partner oteller uygun fiyata.','ty3g':'İlk geceler',
+      'ty4t':'Aile ve öğrenci konutu','ty4d':'Okullara yakın daha büyük daireler veya üniversitenize yakın odalar — sizinle taşınanlara göre.','ty4g':'Size özel',
+      'gu-pill':'Garantilerimiz','gu-title':'legalsol ile bu neden güvenli','gu-sub':'Oturum dosyanız için tuttuğumuz standartlar — artık eviniz için de.',
+      'gu1t':'Dolandırıcılık yok — sadece doğrulanmış','gu1d':'Her ilan, ev sahibi ve depozito tek bir złoty hareket etmeden kontrol edilir. Bir şey ters görünürse iptal ederiz.',
+      'gu2t':'Avukat onaylı sözleşmeler','gu2d':'Sözleşmeniz, oturum dosyanızı yürüten ekip tarafından madde madde okunur — ve kendi dilinizde anlatılır.',
+      'gu3t':'Şeffaf, sabit ücret','gu3d':'Tek fiyat, başlamadan önce kararlaştırılır. Gizli masraf yok, kiranızdan ömür boyu yüzde yok.',
+      'gu4t':'Aramaya devam ederiz','gu4d':'Taşınmadan önce bir anlaşma bozulursa, siz yerleşene kadar ek ücret olmadan aramaya devam ederiz.',
+      'gu5t':'Oturum dosyasıyla uyumlu','gu5d':'Adresiniz ve kaydınız karta pobytu’nuzu destekleyecek — asla riske atmayacak — şekilde ayarlanır.',
+      'gu6t':'Her zaman kendi dilinizde','gu6d':'EN · RU · UA · PL ve daha fazlası. Her belgeyi ve her görüşmeyi baştan sona anlarsınız.',
+      'gl-pill':'Gerçek evler','gl-title':'Varşova’daki eviniz nasıl görünebilir','gl-sub':'Müşterilerimizin taşınmasına yardım ettiğimiz yerlerden birkaç örnek.',
+      'hw-pill':'Nasıl çalışır','hw-title':'İlk mesajdan anahtara kadar','hw-sub':'Basit, şeffaf ve her adımda kendi dilinizde.',
+      's1t':'Ne istediğinizi söyleyin','s1d':'WhatsApp’tan yazın: bütçe, semt, tarihler, kaç kişi. Ücretsiz, taahhütsüz.',
+      's2t':'Arar ve seçeriz','s2d':'Ağımızdan ve acentelerden doğrulanmış seçenekleri toplar, dolandırıcılıkları eler ve temiz bir liste göndeririz.',
+      's3t':'Görüntüleme, online veya yerinde','s3d':'Yurt dışındayken video tur, geldiğinizde yüz yüze — her görüntülemeye katılırız.',
+      's4t':'Sözleşme ve belgeler','s4d':'Sözleşmeyi inceler, her maddeyi açıklar, meldunek kaydınızı yapar ve faturaları açarız — ilk seferde doğru.',
+      's5t':'Taşının','s5d':'Anahtarlar, envanter kontrolü, giriş fotoğrafları. Sonra bir şey çıkarsa yine ulaşılabiliriz.',
+      'pr-pill':'Dürüst fiyatlandırma','pr-title':'Nasıl kazanırız — gizli masraf yok','pr-sub':'Her şey önceden kararlaştırılır. Ne ödediğinizi ve neden ödediğinizi her zaman bilirsiniz.',
+      'pr-card-title':'Kazanmanın iki basit yolu',
+      'pr1t':'Partner komisyonu','pr1d':'Çalıştığımız birçok daire, otel ve acentede ücretimizi onlar öder — böylece arama ve rezervasyon sizin için ücretsiz olabilir.',
+      'pr2t':'Sabit hizmet ücreti','pr2d':'Tam yerleşme desteği için (arama + sözleşme + meldunek + faturalar) başlamadan önce kararlaştırılan tek sabit ücret alırız.',
+      'pr3t':'Ücretsiz ilk danışma','pr3d':'Durumunuzu WhatsApp’tan anlatın, tam sizin durumunuza net bir fiyat verelim — ücretsiz.',
+      'pr-note':'✅ Vize, oturum kartı ve ev için tek muhatap — dosyanızı biliyor, dilinizi konuşuyor.',
+      'ca-pill':'Taşınmanızı planlayın','ca-title':'Ne istediğinizi söyleyin — neye mal olduğunu görün','ca-sub':'Tercihlerinizi ve bütçenizi ayarlayın. Taşınmanın yaklaşık maliyetini gösterir, doğrudan Adam’a göndeririz.',
+      'ca-l-city':'Şehir','ca-l-type':'Aradığınız','ca-l-people':'Kişi','ca-l-when':'Giriş','ca-l-budget':'Aylık bütçe',
+      'ca-r1':'Aylık kira (bütçeniz)','ca-r2':'Depozito (≈ 1 ay)','ca-r3':'≈ Taşınma için','ca-r4':'legalsol yardımı','ca-out-fee':'ücretsiz / sabit*',
+      'ca-note':'* Genelde sizin için ücretsiz (partnerler öder) ya da Adam’ın onayladığı tek sabit ücret. Kira sizin seçiminiz; depozito genelde 1 aydır.','ca-send':'💬 Adam’a gönder',
+      'ai-pill':'Her şeyi üstleniyoruz','ai-title':'Siz sadece ne istediğinizi söyleyin. Biz hazır sunarız.','ai-sub':'Ev sahipleri çoğu zaman henüz karta pobytu olmayan yabancılara temkinli yaklaşır. Yasallaştırma firmanız olarak sizin için kefil oluruz ve her belgeyi üstleniriz — böylece ev sahibi evet der, siz sadece imzalarsınız.',
+      'ai-you-tag':'Siz','ai-you1':'Bütçe, bölge ve ihtiyacınızı söyleyin','ai-you2':'Gelin ve imzalayın — hepsi bu','ai-we-tag':'Gerisini legalsol yapar',
+      'ai1':'Gerçek seçenekleri bulup doğrularız','ai2':'Polonya’da yasal olduğunuza ev sahibine kefil oluruz','ai3':'Yasal durumunuzu kanıtlayan tüm belgeleri sağlarız','ai4':'Noteri üstleniriz','ai5':'Yeminli tercümanı üstleniriz','ai6':'Sözleşmenin gerektirdiği her belgeyi hazırlarız','ai7':'Sözleşmeyi inceler ve sizinle imzalarız','ai8':'meldunek kaydınızı yaparız','ai9':'Faturaları açarız',
+      'ai-cost':'💛 Noter, tercüman ve belge masrafları — hepsi bizden.',
+      'fq-pill':'SSS','fq-title':'Sık sorulan sorular',
+      'fq1q':'Konut sadece legalsol yasallaştırma müşterileri için mi?','fq1a':'Onlar için en iyisi — dosyanızı zaten biliyoruz. Ama Varşova’ya taşınan herkes kullanabilir. Yazın, yardımcı olalım.',
+      'fq2q':'Polonya’ya gelmeden yardım edebilir misiniz?','fq2a':'Evet. Arar, video görüntüleme yapar ve uzaktan imzalayabiliriz; böylece indiğiniz gün ev hazır olur — gerekirse ilk geceler için otel de.',
+      'fq3q':'Hizmet ne kadar?','fq3a':'Hızlı rezervasyon genelde sizin için ücretsizdir (partnerler öder); tam yerleşme tek sabit ücrettir. Başlamadan önce her zaman WhatsApp’tan net fiyat alırsınız.',
+      'fq4q':'Polonya’nın hangi şehirlerinde çalışıyorsunuz?','fq4a':'Tüm Polonya’da. Üssümüz Varşova ama tüm ülkede daire bulup imzalamaya yardım ederiz — Krakov, Wrocław, Gdańsk, Poznań ve ötesi.',
+      'cta-title':'Yasallaştırma tamam. Şimdi evinizi halledelim.','cta-sub':'Bütçenizi ve tarihlerinizi WhatsApp’tan yazın. Kendi dilinizde, gerçek seçenekler ve net fiyatla hızla yanıt veririz.','cta-btn':'💬 WhatsApp’tan yazın',
+      'ft-home':'Ana sayfa','ft-biz':'Kurumsal','ft-blog':'Blog','ft-priv':'Gizlilik','ft-terms':'Şartlar','ft-copy':'© 2026 legalsol · Varşova, Polonya · WhatsApp öncelikli göçmenlik ve taşınma'
+    },
+    az:{
+      'logo-tag':'YAŞAYIŞ · KÖÇMƏ','nav-back':'← Əsas sayt','nav-cta':'Bizə yazın',
+      'eyebrow':'legalsol müştəriləri üçün əlavə xidmət',
+      'hero-title':'Yaşayış icazəniz bizdə.<br><span class="accent">Varşavadakı eviniz də.</span>',
+      'hero-sub':'legalsol ilk növbədə leqallaşdırma firmasıdır — 6 il, 3.000+ yaşayış işi, 98% təsdiq. Mənzil müştərilərimiz üçün əlavə etdiyimiz xidmətdir: mənzilinizi tapırıq və müqaviləni, qeydiyyatı və depoziti yaşayış işinizi dəstəkləyəcək şəkildə hazırlayırıq.',
+      'hero-cta1':'💬 Mənzil barədə soruşun','hero-cta2':'Necə işləyir','hero-trust':'Polşada leqallaşan 3.000+ əcnəbi bizə etibar edir',
+      'hb1':'Hüquqşünas yoxlamış müqavilələr','hb2':'Varşava və bütün Polşa',
+      'ts1':'Yoxlanılmış elanlar','ts2':'Hüquqşünas yoxlamış müqavilələr','ts3':'Sabit, şəffaf haqq','ts4':'Sizin dilinizdə','fab-lbl':'WhatsApp ilə mənzil',
+      'po-pill':'Əvvəlcə leqallaşma','po-title':'Biz sizin miqrasiya firmanızıq — mənzil bonusdur',
+      'po-p1':'Əksər agentliklər sadəcə mənzil kirayə verib yox olur. Biz artıq sizin karta pobytu, PESEL və ya Blue Card işinizi aparırıq — buna görə evinizi tapanda ünvan qeydiyyatı (meldunek) və kirayə müqaviləsi yaşayış müraciətinizi gücləndirəcək şəkildə hazırlanır.',
+      'po-p2':'Bir firma, bir əlaqə, sizin diliniz. Vizanız, yaşayış kartınız və eviniz — hamısı uyğun.',
+      'ps1':'il Polşada','ps2':'yaşayış işi','ps3':'təsdiq',
+      'wd-pill':'Nələri öz üzərimizə götürürük','wd-title':'Mənzil tapmaq yalnız başlanğıcdır','wd-sub':'Hələ polyakca bilməyən və şəhəri tanımayan yeni gələnlər üçün tam köçmə xidməti.',
+      'wd1t':'Tapırıq','wd1d':'Büdcə, rayon, vacib şərtlər — real, yoxlanılmış variantları seçirik və əcnəbiləri hədəf alan fırıldaqları kənarlaşdırırıq.',
+      'wd2t':'Danışıq aparırıq','wd2d':'Ev sahibləri və agentliklərlə polyakca danışırıq, şərtləri yoxlayırıq, ədalətli qiymət və dürüst depozit üçün çalışırıq.',
+      'wd3t':'Sənədləri hazırlayırıq','wd3d':'Hüquqşünas yoxlamış müqavilə, meldunek, depozit, kommunal — sizin dilinizdə izah edilir və yaşayış işinizə bağlanır.',
+      'wd4t':'Açarları veririk','wd4d':'Baxışlar, köçmə siyahısı, inventar şəkilləri. Həll ediləcək problemə yox, hazır evə gəlirsiniz.',
+      'ty-pill':'Nə təşkil edə bilərik','ty-title':'İlk gecə otelindən uzunmüddətli mənzilə qədər','ty-sub':'Köçmənin hansı mərhələsində olsanız da, sizə uyğun variant var.',
+      'ty1t':'Mənzil kirayəsi','ty1d':'Uzunmüddətli qalış üçün studiya və 1–3 otaqlı mənzillər — ən çox istənilən.','ty1g':'Uzunmüddətli',
+      'ty2t':'Paylaşılan mənzildə otaq','ty2d':'Tələbələr və tək gələnlər üçün münasib, yoxlanılmış ev yoldaşı olan otaqlar.','ty2g':'Sərfəli',
+      'ty3t':'Otel / müvəqqəti qalış','ty3d':'Biz axtararkən ilk gecələriniz üçün təhlükəsiz yer — apart-otellər və partnyor otellər ədalətli qiymətə.','ty3g':'İlk gecələr',
+      'ty4t':'Ailə və tələbə mənzili','ty4d':'Məktəblərə yaxın daha böyük mənzillər və ya universitetə yaxın otaqlar — sizinlə köçənlərə görə.','ty4g':'Fərdi',
+      'gu-pill':'Zəmanətlərimiz','gu-title':'legalsol ilə niyə təhlükəsizdir','gu-sub':'Yaşayış işiniz üçün tutduğumuz standartlar — indi eviniz üçün də.',
+      'gu1t':'Fırıldaq yox — yalnız yoxlanılmış','gu1d':'Hər elan, ev sahibi və depozit bir złoty hərəkət etməzdən əvvəl yoxlanılır. Bir şey şübhəli görünsə, dayandırırıq.',
+      'gu2t':'Hüquqşünas yoxlamış müqavilələr','gu2d':'Müqavilənizi yaşayış işinizi aparan komanda bənd-bənd oxuyur — və sizin dilinizdə izah edir.',
+      'gu3t':'Şəffaf, sabit haqq','gu3d':'Bir qiymət, başlamazdan əvvəl razılaşdırılır. Gizli xərc yox, kirayənizdən daimi faiz yox.',
+      'gu4t':'Axtarışı davam etdiririk','gu4d':'Köçmədən əvvəl razılaşma pozulsa, siz yerləşənə qədər əlavə haqq olmadan axtarmağa davam edirik.',
+      'gu5t':'Yaşayış işi ilə uyğun','gu5d':'Ünvanınız və qeydiyyatınız karta pobytu-nuzu dəstəkləyəcək — heç vaxt riskə atmayacaq — şəkildə qurulur.',
+      'gu6t':'Həmişə sizin dilinizdə','gu6d':'EN · RU · UA · PL və daha çox. Hər sənədi və hər söhbəti əvvəldən sona anlayırsınız.',
+      'gl-pill':'Real evlər','gl-title':'Varşavadakı eviniz necə görünə bilər','gl-sub':'Müştərilərimizin köçməsinə kömək etdiyimiz yerlərdən bir neçə nümunə.',
+      'hw-pill':'Necə işləyir','hw-title':'İlk mesajdan açara qədər','hw-sub':'Sadə, şəffaf və hər addımda sizin dilinizdə.',
+      's1t':'Nə lazım olduğunu deyin','s1d':'WhatsApp ilə yazın: büdcə, rayon, tarixlər, neçə nəfər. Pulsuz, öhdəlik yoxdur.',
+      's2t':'Axtarır və seçirik','s2d':'Şəbəkəmizdən və agentliklərdən yoxlanılmış variantları toplayır, fırıldaqları kənarlaşdırır və təmiz siyahı göndəririk.',
+      's3t':'Baxışlar, onlayn və ya canlı','s3d':'Xaricdə olanda video tur, gələndə canlı — hər baxışda iştirak edirik.',
+      's4t':'Müqavilə və sənədlər','s4d':'Müqaviləni yoxlayır, hər bəndi izah edir, meldunek qeydiyyatınızı edir və kommunalı qoşuruq — ilk dəfədən düzgün.',
+      's5t':'Köçün','s5d':'Açarlar, inventar yoxlaması, köçmə şəkilləri. Sonra nəsə olsa, yenə əlçatanıq.',
+      'pr-pill':'Dürüst qiymət','pr-title':'Necə qazanırıq — gizli xərc yox','pr-sub':'Hər şey əvvəlcədən razılaşdırılır. Nəyə və niyə ödədiyinizi həmişə bilirsiniz.',
+      'pr-card-title':'Qazanmağın iki sadə yolu',
+      'pr1t':'Partnyor komissiyası','pr1d':'İşlədiyimiz bir çox mənzil, otel və agentlikdə haqqımızı onlar ödəyir — beləcə axtarış və rezervasiya sizin üçün pulsuz ola bilər.',
+      'pr2t':'Sabit xidmət haqqı','pr2d':'Tam köçmə dəstəyi üçün (axtarış + müqavilə + meldunek + kommunal) başlamazdan əvvəl razılaşdırılan bir sabit haqq alırıq.',
+      'pr3t':'Pulsuz ilk məsləhət','pr3d':'Vəziyyətinizi WhatsApp ilə deyin, məhz sizin işiniz üçün aydın qiymət verək — pulsuz.',
+      'pr-note':'✅ Viza, yaşayış kartı və ev üçün bir əlaqə — işinizi bilir, dilinizi danışır.',
+      'ca-pill':'Köçmənizi planlaşdırın','ca-title':'Nə istədiyinizi deyin — nəyə başa gəldiyini görün','ca-sub':'Üstünlükləri və büdcəni seçin. Köçmənin təxmini xərcini göstərib birbaşa Adam-a göndəririk.',
+      'ca-l-city':'Şəhər','ca-l-type':'Axtardığınız','ca-l-people':'Nəfər','ca-l-when':'Köçmə','ca-l-budget':'Aylıq büdcə',
+      'ca-r1':'Aylıq kirayə (büdcəniz)','ca-r2':'Depozit (≈ 1 ay)','ca-r3':'≈ Köçmək üçün','ca-r4':'legalsol köməyi','ca-out-fee':'pulsuz / sabit*',
+      'ca-note':'* Çox vaxt sizin üçün pulsuz (partnyorlar ödəyir) və ya Adam-ın təsdiqlədiyi bir sabit haqq. Kirayə sizin seçiminizdir; depozit adətən 1 aydır.','ca-send':'💬 Adam-a göndər',
+      'ai-pill':'Hər şeyi öz üzərimizə götürürük','ai-title':'Siz sadəcə nə istədiyinizi deyin. Biz hazır təqdim edirik.','ai-sub':'Ev sahibləri çox vaxt hələ karta pobytu olmayan əcnəbilərə ehtiyatla yanaşır. Leqallaşdırma firmanız olaraq sizə zəmanət veririk və hər sənədi öz üzərimizə götürürük — beləcə sahib razılaşır, siz sadəcə imzalayırsınız.',
+      'ai-you-tag':'Siz','ai-you1':'Büdcə, ərazi və ehtiyacınızı deyin','ai-you2':'Gəlin və imzalayın — vəssalam','ai-we-tag':'Qalanını legalsol edir',
+      'ai1':'Real variantları tapıb yoxlayırıq','ai2':'Polşada leqal olduğunuza ev sahibinə zəmanət veririk','ai3':'Leqallığınızı təsdiq edən bütün sənədləri veririk','ai4':'Notariusu öz üzərimizə götürürük','ai5':'And içmiş tərcüməçini öz üzərimizə götürürük','ai6':'Müqavilənin tələb etdiyi hər sənədi hazırlayırıq','ai7':'Müqaviləni yoxlayır və sizinlə imzalayırıq','ai8':'meldunek qeydiyyatınızı edirik','ai9':'Kommunalı qoşuruq',
+      'ai-cost':'💛 Notarius, tərcüməçi və sənəd xərcləri — hamısı bizdən.',
+      'fq-pill':'FAQ','fq-title':'Tez-tez verilən suallar',
+      'fq1q':'Mənzil yalnız legalsol leqallaşdırma müştəriləri üçündür?','fq1a':'Onlar üçün ən yaxşısıdır — işinizi artıq bilirik. Amma Varşavaya köçən hər kəs istifadə edə bilər. Yazın, kömək edək.',
+      'fq2q':'Polşaya gəlməzdən əvvəl kömək edə bilərsiniz?','fq2a':'Bəli. Axtarır, video baxış edir və uzaqdan imzalaya bilərik; beləcə endiyiniz gün ev hazır olur — lazım olsa ilk gecələr üçün otel də.',
+      'fq3q':'Xidmət nə qədərdir?','fq3a':'Sürətli rezervasiya çox vaxt sizin üçün pulsuzdur (partnyorlar ödəyir); tam köçmə dəstəyi bir sabit haqdır. Başlamazdan əvvəl həmişə WhatsApp ilə aydın qiymət alırsınız.',
+      'fq4q':'Polşanın hansı şəhərlərində işləyirsiniz?','fq4a':'Bütün Polşada. Üssümüz Varşavadır, amma bütün ölkədə mənzil tapıb imzalamağa kömək edirik — Krakov, Wrocław, Gdańsk, Poznań və başqaları.',
+      'cta-title':'Leqallaşma hazırdır. İndi evinizlə məşğul olaq.','cta-sub':'Büdcənizi və tarixlərinizi WhatsApp ilə yazın. Sizin dilinizdə, real variantlar və aydın qiymətlə tez cavab veririk.','cta-btn':'💬 WhatsApp ilə yazın',
+      'ft-home':'Ana səhifə','ft-biz':'Biznes','ft-blog':'Blog','ft-priv':'Məxfilik','ft-terms':'Şərtlər','ft-copy':'© 2026 legalsol · Varşava, Polşa · WhatsApp əsaslı miqrasiya və köçmə'
+    },
+    hi:{
+      'logo-tag':'निवास · पुनर्वास','nav-back':'← मुख्य साइट','nav-cta':'हमें लिखें',
+      'eyebrow':'legalsol ग्राहकों के लिए अतिरिक्त सेवा',
+      'hero-title':'आपका रेज़िडेंस परमिट, संभाल लिया।<br><span class="accent">वॉरसॉ में आपका घर भी।</span>',
+      'hero-sub':'legalsol सबसे पहले एक वैधीकरण फर्म है — 6 साल, 3,000+ रेज़िडेंस केस, 98% स्वीकृति। आवास वह सेवा है जो हमने अपने ग्राहकों के लिए जोड़ी: हम आपका अपार्टमेंट ढूँढते हैं और अनुबंध, पंजीकरण व जमा को इस तरह तैयार करते हैं कि वे आपके रेज़िडेंस केस को मज़बूत करें, उलझाएँ नहीं।',
+      'hero-cta1':'💬 आवास के बारे में पूछें','hero-cta2':'यह कैसे काम करता है','hero-trust':'पोलैंड में वैध हो रहे 3,000+ विदेशियों का भरोसा',
+      'hb1':'वकील-जाँचे अनुबंध','hb2':'वॉरसॉ और पूरा पोलैंड',
+      'ts1':'सत्यापित लिस्टिंग','ts2':'वकील-जाँचे अनुबंध','ts3':'निश्चित, पारदर्शी शुल्क','ts4':'आपकी भाषा में','fab-lbl':'WhatsApp पर आवास',
+      'po-pill':'पहले वैधीकरण','po-title':'हम आपकी इमिग्रेशन फर्म हैं — आवास बोनस है',
+      'po-p1':'ज़्यादातर एजेंसियाँ बस फ्लैट किराए पर देकर गायब हो जाती हैं। हम पहले से आपका karta pobytu, PESEL या Blue Card संभालते हैं — इसलिए जब हम आपका घर ढूँढते हैं, तो पता पंजीकरण (meldunek) और किराया अनुबंध आपके रेज़िडेंस आवेदन को मज़बूत करने के लिए तैयार होते हैं।',
+      'po-p2':'एक फर्म, एक संपर्क, आपकी भाषा। आपका वीज़ा, रेज़िडेंस कार्ड और घर — सब तालमेल में।',
+      'ps1':'साल पोलैंड में','ps2':'रेज़िडेंस केस','ps3':'स्वीकृति दर',
+      'wd-pill':'हम क्या संभालते हैं','wd-title':'फ्लैट ढूँढना तो बस शुरुआत है','wd-sub':'उन नए लोगों के लिए पूरी मूव-इन सेवा जो अभी पोलिश नहीं बोलते और शहर नहीं जानते।',
+      'wd1t':'हम ढूँढते हैं','wd1d':'बजट, इलाका, ज़रूरतें — हम असली, सत्यापित विकल्प छाँटते हैं और विदेशियों को निशाना बनाने वाले धोखों को हटाते हैं।',
+      'wd2t':'हम मोलभाव करते हैं','wd2d':'हम मकान मालिकों और एजेंसियों से पोलिश में बात करते हैं, शर्तें जाँचते हैं, और उचित कीमत व ईमानदार जमा दिलाते हैं।',
+      'wd3t':'हम कागज़ी काम करते हैं','wd3d':'वकील-जाँचा अनुबंध, meldunek, जमा, बिजली-पानी — आपकी भाषा में समझाया और आपके रेज़िडेंस केस से जुड़ा।',
+      'wd4t':'हम आपको चाबी देते हैं','wd4d':'देखना, मूव-इन चेकलिस्ट, इन्वेंट्री फोटो। आप तैयार घर में आते हैं — कोई समस्या सुलझाने नहीं।',
+      'ty-pill':'हम क्या व्यवस्था कर सकते हैं','ty-title':'पहली रात के होटल से लेकर लंबे समय के फ्लैट तक','ty-sub':'मूव के किसी भी चरण में आपके लिए एक विकल्प है।',
+      'ty1t':'अपार्टमेंट किराया','ty1d':'लंबे समय के लिए स्टूडियो और 1–3 बेडरूम फ्लैट — सबसे आम अनुरोध।','ty1g':'लंबी अवधि',
+      'ty2t':'साझा फ्लैट में कमरा','ty2d':'छात्रों और अकेले आने वालों के लिए किफ़ायती कमरे, सत्यापित फ्लैटमेट्स के साथ।','ty2g':'किफ़ायती',
+      'ty3t':'होटल / अस्थायी ठहराव','ty3d':'जब तक हम ढूँढें, आपकी पहली रातों के लिए सुरक्षित जगह — अपार्टहोटल और पार्टनर होटल उचित दाम पर।','ty3g':'पहली रातें',
+      'ty4t':'परिवार और छात्र आवास','ty4d':'स्कूलों के पास बड़े फ्लैट या आपकी यूनिवर्सिटी के पास कमरे — आपके साथ आने वालों के अनुसार।','ty4g':'अनुकूलित',
+      'gu-pill':'हमारी गारंटियाँ','gu-title':'legalsol के साथ यह सुरक्षित क्यों है','gu-sub':'वही मानक जो हम आपके रेज़िडेंस केस के लिए रखते हैं — अब आपके घर पर भी।',
+      'gu1t':'कोई धोखा नहीं — सिर्फ़ सत्यापित','gu1d':'हर लिस्टिंग, मकान मालिक और जमा एक złoty हिलने से पहले जाँचे जाते हैं। कुछ गलत लगे तो हम रोक देते हैं।',
+      'gu2t':'वकील-जाँचे अनुबंध','gu2d':'आपका अनुबंध वही टीम धारा-दर-धारा पढ़ती है जो आपका रेज़िडेंस केस चलाती है — और आपकी भाषा में समझाती है।',
+      'gu3t':'पारदर्शी, निश्चित शुल्क','gu3d':'एक कीमत, शुरू करने से पहले तय। कोई छिपी लागत नहीं, किराए का हमेशा प्रतिशत नहीं।',
+      'gu4t':'हम ढूँढते रहते हैं','gu4d':'अगर मूव-इन से पहले कोई डील टूटे, तो जब तक आपको घर न मिले हम बिना अतिरिक्त शुल्क ढूँढते रहते हैं।',
+      'gu5t':'रेज़िडेंस केस के अनुरूप','gu5d':'आपका पता और पंजीकरण इस तरह सेट होता है कि वह आपके karta pobytu को सहारा दे — कभी ख़तरे में न डाले।',
+      'gu6t':'हमेशा आपकी भाषा में','gu6d':'EN · RU · UA · PL और भी। आप हर दस्तावेज़ और हर बातचीत शुरू से अंत तक समझते हैं।',
+      'gl-pill':'असली घर','gl-title':'वॉरसॉ में आपका घर कैसा दिख सकता है','gl-sub':'कुछ उदाहरण कि हम अपने ग्राहकों को किस तरह की जगहों में बसने में मदद करते हैं।',
+      'hw-pill':'यह कैसे काम करता है','hw-title':'पहले संदेश से चाबी तक','hw-sub':'सरल, पारदर्शी, हर कदम पर आपकी भाषा में।',
+      's1t':'बताएँ आपको क्या चाहिए','s1d':'WhatsApp पर लिखें: बजट, इलाका, तारीख़ें, कितने लोग। मुफ़्त, कोई बाध्यता नहीं।',
+      's2t':'हम ढूँढते और छाँटते हैं','s2d':'हम अपने नेटवर्क और एजेंसियों से सत्यापित विकल्प लेते हैं, धोखे हटाते हैं, और एक साफ़ सूची भेजते हैं।',
+      's3t':'देखना, ऑनलाइन या प्रत्यक्ष','s3d':'विदेश में रहते वीडियो टूर, पहुँचने पर प्रत्यक्ष — हम हर विज़िट में शामिल होते हैं।',
+      's4t':'अनुबंध और दस्तावेज़','s4d':'हम अनुबंध जाँचते हैं, हर धारा समझाते हैं, आपका meldunek करते हैं और बिजली-पानी जोड़ते हैं — पहली बार में सही।',
+      's5t':'मूव इन','s5d':'चाबियाँ, इन्वेंट्री जाँच, मूव-इन फोटो। और बाद में कुछ हो तो हम उपलब्ध रहते हैं।',
+      'pr-pill':'ईमानदार कीमत','pr-title':'हम कैसे कमाते हैं — कोई छिपी लागत नहीं','pr-sub':'सब पहले से तय। आप हमेशा जानते हैं कि क्या और क्यों चुका रहे हैं।',
+      'pr-card-title':'कमाई के दो आसान तरीके',
+      'pr1t':'पार्टनर कमीशन','pr1d':'जिन कई अपार्टमेंट, होटल और एजेंसियों के साथ हम काम करते हैं, हमारा शुल्क वे चुकाते हैं — तो खोज और बुकिंग आपके लिए मुफ़्त हो सकती है।',
+      'pr2t':'निश्चित सेवा शुल्क','pr2d':'पूरे मूव-इन सपोर्ट के लिए (खोज + अनुबंध + meldunek + बिजली-पानी) हम एक निश्चित शुल्क लेते हैं, शुरू करने से पहले तय।',
+      'pr3t':'पहली सलाह मुफ़्त','pr3d':'अपनी स्थिति WhatsApp पर बताएँ और हम आपके केस के लिए साफ़ कीमत देंगे — बिना शुल्क।',
+      'pr-note':'✅ वीज़ा, रेज़िडेंस कार्ड और घर के लिए एक संपर्क — आपका केस जानता है, आपकी भाषा बोलता है।',
+      'ca-pill':'अपना मूव प्लान करें','ca-title':'बताएँ क्या चाहते हैं — देखें क्या लगेगा','ca-sub':'अपनी पसंद और बजट सेट करें। हम लगभग दिखाएँगे कि बसने में कितना लगता है, फिर सीधे Adam को भेज देंगे।',
+      'ca-l-city':'शहर','ca-l-type':'आप क्या ढूँढ रहे हैं','ca-l-people':'लोग','ca-l-when':'मूव-इन','ca-l-budget':'मासिक बजट',
+      'ca-r1':'मासिक किराया (आपका बजट)','ca-r2':'जमा (≈ 1 माह)','ca-r3':'≈ मूव-इन के लिए','ca-r4':'legalsol मदद','ca-out-fee':'मुफ़्त / निश्चित*',
+      'ca-note':'* अक्सर आपके लिए मुफ़्त (पार्टनर चुकाते हैं) या एक निश्चित शुल्क, Adam द्वारा पुष्ट। किराया आपकी पसंद है; जमा आमतौर पर 1 माह।','ca-send':'💬 Adam को भेजें',
+      'ai-pill':'हम सब संभालते हैं','ai-title':'आप बस बताएँ क्या चाहिए। हम थाली में परोसते हैं।','ai-sub':'मकान मालिक अक्सर उन विदेशियों से सतर्क रहते हैं जिनके पास अभी karta pobytu नहीं है। आपकी वैधीकरण फर्म के रूप में हम आपकी गारंटी देते हैं और हर दस्तावेज़ संभालते हैं — ताकि मालिक हाँ कहे और आप बस हस्ताक्षर करें।',
+      'ai-you-tag':'आप','ai-you1':'अपना बजट, इलाका और ज़रूरत बताएँ','ai-you2':'आएँ और हस्ताक्षर करें — बस','ai-we-tag':'बाकी legalsol करता है',
+      'ai1':'असली विकल्प ढूँढना और सत्यापित करना','ai2':'मकान मालिक को गारंटी देना कि आप पोलैंड में वैध हैं','ai3':'आपकी वैधता साबित करने वाले सभी दस्तावेज़ देना','ai4':'नोटरी का खर्च','ai5':'शपथ-अनुवादक का खर्च','ai6':'अनुबंध के लिए ज़रूरी हर दस्तावेज़ तैयार करना','ai7':'अनुबंध जाँचना और आपके साथ हस्ताक्षर करना','ai8':'आपका meldunek पंजीकरण','ai9':'बिजली-पानी जोड़ना',
+      'ai-cost':'💛 नोटरी, अनुवादक और दस्तावेज़ का खर्च — सब हम पर।',
+      'fq-pill':'FAQ','fq-title':'सामान्य प्रश्न',
+      'fq1q':'क्या आवास सिर्फ़ legalsol वैधीकरण ग्राहकों के लिए है?','fq1a':'उनके लिए सबसे अच्छा — हम आपका केस पहले से जानते हैं। पर वॉरसॉ आने वाला कोई भी इस्तेमाल कर सकता है। हमें लिखें, हम मदद करेंगे।',
+      'fq2q':'क्या आप पोलैंड पहुँचने से पहले मदद कर सकते हैं?','fq2a':'हाँ। हम ढूँढते हैं, वीडियो विज़िट करते हैं और दूर से हस्ताक्षर करा सकते हैं, ताकि आपके उतरने के दिन घर तैयार हो — ज़रूरत हो तो पहली रातों के लिए होटल भी।',
+      'fq3q':'सेवा की कीमत कितनी है?','fq3a':'त्वरित बुकिंग अक्सर आपके लिए मुफ़्त है (पार्टनर चुकाते हैं); पूरा मूव-इन सपोर्ट एक निश्चित शुल्क है। शुरू करने से पहले आपको हमेशा WhatsApp पर साफ़ कीमत मिलती है।',
+      'fq4q':'आप पोलैंड के किन शहरों में काम करते हैं?','fq4a':'पूरे पोलैंड में। वॉरसॉ हमारा बेस है, पर हम पूरे देश में अपार्टमेंट ढूँढने और हस्ताक्षर में मदद करते हैं — क्राकोव, व्रोत्सवाफ, ग्दान्स्क, पॉज़्नान और आगे भी।',
+      'cta-title':'वैधीकरण हो गया। अब आपका घर संभालें।','cta-sub':'अपना बजट और तारीख़ें WhatsApp पर बताएँ। हम आपकी भाषा में, असली विकल्पों और साफ़ कीमत के साथ जल्दी जवाब देते हैं।','cta-btn':'💬 WhatsApp पर लिखें',
+      'ft-home':'होम','ft-biz':'बिज़नेस','ft-blog':'ब्लॉग','ft-priv':'गोपनीयता','ft-terms':'शर्तें','ft-copy':'© 2026 legalsol · वॉरसॉ, पोलैंड · WhatsApp-प्रथम इमिग्रेशन और पुनर्वास'
+    },
+    uk:{
+      'logo-tag':'ПРОЖИВАННЯ · ПЕРЕЇЗД','nav-back':'← Головний сайт','nav-cta':'Напишіть нам',
+      'eyebrow':'Додаткова послуга для клієнтів legalsol',
+      'hero-title':'Ваш дозвіл на проживання — беремо на себе.<br><span class="accent">І ваше житло у Варшаві теж.</span>',
+      'hero-sub':'legalsol — насамперед фірма з легалізації: 6 років, 3000+ справ із проживання, 98% схвалень. Житло — послуга, яку ми додали для своїх клієнтів: знаходимо квартиру й оформлюємо договір, реєстрацію та заставу так, щоб вони підсилювали вашу справу, а не ускладнювали її.',
+      'hero-cta1':'💬 Запитати про житло','hero-cta2':'Як це працює','hero-trust':'Нам довіряють 3000+ іноземців, що легалізуються в Польщі',
+      'hb1':'Договори перевіряє юрист','hb2':'Варшава і вся Польща',
+      'ts1':'Перевірені оголошення','ts2':'Договори перевіряє юрист','ts3':'Фіксована, прозора плата','ts4':'Вашою мовою','fab-lbl':'Житло у WhatsApp',
+      'po-pill':'Спершу легалізація','po-title':'Ми — ваша імміграційна фірма, житло — бонус',
+      'po-p1':'Звичайні агенції просто здають квартиру і зникають. Ми вже ведемо вашу karta pobytu, PESEL чи Blue Card — тож, знайшовши житло, оформлюємо реєстрацію адреси (meldunek) і договір так, щоб вони підсилювали вашу заяву на проживання.',
+      'po-p2':'Одна фірма, один контакт, ваша мова. Віза, карта побиту і дім — усе узгоджено.',
+      'ps1':'років у Польщі','ps2':'справ із проживання','ps3':'схвалень',
+      'wd-pill':'Що беремо на себе','wd-title':'Знайти квартиру — лише початок','wd-sub':'Повний сервіс заселення для новоприбулих, які ще не говорять польською і не знають міста.',
+      'wd1t':'Знаходимо','wd1d':'Бюджет, район, побажання — добираємо реальні, перевірені варіанти й відсіюємо шахраїв, що полюють на іноземців.',
+      'wd2t':'Домовляємось','wd2d':'Спілкуємось із власниками й агенціями польською, перевіряємо умови, домагаємось чесної ціни та застави.',
+      'wd3t':'Оформлюємо документи','wd3d':'Договір (перевіряє юрист), meldunek, застава, комуналка — пояснюємо вашою мовою і пов’язуємо зі справою про проживання.',
+      'wd4t':'Віддаємо ключі','wd4d':'Перегляди, чек-лист заселення, фото опису. Ви приїжджаєте в готовий дім, а не до нової проблеми.',
+      'ty-pill':'Що можемо організувати','ty-title':'Від готелю на першу ніч до тривалої оренди','ty-sub':'На будь-якому етапі переїзду є відповідний варіант.',
+      'ty1t':'Оренда квартири','ty1d':'Студії та квартири 1–3 кімнати на тривалий строк — найчастіший запит.','ty1g':'Надовго',
+      'ty2t':'Кімната у спільній квартирі','ty2d':'Доступні кімнати для студентів і тих, хто їде сам, із перевіреними сусідами.','ty2g':'Бюджетно',
+      'ty3t':'Готель / тимчасове житло','ty3d':'Безпечне місце на перші ночі, поки шукаємо — апарт-готелі й партнерські готелі за чесною ціною.','ty3g':'Перші ночі',
+      'ty4t':'Житло для родини та студентів','ty4d':'Більші квартири біля шкіл або кімнати поруч з університетом — під тих, хто їде з вами.','ty4g':'Під вас',
+      'gu-pill':'Наші гарантії','gu-title':'Чому з legalsol це безпечно','gu-sub':'Ті самі стандарти, що й для вашої справи про проживання — тепер і для житла.',
+      'gu1t':'Без шахрайства — лише перевірене','gu1d':'Кожне оголошення, власник і застава перевіряються до того, як піде хоч один złoty. Підозріла угода — одразу стоп.',
+      'gu2t':'Договори перевіряє юрист','gu2d':'Договір розбирає пункт за пунктом та сама команда, що веде вашу справу — і пояснює вашою мовою.',
+      'gu3t':'Прозора, фіксована плата','gu3d':'Одна ціна, узгоджена до старту. Без прихованих витрат і відсотка з оренди назавжди.',
+      'gu4t':'Шукаємо далі','gu4d':'Якщо угода зірвалась до заселення — шукаємо далі без доплат, поки ви не заселитесь.',
+      'gu5t':'Узгоджено зі справою','gu5d':'Адресу й реєстрацію оформлюємо так, щоб вони підсилювали — а не ставили під загрозу — вашу karta pobytu.',
+      'gu6t':'Завжди вашою мовою','gu6d':'EN · RU · UA · PL та інші. Ви розумієте кожен документ і кожну розмову від початку до кінця.',
+      'gl-pill':'Реальні квартири','gl-title':'Яким може бути ваш дім у Варшаві','gl-sub':'Кілька прикладів житла, у яке ми допомагаємо заселитися клієнтам.',
+      'hw-pill':'Як це працює','hw-title':'Від першого повідомлення до ключів у руці','hw-sub':'Просто, прозоро і вашою мовою на кожному кроці.',
+      's1t':'Розкажіть, що потрібно','s1d':'Напишіть у WhatsApp: бюджет, район, дати, скільки людей. Безкоштовно, без зобов’язань.',
+      's2t':'Шукаємо й добираємо','s2d':'Беремо перевірені варіанти з нашої бази та агенцій, відсіюємо шахраїв і надсилаємо чистий список.',
+      's3t':'Перегляди — онлайн чи наживо','s3d':'Відеотури, поки ви за кордоном, і особисто, коли приїдете — беремо участь у кожному перегляді.',
+      's4t':'Договір і документи','s4d':'Перевіряємо договір, пояснюємо кожен пункт, оформлюємо meldunek і підключаємо комуналку — одразу правильно.',
+      's5t':'Заселення','s5d':'Ключі, перевірка опису, фото при в’їзді. І залишаємось на зв’язку, якщо щось знадобиться пізніше.',
+      'pr-pill':'Чесні ціни','pr-title':'Як ми заробляємо — без прихованих витрат','pr-sub':'Усе домовляємось заздалегідь. Ви завжди знаєте, за що і скільки платите.',
+      'pr-card-title':'Два прості способи оплати',
+      'pr1t':'Комісія від партнерів','pr1d':'За багатьма квартирами, готелями й агенціями нашу комісію платять вони — тож пошук і бронювання можуть бути для вас безкоштовними.',
+      'pr2t':'Фіксована плата за послугу','pr2d':'За повний супровід заселення (пошук + договір + meldunek + комуналка) беремо одну фіксовану плату, узгоджену заздалегідь.',
+      'pr3t':'Безкоштовна перша консультація','pr3d':'Опишіть ситуацію у WhatsApp — назвемо чітку ціну саме для вашого випадку, безкоштовно.',
+      'pr-note':'✅ Один контакт для візи, карти побиту і житла — уже знає вашу справу й говорить вашою мовою.',
+      'ca-pill':'Сплануйте переїзд','ca-title':'Скажіть, чого хочете — побачите розклад','ca-sub':'Оберіть параметри й бюджет. Покажемо приблизну вартість заселення і надішлемо все Adam.',
+      'ca-l-city':'Місто','ca-l-type':'Що шукаєте','ca-l-people':'Людей','ca-l-when':'Заселення','ca-l-budget':'Бюджет на місяць',
+      'ca-r1':'Оренда на місяць (ваш бюджет)','ca-r2':'Застава (≈ 1 місяць)','ca-r3':'≈ На заселення','ca-r4':'Допомога legalsol','ca-out-fee':'безкоштовно / фікс.*',
+      'ca-note':'* Часто безкоштовно для вас (платить партнер) або одна фіксована плата — підтвердить Adam. Оренда — ваш вибір; застава зазвичай 1 місяць.','ca-send':'💬 Надіслати Adam',
+      'ai-pill':'Беремо все на себе','ai-title':'Ви лише кажете, чого хочете. Ми подаємо на блюді.','ai-sub':'Власники часто насторожено ставляться до іноземців без готової karta pobytu. Як ваша фірма з легалізації, ми ручаємось за вас і оформлюємо всі документи — щоб господар сказав «так», а вам лишилось тільки підписати.',
+      'ai-you-tag':'Ви','ai-you1':'Кажете бюджет, район і що потрібно','ai-you2':'Приходите й підписуєте — і все','ai-we-tag':'Решту робить legalsol',
+      'ai1':'Знаходимо і перевіряємо реальні варіанти','ai2':'Ручаємось перед господарем, що ви в Польщі легально','ai3':'Даємо всі документи, що підтверджують вашу легальність','ai4':'Беремо на себе нотаріуса','ai5':'Беремо на себе присяжного перекладача','ai6':'Готуємо всі документи для договору','ai7':'Перевіряємо договір і підписуємо разом з вами','ai8':'Оформлюємо meldunek','ai9':'Підключаємо комуналку',
+      'ai-cost':'💛 Нотаріус, перекладач і документи — усі витрати на нас.',
+      'fq-pill':'FAQ','fq-title':'Часті запитання',
+      'fq1q':'Житло лише для клієнтів legalsol з легалізації?','fq1a':'З ними найзручніше — ми вже знаємо вашу справу. Але скористатись може будь-хто, хто переїжджає до Варшави. Напишіть — допоможемо.',
+      'fq2q':'Можете допомогти до приїзду в Польщу?','fq2a':'Так. Шукаємо, проводимо відеоперегляди й можемо підписати дистанційно, тож у день прильоту дім уже чекає — плюс готель на перші ночі за потреби.',
+      'fq3q':'Скільки коштує послуга?','fq3a':'Швидке бронювання часто безкоштовне для вас (платить партнер); повний супровід — одна фіксована плата. Чітку ціну завжди називаємо у WhatsApp до старту.',
+      'fq4q':'У яких містах Польщі ви працюєте?','fq4a':'По всій Польщі. Варшава — наша база, але допомагаємо знаходити й підписувати квартири по всій країні — Краків, Вроцлав, Гданськ, Познань та інші.',
+      'cta-title':'Легалізація — зроблено. Тепер займемось вашим домом.','cta-sub':'Напишіть бюджет і дати у WhatsApp. Відповімо швидко, вашою мовою, з реальними варіантами і чіткою ціною.','cta-btn':'💬 Написати у WhatsApp',
+      'ft-home':'Головна','ft-biz':'Бізнес','ft-blog':'Блог','ft-priv':'Конфіденційність','ft-terms':'Умови','ft-copy':'© 2026 legalsol · Варшава, Польща · Імміграція та переїзд через WhatsApp'
     }
   };
 
@@ -768,7 +1073,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   var CALC_L={
     en:{intro:"Hello Adam! From the legalsol Housing page — here's what I'm looking for:",city:'City',type:'Type',people:'People',when:'Move-in',budget:'Budget',outro:'Can you help?'},
     ru:{intro:'Здравствуйте, Адам! Со страницы «Жильё» legalsol — вот что ищу:',city:'Город',type:'Тип',people:'Человек',when:'Заселение',budget:'Бюджет',outro:'Поможете?'},
-    pl:{intro:'Dzień dobry, Adam! Ze strony „Mieszkania" legalsol — oto czego szukam:',city:'Miasto',type:'Typ',people:'Osoby',when:'Wprowadzka',budget:'Budżet',outro:'Pomożecie?'}
+    pl:{intro:'Dzień dobry, Adam! Ze strony „Mieszkania" legalsol — oto czego szukam:',city:'Miasto',type:'Typ',people:'Osoby',when:'Wprowadzka',budget:'Budżet',outro:'Pomożecie?'},
+    es:{intro:'¡Hola, Adam! Desde la página «Vivienda» de legalsol — esto es lo que busco:',city:'Ciudad',type:'Tipo',people:'Personas',when:'Entrada',budget:'Presupuesto',outro:'¿Pueden ayudar?'},
+    tr:{intro:'Merhaba Adam! legalsol „Konut" sayfasından — aradığım şey:',city:'Şehir',type:'Tür',people:'Kişi',when:'Taşınma',budget:'Bütçe',outro:'Yardımcı olur musunuz?'},
+    az:{intro:'Salam, Adam! legalsol «Yaşayış» səhifəsindən — axtardığım budur:',city:'Şəhər',type:'Növ',people:'Nəfər',when:'Köçmə',budget:'Büdcə',outro:'Kömək edə bilərsiniz?'},
+    hi:{intro:'नमस्ते Adam! legalsol के «आवास» पेज से — मुझे यह चाहिए:',city:'शहर',type:'प्रकार',people:'लोग',when:'प्रवेश',budget:'बजट',outro:'क्या आप मदद करेंगे?'},
+    uk:{intro:'Вітаю, Адаме! Зі сторінки «Житло» legalsol — ось що шукаю:',city:'Місто',type:'Тип',people:'Людей',when:'Заселення',budget:'Бюджет',outro:'Допоможете?'}
   };
   window.calcSend=function(){
     function g(grp){var a=document.querySelector('#ca-'+grp+' .chip.active');return a?a.getAttribute('data-v'):'-';}
@@ -788,7 +1098,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   document.addEventListener('DOMContentLoaded',function(){
-    applyLang('en'); // English only
+    // language: saved → browser → en
+    var start='en';
+    try{ var saved=localStorage.getItem('ls_housing_lang'); if(saved && T[saved]) start=saved;
+      else { var nav=(navigator.language||'en').slice(0,2).toLowerCase(); if(T[nav]) start=nav; } }catch(e){}
+    applyLang(start);
+
+    // language dropdown
+    var dd=document.getElementById('lang-dd'), trg=document.getElementById('lang-dd-trigger');
+    if(trg && dd){
+      trg.addEventListener('click',function(e){ e.stopPropagation(); dd.classList.toggle('open'); });
+      dd.querySelectorAll('.ldp-btn').forEach(function(b){
+        b.addEventListener('click',function(){ applyLang(b.getAttribute('data-lang')); dd.classList.remove('open'); });
+      });
+      document.addEventListener('click',function(e){ if(!dd.contains(e.target)) dd.classList.remove('open'); });
+    }
 
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
       e.target.classList.add('in');
