@@ -24,13 +24,21 @@ module.exports = async function handler(req, res) {
   try {
     const notion = new Client({ auth: process.env.NOTION_API_KEY });
     const DB = process.env.NOTION_BLOG_DB_ID;
-    const r = await notion.databases.query({
-      database_id: DB,
-      filter: { property: "Status", select: { equals: "Published" } },
-      sorts: [{ property: "Published Date", direction: "descending" }],
-      page_size: 100,
-    });
-    articleUrls = r.results.map(pg => {
+    // Paginate through ALL published posts (blog has grown past 100)
+    let rows = [];
+    let cursor = undefined;
+    do {
+      const r = await notion.databases.query({
+        database_id: DB,
+        filter: { property: "Status", select: { equals: "Published" } },
+        sorts: [{ property: "Published Date", direction: "descending" }],
+        page_size: 100,
+        start_cursor: cursor,
+      });
+      rows = rows.concat(r.results);
+      cursor = r.has_more ? r.next_cursor : undefined;
+    } while (cursor);
+    articleUrls = rows.map(pg => {
       const p = pg.properties;
       const slug = txt(p["Slug"]);
       const date = txt(p["Published Date"]);

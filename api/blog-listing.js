@@ -528,17 +528,27 @@ function renderPage(articles) {
 
 module.exports = async function handler(req, res) {
   try {
-    const response = await notion.databases.query({
-      database_id: DATABASE_ID,
-      filter: {
-        property: "Status",
-        select: { equals: "Published" }
-      },
-      sorts: [{ property: "Published Date", direction: "descending" }],
-      page_size: 100,
-    });
+    // Fetch ALL published pages — paginate, because the blog has grown past
+    // 100 posts. Without this loop only the newest 100 were fetched, so older
+    // articles silently dropped off the listing (they were never deleted).
+    let allResults = [];
+    let startCursor = undefined;
+    do {
+      const response = await notion.databases.query({
+        database_id: DATABASE_ID,
+        filter: {
+          property: "Status",
+          select: { equals: "Published" }
+        },
+        sorts: [{ property: "Published Date", direction: "descending" }],
+        page_size: 100,
+        start_cursor: startCursor,
+      });
+      allResults = allResults.concat(response.results);
+      startCursor = response.has_more ? response.next_cursor : undefined;
+    } while (startCursor);
 
-    const articles = response.results.map(page => {
+    const articles = allResults.map(page => {
       const props = page.properties;
       return {
         title: getPropertyText(props["Title"]),
