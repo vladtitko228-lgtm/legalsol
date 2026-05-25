@@ -1235,13 +1235,12 @@ function _renderLangPanel(){
   });
 }
 
-// Init lang on load: query param > localStorage > browser > 'ru'
+// Init lang on load: English is the site default — every page opens in EN.
+// Only an explicit ?lang=xx in the URL overrides it.
 (function _initLang(){
   var urlLang=null;
   try{var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);if(m&&T[m[1].toLowerCase()])urlLang=m[1].toLowerCase();}catch(e){}
-  var saved=null;try{saved=localStorage.getItem('ls-lang');}catch(e){}
-  var browser=(navigator.language||'').slice(0,2).toLowerCase();
-  var lang=urlLang||(T[saved]?saved:null)||(T[browser]?browser:null)||'ru';
+  var lang=urlLang||'en';
   _renderLangPanel();
   setLangPolish(lang);
 })();

@@ -91,11 +91,10 @@ h1{font-size:30px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-
 <script>
 /* Лёгкий i18n — определяем язык из браузера/localStorage и подставляем */
 (function(){
-  var lang;
-  try{lang=localStorage.getItem('ls-lang');}catch(e){}
-  if(!lang){lang=(navigator.language||'en').slice(0,2);}
+  // English is the site default — only an explicit ?lang= URL overrides it.
   var supported=['en','ru','uk','pl','es','tr','az','hi'];
-  if(supported.indexOf(lang)===-1)lang='en';
+  var lang='en';
+  try{var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);if(m&&supported.indexOf(m[1].toLowerCase())!==-1)lang=m[1].toLowerCase();}catch(e){}
 
   var t={
     en:{title:"Page not found",body:"The page you're looking for doesn't exist or has been moved. Don't worry — we can help you find what you need.",home:"← Back to homepage",wa:"Ask us on WhatsApp",label:"Popular sections:",l_home:"Home",l_blog:"Blog",l_priv:"Privacy",l_term:"Terms"},

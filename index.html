@@ -18241,8 +18241,8 @@ function closeModal(){document.getElementById('modal').classList.remove('on');cs
 var _LS_LEAD_URL='https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
 
 function _lsLang(){
-  var l=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
-  return l||document.documentElement.lang||'en';
+  // Follow the language actually shown on the page (default EN), not a stale stored value.
+  return (typeof L!=='undefined'&&L)||document.documentElement.lang||'en';
 }
 
 var _ls_t={
@@ -23183,8 +23183,11 @@ function _doInit(){
       try{localStorage.setItem('ls-lang',_urlLang);}catch(e){}
     }
   }catch(e){}
-  var _sl=_urlLang||(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
-  setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
+  // English is the site default — every page opens in EN.
+  // Only an explicit ?lang=xx in the URL overrides it (for hreflang/share links).
+  // A previously stored choice is NOT auto-applied on load, so the page never
+  // silently opens in another language for returning visitors.
+  setLang(_urlLang&&_allLangs.indexOf(_urlLang)!==-1?_urlLang:'en');
 
   // Preloader: first visit = percentage, repeat = docs animation
   var _pre=document.getElementById('preloader');

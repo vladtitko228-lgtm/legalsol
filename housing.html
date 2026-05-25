@@ -594,10 +594,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   window.toggleFaq=function(q){ q.parentElement.classList.toggle('open'); };
 
   document.addEventListener('DOMContentLoaded',function(){
+    // English is the site default — open in EN unless ?lang= says otherwise.
     var p=new URLSearchParams(location.search).get('lang');
-    var saved; try{ saved=localStorage.getItem('ls_housing_lang'); }catch(e){}
-    var nav=(navigator.language||'en').slice(0,2);
-    applyLang(p||saved||(T[nav]?nav:'en'));
+    applyLang((p&&T[p])?p:'en');
 
     var dd=document.getElementById('lang-dd');
     document.getElementById('lang-dd-trigger').addEventListener('click',function(e){ e.stopPropagation(); dd.classList.toggle('open'); });

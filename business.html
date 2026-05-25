@@ -2713,7 +2713,8 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
         return ql;
       }
     }catch(e){}
-    try{return localStorage.getItem('b2b-lang')||localStorage.getItem('ls-lang')||'en';}catch(e){return 'en';}
+    // English is the site default — open in EN unless ?lang= says otherwise.
+    return 'en';
   }
   // Flag SVGs for trigger (matches main site format)
   var FLAG_SVGS = {
