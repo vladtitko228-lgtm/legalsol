@@ -238,6 +238,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer a{margin:0 10px;}.ft-wm{font-weight:800;font-size:22px;letter-spacing:-.02em;color:#fff;display:inline-block;margin-bottom:14px;}
   .ft-wm .s{color:var(--v300);}
 
+  /* ALL-IN (You / legalsol) */
+  .allin-grid{display:grid;grid-template-columns:.82fr 1.5fr;gap:18px;align-items:stretch;}
+  .allin-you,.allin-we{border-radius:var(--r);padding:28px 26px;}
+  .allin-you{background:var(--card);border:1px solid var(--line);}
+  .allin-we{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(245,196,81,0.12),rgba(38,33,82,0.46));border:1px solid rgba(245,196,81,0.36);box-shadow:var(--sh2);}
+  .allin-tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:18px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--txt2);}
+  .allin-tag.gold{background:rgba(245,196,81,0.14);border-color:rgba(245,196,81,0.4);color:var(--gold);}
+  .allin-line{display:flex;gap:10px;align-items:flex-start;color:var(--txt2);font-size:15px;margin-bottom:12px;}
+  .allin-we ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:11px 22px;margin:0;padding:0;}
+  .allin-we li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--txt);}
+  .allin-we li svg{flex:0 0 auto;margin-top:2px;}
+  .allin-cost{margin-top:18px;padding:13px 16px;background:rgba(245,196,81,0.1);border:1px solid rgba(245,196,81,0.3);border-radius:12px;font-size:14px;font-weight:600;}
+  @media(max-width:760px){.allin-grid{grid-template-columns:1fr;}.allin-we ul{grid-template-columns:1fr;}}
+
   /* CALCULATOR */
   .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(91,75,214,0.18),rgba(38,33,82,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);}
   .calc-field{margin-bottom:18px;}
@@ -367,6 +381,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="pcard anim"><div class="pcard-img"><span class="pcard-tag" id="ty2g">Budget</span><img loading="lazy" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&q=70" alt="Room in a shared flat"/></div><div class="pcard-body"><h3 id="ty2t">Room in a shared flat</h3><p id="ty2d">Affordable rooms for students and solo arrivals, with verified flatmates.</p></div></div>
       <div class="pcard anim"><div class="pcard-img"><span class="pcard-tag" id="ty3g">First nights</span><img loading="lazy" src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=70" alt="Hotel room"/></div><div class="pcard-body"><h3 id="ty3t">Hotel / temporary stay</h3><p id="ty3d">A safe place for your first nights while we search — aparthotels and partner hotels at fair rates.</p></div></div>
       <div class="pcard anim"><div class="pcard-img"><span class="pcard-tag" id="ty4g">Tailored</span><img loading="lazy" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=70" alt="Family apartment"/></div><div class="pcard-body"><h3 id="ty4t">Family & student housing</h3><p id="ty4d">Bigger flats near schools or rooms near your university — built around who moves with you.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL-IN -->
+<section class="section" id="allin">
+  <div class="wrap">
+    <div class="section-head anim">
+      <div class="pill gold" id="ai-pill">We take it all on</div>
+      <h2 class="stitle" id="ai-title">You just say what you want. We serve it on a plate.</h2>
+      <p class="ssub" id="ai-sub">Landlords are often wary of foreigners who don't yet have a karta pobytu. As your legalization firm, we vouch for you and handle every document — so the owner says yes and you simply sign.</p>
+    </div>
+    <div class="allin-grid">
+      <div class="allin-you anim">
+        <span class="allin-tag" id="ai-you-tag">You</span>
+        <div class="allin-line">🗣️ <span id="ai-you1">Tell us your budget, area and what you need</span></div>
+        <div class="allin-line">✍️ <span id="ai-you2">Show up and sign — that's it</span></div>
+      </div>
+      <div class="allin-we anim">
+        <span class="allin-tag gold" id="ai-we-tag">legalsol does the rest</span>
+        <ul>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai1">Find and verify real options</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai2">Vouch to the landlord that you're in Poland legally</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai3">Provide all documents proving your legal status</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai4">Cover the notary</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai5">Cover the sworn translator</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai6">Prepare every document the lease requires</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai7">Review the contract and sign it with you</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai8">Register your meldunek</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai9">Set up utilities</span></li>
+        </ul>
+        <div class="allin-cost" id="ai-cost">💛 Notary, translator and document costs — all on us.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -574,6 +621,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ca-l-city':'City','ca-l-type':'Looking for','ca-l-people':'People','ca-l-when':'Move-in','ca-l-budget':'Monthly budget',
       'ca-r1':'Monthly rent (your budget)','ca-r2':'Deposit (≈ 1 month)','ca-r3':'≈ To move in','ca-r4':'legalsol help','ca-out-fee':'free / fixed*',
       'ca-note':'* Often free for you (paid by partners) or one fixed fee, confirmed by Adam. Rent is what you choose; deposit is usually 1 month.','ca-send':'💬 Send to Adam',
+      'ai-pill':'We take it all on','ai-title':'You just say what you want. We serve it on a plate.','ai-sub':"Landlords are often wary of foreigners who don't yet have a karta pobytu. As your legalization firm, we vouch for you and handle every document — so the owner says yes and you simply sign.",
+      'ai-you-tag':'You','ai-you1':'Tell us your budget, area and what you need','ai-you2':"Show up and sign — that's it",'ai-we-tag':'legalsol does the rest',
+      'ai1':'Find and verify real options','ai2':"Vouch to the landlord that you're in Poland legally",'ai3':'Provide all documents proving your legal status','ai4':'Cover the notary','ai5':'Cover the sworn translator','ai6':'Prepare every document the lease requires','ai7':'Review the contract and sign it with you','ai8':'Register your meldunek','ai9':'Set up utilities',
+      'ai-cost':'💛 Notary, translator and document costs — all on us.',
       'fq-pill':'FAQ','fq-title':'Common questions',
       'fq1q':'Is housing only for legalsol legalization clients?','fq1a':"It works best for them — we already know your case. But anyone moving to Warsaw can use it. Message us and we'll help.",
       'fq2q':'Can you help before I arrive in Poland?','fq2a':'Yes. We search, do video viewings and can sign remotely, so a home is waiting on the day you land — plus a hotel for the first nights if needed.',
@@ -628,6 +679,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ca-l-city':'Город','ca-l-type':'Что ищете','ca-l-people':'Человек','ca-l-when':'Заселение','ca-l-budget':'Бюджет в месяц',
       'ca-r1':'Аренда в месяц (ваш бюджет)','ca-r2':'Залог (≈ 1 месяц)','ca-r3':'≈ На въезд','ca-r4':'Помощь legalsol','ca-out-fee':'бесплатно / фикс.*',
       'ca-note':'* Часто бесплатно для вас (платит партнёр) или один фикс. сбор — подтвердит Adam. Аренда — ваш выбор; залог обычно 1 месяц.','ca-send':'💬 Отправить Adam',
+      'ai-pill':'Берём всё на себя','ai-title':'Вы просто говорите, что хотите. Мы подаём на блюде.','ai-sub':'Владельцы часто настороженно относятся к иностранцам без готовой карты побыту. Как ваша фирма по легализации, мы ручаемся за вас и оформляем все документы — чтобы хозяин сказал «да», а вам осталось только подписать.',
+      'ai-you-tag':'Вы','ai-you1':'Говорите бюджет, район и что нужно','ai-you2':'Приходите и подписываете — всё','ai-we-tag':'legalsol делает остальное',
+      'ai1':'Находим и проверяем реальные варианты','ai2':'Ручаемся перед хозяином, что вы в Польше легально','ai3':'Даём все документы, подтверждающие вашу легальность','ai4':'Берём на себя нотариуса','ai5':'Берём на себя присяжного переводчика','ai6':'Готовим все документы для договора','ai7':'Проверяем договор и подписываем вместе с вами','ai8':'Оформляем прописку (meldunek)','ai9':'Подключаем коммуналку',
+      'ai-cost':'💛 Нотариус, переводчик и документы — все расходы на нас.',
       'fq-pill':'Вопросы','fq-title':'Частые вопросы',
       'fq1q':'Жильё только для клиентов legalsol по легализации?','fq1a':'С ними удобнее всего — мы уже знаем ваше дело. Но услугой может воспользоваться любой, кто переезжает в Варшаву. Напишите — поможем.',
       'fq2q':'Можете помочь до приезда в Польшу?','fq2a':'Да. Ищем, проводим видео-просмотры, можем подписать удалённо — чтобы в день прилёта вас ждал дом, плюс отель на первые ночи при необходимости.',
@@ -682,6 +737,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ca-l-city':'Miasto','ca-l-type':'Czego szukasz','ca-l-people':'Osoby','ca-l-when':'Wprowadzka','ca-l-budget':'Budżet miesięczny',
       'ca-r1':'Czynsz miesięczny (Twój budżet)','ca-r2':'Kaucja (≈ 1 miesiąc)','ca-r3':'≈ Na wprowadzkę','ca-r4':'Pomoc legalsol','ca-out-fee':'darmowe / stała*',
       'ca-note':'* Często bezpłatnie dla Ciebie (płaci partner) lub jedna stała opłata — potwierdzi Adam. Czynsz to Twój wybór; kaucja to zwykle 1 miesiąc.','ca-send':'💬 Wyślij do Adama',
+      'ai-pill':'Bierzemy wszystko na siebie','ai-title':'Ty mówisz, czego chcesz. My podajemy na tacy.','ai-sub':'Właściciele często są ostrożni wobec obcokrajowców bez gotowej karty pobytu. Jako Twoja firma legalizacyjna ręczymy za Ciebie i załatwiamy wszystkie dokumenty — żeby właściciel powiedział „tak", a Tobie zostało tylko podpisać.',
+      'ai-you-tag':'Ty','ai-you1':'Mówisz budżet, okolicę i czego potrzebujesz','ai-you2':'Przychodzisz i podpisujesz — to wszystko','ai-we-tag':'legalsol robi resztę',
+      'ai1':'Znajdujemy i weryfikujemy realne oferty','ai2':'Ręczymy właścicielowi, że jesteś w Polsce legalnie','ai3':'Dajemy wszystkie dokumenty potwierdzające legalność','ai4':'Bierzemy na siebie notariusza','ai5':'Bierzemy na siebie tłumacza przysięgłego','ai6':'Przygotowujemy wszystkie dokumenty do umowy','ai7':'Sprawdzamy umowę i podpisujemy razem z Tobą','ai8':'Robimy meldunek','ai9':'Podłączamy media',
+      'ai-cost':'💛 Notariusz, tłumacz i dokumenty — wszystkie koszty na nas.',
       'fq-pill':'FAQ','fq-title':'Częste pytania',
       'fq1q':'Czy mieszkania są tylko dla klientów legalizacyjnych legalsol?','fq1a':'Działa najlepiej dla nich — znamy już Twoją sprawę. Ale skorzystać może każdy, kto przeprowadza się do Warszawy. Napisz — pomożemy.',
       'fq2q':'Czy pomożecie zanim przyjadę do Polski?','fq2a':'Tak. Szukamy, robimy wideo-oglądania i podpisujemy zdalnie, więc dom czeka w dniu przylotu — plus hotel na pierwsze noce w razie potrzeby.',
