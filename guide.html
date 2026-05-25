@@ -164,6 +164,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .why-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
   .why-card p{color:var(--txt2);font-size:13.5px}
 
+  /* TL;DR box */
+  .tldr{display:flex;gap:18px;align-items:center;padding:22px 26px;border-radius:18px;background:linear-gradient(135deg,rgba(124,92,252,.2),rgba(34,197,94,.1));border:1px solid rgba(139,130,232,.4);box-shadow:var(--shadow-2)}
+  .tldr .tldr-ic{flex-shrink:0;width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:grid;place-items:center;font-size:26px}
+  .tldr p{font-size:clamp(15px,2.1vw,18px);color:var(--txt2);line-height:1.55}
+  .tldr p b{color:#fff;font-weight:800}
+  @media(max-width:560px){.tldr{flex-direction:column;text-align:center;padding:20px}}
+
   /* comic strip */
   .comic{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
   .comic.c4{grid-template-columns:repeat(4,1fr)}
@@ -241,6 +248,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
+<!-- TL;DR -->
+<section style="padding-top:0;padding-bottom:24px">
+  <div class="wrap">
+    <div class="tldr reveal">
+      <div class="tldr-ic">💡</div>
+      <p><b>In short:</b> you need a Polish residence card (Karta Pobytu). We do the whole thing for you — documents, the Immigration Office, the waiting — and you just collect your card. <b>One WhatsApp message starts it.</b></p>
+    </div>
+  </div>
+</section>
+
 <!-- QUICK NAV -->
 <section style="padding-top:0">
   <div class="wrap">
@@ -251,20 +268,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <a class="qchip" href="#howlong">How long?</a>
       <a class="qchip" href="#need">What we need</a>
       <a class="qchip" href="#faq">FAQ</a>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT IS IT -->
-<section id="what">
-  <div class="wrap">
-    <span class="eyebrow reveal">The basics</span>
-    <h2 class="reveal s1">What is a <em>Karta Pobytu</em>?</h2>
-    <div class="accent-bar reveal s1"></div>
-    <p class="lead reveal s2" style="margin-top:18px">A Karta Pobytu (TRC — Temporary Residence Card) is the plastic card that proves you may legally live in Poland. It's tied to a reason: work, study, family or business. It lets you stay, work, travel in the Schengen zone and prove your status to any office, bank or employer.</p>
-    <div class="twocol">
-      <div class="info reveal s1"><h3><span class="ic">📄</span> What it gives you</h3><p>Legal residence for 1–3 years, the right to work, a PESEL, free Schengen travel, and a stable base for a future permanent permit (PRC) and citizenship.</p></div>
-      <div class="info reveal s2"><h3><span class="ic">⚠️</span> Why timing matters</h3><p>If your current stay expires before you submit correctly, you risk a refusal, a re-entry ban, or losing your job. The process is procedural — small mistakes cost months.</p></div>
     </div>
   </div>
 </section>
@@ -283,6 +286,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="panel reveal s1"><span class="num">4</span><div class="scene"><svg viewBox="0 0 200 150"><rect x="60" y="42" width="80" height="56" rx="6" fill="#0f0d22" stroke="#fff" stroke-width="2.5"/><rect x="66" y="48" width="68" height="44" rx="3" fill="#1a1740"/><text x="100" y="68" text-anchor="middle" font-size="15" font-weight="900" fill="#B8B2F5" font-family="Inter,sans-serif">MOS</text><path d="M88 76 l6 6 12 -14" stroke="#34D399" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M48 112 l104 0 -9 -12 -86 0z" fill="#2D2869" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg></div><div class="cap"><b>WE FILE IT ONLINE</b><p>Submitted through the MOS system — correctly, on time. Your stay stays legal.</p></div></div>
       <div class="panel reveal s2"><span class="num">5</span><div class="scene"><svg viewBox="0 0 200 150"><rect x="40" y="38" width="62" height="102" rx="4" fill="#2D2869" stroke="#fff" stroke-width="2.5"/><g fill="#B8B2F5"><rect x="48" y="48" width="12" height="12" rx="2"/><rect x="65" y="48" width="12" height="12" rx="2"/><rect x="82" y="48" width="12" height="12" rx="2"/><rect x="48" y="68" width="12" height="12" rx="2"/><rect x="65" y="68" width="12" height="12" rx="2"/><rect x="82" y="68" width="12" height="12" rx="2"/></g><rect x="63" y="112" width="16" height="28" rx="2" fill="#FBBF24"/><g transform="translate(142 92)" fill="none" stroke="#34D399" stroke-width="2.4" stroke-linecap="round"><path d="M0 -20 a20 20 0 0 1 20 20"/><path d="M-7 -13 a13 13 0 0 1 13 13 v7"/><path d="M-13 0 a13 13 0 0 1 13 -13"/><path d="M0 -6 a6 6 0 0 1 6 6 v9"/><path d="M-20 2 a20 20 0 0 1 5 -14"/></g></svg></div><div class="cap"><b>ONE OFFICE VISIT</b><p>You give fingerprints once. We book it and come with you — no language stress.</p></div></div>
       <div class="panel reveal s3"><span class="num">6</span><div class="scene"><svg viewBox="0 0 200 150"><g fill="#FBBF24"><path d="M38 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/><path d="M162 48 l2.5 6 6 2.5 -6 2.5 -2.5 6 -2.5 -6 -6 -2.5 6 -2.5z"/><path d="M150 112 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/></g><rect x="58" y="104" width="56" height="46" rx="15" fill="#7C5CFC"/><circle cx="86" cy="84" r="20" fill="#E8B48C"/><path d="M66 82 q20 -28 40 0 q-7 -14 -20 -14 q-13 0 -20 14z" fill="#241F33"/><circle cx="78" cy="84" r="2.6" fill="#241F33"/><circle cx="94" cy="84" r="2.6" fill="#241F33"/><path d="M76 91 q10 10 20 0" stroke="#241F33" stroke-width="2.4" fill="none" stroke-linecap="round"/><g transform="rotate(-8 132 112)"><rect x="114" y="98" width="46" height="30" rx="4" fill="#5B52CC" stroke="#fff" stroke-width="2"/><rect x="114" y="98" width="46" height="9" rx="4" fill="#FBBF24"/><circle cx="124" cy="118" r="5" fill="#B8B2F5"/></g></svg></div><div class="cap"><b>KARTA POBYTU!</b><p>Card in hand. You're legal — for years. Free Schengen travel, peace of mind.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS IT -->
+<section id="what">
+  <div class="wrap">
+    <span class="eyebrow reveal">The basics</span>
+    <h2 class="reveal s1">What is a <em>Karta Pobytu</em>?</h2>
+    <div class="accent-bar reveal s1"></div>
+    <p class="lead reveal s2" style="margin-top:18px">A Karta Pobytu (TRC — Temporary Residence Card) is the plastic card that proves you may legally live in Poland. It's tied to a reason: work, study, family or business. It lets you stay, work, travel in the Schengen zone and prove your status to any office, bank or employer.</p>
+    <div class="twocol">
+      <div class="info reveal s1"><h3><span class="ic">📄</span> What it gives you</h3><p>Legal residence for 1–3 years, the right to work, a PESEL, free Schengen travel, and a stable base for a future permanent permit (PRC) and citizenship.</p></div>
+      <div class="info reveal s2"><h3><span class="ic">⚠️</span> Why timing matters</h3><p>If your current stay expires before you submit correctly, you risk a refusal, a re-entry ban, or losing your job. The process is procedural — small mistakes cost months.</p></div>
     </div>
   </div>
 </section>
