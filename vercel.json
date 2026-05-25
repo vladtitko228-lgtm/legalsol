@@ -52,6 +52,10 @@
     {
       "source": "/guide",
       "destination": "/guide.html"
+    },
+    {
+      "source": "/housing",
+      "destination": "/housing.html"
     }
   ],
   "headers": [
