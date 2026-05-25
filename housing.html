@@ -101,6 +101,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .btn-primary:hover{transform:translateY(-3px);color:#04231a;box-shadow:0 18px 46px rgba(21,185,129,0.55);}
   .btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);color:var(--txt);backdrop-filter:blur(10px);}
   .btn-ghost:hover{background:rgba(255,255,255,0.12);color:var(--txt);transform:translateY(-3px);}
+  .btn{position:relative;overflow:hidden;}
+  .btn::after{content:'';position:absolute;top:0;left:-130%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.45),transparent);transform:skewX(-18deg);transition:left .6s var(--ease);pointer-events:none;}
+  .btn:hover::after{left:150%;}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--v400),var(--gold));box-shadow:0 0 10px rgba(245,196,81,0.5);transition:width .08s linear;}
+  .trust-strip{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;margin:28px auto 0;max-width:860px;}
+  .ts-item{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--txt2);font-weight:600;}
+  .ts-item svg{flex:0 0 auto;}
+  .fab-wa{position:fixed;right:20px;bottom:20px;z-index:55;display:inline-flex;align-items:center;gap:9px;
+    background:linear-gradient(135deg,var(--green2),var(--green));color:#04231a;font-weight:700;font-size:15px;
+    padding:13px 20px;border-radius:100px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 12px 30px rgba(21,185,129,0.45);
+    transition:transform .2s var(--ease),box-shadow .25s;animation:fabIn .55s .9s both;}
+  .fab-wa:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 44px rgba(21,185,129,0.62);color:#04231a;}
+  @keyframes fabIn{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  @media(max-width:680px){.fab-wa{right:14px;bottom:14px;padding:13px;font-size:0;gap:0;}.fab-wa .fab-em{font-size:20px;}}
   .hero-trust{margin-top:24px;font-size:13px;color:var(--txt3);letter-spacing:.02em;}
   .hero-trust b{color:var(--v200);font-weight:700;}
 
@@ -221,6 +235,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="progress" id="progress"></div>
 
 <header>
   <a href="/" class="logo">
@@ -258,6 +273,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="pimg" id="hero-pimg"><img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1500&q=78" alt="Modern apartment interior in Warsaw" fetchpriority="high"/></div>
     <div class="hbadge hb-a">🛡️ <span id="hb1">Lawyer-reviewed contracts</span></div>
     <div class="hbadge hb-b">📍 <span id="hb2">Warsaw · all districts</span></div>
+  </div>
+  <div class="trust-strip anim">
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts1">Verified listings</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts2">Lawyer-reviewed contracts</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts3">Fixed, transparent fee</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts4">In your language</span></span>
   </div>
 </section>
 
@@ -412,6 +433,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
+<button class="fab-wa" onclick="waLead('fab')" aria-label="WhatsApp"><span class="fab-em">💬</span><span class="fab-lbl" id="fab-lbl">Housing on WhatsApp</span></button>
+
 <footer>
   <a href="/" class="ft-wm">legal<span class="s">sol</span></a><br>
   <a href="/" id="ft-home">Home</a> · <a href="/business" id="ft-biz">Business</a> · <a href="/blog" id="ft-blog">Blog</a> · <a href="/privacy" id="ft-priv">Privacy</a> · <a href="/terms" id="ft-terms">Terms</a><br><br>
@@ -439,6 +462,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'hero-sub':"legalsol is, first and foremost, a legalization firm — 6 years, 3,000+ residence cases, 98% approval. Housing is the service we added for our clients: we find your apartment and set up the contract, registration and deposit so they support your residence case, not complicate it.",
       'hero-cta1':'💬 Ask about housing','hero-cta2':'How it works','hero-trust':'Trusted by 3,000+ foreigners legalizing in Poland',
       'hb1':'Lawyer-reviewed contracts','hb2':'Warsaw · all districts',
+      'ts1':'Verified listings','ts2':'Lawyer-reviewed contracts','ts3':'Fixed, transparent fee','ts4':'In your language','fab-lbl':'Housing on WhatsApp',
       'po-pill':'Legalization first','po-title':"We're your immigration firm — housing is the bonus",
       'po-p1':'Most agencies just rent you a flat and disappear. We already run your karta pobytu, PESEL or Blue Card — so when we find your home, the address registration (meldunek) and the rental contract are set up to strengthen your residence application.',
       'po-p2':'One firm, one contact, your language. Your visa, your residence card and your home — all in sync.',
@@ -488,6 +512,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'hero-sub':'legalsol — прежде всего фирма по легализации: 6 лет, 3000+ дел по ВНЖ, 98% одобрений. Жильё — услуга, которую мы добавили для своих клиентов: находим квартиру и оформляем договор, прописку и залог так, чтобы они поддерживали ваше дело по ВНЖ, а не усложняли его.',
       'hero-cta1':'💬 Спросить про жильё','hero-cta2':'Как это работает','hero-trust':'Нам доверяют 3000+ иностранцев, легализующихся в Польше',
       'hb1':'Договоры проверяет юрист','hb2':'Варшава · все районы',
+      'ts1':'Проверенные объявления','ts2':'Договор проверяет юрист','ts3':'Фикс. прозрачная цена','ts4':'На вашем языке','fab-lbl':'Жильё в WhatsApp',
       'po-pill':'Сначала легализация','po-title':'Мы — ваша иммиграционная фирма, жильё — бонус',
       'po-p1':'Обычные агентства просто сдают квартиру и исчезают. Мы уже ведём вашу карту побыту, PESEL или Blue Card — поэтому, найдя жильё, оформляем прописку (meldunek) и договор так, чтобы они усиливали вашу заявку на ВНЖ.',
       'po-p2':'Одна фирма, один контакт, ваш язык. Виза, карта побыту и дом — всё в связке.',
@@ -537,6 +562,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'hero-sub':'legalsol to przede wszystkim firma legalizacyjna — 6 lat, 3000+ spraw pobytowych, 98% akceptacji. Mieszkania to usługa, którą dodaliśmy dla naszych klientów: znajdujemy mieszkanie i ustawiamy umowę, meldunek i kaucję tak, by wspierały Twoją sprawę pobytową, a nie ją komplikowały.',
       'hero-cta1':'💬 Zapytaj o mieszkanie','hero-cta2':'Jak to działa','hero-trust':'Zaufało nam 3000+ obcokrajowców legalizujących pobyt w Polsce',
       'hb1':'Umowy sprawdzane przez prawnika','hb2':'Warszawa · wszystkie dzielnice',
+      'ts1':'Zweryfikowane oferty','ts2':'Umowy sprawdza prawnik','ts3':'Stała, jasna opłata','ts4':'W Twoim języku','fab-lbl':'Mieszkania na WhatsApp',
       'po-pill':'Najpierw legalizacja','po-title':'Jesteśmy Twoją firmą imigracyjną — mieszkanie to bonus',
       'po-p1':'Zwykłe agencje po prostu wynajmują i znikają. My już prowadzimy Twoją kartę pobytu, PESEL lub Blue Card — więc znajdując dom, ustawiamy meldunek i umowę tak, by wzmacniały Twój wniosek pobytowy.',
       'po-p2':'Jedna firma, jeden kontakt, Twój język. Wiza, karta pobytu i dom — wszystko spójne.',
@@ -622,10 +648,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     } }); },{threshold:0.12});
     document.querySelectorAll('.anim').forEach(function(el,i){ el.style.transitionDelay=(Math.min(i%4,3)*0.08)+'s'; io.observe(el); });
 
-    var pimg=document.getElementById('hero-pimg');
-    if(pimg && !matchMedia('(prefers-reduced-motion: reduce)').matches){
-      window.addEventListener('scroll',function(){ var y=window.scrollY; if(y<900) pimg.style.transform='translateY('+(y*0.08)+'px)'; },{passive:true});
-    }
+    var pimg=document.getElementById('hero-pimg'), prog=document.getElementById('progress');
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY;
+      if(prog){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=(h>0?(y/h*100):0)+'%'; }
+      if(pimg && !rm && y<900) pimg.style.transform='translateY('+(y*0.08)+'px)';
+    },{passive:true});
   });
 })();
 </script>
