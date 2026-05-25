@@ -1178,10 +1178,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   document.addEventListener('DOMContentLoaded',function(){
-    // language: saved → browser → en
+    // language: English by default; only an explicit saved choice overrides
     var start='en';
-    try{ var saved=localStorage.getItem('ls_housing_lang'); if(saved && T[saved]) start=saved;
-      else { var nav=(navigator.language||'en').slice(0,2).toLowerCase(); if(T[nav]) start=nav; } }catch(e){}
+    try{ var saved=localStorage.getItem('ls_housing_lang'); if(saved && T[saved]) start=saved; }catch(e){}
     applyLang(start);
 
     // language dropdown

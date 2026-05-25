@@ -1240,8 +1240,7 @@ function _renderLangPanel(){
   var urlLang=null;
   try{var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);if(m&&T[m[1].toLowerCase()])urlLang=m[1].toLowerCase();}catch(e){}
   var saved=null;try{saved=localStorage.getItem('ls-lang');}catch(e){}
-  var browser=(navigator.language||'').slice(0,2).toLowerCase();
-  var lang=urlLang||(T[saved]?saved:null)||(T[browser]?browser:null)||'ru';
+  var lang=urlLang||(T[saved]?saved:null)||'en';
   _renderLangPanel();
   setLangPolish(lang);
 })();
