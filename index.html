@@ -4064,6 +4064,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="tab-more-panel" id="tab-more-panel" role="menu">
           <!-- i18n IDs sit on inner label spans so setLang's `el.innerHTML=…`
                doesn't wipe the .tmr-ico tiles. Outer IDs are *-row. -->
+          <a class="tab-more-row" href="/guide" id="tbtn-guide-row" role="menuitem">
+            <span class="tmr-ico">📘</span><span class="tmr-lbl">Карта побыту: гайд</span>
+          </a>
+          <a class="tab-more-row" href="/trc" id="tbtn-trc-row" role="menuitem">
+            <span class="tmr-ico">🪪</span><span class="tmr-lbl">TRC — сопровождение</span>
+          </a>
           <button class="tab-more-row" id="tbtn-status-row" onclick="showTab('status');closeTabMore()" role="menuitem">
             <span class="tmr-ico">✓</span><span class="tmr-lbl" id="tbtn-status">Проверить статус</span>
           </button>
@@ -4272,6 +4278,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </button>
 
+  <a class="mob-nav-btn" href="/guide" onclick="closeMobNav()" style="color:#a78bfa;text-decoration:none;">
+    <span class="mnav-ico" style="color:#a78bfa;">📘</span>
+    <span>Карта побыту: гайд</span>
+  </a>
+  <a class="mob-nav-btn" href="/trc" onclick="closeMobNav()" style="color:#a78bfa;text-decoration:none;">
+    <span class="mnav-ico" style="color:#a78bfa;">🪪</span>
+    <span>TRC — сопровождение</span>
+  </a>
   <a class="mob-nav-btn" href="/housing" onclick="closeMobNav()" style="color:#60a5fa;text-decoration:none;">
     <span class="mnav-ico" style="color:#60a5fa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 12h2m2 0h2M9 16h2m2 0h2"/></svg></span>
     <span id="mnbtn-housing">Housing</span>
