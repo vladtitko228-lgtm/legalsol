@@ -18298,8 +18298,8 @@ function closeModal(){document.getElementById('modal').classList.remove('on');cs
 var _LS_LEAD_URL='https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
 
 function _lsLang(){
-  var l=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
-  return l||document.documentElement.lang||'en';
+  // follow the currently displayed language, not a stale stored value
+  return document.documentElement.lang||'en';
 }
 
 var _ls_t={
@@ -23240,7 +23240,8 @@ function _doInit(){
       try{localStorage.setItem('ls-lang',_urlLang);}catch(e){}
     }
   }catch(e){}
-  var _sl=_urlLang||(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
+  // English on every load. Only an explicit ?lang= URL param overrides (hreflang SEO + share links). Stored choice is ignored by design.
+  var _sl=_urlLang;
   setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
 
   // Preloader: first visit = percentage, repeat = docs animation

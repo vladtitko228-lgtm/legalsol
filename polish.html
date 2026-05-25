@@ -1239,8 +1239,7 @@ function _renderLangPanel(){
 (function _initLang(){
   var urlLang=null;
   try{var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);if(m&&T[m[1].toLowerCase()])urlLang=m[1].toLowerCase();}catch(e){}
-  var saved=null;try{saved=localStorage.getItem('ls-lang');}catch(e){}
-  var lang=urlLang||(T[saved]?saved:null)||'en';
+  var lang=urlLang||'en'; // English on every load; only ?lang= overrides
   _renderLangPanel();
   setLangPolish(lang);
 })();
