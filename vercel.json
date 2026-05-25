@@ -48,6 +48,10 @@
     {
       "source": "/trc",
       "destination": "/trc.html"
+    },
+    {
+      "source": "/guide",
+      "destination": "/guide.html"
     }
   ],
   "headers": [
