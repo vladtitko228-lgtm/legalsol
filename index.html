@@ -4910,9 +4910,76 @@ updateTicker('ru');
         </div>
       </a>
 
+      <!-- ════════ Housing card ════════ -->
+      <a href="/housing" class="extras-card extras-or reveal" id="ex-card-house" aria-label="Housing">
+        <span class="ex-corner-badge" id="ex-badge-house">Learn more →</span>
+        <div class="ex-glow" aria-hidden="true"></div>
+        <div class="ex-pattern" aria-hidden="true"></div>
+        <div class="ex-topbar">
+          <span class="ex-td" style="background:#FF8A2B"></span>
+          <span class="ex-td" style="background:#FFB454"></span>
+          <span class="ex-td" style="background:#FFD9B8"></span>
+          <span class="ex-title">🏠 RELOCATION · HOUSING</span>
+        </div>
+        <div class="ex-body">
+          <div class="ex-ico-wrap">
+            <div class="ex-ico-glow" aria-hidden="true"></div>
+            <div class="ex-ico ex-ico-or" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 9.8V19h14V9.8"/><path d="M10 19v-5h4v5"/></svg>
+            </div>
+          </div>
+          <div class="ex-hero-stat" id="ex-house-stat">1 day</div>
+          <div class="ex-hero-sub" id="ex-house-stat-sub">to find your home</div>
+          <h3 class="ex-h3" id="ex-house-h">Housing</h3>
+          <p class="ex-p" id="ex-house-p">We find your apartment or room and set up the lease, registration and deposit — the whole move-in. Full page with the process.</p>
+          <div class="ex-features">
+            <span class="ex-f" id="ex-house-f1">🔑 Turnkey</span>
+            <span class="ex-f" id="ex-house-f2">📄 All documents</span>
+            <span class="ex-f" id="ex-house-f3">📍 All of Poland</span>
+          </div>
+          <div class="ex-cta-btn">
+            <span id="ex-house-cta">Open housing page</span>
+            <svg class="ex-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+          </div>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
+
+<style>
+/* Housing (orange) card variant for the extras grid */
+.extras-or{border-color:rgba(255,138,43,.22);}
+.extras-or:hover{border-color:rgba(255,138,43,.6);box-shadow:0 30px 70px rgba(255,138,43,.22),0 0 0 1px rgba(255,138,43,.3);}
+.extras-or .ex-corner-badge{background:rgba(255,138,43,.14);color:#ffb454;border:1px solid rgba(255,138,43,.35);box-shadow:0 0 0 0 rgba(255,138,43,.4);}
+.extras-or:hover .ex-corner-badge{background:rgba(255,138,43,.28);color:#ffd9b8;box-shadow:0 0 0 6px rgba(255,138,43,.10);}
+.extras-or .ex-glow{background:radial-gradient(circle,rgba(255,138,43,.55),transparent 65%);}
+.extras-or .ex-pattern{background-image:radial-gradient(circle at 1px 1px,rgba(255,138,43,.10) 1px,transparent 0);background-size:18px 18px;}
+.extras-or .ex-ico-glow{background:radial-gradient(circle,rgba(255,138,43,.55),transparent 70%);}
+.ex-ico-or{background:linear-gradient(135deg,rgba(255,138,43,.30),rgba(255,180,84,.10));color:#ffb454;box-shadow:inset 0 0 0 1px rgba(255,138,43,.4),0 8px 24px rgba(255,138,43,.18);}
+.extras-or .ex-h3{color:#ffb454;}
+.extras-or .ex-hero-stat{background:linear-gradient(135deg,#ffb454,#ffd9b8 50%,#ffb454);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:exStatGrad 5s linear infinite;}
+</style>
+<script>
+/* Housing extras card — i18n via setLang wrap (non-invasive; main dict untouched) */
+(function(){
+  var HX={
+    en:{'extras-desc':'Four separate paths — for businesses, those learning Polish, those who need a home, and people ready to share our contact.','ex-badge-house':'Learn more →','ex-house-stat':'1 day','ex-house-stat-sub':'to find your home','ex-house-h':'Housing','ex-house-p':'We find your apartment or room and set up the lease, registration and deposit — the whole move-in. Full page with the process.','ex-house-f1':'🔑 Turnkey','ex-house-f2':'📄 All documents','ex-house-f3':'📍 All of Poland','ex-house-cta':'Open housing page'},
+    ru:{'extras-desc':'Четыре отдельных направления — для бизнеса, изучающих польский, тех, кому нужно жильё, и тех, кто готов делиться нашим контактом.','ex-badge-house':'Подробнее →','ex-house-stat':'1 день','ex-house-stat-sub':'подбор жилья','ex-house-h':'Жильё','ex-house-p':'Найдём квартиру или комнату и оформим аренду, прописку и залог — весь переезд. Отдельная страница со всем процессом.','ex-house-f1':'🔑 Под ключ','ex-house-f2':'📄 Все документы','ex-house-f3':'📍 Вся Польша','ex-house-cta':'Открыть страницу жилья'},
+    pl:{'extras-desc':'Cztery osobne kierunki — dla biznesu, uczących się polskiego, szukających mieszkania i tych, którzy chcą polecać nasz kontakt.','ex-badge-house':'Więcej →','ex-house-stat':'1 dzień','ex-house-stat-sub':'szukanie mieszkania','ex-house-h':'Mieszkania','ex-house-p':'Znajdziemy mieszkanie lub pokój i załatwimy najem, meldunek i kaucję — całą przeprowadzkę. Osobna strona z procesem.','ex-house-f1':'🔑 Pod klucz','ex-house-f2':'📄 Dokumenty','ex-house-f3':'📍 Cała Polska','ex-house-cta':'Otwórz stronę mieszkań'},
+    uk:{'extras-desc':'Чотири окремі напрями — для бізнесу, тих, хто вивчає польську, кому потрібне житло, і тих, хто готовий ділитися нашим контактом.','ex-badge-house':'Детальніше →','ex-house-stat':'1 день','ex-house-stat-sub':'пошук житла','ex-house-h':'Житло','ex-house-p':'Знайдемо квартиру або кімнату й оформимо оренду, прописку та заставу — увесь переїзд. Окрема сторінка з процесом.','ex-house-f1':'🔑 Під ключ','ex-house-f2':'📄 Документи','ex-house-f3':'📍 Уся Польща','ex-house-cta':'Відкрити сторінку житла'},
+    hi:{'extras-desc':'चार अलग दिशाएँ — व्यवसायों के लिए, पोलिश सीखने वालों के लिए, जिन्हें घर चाहिए, और जो हमारा संपर्क साझा करना चाहते हैं।','ex-badge-house':'और जानें →','ex-house-stat':'1 दिन','ex-house-stat-sub':'घर ढूँढना','ex-house-h':'आवास','ex-house-p':'हम आपका अपार्टमेंट या कमरा ढूँढते हैं और किराया, पंजीकरण व डिपॉज़िट संभालते हैं — पूरा मूव-इन। प्रक्रिया के साथ अलग पेज।','ex-house-f1':'🔑 पूरी सेवा','ex-house-f2':'📄 सभी दस्तावेज़','ex-house-f3':'📍 पूरे पोलैंड','ex-house-cta':'आवास पेज खोलें'},
+    es:{'extras-desc':'Cuatro caminos distintos — para empresas, quienes aprenden polaco, quienes necesitan vivienda y quienes quieren compartir nuestro contacto.','ex-badge-house':'Saber más →','ex-house-stat':'1 día','ex-house-stat-sub':'encontrar vivienda','ex-house-h':'Vivienda','ex-house-p':'Encontramos tu piso o habitación y gestionamos el alquiler, el empadronamiento y el depósito — toda la mudanza. Página completa con el proceso.','ex-house-f1':'🔑 Llave en mano','ex-house-f2':'📄 Documentos','ex-house-f3':'📍 Toda Polonia','ex-house-cta':'Abrir página de vivienda'},
+    tr:{'extras-desc':'Dört ayrı yön — işletmeler, Lehçe öğrenenler, konut arayanlar ve iletişimimizi paylaşmak isteyenler için.','ex-badge-house':'Daha fazla →','ex-house-stat':'1 gün','ex-house-stat-sub':'konut bulma','ex-house-h':'Konut','ex-house-p':'Dairenizi veya odanızı buluyor; kira, ikamet kaydı ve depozitoyu hallediyoruz — tüm taşınma. Süreci anlatan ayrı sayfa.','ex-house-f1':'🔑 Anahtar teslim','ex-house-f2':'📄 Tüm belgeler','ex-house-f3':'📍 Tüm Polonya','ex-house-cta':'Konut sayfasını aç'},
+    az:{'extras-desc':'Dörd ayrı istiqamət — bizneslər, polyak dili öyrənənlər, yaşayış axtaranlar və əlaqəmizi paylaşmaq istəyənlər üçün.','ex-badge-house':'Ətraflı →','ex-house-stat':'1 gün','ex-house-stat-sub':'yaşayış axtarışı','ex-house-h':'Mənzil','ex-house-p':'Mənzil və ya otaq tapırıq; icarə, qeydiyyat və depozit ilə bütün köçməni həll edirik. Proseslə ayrıca səhifə.','ex-house-f1':'🔑 Açar təslim','ex-house-f2':'📄 Bütün sənədlər','ex-house-f3':'📍 Bütün Polşa','ex-house-cta':'Mənzil səhifəsini aç'}
+  };
+  function applyHX(l){ var d=HX[l]||HX.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
+  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&HX[s]) return s;}catch(e){} var h=document.documentElement.lang; return HX[h]?h:'en'; }
+  function hook(){ var _p=window.setLang; window.setLang=function(l){ var r; if(typeof _p==='function'){ try{ r=_p.apply(this,arguments); }catch(e){} } try{ applyHX(HX[l]?l:curLang()); }catch(e){} return r; }; applyHX(curLang()); }
+  if(document.readyState==='complete') hook(); else window.addEventListener('load',hook);
+})();
+</script>
 
 <style>
 /* ─────────── EXTRAS SECTION — premium 3-card showcase ─────────── */
@@ -4933,7 +5000,7 @@ updateTicker('ru');
 @keyframes extrasGridDrift{from{background-position:0 0;}to{background-position:64px 64px;}}
 .extras-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1;}
 .extras-desc{text-align:center;max-width:620px;margin:14px auto 56px;color:var(--txt2);font-size:15.5px;line-height:1.7;}
-.extras-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:22px;}
 
 /* The card — taller, richer, with internal pattern + corner badge */
 .extras-card{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(22,19,52,.95) 0%,rgba(14,12,35,.92) 100%);border:1.5px solid rgba(139,130,232,.14);border-radius:26px;padding:0;text-decoration:none;display:flex;flex-direction:column;cursor:pointer;transition:transform .55s cubic-bezier(.16,1,.3,1),border-color .4s ease,box-shadow .45s ease;min-height:520px;}
@@ -18340,8 +18407,8 @@ function closeModal(){document.getElementById('modal').classList.remove('on');cs
 var _LS_LEAD_URL='https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
 
 function _lsLang(){
-  var l=(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
-  return l||document.documentElement.lang||'en';
+  // follow the currently displayed language, not a stale stored value
+  return document.documentElement.lang||'en';
 }
 
 var _ls_t={
@@ -23282,7 +23349,8 @@ function _doInit(){
       try{localStorage.setItem('ls-lang',_urlLang);}catch(e){}
     }
   }catch(e){}
-  var _sl=_urlLang||(function(){try{return localStorage.getItem('ls-lang');}catch(e){return null;}})();
+  // English on every load. Only an explicit ?lang= URL param overrides (hreflang SEO + share links). Stored choice is ignored by design.
+  var _sl=_urlLang;
   setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
 
   // Preloader: first visit = percentage, repeat = docs animation
