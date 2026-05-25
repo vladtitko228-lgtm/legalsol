@@ -46,6 +46,14 @@
       "destination": "/polish.html"
     },
     {
+      "source": "/trc",
+      "destination": "/trc.html"
+    },
+    {
+      "source": "/guide",
+      "destination": "/guide.html"
+    },
+    {
       "source": "/housing",
       "destination": "/housing.html"
     }
