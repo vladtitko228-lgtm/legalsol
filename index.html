@@ -17126,6 +17126,95 @@ function refSubmit(){
 
 
 
+<!-- ECOSYSTEM / FAMILY OF DIVISIONS -->
+<style>
+  .eco-sec{position:relative;z-index:1;padding:74px 0 30px;}
+  .eco-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .eco-head{text-align:center;max-width:720px;margin:0 auto 38px;}
+  .eco-pill{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p300);background:rgba(139,130,232,.12);border:1px solid rgba(139,130,232,.28);padding:6px 14px;border-radius:60px;margin-bottom:16px;}
+  .eco-title{font-family:'Playfair Display',serif;font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.14;margin-bottom:12px;color:#fff;}
+  .eco-sub{color:var(--txt2);font-size:15.5px;line-height:1.55;}
+  .eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .eco-card{position:relative;display:flex;flex-direction:column;gap:13px;padding:26px 22px 24px;border-radius:24px;background:var(--card);border:1px solid rgba(139,130,232,.16);overflow:hidden;color:var(--txt);text-decoration:none;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s,border-color .3s;}
+  .eco-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ec);}
+  .eco-card::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(130% 90% at 50% -10%,var(--ecg),transparent 62%);}
+  a.eco-card:hover{transform:translateY(-7px);border-color:var(--ec);box-shadow:0 24px 54px rgba(0,0,0,.42);}
+  a.eco-card:hover::after{opacity:1;}
+  .eco-ic{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--ecg);color:var(--ec);position:relative;z-index:1;}
+  .eco-name{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;letter-spacing:.2px;position:relative;z-index:1;color:#fff;}
+  .eco-name .eco-tag{color:var(--ec);}
+  .eco-d{font-size:13.5px;color:var(--txt2);line-height:1.55;flex:1;position:relative;z-index:1;}
+  .eco-arrow{font-size:18px;font-weight:800;color:var(--ec);transition:transform .25s cubic-bezier(.16,1,.3,1);position:relative;z-index:1;}
+  a.eco-card:hover .eco-arrow{transform:translateX(6px);}
+  .eco-here{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#1a1340;background:var(--ec);padding:5px 12px;border-radius:60px;position:relative;z-index:1;}
+  .eco-current{border-color:var(--ec);box-shadow:0 0 0 1px var(--ec) inset,0 18px 44px rgba(139,130,232,.18);}
+  .eco-current::after{opacity:.6;}
+  .eco-res{--ec:#8B82E8;--ecg:rgba(139,130,232,.18);}
+  .eco-pol{--ec:#34D399;--ecg:rgba(52,211,153,.16);}
+  .eco-biz{--ec:#5FA8FF;--ecg:rgba(96,165,250,.16);}
+  .eco-hou{--ec:#FF8A2B;--ecg:rgba(255,138,43,.16);}
+  @media(max-width:900px){.eco-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.eco-grid{grid-template-columns:1fr;}}
+</style>
+<section class="eco-sec" id="family">
+  <div class="eco-wrap">
+    <div class="eco-head">
+      <div class="eco-pill" id="eco-pill">One firm</div>
+      <h2 class="eco-title" id="eco-title">One legalsol. Four specialist teams.</h2>
+      <p class="eco-sub" id="eco-sub">Whatever you need to settle in Poland — it is all under one roof, one contact, your language.</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-card eco-res eco-current">
+        <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4-3 7.2-7 8.5-4-1.3-7-4.5-7-8.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div class="eco-name">legalsol <span class="eco-tag" id="eco-t1">Residence</span></div>
+        <p class="eco-d" id="eco-d1">Residence permits, PESEL, citizenship — our core. 6 years, 3,000+ cases, 98% approval.</p>
+        <span class="eco-here" id="eco-here">You are here</span>
+      </div>
+      <a class="eco-card eco-pol" href="/polish" aria-label="legalsol Polish School">
+        <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9.5L12 5 2 9.5l10 4.5 10-4.5z"/><path d="M6 11.5V17c0 1.2 2.7 3 6 3s6-1.8 6-3v-5.5"/></svg></span>
+        <div class="eco-name">legalsol <span class="eco-tag" id="eco-t2">Polish School</span></div>
+        <p class="eco-d" id="eco-d2">Learn Polish for your residence, work and daily life — our own language school.</p>
+        <span class="eco-arrow">→</span>
+      </a>
+      <a class="eco-card eco-biz" href="/business" aria-label="legalsol Business">
+        <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7"/><path d="M3 12h18"/></svg></span>
+        <div class="eco-name">legalsol <span class="eco-tag" id="eco-t3">Business</span></div>
+        <p class="eco-d" id="eco-d3">Company registration, accounting and work permits for businesses and entrepreneurs.</p>
+        <span class="eco-arrow">→</span>
+      </a>
+      <a class="eco-card eco-hou" href="/housing" aria-label="legalsol Housing">
+        <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 9.8V19h14V9.8"/><path d="M10 19v-5h4v5"/></svg></span>
+        <div class="eco-name">legalsol <span class="eco-tag" id="eco-t4">Housing</span></div>
+        <p class="eco-d" id="eco-d4">We find your apartment and handle the whole rental — contract, meldunek, deposit.</p>
+        <span class="eco-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var E={
+    en:{'eco-pill':'One firm','eco-title':'One legalsol. Four specialist teams.','eco-sub':'Whatever you need to settle in Poland — it is all under one roof, one contact, your language.','eco-t1':'Residence','eco-t2':'Polish School','eco-t3':'Business','eco-t4':'Housing','eco-here':'You are here','eco-d1':'Residence permits, PESEL, citizenship — our core. 6 years, 3,000+ cases, 98% approval.','eco-d2':'Learn Polish for your residence, work and daily life — our own language school.','eco-d3':'Company registration, accounting and work permits for businesses and entrepreneurs.','eco-d4':'We find your apartment and handle the whole rental — contract, meldunek, deposit.'},
+    ru:{'eco-pill':'Одна компания','eco-title':'Один legalsol. Четыре направления.','eco-sub':'Что бы вам ни понадобилось в Польше — всё в одном месте, один контакт, ваш язык.','eco-t1':'ВНЖ','eco-t2':'Школа польского','eco-t3':'Бизнес','eco-t4':'Жильё','eco-here':'Вы здесь','eco-d1':'Карта побыту, PESEL, гражданство — наше основное. 6 лет, 3000+ дел, 98% одобрений.','eco-d2':'Польский для ВНЖ, работы и жизни — наша собственная языковая школа.','eco-d3':'Регистрация компаний, бухгалтерия и разрешения на работу для бизнеса.','eco-d4':'Находим квартиру и берём на себя всю аренду — договор, прописка, залог.'},
+    pl:{'eco-pill':'Jedna firma','eco-title':'Jeden legalsol. Cztery działy.','eco-sub':'Czegokolwiek potrzebujesz w Polsce — wszystko w jednym miejscu, jeden kontakt, Twój język.','eco-t1':'Pobyt','eco-t2':'Szkoła polskiego','eco-t3':'Biznes','eco-t4':'Mieszkania','eco-here':'Tu jesteś','eco-d1':'Karta pobytu, PESEL, obywatelstwo — nasza podstawa. 6 lat, 3000+ spraw, 98% zgód.','eco-d2':'Nauka polskiego do pobytu, pracy i życia — nasza własna szkoła językowa.','eco-d3':'Rejestracja firm, księgowość i zezwolenia na pracę dla biznesu.','eco-d4':'Znajdujemy mieszkanie i ogarniamy cały najem — umowa, meldunek, kaucja.'},
+    uk:{'eco-pill':'Одна компанія','eco-title':'Один legalsol. Чотири напрями.','eco-sub':'Що б вам не знадобилося в Польщі — усе в одному місці, один контакт, вашою мовою.','eco-t1':'Проживання','eco-t2':'Школа польської','eco-t3':'Бізнес','eco-t4':'Житло','eco-here':'Ви тут','eco-d1':'Карта побиту, PESEL, громадянство — наша основа. 6 років, 3000+ справ, 98% схвалень.','eco-d2':'Польська для проживання, роботи та життя — наша власна мовна школа.','eco-d3':'Реєстрація компаній, бухгалтерія та дозволи на роботу для бізнесу.','eco-d4':'Знаходимо квартиру й беремо на себе всю оренду — договір, прописка, застава.'},
+    hi:{'eco-pill':'एक ही कंपनी','eco-title':'एक legalsol. चार विशेष टीमें।','eco-sub':'पोलैंड में बसने के लिए आपको जो भी चाहिए — सब एक ही जगह, एक संपर्क, आपकी भाषा में।','eco-t1':'निवास','eco-t2':'पोलिश स्कूल','eco-t3':'बिज़नेस','eco-t4':'आवास','eco-here':'आप यहाँ हैं','eco-d1':'रेज़िडेंस परमिट, PESEL, नागरिकता — हमारा मुख्य काम। 6 साल, 3000+ केस, 98% स्वीकृति।','eco-d2':'निवास, काम और रोज़मर्रा के जीवन के लिए पोलिश सीखें — हमारा अपना भाषा स्कूल।','eco-d3':'कंपनी पंजीकरण, अकाउंटिंग और वर्क परमिट — व्यवसायों के लिए।','eco-d4':'हम आपका अपार्टमेंट ढूँढते हैं और पूरा किराया संभालते हैं — कॉन्ट्रैक्ट, मेल्दुनेक, डिपॉज़िट।'},
+    es:{'eco-pill':'Una sola firma','eco-title':'Un solo legalsol. Cuatro divisiones.','eco-sub':'Lo que necesites para instalarte en Polonia — todo bajo un mismo techo, un contacto, tu idioma.','eco-t1':'Residencia','eco-t2':'Escuela de polaco','eco-t3':'Negocios','eco-t4':'Vivienda','eco-here':'Estás aquí','eco-d1':'Permisos de residencia, PESEL, ciudadanía — nuestra base. 6 años, 3000+ casos, 98% de aprobación.','eco-d2':'Aprende polaco para tu residencia, trabajo y vida diaria — nuestra propia escuela.','eco-d3':'Registro de empresas, contabilidad y permisos de trabajo para negocios.','eco-d4':'Encontramos tu vivienda y gestionamos todo el alquiler — contrato, empadronamiento, depósito.'},
+    tr:{'eco-pill':'Tek firma','eco-title':'Tek legalsol. Dört uzman ekip.','eco-sub':'Polonya’ya yerleşmek için neye ihtiyacınız olursa olsun — hepsi tek çatı altında, tek iletişim, kendi dilinizde.','eco-t1':'Oturum','eco-t2':'Lehçe Okulu','eco-t3':'İş Dünyası','eco-t4':'Konut','eco-here':'Buradasınız','eco-d1':'Oturum izinleri, PESEL, vatandaşlık — ana işimiz. 6 yıl, 3000+ dosya, %98 onay.','eco-d2':'Oturum, iş ve günlük yaşam için Lehçe öğrenin — kendi dil okulumuz.','eco-d3':'Şirket kuruluşu, muhasebe ve çalışma izinleri — işletmeler için.','eco-d4':'Dairenizi buluyor ve tüm kiralama sürecini üstleniyoruz — sözleşme, ikamet kaydı, depozito.'},
+    az:{'eco-pill':'Bir şirkət','eco-title':'Bir legalsol. Dörd istiqamət.','eco-sub':'Polşada məskunlaşmaq üçün nəyə ehtiyacınız olsa — hamısı bir yerdə, bir əlaqə, öz dilinizdə.','eco-t1':'Yaşayış','eco-t2':'Polyak dili məktəbi','eco-t3':'Biznes','eco-t4':'Mənzil','eco-here':'Siz buradasınız','eco-d1':'Yaşayış icazələri, PESEL, vətəndaşlıq — əsas işimiz. 6 il, 3000+ iş, 98% təsdiq.','eco-d2':'Yaşayış, iş və gündəlik həyat üçün polyak dili — öz dil məktəbimiz.','eco-d3':'Şirkət qeydiyyatı, mühasibatlıq və iş icazələri — bizneslər üçün.','eco-d4':'Mənzilinizi tapırıq və bütün icarəni üzərimizə götürürük — müqavilə, qeydiyyat, depozit.'}
+  };
+  function applyEco(l){ var d=E[l]||E.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
+  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&E[s]) return s;}catch(e){} var h=document.documentElement.lang; return E[h]?h:'en'; }
+  function hook(){
+    var _prev=window.setLang;
+    window.setLang=function(l){ var r; if(typeof _prev==='function'){ try{ r=_prev.apply(this,arguments); }catch(e){} } try{ applyEco(E[l]?l:curLang()); }catch(e){} return r; };
+    applyEco(curLang());
+  }
+  if(document.readyState==='complete') hook();
+  else window.addEventListener('load',hook);
+})();
+</script>
+
 <!-- FOOTER -->
 
 <footer>
