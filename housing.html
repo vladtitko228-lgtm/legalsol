@@ -27,14 +27,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:url" content="https://www.legalsol.pl/housing"/>
 <style>
   :root{
-    --bg:#09081a; --bg2:#13112e;
-    --card:rgba(38,33,82,0.46); --line:rgba(139,130,232,0.15);
-    --v100:#ECE9FB; --v200:#C7BFF5; --v300:#A99CEF; --v400:#8B7CF0; --v500:#6D5DE0; --v600:#5B4BD6;
-    --gold:#F5C451; --gold2:#E0A93C;
-    --green:#3ddc97; --green2:#15b981;
-    --txt:#fff; --txt2:rgba(255,255,255,0.76); --txt3:rgba(255,255,255,0.5);
+    --bg:#1a0e05; --bg2:#2a1809;
+    --card:rgba(64,34,12,0.42); --line:rgba(255,150,80,0.16);
+    --v100:#FFF1E6; --v200:#FFD9B8; --v300:#FFB877; --v400:#FF8A2B; --v500:#F2700F; --v600:#E25C00;
+    --gold:#FFC15A; --gold2:#E89A2E;
+    --green:#25D366; --green2:#1aa851;
+    --txt:#fff; --txt2:rgba(255,244,236,0.78); --txt3:rgba(255,244,236,0.52);
     --sh2:0 14px 36px rgba(0,0,0,0.45); --sh3:0 28px 70px rgba(0,0,0,0.6);
-    --glow:0 0 50px rgba(124,108,240,0.4); --r:20px;
+    --glow:0 0 50px rgba(255,138,43,0.4); --r:20px;
     --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -43,14 +43,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   body{position:relative;}
   body::before{content:'';position:fixed;inset:0;z-index:0;
     background:
-      radial-gradient(circle at 16% 4%, rgba(124,108,240,0.4), transparent 48%),
+      radial-gradient(circle at 16% 4%, rgba(255,138,43,0.4), transparent 48%),
       radial-gradient(circle at 84% 14%, rgba(245,196,81,0.12), transparent 52%),
-      radial-gradient(circle at 42% 74%, rgba(91,75,214,0.32), transparent 55%),
-      radial-gradient(circle at 92% 94%, rgba(61,220,151,0.12), transparent 50%);
+      radial-gradient(circle at 42% 74%, rgba(226,92,0,0.32), transparent 55%),
+      radial-gradient(circle at 92% 94%, rgba(255,138,43,0.12), transparent 50%);
     animation:mesh 28s ease-in-out infinite;}
   @keyframes mesh{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-2%,1%) scale(1.04);}66%{transform:translate(1.5%,-2%) scale(.97);}}
   body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-    background-image:radial-gradient(circle, rgba(167,156,239,0.06) 1px, transparent 1.3px);background-size:30px 30px;
+    background-image:radial-gradient(circle, rgba(255,184,119,0.06) 1px, transparent 1.3px);background-size:30px 30px;
     -webkit-mask-image:radial-gradient(ellipse at center, black 35%, transparent 72%);mask-image:radial-gradient(ellipse at center, black 35%, transparent 72%);}
   header,.hero,.section,footer{position:relative;z-index:1;}
   a{color:var(--v200);text-decoration:none;transition:color .2s;}
@@ -60,37 +60,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* HEADER */
   header{display:flex;align-items:center;justify-content:space-between;padding:15px 28px;gap:16px;flex-wrap:wrap;
-    position:sticky;top:0;backdrop-filter:blur(18px);background:rgba(9,8,26,0.7);border-bottom:1px solid rgba(139,130,232,0.12);}
+    position:sticky;top:0;z-index:70;backdrop-filter:blur(18px);background:rgba(26,14,5,0.7);border-bottom:1px solid rgba(255,150,80,0.12);}
   .logo{display:flex;align-items:center;gap:10px;color:var(--txt);}
-  .logo .wm{font-weight:800;font-size:20px;letter-spacing:-.02em;}
-  .logo .wm .s{color:var(--v300);}
-  .logo .tagm{font-size:9.5px;letter-spacing:.22em;color:var(--v300);font-weight:700;margin-top:1px;}
+  .logo-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;letter-spacing:2px;color:#fff;line-height:1;}
+  .logo-sub{font-size:9.5px;letter-spacing:.22em;color:var(--v300);font-weight:700;margin-top:3px;text-transform:uppercase;}
+  @media(max-width:960px){.logo-name{font-size:15px;letter-spacing:1.5px;}}
   .header-right{display:flex;align-items:center;gap:12px;}
   .lang-dd{position:relative;}
   .lang-dd-trigger{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
     color:var(--txt);padding:8px 12px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
   .ldf svg{border-radius:2px;display:block;}
-  .lang-dd-panel{position:absolute;top:46px;right:0;background:#13112e;border:1px solid rgba(139,130,232,0.22);
+  .lang-dd-panel{position:absolute;top:46px;right:0;z-index:90;background:#2a1809;border:1px solid rgba(255,150,80,0.22);
     border-radius:14px;padding:6px;min-width:170px;box-shadow:var(--sh3);display:none;}
   .lang-dd.open .lang-dd-panel{display:block;}
   .ldp-btn{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:var(--txt);
     padding:9px 11px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:14px;text-align:left;}
-  .ldp-btn:hover{background:rgba(124,108,240,0.2);}
+  .ldp-btn:hover{background:rgba(255,138,43,0.2);}
   .ldp-flag svg{width:22px;height:15px;border-radius:2px;display:block;}.ldp-code{font-weight:700;width:24px;}.ldp-name{color:var(--txt2);}
   .nav-back{font-size:13px;color:var(--txt2);}
-  .nav-cta{background:linear-gradient(135deg,var(--green2),var(--green));color:#04231a;font-weight:700;font-size:13px;
-    padding:10px 18px;border-radius:100px;box-shadow:0 6px 18px rgba(21,185,129,0.32);white-space:nowrap;transition:transform .15s;}
-  .nav-cta:hover{color:#04231a;transform:translateY(-1px);}
+  .nav-cta{background:linear-gradient(135deg,var(--v500),var(--v400));color:#2a1200;font-weight:700;font-size:13px;
+    padding:10px 18px;border-radius:100px;box-shadow:0 6px 18px rgba(255,138,43,0.34);white-space:nowrap;transition:transform .15s;}
+  .nav-cta:hover{color:#2a1200;transform:translateY(-1px);}
 
   /* HERO */
   .hero{text-align:center;padding:70px 24px 28px;}
   .warsaw-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
   .warsaw-bg img{width:100%;height:62%;object-fit:cover;opacity:.16;}
-  .warsaw-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,8,26,0.45) 0%,rgba(9,8,26,0.2) 30%,var(--bg) 78%);}
+  .warsaw-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,14,5,0.45) 0%,rgba(26,14,5,0.2) 30%,var(--bg) 78%);}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(245,196,81,0.1);border:1px solid rgba(245,196,81,0.34);
     color:var(--gold);padding:7px 16px;border-radius:100px;font-size:12.5px;font-weight:700;letter-spacing:.02em;margin-bottom:24px;}
   .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold);animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .oneday{display:inline-flex;align-items:center;gap:9px;margin:0 auto 26px;padding:10px 20px;border-radius:100px;
+    background:linear-gradient(135deg,rgba(255,138,43,0.18),rgba(255,193,90,0.1));border:1px solid rgba(255,138,43,0.45);
+    color:var(--v100);font-weight:700;font-size:14px;letter-spacing:.005em;box-shadow:0 0 26px rgba(255,138,43,0.22);
+    animation:odpulse 2.6s ease-in-out infinite;}
+  .oneday .od-ic{font-size:16px;filter:drop-shadow(0 0 6px rgba(255,138,43,0.7));}
+  @keyframes odpulse{0%,100%{box-shadow:0 0 20px rgba(255,138,43,0.16);}50%{box-shadow:0 0 36px rgba(255,138,43,0.36);}}
   .hero h1{font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(40px,6.6vw,72px);line-height:1.04;letter-spacing:-0.015em;margin-bottom:22px;}
   .hero h1 .accent{background:linear-gradient(110deg,var(--v200),var(--gold),var(--v300));background-size:220% auto;
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 7s linear infinite;}
@@ -98,8 +104,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero-sub{max-width:660px;margin:0 auto 30px;color:var(--txt2);font-size:clamp(16px,2.2vw,19px);}
   .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
   .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:100px;font-weight:700;font-size:16px;cursor:pointer;font-family:inherit;border:none;transition:transform .18s var(--ease),box-shadow .25s;}
-  .btn-primary{background:linear-gradient(135deg,var(--green2),var(--green));color:#04231a;box-shadow:0 12px 32px rgba(21,185,129,0.4);}
-  .btn-primary:hover{transform:translateY(-3px);color:#04231a;box-shadow:0 18px 46px rgba(21,185,129,0.55);}
+  .btn-primary{background:linear-gradient(135deg,var(--v500),var(--v400));color:#2a1200;box-shadow:0 12px 32px rgba(255,138,43,0.42);}
+  .btn-primary:hover{transform:translateY(-3px);color:#2a1200;box-shadow:0 18px 46px rgba(255,138,43,0.58);}
   .btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);color:var(--txt);backdrop-filter:blur(10px);}
   .btn-ghost:hover{background:rgba(255,255,255,0.12);color:var(--txt);transform:translateY(-3px);}
   .btn{position:relative;overflow:hidden;}
@@ -121,13 +127,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* HERO IMG (parallax + kenburns) */
   .hero-photo{position:relative;max-width:1020px;margin:48px auto 0;border-radius:26px;overflow:hidden;
-    box-shadow:var(--sh3);border:1px solid rgba(139,130,232,0.22);aspect-ratio:21/9;}
+    box-shadow:var(--sh3);border:1px solid rgba(255,150,80,0.22);aspect-ratio:21/9;}
   .hero-photo .pimg{position:absolute;inset:-8% 0;width:100%;height:116%;}
   .hero-photo img{width:100%;height:100%;object-fit:cover;animation:kb 24s ease-in-out infinite alternate;}
   @keyframes kb{from{transform:scale(1.02);}to{transform:scale(1.12);}}
-  .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(9,8,26,0.78),transparent 56%);}
+  .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,14,5,0.78),transparent 56%);}
   .hbadge{position:absolute;z-index:2;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
-    background:rgba(9,8,26,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.16);color:#fff;padding:9px 14px;border-radius:100px;box-shadow:var(--sh2);}
+    background:rgba(26,14,5,0.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.16);color:#fff;padding:9px 14px;border-radius:100px;box-shadow:var(--sh2);}
   .hb-a{left:18px;bottom:18px;animation:float 5s ease-in-out infinite;}
   .hb-b{right:18px;top:18px;animation:float 6s ease-in-out infinite .8s;}
   @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
@@ -137,31 +143,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .section.narrow .wrap{max-width:880px;}
   .section-head{text-align:center;max-width:740px;margin:0 auto 42px;}
   .pill{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--v200);background:rgba(124,108,240,0.14);border:1px solid rgba(124,108,240,0.3);padding:5px 13px;border-radius:100px;margin-bottom:16px;}
+    color:var(--v200);background:rgba(255,138,43,0.14);border:1px solid rgba(255,138,43,0.3);padding:5px 13px;border-radius:100px;margin-bottom:16px;}
   .pill.gold{color:var(--gold);background:rgba(245,196,81,0.1);border-color:rgba(245,196,81,0.32);}
   .stitle{font-family:"Playfair Display",serif;font-weight:700;font-size:clamp(27px,4vw,41px);line-height:1.14;margin-bottom:14px;}
   .ssub{color:var(--txt2);font-size:16.5px;}
 
   /* POSITIONING band */
-  .pos{background:linear-gradient(150deg,rgba(91,75,214,0.22),rgba(38,33,82,0.42));border:1px solid var(--line);
+  .pos{background:linear-gradient(150deg,rgba(226,92,0,0.22),rgba(64,34,12,0.42));border:1px solid var(--line);
     border-radius:26px;padding:40px 36px;display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center;box-shadow:var(--sh2);}
   .pos h2{font-family:"Playfair Display",serif;font-size:clamp(24px,3.4vw,34px);line-height:1.18;margin-bottom:14px;}
   .pos p{color:var(--txt2);font-size:15.5px;margin-bottom:10px;}
   .pos-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-  .pstat{background:rgba(9,8,26,0.4);border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;}
+  .pstat{background:rgba(26,14,5,0.4);border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;}
   .pstat .n{font-size:30px;font-weight:800;color:var(--gold);line-height:1;}
   .pstat .l{font-size:12px;color:var(--txt3);margin-top:6px;}
 
   .grid{display:grid;gap:18px;}.g4{grid-template-columns:repeat(4,1fr);}.g3{grid-template-columns:repeat(3,1fr);}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;}
-  .card:hover{transform:translateY(-7px);border-color:rgba(124,108,240,0.5);box-shadow:var(--sh2),var(--glow);}
+  .card:hover{transform:translateY(-7px);border-color:rgba(255,138,43,0.5);box-shadow:var(--sh2),var(--glow);}
   .card-ico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;
-    background:linear-gradient(135deg,rgba(124,108,240,0.32),rgba(91,75,214,0.16));border:1px solid rgba(124,108,240,0.3);margin-bottom:16px;}
+    background:linear-gradient(135deg,rgba(255,138,43,0.32),rgba(226,92,0,0.16));border:1px solid rgba(255,138,43,0.3);margin-bottom:16px;}
   .card h3{font-size:18px;font-weight:700;margin-bottom:8px;}.card p{color:var(--txt2);font-size:14.5px;}
 
   /* PHOTO CARDS */
   .pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;}
-  .pcard:hover{transform:translateY(-7px);border-color:rgba(124,108,240,0.5);box-shadow:var(--sh2),var(--glow);}
+  .pcard:hover{transform:translateY(-7px);border-color:rgba(255,138,43,0.5);box-shadow:var(--sh2),var(--glow);}
   .pcard-img{height:172px;overflow:hidden;position:relative;}
   .pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);}
   .pcard:hover .pcard-img img{transform:scale(1.1);}
@@ -170,11 +176,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* GUARANTEES (premium gradient-border) */
   .gua-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .gua{position:relative;border-radius:var(--r);padding:1.5px;background:linear-gradient(135deg,rgba(245,196,81,0.6),rgba(124,108,240,0.45),rgba(245,196,81,0.25));
+  .gua{position:relative;border-radius:var(--r);padding:1.5px;background:linear-gradient(135deg,rgba(245,196,81,0.6),rgba(255,138,43,0.45),rgba(245,196,81,0.25));
     background-size:220% 220%;animation:gborder 7s ease infinite;transition:transform .4s var(--ease),box-shadow .4s;}
   .gua:nth-child(2){animation-delay:.5s;}.gua:nth-child(3){animation-delay:1s;}
   .gua:nth-child(4){animation-delay:1.5s;}.gua:nth-child(5){animation-delay:2s;}.gua:nth-child(6){animation-delay:2.5s;}
-  .gua:hover{transform:translateY(-9px);box-shadow:0 22px 52px rgba(124,108,240,0.32),0 0 38px rgba(245,196,81,0.18);}
+  .gua:hover{transform:translateY(-9px);box-shadow:0 22px 52px rgba(255,138,43,0.32),0 0 38px rgba(245,196,81,0.18);}
   @keyframes gborder{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
   .gua-in{position:relative;overflow:hidden;background:#120f29;border-radius:calc(var(--r) - 1px);padding:24px 22px;height:100%;}
   .gua-in::before{content:'';position:absolute;top:-45%;right:-30%;width:170px;height:170px;border-radius:50%;
@@ -194,27 +200,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .gphoto.tall{grid-row:span 2;aspect-ratio:auto;}
   .gphoto img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
   .gphoto:hover img{transform:scale(1.12);}
-  .gphoto::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(9,8,26,0.5),transparent 60%);opacity:0;transition:opacity .35s;}
+  .gphoto::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,14,5,0.5),transparent 60%);opacity:0;transition:opacity .35s;}
   .gphoto:hover::after{opacity:1;}
 
   /* STEPS */
   .steps{display:grid;gap:14px;max-width:780px;margin:0 auto;}
   .step{display:flex;gap:18px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;transition:transform .25s var(--ease),border-color .25s;}
-  .step:hover{transform:translateX(6px);border-color:rgba(124,108,240,0.45);}
+  .step:hover{transform:translateX(6px);border-color:rgba(255,138,43,0.45);}
   .step-n{position:relative;flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;
     background:linear-gradient(135deg,var(--v500),var(--v600));color:#fff;box-shadow:var(--glow);}
-  .step-n::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(124,108,240,0.45);animation:ring 2.8s ease-out infinite;}
+  .step-n::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(255,138,43,0.45);animation:ring 2.8s ease-out infinite;}
   @keyframes ring{0%{transform:scale(1);opacity:.6;}80%,100%{transform:scale(1.55);opacity:0;}}
   .step h3{font-size:16.5px;margin-bottom:4px;}.step p{color:var(--txt2);font-size:14.5px;}
 
   /* PRICING */
-  .price-card{background:linear-gradient(160deg,rgba(91,75,214,0.26),rgba(38,33,82,0.46));border:1px solid rgba(124,108,240,0.4);
+  .price-card{background:linear-gradient(160deg,rgba(226,92,0,0.26),rgba(64,34,12,0.46));border:1px solid rgba(255,138,43,0.4);
     border-radius:24px;padding:38px 32px;max-width:760px;margin:0 auto;box-shadow:var(--sh3);}
   .price-card h3{font-family:"Playfair Display",serif;font-size:24px;margin-bottom:18px;}
   .price-row{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line);}
   .price-row:last-child{border-bottom:none;}.price-row .pr-ic{font-size:22px;flex:0 0 auto;}
   .price-row b{font-weight:700;}.price-row p{color:var(--txt2);font-size:14.5px;margin-top:2px;}
-  .price-note{margin-top:18px;padding:14px 16px;background:rgba(61,220,151,0.1);border:1px solid rgba(61,220,151,0.28);border-radius:12px;color:var(--txt);font-size:14px;}
+  .price-note{margin-top:18px;padding:14px 16px;background:rgba(255,138,43,0.1);border:1px solid rgba(255,138,43,0.28);border-radius:12px;color:var(--txt);font-size:14px;}
 
   /* FAQ */
   .faq{max-width:760px;margin:0 auto;display:grid;gap:12px;}
@@ -225,14 +231,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .faq-a-in{padding:0 22px 18px;color:var(--txt2);font-size:14.5px;}.faq-item.open .faq-a{max-height:340px;}
 
   /* CTA */
-  .cta-box{text-align:center;position:relative;overflow:hidden;border-radius:28px;padding:58px 32px;max-width:900px;margin:0 auto;border:1px solid rgba(124,108,240,0.4);box-shadow:var(--sh3);}
+  .cta-box{text-align:center;position:relative;overflow:hidden;border-radius:28px;padding:58px 32px;max-width:900px;margin:0 auto;border:1px solid rgba(255,138,43,0.4);box-shadow:var(--sh3);}
   .cta-box .cta-bg{position:absolute;inset:0;z-index:0;}.cta-box .cta-bg img{width:100%;height:100%;object-fit:cover;opacity:.26;}
-  .cta-box::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(91,75,214,0.55),rgba(9,8,26,0.88));z-index:1;}
+  .cta-box::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(226,92,0,0.55),rgba(26,14,5,0.88));z-index:1;}
   .cta-box>*{position:relative;z-index:2;}
   .cta-box h2{font-family:"Playfair Display",serif;font-size:clamp(26px,4vw,40px);margin-bottom:14px;}
   .cta-box p{color:var(--txt2);font-size:16.5px;max-width:560px;margin:0 auto 28px;}
 
-  footer{padding:54px 24px 40px;text-align:center;color:var(--txt3);font-size:13px;border-top:1px solid rgba(139,130,232,0.1);margin-top:72px;}
+  footer{padding:54px 24px 40px;text-align:center;color:var(--txt3);font-size:13px;border-top:1px solid rgba(255,150,80,0.1);margin-top:72px;}
   footer a{margin:0 10px;}.ft-wm{font-weight:800;font-size:22px;letter-spacing:-.02em;color:#fff;display:inline-block;margin-bottom:14px;}
   .ft-wm .s{color:var(--v300);}
 
@@ -240,7 +246,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .allin-grid{display:grid;grid-template-columns:.82fr 1.5fr;gap:18px;align-items:stretch;}
   .allin-you,.allin-we{border-radius:var(--r);padding:28px 26px;}
   .allin-you{background:var(--card);border:1px solid var(--line);}
-  .allin-we{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(245,196,81,0.12),rgba(38,33,82,0.46));border:1px solid rgba(245,196,81,0.36);box-shadow:var(--sh2);}
+  .allin-we{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(245,196,81,0.12),rgba(64,34,12,0.46));border:1px solid rgba(245,196,81,0.36);box-shadow:var(--sh2);}
   .allin-tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:18px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--txt2);}
   .allin-tag.gold{background:rgba(245,196,81,0.14);border-color:rgba(245,196,81,0.4);color:var(--gold);}
   .allin-line{display:flex;gap:10px;align-items:flex-start;color:var(--txt2);font-size:15px;margin-bottom:12px;}
@@ -251,13 +257,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media(max-width:760px){.allin-grid{grid-template-columns:1fr;}.allin-we ul{grid-template-columns:1fr;}}
 
   /* CALCULATOR */
-  .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(91,75,214,0.18),rgba(38,33,82,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);}
+  .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(226,92,0,0.18),rgba(64,34,12,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);}
   .calc-field{margin-bottom:18px;}
   .calc-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--v200);margin-bottom:10px;display:block;}
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{padding:9px 15px;border-radius:100px;border:1px solid var(--line);background:rgba(255,255,255,0.04);color:var(--txt2);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s var(--ease);font-family:inherit;}
   .chip:hover{border-color:var(--v400);color:var(--txt);transform:translateY(-1px);}
-  .chip.active{background:linear-gradient(135deg,var(--v500),var(--v600));border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(124,108,240,0.4);}
+  .chip.active{background:linear-gradient(135deg,var(--v500),var(--v600));border-color:transparent;color:#fff;box-shadow:0 6px 16px rgba(255,138,43,0.4);}
   .range-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
   .range-val{font-size:20px;font-weight:800;color:var(--gold);}
   input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:rgba(255,255,255,0.13);outline:none;}
@@ -286,8 +292,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <header>
   <a href="/" class="logo">
-    <svg width="30" height="27" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#A99CEF"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#C7BFF5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#C7BFF5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#A99CEF"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6D5DE0"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6D5DE0"/></svg>
-    <div><div class="wm">legal<span class="s">sol</span></div><div class="tagm" id="logo-tag">RESIDENCE · RELOCATION</div></div>
+    <svg width="30" height="27" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#FFB877"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#FFD9B8"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#FFD9B8"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#FFB877"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#FF8A2B"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#FF8A2B"/></svg>
+    <div><div class="logo-name">LEGALSOL</div><div class="logo-sub" id="logo-tag">HOUSING · RELOCATION</div></div>
   </a>
   <div class="header-right">
     <div class="lang-dd" id="lang-dd">
@@ -317,6 +323,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="eyebrow"><span class="dot"></span> <span id="eyebrow">An add-on service for legalsol clients</span></div>
   <h1 id="hero-title">Your residence permit, handled.<br><span class="accent">Your home in Warsaw too.</span></h1>
   <p class="hero-sub" id="hero-sub">legalsol is, first and foremost, a legalization firm — 6 years, 3,000+ residence cases, 98% approval. Housing is the service we added for our clients: we find your apartment and set up the contract, registration and deposit so they support your residence case, not complicate it.</p>
+  <div class="oneday"><span class="od-ic">⚡</span> <span id="oneday">We can find you a place in as little as one day</span></div>
   <div class="hero-cta">
     <button class="btn btn-primary" id="hero-cta1" onclick="waLead('hero')">💬 Ask about housing</button>
     <a class="btn btn-ghost" href="#how" id="hero-cta2">How it works</a>
@@ -328,10 +335,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="hbadge hb-b">📍 <span id="hb2">Warsaw &amp; all of Poland</span></div>
   </div>
   <div class="trust-strip anim">
-    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts1">Verified listings</span></span>
-    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts2">Lawyer-reviewed contracts</span></span>
-    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts3">Fixed, transparent fee</span></span>
-    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts4">In your language</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts1">Verified listings</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts2">Lawyer-reviewed contracts</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts3">Fixed, transparent fee</span></span>
+    <span class="ts-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ts4">In your language</span></span>
   </div>
 </section>
 
@@ -405,15 +412,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="allin-we anim">
         <span class="allin-tag gold" id="ai-we-tag">legalsol does the rest</span>
         <ul>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai1">Find and verify real options</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai2">Vouch to the landlord that you're in Poland legally</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai3">Provide all documents proving your legal status</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai4">Cover the notary</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai5">Cover the sworn translator</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai6">Prepare every document the lease requires</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai7">Review the contract and sign it with you</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai8">Register your meldunek</span></li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(61,220,151,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#3ddc97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai9">Set up utilities</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai1">Find and verify real options</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai2">Vouch to the landlord that you're in Poland legally</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai3">Provide all documents proving your legal status</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai4">Cover the notary</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai5">Cover the sworn translator</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai6">Prepare every document the lease requires</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai7">Review the contract and sign it with you</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai8">Register your meldunek</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="rgba(255,138,43,0.2)"/><path d="M7 12.5l3 3 7-7" stroke="#FF8A2B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="ai9">Set up utilities</span></li>
         </ul>
         <div class="allin-cost" id="ai-cost">💛 Notary, translator and document costs — all on us.</div>
       </div>
@@ -589,7 +596,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   };
   var T={
     en:{
-      'logo-tag':'RESIDENCE · RELOCATION','nav-back':'← Main site','nav-cta':'Talk to us',
+      'oneday':'We can find you a place in as little as one day','logo-tag':'HOUSING · RELOCATION','nav-back':'← Main site','nav-cta':'Talk to us',
       'eyebrow':'An add-on service for legalsol clients',
       'hero-title':'Your residence permit, handled.<br><span class="accent">Your home in Warsaw too.</span>',
       'hero-sub':"legalsol is, first and foremost, a legalization firm — 6 years, 3,000+ residence cases, 98% approval. Housing is the service we added for our clients: we find your apartment and set up the contract, registration and deposit so they support your residence case, not complicate it.",
@@ -647,7 +654,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Home','ft-biz':'Business','ft-blog':'Blog','ft-priv':'Privacy','ft-terms':'Terms','ft-copy':'© 2026 legalsol · Warszawa, Polska · WhatsApp-first immigration & relocation'
     },
     ru:{
-      'logo-tag':'ВНЖ · РЕЛОКАЦИЯ','nav-back':'← На главную','nav-cta':'Написать нам',
+      'oneday':'Подберём жильё всего за один день','logo-tag':'ЖИЛЬЁ · РЕЛОКАЦИЯ','nav-back':'← На главную','nav-cta':'Написать нам',
       'eyebrow':'Доп. услуга для клиентов legalsol',
       'hero-title':'ВНЖ — берём на себя.<br><span class="accent">И ваш дом в Варшаве тоже.</span>',
       'hero-sub':'legalsol — прежде всего фирма по легализации: 6 лет, 3000+ дел по ВНЖ, 98% одобрений. Жильё — услуга, которую мы добавили для своих клиентов: находим квартиру и оформляем договор, прописку и залог так, чтобы они поддерживали ваше дело по ВНЖ, а не усложняли его.',
@@ -705,7 +712,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Главная','ft-biz':'Бизнес','ft-blog':'Блог','ft-priv':'Конфиденциальность','ft-terms':'Условия','ft-copy':'© 2026 legalsol · Варшава, Польша · Иммиграция и релокация через WhatsApp'
     },
     pl:{
-      'logo-tag':'POBYT · RELOKACJA','nav-back':'← Strona główna','nav-cta':'Napisz do nas',
+      'oneday':'Znajdziemy Ci mieszkanie nawet w jeden dzień','logo-tag':'MIESZKANIA · RELOKACJA','nav-back':'← Strona główna','nav-cta':'Napisz do nas',
       'eyebrow':'Usługa dodatkowa dla klientów legalsol',
       'hero-title':'Karta pobytu — załatwiamy.<br><span class="accent">Twój dom w Warszawie też.</span>',
       'hero-sub':'legalsol to przede wszystkim firma legalizacyjna — 6 lat, 3000+ spraw pobytowych, 98% akceptacji. Mieszkania to usługa, którą dodaliśmy dla naszych klientów: znajdujemy mieszkanie i ustawiamy umowę, meldunek i kaucję tak, by wspierały Twoją sprawę pobytową, a nie ją komplikowały.',
@@ -763,7 +770,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Główna','ft-biz':'Biznes','ft-blog':'Blog','ft-priv':'Prywatność','ft-terms':'Regulamin','ft-copy':'© 2026 legalsol · Warszawa, Polska · Imigracja i relokacja przez WhatsApp'
     },
     es:{
-      'logo-tag':'RESIDENCIA · RELOCALIZACIÓN','nav-back':'← Sitio principal','nav-cta':'Escríbenos',
+      'oneday':'Te encontramos una vivienda en tan solo un día','logo-tag':'VIVIENDA · RELOCALIZACIÓN','nav-back':'← Sitio principal','nav-cta':'Escríbenos',
       'eyebrow':'Un servicio adicional para clientes de legalsol',
       'hero-title':'Tu permiso de residencia, resuelto.<br><span class="accent">Tu hogar en Varsovia también.</span>',
       'hero-sub':'legalsol es, ante todo, una firma de legalización: 6 años, más de 3000 casos de residencia, 98% de aprobación. La vivienda es el servicio que añadimos para nuestros clientes: encontramos tu piso y preparamos el contrato, el registro y el depósito para que apoyen tu caso de residencia, no lo compliquen.',
@@ -821,7 +828,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Inicio','ft-biz':'Empresas','ft-blog':'Blog','ft-priv':'Privacidad','ft-terms':'Términos','ft-copy':'© 2026 legalsol · Varsovia, Polonia · Inmigración y relocalización por WhatsApp'
     },
     tr:{
-      'logo-tag':'OTURUM · TAŞINMA','nav-back':'← Ana site','nav-cta':'Bize yazın',
+      'oneday':'Size bir günde bile konut bulabiliriz','logo-tag':'KONUT · TAŞINMA','nav-back':'← Ana site','nav-cta':'Bize yazın',
       'eyebrow':'legalsol müşterileri için ek hizmet',
       'hero-title':'Oturum izniniz bizde.<br><span class="accent">Varşova’daki eviniz de.</span>',
       'hero-sub':'legalsol her şeyden önce bir yasallaştırma firmasıdır — 6 yıl, 3.000+ oturum dosyası, %98 onay. Konut, müşterilerimiz için eklediğimiz hizmettir: dairenizi buluruz ve sözleşme, adres kaydı (meldunek) ile depozitoyu oturum dosyanızı destekleyecek şekilde hazırlarız.',
@@ -879,7 +886,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Ana sayfa','ft-biz':'Kurumsal','ft-blog':'Blog','ft-priv':'Gizlilik','ft-terms':'Şartlar','ft-copy':'© 2026 legalsol · Varşova, Polonya · WhatsApp öncelikli göçmenlik ve taşınma'
     },
     az:{
-      'logo-tag':'YAŞAYIŞ · KÖÇMƏ','nav-back':'← Əsas sayt','nav-cta':'Bizə yazın',
+      'oneday':'Sizə cəmi bir günə yaşayış tapa bilərik','logo-tag':'YAŞAYIŞ · KÖÇMƏ','nav-back':'← Əsas sayt','nav-cta':'Bizə yazın',
       'eyebrow':'legalsol müştəriləri üçün əlavə xidmət',
       'hero-title':'Yaşayış icazəniz bizdə.<br><span class="accent">Varşavadakı eviniz də.</span>',
       'hero-sub':'legalsol ilk növbədə leqallaşdırma firmasıdır — 6 il, 3.000+ yaşayış işi, 98% təsdiq. Mənzil müştərilərimiz üçün əlavə etdiyimiz xidmətdir: mənzilinizi tapırıq və müqaviləni, qeydiyyatı və depoziti yaşayış işinizi dəstəkləyəcək şəkildə hazırlayırıq.',
@@ -937,7 +944,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'Ana səhifə','ft-biz':'Biznes','ft-blog':'Blog','ft-priv':'Məxfilik','ft-terms':'Şərtlər','ft-copy':'© 2026 legalsol · Varşava, Polşa · WhatsApp əsaslı miqrasiya və köçmə'
     },
     hi:{
-      'logo-tag':'निवास · पुनर्वास','nav-back':'← मुख्य साइट','nav-cta':'हमें लिखें',
+      'oneday':'हम आपके लिए एक ही दिन में घर ढूँढ सकते हैं','logo-tag':'आवास · पुनर्वास','nav-back':'← मुख्य साइट','nav-cta':'हमें लिखें',
       'eyebrow':'legalsol ग्राहकों के लिए अतिरिक्त सेवा',
       'hero-title':'आपका रेज़िडेंस परमिट, संभाल लिया।<br><span class="accent">वॉरसॉ में आपका घर भी।</span>',
       'hero-sub':'legalsol सबसे पहले एक वैधीकरण फर्म है — 6 साल, 3,000+ रेज़िडेंस केस, 98% स्वीकृति। आवास वह सेवा है जो हमने अपने ग्राहकों के लिए जोड़ी: हम आपका अपार्टमेंट ढूँढते हैं और अनुबंध, पंजीकरण व जमा को इस तरह तैयार करते हैं कि वे आपके रेज़िडेंस केस को मज़बूत करें, उलझाएँ नहीं।',
@@ -995,7 +1002,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'ft-home':'होम','ft-biz':'बिज़नेस','ft-blog':'ब्लॉग','ft-priv':'गोपनीयता','ft-terms':'शर्तें','ft-copy':'© 2026 legalsol · वॉरसॉ, पोलैंड · WhatsApp-प्रथम इमिग्रेशन और पुनर्वास'
     },
     uk:{
-      'logo-tag':'ПРОЖИВАННЯ · ПЕРЕЇЗД','nav-back':'← Головний сайт','nav-cta':'Напишіть нам',
+      'oneday':'Підберемо житло всього за один день','logo-tag':'ЖИТЛО · ПЕРЕЇЗД','nav-back':'← Головний сайт','nav-cta':'Напишіть нам',
       'eyebrow':'Додаткова послуга для клієнтів legalsol',
       'hero-title':'Ваш дозвіл на проживання — беремо на себе.<br><span class="accent">І ваше житло у Варшаві теж.</span>',
       'hero-sub':'legalsol — насамперед фірма з легалізації: 6 років, 3000+ справ із проживання, 98% схвалень. Житло — послуга, яку ми додали для своїх клієнтів: знаходимо квартиру й оформлюємо договір, реєстрацію та заставу так, щоб вони підсилювали вашу справу, а не ускладнювали її.',
