@@ -44,6 +44,10 @@
     {
       "source": "/polish",
       "destination": "/polish.html"
+    },
+    {
+      "source": "/housing",
+      "destination": "/housing.html"
     }
   ],
   "headers": [
