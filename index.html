@@ -10352,8 +10352,8 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     .rcw-pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;color:#34d399;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);padding:6px 14px;border-radius:999px;}
     .rcw-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;margin-top:12px;}
     .rcw-sub{color:rgba(232,228,255,.66);font-size:13.5px;margin-top:6px;max-width:560px;margin-left:auto;margin-right:auto;}
-    .rcw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;}
-    .rcw-card{margin:0;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,rgba(22,18,46,.95),rgba(15,13,34,.95));border:1px solid rgba(139,130,232,.18);transition:transform .3s,box-shadow .3s,border-color .3s;}
+    .rcw-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:20px;}
+    .rcw-card{flex:0 1 300px;max-width:320px;margin:0;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,rgba(22,18,46,.95),rgba(15,13,34,.95));border:1px solid rgba(139,130,232,.18);transition:transform .3s,box-shadow .3s,border-color .3s;}
     .rcw-card:hover{transform:translateY(-5px);border-color:rgba(139,130,232,.45);box-shadow:0 14px 40px -12px rgba(91,82,204,.55);}
     .rcw-ph{position:relative;}
     .rcw-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;}
@@ -10363,7 +10363,7 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     .rcw-card figcaption .rcw-tag{display:inline-block;color:#34d399;font-size:10.5px;margin-top:6px;font-family:ui-monospace,monospace;letter-spacing:.6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);padding:3px 9px;border-radius:999px;}
     .rcw-card .rcw-story{color:rgba(232,228,255,.66);font-size:13px;line-height:1.62;margin-top:11px;}
     .rcw-card .rcw-story b{display:inline;color:#fff;font-weight:700;font-size:inherit;}
-    @media(max-width:760px){.rcw-grid{grid-template-columns:1fr;max-width:380px;margin:18px auto 0;}}
+    @media(max-width:760px){.rcw-card{flex:0 1 100%;max-width:380px;}}
   </style>
   <div class="rcw">
     <div class="rcw-head">
@@ -10375,6 +10375,8 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
       <figure class="rcw-card"><div class="rcw-ph"><img src="/assets/trc/client1.jpg" alt="Клиентка LegalSol с картой побыту" loading="lazy"/><span class="rcw-badge">✓ Karta Pobytu</span></div><figcaption><b>Ananya · 🇮🇳</b><span class="rcw-tag">КАРТА ЗА 3 МЕСЯЦА</span><p class="rcw-story">Подала на карту сама — и <b>8 месяцев тишины</b>: ни приглашения на отпечатки, ни письма. Виза заканчивалась, начиналась паника. Мы подняли дело, нашли две недостающие справки и довели до решения. <b>Карта — через 3 месяца.</b></p></figcaption></figure>
       <figure class="rcw-card"><div class="rcw-ph"><img src="/assets/trc/client2.jpg" alt="Клиент LegalSol с картой побыту" loading="lazy"/><span class="rcw-badge">✓ Karta Pobytu</span></div><figcaption><b>Karan · 🇮🇳</b><span class="rcw-tag">ОТКАЗ → АПЕЛЛЯЦИЯ ВЫИГРАНА</span><p class="rcw-story">Первое агентство подало с ошибками — пришёл <b>отказ</b>. Оставалось <b>14 дней</b> на апелляцию, и Karan уже собирал чемоданы домой. Мы написали апелляцию, отстояли дело у воеводы — <b>карта на 3 года.</b></p></figcaption></figure>
       <figure class="rcw-card"><div class="rcw-ph"><img src="/assets/trc/client3.jpg" alt="Клиент LegalSol с картой побыту" loading="lazy"/><span class="rcw-badge">✓ Karta Pobytu</span></div><figcaption><b>Rohit · 🇮🇳</b><span class="rcw-tag">ОДОБРЕНО С ПЕРВОГО РАЗА</span><p class="rcw-story">Новая работа в Польше, гора документов от работодателя и ноль понимания, с чего начать. Сроки горели. Мы собрали досье, подали онлайн и сходили с ним на отпечатки — <b>одобрили с первого раза.</b></p></figcaption></figure>
+      <figure class="rcw-card"><div class="rcw-ph"><img src="/assets/trc/client4.jpg" alt="Клиент LegalSol с картой побыту в урядзе" loading="lazy"/><span class="rcw-badge">✓ Karta Pobytu</span></div><figcaption><b>Emeka · 🇳🇬</b><span class="rcw-tag">РАБОТОДАТЕЛЬ УШЁЛ → СПАСЛИ</span><p class="rcw-story">Работодатель внезапно снял спонсорство — основание для карты исчезло за неделю до конца легального пребывания. Мы нашли новое основание и переподали вовремя. <b>Фото — прямо в урядзе, с картой.</b></p></figcaption></figure>
+      <figure class="rcw-card"><div class="rcw-ph"><img src="/assets/trc/client5.jpg" alt="Клиент LegalSol с картой побыту" loading="lazy"/><span class="rcw-badge">✓ Karta Pobytu</span></div><figcaption><b>Aakash · 🇮🇳</b><span class="rcw-tag">СТУДЕНТ → РАБОЧАЯ КАРТА</span><p class="rcw-story">Студенческая виза заканчивалась, остаться легально казалось нереальным. Мы перевели его на рабочую карту побыту, подготовили досье и подали через MOS точно в срок. <b>Карта получена.</b></p></figcaption></figure>
     </div>
   </div>
 
