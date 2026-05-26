@@ -10479,6 +10479,8 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     .rcw-card:hover .rcw-more{color:#c4b5fd;}
     .rcm-full{display:none;}
     .rcm-overlay{position:fixed;inset:0;z-index:99999;background:rgba(8,7,20,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .25s;}
+    /* when closed, fully removed from the layout so it can't intercept clicks across the whole page (display:flex above otherwise overrides the [hidden] attribute) */
+    .rcm-overlay[hidden]{display:none!important;}
     .rcm-overlay.open{opacity:1;}
     .rcm-box{position:relative;display:grid;grid-template-columns:300px 1fr;max-width:820px;width:100%;max-height:88vh;background:linear-gradient(135deg,#1b1640,#12102e);border:1px solid rgba(139,130,232,.3);border-radius:22px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);transform:translateY(16px) scale(.98);transition:transform .3s cubic-bezier(.22,1,.36,1);}
     .rcm-overlay.open .rcm-box{transform:none;}
