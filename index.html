@@ -10498,7 +10498,7 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     // Move overlay to <body> so position:fixed isn't trapped by .tab-content (contain:layout) — otherwise it collapses to 0×0 and the story is invisible
     try{ if(ov.parentElement!==document.body) document.body.appendChild(ov); }catch(e){}
     var img=document.getElementById('rcmImg'),nm=document.getElementById('rcmName'),tg=document.getElementById('rcmTag'),st=document.getElementById('rcmStory');
-    var body=ov.querySelector('.rcm-body'), prog=document.getElementById('rcmProg'), rio=null;
+    var body=ov.querySelector('.rcm-body'), prog=document.getElementById('rcmProg');
     function updateProg(){ if(!body||!prog)return; var h=body.scrollHeight-body.clientHeight; prog.style.width=(h>0?Math.min(100,body.scrollTop/h*100):0)+'%'; }
     function openCard(c){
       var full=c.querySelector('.rcm-full'); var ph=c.querySelector('.rcw-ph img');
@@ -10507,17 +10507,14 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
       tg.textContent=(c.querySelector('.rcw-tag')||{}).textContent||'';
       st.innerHTML=full?full.innerHTML:'';
       var items=st.querySelectorAll('p, li');
-      items.forEach(function(el,i){ el.classList.add('rcm-rv'); el.style.transitionDelay=(i<8?(i*0.06).toFixed(2):'0')+'s'; });
+      // gentle staggered cascade for the first paragraphs/bullets
+      items.forEach(function(el,i){ el.classList.add('rcm-rv'); el.style.transitionDelay=(i<10?(i*0.05).toFixed(2):'0')+'s'; });
       if(body){ body.scrollTop=0; } if(prog){ prog.style.width='0%'; }
       ov.hidden=false; void ov.offsetWidth; /* reflow so entrance transition fires */ ov.classList.add('open'); document.body.style.overflow='hidden';
-      // each paragraph / bullet glides in as it scrolls into the story
-      if(rio) rio.disconnect();
-      if('IntersectionObserver' in window && body){
-        rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('rcm-in'); rio.unobserve(e.target); } }); },{root:body,threshold:0.08});
-        items.forEach(function(el){ rio.observe(el); });
-      } else { items.forEach(function(el){ el.classList.add('rcm-in'); }); }
-      // safety: reveal whatever is already in view once the entrance settles
-      setTimeout(function(){ var bb=body?body.getBoundingClientRect():null; items.forEach(function(el){ if(el.classList.contains('rcm-in'))return; if(!bb){el.classList.add('rcm-in');return;} var r=el.getBoundingClientRect(); if(r.top<bb.bottom){ el.classList.add('rcm-in'); if(rio)rio.unobserve(el);} }); },480);
+      // reveal EVERY paragraph/bullet on open (no scroll/observer dependency → content always shows)
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ items.forEach(function(el){ el.classList.add('rcm-in'); }); }); });
+      // hard safety net: even if a transition is interrupted, force-show everything shortly after
+      setTimeout(function(){ items.forEach(function(el){ el.classList.add('rcm-in'); }); }, 700);
       if(body) body.onscroll=updateProg;
     }
     function closeM(){ov.classList.remove('open');document.body.style.overflow='';setTimeout(function(){ov.hidden=true;},250);}
