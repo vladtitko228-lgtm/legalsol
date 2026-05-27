@@ -257,7 +257,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media(max-width:760px){.allin-grid{grid-template-columns:1fr;}.allin-we ul{grid-template-columns:1fr;}}
 
   /* CALCULATOR */
-  .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(226,92,0,0.18),rgba(64,34,12,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);}
+  .calc-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:linear-gradient(160deg,rgba(226,92,0,0.18),rgba(64,34,12,0.4));border:1px solid var(--line);border-radius:26px;padding:30px;box-shadow:var(--sh2);transition:box-shadow .4s,transform .4s;}
+  #calc.calc-flash .calc-wrap{box-shadow:0 0 0 3px rgba(245,158,11,.65),0 18px 50px rgba(0,0,0,.5);transform:translateY(-2px);}
   .calc-field{margin-bottom:18px;}
   .calc-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--v200);margin-bottom:10px;display:block;}
   .chips{display:flex;flex-wrap:wrap;gap:8px;}
@@ -341,7 +342,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
     <a href="/" class="nav-back" id="nav-back">← Main site</a>
-    <a href="#contact" class="nav-cta" id="nav-cta">Talk to us</a>
+    <a href="#calc" class="nav-cta" id="nav-cta">Talk to us</a>
   </div>
 </header>
 
@@ -1144,9 +1145,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     try{ localStorage.setItem('ls_housing_lang',l); }catch(e){}
   }
   window.waLead=function(src){
-    var msg=WA_MSG[lang]||WA_MSG.en;
-    try{ if(window.dataLayer) window.dataLayer.push({event:'wa_click',source:'housing_'+src}); }catch(e){}
-    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+    // Questionnaire-first: route every "contact" entry point to the #calc form so the
+    // client picks options (city / type / people / budget) and the WhatsApp message
+    // arrives already structured for the housing team. calcSend() is the actual WA exit.
+    try{ if(window.dataLayer) window.dataLayer.push({event:'housing_calc_open',source:'housing_'+src}); }catch(e){}
+    var c=document.getElementById('calc');
+    if(c){
+      c.scrollIntoView({behavior:'smooth',block:'start'});
+      c.classList.add('calc-flash');
+      setTimeout(function(){c.classList.remove('calc-flash');},1500);
+    } else {
+      window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(WA_MSG[lang]||WA_MSG.en),'_blank');
+    }
   };
   window.toggleFaq=function(q){ q.parentElement.classList.toggle('open'); };
 
