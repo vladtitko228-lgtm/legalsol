@@ -274,6 +274,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cr-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--txt2);}
   .cr-row .v{font-weight:800;color:#fff;white-space:nowrap;}
   .cr-total .v{color:var(--gold);font-size:23px;}
+  .cr-comm{color:var(--txt3);} .cr-comm .v{color:var(--txt3);font-weight:700;opacity:.8;}
+  .cr-comm .v s{text-decoration-color:#e25c00;}
   .calc-note{font-size:12px;color:var(--txt3);margin-top:13px;line-height:1.5;}
   .calc-res .btn{margin-top:16px;width:100%;justify-content:center;}
   @media(max-width:760px){.calc-wrap{grid-template-columns:1fr;padding:22px;}}
@@ -523,26 +525,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="calc-wrap anim">
       <div class="calc-inputs">
         <div class="calc-field"><span class="calc-label" id="ca-l-city">City</span><div class="chips" id="ca-city">
-          <button class="chip active" data-v="Warsaw" type="button">Warsaw</button><button class="chip" data-v="Kraków" type="button">Kraków</button><button class="chip" data-v="Wrocław" type="button">Wrocław</button><button class="chip" data-v="Gdańsk" type="button">Gdańsk</button><button class="chip" data-v="Other" type="button">Other</button>
+          <button class="chip active" data-v="Warsaw" type="button">Warsaw</button><button class="chip" data-v="Kraków" type="button">Kraków</button><button class="chip" data-v="Wrocław" type="button">Wrocław</button><button class="chip" data-v="Poznań" type="button">Poznań</button><button class="chip" data-v="Gdańsk" type="button">Gdańsk</button><button class="chip" data-v="Łódź" type="button">Łódź</button><button class="chip" data-v="Katowice" type="button">Katowice</button><button class="chip" data-v="Lublin" type="button">Lublin</button><button class="chip" data-v="Other" type="button">Other</button>
         </div></div>
         <div class="calc-field"><span class="calc-label" id="ca-l-type">Looking for</span><div class="chips" id="ca-type">
-          <button class="chip active" data-v="Apartment" type="button">🏠 Apartment</button><button class="chip" data-v="Room" type="button">🚪 Room</button><button class="chip" data-v="Temporary" type="button">🏨 Temporary</button>
+          <button class="chip active" data-v="Apartment" type="button">🏠 Apartment</button><button class="chip" data-v="Studio" type="button">🛋 Studio</button><button class="chip" data-v="Room" type="button">🚪 Room</button><button class="chip" data-v="Shared flat" type="button">👥 Shared flat</button><button class="chip" data-v="House" type="button">🏡 House</button><button class="chip" data-v="Short-stay" type="button">🏨 Short-stay</button>
         </div></div>
         <div class="calc-field"><span class="calc-label" id="ca-l-people">People</span><div class="chips" id="ca-people">
-          <button class="chip active" data-v="1" type="button">1</button><button class="chip" data-v="2" type="button">2</button><button class="chip" data-v="3" type="button">3</button><button class="chip" data-v="4+" type="button">4+</button>
+          <button class="chip active" data-v="1" type="button">1</button><button class="chip" data-v="2" type="button">2</button><button class="chip" data-v="3" type="button">3</button><button class="chip" data-v="4" type="button">4</button><button class="chip" data-v="5+" type="button">5+</button>
         </div></div>
         <div class="calc-field"><span class="calc-label" id="ca-l-when">Move-in</span><div class="chips" id="ca-when">
-          <button class="chip active" data-v="ASAP" type="button">ASAP</button><button class="chip" data-v="This month" type="button">This month</button><button class="chip" data-v="Flexible" type="button">Flexible</button>
+          <button class="chip active" data-v="ASAP" type="button">ASAP</button><button class="chip" data-v="This month" type="button">This month</button><button class="chip" data-v="Next month" type="button">Next month</button><button class="chip" data-v="In 2-3 months" type="button">2–3 months</button><button class="chip" data-v="Flexible" type="button">Flexible</button>
         </div></div>
         <div class="calc-field"><div class="range-row"><span class="calc-label" id="ca-l-budget" style="margin:0;">Monthly budget</span><span class="range-val"><span id="ca-budget-val">3000</span> zł</span></div>
-          <input type="range" id="ca-budget" min="1200" max="8000" step="100" value="3000"/></div>
+          <input type="range" id="ca-budget" min="1000" max="12000" step="100" value="3000"/></div>
       </div>
       <div class="calc-res">
         <div class="cr-row"><span id="ca-r1">Monthly rent (your budget)</span><span class="v"><span id="ca-out-rent">3000</span> zł</span></div>
-        <div class="cr-row"><span id="ca-r2">Deposit (≈ 1 month)</span><span class="v"><span id="ca-out-dep">3000</span> zł</span></div>
-        <div class="cr-row cr-total"><span id="ca-r3">≈ To move in</span><span class="v"><span id="ca-out-total">6000</span> zł</span></div>
+        <div class="cr-row"><span id="ca-r2">Deposit</span><span class="v"><span id="ca-out-dep">3000</span> zł</span></div>
+        <div class="cr-row"><span id="ca-r5">First-month utilities (est.)</span><span class="v"><span id="ca-out-util">350</span> zł</span></div>
+        <div class="cr-row cr-comm"><span id="ca-r6">Agency commission elsewhere</span><span class="v"><s><span id="ca-out-comm">0</span> zł</s></span></div>
+        <div class="cr-row cr-total"><span id="ca-r3">≈ Move-in with legalsol</span><span class="v"><span id="ca-out-total">6350</span> zł</span></div>
         <div class="cr-row"><span id="ca-r4">legalsol help</span><span class="v" id="ca-out-fee">free / fixed*</span></div>
-        <div class="calc-note" id="ca-note">* Often free for you (paid by partners) or one fixed fee, confirmed by Adam. Rent is what you choose; deposit is usually 1 month.</div>
+        <div class="calc-note" id="ca-note">* With legalsol you skip the agency commission — it's often free for you (paid by partners) or one fixed fee, confirmed by Adam. Deposit and utilities are paid to the landlord, not us.</div>
         <button class="btn btn-primary" id="ca-send" type="button" onclick="calcSend()">💬 Send to Adam</button>
       </div>
     </div>
@@ -706,8 +710,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ One contact for your visa, your residence card and your home — already knows your case, speaks your language.',
       'ca-pill':'Plan your move','ca-title':'Tell us what you want — see what it takes','ca-sub':"Set your preferences and budget. We'll show roughly what moving in costs, then send it straight to Adam.",
       'ca-l-city':'City','ca-l-type':'Looking for','ca-l-people':'People','ca-l-when':'Move-in','ca-l-budget':'Monthly budget',
-      'ca-r1':'Monthly rent (your budget)','ca-r2':'Deposit (≈ 1 month)','ca-r3':'≈ To move in','ca-r4':'legalsol help','ca-out-fee':'free / fixed*',
-      'ca-note':'* Often free for you (paid by partners) or one fixed fee, confirmed by Adam. Rent is what you choose; deposit is usually 1 month.','ca-send':'💬 Send to Adam',
+      'ca-r1':'Monthly rent (your budget)','ca-r2':'Deposit','ca-r5':'First-month utilities (est.)','ca-r6':'Agency commission elsewhere','ca-r3':'≈ Move-in with legalsol','ca-r4':'legalsol help','ca-out-fee':'free / fixed*',
+      'ca-note':'* With legalsol you skip the agency commission. Deposit & utilities go to the landlord; our help is free (partner-paid) or one fixed fee — confirmed by Adam.','ca-send':'💬 Send to Adam',
       'ai-pill':'We take it all on','ai-title':'You just say what you want. We serve it on a plate.','ai-sub':"Landlords are often wary of foreigners who don't yet have a karta pobytu. As your legalization firm, we vouch for you and handle every document — so the owner says yes and you simply sign.",
       'ai-you-tag':'You','ai-you1':'Tell us your budget, area and what you need','ai-you2':"Show up and sign — that's it",'ai-we-tag':'legalsol does the rest',
       'ai1':'Find and verify real options','ai2':"Vouch to the landlord that you're in Poland legally",'ai3':'Provide all documents proving your legal status','ai4':'Cover the notary','ai5':'Cover the sworn translator','ai6':'Prepare every document the lease requires','ai7':'Review the contract and sign it with you','ai8':'Register your meldunek','ai9':'Set up utilities',
@@ -765,8 +769,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Один контакт для визы, карты побыту и жилья — уже знает ваше дело и говорит на вашем языке.',
       'ca-pill':'Спланируйте переезд','ca-title':'Скажите, что хотите — увидите расклад','ca-sub':'Выберите параметры и бюджет. Покажем примерную стоимость въезда и отправим всё Adam\'у.',
       'ca-l-city':'Город','ca-l-type':'Что ищете','ca-l-people':'Человек','ca-l-when':'Заселение','ca-l-budget':'Бюджет в месяц',
-      'ca-r1':'Аренда в месяц (ваш бюджет)','ca-r2':'Залог (≈ 1 месяц)','ca-r3':'≈ На въезд','ca-r4':'Помощь legalsol','ca-out-fee':'бесплатно / фикс.*',
-      'ca-note':'* Часто бесплатно для вас (платит партнёр) или один фикс. сбор — подтвердит Adam. Аренда — ваш выбор; залог обычно 1 месяц.','ca-send':'💬 Отправить Adam',
+      'ca-r1':'Аренда в месяц (ваш бюджет)','ca-r2':'Залог','ca-r5':'Коммуналка (1-й мес, ≈)','ca-r6':'Комиссия агентству (обычно)','ca-r3':'≈ Въезд с legalsol','ca-r4':'Помощь legalsol','ca-out-fee':'бесплатно / фикс.*',
+      'ca-note':'* С legalsol вы не платите комиссию агентству. Залог и коммуналку платите наймодателю; наша помощь — бесплатно (платит партнёр) или один фикс. сбор, подтвердит Adam.','ca-send':'💬 Отправить Adam',
       'ai-pill':'Берём всё на себя','ai-title':'Вы просто говорите, что хотите. Мы подаём на блюде.','ai-sub':'Владельцы часто настороженно относятся к иностранцам без готовой карты побыту. Как ваша фирма по легализации, мы ручаемся за вас и оформляем все документы — чтобы хозяин сказал «да», а вам осталось только подписать.',
       'ai-you-tag':'Вы','ai-you1':'Говорите бюджет, район и что нужно','ai-you2':'Приходите и подписываете — всё','ai-we-tag':'legalsol делает остальное',
       'ai1':'Находим и проверяем реальные варианты','ai2':'Ручаемся перед хозяином, что вы в Польше легально','ai3':'Даём все документы, подтверждающие вашу легальность','ai4':'Берём на себя нотариуса','ai5':'Берём на себя присяжного переводчика','ai6':'Готовим все документы для договора','ai7':'Проверяем договор и подписываем вместе с вами','ai8':'Оформляем прописку (meldunek)','ai9':'Подключаем коммуналку',
@@ -824,8 +828,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Jeden kontakt do wizy, karty pobytu i mieszkania — zna już Twoją sprawę i mówi w Twoim języku.',
       'ca-pill':'Zaplanuj przeprowadzkę','ca-title':'Powiedz, czego chcesz — zobacz, co potrzeba','ca-sub':'Ustaw preferencje i budżet. Pokażemy orientacyjny koszt wprowadzki i wyślemy wszystko do Adama.',
       'ca-l-city':'Miasto','ca-l-type':'Czego szukasz','ca-l-people':'Osoby','ca-l-when':'Wprowadzka','ca-l-budget':'Budżet miesięczny',
-      'ca-r1':'Czynsz miesięczny (Twój budżet)','ca-r2':'Kaucja (≈ 1 miesiąc)','ca-r3':'≈ Na wprowadzkę','ca-r4':'Pomoc legalsol','ca-out-fee':'darmowe / stała*',
-      'ca-note':'* Często bezpłatnie dla Ciebie (płaci partner) lub jedna stała opłata — potwierdzi Adam. Czynsz to Twój wybór; kaucja to zwykle 1 miesiąc.','ca-send':'💬 Wyślij do Adama',
+      'ca-r1':'Czynsz miesięczny (Twój budżet)','ca-r2':'Kaucja','ca-r5':'Media (1. mies., ≈)','ca-r6':'Prowizja agencji (gdzie indziej)','ca-r3':'≈ Wprowadzka z legalsol','ca-r4':'Pomoc legalsol','ca-out-fee':'darmowe / stała*',
+      'ca-note':'* Z legalsol nie płacisz prowizji agencji. Kaucja i media idą do właściciela; nasza pomoc jest darmowa (płaci partner) lub jedna stała opłata — potwierdzi Adam.','ca-send':'💬 Wyślij do Adama',
       'ai-pill':'Bierzemy wszystko na siebie','ai-title':'Ty mówisz, czego chcesz. My podajemy na tacy.','ai-sub':'Właściciele często są ostrożni wobec obcokrajowców bez gotowej karty pobytu. Jako Twoja firma legalizacyjna ręczymy za Ciebie i załatwiamy wszystkie dokumenty — żeby właściciel powiedział „tak", a Tobie zostało tylko podpisać.',
       'ai-you-tag':'Ty','ai-you1':'Mówisz budżet, okolicę i czego potrzebujesz','ai-you2':'Przychodzisz i podpisujesz — to wszystko','ai-we-tag':'legalsol robi resztę',
       'ai1':'Znajdujemy i weryfikujemy realne oferty','ai2':'Ręczymy właścicielowi, że jesteś w Polsce legalnie','ai3':'Dajemy wszystkie dokumenty potwierdzające legalność','ai4':'Bierzemy na siebie notariusza','ai5':'Bierzemy na siebie tłumacza przysięgłego','ai6':'Przygotowujemy wszystkie dokumenty do umowy','ai7':'Sprawdzamy umowę i podpisujemy razem z Tobą','ai8':'Robimy meldunek','ai9':'Podłączamy media',
@@ -883,8 +887,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Un contacto para tu visado, tu tarjeta de residencia y tu hogar — ya conoce tu caso y habla tu idioma.',
       'ca-pill':'Planifica tu mudanza','ca-title':'Dinos qué quieres — mira lo que conlleva','ca-sub':'Ajusta tus preferencias y presupuesto. Te mostramos aproximadamente lo que cuesta mudarse y lo enviamos directo a Adam.',
       'ca-l-city':'Ciudad','ca-l-type':'Buscas','ca-l-people':'Personas','ca-l-when':'Entrada','ca-l-budget':'Presupuesto mensual',
-      'ca-r1':'Alquiler mensual (tu presupuesto)','ca-r2':'Depósito (≈ 1 mes)','ca-r3':'≈ Para mudarte','ca-r4':'Ayuda de legalsol','ca-out-fee':'gratis / fija*',
-      'ca-note':'* A menudo gratis para ti (lo pagan los socios) o una tarifa fija, confirmada por Adam. El alquiler lo eliges tú; el depósito suele ser 1 mes.','ca-send':'💬 Enviar a Adam',
+      'ca-r1':'Alquiler mensual (tu presupuesto)','ca-r2':'Depósito','ca-r5':'Servicios (1.er mes, ≈)','ca-r6':'Comisión de agencia (otros)','ca-r3':'≈ Mudanza con legalsol','ca-r4':'Ayuda de legalsol','ca-out-fee':'gratis / fija*',
+      'ca-note':'* Con legalsol te ahorras la comisión de agencia. El depósito y los servicios van al propietario; nuestra ayuda es gratis (la pagan los socios) o una tarifa fija, confirmada por Adam.','ca-send':'💬 Enviar a Adam',
       'ai-pill':'Nos encargamos de todo','ai-title':'Tú solo dices qué quieres. Te lo servimos en bandeja.','ai-sub':'Los propietarios suelen desconfiar de los extranjeros que aún no tienen karta pobytu. Como tu firma de legalización, respondemos por ti y gestionamos cada documento — para que el dueño diga sí y tú solo firmes.',
       'ai-you-tag':'Tú','ai-you1':'Dinos tu presupuesto, zona y qué necesitas','ai-you2':'Preséntate y firma — eso es todo','ai-we-tag':'legalsol hace el resto',
       'ai1':'Encontrar y verificar opciones reales','ai2':'Responder ante el propietario de que estás legal en Polonia','ai3':'Aportar todos los documentos que prueban tu situación legal','ai4':'Cubrir el notario','ai5':'Cubrir el traductor jurado','ai6':'Preparar cada documento que exige el contrato','ai7':'Revisar el contrato y firmarlo contigo','ai8':'Registrar tu meldunek','ai9':'Dar de alta los suministros',
@@ -942,8 +946,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Vize, oturum kartı ve ev için tek muhatap — dosyanızı biliyor, dilinizi konuşuyor.',
       'ca-pill':'Taşınmanızı planlayın','ca-title':'Ne istediğinizi söyleyin — neye mal olduğunu görün','ca-sub':'Tercihlerinizi ve bütçenizi ayarlayın. Taşınmanın yaklaşık maliyetini gösterir, doğrudan Adam’a göndeririz.',
       'ca-l-city':'Şehir','ca-l-type':'Aradığınız','ca-l-people':'Kişi','ca-l-when':'Giriş','ca-l-budget':'Aylık bütçe',
-      'ca-r1':'Aylık kira (bütçeniz)','ca-r2':'Depozito (≈ 1 ay)','ca-r3':'≈ Taşınma için','ca-r4':'legalsol yardımı','ca-out-fee':'ücretsiz / sabit*',
-      'ca-note':'* Genelde sizin için ücretsiz (partnerler öder) ya da Adam’ın onayladığı tek sabit ücret. Kira sizin seçiminiz; depozito genelde 1 aydır.','ca-send':'💬 Adam’a gönder',
+      'ca-r1':'Aylık kira (bütçeniz)','ca-r2':'Depozito','ca-r5':'Faturalar (1. ay, ≈)','ca-r6':'Acente komisyonu (başka yerde)','ca-r3':'≈ legalsol ile taşınma','ca-r4':'legalsol yardımı','ca-out-fee':'ücretsiz / sabit*',
+      'ca-note':'* legalsol ile acente komisyonu ödemezsiniz. Depozito ve faturalar ev sahibine gider; yardımımız ücretsiz (partnerler öder) ya da Adam’ın onayladığı tek sabit ücrettir.','ca-send':'💬 Adam’a gönder',
       'ai-pill':'Her şeyi üstleniyoruz','ai-title':'Siz sadece ne istediğinizi söyleyin. Biz hazır sunarız.','ai-sub':'Ev sahipleri çoğu zaman henüz karta pobytu olmayan yabancılara temkinli yaklaşır. Yasallaştırma firmanız olarak sizin için kefil oluruz ve her belgeyi üstleniriz — böylece ev sahibi evet der, siz sadece imzalarsınız.',
       'ai-you-tag':'Siz','ai-you1':'Bütçe, bölge ve ihtiyacınızı söyleyin','ai-you2':'Gelin ve imzalayın — hepsi bu','ai-we-tag':'Gerisini legalsol yapar',
       'ai1':'Gerçek seçenekleri bulup doğrularız','ai2':'Polonya’da yasal olduğunuza ev sahibine kefil oluruz','ai3':'Yasal durumunuzu kanıtlayan tüm belgeleri sağlarız','ai4':'Noteri üstleniriz','ai5':'Yeminli tercümanı üstleniriz','ai6':'Sözleşmenin gerektirdiği her belgeyi hazırlarız','ai7':'Sözleşmeyi inceler ve sizinle imzalarız','ai8':'meldunek kaydınızı yaparız','ai9':'Faturaları açarız',
@@ -1001,8 +1005,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Viza, yaşayış kartı və ev üçün bir əlaqə — işinizi bilir, dilinizi danışır.',
       'ca-pill':'Köçmənizi planlaşdırın','ca-title':'Nə istədiyinizi deyin — nəyə başa gəldiyini görün','ca-sub':'Üstünlükləri və büdcəni seçin. Köçmənin təxmini xərcini göstərib birbaşa Adam-a göndəririk.',
       'ca-l-city':'Şəhər','ca-l-type':'Axtardığınız','ca-l-people':'Nəfər','ca-l-when':'Köçmə','ca-l-budget':'Aylıq büdcə',
-      'ca-r1':'Aylıq kirayə (büdcəniz)','ca-r2':'Depozit (≈ 1 ay)','ca-r3':'≈ Köçmək üçün','ca-r4':'legalsol köməyi','ca-out-fee':'pulsuz / sabit*',
-      'ca-note':'* Çox vaxt sizin üçün pulsuz (partnyorlar ödəyir) və ya Adam-ın təsdiqlədiyi bir sabit haqq. Kirayə sizin seçiminizdir; depozit adətən 1 aydır.','ca-send':'💬 Adam-a göndər',
+      'ca-r1':'Aylıq kirayə (büdcəniz)','ca-r2':'Depozit','ca-r5':'Kommunal (1-ci ay, ≈)','ca-r6':'Agentlik komissiyası (başqa yerdə)','ca-r3':'≈ legalsol ilə köçmə','ca-r4':'legalsol köməyi','ca-out-fee':'pulsuz / sabit*',
+      'ca-note':'* legalsol ilə agentlik komissiyası ödəmirsiniz. Depozit və kommunal ev sahibinə gedir; köməyimiz pulsuzdur (partnyorlar ödəyir) və ya Adam-ın təsdiqlədiyi bir sabit haqq.','ca-send':'💬 Adam-a göndər',
       'ai-pill':'Hər şeyi öz üzərimizə götürürük','ai-title':'Siz sadəcə nə istədiyinizi deyin. Biz hazır təqdim edirik.','ai-sub':'Ev sahibləri çox vaxt hələ karta pobytu olmayan əcnəbilərə ehtiyatla yanaşır. Leqallaşdırma firmanız olaraq sizə zəmanət veririk və hər sənədi öz üzərimizə götürürük — beləcə sahib razılaşır, siz sadəcə imzalayırsınız.',
       'ai-you-tag':'Siz','ai-you1':'Büdcə, ərazi və ehtiyacınızı deyin','ai-you2':'Gəlin və imzalayın — vəssalam','ai-we-tag':'Qalanını legalsol edir',
       'ai1':'Real variantları tapıb yoxlayırıq','ai2':'Polşada leqal olduğunuza ev sahibinə zəmanət veririk','ai3':'Leqallığınızı təsdiq edən bütün sənədləri veririk','ai4':'Notariusu öz üzərimizə götürürük','ai5':'And içmiş tərcüməçini öz üzərimizə götürürük','ai6':'Müqavilənin tələb etdiyi hər sənədi hazırlayırıq','ai7':'Müqaviləni yoxlayır və sizinlə imzalayırıq','ai8':'meldunek qeydiyyatınızı edirik','ai9':'Kommunalı qoşuruq',
@@ -1060,8 +1064,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ वीज़ा, रेज़िडेंस कार्ड और घर के लिए एक संपर्क — आपका केस जानता है, आपकी भाषा बोलता है।',
       'ca-pill':'अपना मूव प्लान करें','ca-title':'बताएँ क्या चाहते हैं — देखें क्या लगेगा','ca-sub':'अपनी पसंद और बजट सेट करें। हम लगभग दिखाएँगे कि बसने में कितना लगता है, फिर सीधे Adam को भेज देंगे।',
       'ca-l-city':'शहर','ca-l-type':'आप क्या ढूँढ रहे हैं','ca-l-people':'लोग','ca-l-when':'मूव-इन','ca-l-budget':'मासिक बजट',
-      'ca-r1':'मासिक किराया (आपका बजट)','ca-r2':'जमा (≈ 1 माह)','ca-r3':'≈ मूव-इन के लिए','ca-r4':'legalsol मदद','ca-out-fee':'मुफ़्त / निश्चित*',
-      'ca-note':'* अक्सर आपके लिए मुफ़्त (पार्टनर चुकाते हैं) या एक निश्चित शुल्क, Adam द्वारा पुष्ट। किराया आपकी पसंद है; जमा आमतौर पर 1 माह।','ca-send':'💬 Adam को भेजें',
+      'ca-r1':'मासिक किराया (आपका बजट)','ca-r2':'जमा','ca-r5':'यूटिलिटी (पहला माह, ≈)','ca-r6':'एजेंसी कमीशन (अन्यत्र)','ca-r3':'≈ legalsol के साथ मूव-इन','ca-r4':'legalsol मदद','ca-out-fee':'मुफ़्त / निश्चित*',
+      'ca-note':'* legalsol के साथ आप एजेंसी कमीशन नहीं देते। जमा और यूटिलिटी मकान-मालिक को जाते हैं; हमारी मदद मुफ़्त (पार्टनर चुकाते हैं) या एक निश्चित शुल्क — Adam द्वारा पुष्ट।','ca-send':'💬 Adam को भेजें',
       'ai-pill':'हम सब संभालते हैं','ai-title':'आप बस बताएँ क्या चाहिए। हम थाली में परोसते हैं।','ai-sub':'मकान मालिक अक्सर उन विदेशियों से सतर्क रहते हैं जिनके पास अभी karta pobytu नहीं है। आपकी वैधीकरण फर्म के रूप में हम आपकी गारंटी देते हैं और हर दस्तावेज़ संभालते हैं — ताकि मालिक हाँ कहे और आप बस हस्ताक्षर करें।',
       'ai-you-tag':'आप','ai-you1':'अपना बजट, इलाका और ज़रूरत बताएँ','ai-you2':'आएँ और हस्ताक्षर करें — बस','ai-we-tag':'बाकी legalsol करता है',
       'ai1':'असली विकल्प ढूँढना और सत्यापित करना','ai2':'मकान मालिक को गारंटी देना कि आप पोलैंड में वैध हैं','ai3':'आपकी वैधता साबित करने वाले सभी दस्तावेज़ देना','ai4':'नोटरी का खर्च','ai5':'शपथ-अनुवादक का खर्च','ai6':'अनुबंध के लिए ज़रूरी हर दस्तावेज़ तैयार करना','ai7':'अनुबंध जाँचना और आपके साथ हस्ताक्षर करना','ai8':'आपका meldunek पंजीकरण','ai9':'बिजली-पानी जोड़ना',
@@ -1119,8 +1123,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'pr-note':'✅ Один контакт для візи, карти побиту і житла — уже знає вашу справу й говорить вашою мовою.',
       'ca-pill':'Сплануйте переїзд','ca-title':'Скажіть, чого хочете — побачите розклад','ca-sub':'Оберіть параметри й бюджет. Покажемо приблизну вартість заселення і надішлемо все Adam.',
       'ca-l-city':'Місто','ca-l-type':'Що шукаєте','ca-l-people':'Людей','ca-l-when':'Заселення','ca-l-budget':'Бюджет на місяць',
-      'ca-r1':'Оренда на місяць (ваш бюджет)','ca-r2':'Застава (≈ 1 місяць)','ca-r3':'≈ На заселення','ca-r4':'Допомога legalsol','ca-out-fee':'безкоштовно / фікс.*',
-      'ca-note':'* Часто безкоштовно для вас (платить партнер) або одна фіксована плата — підтвердить Adam. Оренда — ваш вибір; застава зазвичай 1 місяць.','ca-send':'💬 Надіслати Adam',
+      'ca-r1':'Оренда на місяць (ваш бюджет)','ca-r2':'Застава','ca-r5':'Комуналка (1-й міс, ≈)','ca-r6':'Комісія агентству (зазвичай)','ca-r3':'≈ Заселення з legalsol','ca-r4':'Допомога legalsol','ca-out-fee':'безкоштовно / фікс.*',
+      'ca-note':'* З legalsol ви не платите комісію агентству. Заставу й комуналку платите власнику; наша допомога — безкоштовно (платить партнер) або одна фіксована плата, підтвердить Adam.','ca-send':'💬 Надіслати Adam',
       'ai-pill':'Беремо все на себе','ai-title':'Ви лише кажете, чого хочете. Ми подаємо на блюді.','ai-sub':'Власники часто насторожено ставляться до іноземців без готової karta pobytu. Як ваша фірма з легалізації, ми ручаємось за вас і оформлюємо всі документи — щоб господар сказав «так», а вам лишилось тільки підписати.',
       'ai-you-tag':'Ви','ai-you1':'Кажете бюджет, район і що потрібно','ai-you2':'Приходите й підписуєте — і все','ai-we-tag':'Решту робить legalsol',
       'ai1':'Знаходимо і перевіряємо реальні варіанти','ai2':'Ручаємось перед господарем, що ви в Польщі легально','ai3':'Даємо всі документи, що підтверджують вашу легальність','ai4':'Беремо на себе нотаріуса','ai5':'Беремо на себе присяжного перекладача','ai6':'Готуємо всі документи для договору','ai7':'Перевіряємо договір і підписуємо разом з вами','ai8':'Оформлюємо meldunek','ai9':'Підключаємо комуналку',
@@ -1218,21 +1222,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if(pimg && !rm && y<900) pimg.style.transform='translateY('+(y*0.08)+'px)';
     },{passive:true});
 
-    // calculator
+    // calculator — numbers vary by type (deposit & commission) and people (utilities)
     var budget=document.getElementById('ca-budget');
+    var TYPE_DEP={'Apartment':1,'Studio':1,'House':1,'Room':0.5,'Shared flat':0.5,'Short-stay':0,'Temporary':0};
+    var TYPE_COMM={'Apartment':0.85,'Studio':0.75,'House':1,'Room':0.4,'Shared flat':0.4,'Short-stay':0,'Temporary':0};
+    var PPL_UTIL={'1':350,'2':500,'3':650,'4':800,'5+':950,'4+':800};
+    function caActive(grp){var a=document.querySelector('#ca-'+grp+' .chip.active');return a?a.getAttribute('data-v'):'';}
+    function caSet(id,val){var e=document.getElementById(id); if(e) e.textContent=val;}
     function calcUpd(){
-      var v=parseInt(budget.value,10);
-      document.getElementById('ca-budget-val').textContent=v;
-      document.getElementById('ca-out-rent').textContent=v;
-      document.getElementById('ca-out-dep').textContent=v;
-      document.getElementById('ca-out-total').textContent=v*2;
+      if(!budget) return;
+      var v=parseInt(budget.value,10)||0;
+      var tp=caActive('type'), pp=caActive('people');
+      var depR=(TYPE_DEP[tp]!=null?TYPE_DEP[tp]:1);
+      var commR=(TYPE_COMM[tp]!=null?TYPE_COMM[tp]:0.85);
+      var dep=Math.round(v*depR/50)*50;
+      var util=PPL_UTIL[pp]||500;
+      var comm=Math.round(v*commR/50)*50;
+      caSet('ca-budget-val',v);
+      caSet('ca-out-rent',v);
+      caSet('ca-out-dep',dep);
+      caSet('ca-out-util',util);
+      caSet('ca-out-comm',comm);          // shown struck = what you'd pay elsewhere, skipped with us
+      caSet('ca-out-total',v+dep+util);   // move-in with legalsol (no agency commission)
     }
-    if(budget){ budget.addEventListener('input',calcUpd); calcUpd(); }
+    if(budget){ budget.addEventListener('input',calcUpd); }
     ['city','type','people','when'].forEach(function(grp){
       var box=document.getElementById('ca-'+grp); if(!box) return;
       box.addEventListener('click',function(e){ var b=e.target.closest('.chip'); if(!b) return;
-        box.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');}); b.classList.add('active'); });
+        box.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');}); b.classList.add('active');
+        calcUpd(); });
     });
+    calcUpd();
   });
 })();
 </script>
