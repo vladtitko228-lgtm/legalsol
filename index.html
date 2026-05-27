@@ -10436,18 +10436,20 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     @keyframes rcmIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
     .rcm-overlay.open .rcm-body h3,
     .rcm-overlay.open .rcm-body>.rcw-tag,
-    .rcm-overlay.open #rcmStory>*,
     .rcm-overlay.open .rcm-cta{opacity:0;animation:rcmIn .6s cubic-bezier(.16,1,.3,1) forwards;}
     .rcm-overlay.open .rcm-body h3{animation-delay:.12s;}
     .rcm-overlay.open .rcm-body>.rcw-tag{animation-delay:.20s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(1){animation-delay:.28s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(2){animation-delay:.36s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(3){animation-delay:.44s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(4){animation-delay:.52s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(5){animation-delay:.60s;}
-    .rcm-overlay.open #rcmStory>*:nth-child(n+6){animation-delay:.66s;}
-    .rcm-overlay.open .rcm-cta{animation-delay:.74s;}
-    @media(prefers-reduced-motion:reduce){.rcm-box,.rcm-photo img,.rcm-overlay.open .rcm-body h3,.rcm-overlay.open .rcm-body>.rcw-tag,.rcm-overlay.open #rcmStory>*,.rcm-overlay.open .rcm-cta{animation:none!important;transition-duration:.01s!important;opacity:1!important;transform:none!important;}}
+    .rcm-overlay.open .rcm-cta{animation-delay:.30s;}
+    /* story body — each paragraph & bullet glides in as it scrolls into view (JS) */
+    #rcmStory .rcm-rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1);}
+    #rcmStory .rcm-rv.rcm-in{opacity:1;transform:none;}
+    #rcmStory li.rcm-rv{transition-duration:.5s;}
+    /* reading-progress bar across the top of the modal */
+    .rcm-prog{position:absolute;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#5B52CC,#8B82E8,#FBBF24);z-index:7;border-radius:0 3px 3px 0;transition:width .12s linear;}
+    /* highlighted closing line */
+    .rcm-body #rcmStory>p:last-child{margin-top:20px;padding:14px 18px;background:linear-gradient(135deg,rgba(251,191,36,.12),rgba(124,92,252,.10));border-left:3px solid #FBBF24;border-radius:0 14px 14px 0;font-size:15.5px;color:#fff;}
+    .rcm-body #rcmStory>p:last-child b{color:#fde047;}
+    @media(prefers-reduced-motion:reduce){.rcm-box,.rcm-photo img,.rcm-overlay.open .rcm-body h3,.rcm-overlay.open .rcm-body>.rcw-tag,.rcm-overlay.open .rcm-cta,#rcmStory .rcm-rv{animation:none!important;transition-duration:.01s!important;opacity:1!important;transform:none!important;}}
     .rcm-body{padding:30px 32px;overflow-y:auto;}
     .rcm-body h3{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin:0;}
     .rcm-body .rcw-tag{display:inline-block;color:#34d399;font-size:10.5px;margin:10px 0 18px;font-family:ui-monospace,monospace;letter-spacing:.6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);padding:3px 9px;border-radius:999px;}
@@ -10479,6 +10481,7 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
   <!-- Real-client story modal -->
   <div class="rcm-overlay" id="rcmOverlay" hidden>
     <div class="rcm-box">
+      <div class="rcm-prog" id="rcmProg"></div>
       <button class="rcm-close" id="rcmClose" aria-label="Close">×</button>
       <div class="rcm-photo"><img id="rcmImg" src="" alt="LegalSol client"/></div>
       <div class="rcm-body">
@@ -10495,13 +10498,27 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
     // Move overlay to <body> so position:fixed isn't trapped by .tab-content (contain:layout) — otherwise it collapses to 0×0 and the story is invisible
     try{ if(ov.parentElement!==document.body) document.body.appendChild(ov); }catch(e){}
     var img=document.getElementById('rcmImg'),nm=document.getElementById('rcmName'),tg=document.getElementById('rcmTag'),st=document.getElementById('rcmStory');
+    var body=ov.querySelector('.rcm-body'), prog=document.getElementById('rcmProg'), rio=null;
+    function updateProg(){ if(!body||!prog)return; var h=body.scrollHeight-body.clientHeight; prog.style.width=(h>0?Math.min(100,body.scrollTop/h*100):0)+'%'; }
     function openCard(c){
       var full=c.querySelector('.rcm-full'); var ph=c.querySelector('.rcw-ph img');
       if(ph)img.src=ph.src;
       nm.textContent=(c.querySelector('figcaption b')||{}).textContent||'';
       tg.textContent=(c.querySelector('.rcw-tag')||{}).textContent||'';
       st.innerHTML=full?full.innerHTML:'';
-      ov.hidden=false; void ov.offsetWidth; /* force reflow so the entrance transition+stagger animate reliably (not dependent on rAF) */ ov.classList.add('open'); document.body.style.overflow='hidden';
+      var items=st.querySelectorAll('p, li');
+      items.forEach(function(el,i){ el.classList.add('rcm-rv'); el.style.transitionDelay=(i<8?(i*0.06).toFixed(2):'0')+'s'; });
+      if(body){ body.scrollTop=0; } if(prog){ prog.style.width='0%'; }
+      ov.hidden=false; void ov.offsetWidth; /* reflow so entrance transition fires */ ov.classList.add('open'); document.body.style.overflow='hidden';
+      // each paragraph / bullet glides in as it scrolls into the story
+      if(rio) rio.disconnect();
+      if('IntersectionObserver' in window && body){
+        rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('rcm-in'); rio.unobserve(e.target); } }); },{root:body,threshold:0.08});
+        items.forEach(function(el){ rio.observe(el); });
+      } else { items.forEach(function(el){ el.classList.add('rcm-in'); }); }
+      // safety: reveal whatever is already in view once the entrance settles
+      setTimeout(function(){ var bb=body?body.getBoundingClientRect():null; items.forEach(function(el){ if(el.classList.contains('rcm-in'))return; if(!bb){el.classList.add('rcm-in');return;} var r=el.getBoundingClientRect(); if(r.top<bb.bottom){ el.classList.add('rcm-in'); if(rio)rio.unobserve(el);} }); },480);
+      if(body) body.onscroll=updateProg;
     }
     function closeM(){ov.classList.remove('open');document.body.style.overflow='';setTimeout(function(){ov.hidden=true;},250);}
     document.querySelectorAll('.rcw-card').forEach(function(c){
