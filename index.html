@@ -14558,12 +14558,18 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     </div>
 
+    <!-- Registration temporarily disabled per request 2026-05-27 — login only.
+         To restore: un-comment the tabs below and the #cab-form-register block.
     <div class="cab-login-tabs">
 
       <button class="cab-login-tab active" onclick="cabSwitchTab('login',this)">Вход</button>
 
       <button class="cab-login-tab" onclick="cabSwitchTab('register',this)">Регистрация</button>
 
+    </div>
+    -->
+    <div class="cab-login-tabs" style="margin-bottom:28px;">
+      <button class="cab-login-tab active" type="button" style="cursor:default;">Вход в кабинет</button>
     </div>
 
     <div id="cab-form-login">
@@ -14578,6 +14584,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     </div>
 
+    <!-- Registration form temporarily disabled per request 2026-05-27 — login only.
     <div id="cab-form-register" style="display:none">
 
       <div class="cab-field"><label class="cab-label" id="cab-lbl-name-1">Имя</label><input class="cab-input" type="text" placeholder="Иван Петров"/></div>
@@ -14589,6 +14596,8 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
       <button class="cab-btn-primary" id="cab-btn-register" onclick="cabLogin()">Создать аккаунт →</button>
 
     </div>
+    -->
+    <div class="cab-login-hint" style="margin-top:14px;">Нет аккаунта? <span onclick="document.querySelector('.fab-wa')?document.querySelector('.fab-wa').click():(location.href='https://wa.me/48735248525')">Напишите нам в WhatsApp</span> — заведём доступ.</div>
 
   </div>
 
