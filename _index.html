@@ -6233,6 +6233,12 @@ function submitHlead(){
   position:relative;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;
 
 }
+/* PHOTO ON EACH STEP (PREVIEW) */
+.hw-photo{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;margin-bottom:18px;background:#1a1638;}
+.hw-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.hw-card:hover .hw-photo img{transform:scale(1.05);}
+.hw-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,transparent 35%,rgba(15,13,34,.55) 100%);pointer-events:none;}
+.hw-photo .hw-ico{position:absolute;left:12px;bottom:12px;margin:0;width:42px;height:42px;border-radius:12px;font-size:20px;z-index:2;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);}
 
 .hw-card:nth-child(1) .hw-ico{background:linear-gradient(135deg,rgba(109,40,217,.2),rgba(79,70,229,.15));box-shadow:0 4px 16px rgba(109,40,217,.2);}
 
@@ -6342,7 +6348,7 @@ function submitHlead(){
 
       <div class="hw-card reveal">
 
-        <div class="hw-ico">💬</div>
+        <div class="hw-photo"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80" loading="lazy" alt=""><div class="hw-ico">💬</div></div>
 
         <div class="hw-title" id="st1">Бесплатная консультация</div>
 
@@ -6354,7 +6360,7 @@ function submitHlead(){
 
       <div class="hw-card reveal">
 
-        <div class="hw-ico">📄</div>
+        <div class="hw-photo"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" loading="lazy" alt=""><div class="hw-ico">📄</div></div>
 
         <div class="hw-title" id="st2">Пакет документов</div>
 
@@ -6366,7 +6372,7 @@ function submitHlead(){
 
       <div class="hw-card reveal">
 
-        <div class="hw-ico">🏛️</div>
+        <div class="hw-photo"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" loading="lazy" alt=""><div class="hw-ico">🏛️</div></div>
 
         <div class="hw-title" id="st3">Подача в уженд</div>
 
@@ -6378,7 +6384,7 @@ function submitHlead(){
 
       <div class="hw-card reveal">
 
-        <div class="hw-ico">🪪</div>
+        <div class="hw-photo"><img src="/assets/trc/client1.jpg" loading="lazy" alt="Real client holding a Karta Pobytu"><div class="hw-ico">🪪</div></div>
 
         <div class="hw-title" id="st4">Карта побыту в руках</div>
 
