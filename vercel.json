@@ -23,6 +23,10 @@
   ],
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/api/index"
+    },
+    {
       "source": "/blog/:slug",
       "destination": "/api/blog/:slug"
     },
@@ -59,6 +63,11 @@
       "destination": "/housing.html"
     }
   ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "index.html"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
