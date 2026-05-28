@@ -1106,9 +1106,20 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 
 
+/* PORTRAIT WALL — ambient grid of client faces behind hero (PREVIEW) */
+.hero-portraits{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(0,1fr);gap:6px;padding:6px;pointer-events:none;overflow:hidden;}
+.hero-portraits img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;border-radius:10px;display:block;opacity:.45;filter:saturate(.78) contrast(1.04);animation:hpFadeIn 1.6s ease-out both;}
+.hero-portraits img:nth-child(3n){opacity:.38;}
+.hero-portraits img:nth-child(5n){opacity:.5;}
+.hero-portraits::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 58% 95% at 28% 50%,rgba(15,13,34,.96) 0%,rgba(15,13,34,.72) 45%,rgba(15,13,34,.45) 85%),linear-gradient(180deg,rgba(15,13,34,.35) 0%,transparent 28%,transparent 70%,rgba(15,13,34,.7) 100%);pointer-events:none;}
+@keyframes hpFadeIn{from{opacity:0;transform:scale(1.04);}to{opacity:.45;transform:none;}}
+@media(max-width:880px){.hero-portraits{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:560px){.hero-portraits{grid-template-columns:repeat(3,1fr);}}
+@media(prefers-reduced-motion:reduce){.hero-portraits img{animation:none!important;}}
+
 /* AURORA BACKGROUND */
 
-.aurora-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.aurora-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
 
 .aurora-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;mix-blend-mode:screen;}
 
@@ -4372,6 +4383,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <section id="hero">
+
+  <!-- Portrait wall (PREVIEW) -->
+  <div class="hero-portraits" aria-hidden="true">
+    <img src="/assets/trc/client1.jpg" loading="eager" alt="">
+    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="/assets/trc/client2.jpg" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="/assets/trc/client3.jpg" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="/assets/trc/client4.jpg" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="/assets/trc/client5.jpg" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+    <img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=520&h=700&fit=crop&q=70" loading="lazy" alt="">
+  </div>
 
   <!-- Aurora background -->
 
