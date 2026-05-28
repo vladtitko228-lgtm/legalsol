@@ -4711,7 +4711,11 @@ updateTicker('ru');
     mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);}
   .rvtop-grid{display:flex;gap:16px;width:max-content;animation:rvtopScroll 90s linear infinite !important;will-change:transform;}
   .rvtop-marquee:hover .rvtop-grid{animation-play-state:paused;}
-  .rvtop-card{flex:0 0 300px;width:300px;}
+  .rvtop-card{flex:0 0 270px !important;width:270px !important;max-width:none !important;min-width:270px !important;}
+  /* Compact marquee card — was 4:5 portrait (≈540px tall), now ~340px */
+  .rvtop-marquee .rvtop-photo{aspect-ratio:unset !important;height:200px !important;}
+  .rvtop-marquee .rvtop-cardbody{padding:12px 14px 14px !important;gap:6px !important;}
+  .rvtop-marquee .rvtop-q{font-size:13px !important;line-height:1.4 !important;display:-webkit-box !important;-webkit-line-clamp:4 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;}
   @keyframes rvtopScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(prefers-reduced-motion:reduce){.rvtop-grid{animation:none;}}
   .rvtop-card{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(27,22,64,.85),rgba(18,16,46,.85));border:1px solid rgba(139,130,232,.18);border-radius:18px;overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s ease,box-shadow .4s ease;}
@@ -4768,21 +4772,32 @@ updateTicker('ru');
       grid.dataset.cloned='1';
       try{ applyR(curLang()); }catch(e){}
     }
-    // Drive via Web Animations API — bypasses any global CSS animation override
-    // (this site has several blanket "animation: none !important" rules that strip
-    // CSS @keyframes even for elements we want to animate).
+    // Drive via requestAnimationFrame + direct transform — bulletproof against the
+    // site's many "animation: none !important" / "transform: none !important" rules.
+    // Inline style.transform on every frame can't be overridden by anything but !important
+    // transform — and we have grep-verified none target our element.
     var prm=false; try{prm=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
-    if(!prm && typeof grid.animate==='function'){
-      var dur=(window.innerWidth<720)?70000:90000;
-      var anim=grid.animate(
-        [{transform:'translateX(0)'},{transform:'translateX(-50%)'}],
-        {duration:dur, iterations:Infinity, easing:'linear'}
-      );
+    if(!prm){
+      var pos=0, half=0, paused=false;
+      var pxPerSec=(window.innerWidth<720)?28:36;  // gentle scroll
+      var last=performance.now();
+      function tick(now){
+        if(!half){ half=grid.scrollWidth/2; }
+        if(!paused){
+          var dt=Math.min(now-last, 64)/1000;
+          pos -= pxPerSec*dt;
+          if(pos <= -half) pos += half;
+          grid.style.transform='translate3d('+pos+'px,0,0)';
+        }
+        last=now;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
       // Pause on hover
       var wrap=document.getElementById('rvtop-marquee');
       if(wrap){
-        wrap.addEventListener('mouseenter',function(){try{anim.pause();}catch(e){}});
-        wrap.addEventListener('mouseleave',function(){try{anim.play();}catch(e){}});
+        wrap.addEventListener('mouseenter',function(){paused=true;});
+        wrap.addEventListener('mouseleave',function(){paused=false; last=performance.now();});
       }
     }
   }
