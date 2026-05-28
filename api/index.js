@@ -14,12 +14,14 @@ const path = require("path");
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 
-// Read index.html once at cold start and cache in module scope (reused across warm invocations).
+// Read homepage template once at cold start and cache (reused across warm invocations).
+// File is named _index.html so Vercel's filesystem lookup for "/" misses and the
+// "/" → "/api/index" rewrite actually fires.
 let INDEX_HTML = "";
 try {
-  INDEX_HTML = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
+  INDEX_HTML = fs.readFileSync(path.join(__dirname, "..", "_index.html"), "utf8");
 } catch (e) {
-  console.error("[/api/index] failed to load index.html:", e && e.message);
+  console.error("[/api/index] failed to load _index.html:", e && e.message);
 }
 
 // Category fallback covers (kept in sync with /api/blog-listing.js)

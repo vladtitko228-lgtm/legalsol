@@ -65,7 +65,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "index.html"
+      "includeFiles": "_index.html"
     }
   },
   "headers": [
