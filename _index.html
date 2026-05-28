@@ -4075,7 +4075,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Блог</button>
 
-      <button class="tab-btn" id="tbtn-reviews" onclick="showTab('reviews')"><span id="tbtn-reviews-text">Отзывы</span></button>
+      <button class="tab-btn" id="tbtn-reviews" onclick="showTab('reviews')" style="display:none;"><span id="tbtn-reviews-text">Отзывы</span></button>
 
       <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">ИИ</button>
 
@@ -4278,7 +4278,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </button>
 
-  <button class="mob-nav-btn" onclick="showTab('reviews');closeMobNav()" style="color:#fde047;">
+  <button class="mob-nav-btn" onclick="showTab('reviews');closeMobNav()" style="color:#fde047;display:none;">
 
     <span class="mnav-ico" style="color:#fde047;">★</span>
 
@@ -4596,6 +4596,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .rvhome-more{display:flex;justify-content:center;margin-top:32px;}
   .rvhome-more a{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 'Inter',sans-serif;letter-spacing:.4px;color:#fde047;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);padding:13px 22px;border-radius:999px;text-decoration:none;transition:background .25s ease,transform .25s ease,border-color .25s ease;cursor:pointer;}
   .rvhome-more a:hover{background:rgba(251,191,36,.16);border-color:rgba(251,191,36,.55);transform:translateY(-2px);}
+  /* MOBILE: compact cards, snap scroll, slimmer photo, breathable section */
+  @media(max-width:760px){
+    .rvhome{padding:44px 0 24px;}
+    .rvhome-head{padding:0 18px;margin-bottom:22px;}
+    .rvhome-title{font-size:22px !important;}
+    .rvhome-sub{font-size:13.5px;}
+    .rvhome-marquee{padding:0 12px;scroll-snap-type:x proximity;mask-image:none;-webkit-mask-image:none;}
+    .rvhome-grid{gap:12px;}
+    .rvhome-card{flex:0 0 78vw !important;width:78vw !important;min-width:240px !important;max-width:300px !important;scroll-snap-align:center;}
+    .rvhome-photo{aspect-ratio:unset !important;height:230px !important;}
+    .rvhome-photo img{object-position:50% 25%;}
+    .rvhome-body{padding:13px 13px 14px;gap:7px;}
+    .rvhome-q{font-size:13.5px;line-height:1.5;}
+    .rvhome-more{margin-top:20px;}
+    .rvhome-more a{font-size:12.5px;padding:11px 18px;}
+  }
 </style>
 <section class="rvhome" aria-label="Client stories on homepage">
   <div class="rvhome-head reveal">
@@ -4853,7 +4869,15 @@ updateTicker('ru');
   .rvtop-foot{display:flex;flex-direction:column;gap:7px;margin-top:2px;}
   .rvtop-name{color:#fff;font-size:13px;font-weight:700;}
   .rvtop-chip{align-self:flex-start;font:700 9.5px/1 ui-monospace,monospace;letter-spacing:.3px;color:#34d399;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);padding:5px 8px;border-radius:999px;}
-  @media(max-width:720px){.rvtop-card{flex:0 0 250px;width:250px;}.rvtop-grid{gap:12px;animation-duration:70s;}.rvtop{padding:42px 14px 4px;}}
+  @media(max-width:720px){
+    .rvtop{padding:32px 0 4px;}
+    .rvtop-head{padding:0 16px;margin-bottom:18px;}
+    .rvtop-title{font-size:20px !important;}
+    .rvtop-marquee{padding:0 12px;scroll-snap-type:x proximity;}
+    .rvtop-grid{gap:10px;}
+    .rvtop-card{flex:0 0 220px !important;width:220px !important;min-width:220px !important;scroll-snap-align:center;}
+    .rvtop-marquee .rvtop-photo{height:160px !important;}
+  }
 </style>
 <script>
 (function(){
