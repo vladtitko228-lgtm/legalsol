@@ -16676,6 +16676,117 @@ function refSubmit(){
 
 
 
+<!-- LATEST BLOG ARTICLES (3 freshest, pulled from /api/articles at runtime) -->
+<section class="blog3" aria-label="Latest articles">
+  <div class="blog3-head reveal">
+    <span class="blog3-eyebrow" id="blog3-eyebrow">FROM OUR BLOG</span>
+    <h2 class="blog3-title" id="blog3-title">Fresh from the team</h2>
+    <p class="blog3-sub" id="blog3-sub">New guides every week — visas, work cards, life in Poland.</p>
+  </div>
+  <div class="blog3-grid" id="blog3Grid">
+    <div class="blog3-skel"></div>
+    <div class="blog3-skel"></div>
+    <div class="blog3-skel"></div>
+  </div>
+  <div class="blog3-foot reveal">
+    <a class="blog3-all" id="blog3-all" href="/blog">All articles →</a>
+  </div>
+</section>
+<style>
+  .blog3{max-width:1180px;margin:0 auto;padding:60px 24px 20px;}
+  .blog3-head{text-align:center;margin-bottom:32px;}
+  .blog3-eyebrow{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--p300);background:rgba(139,130,232,.12);border:1px solid rgba(139,130,232,.28);padding:7px 15px;border-radius:60px;margin-bottom:14px;}
+  .blog3-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.4vw,34px);font-weight:800;color:#fff;margin:0 0 6px;}
+  .blog3-sub{color:rgba(232,228,255,.66);font-size:14px;margin:0;}
+  .blog3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .blog3-card{display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(27,22,64,.85),rgba(18,16,46,.85));border:1px solid rgba(139,130,232,.18);border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s ease,box-shadow .4s ease;opacity:0;transform:translateY(16px);}
+  .blog3-card.on{opacity:1;transform:none;transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1);}
+  .blog3-card:nth-child(2).on{transition-delay:.08s;}
+  .blog3-card:nth-child(3).on{transition-delay:.16s;}
+  .blog3-card:hover{transform:translateY(-6px);border-color:rgba(139,130,232,.5);box-shadow:0 24px 60px -18px rgba(91,82,204,.55);}
+  .blog3-cover{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,#221a52,#13112c);}
+  .blog3-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+  .blog3-card:hover .blog3-cover img{transform:scale(1.06);}
+  .blog3-cat{position:absolute;left:12px;top:12px;z-index:2;font:700 10px/1 'Inter',sans-serif;letter-spacing:.3px;text-transform:uppercase;color:#fff;background:rgba(11,10,28,.7);padding:6px 10px;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
+  .blog3-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .blog3-name{font-family:'Playfair Display',serif;color:#fff;font-size:18px;line-height:1.3;font-weight:700;margin:0;}
+  .blog3-desc{color:rgba(232,228,255,.72);font-size:13px;line-height:1.55;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;}
+  .blog3-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;color:rgba(232,228,255,.5);font-size:11.5px;}
+  .blog3-meta .blog3-read{color:#a78bfa;font-weight:700;}
+  .blog3-foot{text-align:center;margin-top:30px;}
+  .blog3-all{display:inline-block;padding:12px 22px;border-radius:12px;background:rgba(139,130,232,.12);border:1px solid rgba(139,130,232,.32);color:#c4b5fd;text-decoration:none;font-weight:700;font-size:14px;transition:background .25s,border-color .25s,color .25s;}
+  .blog3-all:hover{background:rgba(139,130,232,.22);border-color:rgba(139,130,232,.55);color:#fff;}
+  .blog3-skel{aspect-ratio:5/6;border-radius:18px;background:linear-gradient(160deg,rgba(27,22,64,.6),rgba(18,16,46,.6));border:1px solid rgba(139,130,232,.12);position:relative;overflow:hidden;}
+  .blog3-skel::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(139,130,232,.08),transparent);animation:blog3Shimmer 1.6s ease-in-out infinite;}
+  @keyframes blog3Shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+  .blog3-empty{grid-column:1/-1;text-align:center;padding:24px;color:rgba(232,228,255,.55);font-size:13.5px;}
+  @media(max-width:880px){.blog3-grid{grid-template-columns:repeat(2,1fr);}.blog3-card:nth-child(3){display:none;}}
+  @media(max-width:560px){.blog3-grid{grid-template-columns:1fr;}.blog3-card:nth-child(3){display:flex;}.blog3{padding:48px 18px 8px;}}
+  @media(prefers-reduced-motion:reduce){.blog3-card{opacity:1!important;transform:none!important;}.blog3-cover img,.blog3-skel::after{animation:none!important;transition:none!important;}}
+</style>
+<script>
+(function(){
+  var BL={
+    en:{'blog3-eyebrow':'FROM OUR BLOG','blog3-title':'Fresh from the team','blog3-sub':'New guides every week — visas, work cards, life in Poland.','blog3-all':'All articles →'},
+    ru:{'blog3-eyebrow':'НАШ БЛОГ','blog3-title':'Свежее от команды','blog3-sub':'Новые гайды каждую неделю — визы, рабочие карты, жизнь в Польше.','blog3-all':'Все статьи →'},
+    pl:{'blog3-eyebrow':'NASZ BLOG','blog3-title':'Świeże od zespołu','blog3-sub':'Nowe poradniki co tydzień — wizy, karty pracy, życie w Polsce.','blog3-all':'Wszystkie artykuły →'},
+    uk:{'blog3-eyebrow':'НАШ БЛОГ','blog3-title':'Свіже від команди','blog3-sub':'Нові гайди щотижня — візи, робочі карти, життя в Польщі.','blog3-all':'Усі статті →'},
+    hi:{'blog3-eyebrow':'हमारा ब्लॉग','blog3-title':'टीम से ताज़ा','blog3-sub':'हर हफ़्ते नए गाइड — वीज़ा, वर्क कार्ड, पोलैंड में जीवन।','blog3-all':'सभी लेख →'},
+    es:{'blog3-eyebrow':'NUESTRO BLOG','blog3-title':'Lo último del equipo','blog3-sub':'Nuevas guías cada semana — visados, tarjetas de trabajo, vida en Polonia.','blog3-all':'Todos los artículos →'},
+    tr:{'blog3-eyebrow':'BLOGUMUZ','blog3-title':"Ekipten taze içerik",'blog3-sub':'Her hafta yeni rehberler — vizeler, çalışma kartları, Polonya hayatı.','blog3-all':'Tüm yazılar →'},
+    az:{'blog3-eyebrow':'BLOQUMUZ','blog3-title':'Komandadan təzə','blog3-sub':'Hər həftə yeni bələdçilər — vizalar, iş kartları, Polşada həyat.','blog3-all':'Bütün məqalələr →'}
+  };
+  function applyBL(l){ var d=BL[l]||BL.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
+  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&BL[s]) return s;}catch(e){} var h=document.documentElement.lang; return BL[h]?h:'en'; }
+  function hookBL(){
+    var _prev=window.setLang;
+    window.setLang=function(l){ var r; if(typeof _prev==='function'){ try{ r=_prev.apply(this,arguments); }catch(e){} } try{ applyBL(BL[l]?l:curLang()); }catch(e){} return r; };
+    applyBL(curLang());
+  }
+  if(document.readyState==='complete') hookBL(); else window.addEventListener('load',hookBL);
+
+  function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function fmtDate(iso){
+    try{ var d=new Date(iso); if(isNaN(d.getTime())) return ''; return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }catch(e){return '';}
+  }
+  function render(items){
+    var grid=document.getElementById('blog3Grid'); if(!grid) return;
+    if(!items||!items.length){ grid.innerHTML='<div class="blog3-empty">No articles yet — check back soon.</div>'; return; }
+    var html=items.slice(0,3).map(function(a){
+      var cover=a.coverImage||'';
+      var cat=a.category||'';
+      var dt=fmtDate(a.publishedDate);
+      var img=cover?'<img src="'+esc(cover)+'" alt="'+esc(a.title)+'" loading="lazy">':'';
+      return '<a class="blog3-card" href="/blog/'+esc(a.slug)+'">'
+        +'<div class="blog3-cover">'+img+(cat?'<span class="blog3-cat">'+esc(cat)+'</span>':'')+'</div>'
+        +'<div class="blog3-body">'
+        +  '<h3 class="blog3-name">'+esc(a.title)+'</h3>'
+        +  (a.seoDescription?'<p class="blog3-desc">'+esc(a.seoDescription)+'</p>':'')
+        +  '<div class="blog3-meta"><span>'+esc(dt)+'</span><span class="blog3-read">Read →</span></div>'
+        +'</div></a>';
+    }).join('');
+    grid.innerHTML=html;
+    requestAnimationFrame(function(){ grid.querySelectorAll('.blog3-card').forEach(function(el){ el.classList.add('on'); }); });
+  }
+  function loadBlog(){
+    var L=curLang();
+    var langParam=(BL[L]?L.toUpperCase():'EN');
+    fetch('/api/articles?limit=3&language='+encodeURIComponent(langParam))
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(d){
+        if(d && d.articles && d.articles.length){ render(d.articles); return; }
+        if(langParam==='EN'){ render([]); return; }
+        return fetch('/api/articles?limit=3&language=EN').then(function(r){return r.ok?r.json():null;}).then(function(d2){
+          render((d2&&d2.articles)||[]);
+        });
+      })
+      .catch(function(){ render([]); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',loadBlog); else loadBlog();
+})();
+</script>
+
+
 <!-- ECOSYSTEM / FAMILY OF DIVISIONS -->
 <style>
   .eco-sec{position:relative;z-index:1;padding:74px 0 30px;}
