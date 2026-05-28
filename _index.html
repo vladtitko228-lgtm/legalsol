@@ -4623,6 +4623,7 @@ updateTicker('ru');
     <span class="rvtop-eyebrow" id="rvtop-eyebrow">WHAT CLIENTS SAY</span>
     <h2 class="rvtop-title" id="rvtop-title">Real people. Real cards.</h2>
   </div>
+  <div class="rvtop-marquee" id="rvtop-marquee">
   <div class="rvtop-grid">
     <figure class="rvtop-card reveal">
       <div class="rvtop-photo"><img src="/assets/trc/client1.jpg" alt="Ananya, LegalSol client holding her residence card" loading="lazy"><span class="rvtop-badge">✓ Karta Pobytu</span></div>
@@ -4697,13 +4698,22 @@ updateTicker('ru');
       </div>
     </figure>
   </div>
+  </div><!-- /rvtop-marquee -->
 </section>
 <style>
   .rvtop{max-width:1200px;margin:0 auto;padding:56px 20px 8px;background:var(--bg);}
   .rvtop-head{text-align:center;margin-bottom:30px;}
   .rvtop-eyebrow{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--p300);background:rgba(139,130,232,.12);border:1px solid rgba(139,130,232,.28);padding:7px 15px;border-radius:60px;margin-bottom:14px;}
   .rvtop-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3.4vw,34px);font-weight:800;color:#fff;margin:0;}
-  .rvtop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  /* Marquee: one-row auto-scrolling testimonial strip */
+  .rvtop-marquee{overflow:hidden;width:100%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);}
+  .rvtop-grid{display:flex;gap:16px;width:max-content;animation:rvtopScroll 90s linear infinite !important;will-change:transform;}
+  .rvtop-marquee:hover .rvtop-grid{animation-play-state:paused;}
+  .rvtop-card{flex:0 0 300px;width:300px;}
+  @keyframes rvtopScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.rvtop-grid{animation:none;}}
   .rvtop-card{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(27,22,64,.85),rgba(18,16,46,.85));border:1px solid rgba(139,130,232,.18);border-radius:18px;overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .4s ease,box-shadow .4s ease;}
   .rvtop-card:hover{transform:translateY(-6px);border-color:rgba(139,130,232,.5);box-shadow:0 24px 60px -18px rgba(91,82,204,.55);}
   .rvtop-photo{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0b0a1c;}
@@ -4717,8 +4727,7 @@ updateTicker('ru');
   .rvtop-foot{display:flex;flex-direction:column;gap:7px;margin-top:2px;}
   .rvtop-name{color:#fff;font-size:13px;font-weight:700;}
   .rvtop-chip{align-self:flex-start;font:700 9.5px/1 ui-monospace,monospace;letter-spacing:.3px;color:#34d399;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);padding:5px 8px;border-radius:999px;}
-  @media(max-width:1080px){.rvtop-grid{grid-template-columns:repeat(3,1fr);}}
-  @media(max-width:720px){.rvtop-grid{grid-template-columns:repeat(2,1fr);gap:12px;}.rvtop{padding:42px 14px 4px;}}
+  @media(max-width:720px){.rvtop-card{flex:0 0 250px;width:250px;}.rvtop-grid{gap:12px;animation-duration:70s;}.rvtop{padding:42px 14px 4px;}}
 </style>
 <script>
 (function(){
@@ -4741,6 +4750,44 @@ updateTicker('ru');
   }
   if(document.readyState==='complete') hook();
   else window.addEventListener('load',hook);
+
+  /* Marquee: clone all 9 cards once → 18 in DOM, so translateX(-50%) loops seamlessly.
+     Also force-apply the animation inline (some global reduced-motion rule on this site
+     was stripping it via CSS even when matchMedia said reduce=false). */
+  function setupMarquee(){
+    var grid=document.querySelector('#rvtop-marquee .rvtop-grid');
+    if(!grid) return;
+    if(grid.dataset.cloned!=='1'){
+      var kids=Array.prototype.slice.call(grid.children);
+      kids.forEach(function(node){
+        var c=node.cloneNode(true);
+        c.setAttribute('aria-hidden','true');
+        c.querySelectorAll('[id]').forEach(function(el){ el.removeAttribute('id'); });
+        grid.appendChild(c);
+      });
+      grid.dataset.cloned='1';
+      try{ applyR(curLang()); }catch(e){}
+    }
+    // Drive via Web Animations API — bypasses any global CSS animation override
+    // (this site has several blanket "animation: none !important" rules that strip
+    // CSS @keyframes even for elements we want to animate).
+    var prm=false; try{prm=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+    if(!prm && typeof grid.animate==='function'){
+      var dur=(window.innerWidth<720)?70000:90000;
+      var anim=grid.animate(
+        [{transform:'translateX(0)'},{transform:'translateX(-50%)'}],
+        {duration:dur, iterations:Infinity, easing:'linear'}
+      );
+      // Pause on hover
+      var wrap=document.getElementById('rvtop-marquee');
+      if(wrap){
+        wrap.addEventListener('mouseenter',function(){try{anim.pause();}catch(e){}});
+        wrap.addEventListener('mouseleave',function(){try{anim.play();}catch(e){}});
+      }
+    }
+  }
+  if(document.readyState==='complete') setupMarquee();
+  else window.addEventListener('load',setupMarquee);
 })();
 </script>
 
