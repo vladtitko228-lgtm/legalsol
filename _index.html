@@ -4577,10 +4577,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .rvhome-eyebrow{display:inline-block;font:700 11px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#fde047;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.32);padding:7px 15px;border-radius:60px;margin-bottom:14px;}
   .rvhome-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.6vw,38px);font-weight:800;color:#fff;margin:0 0 10px;line-height:1.15;}
   .rvhome-sub{color:rgba(232,228,255,.62);font-size:15px;margin:0 auto;max-width:560px;}
-  .rvhome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  @media(max-width:900px){.rvhome-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:560px){.rvhome-grid{grid-template-columns:1fr;}}
-  .rvhome-card{position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(27,22,64,.92),rgba(18,16,46,.92));border:1px solid rgba(139,130,232,.20);border-radius:18px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,box-shadow .35s ease;}
+  .rvhome-marquee{overflow-x:auto;overflow-y:hidden;width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:none;mask-image:linear-gradient(90deg,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);}
+  .rvhome-marquee::-webkit-scrollbar{display:none;width:0;height:0;}
+  .rvhome-grid{display:flex !important;flex-direction:row !important;flex-wrap:nowrap !important;gap:16px;width:max-content;padding:4px 4px 12px;}
+  .rvhome-card{flex:0 0 290px !important;width:290px !important;max-width:none !important;min-width:290px !important;position:relative;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(27,22,64,.92),rgba(18,16,46,.92));border:1px solid rgba(139,130,232,.20);border-radius:18px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s ease,box-shadow .35s ease;}
   .rvhome-card:hover{transform:translateY(-5px);border-color:rgba(139,130,232,.5);box-shadow:0 22px 50px -18px rgba(91,82,204,.55);}
   .rvhome-photo{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0b0a1c;}
   .rvhome-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);}
@@ -4603,7 +4603,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="rvhome-title">They got their Karta Pobytu with us.</h2>
     <p class="rvhome-sub">Real people on the day they collected their card — not stock photos, not stock quotes.</p>
   </div>
-  <div class="rvhome-grid">
+  <div class="rvhome-marquee" id="rvhome-marquee">
+  <div class="rvhome-grid" id="rvhome-grid">
     <figure class="rvhome-card reveal">
       <div class="rvhome-photo"><img src="/assets/trc/client1.jpg" alt="Ananya, LegalSol client holding her residence card" loading="lazy"><span class="rvhome-badge">✓ Karta Pobytu</span></div>
       <div class="rvhome-body">
@@ -4653,10 +4654,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </figure>
   </div>
+  </div><!-- /rvhome-marquee -->
   <div class="rvhome-more">
     <a onclick="showTab('reviews');setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'})},80)" role="button" tabindex="0">Read all 9 full stories →</a>
   </div>
 </section>
+<script>
+(function(){
+  var marquee = document.getElementById('rvhome-marquee');
+  var grid    = document.getElementById('rvhome-grid');
+  if(!marquee || !grid) return;
+  // Clone once for seamless loop
+  var originals = Array.prototype.slice.call(grid.children);
+  originals.forEach(function(node){ grid.appendChild(node.cloneNode(true)); });
+
+  var pxPerSec   = 32;
+  var paused     = false;
+  var userTouched = 0;
+  var last       = performance.now();
+
+  marquee.addEventListener('mouseenter', function(){ paused = true; });
+  marquee.addEventListener('mouseleave', function(){ paused = false; });
+  ['touchstart','wheel','pointerdown'].forEach(function(ev){
+    marquee.addEventListener(ev, function(){ userTouched = performance.now(); }, {passive:true});
+  });
+
+  function tick(now){
+    if(!paused && now - userTouched > 2000){
+      var dt = Math.min(now - last, 64) / 1000;
+      marquee.scrollLeft += pxPerSec * dt;
+      var half = grid.scrollWidth / 2;
+      if(half > 0 && marquee.scrollLeft >= half){ marquee.scrollLeft -= half; }
+    }
+    last = now;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 
 
 <!-- SERVICES TICKER -->
