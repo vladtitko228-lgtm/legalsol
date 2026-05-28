@@ -10354,9 +10354,17 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 
     </div>
 
-    <!-- "All articles" CTA — рендерится через JS в loadCards() ниже,
-         чтобы гарантированно иметь только ОДНУ кнопку (раньше был дубль из-за browser cache) -->
-    <div id="blog-cta-mount"></div>
+    <!-- "All articles" CTA — статичная для SEO (внутренняя ссылка с главной на /blog
+         видна краулеру в RAW HTML без JS). loadCards() ниже перерисует её динамически
+         на текущий язык, но ведёт туда же — на /blog. Дедуп в loadCards гарантирует одну. -->
+    <div id="blog-cta-mount">
+      <div class="blog-cta-wrap reveal on" style="text-align:center;margin-top:48px;">
+        <a href="/blog" class="blog-all-btn">
+          <span>All articles</span>
+          <svg viewBox="0 0 14 14" fill="none" width="14" height="14" aria-hidden="true"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
 
   </div>
 
