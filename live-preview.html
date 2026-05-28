@@ -1,0 +1,181 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#0f0d22;--bg2:#15122e;--p300:#B8B2F5;--p400:#8B82E8;--p500:#5B52CC;}
+*{box-sizing:border-box;}
+body{margin:0;background:#0f0d22;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#fff;}
+.page{min-height:100vh;}
+
+/* HERO */
+.hero{padding:64px 60px 32px;position:relative;}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,130,232,.16);border:1px solid rgba(139,130,232,.32);border-radius:60px;padding:7px 16px;font-size:11px;letter-spacing:2px;color:var(--p300);margin-bottom:24px;font-weight:700;}
+.htitle{font-family:'Playfair Display',Georgia,serif;font-size:64px;font-weight:800;line-height:1.05;margin:0 0 22px;letter-spacing:-1px;max-width:680px;}
+.htitle em{font-style:italic;color:#c4b5fd;font-weight:600;}
+.hdesc{font-size:17px;line-height:1.7;color:rgba(232,228,255,.78);margin:0 0 30px;max-width:520px;font-weight:300;}
+.hctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px;}
+.hcta{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:14px;font-weight:700;font-size:14.5px;text-decoration:none;cursor:pointer;border:none;}
+.hcta-prim{background:linear-gradient(135deg,#8b82e8,#5b52cc);color:#fff;box-shadow:0 12px 32px -8px rgba(91,82,204,.6);}
+.hcta-wa{background:rgba(20,184,138,.16);border:1.5px solid rgba(74,222,128,.45);color:#4ade80;}
+
+/* === FEATURE #2: LIVE MONTHLY STATS === */
+.lstats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:28px 0 0;}
+.lstat{position:relative;background:linear-gradient(160deg,rgba(27,22,64,.85),rgba(18,16,46,.85));border:1px solid rgba(139,130,232,.22);border-radius:18px;padding:22px 24px;overflow:hidden;}
+.lstat::after{content:'';position:absolute;inset:0;border-radius:18px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,130,232,.2),transparent 70%);opacity:.5;pointer-events:none;}
+.lstat-live{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:5px;font:700 9.5px/1 'Inter',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#34d399;}
+.lstat-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.7);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.7);}70%{box-shadow:0 0 0 8px rgba(52,211,153,0);}100%{box-shadow:0 0 0 0 rgba(52,211,153,0);}}
+.lstat-num{font-family:'Inter',sans-serif;font-size:46px;font-weight:800;line-height:1;background:linear-gradient(135deg,#fff 0%,#c4b5fd 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;}
+.lstat-lbl{font-size:13px;color:rgba(232,228,255,.65);margin-top:8px;letter-spacing:.3px;font-weight:500;}
+.lstat-sub{font-size:11.5px;color:rgba(232,228,255,.42);margin-top:3px;}
+
+/* === FEATURE #1: LIVE WINS TICKER === */
+.lwins{position:relative;background:linear-gradient(180deg,rgba(15,13,34,1),rgba(27,22,64,.65));border-top:1px solid rgba(139,130,232,.14);border-bottom:1px solid rgba(139,130,232,.14);padding:14px 0;margin-top:8px;overflow:hidden;}
+.lwins-head{position:absolute;left:0;top:0;bottom:0;width:160px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#0f0d22 60%,rgba(15,13,34,0));z-index:5;padding-left:18px;}
+.lwins-label{display:inline-flex;align-items:center;gap:7px;font:700 11px/1 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff;}
+.lwins-label::before{content:'';width:9px;height:9px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.7);animation:pulse 1.7s infinite;}
+.lwins-fade-r{position:absolute;right:0;top:0;bottom:0;width:120px;background:linear-gradient(-90deg,#0f0d22 30%,rgba(15,13,34,0));z-index:5;pointer-events:none;}
+.lwins-track{display:flex;gap:16px;animation:lwinsScroll 38s linear infinite;will-change:transform;padding-left:160px;}
+@keyframes lwinsScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.lw-item{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;padding:10px 18px;background:rgba(27,22,64,.6);border:1px solid rgba(139,130,232,.16);border-radius:60px;font-size:13.5px;white-space:nowrap;}
+.lw-flag{font-size:18px;line-height:1;}
+.lw-name{font-weight:700;color:#fff;}
+.lw-sep{color:rgba(232,228,255,.4);}
+.lw-what{color:rgba(232,228,255,.78);}
+.lw-chip{font:700 10.5px/1 ui-monospace,monospace;letter-spacing:.3px;border:1px solid;padding:5px 9px;border-radius:999px;margin-left:4px;}
+
+.callout{position:absolute;top:18px;right:24px;font:700 11px/1 ui-monospace,monospace;letter-spacing:1.5px;color:#a78bfa;background:rgba(11,10,28,.7);padding:8px 14px;border-radius:8px;border:1px solid rgba(139,130,232,.3);z-index:20;}
+</style></head><body><div class="page">
+  <span class="callout">PREVIEW · LIVE FEATURES</span>
+  <section class="hero">
+    <span class="hbadge">✦ MOSCOW · POLAND · 8 LANGUAGES</span>
+    <h1 class="htitle">Residence Permit <em>professional & stress-free</em></h1>
+    <p class="hdesc">We handle everything — from consultation to document in hand.</p>
+    <div class="hctas">
+      <button class="hcta hcta-prim">CHECK MY CHANCES FOR TRC →</button>
+      <button class="hcta hcta-wa">💬 WhatsApp now</button>
+    </div>
+
+    <!-- ★ FEATURE #2: LIVE MONTHLY STATS (заменяет «3000+ / 98% / 5+») -->
+    <div class="lstats">
+      <div class="lstat">
+        <span class="lstat-live">● Live</span>
+        <div class="lstat-num">47</div>
+        <div class="lstat-lbl">cards issued in May 2026</div>
+        <div class="lstat-sub">+8 since Monday</div>
+      </div>
+      <div class="lstat">
+        <span class="lstat-live">● Live</span>
+        <div class="lstat-num">12</div>
+        <div class="lstat-lbl">appeals won this month</div>
+        <div class="lstat-sub">100% success rate</div>
+      </div>
+      <div class="lstat">
+        <span class="lstat-live">● Live</span>
+        <div class="lstat-num">3</div>
+        <div class="lstat-lbl">consultations today</div>
+        <div class="lstat-sub">avg reply: 8 minutes</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ★ FEATURE #1: LIVE WINS TICKER -->
+  <div class="lwins">
+    <div class="lwins-head"><span class="lwins-label">Recent wins</span></div>
+    <div class="lwins-fade-r"></div>
+    <div class="lwins-track"><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Anil</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">Karta Pobytu</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇳🇬</span>
+      <span class="lw-name">Chioma</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">appeal won</span>
+      <span class="lw-chip" style="color:#fbbf24;border-color:#fbbf2455;background:#fbbf241a;">✓ 2 days ago</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇵🇰</span>
+      <span class="lw-name">Karim</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">work card</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Priya</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">PESEL + bank</span>
+      <span class="lw-chip" style="color:#a78bfa;border-color:#a78bfa55;background:#a78bfa1a;">✓ yesterday</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇧🇩</span>
+      <span class="lw-name">Jobair</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">Karta Pobytu</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ 3 days ago</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇳🇬</span>
+      <span class="lw-name">Emeka</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">saved in 2 days</span>
+      <span class="lw-chip" style="color:#fbbf24;border-color:#fbbf2455;background:#fbbf241a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Rohit</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">approved 1st try</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ this week</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇺🇦</span>
+      <span class="lw-name">Olena</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">PMJ</span>
+      <span class="lw-chip" style="color:#a78bfa;border-color:#a78bfa55;background:#a78bfa1a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Anil</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">Karta Pobytu</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇳🇬</span>
+      <span class="lw-name">Chioma</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">appeal won</span>
+      <span class="lw-chip" style="color:#fbbf24;border-color:#fbbf2455;background:#fbbf241a;">✓ 2 days ago</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇵🇰</span>
+      <span class="lw-name">Karim</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">work card</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Priya</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">PESEL + bank</span>
+      <span class="lw-chip" style="color:#a78bfa;border-color:#a78bfa55;background:#a78bfa1a;">✓ yesterday</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇧🇩</span>
+      <span class="lw-name">Jobair</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">Karta Pobytu</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ 3 days ago</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇳🇬</span>
+      <span class="lw-name">Emeka</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">saved in 2 days</span>
+      <span class="lw-chip" style="color:#fbbf24;border-color:#fbbf2455;background:#fbbf241a;">✓ today</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇮🇳</span>
+      <span class="lw-name">Rohit</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">approved 1st try</span>
+      <span class="lw-chip" style="color:#34d399;border-color:#34d39955;background:#34d3991a;">✓ this week</span>
+    </div><div class="lw-item">
+      <span class="lw-flag">🇺🇦</span>
+      <span class="lw-name">Olena</span>
+      <span class="lw-sep">·</span>
+      <span class="lw-what">PMJ</span>
+      <span class="lw-chip" style="color:#a78bfa;border-color:#a78bfa55;background:#a78bfa1a;">✓ today</span>
+    </div></div>
+  </div>
+</div></body></html>
