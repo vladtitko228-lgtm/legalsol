@@ -4537,7 +4537,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </style>
 <!-- (rvhome section hoisted above hero — see top of page) -->
 <script>
-(function(){
+function _rvhomeInit(){
   var marquee = document.getElementById('rvhome-marquee');
   var grid    = document.getElementById('rvhome-grid');
   if(!marquee || !grid) return;
@@ -4629,7 +4629,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-})();
+}
+// The <section class="rvhome"> lives further down in the document, so this
+// script runs BEFORE the marquee elements exist in DOM. Defer init until
+// parsing is complete so getElementById('rvhome-grid') actually returns
+// something (regression introduced by PR #161 which moved the section
+// below stats-strip but left the script in its original position).
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', _rvhomeInit);
+} else {
+  _rvhomeInit();
+}
 </script>
 
 
