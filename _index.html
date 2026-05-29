@@ -4513,6 +4513,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .rvhome-more{display:flex;justify-content:center;margin-top:32px;}
   .rvhome-more a{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 'Inter',sans-serif;letter-spacing:.4px;color:#fde047;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);padding:13px 22px;border-radius:999px;text-decoration:none;transition:background .25s ease,transform .25s ease,border-color .25s ease;cursor:pointer;}
   .rvhome-more a:hover{background:rgba(251,191,36,.16);border-color:rgba(251,191,36,.55);transform:translateY(-2px);}
+  /* Cards are clickable: open the full story modal (same one used on /reviews tab) */
+  .rvhome-card{cursor:pointer;}
+  .rvhome-more-inline{display:block;margin-top:8px;font:700 11px/1.2 'Inter',sans-serif;letter-spacing:.3px;color:#c4b5fd;transition:color .25s ease;}
+  .rvhome-card:hover .rvhome-more-inline{color:#fde047;}
+  .rvhome-card:focus-visible{outline:2px solid #fde047;outline-offset:3px;}
   /* MOBILE: compact cards, snap scroll, slimmer photo, breathable section */
   @media(max-width:760px){
     .rvhome{padding:44px 0 24px;}
@@ -4539,6 +4544,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Clone once for seamless loop
   var originals = Array.prototype.slice.call(grid.children);
   originals.forEach(function(node){ grid.appendChild(node.cloneNode(true)); });
+
+  // Make each rvhome-card open the full story modal that lives in tab-reviews.
+  // We forward the click to the matching rcw-card (matched by image filename) so we
+  // re-use the existing modal logic without duplicating story HTML.
+  function fileOf(el, sel){ var i=el&&el.querySelector(sel); if(!i)return null; var s=i.getAttribute('src')||''; return s.split('/').pop(); }
+  function findMatch(file){
+    var match=null;
+    document.querySelectorAll('.rcw-card').forEach(function(c){
+      if((fileOf(c, '.rcw-ph img')||'') === file) match=c;
+    });
+    return match;
+  }
+  function wireOpenable(cards){
+    Array.prototype.forEach.call(cards, function(card){
+      if(card.dataset.openable==='1') return;
+      var file = fileOf(card, '.rvhome-photo img'); if(!file) return;
+      card.dataset.openable='1';
+      card.setAttribute('tabindex','0'); card.setAttribute('role','button');
+      var body=card.querySelector('.rvhome-body');
+      if(body && !body.querySelector('.rvhome-more-inline')){
+        var hint=document.createElement('span');
+        hint.className='rvhome-more-inline';
+        hint.textContent='Read the full story →';
+        body.appendChild(hint);
+      }
+      function open(e){ if(e&&e.preventDefault)e.preventDefault(); var m=findMatch(file); if(m) m.click(); }
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); }});
+    });
+  }
+  wireOpenable(grid.querySelectorAll('.rvhome-card'));
 
   var pxPerSec   = 32;
   var paused     = false;
