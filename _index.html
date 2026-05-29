@@ -4546,8 +4546,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   originals.forEach(function(node){ grid.appendChild(node.cloneNode(true)); });
 
   // Make each rvhome-card open the full story modal that lives in tab-reviews.
-  // We forward the click to the matching rcw-card (matched by image filename) so we
-  // re-use the existing modal logic without duplicating story HTML.
+  // We read the matching rcw-card by image filename and populate the modal directly —
+  // no dependency on rcw-card click handlers being attached yet, so timing of inline
+  // scripts can't break this.
   function fileOf(el, sel){ var i=el&&el.querySelector(sel); if(!i)return null; var s=i.getAttribute('src')||''; return s.split('/').pop(); }
   function findMatch(file){
     var match=null;
@@ -4556,20 +4557,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
     return match;
   }
+  function openStory(rcw){
+    var ov=document.getElementById('rcmOverlay'); if(!ov||!rcw) return;
+    // Ensure overlay sits on <body> (the modal IIFE does this too, but be defensive)
+    try{ if(ov.parentElement!==document.body) document.body.appendChild(ov); }catch(e){}
+    var img=document.getElementById('rcmImg'),nm=document.getElementById('rcmName'),tg=document.getElementById('rcmTag'),st=document.getElementById('rcmStory');
+    var body=ov.querySelector('.rcm-body'),prog=document.getElementById('rcmProg');
+    var ph=rcw.querySelector('.rcw-ph img');
+    if(ph&&img) img.src=ph.src;
+    if(nm) nm.textContent=(rcw.querySelector('figcaption b')||{}).textContent||'';
+    if(tg) tg.textContent=(rcw.querySelector('.rcw-tag')||{}).textContent||'';
+    var full=rcw.querySelector('.rcm-full');
+    if(st) st.innerHTML=full?full.innerHTML:'';
+    if(st){
+      var items=st.querySelectorAll('p, li');
+      items.forEach(function(el,i){ el.classList.add('rcm-rv'); el.style.transitionDelay=(i<10?(i*0.05).toFixed(2):'0')+'s'; });
+      if(body) body.scrollTop=0;
+      if(prog) prog.style.width='0%';
+      ov.hidden=false; void ov.offsetWidth;
+      ov.classList.add('open');
+      document.body.style.overflow='hidden';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ items.forEach(function(el){ el.classList.add('rcm-in'); }); }); });
+      setTimeout(function(){ items.forEach(function(el){ el.classList.add('rcm-in'); }); }, 700);
+    }
+  }
   function wireOpenable(cards){
     Array.prototype.forEach.call(cards, function(card){
       if(card.dataset.openable==='1') return;
       var file = fileOf(card, '.rvhome-photo img'); if(!file) return;
       card.dataset.openable='1';
       card.setAttribute('tabindex','0'); card.setAttribute('role','button');
-      var body=card.querySelector('.rvhome-body');
-      if(body && !body.querySelector('.rvhome-more-inline')){
+      var bodyEl=card.querySelector('.rvhome-body');
+      if(bodyEl && !bodyEl.querySelector('.rvhome-more-inline')){
         var hint=document.createElement('span');
         hint.className='rvhome-more-inline';
         hint.textContent='Read the full story →';
-        body.appendChild(hint);
+        bodyEl.appendChild(hint);
       }
-      function open(e){ if(e&&e.preventDefault)e.preventDefault(); var m=findMatch(file); if(m) m.click(); }
+      function open(e){
+        if(e&&e.preventDefault)e.preventDefault();
+        var m=findMatch(file);
+        var ov=document.getElementById('rcmOverlay');
+        if(m && ov){ openStory(m); }
+        else if(typeof showTab==='function'){ showTab('reviews'); setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'});},80); }
+      }
       card.addEventListener('click', open);
       card.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); }});
     });
