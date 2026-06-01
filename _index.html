@@ -4541,7 +4541,7 @@ function _rvhomeInit(){
   var marquee = document.getElementById('rvhome-marquee');
   var grid    = document.getElementById('rvhome-grid');
   if(!marquee || !grid) return;
-  // Clone once for seamless loop
+  // Clone once for seamless loop (9 → 18 cards)
   var originals = Array.prototype.slice.call(grid.children);
   originals.forEach(function(node){ grid.appendChild(node.cloneNode(true)); });
 
@@ -4619,11 +4619,18 @@ function _rvhomeInit(){
   });
 
   function tick(now){
+    // Auto-scroll only when not paused / not recently touched
     if(!paused && now - userTouched > 2000){
       var dt = Math.min(now - last, 64) / 1000;
       marquee.scrollLeft += pxPerSec * dt;
-      var half = grid.scrollWidth / 2;
-      if(half > 0 && marquee.scrollLeft >= half){ marquee.scrollLeft -= half; }
+    }
+    // Wrap EVERY frame (not just during auto-scroll) so manual swipes
+    // also loop seamlessly — was the bug: user could swipe past the 18th
+    // card into empty space because wrap was nested inside the auto-scroll
+    // block that pauses for 2s after touch.
+    var half = grid.scrollWidth / 2;
+    if(half > 0 && marquee.scrollLeft >= half){
+      marquee.scrollLeft -= half;
     }
     last = now;
     requestAnimationFrame(tick);
