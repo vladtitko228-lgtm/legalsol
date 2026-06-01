@@ -511,7 +511,7 @@ img{max-width:100%;height:auto;}
 
 /* FABs */
 
-#fab{position:fixed;bottom:24px;right:24px;z-index:800;background:var(--p500);color:#fff;border:none;padding:14px 24px;border-radius:var(--rb);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 8px 28px rgba(91,82,204,.55);display:flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;}
+#fab{position:fixed;bottom:24px;right:24px;z-index:800;background:var(--p500);color:#fff;border:none;padding:14px 24px;border-radius:var(--rb);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 8px 28px rgba(91,82,204,.55);display:flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;text-decoration:none;}
 
 #fab:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(91,82,204,.7);}
 
@@ -1407,7 +1407,7 @@ h1 .acc{color:var(--p300);}
 
 .hero-tag{background:rgba(91,82,204,.15);border:1px solid rgba(139,130,232,.22);border-radius:var(--rb);padding:6px 13px;font-size:12px;color:var(--p300);}
 
-.hero-card-cta{margin-top:6px;background:linear-gradient(135deg,var(--p500),var(--p400));color:#fff;border:none;padding:14px 28px;border-radius:var(--rb);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .35s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 8px 28px rgba(91,82,204,.45);position:relative;overflow:hidden;width:100%;max-width:320px;}
+.hero-card-cta{display:inline-block;text-align:center;text-decoration:none;margin-top:6px;background:linear-gradient(135deg,var(--p500),var(--p400));color:#fff;border:none;padding:14px 28px;border-radius:var(--rb);font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .35s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 8px 28px rgba(91,82,204,.45);position:relative;overflow:hidden;width:100%;max-width:320px;box-sizing:border-box;}
 
 .hero-card-cta::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);opacity:0;transition:opacity .3s;}
 
@@ -3858,7 +3858,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
-<button id="fab" onclick="openBookModal()"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></button>
+<a id="fab" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20consultation" target="_blank" rel="noopener"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></a>
 
 <!-- Social FABs -->
 
@@ -4470,7 +4470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
 
-    <button class="hero-card-cta" onclick="openBookModal()" id="hero-card-cta">Правовой анализ — бесплатно →</button>
+    <a class="hero-card-cta" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20legal%20analysis" target="_blank" rel="noopener" id="hero-card-cta">Правовой анализ — бесплатно →</a>
 
     <button class="hero-ref-btn" onclick="showTab('referral')" onmouseenter="spawnCoins(this,'💰')" id="hero-ref-btn" style="display:none;">
 
