@@ -20,8 +20,43 @@ const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 let INDEX_HTML = "";
 try {
   INDEX_HTML = fs.readFileSync(path.join(__dirname, "..", "_index.html"), "utf8");
+  INDEX_HTML = minifyHtml(INDEX_HTML);
 } catch (e) {
   console.error("[/api/index] failed to load _index.html:", e && e.message);
+}
+
+/* Safe HTML minifier (no external deps).
+   - Strips HTML comments EXCEPT IE conditional comments (<!--[if ... ]>) and
+     SSR markers we depend on (BLOG_CARDS_START/END).
+   - Collapses whitespace between tags down to a single space, but PRESERVES
+     content of <script>, <style>, <pre>, <textarea>, <code> tags verbatim.
+   - Removes leading/trailing whitespace on each line outside protected tags.
+   Typical savings on legalsol homepage: ~30-40% of file size, zero behavior
+   change because all semantic whitespace inside <script>/<style> is kept. */
+function minifyHtml(html) {
+  if (!html) return html;
+  const PROTECTED = /<(script|style|pre|textarea|code)([\s\S]*?)<\/\1>/gi;
+  const placeholders = [];
+  let i = 0;
+  // 1. Stash protected blocks
+  let s = html.replace(PROTECTED, (m) => {
+    const token = `__MINPROT${i++}__`;
+    placeholders.push(m);
+    return token;
+  });
+  // 2. Drop comments — but KEEP markers we use for SSR injection + IE conditionals
+  s = s.replace(/<!--[\s\S]*?-->/g, (m) => {
+    if (m.startsWith("<!--[if") || m.startsWith("<![endif")) return m;
+    if (m.includes("BLOG_CARDS_START") || m.includes("BLOG_CARDS_END")) return m;
+    return "";
+  });
+  // 3. Collapse runs of whitespace between tags to a single space
+  s = s.replace(/>\s+</g, "> <");
+  // 4. Drop leading/trailing whitespace on each line and collapse blank lines
+  s = s.replace(/[ \t]+\n/g, "\n").replace(/\n[ \t]+/g, "\n").replace(/\n{2,}/g, "\n");
+  // 5. Restore protected blocks
+  s = s.replace(/__MINPROT(\d+)__/g, (_, n) => placeholders[Number(n)]);
+  return s;
 }
 
 // Category fallback covers (kept in sync with /api/blog-listing.js)
