@@ -197,7 +197,59 @@ function getProp(p) {
 
 
 
-function renderPage(a, contentHtml) {
+/* Detect FAQ section in Notion blocks and return [{question, answer}, ...].
+   Pattern (per SKILL.md):
+     - H2 with text matching /faq|frequently asked|часто задаваем|вопрос/i
+     - Then alternating H3 (question) + paragraph(s) (answer)
+   Stops collecting when next H2 / non-FAQ heading appears. */
+function extractFaqFromBlocks(blocks) {
+  if (!Array.isArray(blocks)) return [];
+  const faqs = [];
+  let inFaq = false;
+  let currentQ = null;
+  let answerParts = [];
+
+  function plain(rich) {
+    if (!Array.isArray(rich)) return "";
+    return rich.map(t => (t.plain_text || "")).join("");
+  }
+
+  function flushPair() {
+    if (currentQ && answerParts.length) {
+      const answer = answerParts.join(" ").trim();
+      if (answer) faqs.push({ q: currentQ, a: answer });
+    }
+    currentQ = null;
+    answerParts = [];
+  }
+
+  for (const b of blocks) {
+    if (b.type === "heading_2") {
+      // Either entering or leaving FAQ section
+      flushPair();
+      const t = plain(b.heading_2.rich_text).toLowerCase();
+      inFaq = /faq|frequently asked|часто задаваем|вопрос|часто-задаваем/i.test(t);
+      continue;
+    }
+    if (!inFaq) continue;
+    if (b.type === "heading_3") {
+      flushPair();
+      currentQ = plain(b.heading_3.rich_text).trim();
+      continue;
+    }
+    // collect answer text
+    if (currentQ) {
+      if (b.type === "paragraph") answerParts.push(plain(b.paragraph.rich_text));
+      else if (b.type === "bulleted_list_item") answerParts.push(plain(b.bulleted_list_item.rich_text));
+      else if (b.type === "numbered_list_item") answerParts.push(plain(b.numbered_list_item.rich_text));
+    }
+  }
+  flushPair();
+  return faqs.filter(f => f.q && f.a);
+}
+
+
+function renderPage(a, contentHtml, faqs) {
 
   const { title, seoTitle, seoDescription, category, tags, publishedDate, slug, coverImage, lang } = a;
 
@@ -384,6 +436,13 @@ function renderPage(a, contentHtml) {
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.legalsol.pl"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.legalsol.pl/blog"},{"@type":"ListItem","position":3,"name":"${esc(title)}","item":"${canonical}"}]}
 
   </script>
+  ${Array.isArray(faqs) && faqs.length >= 2 ? `<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":${JSON.stringify(faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  })))}}
+  </script>` : ''}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -1871,6 +1930,7 @@ module.exports = async function handler(req, res) {
     const blocks = await notion.blocks.children.list({ block_id: page.id, page_size: 100 });
 
     const contentHtml = blocksToHtml(blocks.results);
+    const faqs = extractFaqFromBlocks(blocks.results);
 
 
 
@@ -1882,7 +1942,7 @@ module.exports = async function handler(req, res) {
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
 
-    res.status(200).send(renderPage(article, contentHtml));
+    res.status(200).send(renderPage(article, contentHtml, faqs));
 
 
 
