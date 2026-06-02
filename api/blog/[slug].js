@@ -1841,6 +1841,54 @@ function renderPage(a, contentHtml, faqs) {
 
   </script>
 
+  <!-- MOBILE STICKY CTA BAR — always-visible WhatsApp + Call on mobile blog posts -->
+  <style>
+    #m-cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:99990;display:none;align-items:stretch;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(11,9,32,.92),rgba(11,9,32,.98));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(139,130,232,.22);box-shadow:0 -8px 24px rgba(0,0,0,.35);transform:translateY(0);transition:transform .25s cubic-bezier(.4,0,.2,1),opacity .25s;}
+    #m-cta-bar.m-cta-hide{transform:translateY(110%);opacity:0;pointer-events:none;}
+    #m-cta-bar .m-cta-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#25D366,#1DA851);color:#04110a;font:800 14.5px/1 'Inter',sans-serif;text-decoration:none;padding:14px 16px;border-radius:14px;box-shadow:0 4px 14px rgba(37,211,102,.4);transition:transform .15s;-webkit-tap-highlight-color:transparent;}
+    #m-cta-bar .m-cta-wa:active{transform:scale(.97);}
+    #m-cta-bar .m-cta-wa svg{flex-shrink:0;}
+    #m-cta-bar .m-cta-call{display:flex;align-items:center;justify-content:center;width:48px;background:rgba(139,130,232,.18);border:1px solid rgba(139,130,232,.35);color:#fff;border-radius:14px;text-decoration:none;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+    #m-cta-bar .m-cta-call:active{background:rgba(139,130,232,.32);}
+    @media(max-width:900px){#m-cta-bar{display:flex;}}
+  </style>
+  <script>
+  (function(){
+    if(!matchMedia('(max-width: 900px)').matches) return;
+    // Infer lead_service from URL slug
+    var p = location.pathname.toLowerCase(), svc = 'general';
+    if(p.indexOf('/blog/karta-pobytu')!==-1 || p.indexOf('/blog/pmz')!==-1) svc='karta_pobytu';
+    else if(p.indexOf('/blog/citizenship')!==-1 || p.indexOf('/blog/obywatelstwo')!==-1) svc='citizenship';
+    else if(p.indexOf('/blog/international-protection')!==-1) svc='international_protection';
+    else if(p.indexOf('/blog/work')!==-1 || p.indexOf('/blog/visa')!==-1) svc='work_permit';
+    else if(p.indexOf('/blog/housing')!==-1 || p.indexOf('/blog/rent')!==-1) svc='housing';
+    var bar = document.createElement('div');
+    bar.id = 'm-cta-bar';
+    bar.innerHTML = '<a class="m-cta-wa" href="https://wa.me/48735248525?text=Hi%20LegalSol!%20I%27m%20reading%20your%20article%20and%20have%20a%20question" target="_blank" rel="noopener" data-lead-service="'+svc+'" data-lead-source="m_sticky_wa_blog" aria-label="WhatsApp">'
+      + '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>'
+      + '<span>Free WhatsApp consultation</span></a>'
+      + '<a class="m-cta-call" href="tel:+48735248525" data-lead-service="general" data-lead-source="m_sticky_call_blog" aria-label="Call"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>';
+    document.body.appendChild(bar);
+    document.body.style.paddingBottom = 'calc(72px + env(safe-area-inset-bottom, 0px))';
+    document.addEventListener('focusin', function(e){ if(e.target.matches('input, textarea, select')) bar.classList.add('m-cta-hide'); });
+    document.addEventListener('focusout', function(){ bar.classList.remove('m-cta-hide'); });
+    // Track clicks (no homepage handler on this page, so wire here)
+    bar.addEventListener('click', function(e){
+      var a = e.target.closest('a[data-lead-service]');
+      if(!a) return;
+      try{
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: a.classList.contains('m-cta-wa') ? 'wa_click' : 'phone_click',
+          lead_service: a.getAttribute('data-lead-service'),
+          lead_source: a.getAttribute('data-lead-source'),
+          page_path: location.pathname,
+        });
+      }catch(err){}
+    });
+  })();
+  </script>
+
 </body>
 
 </html>`;
