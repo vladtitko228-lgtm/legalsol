@@ -701,5 +701,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <script src="/cookie-banner.js" defer></script>
+<script>
+/* Cross-page WhatsApp click → GA4 wa_click with attribution.
+   Same handler as homepage — keeps lead_service/lead_lang/lead_source in dataLayer. */
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[href*="wa.me/"]');
+  if(!a) return;
+  try{
+    var lead_service = a.getAttribute('data-lead-service');
+    if(!lead_service){
+      var p = location.pathname;
+      if(p.indexOf('/housing')===0) lead_service='housing';
+      else if(p.indexOf('/business')===0) lead_service='b2b';
+      else if(p.indexOf('/polish')===0) lead_service='polish_language';
+      else if(p.indexOf('/guide')===0) lead_service='karta_pobytu';
+      else lead_service='general';
+    }
+    var lead_lang = a.getAttribute('data-lead-lang')
+                  || (window.L)
+                  || document.documentElement.lang
+                  || 'unknown';
+    var lead_source = a.getAttribute('data-lead-source') || a.id || 'unknown';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'wa_click',
+      lead_service: lead_service,
+      lead_lang: lead_lang,
+      lead_source: lead_source,
+      page_path: location.pathname,
+    });
+  }catch(err){}
+});
+</script>
 </body>
 </html>
