@@ -16252,7 +16252,8 @@ function cabSyncDataToCases(){
       checks:checks,
       _kommoLeadId:ld.id,
       _stage:ld.stage,
-      _nextTask:nextTask
+      _nextTask:nextTask,
+      _updates:ld.updates||ld.notes||[]
     };
   });
 
@@ -16313,92 +16314,127 @@ function cabRenderDash(){
 
 }
 
+// ─── СТРУКТУРА КАЧЕСТВЕННОГО АПДЕЙТА ─────────────────────────────
+// 6 универсальных шагов, к которым прилипают конкретные стадии Pipeline 2
+var CAB_STEPS=[
+  {n:1,label:'Заявка принята'},
+  {n:2,label:'Документы отправлены'},
+  {n:3,label:'Подано в офис'},
+  {n:4,label:'На рассмотрении'},
+  {n:5,label:'Биометрия / финальная проверка'},
+  {n:6,label:'Готово'}
+];
+
+function cabEncodeWaText(t){return encodeURIComponent(t);}
+
 function cabOpenCase(id){
-
   var c=CAB_CASES.find(function(x){return x.id===id;});if(!c)return;
+  var stage=c._stage||{ru:'В работе',whatWeDo:'',clientAction:null,etaText:null,step:1};
+  var stepNow=stage.step||1;
+  var totalSteps=CAB_STEPS.length;
+  var pct=Math.round(stepNow/totalSteps*100);
+  var isDone=stepNow>=totalSteps||c.status==='completed';
 
-  var tl=c.timeline.map(function(t,i){var last=i===c.timeline.length-1;return '<div class="cab-tl-item"><div class="cab-tl-left"><div class="cab-tl-dot '+(t.done?'done':'pend')+'">'+(t.done?'✓':'○')+'</div>'+(last?'':'<div class="cab-tl-line"></div>')+'</div><div><div class="cab-tl-ev'+(t.done?'':' pend')+'">'+t.ev+'</div><div class="cab-tl-note">'+t.note+'</div><div class="cab-tl-date">'+t.date+'</div></div></div>';}).join('');
+  var clientName=cabClientName();
+  var initials=cabClientInitials();
+  var serviceType=c.typeName||'Услуга легализации';
 
-  var cl=c.checks.map(function(x){return '<div class="cab-check-item"><div class="cab-check-dot '+(x.d?'done':'pend')+'">'+(x.d?'✓':'')+'</div><div class="cab-check-txt '+(x.d?'done':'pend')+'">'+x.t+'</div></div>';}).join('');
-
-  var docs=c.docs.map(function(d){return '<div class="cab-doc-row"><div style="font-size:18px">'+(d.st==='up'?'📄':'📎')+'</div><div style="flex:1"><div class="cab-doc-name">'+d.n+'</div>'+(d.dt?'<div class="cab-doc-date">Загружено: '+d.dt+'</div>':'')+'</div><div style="display:flex;align-items:center;gap:7px;margin-left:8px"><span class="cab-doc-st '+(d.st==='up'?'up':'pend')+'">'+(d.st==='up'?'✓ Загружен':'⏳ Ожидает')+'</span>'+(d.st==='pend'?'<button class="cab-upload-btn" onclick="cabToast(\''+d.n.split(' ')[0]+' загружен!\',\'success\')">Загрузить</button>':'')+'</div></div>';}).join('');
-
-  var sp=c.spec;
-
-  var actionBtns='<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">'+
-
-    '<button class="cab-stripe-btn" onclick="cabToast(\'Переход на страницу оплаты Stripe...\',\'info\')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Оплатить онлайн</button>'+
-
-    '<button class="cab-cal-btn" onclick="cabToast(\'Открываем Google Календарь...\',\'info\')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Записаться на визит</button>'+
-
-    '<a class="cab-wa-btn" href="https://wa.me/48735248525" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp специалисту</a>'+
-
+  // 1. Hero
+  var waPrompt='Здравствуйте! У меня вопрос по делу '+c.id+' ('+serviceType+')';
+  var heroHTML=
+    '<div class="cab-detail-hdr" style="padding-bottom:22px">'+
+      '<div style="display:flex;align-items:flex-start;gap:18px;width:100%;flex-wrap:wrap">'+
+        '<div style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;color:#fff;flex-shrink:0">'+initials+'</div>'+
+        '<div style="flex:1;min-width:200px">'+
+          '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">'+cabBadge(c.status)+'<div class="cab-detail-id" style="margin:0">'+c.id+'</div></div>'+
+          '<div class="cab-detail-type">'+serviceType+'</div>'+
+          '<div class="cab-detail-meta">Клиент: '+clientName+' · Дело открыто: '+c.createdAt+'</div>'+
+          '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">'+
+            '<a class="cab-wa-btn" href="https://wa.me/48735248525?text='+cabEncodeWaText(waPrompt)+'" target="_blank" rel="noopener">'+
+              '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'+
+              'Написать менеджеру</a>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      '<div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.15)">'+
+        '<div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.7);margin-bottom:6px"><span>Шаг '+stepNow+' из '+totalSteps+'</span><span style="font-weight:700;color:#fff">'+pct+'%</span></div>'+
+        '<div style="height:7px;background:rgba(255,255,255,.15);border-radius:4px"><div style="height:100%;width:'+pct+'%;background:rgba(255,255,255,.85);border-radius:4px;transition:width 1s ease"></div></div>'+
+      '</div>'+
     '</div>';
 
-  var progressBar='<div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15)"><div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.6);margin-bottom:6px"><span>Прогресс дела</span><span style="font-weight:700;color:#fff">'+c.progress+'%</span></div><div style="height:6px;background:rgba(255,255,255,.15);border-radius:3px"><div style="height:100%;width:'+c.progress+'%;background:rgba(255,255,255,.85);border-radius:3px;transition:width 1s ease"></div></div></div>';
+  // 2. Три блока «Где мы / Что делаем / От вас / Когда ждать»
+  var clientActionText=stage.clientAction?stage.clientAction:'От вас сейчас ничего не требуется — мы работаем 👍';
+  var clientActionColor=stage.clientAction?'#5B52CC':'#16a34a';
+  var etaText=stage.etaText||'Срок зависит от воеводства';
 
-  document.getElementById('cab-detail-body').innerHTML=
+  var infoCardsHTML=
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px;margin-bottom:6px">'+
+      '<div style="background:#fff;border:1px solid #e8e4f5;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(91,82,204,.05)">'+
+        '<div style="font-size:11px;color:#a09ac8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">📍 Где мы сейчас</div>'+
+        '<div style="font-size:15px;font-weight:700;color:#1a1545;line-height:1.35">'+stage.ru+'</div>'+
+      '</div>'+
+      '<div style="background:#fff;border:1px solid #e8e4f5;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(91,82,204,.05)">'+
+        '<div style="font-size:11px;color:#a09ac8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">🛠 Что мы делаем</div>'+
+        '<div style="font-size:13px;color:#1a1545;line-height:1.4">'+(stage.whatWeDo||'Менеджер ведёт ваше дело.')+'</div>'+
+      '</div>'+
+      '<div style="background:#fff;border:1px solid #e8e4f5;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(91,82,204,.05)">'+
+        '<div style="font-size:11px;color:#a09ac8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">📝 От вас</div>'+
+        '<div style="font-size:13px;color:'+clientActionColor+';line-height:1.4;font-weight:'+(stage.clientAction?'600':'500')+'">'+clientActionText+'</div>'+
+      '</div>'+
+      '<div style="background:#fff;border:1px solid #e8e4f5;border-radius:14px;padding:18px 20px;box-shadow:0 2px 8px rgba(91,82,204,.05)">'+
+        '<div style="font-size:11px;color:#a09ac8;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">⏰ Когда ждать</div>'+
+        '<div style="font-size:13px;color:#1a1545;line-height:1.4">'+etaText+'</div>'+
+      '</div>'+
+    '</div>';
 
-    '<div class="cab-detail-hdr">'+
+  // 3. Прогресс по шагам (визуальная цепочка)
+  var stepsHTML='<div class="cab-widget"><div class="cab-widget-title">Этапы дела</div>'+
+    CAB_STEPS.map(function(s,i){
+      var done=s.n<stepNow;
+      var current=s.n===stepNow&&!isDone;
+      var last=i===CAB_STEPS.length-1;
+      var dotCls=done?'done':(current?'pend':'pend');
+      var dotIcon=done?'✓':(current?'●':'○');
+      var labelExtra=current?'<div class="cab-tl-note" style="color:#5B52CC;font-weight:600">← сейчас здесь: '+stage.ru+'</div>':'';
+      return '<div class="cab-tl-item"><div class="cab-tl-left"><div class="cab-tl-dot '+dotCls+'"'+(current?' style="background:#5B52CC;color:#fff;border-color:#5B52CC"':'')+'>'+dotIcon+'</div>'+(last?'':'<div class="cab-tl-line"></div>')+'</div><div><div class="cab-tl-ev'+(done?'':' pend')+'">'+s.label+'</div>'+labelExtra+'</div></div>';
+    }).join('')+'</div>';
 
-    '<div style="display:flex;align-items:flex-start;gap:18px;width:100%;flex-wrap:wrap">'+
+  // 4. Лента апдейтов от менеджера (только 📢-заметки)
+  var updates=(c._updates||[]).slice();
+  var updatesHTML='<div class="cab-widget"><div class="cab-widget-title">Апдейты от менеджера</div>';
+  if(!updates.length){
+    updatesHTML+='<div style="padding:18px 8px;color:#a09ac8;font-size:13px;line-height:1.5">Менеджер ещё не оставлял публичных апдейтов. Они будут появляться здесь по мере продвижения дела. Если что — напишите в WhatsApp.</div>';
+  }else{
+    updatesHTML+=updates.map(function(u){
+      var d=new Date(u.createdAt);
+      var p=function(n){return(n<10?'0':'')+n;};
+      var dateStr=p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();
+      return '<div style="padding:14px 0;border-bottom:1px solid #f0eeff">'+
+        '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:11px;color:#a09ac8;font-weight:600">'+dateStr+'</span><span style="font-size:11px;color:#5B52CC;font-weight:700">📢 Апдейт</span></div>'+
+        '<div style="font-size:13.5px;color:#1a1545;line-height:1.55;white-space:pre-wrap">'+(u.text||'').replace(/</g,'&lt;')+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  updatesHTML+='</div>';
 
-    '<div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0">'+cabClientInitials()+'</div>'+
-
-    '<div style="flex:1;min-width:200px">'+
-
-    '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px">'+cabBadge(c.status)+'<div class="cab-detail-id" style="margin:0">'+c.id+'</div></div>'+
-
-    '<div class="cab-detail-type">'+c.typeName+'</div>'+
-
-    '<div class="cab-detail-meta">Клиент: '+cabClientName()+' · Создано: '+c.createdAt+' · Обновлено: '+c.updatedAt+'</div>'+
-
-    actionBtns+
-
-    '</div></div>'+
-
-    progressBar+
-
-    '</div>'+
-
-    '<div class="cab-2col">'+
-
-    '<div>'+
-
-    '<div class="cab-widget"><div class="cab-widget-title">Этапы дела</div>'+tl+'</div>'+
-
-    '<div class="cab-widget"><div class="cab-widget-title">Чеклист</div>'+cl+'</div>'+
-
-    '</div>'+
-
-    '<div>'+
-
-    '<div class="cab-widget"><div class="cab-widget-title">Документы ('+c.docs.filter(function(d){return d.st==='up';}).length+'/'+c.docs.length+')</div>'+docs+
-
-    '<div class="cab-drop" onclick="cabToast(\'Файл прикреплён\',\'success\')"><div class="cab-drop-ico">📁</div><div class="cab-drop-txt"><strong>Нажмите для загрузки</strong> или перетащите файл<br><span style="font-size:11px;color:var(--txt3)">PDF, JPG, PNG — до 10 МБ</span></div></div></div>'+
-
-    '<div class="cab-widget"><div class="cab-widget-title">Ваш специалист</div>'+
-
-    '<div class="cab-spec-row"><div class="cab-spec-av">'+sp.initials+'</div><div><div class="cab-spec-name">'+sp.name+'</div><div class="cab-spec-role">'+sp.role+'</div></div></div>'+
-
+  // 5. Менеджер / связь
+  var specHTML='<div class="cab-widget"><div class="cab-widget-title">Ваш специалист</div>'+
+    '<div class="cab-spec-row"><div class="cab-spec-av">LS</div><div><div class="cab-spec-name">Менеджер LegalSol</div><div class="cab-spec-role">Ваш специалист</div></div></div>'+
     '<div class="cab-spec-links">'+
-
-    '<div class="cab-spec-link">📱 <a href="tel:'+sp.phone+'">'+sp.phoneLabel+'</a></div>'+
-
-    '<div class="cab-spec-link">✉️ <a href="mailto:'+sp.email+'">'+sp.email+'</a></div>'+
-
-    '<div class="cab-spec-link">💬 <a href="https://wa.me/'+sp.phone+'" target="_blank">WhatsApp</a></div>'+
-
-    '</div></div>'+
-
+      '<div class="cab-spec-link">💬 <a href="https://wa.me/48735248525?text='+cabEncodeWaText(waPrompt)+'" target="_blank">Написать в WhatsApp</a></div>'+
+      '<div class="cab-spec-link">📱 <a href="tel:+48735248525">+48 735 248 525</a></div>'+
     '</div></div>';
 
+  document.getElementById('cab-detail-body').innerHTML=
+    heroHTML+infoCardsHTML+
+    '<div class="cab-2col" style="margin-top:18px">'+
+      '<div>'+stepsHTML+'</div>'+
+      '<div>'+updatesHTML+specHTML+'</div>'+
+    '</div>';
+
   document.querySelectorAll('.cab-section').forEach(function(s){s.classList.remove('active');});
-
   document.getElementById('cab-p-detail').classList.add('active');
-
   document.getElementById('cab-content').scrollTop=0;
-
 }
 
 function cabLoadChat(){
