@@ -18,25 +18,103 @@ const PIPELINE_SALES = 13830355;
 // Воронка 2 (Operations / Легализация) — оплаченные клиенты, ИХ показываем в кабинете
 const PIPELINE_OPS = 13830463;
 
-// Стадии Pipeline 2 «Легализация» — что видит клиент в кабинете
-// step — позиция в прогресс-баре (1..6), service — дефолтный тип услуги, если не задан в кастомном поле
+// Стадии Pipeline 2 «Легализация» — что видит клиент в кабинете.
+// Каждая стадия описана 4-мя ответами на вопросы клиента:
+//   ru — короткое название этапа («Где мы сейчас»)
+//   whatWeDo — что мы делаем прямо сейчас (1 предложение)
+//   clientAction — что от клиента требуется (null = ничего)
+//   etaText — типичный срок до перехода к следующему этапу
+// step — позиция в прогресс-баре (1..6), service — дефолтный тип услуги
 const STAGE_NAMES_OPS = {
-  106716263: { ru: 'Заявка принята',      en: 'Application received',  pl: 'Wniosek przyjęty',     step: 1, service: 'Карта побыту' },
-  106716267: { ru: 'Документы отправлены', en: 'Documents sent',       pl: 'Dokumenty wysłane',    step: 2, service: 'Карта побыту' },
-  106716271: { ru: 'Подано в офис',       en: 'Filed at office',       pl: 'Złożone w urzędzie',   step: 3, service: 'Карта побыту' },
-  106716275: { ru: 'Ускоренное рассмотрение', en: 'Speed-up review',   pl: 'Przyspieszone',        step: 4, service: 'Карта побыту' },
-  106716319: { ru: 'Дело у юриста',       en: 'With lawyer (Supreme)', pl: 'U prawnika (Supreme)', step: 4, service: 'Карта побыту' },
-  106716323: { ru: 'Ждём отпечатки пальцев', en: 'Awaiting fingerprints', pl: 'Czekamy na odciski', step: 5, service: 'Карта побыту' },
-  106716347: { ru: 'На финальной проверке', en: 'Final review',        pl: 'Końcowa weryfikacja',  step: 5, service: 'Карта побыту' },
-  106716327: { ru: 'Подана апелляция',    en: 'Appeal filed',          pl: 'Złożono odwołanie',    step: 4, service: 'Апелляция' },
-  106716331: { ru: 'Защита от депортации', en: 'Deportation defence',  pl: 'Obrona przed deportacją', step: 3, service: 'Защита от депортации' },
-  106716335: { ru: 'Международная защита', en: 'International protection', pl: 'Ochrona międzynarodowa', step: 3, service: 'Международная защита' },
-  106716339: { ru: 'Воссоединение семьи', en: 'Family reunification',  pl: 'Łączenie rodzin',      step: 3, service: 'Воссоединение семьи' },
-  106716343: { ru: 'Замена водительских прав', en: 'Driving licence exchange', pl: 'Wymiana prawa jazdy', step: 3, service: 'Замена прав' },
-  142:       { ru: 'Готово ✓',            en: 'Completed ✓',           pl: 'Gotowe ✓',             step: 6, service: '' },
-  143:       { ru: 'Дело закрыто',        en: 'Case closed',           pl: 'Sprawa zamknięta',     step: 6, service: '' }
+  106716263: {
+    ru: 'Заявка принята', en: 'Application received', pl: 'Wniosek przyjęty', step: 1, service: 'Карта побыту',
+    whatWeDo: 'Менеджер изучает вашу ситуацию и подберёт оптимальный путь.',
+    clientAction: 'Возможно, попросим уточнить детали по WhatsApp.',
+    etaText: '1–2 рабочих дня'
+  },
+  106716267: {
+    ru: 'Документы отправлены', en: 'Documents sent', pl: 'Dokumenty wysłane', step: 2, service: 'Карта побыту',
+    whatWeDo: 'Ваш пакет документов отправлен в воеводский офис почтой.',
+    clientAction: null,
+    etaText: 'Доставка 3–7 дней'
+  },
+  106716271: {
+    ru: 'Подано в офис', en: 'Filed at office', pl: 'Złożone w urzędzie', step: 3, service: 'Карта побыту',
+    whatWeDo: 'Документы зарегистрированы в воеводстве. Ждём первое решение или запрос дополнительных бумаг.',
+    clientAction: null,
+    etaText: '2–4 недели до первой реакции'
+  },
+  106716275: {
+    ru: 'Ускоренное рассмотрение', en: 'Speed-up review', pl: 'Przyspieszone', step: 4, service: 'Карта побыту',
+    whatWeDo: 'Юрист готовит дополнительные документы и работает с воеводством напрямую.',
+    clientAction: null,
+    etaText: '7–14 дней'
+  },
+  106716319: {
+    ru: 'Дело у партнёра-юриста', en: 'With partner lawyer', pl: 'U prawnika-partnera', step: 4, service: 'Карта побыту',
+    whatWeDo: 'Дело передано юристу-партнёру (стандартный путь для сложных случаев).',
+    clientAction: null,
+    etaText: '14–30 дней'
+  },
+  106716323: {
+    ru: 'Ждём отпечатки пальцев', en: 'Awaiting fingerprints', pl: 'Czekamy na odciski', step: 5, service: 'Карта побыту',
+    whatWeDo: 'Воеводство назначило вам биометрию. Дата и адрес — в апдейте от менеджера.',
+    clientAction: 'Прийти в указанный день с паспортом.',
+    etaText: '7–21 день после биометрии'
+  },
+  106716347: {
+    ru: 'Финальная проверка', en: 'Final review', pl: 'Końcowa weryfikacja', step: 5, service: 'Карта побыту',
+    whatWeDo: 'Наш юрист проверяет результат перед выдачей.',
+    clientAction: null,
+    etaText: '3–7 дней'
+  },
+  106716327: {
+    ru: 'Подана апелляция', en: 'Appeal filed', pl: 'Złożono odwołanie', step: 4, service: 'Апелляция',
+    whatWeDo: 'Апелляция на отказ подана. Решение пересматривает вышестоящая инстанция.',
+    clientAction: null,
+    etaText: '30–60 дней'
+  },
+  106716331: {
+    ru: 'Защита от депортации', en: 'Deportation defence', pl: 'Obrona przed deportacją', step: 3, service: 'Защита от депортации',
+    whatWeDo: 'Юрист готовит защиту вашего права остаться в Польше.',
+    clientAction: 'Менеджер может запросить дополнительные доказательства.',
+    etaText: 'Зависит от ситуации'
+  },
+  106716335: {
+    ru: 'Международная защита', en: 'International protection', pl: 'Ochrona międzynarodowa', step: 3, service: 'Международная защита',
+    whatWeDo: 'Ведём процесс международной защиты — собираем доказательства, готовим показания.',
+    clientAction: 'Возможны встречи и интервью.',
+    etaText: 'Несколько месяцев'
+  },
+  106716339: {
+    ru: 'Воссоединение семьи', en: 'Family reunification', pl: 'Łączenie rodzin', step: 3, service: 'Воссоединение семьи',
+    whatWeDo: 'Готовим документы для воссоединения с членами семьи в Польше.',
+    clientAction: 'Менеджер уточнит документы на родственников.',
+    etaText: '2–6 месяцев'
+  },
+  106716343: {
+    ru: 'Замена водительских прав', en: 'Driving licence exchange', pl: 'Wymiana prawa jazdy', step: 3, service: 'Замена прав',
+    whatWeDo: 'Документы поданы в Urząd Komunikacji.',
+    clientAction: null,
+    etaText: '1–2 месяца'
+  },
+  142: {
+    ru: 'Готово ✓', en: 'Completed ✓', pl: 'Gotowe ✓', step: 6, service: '',
+    whatWeDo: 'Услуга оказана. Поздравляем!',
+    clientAction: 'Менеджер свяжется по выдаче результата.',
+    etaText: null
+  },
+  143: {
+    ru: 'Дело закрыто', en: 'Case closed', pl: 'Sprawa zamknięta', step: 6, service: '',
+    whatWeDo: 'Дело закрыто. Если есть вопросы — пишите менеджеру.',
+    clientAction: null,
+    etaText: null
+  }
 };
 const TOTAL_STEPS = 6;
+
+// Префикс клиентских апдейтов: только заметки в Kommo, начинающиеся с него, попадают в кабинет
+const CLIENT_NOTE_PREFIX = '📢';
 
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
 const STAGE_NAMES = STAGE_NAMES_OPS;
@@ -223,6 +301,7 @@ module.exports = {
   PIPELINE_SALES,
   PIPELINE_OPS,
   STAGE_NAMES_OPS,
+  CLIENT_NOTE_PREFIX,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,

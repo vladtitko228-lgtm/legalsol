@@ -2,7 +2,7 @@
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie,
-  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
+  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, CLIENT_NOTE_PREFIX,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
@@ -53,18 +53,25 @@ module.exports = async function handler(req, res) {
         // Кабинет — только для оплаченных клиентов (Pipeline 2)
         if (lead.pipeline_id !== PIPELINE_OPS) continue;
 
-        // Заметки по делу — все, до 100 штук, разные типы
-        let notes = [];
+        // Тянем все заметки → выделяем клиентские (с префиксом 📢)
+        let updates = [];
         try {
           const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
-          notes = (nRes?._embedded?.notes || []).map(n => ({
+          const all = (nRes?._embedded?.notes || []).map(n => ({
             id: n.id,
             createdAt: (n.created_at || 0) * 1000,
-            text: n.params?.text || '',
+            text: (n.params?.text || '').trim(),
             type: n.note_type,
             author: n.created_by || null
-          })).filter(n => n.text).sort((a, b) => b.createdAt - a.createdAt);
+          })).filter(n => n.text);
+          // Только клиентские — те что начинаются с CLIENT_NOTE_PREFIX
+          updates = all
+            .filter(n => n.text.startsWith(CLIENT_NOTE_PREFIX))
+            .map(n => ({ ...n, text: n.text.replace(CLIENT_NOTE_PREFIX, '').trim() }))
+            .sort((a, b) => b.createdAt - a.createdAt);
         } catch (_) {}
+        // Для совместимости со старыми именами в JSON-ответе
+        const notes = updates;
 
         // Задачи (ближайшие активные)
         let tasks = [];
@@ -98,7 +105,8 @@ module.exports = async function handler(req, res) {
           statusId: lead.status_id,
           stage,
           totalSteps: TOTAL_STEPS,
-          notes,
+          notes,        // совместимость — здесь только клиентские (с 📢)
+          updates,      // тоже клиентские, более явное имя
           tasks
         });
       } catch (e) {
