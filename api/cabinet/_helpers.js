@@ -11,6 +11,7 @@ const CF_GRAZHDANSTVO = 2422198;
 const CF_PASSPORT = 2422204;
 const CF_DOB = 2422206;
 const CF_ISTOCHNIK = 2422208;
+const CF_SERVICE_TYPE = 2425468; // Тип услуги (на сделке)
 
 // Этапы в продажной воронке (Pipeline 1) — id → human-readable
 const PIPELINE_SALES = 13830355;
@@ -188,5 +189,6 @@ module.exports = {
   CF_GRAZHDANSTVO,
   CF_PASSPORT,
   CF_DOB,
-  CF_ISTOCHNIK
+  CF_ISTOCHNIK,
+  CF_SERVICE_TYPE
 };

@@ -1,1 +1,4 @@
 i18n_work/
+node_modules/
+.vercel
+.env*

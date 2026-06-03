@@ -3,7 +3,7 @@ const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie,
   STAGE_NAMES, TOTAL_STEPS,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
-  CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB
+  CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
 
 module.exports = async function handler(req, res) {
@@ -56,11 +56,14 @@ module.exports = async function handler(req, res) {
         } catch (_) {}
 
         const stage = STAGE_NAMES[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2 };
+        const serviceType = getCfValue(lead, CF_SERVICE_TYPE);
         leads.push({
           id: lead.id,
           name: lead.name || '',
+          serviceType: serviceType || '',
           price: lead.price || 0,
           createdAt: lead.created_at * 1000,
+          updatedAt: lead.updated_at * 1000,
           pipelineId: lead.pipeline_id,
           statusId: lead.status_id,
           stage,
