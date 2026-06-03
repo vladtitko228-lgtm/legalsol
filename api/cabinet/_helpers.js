@@ -13,25 +13,33 @@ const CF_DOB = 2422206;
 const CF_ISTOCHNIK = 2422208;
 const CF_SERVICE_TYPE = 2425468; // Тип услуги (на сделке)
 
-// Этапы в продажной воронке (Pipeline 1) — id → human-readable
+// Воронка 1 (Sales) — это лиды, в кабинет НЕ попадают
 const PIPELINE_SALES = 13830355;
-const STAGE_NAMES = {
-  106715415: { ru: 'Заявка получена', en: 'Application received', pl: 'Wniosek otrzymany', step: 1 },
-  106715423: { ru: 'Менеджер связался', en: 'Manager contacted', pl: 'Konsultant się skontaktował', step: 2 },
-  106715427: { ru: 'Ожидаем ответ',    en: 'Awaiting response',  pl: 'Czekamy na odpowiedź', step: 2 },
-  106715431: { ru: 'Ожидаем ответ',    en: 'Awaiting response',  pl: 'Czekamy na odpowiedź', step: 2 },
-  106715687: { ru: 'Ожидаем ответ',    en: 'Awaiting response',  pl: 'Czekamy na odpowiedź', step: 2 },
-  106890935: { ru: 'Ожидаем ответ',    en: 'Awaiting response',  pl: 'Czekamy na odpowiedź', step: 2 },
-  106890939: { ru: 'Консультация',     en: 'Consultation',       pl: 'Konsultacja',          step: 3 },
-  107002483: { ru: 'Записаны на встречу', en: 'Meeting scheduled', pl: 'Spotkanie zaplanowane', step: 3 },
-  106890943: { ru: 'Готовим документы', en: 'Preparing documents', pl: 'Przygotowanie dokumentów', step: 4 },
-  106890947: { ru: 'Документы поданы', en: 'Documents submitted', pl: 'Dokumenty złożone',    step: 5 },
-  106890951: { ru: 'Готово',           en: 'Completed',          pl: 'Zakończone',           step: 6 },
-  106890955: { ru: 'Закрыто',          en: 'Closed',             pl: 'Zamknięte',            step: 6 },
-  142:       { ru: 'Успешно завершено', en: 'Successfully completed', pl: 'Pomyślnie zakończone', step: 6 },
-  143:       { ru: 'Закрыто',          en: 'Closed',             pl: 'Zamknięte',            step: 6 }
+// Воронка 2 (Operations / Легализация) — оплаченные клиенты, ИХ показываем в кабинете
+const PIPELINE_OPS = 13830463;
+
+// Стадии Pipeline 2 «Легализация» — что видит клиент в кабинете
+// step — позиция в прогресс-баре (1..6), service — дефолтный тип услуги, если не задан в кастомном поле
+const STAGE_NAMES_OPS = {
+  106716263: { ru: 'Заявка принята',      en: 'Application received',  pl: 'Wniosek przyjęty',     step: 1, service: 'Карта побыту' },
+  106716267: { ru: 'Документы отправлены', en: 'Documents sent',       pl: 'Dokumenty wysłane',    step: 2, service: 'Карта побыту' },
+  106716271: { ru: 'Подано в офис',       en: 'Filed at office',       pl: 'Złożone w urzędzie',   step: 3, service: 'Карта побыту' },
+  106716275: { ru: 'Ускоренное рассмотрение', en: 'Speed-up review',   pl: 'Przyspieszone',        step: 4, service: 'Карта побыту' },
+  106716319: { ru: 'Дело у юриста',       en: 'With lawyer (Supreme)', pl: 'U prawnika (Supreme)', step: 4, service: 'Карта побыту' },
+  106716323: { ru: 'Ждём отпечатки пальцев', en: 'Awaiting fingerprints', pl: 'Czekamy na odciski', step: 5, service: 'Карта побыту' },
+  106716347: { ru: 'На финальной проверке', en: 'Final review',        pl: 'Końcowa weryfikacja',  step: 5, service: 'Карта побыту' },
+  106716327: { ru: 'Подана апелляция',    en: 'Appeal filed',          pl: 'Złożono odwołanie',    step: 4, service: 'Апелляция' },
+  106716331: { ru: 'Защита от депортации', en: 'Deportation defence',  pl: 'Obrona przed deportacją', step: 3, service: 'Защита от депортации' },
+  106716335: { ru: 'Международная защита', en: 'International protection', pl: 'Ochrona międzynarodowa', step: 3, service: 'Международная защита' },
+  106716339: { ru: 'Воссоединение семьи', en: 'Family reunification',  pl: 'Łączenie rodzin',      step: 3, service: 'Воссоединение семьи' },
+  106716343: { ru: 'Замена водительских прав', en: 'Driving licence exchange', pl: 'Wymiana prawa jazdy', step: 3, service: 'Замена прав' },
+  142:       { ru: 'Готово ✓',            en: 'Completed ✓',           pl: 'Gotowe ✓',             step: 6, service: '' },
+  143:       { ru: 'Дело закрыто',        en: 'Case closed',           pl: 'Sprawa zamknięta',     step: 6, service: '' }
 };
 const TOTAL_STEPS = 6;
+
+// Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
+const STAGE_NAMES = STAGE_NAMES_OPS;
 
 // === Kommo HTTP wrapper ===
 async function kommo(method, path, body) {
@@ -59,21 +67,42 @@ function normalizePhone(raw) {
 }
 
 // === Поиск контакта по телефону ===
+// 1. ?query=+48xxx (Kommo full-text — обычно ловит и поле Phone, и имя если телефон в имени)
+// 2. fallback: ?query=792719298 (без +48, чтобы поймать имена вида "+48 792 719 298")
 async function findContactByPhone(phone) {
   const normalized = normalizePhone(phone);
   if (!normalized) return null;
-  // Kommo accepts "+48..." for query
-  const q = encodeURIComponent('+' + normalized);
-  const r = await kommo('GET', `/contacts?query=${q}&with=leads&limit=10`);
-  const contacts = r?._embedded?.contacts || [];
-  if (!contacts.length) return null;
-  // Берём первый, у которого совпал телефон точно
-  for (const c of contacts) {
+
+  async function search(q) {
+    const r = await kommo('GET', `/contacts?query=${encodeURIComponent(q)}&with=leads&limit=20`);
+    return r?._embedded?.contacts || [];
+  }
+
+  function matches(c) {
+    // Match by Phone field
     const phones = (c.custom_fields_values || [])
       .find(f => f.field_id === PHONE_FIELD_ID)?.values || [];
-    if (phones.some(v => normalizePhone(v.value) === normalized)) return c;
+    if (phones.some(v => normalizePhone(v.value) === normalized)) return true;
+    // Or by digits in the contact name (e.g. name = "+48 792 719 298")
+    if (normalizePhone(c.name) === normalized) return true;
+    return false;
   }
-  return contacts[0];
+
+  // Шаг 1: с плюсом
+  let contacts = await search('+' + normalized);
+  for (const c of contacts) if (matches(c)) return c;
+
+  // Шаг 2: без + (или только локальная часть, если 48xxx — обрежем 48)
+  contacts = await search(normalized);
+  for (const c of contacts) if (matches(c)) return c;
+
+  // Шаг 3: только польская часть (9 цифр, если начинается с 48)
+  if (normalized.length === 11 && normalized.startsWith('48')) {
+    contacts = await search(normalized.slice(2));
+    for (const c of contacts) if (matches(c)) return c;
+  }
+
+  return null;
 }
 
 // === Парсинг custom_fields_values ===
@@ -183,6 +212,8 @@ module.exports = {
   STAGE_NAMES,
   TOTAL_STEPS,
   PIPELINE_SALES,
+  PIPELINE_OPS,
+  STAGE_NAMES_OPS,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,

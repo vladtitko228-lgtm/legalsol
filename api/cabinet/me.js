@@ -1,10 +1,27 @@
 // GET /api/cabinet/me — данные авторизованного клиента из Kommo.
+// Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie,
-  STAGE_NAMES, TOTAL_STEPS,
+  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
+
+// Чистит имя сделки от служебных суффиксов: «Mohammad Habibur Rahman 08/05/2026» → «Mohammad Habibur Rahman»
+function cleanLeadName(name) {
+  if (!name) return '';
+  let s = String(name)
+    .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '') // дата в конце
+    .replace(/^(Facebook|Instagram|TikTok)\s*№?\s*\d+/i, '')   // тех-имена из ads
+    .replace(/^Lead\s*#\d+/i, '')
+    .trim();
+  return s;
+}
+
+function looksLikePhoneOnly(name) {
+  if (!name) return false;
+  return /^[\s+()\-\d]+$/.test(String(name).trim());
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -23,27 +40,33 @@ module.exports = async function handler(req, res) {
     const phones = getCfAllValues(cRes, PHONE_FIELD_ID);
     const emails = getCfAllValues(cRes, EMAIL_FIELD_ID);
 
-    // 2) Сделки контакта — тянем подробности и заметки
-    const leadIds = (cRes._embedded?.leads || []).map(l => l.id).slice(0, 10);
+    // 2) Сделки контакта: тянем подробности → фильтруем по Pipeline 2 (Легализация)
+    const allLeadIds = (cRes._embedded?.leads || []).map(l => l.id).slice(0, 20);
     const leads = [];
-    for (const lid of leadIds) {
+    let displayName = cRes.name || '';
+
+    for (const lid of allLeadIds) {
       try {
         const lead = await kommo('GET', `/leads/${lid}?with=contacts`);
         if (!lead) continue;
 
-        // Заметки
+        // Кабинет — только для оплаченных клиентов (Pipeline 2)
+        if (lead.pipeline_id !== PIPELINE_OPS) continue;
+
+        // Заметки по делу — все, до 100 штук, разные типы
         let notes = [];
         try {
-          const nRes = await kommo('GET', `/leads/${lid}/notes?limit=20&filter[note_type][]=common&filter[note_type][]=service_message&filter[note_type][]=invoice_paid`);
+          const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
           notes = (nRes?._embedded?.notes || []).map(n => ({
             id: n.id,
-            createdAt: n.created_at * 1000,
+            createdAt: (n.created_at || 0) * 1000,
             text: n.params?.text || '',
-            type: n.note_type
+            type: n.note_type,
+            author: n.created_by || null
           })).filter(n => n.text).sort((a, b) => b.createdAt - a.createdAt);
         } catch (_) {}
 
-        // Задачи
+        // Задачи (ближайшие активные)
         let tasks = [];
         try {
           const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`);
@@ -55,12 +78,19 @@ module.exports = async function handler(req, res) {
           })).sort((a, b) => a.completeTill - b.completeTill);
         } catch (_) {}
 
-        const stage = STAGE_NAMES[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2 };
-        const serviceType = getCfValue(lead, CF_SERVICE_TYPE);
+        const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '' };
+        const serviceType = getCfValue(lead, CF_SERVICE_TYPE) || stage.service || 'Услуга легализации';
+        const cleanName = cleanLeadName(lead.name);
+
+        // Если в контакте имя = «+48...», вытаскиваем из имени сделки
+        if (looksLikePhoneOnly(displayName) && cleanName && !looksLikePhoneOnly(cleanName)) {
+          displayName = cleanName;
+        }
+
         leads.push({
           id: lead.id,
-          name: lead.name || '',
-          serviceType: serviceType || '',
+          name: cleanName || lead.name || '',
+          serviceType,
           price: lead.price || 0,
           createdAt: lead.created_at * 1000,
           updatedAt: lead.updated_at * 1000,
@@ -79,14 +109,15 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({
       contact: {
         id: cRes.id,
-        name: cRes.name || '',
-        phone: phones[0] || '',
+        name: displayName,
+        phone: phones[0] || (looksLikePhoneOnly(cRes.name) ? cRes.name : ''),
         email: emails[0] || '',
         citizenship: getCfValue(cRes, CF_GRAZHDANSTVO),
         passport: getCfValue(cRes, CF_PASSPORT),
         birthDate: getCfValue(cRes, CF_DOB)
       },
-      leads
+      leads,
+      hasActiveCases: leads.length > 0
     });
   } catch (e) {
     console.error('me err:', e.message);
