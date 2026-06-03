@@ -15137,7 +15137,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         <div class="cab-chat-bar">
 
-          <input class="cab-chat-in" id="cab-chat-in" placeholder="Написать сообщение..." onkeydown="if(event.key==='Enter')cabSend()"/>
+          <input class="cab-chat-in" id="cab-chat-in" placeholder="Написать менеджеру в WhatsApp..." onkeydown="if(event.key==='Enter')cabSend()"/>
 
           <button class="cab-chat-send" onclick="cabSend()">↑</button>
 
@@ -16306,7 +16306,10 @@ function cabRenderDash(){
 
       '<div class="cab-prog-wrap"><div class="cab-prog-row"><span>Прогресс</span><span>'+c.progress+'%</span></div><div class="cab-prog-bg"><div class="cab-prog-fill'+(c.progress===100?' done':'')+'" style="width:'+c.progress+'%"></div></div></div>'+
 
-      '<button class="cab-open-btn" onclick="cabOpenCase(\''+c.id+'\')">Подробнее →</button>';
+      '<div style="display:flex;gap:8px;margin-top:2px;flex-wrap:wrap">'+
+      '<button class="cab-open-btn" style="flex:1;background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none;font-weight:700" onclick="event.stopPropagation();cabOpenChat(\''+c.id+'\')">💬 Переписка →</button>'+
+      '<button class="cab-open-btn" style="flex:0 0 auto" onclick="event.stopPropagation();cabOpenCase(\''+c.id+'\')">Детали</button>'+
+      '</div>';
 
     g.appendChild(d);
 
@@ -16437,52 +16440,112 @@ function cabOpenCase(id){
   document.getElementById('cab-content').scrollTop=0;
 }
 
+function cabOpenChat(caseId){
+  // Переход в Messages с выбранным делом
+  if(typeof cabPage==='function'){
+    var navItems=document.querySelectorAll('.cab-nav-item');
+    cabPage('messages',navItems[2]);
+  }
+  setTimeout(function(){
+    var sel=document.getElementById('cab-chat-sel');
+    if(sel&&caseId){sel.value=caseId;}
+    cabLoadChat();
+  },50);
+}
+
+function cabFmtFullDate(ms){
+  if(!ms)return'';
+  try{
+    var d=new Date(ms);
+    var months=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+    var p=function(n){return(n<10?'0':'')+n;};
+    var today=new Date();today.setHours(0,0,0,0);
+    var that=new Date(d);that.setHours(0,0,0,0);
+    var diffDays=Math.round((today-that)/86400000);
+    if(diffDays===0)return'Сегодня · '+p(d.getHours())+':'+p(d.getMinutes());
+    if(diffDays===1)return'Вчера · '+p(d.getHours())+':'+p(d.getMinutes());
+    return d.getDate()+' '+months[d.getMonth()]+' · '+p(d.getHours())+':'+p(d.getMinutes());
+  }catch(e){return'';}
+}
+
 function cabLoadChat(){
-
-  var sel=document.getElementById('cab-chat-sel');var cid=sel?sel.value:'CASE-2024-001';
-
-  var msgs=CAB_MSGS[cid]||[];var c=document.getElementById('cab-msgs');if(!c)return;
-
+  var sel=document.getElementById('cab-chat-sel');
+  if(sel&&window.cabData&&Array.isArray(window.cabData.leads)){
+    sel.innerHTML=CAB_CASES.map(function(c){return '<option value="'+c.id+'">'+c.typeName+' ('+c.id+')</option>';}).join('');
+  }
+  var cid=sel?sel.value:(CAB_CASES[0]&&CAB_CASES[0].id);
+  var caseData=CAB_CASES.find(function(c){return c.id===cid;});
+  var c=document.getElementById('cab-msgs');
+  if(!c)return;
   c.innerHTML='';
 
-  msgs.forEach(function(m){
+  if(!CAB_CASES.length){
+    c.innerHTML='<div style="text-align:center;padding:60px 24px;color:#a09ac8;font-size:14px">Активных дел нет — переписка появится, когда менеджер откроет ваше дело.</div>';
+    return;
+  }
+  if(!caseData){c.innerHTML='<div style="padding:40px;color:#a09ac8;text-align:center">Дело не выбрано</div>';return;}
 
-    var isU=m.sender==='usr';var d=document.createElement('div');d.className='cab-msg '+(isU?'usr':'spec');
+  // Системное «о деле» сверху
+  var stage=caseData._stage||{};
+  c.innerHTML+=
+    '<div style="background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border-radius:14px;padding:14px 18px;margin-bottom:18px">'+
+      '<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center">'+
+        '<div><div style="font-size:11px;opacity:.85;font-weight:600;letter-spacing:.6px;text-transform:uppercase">Ваше дело</div>'+
+        '<div style="font-size:15px;font-weight:700;margin-top:3px">'+caseData.typeName+'</div></div>'+
+        '<div style="text-align:right"><div style="font-size:11px;opacity:.85">'+(stage.ru||'В работе')+'</div>'+
+        '<div style="font-size:11px;opacity:.7;margin-top:2px">Шаг '+(stage.step||1)+' из '+(caseData.totalSteps||6)+'</div></div>'+
+      '</div>'+
+      (stage.whatWeDo?'<div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);font-size:13px;line-height:1.45">🛠 '+stage.whatWeDo+'</div>':'')+
+      (stage.etaText?'<div style="margin-top:6px;font-size:12px;opacity:.9">⏰ Срок: '+stage.etaText+'</div>':'')+
+    '</div>';
 
-    d.innerHTML='<div class="cab-msg-av '+(isU?'usr':'spec')+'">'+m.initials+'</div><div><div class="cab-msg-bbl">'+m.text+'</div><div class="cab-msg-meta">'+m.name+' · '+m.time+'</div></div>';
-
-    c.appendChild(d);
-
-  });
-
+  // Лента апдейтов как сообщения от менеджера
+  var updates=caseData._updates||[];
+  if(!updates.length){
+    c.innerHTML+=
+      '<div style="text-align:center;padding:50px 24px;color:#a09ac8">'+
+        '<div style="font-size:38px;margin-bottom:12px">💬</div>'+
+        '<div style="font-size:14px;line-height:1.55;max-width:380px;margin:0 auto">Менеджер ещё не оставлял публичных сообщений по этому делу. Они будут появляться здесь по ходу работы. Если что — напишите в WhatsApp.</div>'+
+      '</div>';
+  }else{
+    // Сортируем хронологически (старые сверху, новые снизу — как в мессенджере)
+    var sorted=updates.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
+    var lastDay=null;
+    sorted.forEach(function(u){
+      var d=new Date(u.createdAt);
+      var dayKey=d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+      if(dayKey!==lastDay){
+        lastDay=dayKey;
+        var label=cabFmtFullDate(u.createdAt).split('·')[0].trim();
+        c.innerHTML+='<div style="text-align:center;margin:18px 0 14px;color:#a09ac8;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase">'+label+'</div>';
+      }
+      var p=function(n){return(n<10?'0':'')+n;};
+      var timeStr=p(d.getHours())+':'+p(d.getMinutes());
+      var bubble=document.createElement('div');
+      bubble.className='cab-msg spec';
+      bubble.innerHTML=
+        '<div class="cab-msg-av spec">LS</div>'+
+        '<div><div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+        '<div class="cab-msg-meta">Менеджер · '+timeStr+'</div></div>';
+      c.appendChild(bubble);
+    });
+  }
   c.scrollTop=c.scrollHeight;
-
 }
 
 function cabSend(){
-
-  var inp=document.getElementById('cab-chat-in');var txt=inp?inp.value.trim():'';if(!txt)return;
-
-  var sel=document.getElementById('cab-chat-sel');var cid=sel?sel.value:'CASE-2024-001';
-
-  if(!CAB_MSGS[cid])CAB_MSGS[cid]=[];
-
-  var now=new Date();var t=now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes();
-
-  CAB_MSGS[cid].push({sender:'usr',initials:cabClientInitials(),name:cabClientName(),text:txt,time:t});
-
-  inp.value='';cabLoadChat();
-
-  setTimeout(function(){
-
-    var replies=['Понял, спасибо! Уточню и отвечу.','Хорошо, проверяем. Ответим в течение дня.','Отлично, продолжаем работу над вашим делом.','Принято. Будем держать вас в курсе. 👍'];
-
-    CAB_MSGS[cid].push({sender:'spec',initials:'МК',name:'Мария Ковальска',text:replies[Math.floor(Math.random()*replies.length)],time:t});
-
-    cabLoadChat();
-
-  },1400);
-
+  var inp=document.getElementById('cab-chat-in');
+  var txt=inp?inp.value.trim():'';
+  if(!txt){cabToast('Напишите сообщение','info');return;}
+  var sel=document.getElementById('cab-chat-sel');
+  var cid=sel?sel.value:(CAB_CASES[0]&&CAB_CASES[0].id);
+  var caseData=CAB_CASES.find(function(c){return c.id===cid;});
+  // Открываем WhatsApp с предзаполненным сообщением — реальный канал общения с менеджером
+  var prefix=caseData?('По делу '+caseData.id+' ('+caseData.typeName+'):\n'):'';
+  var url='https://wa.me/48735248525?text='+encodeURIComponent(prefix+txt);
+  window.open(url,'_blank','noopener');
+  if(inp)inp.value='';
+  cabToast('Открываем WhatsApp с вашим сообщением','success');
 }
 
 function cabFilter(status,btn){
@@ -16535,7 +16598,7 @@ function cabRenderHistory(){
 
         +'<div style="width:110px;height:6px;background:#f0eeff;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+c.progress+'%;background:'+barColor+';border-radius:3px;transition:width 1s ease"></div></div>'
 
-        +'<button class="cab-open-btn" style="margin-top:2px;" onclick="event.stopPropagation();cabOpenCase(\''+c.id+'\')">Открыть →</button>'
+        +'<div style="display:flex;gap:6px;margin-top:2px"><button class="cab-open-btn" style="background:linear-gradient(135deg,#5B52CC,#8B82E8);color:#fff;border:none" onclick="event.stopPropagation();cabOpenChat(\''+c.id+'\')">💬 Переписка</button><button class="cab-open-btn" onclick="event.stopPropagation();cabOpenCase(\''+c.id+'\')">Детали</button></div>'
 
         +'</div>'
 
