@@ -14832,13 +14832,13 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     <div id="cab-form-login">
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Email</label><input class="cab-input" type="email" id="cab-email" placeholder="your@email.com"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Телефон</label><input class="cab-input" type="tel" id="cab-email" placeholder="+48 600 123 456" autocomplete="tel" onkeydown="if(event.key==='Enter')document.getElementById('cab-pass').focus()"/></div>
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-1">Пароль</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-1">Пароль</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
 
       <button class="cab-btn-primary" id="cab-btn-login" onclick="cabLogin()">Войти →</button>
 
-      <div class="cab-login-hint" id="cab-login-hint">Забыли пароль? <span onclick="cabToast('Ссылка восстановления отправлена','info')">Восстановить</span></div>
+      <div class="cab-login-hint" id="cab-login-hint">Забыли пароль? <span onclick="cabToast('Напишите в WhatsApp — менеджер пришлёт новый','info')">Восстановить</span></div>
 
     </div>
 
@@ -16003,38 +16003,100 @@ function showCabComingSoon(){
 
 
 
-function cabLogin(){
+window.cabData=null;
 
-  var pass=document.getElementById('cab-pass');
-  var passVal=pass?pass.value:'';
-
-  if(passVal!=='1111'){
-    // shake + red border on wrong password
-    if(pass){
-      pass.style.borderColor='rgba(239,68,68,.7)';
-      pass.style.boxShadow='0 0 0 3px rgba(239,68,68,.18)';
-      pass.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:320,easing:'ease-out'});
-      setTimeout(function(){pass.style.borderColor='';pass.style.boxShadow='';},1800);
-    }
-    cabToast('Неверный пароль','error');
-    return;
-  }
-
-  document.getElementById('cab-login-screen').style.display='none';
-
-  document.getElementById('cab-app').style.display='flex';
-
-  cabRenderDash();cabLoadChat();cabRenderHistory();
-
-  cabToast('Добро пожаловать! 👋','success');
-
+function cabShakeError(input){
+  if(!input)return;
+  input.style.borderColor='rgba(239,68,68,.7)';
+  input.style.boxShadow='0 0 0 3px rgba(239,68,68,.18)';
+  try{input.animate([{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:320,easing:'ease-out'});}catch(e){}
+  setTimeout(function(){input.style.borderColor='';input.style.boxShadow='';},1800);
 }
+
+async function cabLogin(){
+  var phoneEl=document.getElementById('cab-email');
+  var passEl=document.getElementById('cab-pass');
+  var phone=phoneEl?phoneEl.value.trim():'';
+  var password=passEl?passEl.value:'';
+  if(!phone){cabShakeError(phoneEl);cabToast('Введите телефон','error');return;}
+  if(!password){cabShakeError(passEl);cabToast('Введите пароль','error');return;}
+
+  var btn=document.getElementById('cab-btn-login');
+  var origTxt=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='Входим…';}
+
+  try{
+    var resp=await fetch('/api/cabinet/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phone:phone,password:password})
+    });
+    var data=await resp.json().catch(function(){return{};});
+    if(!resp.ok){
+      cabShakeError(passEl);
+      var msg=data.message||(data.error==='no_password_set'?'Менеджер ещё не задал вам пароль. Напишите в WhatsApp.':'Неверный телефон или пароль');
+      cabToast(msg,'error');
+      return;
+    }
+    await cabBootstrapApp();
+    cabToast('Добро пожаловать! 👋','success');
+  }catch(e){
+    console.error('login err',e);
+    cabToast('Ошибка сети. Попробуйте ещё раз.','error');
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent=origTxt;}
+  }
+}
+
+async function cabBootstrapApp(){
+  // Тянем данные клиента из Kommo и заполняем кабинет
+  var resp=await fetch('/api/cabinet/me',{credentials:'same-origin'});
+  if(!resp.ok){throw new Error('unauthorized');}
+  window.cabData=await resp.json();
+  cabApplyData();
+  document.getElementById('cab-login-screen').style.display='none';
+  document.getElementById('cab-app').style.display='flex';
+  cabRenderDash();cabLoadChat();cabRenderHistory();
+}
+
+function cabApplyData(){
+  if(!window.cabData||!window.cabData.contact)return;
+  var c=window.cabData.contact;
+  // Имя в sidebar
+  var nm=document.querySelector('.cab-sb-name');
+  if(nm)nm.textContent=c.name||'Клиент';
+  // Email/телефон в sidebar
+  var em=document.querySelector('.cab-sb-email');
+  if(em)em.textContent=c.email||c.phone||'';
+  // Инициалы на фото
+  var ph=document.querySelector('.cab-sb-photo');
+  if(ph&&c.name){
+    var parts=c.name.trim().split(/\s+/);
+    var init=parts.map(function(p){return p[0]||'';}).slice(0,2).join('').toUpperCase();
+    var ov=ph.querySelector('.cab-sb-photo-overlay');
+    ph.textContent=init||'?';
+    if(ov)ph.appendChild(ov);
+  }
+}
+
+// Автологин при загрузке: если cookie ещё валидно — сразу в кабинет.
+(function(){
+  if(typeof window==='undefined')return;
+  var run=function(){
+    if(!document.getElementById('cab-login-screen'))return;
+    fetch('/api/cabinet/me',{credentials:'same-origin'}).then(function(r){
+      if(r.ok)return r.json().then(function(d){window.cabData=d;cabApplyData();document.getElementById('cab-login-screen').style.display='none';document.getElementById('cab-app').style.display='flex';if(typeof cabRenderDash==='function')cabRenderDash();if(typeof cabLoadChat==='function')cabLoadChat();if(typeof cabRenderHistory==='function')cabRenderHistory();});
+    }).catch(function(){});
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);
+  else run();
+})();
 
 function cabLogout(){
 
   var conf=document.createElement('div');conf.className='cab-confirm';
 
-  conf.innerHTML='<div class="cab-confirm-box"><div class="cab-confirm-title">Выйти из кабинета?</div><div class="cab-confirm-sub">Ваши данные сохранены. Вы сможете войти снова в любое время.</div><div class="cab-confirm-btns"><button style="flex:1;padding:11px;background:#f0eeff;border:1px solid #e8e4f5;border-radius:60px;color:#6b63a8;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove()">Отмена</button><button style="flex:1;padding:11px;background:linear-gradient(135deg,#ef4444,#f87171);border:none;border-radius:60px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove();document.getElementById(\'cab-app\').style.display=\'none\';document.getElementById(\'cab-login-screen\').style.display=\'flex\';cabToast(\'Вы вышли из кабинета\',\'info\')">Выйти</button></div></div>';
+  conf.innerHTML='<div class="cab-confirm-box"><div class="cab-confirm-title">Выйти из кабинета?</div><div class="cab-confirm-sub">Ваши данные сохранены. Вы сможете войти снова в любое время.</div><div class="cab-confirm-btns"><button style="flex:1;padding:11px;background:#f0eeff;border:1px solid #e8e4f5;border-radius:60px;color:#6b63a8;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove()">Отмена</button><button style="flex:1;padding:11px;background:linear-gradient(135deg,#ef4444,#f87171);border:none;border-radius:60px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove();fetch(\'/api/cabinet/logout\',{method:\'POST\',credentials:\'same-origin\'}).finally(function(){window.cabData=null;CAB_CASES=[];CAB_MSGS={};document.getElementById(\'cab-app\').style.display=\'none\';document.getElementById(\'cab-login-screen\').style.display=\'flex\';cabToast(\'Вы вышли из кабинета\',\'info\');});">Выйти</button></div></div>';
 
   document.body.appendChild(conf);
 
@@ -16092,9 +16154,91 @@ function cabPage(name,btn){
 
 }
 
+function cabFmtDate(ms){if(!ms)return'';try{var d=new Date(ms);var p=function(n){return(n<10?'0':'')+n;};return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();}catch(e){return'';}}
+function cabFmtTime(ms){if(!ms)return'';try{var d=new Date(ms);var p=function(n){return(n<10?'0':'')+n;};return p(d.getHours())+':'+p(d.getMinutes());}catch(e){return'';}}
+
+function cabSyncDataToCases(){
+  if(!window.cabData||!Array.isArray(window.cabData.leads))return;
+  var leads=window.cabData.leads;
+  if(!leads.length){CAB_CASES=[];CAB_MSGS={};return;}
+
+  CAB_CASES=leads.map(function(ld){
+    var step=(ld.stage&&ld.stage.step)||2;
+    var total=ld.totalSteps||6;
+    var pct=Math.round(step/total*100);
+    var status='in_progress';
+    if(step>=6)status='completed';
+    else if(step<=1)status='pending';
+
+    // Таймлайн: из заметок (последние 5 + сама стадия) — отображаем как done события
+    var notes=(ld.notes||[]).slice(0,5);
+    var timeline=notes.map(function(n){
+      return{date:cabFmtDate(n.createdAt),ev:'Обновление',note:(n.text||'').slice(0,200),done:true};
+    });
+    // Добавим текущую стадию как «в процессе» если не завершено
+    if(step<total){
+      timeline.push({date:'—',ev:(ld.stage&&ld.stage.ru)||'В работе',note:'Текущий этап',done:false});
+    }
+
+    // Чеклист — N шагов по этапам воронки
+    var stageLabels=['Заявка получена','Менеджер связался','Консультация','Готовим документы','Документы поданы','Готово'];
+    var checks=stageLabels.map(function(lbl,i){return{t:lbl,d:i<step};});
+
+    // Документы — пока пусто (добавим в следующей итерации, когда поля появятся в Kommo)
+    var docs=[];
+
+    // Ближайшая задача → последняя строка в обновлено
+    var nextTask=(ld.tasks&&ld.tasks[0])?ld.tasks[0]:null;
+    var updatedMs=nextTask?nextTask.completeTill:(notes[0]?notes[0].createdAt:ld.createdAt);
+
+    return{
+      id:'LS-'+ld.id,
+      typeName:ld.name||'Услуга',
+      status:status,
+      progress:pct,
+      createdAt:cabFmtDate(ld.createdAt),
+      updatedAt:cabFmtDate(updatedMs)||cabFmtDate(Date.now()),
+      price:ld.price||0,
+      spec:{name:'Менеджер LegalSol',role:'Ваш специалист',phone:'48735248525',phoneLabel:'+48 735 248 525',email:'legalsol.communication@gmail.com',initials:'LS'},
+      timeline:timeline.length?timeline:[{date:cabFmtDate(ld.createdAt),ev:'Заявка получена',note:'Спасибо! Менеджер свяжется с вами.',done:true}],
+      docs:docs,
+      checks:checks,
+      _kommoLeadId:ld.id,
+      _stage:ld.stage,
+      _nextTask:nextTask
+    };
+  });
+
+  // CAB_MSGS — переписка из заметок
+  CAB_MSGS={};
+  leads.forEach(function(ld){
+    var key='LS-'+ld.id;
+    CAB_MSGS[key]=(ld.notes||[]).slice().reverse().map(function(n){
+      return{sender:'spec',initials:'LS',name:'Менеджер',text:(n.text||'').slice(0,500),time:cabFmtTime(n.createdAt)};
+    });
+  });
+
+  // Перепишем селектор чата в Сообщениях, если есть
+  var sel=document.getElementById('cab-chat-sel');
+  if(sel){
+    sel.innerHTML=CAB_CASES.map(function(c){return'<option value="'+c.id+'">'+c.typeName+' ('+c.id+')</option>';}).join('');
+  }
+}
+
+// Расширяем cabApplyData: синкнуть данные в CAB_CASES перед рендером
+var _origCabApplyData=window.cabApplyData;
+window.cabApplyData=function(){
+  if(typeof _origCabApplyData==='function')_origCabApplyData();
+  cabSyncDataToCases();
+};
+
 function cabRenderDash(){
 
   var g=document.getElementById('cab-cases-grid');if(!g)return;g.innerHTML='';
+  if(!CAB_CASES.length){
+    g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#a09ac8;font-size:14px;">У вас пока нет активных дел. Если вы недавно обратились — данные появятся в течение нескольких минут.</div>';
+    return;
+  }
 
   CAB_CASES.forEach(function(c){
 
