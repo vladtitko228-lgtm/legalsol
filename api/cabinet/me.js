@@ -2,7 +2,8 @@
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie,
-  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, CLIENT_NOTE_PREFIX,
+  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
+  isClientNote, stripClientPrefix,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
@@ -64,10 +65,10 @@ module.exports = async function handler(req, res) {
             type: n.note_type,
             author: n.created_by || null
           })).filter(n => n.text);
-          // Только клиентские — те что начинаются с CLIENT_NOTE_PREFIX
+          // Только клиентские — поддерживаем несколько префиксов (>>>, 📢, [c], [К], [к])
           updates = all
-            .filter(n => n.text.startsWith(CLIENT_NOTE_PREFIX))
-            .map(n => ({ ...n, text: n.text.replace(CLIENT_NOTE_PREFIX, '').trim() }))
+            .filter(n => isClientNote(n.text))
+            .map(n => ({ ...n, text: stripClientPrefix(n.text) }))
             .sort((a, b) => b.createdAt - a.createdAt);
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе

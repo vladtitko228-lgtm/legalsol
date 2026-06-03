@@ -113,8 +113,45 @@ const STAGE_NAMES_OPS = {
 };
 const TOTAL_STEPS = 6;
 
-// Префикс клиентских апдейтов: только заметки в Kommo, начинающиеся с него, попадают в кабинет
-const CLIENT_NOTE_PREFIX = '📢';
+// Префиксы клиентских апдейтов: менеджер ставит ЛЮБОЙ из них в начало заметки.
+// Если матчится — заметка летит в кабинет, без префикса остаётся внутренней.
+// Основной — «КЛИЕНТУ:» (надёжный текст без спецсимволов).
+// Дополнительные — для гибкости (Kommo иногда экранирует > / эмодзи).
+const CLIENT_NOTE_PREFIXES = [
+  'КЛИЕНТУ:', 'Клиенту:', 'клиенту:',
+  '[КЛИЕНТ]', '[Клиент]', '[c]', '[К]', '[к]',
+  '>>>', '&gt;&gt;&gt;',
+  '📢'
+];
+const CLIENT_NOTE_PREFIX = 'КЛИЕНТУ:'; // дефолтный (для UI и сообщений)
+
+function decodeHtmlEntities(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+}
+
+function isClientNote(text) {
+  if (!text) return false;
+  const t = decodeHtmlEntities(text).trim();
+  return CLIENT_NOTE_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+
+function stripClientPrefix(text) {
+  if (!text) return '';
+  let t = decodeHtmlEntities(text).trim();
+  for (const p of CLIENT_NOTE_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) {
+      return t.slice(p.length).trim();
+    }
+  }
+  return t;
+}
 
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
 const STAGE_NAMES = STAGE_NAMES_OPS;
@@ -302,6 +339,9 @@ module.exports = {
   PIPELINE_OPS,
   STAGE_NAMES_OPS,
   CLIENT_NOTE_PREFIX,
+  CLIENT_NOTE_PREFIXES,
+  isClientNote,
+  stripClientPrefix,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,
