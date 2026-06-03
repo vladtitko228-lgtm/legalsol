@@ -67,41 +67,50 @@ function normalizePhone(raw) {
 }
 
 // === Поиск контакта по телефону ===
-// 1. ?query=+48xxx (Kommo full-text — обычно ловит и поле Phone, и имя если телефон в имени)
-// 2. fallback: ?query=792719298 (без +48, чтобы поймать имена вида "+48 792 719 298")
+// Kommo full-text search строгий: ищет именно по строке.
+// Пробуем разные форматы — потому что менеджеры пишут телефон как угодно
+// (в поле Phone, в имени контакта, с пробелами, без +, и т.д.)
 async function findContactByPhone(phone) {
   const normalized = normalizePhone(phone);
   if (!normalized) return null;
+
+  // Польский формат: XXX XXX XXX (9 цифр split 3-3-3)
+  const localPart = normalized.length === 11 && normalized.startsWith('48')
+    ? normalized.slice(2)
+    : normalized;
+  const polishSpaced = localPart.length === 9
+    ? localPart.slice(0, 3) + ' ' + localPart.slice(3, 6) + ' ' + localPart.slice(6)
+    : null;
+
+  const queries = [
+    '+' + normalized,                                        // +48792719298
+    normalized,                                              // 48792719298
+    localPart,                                               // 792719298
+    polishSpaced,                                            // 792 719 298  ← ловит имя «+48 792 719 298»
+    polishSpaced ? '+48 ' + polishSpaced : null              // +48 792 719 298
+  ].filter(Boolean);
 
   async function search(q) {
     const r = await kommo('GET', `/contacts?query=${encodeURIComponent(q)}&with=leads&limit=20`);
     return r?._embedded?.contacts || [];
   }
-
   function matches(c) {
-    // Match by Phone field
     const phones = (c.custom_fields_values || [])
       .find(f => f.field_id === PHONE_FIELD_ID)?.values || [];
     if (phones.some(v => normalizePhone(v.value) === normalized)) return true;
-    // Or by digits in the contact name (e.g. name = "+48 792 719 298")
     if (normalizePhone(c.name) === normalized) return true;
     return false;
   }
 
-  // Шаг 1: с плюсом
-  let contacts = await search('+' + normalized);
-  for (const c of contacts) if (matches(c)) return c;
-
-  // Шаг 2: без + (или только локальная часть, если 48xxx — обрежем 48)
-  contacts = await search(normalized);
-  for (const c of contacts) if (matches(c)) return c;
-
-  // Шаг 3: только польская часть (9 цифр, если начинается с 48)
-  if (normalized.length === 11 && normalized.startsWith('48')) {
-    contacts = await search(normalized.slice(2));
-    for (const c of contacts) if (matches(c)) return c;
+  const seenIds = new Set();
+  for (const q of queries) {
+    const contacts = await search(q);
+    for (const c of contacts) {
+      if (seenIds.has(c.id)) continue;
+      seenIds.add(c.id);
+      if (matches(c)) return c;
+    }
   }
-
   return null;
 }
 
