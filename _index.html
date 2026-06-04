@@ -4737,67 +4737,22 @@ if(document.readyState === 'loading'){
 </script>
 
 
-<!-- SERVICES TICKER -->
-
-<div class="svc-ticker">
-
-  <div class="svc-track" id="svc-track"></div>
-
-</div>
+<!-- SERVICES TICKER removed for KP-focus homepage. _tickerItems kept as data — used by Services sidebar in other tabs. -->
 
 <script>
-
 var _tickerItems={
-
   ru:['Вид на жительство','ПМЖ','Гражданство Польши','Blue Card (ЕС)','Апелляции','Регистрация компании','Бухгалтерский учёт','Помощь с PESEL','Profil Zaufany','Замена прав','Международная защита','Ускорение карты'],
-
   en:['Residence Permit','Permanent Residence','Polish Citizenship','Blue Card (EU)','Appeals','Company Registration','Accounting','PESEL Assistance','Profil Zaufany','Driving Licence Exchange','International Protection','Card Speedup'],
-
   pl:['Karta Pobytu','Stały Pobyt','Obywatelstwo Polskie','Blue Card (UE)','Odwołania','Rejestracja Firmy','Księgowość','Pomoc z PESEL','Profil Zaufany','Wymiana Prawa Jazdy','Ochrona Międzynarodowa','Przyspieszenie Karty'],
-
   es:['Permiso de Residencia','Residencia Permanente','Ciudadanía Polaca','Blue Card (UE)','Apelaciones','Registro de Empresa','Contabilidad','Ayuda con PESEL','Profil Zaufany','Canje de Licencia','Protección Internacional','Aceleración de Tarjeta'],
-
   tr:['Oturma İzni','Kalıcı İkamet','Polonya Vatandaşlığı','Blue Card (AB)','İtirazlar','Şirket Kaydı','Muhasebe','PESEL Yardımı','Profil Zaufany','Ehliyet Değişimi','Uluslararası Koruma','Kart Hızlandırma'],
-
   az:['İqamət İcazəsi','Daimi İqamət','Polşa Vətəndaşlığı','Blue Card (AB)','Şikayətlər','Şirkət Qeydiyyatı','Mühasibat','PESEL Yardımı','Profil Zaufany','Sürücülük Vəsiqəsi','Beynəlxalq Müdafiə','Kartın Sürətləndirilməsi'],
-
   hi:['निवास परमिट','स्थायी निवास','पोलिश नागरिकता','Blue Card (EU)','अपील','कंपनी पंजीकरण','अकाउंटिंग','PESEL सहायता','Profil Zaufany','लाइसेंस एक्सचेंज','अंतर्राष्ट्रीय सुरक्षा','कार्ड त्वरण'],
-
   uk:['Карта Побуту','ПМП','Громадянство Польщі','Blue Card (ЄС)','Оскарження','Реєстрація Компанії','Бухгалтерія','Допомога з PESEL','Profil Zaufany','Заміна Прав','Міжнародний Захист','Прискорення Карти']
-
 };
-
-function updateTicker(lang){
-
-  var track=document.getElementById('svc-track');
-
-  if(!track)return;
-
-  var items=_tickerItems[lang]||_tickerItems.ru;
-
-  var html='';
-
-  // double for seamless loop
-
-  for(var r=0;r<2;r++){
-
-    items.forEach(function(t){
-
-      html+='<span class="svc-item">'+t+'</span><span class="svc-bullet">•</span>';
-
-    });
-
-  }
-
-  track.innerHTML=html;
-
-}
-
-updateTicker('ru');
-
+// updateTicker — no-op stub: ticker HTML removed but lang-switcher still calls it
+function updateTicker(){}
 </script>
-
-
 
 
 
