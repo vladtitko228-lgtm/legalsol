@@ -1332,6 +1332,34 @@ h1 .acc{color:var(--p300);}
   .hero-seg-btn .hseg-label{font-size:14px;}
 }
 
+/* ── DESKTOP — ОДНОКОЛОНОЧНЫЙ ЦЕНТР (симметрично, без асимметрии слева/справа) ─ */
+/* Используем :where() чтобы не повышать специфичность над media-rules выше. */
+@media(min-width:761px){
+  #hero{
+    grid-template-columns:1fr !important;
+    justify-items:center;
+    text-align:center;
+    padding-top:140px;padding-bottom:80px;
+  }
+  .hero-enter-left{
+    max-width:680px;
+    width:100%;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .hero-enter-left #hero-h1{text-align:center;}
+  .hero-seg-eyebrow{justify-content:center;}
+  .hero-seg-row{
+    grid-template-columns:repeat(3,minmax(170px,1fr));
+    gap:14px;
+    max-width:640px;width:100%;
+    margin:0 auto 36px;
+  }
+  .hero-stats{justify-content:center;width:100%;max-width:560px;}
+  /* Прячем правую колонку (3D-карта) на десктопе — она крала фокус.
+     Карта офиса показывается отдельной секцией ниже. */
+  .hero-right{display:none !important;}
+}
+
 @keyframes hsegEyebrowIn{
   from{opacity:0;transform:translateY(8px);}
   to{opacity:1;transform:translateY(0);}
