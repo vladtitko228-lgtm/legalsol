@@ -1311,11 +1311,67 @@ h1 .acc{color:var(--p300);}
 .hero-seg-btn.hseg-appeal:hover{border-color:rgba(251,191,36,.55);box-shadow:0 14px 36px -10px rgba(251,191,36,.4);}
 .hero-seg-btn.hseg-appeal .hseg-sub{color:#fde047;}
 
+/* ── ENTRY ANIMATIONS — каскадом ────────────────────────────────── */
+.hero-seg-eyebrow{opacity:0;animation:hsegEyebrowIn .7s cubic-bezier(.16,1,.3,1) .05s forwards;}
+.hero-seg-eyebrow::before,.hero-seg-eyebrow::after{transform-origin:left center;animation:hsegLineExpand 1.1s cubic-bezier(.22,1,.36,1) .15s forwards;transform:scaleX(0);}
+.hero-seg-eyebrow::after{transform-origin:right center;}
+
+.hero-seg-btn{opacity:0;transform:translateY(28px) scale(.92);will-change:transform,opacity,box-shadow;}
+.hero-seg-btn:nth-child(1){animation:hsegBtnIn .9s cubic-bezier(.34,1.4,.64,1) .25s forwards,hsegBreathe 4.2s ease-in-out 1.4s infinite;}
+.hero-seg-btn:nth-child(2){animation:hsegBtnIn .9s cubic-bezier(.34,1.4,.64,1) .38s forwards,hsegBreathe 4.2s ease-in-out 1.7s infinite;}
+.hero-seg-btn:nth-child(3){animation:hsegBtnIn .9s cubic-bezier(.34,1.4,.64,1) .51s forwards,hsegAppealPulse 2.4s ease-in-out 2.0s infinite;}
+
+.hero-seg-btn .hseg-ico{display:inline-block;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.hero-seg-btn:hover .hseg-ico{transform:scale(1.18) rotate(-8deg);}
+.hero-seg-btn.hseg-appeal .hseg-ico{animation:hsegAppealWobble 3s ease-in-out 2.4s infinite;}
+
 /* Mobile — 1 столбец, более просторно */
 @media(max-width:760px){
   .hero-seg-row{grid-template-columns:1fr;gap:9px;max-width:none;}
   .hero-seg-btn{padding:13px 14px;}
   .hero-seg-btn .hseg-label{font-size:14px;}
+}
+
+@keyframes hsegEyebrowIn{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes hsegLineExpand{
+  from{transform:scaleX(0);}
+  to{transform:scaleX(1);}
+}
+@keyframes hsegBtnIn{
+  0%{opacity:0;transform:translateY(28px) scale(.92) rotateX(-12deg);}
+  55%{opacity:1;transform:translateY(-5px) scale(1.04) rotateX(3deg);}
+  80%{transform:translateY(2px) scale(.99) rotateX(-1deg);}
+  100%{opacity:1;transform:translateY(0) scale(1) rotateX(0);}
+}
+@keyframes hsegBreathe{
+  0%,100%{box-shadow:0 6px 20px -8px rgba(0,0,0,.45),0 0 0 rgba(91,82,204,0),inset 0 1px 0 rgba(255,255,255,.04);}
+  50%{box-shadow:0 10px 28px -10px rgba(0,0,0,.5),0 0 32px -4px rgba(91,82,204,.28),inset 0 1px 0 rgba(255,255,255,.08);}
+}
+@keyframes hsegAppealPulse{
+  0%,100%{box-shadow:0 6px 20px -8px rgba(0,0,0,.45),0 0 0 rgba(251,191,36,0),inset 0 1px 0 rgba(255,255,255,.04);}
+  50%{box-shadow:0 10px 28px -10px rgba(0,0,0,.5),0 0 30px -4px rgba(251,191,36,.36),inset 0 1px 0 rgba(255,255,255,.10);}
+}
+@keyframes hsegAppealWobble{
+  0%,100%{transform:rotate(0deg) scale(1);}
+  45%{transform:rotate(-6deg) scale(1.08);}
+  55%{transform:rotate(6deg) scale(1.08);}
+}
+
+/* Shimmer sweep при hover — пробегает диагональным бликом */
+.hero-seg-btn::after{
+  content:'';position:absolute;top:0;left:-60%;width:50%;height:100%;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.08) 35%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.08) 65%,transparent 100%);
+  transform:skewX(-18deg);transition:left .65s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:1;
+}
+.hero-seg-btn:hover::after{left:130%;}
+.hero-seg-btn .hseg-ico,.hero-seg-btn .hseg-txt{position:relative;z-index:2;}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-seg-btn,.hero-seg-eyebrow,.hero-seg-eyebrow::before,.hero-seg-eyebrow::after,.hero-seg-btn .hseg-ico{animation:none !important;opacity:1 !important;transform:none !important;}
+  .hero-seg-btn::after{display:none;}
 }
 
 /* Единая брендовая фиолетовая тема для всех 3 кнопок */
