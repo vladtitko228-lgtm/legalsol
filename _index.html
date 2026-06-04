@@ -1165,6 +1165,83 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 /* HERO */
 
+/* ── HERO AURORA — плавающие глоу-сферы под контентом ─────────────────
+   Мягкая премиум-атмосфера без рекламной пестроты. Цвета бренда:
+   фиолет (#7C5CFC), шампань (#FBBF24), изумруд (#10B981).
+   Все sphere — blurred, тяжёлые transitions, mix-blend-mode:screen
+   создаёт натуральный световой эффект на тёмном фоне. */
+.hero-aurora{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.hero-aurora .orb{
+  position:absolute;border-radius:50%;
+  filter:blur(80px);mix-blend-mode:screen;
+  will-change:transform,opacity;
+  opacity:.55;
+}
+.hero-aurora .orb-1{
+  width:520px;height:520px;left:-12%;top:8%;
+  background:radial-gradient(circle,rgba(124,92,252,.75) 0%,rgba(124,92,252,.18) 50%,transparent 75%);
+  animation:auroraDrift1 24s ease-in-out infinite;
+}
+.hero-aurora .orb-2{
+  width:460px;height:460px;right:-8%;top:12%;
+  background:radial-gradient(circle,rgba(251,191,36,.45) 0%,rgba(251,191,36,.12) 50%,transparent 75%);
+  animation:auroraDrift2 28s ease-in-out infinite;
+  opacity:.45;
+}
+.hero-aurora .orb-3{
+  width:380px;height:380px;left:32%;bottom:-12%;
+  background:radial-gradient(circle,rgba(16,185,129,.5) 0%,rgba(16,185,129,.14) 50%,transparent 75%);
+  animation:auroraDrift3 22s ease-in-out infinite;
+  opacity:.4;
+}
+.hero-aurora .orb-4{
+  width:300px;height:300px;right:18%;bottom:-8%;
+  background:radial-gradient(circle,rgba(184,178,245,.55) 0%,rgba(184,178,245,.16) 50%,transparent 75%);
+  animation:auroraDrift4 26s ease-in-out infinite;
+  opacity:.5;
+}
+.hero-aurora .orb-5{
+  width:240px;height:240px;left:48%;top:38%;
+  background:radial-gradient(circle,rgba(124,92,252,.6) 0%,rgba(124,92,252,.12) 50%,transparent 75%);
+  animation:auroraDrift5 30s ease-in-out infinite;
+  opacity:.35;
+}
+
+@keyframes auroraDrift1{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  33%{transform:translate3d(80px,40px,0) scale(1.08);}
+  66%{transform:translate3d(-40px,60px,0) scale(.95);}
+}
+@keyframes auroraDrift2{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(-60px,40px,0) scale(1.12);}
+}
+@keyframes auroraDrift3{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  40%{transform:translate3d(40px,-30px,0) scale(1.06);}
+  75%{transform:translate3d(-30px,-50px,0) scale(.94);}
+}
+@keyframes auroraDrift4{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(50px,-30px,0) scale(1.1);}
+}
+@keyframes auroraDrift5{
+  0%,100%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(-40px,30px,0) scale(1.15);}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-aurora .orb{animation:none !important;}
+}
+/* Mobile — поменьше сферы, ниже opacity (не отвлекают от текста) */
+@media(max-width:760px){
+  .hero-aurora .orb-1{width:340px;height:340px;opacity:.45;}
+  .hero-aurora .orb-2{width:280px;height:280px;opacity:.35;}
+  .hero-aurora .orb-3{width:240px;height:240px;opacity:.32;}
+  .hero-aurora .orb-4{width:220px;height:220px;opacity:.38;}
+  .hero-aurora .orb-5{display:none;}
+}
+
 #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:108px 60px 64px;position:relative;overflow:hidden;
 
   background:radial-gradient(ellipse 55% 70% at 15% 50%,rgba(91,82,204,.2) 0%,transparent 65%),
@@ -4595,6 +4672,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <section id="hero">
+
+  <!-- AURORA BACKGROUND — мягкие плывущие глоу-сферы под контентом.
+       z-index ниже всего, pointer-events:none — не мешает кликам.
+       Цвета взяты из брендовой палитры (фиолет, шампань, изумруд).
+       Анимация медленная (18-26 сек), отключается при reduced-motion. -->
+  <div class="hero-aurora" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="orb orb-4"></span>
+    <span class="orb orb-5"></span>
+  </div>
 
   <!-- Aurora background -->
 
