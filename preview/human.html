@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegalSol · Human-version preview</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07050f;
+  --bg2:#0e0a23;
+  --p400:#5B52CC;
+  --p300:#8B82E8;
+  --p200:#c4beff;
+  --txt:#fff;
+  --txt2:#a09ac8;
+  --gold:#fde047;
+}
+html,body{background:var(--bg);color:var(--txt);font-family:'Inter','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;}
+body{overflow-x:hidden;}
+.demo-bar{position:sticky;top:0;background:linear-gradient(90deg,#fde047,#fbbf24);color:#1a1545;padding:10px 20px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.3px;z-index:100;}
+.section{padding:80px 24px;border-bottom:1px solid rgba(139,130,232,.12);}
+.section-inner{max-width:1180px;margin:0 auto;}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--p300);text-transform:uppercase;margin-bottom:12px;}
+.title{font-size:36px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;line-height:1.15;}
+.title em{font-style:italic;color:var(--p200);font-weight:600;}
+.subtitle{font-size:16px;color:var(--txt2);max-width:680px;line-height:1.6;}
+.tag-current{display:inline-block;background:rgba(239,68,68,.15);color:#fca5a5;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;}
+.tag-mock{display:inline-block;background:rgba(74,222,128,.15);color:#86efac;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;}
+
+/* === HERO with photo background === */
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;padding:80px 24px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=2200&q=85&auto=format&fit=crop');background-size:cover;background-position:center;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.85) 60%,rgba(91,82,204,.4) 100%);}
+.hero-content{position:relative;z-index:2;max-width:760px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:60px;font-size:12px;font-weight:600;color:#fff;margin-bottom:24px;}
+.hero-badge::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;box-shadow:0 0 12px #4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{50%{opacity:.5;}}
+.hero-h1{font-size:64px;font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:24px;}
+.hero-h1 em{font-style:italic;color:var(--p200);font-weight:600;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.85);margin-bottom:36px;line-height:1.55;max-width:560px;}
+.hero-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-cta{background:linear-gradient(135deg,var(--p400),var(--p300));color:#fff;border:none;padding:16px 36px;border-radius:60px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(91,82,204,.45);transition:transform .2s;}
+.hero-cta:hover{transform:translateY(-2px);}
+.manager-online{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:14px;}
+.manager-avatars{display:flex;}
+.manager-avatars img{width:36px;height:36px;border-radius:50%;border:2px solid rgba(7,5,15,.9);margin-left:-10px;}
+.manager-avatars img:first-child{margin-left:0;}
+
+/* === Manager-CTA-card === */
+.mgr-cta{display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(139,130,232,.25);border-radius:18px;padding:20px 24px;max-width:520px;margin-top:48px;}
+.mgr-cta-ava{width:64px;height:64px;border-radius:50%;border:2px solid var(--p300);flex-shrink:0;}
+.mgr-cta-text{flex:1;}
+.mgr-cta-name{font-size:15px;font-weight:700;color:#fff;}
+.mgr-cta-status{font-size:12px;color:#86efac;display:flex;align-items:center;gap:6px;margin-top:2px;}
+.mgr-cta-status::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite;}
+.mgr-cta-msg{font-size:14px;color:rgba(255,255,255,.8);margin-top:8px;line-height:1.5;}
+.mgr-cta-btn{background:#25D366;color:#fff;border:none;padding:11px 22px;border-radius:60px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+
+/* === Team grid === */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;}
+.team-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(139,130,232,.18);border-radius:22px;padding:24px;text-align:center;transition:transform .3s,border-color .3s;}
+.team-card:hover{transform:translateY(-4px);border-color:rgba(139,130,232,.4);}
+.team-photo{width:130px;height:130px;border-radius:50%;margin:0 auto 18px;border:3px solid rgba(139,130,232,.3);object-fit:cover;display:block;}
+.team-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+.team-role{font-size:12px;font-weight:600;color:var(--p300);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;}
+.team-bio{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:16px;min-height:60px;}
+.team-langs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;}
+.team-lang{font-size:10px;font-weight:600;background:rgba(91,82,204,.18);color:var(--p200);padding:3px 9px;border-radius:6px;}
+.team-wa{display:inline-flex;align-items:center;gap:6px;color:#25D366;text-decoration:none;font-size:12px;font-weight:600;margin-top:14px;}
+
+/* === Story cards === */
+.stories{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px;}
+.story{background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.15);border-radius:22px;overflow:hidden;}
+.story-photo{height:280px;background-size:cover;background-position:center;position:relative;}
+.story-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(7,5,15,.9));}
+.story-badge{position:absolute;top:16px;left:16px;background:rgba(74,222,128,.95);color:#1a1545;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;z-index:2;}
+.story-content{padding:24px;}
+.story-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--txt2);font-size:12px;font-weight:600;}
+.story-quote{font-size:15px;color:#fff;line-height:1.55;margin-bottom:14px;font-style:italic;}
+.story-result{font-size:13px;color:#86efac;font-weight:600;}
+
+/* === Office === */
+.office-row{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;margin-top:40px;}
+.office-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.office-photos img{width:100%;height:240px;object-fit:cover;border-radius:16px;}
+.office-photos img:first-child{grid-column:span 2;height:340px;}
+.office-text{padding:0 12px;}
+.office-text h3{font-size:24px;font-weight:700;margin-bottom:14px;}
+.office-text p{color:var(--txt2);font-size:14px;line-height:1.7;margin-bottom:12px;}
+.office-text strong{color:#fff;}
+
+/* === Video preview === */
+.video-block{background:linear-gradient(135deg,#1a1545,#2a1f6e);border-radius:24px;padding:36px;display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:center;margin-top:40px;}
+.video-frame{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:9/16;max-height:480px;background:#000;}
+.video-frame::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&q=85&auto=format&fit=crop') center/cover;}
+.video-frame::after{content:'▶';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--p400);padding-left:8px;}
+.video-text h3{font-size:30px;font-weight:800;margin-bottom:18px;line-height:1.2;}
+.video-text p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:14px;}
+.video-text strong{color:#fff;}
+
+/* === Comparison === */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;}
+.cmp-card{padding:28px;border-radius:18px;}
+.cmp-bad{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);}
+.cmp-good{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.25);}
+.cmp-h{font-size:18px;font-weight:700;margin-bottom:14px;}
+.cmp-bad .cmp-h{color:#fca5a5;}
+.cmp-good .cmp-h{color:#86efac;}
+.cmp-text{font-size:14px;color:var(--txt2);line-height:1.6;}
+
+@media(max-width:900px){
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .stories,.office-row,.video-block{grid-template-columns:1fr;}
+  .cmp{grid-template-columns:1fr;}
+  .hero-h1{font-size:42px;}
+  .title{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  ⚠️ Это превью «человечной» версии — отдельная страница для обсуждения. Прод не тронут.
+</div>
+
+<!-- HERO с живым фоном -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Талыш сейчас онлайн</div>
+    <h1 class="hero-h1">Карта побыту<br><em>без стресса и очередей</em></h1>
+    <p class="hero-sub">5 лет помогаем иностранцам в Польше. 3000+ кейсов, 98% одобрений. С вами в WhatsApp — пока всё не получится.</p>
+    <div class="hero-cta-row">
+      <a href="https://wa.me/48735248525" class="hero-cta" target="_blank">💬 Написать в WhatsApp</a>
+      <div class="manager-online">
+        <div class="manager-avatars">
+          <img src="https://i.pravatar.cc/72?img=12" alt="Talysh">
+          <img src="https://i.pravatar.cc/72?img=5" alt="Daria">
+          <img src="https://i.pravatar.cc/72?img=11" alt="Andrian">
+        </div>
+        <span>3 менеджера онлайн</span>
+      </div>
+    </div>
+
+    <!-- Карточка живого менеджера -->
+    <div class="mgr-cta">
+      <img src="https://i.pravatar.cc/128?img=12" class="mgr-cta-ava" alt="Talysh">
+      <div class="mgr-cta-text">
+        <div class="mgr-cta-name">Талыш · ведущий специалист</div>
+        <div class="mgr-cta-status">онлайн · отвечает за 5 минут</div>
+        <div class="mgr-cta-msg">«Привет 👋 Расскажите вашу ситуацию — посмотрю что лучше сделать в вашем случае. Бесплатно.»</div>
+      </div>
+      <a href="https://wa.me/48735248525" class="mgr-cta-btn" target="_blank">Ответить</a>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 1: TEAM === -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Кто будет вести ваше дело</div>
+    <h2 class="title">Команда, а не <em>компания</em></h2>
+    <p class="subtitle">Вас встретит конкретный человек — с именем, телефоном и опытом. Не «менеджер», а Талыш или Дарья.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://i.pravatar.cc/256?img=12" class="team-photo" alt="Talysh">
+        <div class="team-name">Талыш М.</div>
+        <div class="team-role">Ведущий специалист</div>
+        <div class="team-bio">5 лет в LegalSol. Карта побыту, апелляции, ПМЖ. Сам прошёл путь от студента до польского паспорта.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇵🇱 PL</span><span class="team-lang">🇬🇧 EN</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://i.pravatar.cc/256?img=5" class="team-photo" alt="Daria">
+        <div class="team-name">Дарья К.</div>
+        <div class="team-role">Юрист по апелляциям</div>
+        <div class="team-bio">Сложные кейсы: отказы воеводства, депортация, международная защита. 4 года практики, 200+ выигранных апелляций.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇺🇦 UA</span><span class="team-lang">🇵🇱 PL</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://i.pravatar.cc/256?img=11" class="team-photo" alt="Andrian">
+        <div class="team-name">Андриан О.</div>
+        <div class="team-role">Спец. по PESEL и MOS</div>
+        <div class="team-bio">MOS-онлайн подача, Profil Zaufany, замена прав. Знает все мельницы воеводства в Варшаве и Кракове наизусть.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇵🇱 PL</span><span class="team-lang">🇬🇧 EN</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://i.pravatar.cc/256?img=20" class="team-photo" alt="Vlad">
+        <div class="team-name">Влад Т.</div>
+        <div class="team-role">Основатель</div>
+        <div class="team-bio">Сам из Беларуси. Прошёл всё: ПМЖ, гражданство. С 2020 года ведёт LegalSol. Если что-то пойдёт не так — пишите лично.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇧🇾 BY</span><span class="team-lang">🇵🇱 PL</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 2: VIDEO welcome -->
+<section class="section">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Видео-приветствие</div>
+    <h2 class="title">Я объясню всё <em>за 30 секунд</em></h2>
+    <p class="subtitle">Короткое видео от Влада — что мы делаем, как работаем, и почему нам стоит доверять.</p>
+
+    <div class="video-block">
+      <div class="video-frame"></div>
+      <div class="video-text">
+        <h3>«Привет. Я Влад, основатель LegalSol.»</h3>
+        <p>«Мы помогаем иностранцам в Польше с <strong>2020 года</strong>. За это время — <strong>3000+ карт побыту</strong>, ПМЖ, гражданств.»</p>
+        <p>«Сам прошёл этот путь. Знаю что значит ждать ответа воеводства месяцами и не понимать что происходит.»</p>
+        <p>«У нас работают <strong>4 специалиста</strong> — все говорят по-русски и польски. Все на связи в WhatsApp.»</p>
+        <p style="color:#fde047;font-weight:600;margin-top:18px;">«Если что — пишите мне лично. Я отвечу.»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 3: REAL CLIENT STORIES with big photos -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Расширенный блок</div>
+    <div class="eyebrow">Истории клиентов</div>
+    <h2 class="title">Не отзывы — а <em>истории людей</em></h2>
+    <p class="subtitle">Реальные клиенты с фото в день получения карты. Что у них было, что мы сделали, как закончилось.</p>
+
+    <div class="stories">
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1556157382-97eda2d62296?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">✓ 3 месяца</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Ananya · 🇮🇳 → 🇵🇱 Варшава</div>
+          <div class="story-quote">«Сама подавала, ждала <strong>8 месяцев в тишине</strong>. LegalSol нашли что не хватало и сделали — через 3 месяца карта на руках.»</div>
+          <div class="story-result">✅ Карта побыту 3 года</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1542178243-bc20204b769f?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">⚖️ Спасли от депорта</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Karan · 🇮🇳 → 🇵🇱 Краков</div>
+          <div class="story-quote">«Первая фирма облажалась — <strong>отказ</strong>, 14 дней до депортации. LegalSol подали апелляцию, выиграли, <strong>дали 3 года</strong>.»</div>
+          <div class="story-result">✅ Апелляция выиграна</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">⚡ Спидап</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Mohammad · 🇧🇩 → 🇵🇱 Варшава</div>
+          <div class="story-quote">«Работодатель ушёл за <strong>неделю до конца визы</strong>. LegalSol нашли другие основания за 2 дня и спасли дело.»</div>
+          <div class="story-result">✅ Спасли за 2 дня</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 4: OFFICE atmosphere -->
+<section class="section">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Где мы работаем</div>
+    <h2 class="title">Sienna 75, <em>Варшава</em></h2>
+    <p class="subtitle">Не виртуальный офис. Настоящий, где мы реально работаем, пьём кофе и принимаем клиентов.</p>
+
+    <div class="office-row">
+      <div class="office-photos">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=85&auto=format&fit=crop" alt="Office">
+        <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=900&q=85&auto=format&fit=crop" alt="Workspace">
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=900&q=85&auto=format&fit=crop" alt="Meeting">
+      </div>
+      <div class="office-text">
+        <h3>Открыты пн-пт 9:00-18:00</h3>
+        <p>📍 <strong>Sienna 75</strong>, 00-833 Варшава<br>📞 +48 735 248 525<br>📧 legalsol.communication@gmail.com</p>
+        <p>Большинство клиентов вообще не приходят в офис — всё делаем через WhatsApp и MOS. Но если хотите встретиться лично — приходите, кофе бесплатно ☕</p>
+        <p>Команда — 4 специалиста, говорим на 4 языках. Работаем по Польше и со всей Европы — Германия, Нидерланды, Чехия, Австрия.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 5: Tone comparison -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">💡 Идея</div>
+    <div class="eyebrow">Что ещё можно изменить</div>
+    <h2 class="title">Тон текста — <em>как разговор</em>, а не как контракт</h2>
+    <p class="subtitle">Маленькие правки в копирайтинге, которые делают сайт «своим», а не корпоративным.</p>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (формально)</div>
+        <div class="cmp-text">
+          «Мы предоставляем услуги по легализации иностранцев в Польше. Наша компания работает с 2020 года и имеет более 3000 успешно закрытых кейсов.»
+        </div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так (по-человечески)</div>
+        <div class="cmp-text">
+          «Сами иностранцы. Прошли путь от карта побыту до паспорта. Знаем боль изнутри — поэтому помогаем другим. 3000+ клиентов с 2020, 4 человека в команде, все на связи в WhatsApp.»
+        </div>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (CTA)</div>
+        <div class="cmp-text">«Оставьте заявку — наш специалист свяжется с вами в ближайшее время.»</div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так</div>
+        <div class="cmp-text">«Напишите в WhatsApp. Талыш или Дарья ответят за 15 минут (правда). Расскажете ситуацию — мы скажем что делать.»</div>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (гарантия)</div>
+        <div class="cmp-text">«98% одобрений. В случае отказа — мы подаём апелляцию.»</div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так</div>
+        <div class="cmp-text">«Из 100 наших клиентов карту получают 98. Двум — отказ. Тогда мы делаем апелляцию <strong>бесплатно</strong>. Не потому что обещали — а потому что верим что вытащим. И обычно вытаскиваем.»</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer note -->
+<section class="section" style="text-align:center;padding:60px 24px;">
+  <div class="section-inner">
+    <p style="color:var(--txt2);font-size:14px;line-height:1.7;max-width:580px;margin:0 auto;">
+      Это превью. Фото — со <a href="https://unsplash.com" style="color:var(--p300);">Unsplash</a> и <a href="https://pravatar.cc" style="color:var(--p300);">pravatar.cc</a> для демонстрации.
+      В реальности тут будут фото вашей команды, офиса и клиентов.<br><br>
+      Что нужно для настоящей реализации:<br>
+      📸 Фотосессия команды (1 час с фотографом)<br>
+      🎥 Запись 30-секундного видео Влада на iPhone<br>
+      📷 5-6 фото офиса (на мобильник, не glanc)<br>
+      📝 Согласие 3-5 клиентов на использование фото в их историях
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
