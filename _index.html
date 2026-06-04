@@ -1165,6 +1165,47 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 
 /* HERO */
 
+/* ── HERO LIVE PHOTO BG — ночная Варшава с Ken Burns ──────────────────
+   Реальное фото города под контентом. Slow zoom + парallax-сдвиг
+   создают ощущение что камера медленно дышит. Тёмный градиент-overlay
+   обеспечивает контраст для текста. На мобайле фото показано как было,
+   но без Ken Burns (экономим CPU). */
+.hero-photo-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+.hero-photo-bg img{
+  position:absolute;inset:-5%;width:110%;height:110%;
+  object-fit:cover;object-position:center 35%;
+  filter:saturate(.7) brightness(.5) contrast(1.05);
+  will-change:transform;
+  animation:kenBurns 30s ease-in-out infinite alternate;
+}
+.hero-photo-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    /* Вверх-вниз затемнение для читаемости H1 + кнопок */
+    linear-gradient(180deg,rgba(11,9,32,.55) 0%,rgba(11,9,32,.35) 35%,rgba(11,9,32,.7) 100%),
+    /* Радиальный центр-вокруг для фокуса */
+    radial-gradient(ellipse at center,rgba(11,9,32,.25) 0%,rgba(11,9,32,.65) 100%);
+}
+@keyframes kenBurns{
+  0%{transform:translate3d(0,0,0) scale(1);}
+  100%{transform:translate3d(-2%,-1%,0) scale(1.12);}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo-bg img{animation:none !important;}
+}
+@media(max-width:760px){
+  .hero-photo-bg img{
+    /* Mobile: статика, поярче чтоб не сливалось с тёмным верхом */
+    animation:none;
+    filter:saturate(.65) brightness(.42) contrast(1.05);
+  }
+  .hero-photo-overlay{
+    background:
+      linear-gradient(180deg,rgba(11,9,32,.62) 0%,rgba(11,9,32,.42) 30%,rgba(11,9,32,.78) 100%),
+      radial-gradient(ellipse at center,rgba(11,9,32,.15) 0%,rgba(11,9,32,.55) 100%);
+  }
+}
+
 /* ── HERO AURORA — плавающие глоу-сферы под контентом ─────────────────
    Мягкая премиум-атмосфера без рекламной пестроты. Цвета бренда:
    фиолет (#7C5CFC), шампань (#FBBF24), изумруд (#10B981).
@@ -4673,10 +4714,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section id="hero">
 
-  <!-- AURORA BACKGROUND — мягкие плывущие глоу-сферы под контентом.
-       z-index ниже всего, pointer-events:none — не мешает кликам.
-       Цвета взяты из брендовой палитры (фиолет, шампань, изумруд).
-       Анимация медленная (18-26 сек), отключается при reduced-motion. -->
+  <!-- LIVE HERO BACKGROUND — ночная Варшава с Ken Burns эффектом (медленный
+       зум + парallax-сдвиг), затемнена градиентом для читаемости текста.
+       Над фото — aurora-сферы для глубины и брендовых цветов.
+       lazy + decoding=async чтоб не мешать LCP. -->
+  <div class="hero-photo-bg" aria-hidden="true">
+    <img src="/assets/trc/warsaw-night.jpg" alt="" loading="eager" fetchpriority="high" decoding="async"/>
+    <div class="hero-photo-overlay"></div>
+  </div>
+
+  <!-- AURORA — плавающие глоу-сферы поверх фото для глубины и брендового тона -->
   <div class="hero-aurora" aria-hidden="true">
     <span class="orb orb-1"></span>
     <span class="orb orb-2"></span>
