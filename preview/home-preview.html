@@ -3882,7 +3882,24 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 .hero-svc-btn:active{transform:translateY(-1px) !important;}
 
-/* ───── DOC CALCULATOR: human touch (warmer eyebrow, Lora title, Talysh-bar) ───── */
+/* ───── HERO: vertical alignment fix (video + sub text now line up) ───── */
+#hero{align-items:start !important;padding-top:108px !important;}
+.hero-right-pv{margin-top:48px !important;}
+@media(max-width:900px){
+  .hero-right-pv{margin-top:24px !important;}
+}
+
+/* ───── EXTRAS section («More than legalization»): photo bg ───── */
+.extras-section{
+  position:relative;
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.88) 0%,rgba(14,10,35,.80) 50%,rgba(91,82,204,.38) 100%),
+    url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    #0e0a23 !important;
+}
+.extras-bg,.extras-grid-pattern{opacity:.4 !important;}
+
+/* ───── DOC CALCULATOR: human touch (warmer eyebrow, Lora title, Kamil-bar) ───── */
 #calc-section{background:#0e0a23 !important;}
 #cc-badge{
   background:rgba(253,224,71,.12) !important;
