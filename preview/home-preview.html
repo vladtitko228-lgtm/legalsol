@@ -5060,100 +5060,72 @@ function updateTicker(){}
 
 
 
-<!-- GEO STRIP v3 — paper board with passport-stamp medallions -->
+<!-- GEO STRIP v4 — compact paper board -->
 <style>
 .geo-strip-pv{
   position:relative;
   background:#0e0a23 !important;
-  padding:60px 24px !important;
+  padding:36px 24px !important;
 }
 .geo-strip-pv::before{
-  content:'';position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
-  width:min(1240px,calc(100% - 28px));
+  content:'';position:absolute;left:50%;top:20px;bottom:20px;transform:translateX(-50%);
+  width:min(1100px,calc(100% - 28px));
   background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
-  border-radius:32px;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  border-radius:24px;
+  box-shadow:0 22px 60px rgba(0,0,0,.35);
   z-index:0;
 }
 .geo-strip-pv > *{position:relative;z-index:1;}
-.geo-inner-pv{max-width:1100px;margin:0 auto;text-align:center;padding:40px 24px;}
-.geo-head-pv{margin-bottom:40px;}
+.geo-inner-pv{max-width:980px;margin:0 auto;text-align:center;padding:30px 22px;}
+.geo-head-pv{margin-bottom:24px;}
 .geo-eyebrow-pv{
   font-family:'Lora',Georgia,serif;font-style:italic;
-  font-size:13px;letter-spacing:2px;color:#7c5419;
-  font-weight:600;margin-bottom:12px;display:block;
+  font-size:11px;letter-spacing:1.8px;color:#7c5419;
+  font-weight:600;margin-bottom:8px;display:block;
 }
 .geo-title-pv{
   font-family:'Lora',Georgia,serif;
-  font-size:38px;font-weight:700;color:#1a1545;
-  letter-spacing:-.5px;line-height:1.2;margin-bottom:14px;
+  font-size:28px;font-weight:700;color:#1a1545;
+  letter-spacing:-.4px;line-height:1.2;margin-bottom:10px;
 }
 .geo-title-pv em{font-style:italic;color:#a37013;font-weight:600;}
 .geo-sub-pv{
   font-family:'Lora',Georgia,serif;font-style:italic;
-  font-size:15px;color:#7c6646;
-  max-width:580px;margin:0 auto;
+  font-size:14px;color:#7c6646;
+  max-width:520px;margin:0 auto;
 }
-
-.geo-grid-pv{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:28px 20px;margin-top:10px;
-}
-@media(max-width:720px){.geo-grid-pv{grid-template-columns:repeat(2,1fr);gap:20px 14px;}}
-
+.geo-grid-pv{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 14px;margin-top:6px;}
+@media(max-width:720px){.geo-grid-pv{grid-template-columns:repeat(2,1fr);gap:14px 10px;}}
 .geo-card-pv{
   position:relative;
-  display:flex;align-items:center;gap:14px;
-  padding:16px 18px;
-  background:#fffefb;
-  border-radius:14px;
-  box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 22px rgba(60,40,10,.12);
+  display:flex;align-items:center;gap:11px;
+  padding:11px 13px;
+  background:#fffefb;border-radius:11px;
+  box-shadow:0 1px 2px rgba(0,0,0,.07),0 6px 16px rgba(60,40,10,.10);
   text-align:left;
   transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;
 }
-.geo-card-pv:nth-child(odd){transform:rotate(-.4deg);}
-.geo-card-pv:nth-child(even){transform:rotate(.5deg);}
-.geo-card-pv:nth-child(3n){transform:rotate(-.3deg);}
-.geo-card-pv:hover{
-  transform:rotate(0) translateY(-4px);
-  box-shadow:0 4px 8px rgba(0,0,0,.1),0 18px 36px rgba(60,40,10,.22);
-}
-
+.geo-card-pv:nth-child(odd){transform:rotate(-.3deg);}
+.geo-card-pv:nth-child(even){transform:rotate(.4deg);}
+.geo-card-pv:nth-child(3n){transform:rotate(-.2deg);}
+.geo-card-pv:hover{transform:rotate(0) translateY(-3px);box-shadow:0 3px 6px rgba(0,0,0,.08),0 14px 28px rgba(60,40,10,.18);}
 .gc-flag-pv{
-  position:relative;
-  font-size:38px;line-height:1;flex-shrink:0;
-  width:60px;height:60px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:50%;
-  background:#fef3df;
-  border:1px dashed rgba(124,84,25,.3);
+  position:relative;font-size:28px;line-height:1;flex-shrink:0;
+  width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:#fef3df;border:1px dashed rgba(124,84,25,.3);
 }
 .gc-info-pv{flex:1;min-width:0;}
-.gc-name-pv{
-  font-family:'Lora',Georgia,serif;font-weight:700;
-  font-size:16px;color:#1a1545;line-height:1.2;margin-bottom:4px;
-}
-.gc-bar-pv{
-  height:6px;background:rgba(124,84,25,.12);border-radius:3px;overflow:hidden;margin-bottom:6px;
-}
-.gc-bar-fill-pv{
-  height:100%;
-  background:linear-gradient(90deg,#a37013,#e0a921);
-  border-radius:3px;
-  transition:width .8s cubic-bezier(.2,.8,.2,1);
-}
-.gc-meta-pv{
-  display:flex;justify-content:space-between;
-  font-family:'Inter',sans-serif;font-size:11px;color:#7c6646;
-}
-.gc-meta-pv b{color:#1a1545;font-weight:700;font-size:13px;}
-
+.gc-name-pv{font-family:'Lora',Georgia,serif;font-weight:700;font-size:14px;color:#1a1545;line-height:1.2;margin-bottom:3px;}
+.gc-bar-pv{height:5px;background:rgba(124,84,25,.12);border-radius:3px;overflow:hidden;margin-bottom:4px;}
+.gc-bar-fill-pv{height:100%;background:linear-gradient(90deg,#a37013,#e0a921);border-radius:3px;transition:width .8s cubic-bezier(.2,.8,.2,1);}
+.gc-meta-pv{display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:10px;color:#7c6646;}
+.gc-meta-pv b{color:#1a1545;font-weight:700;font-size:12px;}
 .geo-footer-pv{
-  margin-top:40px;padding:20px 18px;
-  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
-  background:rgba(255,255,255,.55);
-  border:1px dashed rgba(124,84,25,.3);
-  border-radius:14px;
-  color:#7c6646;font-family:'Lora',Georgia,serif;font-style:italic;font-size:14px;
+  margin-top:24px;padding:14px 18px;
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  background:rgba(255,255,255,.55);border:1px dashed rgba(124,84,25,.3);
+  border-radius:11px;
+  color:#7c6646;font-family:'Lora',Georgia,serif;font-style:italic;font-size:13px;
 }
 .geo-footer-pv b{color:#1a1545;font-style:normal;font-weight:700;}
 </style>
@@ -5999,7 +5971,7 @@ function updateTicker(){}
 <section class="aih-pv-sec">
   <div class="aih-pv-inner">
     <div class="aih-pv-photo">
-      <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1400&q=85&auto=format&fit=crop" alt="Daria, our lawyer">
+      <img src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?w=1400&q=85&auto=format&fit=crop" alt="Daria, our lawyer">
       <div class="aih-pv-photo-badge">
         <span class="aih-pv-photo-dot"></span>
         Daria · senior lawyer · 4 years
