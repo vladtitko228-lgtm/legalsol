@@ -3882,12 +3882,14 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 .hero-svc-btn:active{transform:translateY(-1px) !important;}
 
-/* ───── HERO: vertical alignment fix (video + sub text now line up) ───── */
+/* ───── HERO: vertical alignment + clean up old artifacts under video ───── */
 #hero{align-items:start !important;padding-top:108px !important;}
 .hero-right-pv{margin-top:48px !important;}
-@media(max-width:900px){
-  .hero-right-pv{margin-top:24px !important;}
-}
+@media(max-width:900px){.hero-right-pv{margin-top:24px !important;}}
+/* Hide old 3D-card artefacts under the video (tags + Legal-analysis CTA + card hint) */
+.hero-right .hero-tags{display:none !important;}
+.hero-right .hero-card-cta{display:none !important;}
+.hero-right #hero-hint{display:none !important;}
 
 /* ───── EXTRAS section («More than legalization»): photo bg ───── */
 .extras-section{
