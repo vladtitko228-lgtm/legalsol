@@ -4534,16 +4534,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="hero-right hero-enter-right">
 
-    <div id="hero-map-wrap">
-
-      <div id="hero-map"></div>
-
-      <a id="hero-map-poster" href="https://maps.google.com/?q=Sienna+75+00-833+Warszawa" target="_blank" rel="noopener">
-        <div class="hmp-pin"></div>
-        <div class="hmp-txt"><b>📍 Sienna 75</b><span>00-833 Warszawa · tap to open map</span></div>
-      </a>
-
-    </div>
+    <!-- hero-map-wrap (3D Mapbox map of Sienna 75) removed — too heavy for our audience -->
 
     <div class="card-hint" id="hero-hint" style="display:none;"></div>
 
@@ -26836,6 +26827,8 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 
   function initHeroMap(){
   if(typeof mapboxgl === 'undefined') return;
+  // Container removed from DOM — skip silently
+  if(!document.getElementById('hero-map')) return;
   mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
   var OFFICE = [20.994474, 52.230356];
   var map = new mapboxgl.Map({
