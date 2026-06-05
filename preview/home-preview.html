@@ -3899,6 +3899,78 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 .extras-bg,.extras-grid-pattern{opacity:.4 !important;}
 
+/* ───── PHOTO BACKGROUNDS for the rest of the homepage — unified human treatment ───── */
+/* Each section gets a topical photo + dark purple wash, in the same key as Geo/Extras */
+
+/* About-PV: warm office team */
+.about-pv{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.86) 55%,rgba(91,82,204,.30) 100%),
+    url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg2) !important;
+  border-top:1px solid rgba(139,130,232,.16) !important;
+  border-bottom:1px solid rgba(139,130,232,.16) !important;
+}
+
+/* Steps «Как мы добиваемся результата» — documents/work background */
+section.section[style*="background:var(--bg)"]:has(#steps-tag){
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.84) 50%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+
+/* AI «Lawyer + AI» — soft tech with human touch */
+.aih-pv-sec{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.90) 0%,rgba(14,10,35,.84) 50%,rgba(91,82,204,.30) 100%),
+    url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+
+/* Eco «One LegalSol» — diverse team */
+.eco-sec{
+  position:relative;
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.90) 0%,rgba(14,10,35,.82) 50%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+
+/* Calculator — papers / form scene */
+#calc-section{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.86) 50%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1554224155-cfa08c2a758f?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+.calc-aurora{opacity:.3 !important;}
+
+/* Guarantee — handshake / trust */
+.guar-section{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.84) 50%,rgba(74,222,128,.18) 100%),
+    url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+
+/* VS section */
+.vs-section{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.86) 50%,rgba(91,82,204,.30) 100%),
+    url('https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg2) !important;
+}
+.vs-section::before{opacity:.5 !important;}
+
+/* FAQ — books / library / paper */
+.faq-section{
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.94) 0%,rgba(14,10,35,.88) 50%,rgba(91,82,204,.30) 100%),
+    url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    var(--bg) !important;
+}
+
 /* ───── DOC CALCULATOR: human touch (warmer eyebrow, Lora title, Kamil-bar) ───── */
 #calc-section{background:#0e0a23 !important;}
 #cc-badge{
