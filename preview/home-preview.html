@@ -4035,6 +4035,24 @@ html.lang-switching * { transition: none !important; animation: none !important;
 #rcmStory b,#rcmStory strong{color:#1a1545 !important;}
 .rcm-body::-webkit-scrollbar-thumb{background:rgba(124,84,25,.4) !important;}
 
+/* Бейджи метаданных в модалке (📍 Country, 📋 Service, ⏱ Time, ✓ Status) */
+.rcm-mi{
+  background:rgba(124,84,25,.10) !important;
+  border:1px solid rgba(124,84,25,.25) !important;
+  color:#3d2c0d !important;
+  font-family:'Inter',sans-serif !important;
+}
+.rcm-mi-ok{
+  background:rgba(16,140,80,.14) !important;
+  border-color:rgba(16,140,80,.35) !important;
+  color:#0e7a44 !important;
+}
+
+/* Списки внутри истории */
+#rcmStory ul{color:#3d2c0d !important;padding-left:22px !important;}
+#rcmStory li{color:#3d2c0d !important;margin-bottom:8px !important;line-height:1.55 !important;}
+#rcmStory li::marker{color:#a37013 !important;}
+
 /* ───── 3. About-company section ───── */
 .about-pv{padding:80px 24px;background:var(--bg2);border-top:1px solid rgba(139,130,232,.12);border-bottom:1px solid rgba(139,130,232,.12);}
 .about-pv-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;}
