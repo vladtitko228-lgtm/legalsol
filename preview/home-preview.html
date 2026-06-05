@@ -3803,7 +3803,8 @@ html.lang-switching * { transition: none !important; animation: none !important;
 /* ───── 4. Video block on hero-right (replaces removed 3D map) ───── */
 .hero-right-pv{
   position:relative;
-  width:100%;max-width:520px;margin-left:auto;
+  width:100%;max-width:520px;
+  margin-left:auto;margin-right:auto;
   aspect-ratio:16/10;
   border-radius:22px;overflow:hidden;
   background:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1400&q=85&auto=format&fit=crop') center/cover;
@@ -3839,14 +3840,15 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 .hero-right-cta-pv{
   display:flex !important;align-items:center;justify-content:center;gap:10px;
-  max-width:520px;margin:18px auto 0 !important;
+  width:100%;max-width:520px;
+  margin:18px auto 0 !important;
   background:#25D366 !important;color:#fff !important;text-decoration:none !important;
   font-family:'Inter',sans-serif;font-weight:700;font-size:15px;
   padding:16px 28px;border-radius:60px;
   box-shadow:0 14px 36px rgba(37,211,102,.4);
   transition:transform .25s ease,box-shadow .25s ease;
   position:relative;z-index:5;
-  width:auto;
+  box-sizing:border-box;
 }
 .hero-right-cta-pv:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(37,211,102,.5);}
 .hero-right{display:flex !important;flex-direction:column;}
