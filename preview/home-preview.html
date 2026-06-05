@@ -5335,6 +5335,80 @@ function updateTicker(){}
   color:#7c6646;font-family:'Lora',Georgia,serif;font-style:italic;font-size:13px;
 }
 .geo-footer-pv b{color:#1a1545;font-style:normal;font-weight:700;}
+
+/* Geo-card как кнопка */
+button.geo-card-pv{
+  font:inherit;cursor:pointer;width:100%;text-align:left;outline:none;
+}
+button.geo-card-pv::after{
+  content:'→';position:absolute;right:12px;top:12px;
+  font-size:14px;color:#a37013;opacity:0;transition:opacity .25s ease,transform .25s ease;
+}
+button.geo-card-pv:hover::after{opacity:1;transform:translateX(2px);}
+
+/* Geo country modal — paper-style */
+.geo-modal-overlay{
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(8,7,20,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;transition:opacity .28s ease;
+}
+.geo-modal-overlay[hidden]{display:none !important;}
+.geo-modal-overlay.open{opacity:1;}
+.geo-modal-box{
+  position:relative;width:100%;max-width:620px;max-height:90vh;overflow-y:auto;
+  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
+  border:1px solid rgba(180,140,80,.3);
+  border-radius:22px;padding:36px 32px 28px;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.7);
+  transform:translateY(20px) scale(.97);opacity:0;
+  transition:transform .4s cubic-bezier(.34,1.4,.5,1),opacity .35s ease;
+  font-family:'Inter',sans-serif;
+}
+.geo-modal-overlay.open .geo-modal-box{transform:none;opacity:1;}
+.geo-modal-close{
+  position:absolute;top:14px;right:16px;width:36px;height:36px;
+  border-radius:50%;border:none;background:#1a1545;color:#fff;
+  font-size:22px;line-height:1;cursor:pointer;
+}
+.geo-modal-close:hover{background:#26206a;}
+
+.geo-modal-head{display:flex;align-items:center;gap:18px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px dashed rgba(124,84,25,.3);}
+.geo-modal-flag{
+  font-size:54px;line-height:1;
+  width:78px;height:78px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#fef3df;border:2px dashed rgba(124,84,25,.35);border-radius:50%;
+}
+.geo-modal-country{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:700;color:#1a1545;line-height:1.1;margin-bottom:6px;}
+.geo-modal-cnt{font-family:'Lora',Georgia,serif;font-style:italic;font-size:14px;color:#7c6646;}
+.geo-modal-cnt b{color:#a37013;font-style:normal;font-weight:700;font-size:18px;}
+
+.geo-modal-body{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
+@media(max-width:560px){.geo-modal-body{grid-template-columns:1fr;}}
+.gm-section-label{font-family:'Lora',Georgia,serif;font-style:italic;font-size:12px;color:#7c5419;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-bottom:12px;}
+.gm-list{display:flex;flex-direction:column;gap:8px;}
+.gm-row{display:grid;grid-template-columns:80px 1fr 36px;gap:10px;align-items:center;font-size:12.5px;}
+.gm-city{color:#1a1545;font-weight:600;font-family:'Inter',sans-serif;}
+.gm-bar{height:6px;background:rgba(124,84,25,.12);border-radius:3px;overflow:hidden;}
+.gm-bar-fill{display:block;height:100%;background:linear-gradient(90deg,#a37013,#e0a921);border-radius:3px;}
+.gm-n{color:#7c5419;font-weight:700;font-size:13px;text-align:right;font-family:'Inter',sans-serif;}
+
+.geo-modal-tags{display:flex;flex-direction:column;gap:14px;padding:18px;background:rgba(255,255,255,.55);border:1px dashed rgba(124,84,25,.25);border-radius:14px;margin-bottom:20px;}
+.gm-tag-group{display:flex;flex-direction:column;gap:8px;}
+.gm-tg-label{font-family:'Lora',Georgia,serif;font-style:italic;font-size:11.5px;color:#7c5419;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.gm-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.gm-tag{background:rgba(26,21,69,.08);color:#1a1545;font-family:'Inter',sans-serif;font-weight:600;font-size:11.5px;padding:5px 12px;border-radius:999px;border:1px solid rgba(26,21,69,.15);}
+
+.geo-modal-cta{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:#25D366;color:#fff;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:14px;
+  padding:14px 22px;border-radius:60px;
+  box-shadow:0 14px 32px rgba(37,211,102,.3);
+  transition:transform .25s ease;
+}
+.geo-modal-cta:hover{transform:translateY(-2px);}
 </style>
 <section class="geo-strip-pv">
   <div class="geo-inner-pv">
@@ -5344,16 +5418,124 @@ function updateTicker(){}
       <p class="geo-sub-pv">3057 foreigners from 9 countries trusted us with their legal stay in Poland since 2020.</p>
     </div>
     <div class="geo-grid-pv">
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇮🇳</div><div class="gc-info-pv"><div class="gc-name-pv">India</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:100%"></div></div><div class="gc-meta-pv"><span>cases</span><b>823</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇧🇩</div><div class="gc-info-pv"><div class="gc-name-pv">Bangladesh</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:66%"></div></div><div class="gc-meta-pv"><span>cases</span><b>547</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Pakistan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:38%"></div></div><div class="gc-meta-pv"><span>cases</span><b>312</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇳🇬</div><div class="gc-info-pv"><div class="gc-name-pv">Nigeria</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:34%"></div></div><div class="gc-meta-pv"><span>cases</span><b>284</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇻🇳</div><div class="gc-info-pv"><div class="gc-name-pv">Vietnam</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:27%"></div></div><div class="gc-meta-pv"><span>cases</span><b>233</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇦🇿</div><div class="gc-info-pv"><div class="gc-name-pv">Azerbaijan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:23%"></div></div><div class="gc-meta-pv"><span>cases</span><b>187</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇹🇷</div><div class="gc-info-pv"><div class="gc-name-pv">Türkiye</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:22%"></div></div><div class="gc-meta-pv"><span>cases</span><b>176</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇭</div><div class="gc-info-pv"><div class="gc-name-pv">Philippines</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:18%"></div></div><div class="gc-meta-pv"><span>cases</span><b>158</b></div></div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇱🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Sri Lanka</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:15%"></div></div><div class="gc-meta-pv"><span>cases</span><b>119</b></div></div></div>
+      <button class="geo-card-pv" data-country="IN"><div class="gc-flag-pv">🇮🇳</div><div class="gc-info-pv"><div class="gc-name-pv">India</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:100%"></div></div><div class="gc-meta-pv"><span>cases</span><b>823</b></div></div></button>
+      <button class="geo-card-pv" data-country="BD"><div class="gc-flag-pv">🇧🇩</div><div class="gc-info-pv"><div class="gc-name-pv">Bangladesh</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:66%"></div></div><div class="gc-meta-pv"><span>cases</span><b>547</b></div></div></button>
+      <button class="geo-card-pv" data-country="PK"><div class="gc-flag-pv">🇵🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Pakistan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:38%"></div></div><div class="gc-meta-pv"><span>cases</span><b>312</b></div></div></button>
+      <button class="geo-card-pv" data-country="NG"><div class="gc-flag-pv">🇳🇬</div><div class="gc-info-pv"><div class="gc-name-pv">Nigeria</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:34%"></div></div><div class="gc-meta-pv"><span>cases</span><b>284</b></div></div></button>
+      <button class="geo-card-pv" data-country="VN"><div class="gc-flag-pv">🇻🇳</div><div class="gc-info-pv"><div class="gc-name-pv">Vietnam</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:27%"></div></div><div class="gc-meta-pv"><span>cases</span><b>233</b></div></div></button>
+      <button class="geo-card-pv" data-country="AZ"><div class="gc-flag-pv">🇦🇿</div><div class="gc-info-pv"><div class="gc-name-pv">Azerbaijan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:23%"></div></div><div class="gc-meta-pv"><span>cases</span><b>187</b></div></div></button>
+      <button class="geo-card-pv" data-country="TR"><div class="gc-flag-pv">🇹🇷</div><div class="gc-info-pv"><div class="gc-name-pv">Türkiye</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:22%"></div></div><div class="gc-meta-pv"><span>cases</span><b>176</b></div></div></button>
+      <button class="geo-card-pv" data-country="PH"><div class="gc-flag-pv">🇵🇭</div><div class="gc-info-pv"><div class="gc-name-pv">Philippines</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:18%"></div></div><div class="gc-meta-pv"><span>cases</span><b>158</b></div></div></button>
+      <button class="geo-card-pv" data-country="LK"><div class="gc-flag-pv">🇱🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Sri Lanka</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:15%"></div></div><div class="gc-meta-pv"><span>cases</span><b>119</b></div></div></button>
     </div>
+
+    <!-- Geo country modal -->
+    <div id="geoModal" class="geo-modal-overlay" hidden>
+      <div class="geo-modal-box">
+        <button class="geo-modal-close" aria-label="Close">×</button>
+        <div class="geo-modal-head">
+          <span class="geo-modal-flag" id="gm-flag">🇮🇳</span>
+          <div>
+            <div class="geo-modal-country" id="gm-country">India</div>
+            <div class="geo-modal-cnt"><b id="gm-cases">823</b> clients · <span id="gm-period">since 2020</span></div>
+          </div>
+        </div>
+        <div class="geo-modal-body">
+          <div class="geo-modal-col">
+            <div class="gm-section-label">🛫 Where they came from</div>
+            <div id="gm-from" class="gm-list"></div>
+          </div>
+          <div class="geo-modal-col">
+            <div class="gm-section-label">🇵🇱 Where they live now</div>
+            <div id="gm-to" class="gm-list"></div>
+          </div>
+        </div>
+        <div class="geo-modal-tags">
+          <div class="gm-tag-group">
+            <span class="gm-tg-label">Top services</span>
+            <div id="gm-services" class="gm-tags"></div>
+          </div>
+          <div class="gm-tag-group">
+            <span class="gm-tg-label">Where they work</span>
+            <div id="gm-industries" class="gm-tags"></div>
+          </div>
+        </div>
+        <a href="https://wa.me/48735248525" target="_blank" rel="noopener" class="geo-modal-cta" id="gm-cta">💬 Talk to a manager who works with <span id="gm-cta-country">India</span></a>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      const DATA = {
+        IN:{flag:'🇮🇳',country:'India',cases:823,from:[['Mumbai',165],['Delhi',140],['Bangalore',125],['Pune',88],['Hyderabad',75],['Chennai',62],['Other cities',168]],to:[['Warsaw',412],['Kraków',188],['Wrocław',104],['Gdańsk',65],['Poznań',54]],services:['Karta Pobytu','PESEL','Permanent residence','Citizenship'],industries:['IT / Software','Engineering','Consulting','Restaurants & retail']},
+        BD:{flag:'🇧🇩',country:'Bangladesh',cases:547,from:[['Dhaka',208],['Chittagong',124],['Sylhet',86],['Khulna',45],['Rajshahi',32],['Other cities',52]],to:[['Warsaw',265],['Kraków',128],['Gdańsk',76],['Wrocław',48],['Łódź',30]],services:['Karta Pobytu','PESEL','Work permit appeal'],industries:['Construction','Restaurants & delivery','Retail','Manufacturing']},
+        PK:{flag:'🇵🇰',country:'Pakistan',cases:312,from:[['Karachi',98],['Lahore',74],['Islamabad',54],['Rawalpindi',38],['Other cities',48]],to:[['Warsaw',148],['Kraków',72],['Gdańsk',48],['Wrocław',32],['Poznań',12]],services:['Karta Pobytu','Family reunion','Appeals'],industries:['Restaurants','Logistics','Retail','IT']},
+        NG:{flag:'🇳🇬',country:'Nigeria',cases:284,from:[['Lagos',122],['Abuja',64],['Port Harcourt',42],['Kano',26],['Other cities',30]],to:[['Warsaw',132],['Kraków',64],['Wrocław',42],['Poznań',28],['Other',18]],services:['Karta Pobytu','Refusal appeal','International protection'],industries:['Logistics','IT','Healthcare','Trade']},
+        VN:{flag:'🇻🇳',country:'Vietnam',cases:233,from:[['Hanoi',88],['Ho Chi Minh City',72],['Hai Phong',32],['Da Nang',18],['Other cities',23]],to:[['Warsaw',104],['Łódź',46],['Wrocław',38],['Kraków',28],['Other',17]],services:['Karta Pobytu','Student → work card','PESEL'],industries:['Restaurants & food','Manicure & beauty','Wholesale trade','Retail']},
+        AZ:{flag:'🇦🇿',country:'Azerbaijan',cases:187,from:[['Baku',102],['Ganja',32],['Sumqayit',24],['Other cities',29]],to:[['Warsaw',96],['Kraków',38],['Wrocław',28],['Other',25]],services:['Karta Pobytu','Citizenship','Business setup'],industries:['Construction','Trade','Logistics','Hospitality']},
+        TR:{flag:'🇹🇷',country:'Türkiye',cases:176,from:[['Istanbul',78],['Ankara',32],['Izmir',26],['Antalya',16],['Other cities',24]],to:[['Warsaw',82],['Kraków',38],['Gdańsk',26],['Other',30]],services:['Karta Pobytu','Sp. z o.o. registration','Family reunion'],industries:['Restaurants & food','Tourism','Construction','Trade']},
+        PH:{flag:'🇵🇭',country:'Philippines',cases:158,from:[['Manila',74],['Cebu',32],['Davao',18],['Quezon City',14],['Other cities',20]],to:[['Warsaw',82],['Kraków',32],['Wrocław',22],['Other',22]],services:['Karta Pobytu','PESEL','Work card'],industries:['Healthcare','Hospitality','BPO / call centres','Domestic services']},
+        LK:{flag:'🇱🇰',country:'Sri Lanka',cases:119,from:[['Colombo',54],['Kandy',22],['Galle',16],['Other cities',27]],to:[['Warsaw',58],['Kraków',24],['Gdańsk',16],['Other',21]],services:['Karta Pobytu','Family reunion','PESEL'],industries:['Restaurants','Hospitality','Trade','Construction']}
+      };
+
+      const ov = document.getElementById('geoModal');
+      const flagEl = document.getElementById('gm-flag');
+      const cntryEl = document.getElementById('gm-country');
+      const casesEl = document.getElementById('gm-cases');
+      const fromEl = document.getElementById('gm-from');
+      const toEl = document.getElementById('gm-to');
+      const svcEl = document.getElementById('gm-services');
+      const indEl = document.getElementById('gm-industries');
+      const ctaCountryEl = document.getElementById('gm-cta-country');
+
+      function renderList(el, items, total){
+        el.innerHTML = '';
+        items.forEach(([city,n]) => {
+          const pct = Math.round(n/total*100);
+          const row = document.createElement('div');
+          row.className = 'gm-row';
+          row.innerHTML = `<span class="gm-city">${city}</span><span class="gm-bar"><span class="gm-bar-fill" style="width:${pct}%"></span></span><span class="gm-n">${n}</span>`;
+          el.appendChild(row);
+        });
+      }
+      function renderTags(el, items){
+        el.innerHTML = '';
+        items.forEach(t => {
+          const s = document.createElement('span');
+          s.className = 'gm-tag';
+          s.textContent = t;
+          el.appendChild(s);
+        });
+      }
+
+      function openCountry(code){
+        const d = DATA[code]; if(!d) return;
+        flagEl.textContent = d.flag;
+        cntryEl.textContent = d.country;
+        casesEl.textContent = d.cases.toLocaleString();
+        ctaCountryEl.textContent = d.country;
+        renderList(fromEl, d.from, d.cases);
+        renderList(toEl, d.to, d.cases);
+        renderTags(svcEl, d.services);
+        renderTags(indEl, d.industries);
+        ov.hidden = false;
+        requestAnimationFrame(() => ov.classList.add('open'));
+        document.body.style.overflow='hidden';
+      }
+      function close(){
+        ov.classList.remove('open');
+        setTimeout(() => { ov.hidden = true; }, 280);
+        document.body.style.overflow='';
+      }
+
+      document.querySelectorAll('.geo-card-pv[data-country]').forEach(b => {
+        b.addEventListener('click', () => openCountry(b.dataset.country));
+      });
+      ov.addEventListener('click', e => { if(e.target === ov) close(); });
+      ov.querySelector('.geo-modal-close').addEventListener('click', close);
+      document.addEventListener('keydown', e => { if(e.key === 'Escape' && !ov.hidden) close(); });
+    })();
+    </script>
     <div class="geo-footer-pv">
       <span>🌍 We work with clients from <b>9 countries</b></span>
       <span style="opacity:.5">·</span>
