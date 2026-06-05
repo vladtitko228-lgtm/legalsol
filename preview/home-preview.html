@@ -3892,7 +3892,24 @@ html.lang-switching * { transition: none !important; animation: none !important;
 .eco-card .eco-ic{margin-top:10px;}
 
 /* ───── REVIEWS: warm/human redesign (paper feel, not cyber) ───── */
-.rvhome{background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%) !important;padding:80px 24px !important;}
+/* Section: тёмный backplate, кремовая «доска» по центру */
+.rvhome{
+  background:#0e0a23 !important;
+  padding:60px 24px !important;
+  position:relative;
+}
+.rvhome::before{
+  content:'';
+  position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
+  width:min(1240px,calc(100% - 28px));
+  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
+  border-radius:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  z-index:0;
+}
+.rvhome > *{position:relative;z-index:1;}
+.rvhome-head{padding-top:40px;}
+@media(max-width:760px){.rvhome::before{border-radius:20px;}}
 .rvhome-head{text-align:center;margin-bottom:40px;}
 .rvhome-eyebrow{font-family:'Lora',Georgia,serif !important;font-size:13px !important;letter-spacing:2px !important;color:#7c5419 !important;font-style:italic !important;text-transform:none !important;font-weight:600 !important;}
 .rvhome-title{font-family:'Lora',Georgia,serif !important;font-size:38px !important;color:#1a1545 !important;font-weight:700 !important;letter-spacing:-.5px !important;margin:12px auto 14px !important;line-height:1.2 !important;}
@@ -3979,6 +3996,38 @@ html.lang-switching * { transition: none !important; animation: none !important;
   .rvhome-card,.rvhome-card:nth-child(n){transform:rotate(0) !important;}
   .rvhome-title{font-size:28px !important;}
 }
+
+/* ───── Reviews modal: тёплый кремовый стиль (вместо тёмного фиолетового) ───── */
+.rcm-overlay{background:rgba(8,7,20,.75) !important;backdrop-filter:blur(10px) !important;}
+.rcm-box{
+  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%) !important;
+  border:1px solid rgba(180,140,80,.25) !important;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04) !important;
+}
+.rcm-close{background:rgba(26,21,69,.85) !important;color:#fff !important;}
+.rcm-close:hover{background:rgba(26,21,69,1) !important;}
+.rcm-hero{padding:36px 32px 6px !important;}
+.rcm-pimg{box-shadow:0 18px 44px -14px rgba(60,40,10,.45) !important;}
+.rcm-stars{color:#e0a921 !important;filter:none !important;}
+#rcmName{
+  font-family:'Lora',Georgia,serif !important;
+  color:#1a1545 !important;
+  font-weight:700 !important;
+}
+#rcmTag{
+  color:#7c5419 !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-style:italic !important;
+}
+#rcmStory,.rcm-body{
+  color:#3d2c0d !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-size:15px !important;
+  line-height:1.7 !important;
+}
+#rcmStory p{color:#3d2c0d !important;margin-bottom:14px !important;}
+#rcmStory b,#rcmStory strong{color:#1a1545 !important;}
+.rcm-body::-webkit-scrollbar-thumb{background:rgba(124,84,25,.4) !important;}
 
 /* ───── 3. About-company section ───── */
 .about-pv{padding:80px 24px;background:var(--bg2);border-top:1px solid rgba(139,130,232,.12);border-bottom:1px solid rgba(139,130,232,.12);}
@@ -5828,7 +5877,7 @@ function updateTicker(){}
 
       <div class="hw-card reveal">
 
-        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=85&auto=format&fit=crop')"></div>
 
         <div class="hw-ico">💬</div>
 
