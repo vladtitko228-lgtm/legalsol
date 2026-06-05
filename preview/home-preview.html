@@ -3837,6 +3837,16 @@ html.lang-switching * { transition: none !important; animation: none !important;
   border:1px solid rgba(255,255,255,.18);
   z-index:2;
 }
+.hero-right-cta-pv{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  max-width:520px;margin:16px auto 0;
+  background:#25D366;color:#fff;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;
+  padding:16px 28px;border-radius:60px;
+  box-shadow:0 14px 36px rgba(37,211,102,.4);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.hero-right-cta-pv:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(37,211,102,.5);}
 
 /* ───── 5. Reviews font — warmer/more human ───── */
 .rvhome-q,.rev-text,#rv1,#rv2,#rv3,#rv4,#rv5,#rv6,
@@ -3948,14 +3958,10 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
     var(--bg) !important;
 }
 #calc-section::before{
-  content:'';
-  position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
-  width:min(1100px,calc(100% - 28px));
+  content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
-  border-radius:32px;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
   z-index:0;
   pointer-events:none;
 }
@@ -4098,13 +4104,10 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 }
 .rvhome::before{
   content:'';
-  position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
-  width:min(1240px,calc(100% - 28px));
+  position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
-  border-radius:32px;
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
   z-index:0;
 }
 .rvhome > *{position:relative;z-index:1;}
@@ -5050,6 +5053,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hr-sub">30 sec · Vlad, founder · since 2020</div>
       </div>
     </div>
+    <a href="https://wa.me/48735248525?text=Hi%21%20Free%20consultation%20on%20karta%20pobytu%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hero-right-cta-pv">
+      💬 Get a free consultation →
+    </a>
 
     <div class="card-hint" id="hero-hint" style="display:none;"></div>
 
@@ -5273,13 +5279,10 @@ function updateTicker(){}
     #0e0a23 !important;
 }
 .geo-strip-pv::before{
-  content:'';position:absolute;left:50%;top:20px;bottom:20px;transform:translateX(-50%);
-  width:min(1100px,calc(100% - 28px));
+  content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
-  border-radius:24px;
-  box-shadow:0 22px 60px rgba(0,0,0,.35);
   z-index:0;
 }
 .geo-strip-pv > *{position:relative;z-index:1;}
