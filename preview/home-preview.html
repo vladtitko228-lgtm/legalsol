@@ -3783,8 +3783,101 @@ html.lang-switching * { transition: none !important; animation: none !important;
 <body>
 
 <div style="position:sticky;top:0;background:linear-gradient(90deg,#fde047,#fbbf24);color:#1a1545;padding:10px 20px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.3px;z-index:9999;">
-  ⚠️ Превью главной — добавлены фото в этапы + блок «Откуда клиенты». Прод не тронут.
+  ⚠️ Превью v2 — фон hero, geo на EN, About-блок, видео вместо 3D-карты, живой шрифт отзывов
 </div>
+
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+
+<style id="preview-overrides">
+/* ───── 1. HERO background image ───── */
+#hero{
+  position:relative;
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.86) 0%,rgba(14,10,35,.78) 55%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1543248939-4296e1fea89b?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat;
+  background-attachment:scroll;
+}
+/* Aurora orbs тише на фото-фоне */
+#hero .aurora-wrap{opacity:.35;}
+
+/* ───── 4. Video block on hero-right (replaces removed 3D map) ───── */
+.hero-right-pv{
+  position:relative;
+  width:100%;max-width:520px;margin-left:auto;
+  aspect-ratio:16/10;
+  border-radius:22px;overflow:hidden;
+  background:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1400&q=85&auto=format&fit=crop') center/cover;
+  box-shadow:0 30px 80px rgba(91,82,204,.4),inset 0 0 0 1px rgba(255,255,255,.1);
+  cursor:pointer;
+}
+.hero-right-pv::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 30%,rgba(7,5,15,.7));
+}
+.hero-right-pv::after{
+  content:'▶';
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:84px;height:84px;
+  background:rgba(255,255,255,.95);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;color:#5B52CC;padding-left:6px;
+  box-shadow:0 12px 40px rgba(0,0,0,.55);
+}
+.hero-right-pv-caption{
+  position:absolute;left:24px;right:24px;bottom:22px;
+  z-index:2;color:#fff;
+}
+.hero-right-pv-caption .hr-title{font-size:18px;font-weight:700;line-height:1.3;margin-bottom:6px;}
+.hero-right-pv-caption .hr-sub{font-size:12px;opacity:.85;letter-spacing:.3px;}
+.hero-right-pv-badge{
+  position:absolute;top:18px;left:18px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(10px);
+  color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;
+  padding:6px 12px;border-radius:8px;
+  border:1px solid rgba(255,255,255,.18);
+  z-index:2;
+}
+
+/* ───── 5. Reviews font — warmer/more human ───── */
+.rvhome-q,.rev-text,#rv1,#rv2,#rv3,#rv4,#rv5,#rv6,
+.rv2-q,.story-q,.client-quote{
+  font-family:'Lora',Georgia,'Times New Roman',serif !important;
+  font-weight:500 !important;
+  font-style:italic !important;
+  font-size:16px !important;
+  line-height:1.6 !important;
+  letter-spacing:.1px !important;
+}
+.rvhome-name,.rev-name,.rv2-name{
+  font-family:'Lora',Georgia,serif !important;
+  font-weight:700 !important;
+  font-style:normal !important;
+}
+
+/* ───── 3. About-company section ───── */
+.about-pv{padding:80px 24px;background:var(--bg2);border-top:1px solid rgba(139,130,232,.12);border-bottom:1px solid rgba(139,130,232,.12);}
+.about-pv-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;}
+.about-pv-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3;}
+.about-pv-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.about-pv-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 30%,rgba(91,82,204,.35));
+}
+.about-pv-text .ab-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8B82E8;font-weight:700;margin-bottom:14px;}
+.about-pv-text h2{font-size:38px;font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-.5px;}
+.about-pv-text h2 em{font-style:italic;color:#c4beff;font-weight:600;}
+.about-pv-text p{font-size:15px;color:#a09ac8;line-height:1.7;margin-bottom:14px;}
+.about-pv-text p strong{color:#fff;}
+.about-pv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(139,130,232,.18);}
+.about-pv-stat{text-align:center;}
+.about-pv-stat .n{font-size:30px;font-weight:800;color:#fff;letter-spacing:-1px;}
+.about-pv-stat .l{font-size:11px;color:#a09ac8;letter-spacing:.5px;text-transform:uppercase;margin-top:4px;}
+@media(max-width:900px){
+  .about-pv-inner{grid-template-columns:1fr;gap:30px;}
+  .about-pv-text h2{font-size:28px;}
+  .hero-right-pv{max-width:none;margin-top:30px;}
+}
+</style>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34"
@@ -4538,7 +4631,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="hero-right hero-enter-right">
 
-    <!-- hero-map-wrap (3D Mapbox map of Sienna 75) removed — too heavy for our audience -->
+    <!-- Preview: video block replaces removed 3D map -->
+    <div class="hero-right-pv" onclick="window.open('https://www.youtube.com','_blank')">
+      <span class="hero-right-pv-badge">▶ ABOUT US</span>
+      <div class="hero-right-pv-caption">
+        <div class="hr-title">Watch how we help foreigners in Poland</div>
+        <div class="hr-sub">30 sec · Vlad, founder · since 2020</div>
+      </div>
+    </div>
 
     <div class="card-hint" id="hero-hint" style="display:none;"></div>
 
@@ -4763,16 +4863,37 @@ function updateTicker(){}
 </style>
 <section class="geo-strip-pv">
   <div class="geo-inner-pv">
-    <span class="geo-label-pv">Откуда наши клиенты</span>
+    <span class="geo-label-pv">Where our clients come from</span>
     <div class="geo-flags-pv">
-      <div class="geo-flag-pv"><span class="gfe">🇮🇳</span><div>Индия<div class="gfc">820 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇧🇩</span><div>Бангладеш<div class="gfc">540 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇵🇰</span><div>Пакистан<div class="gfc">310 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇳🇬</span><div>Нигерия<div class="gfc">280 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇻🇳</span><div>Вьетнам<div class="gfc">220 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇹🇷</span><div>Турция<div class="gfc">180 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇺🇦</span><div>Украина<div class="gfc">410 кейсов</div></div></div>
-      <div class="geo-flag-pv"><span class="gfe">🇧🇾</span><div>Беларусь<div class="gfc">240 кейсов</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇮🇳</span><div>India<div class="gfc">820 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇧🇩</span><div>Bangladesh<div class="gfc">540 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇵🇰</span><div>Pakistan<div class="gfc">310 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇳🇬</span><div>Nigeria<div class="gfc">280 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇻🇳</span><div>Vietnam<div class="gfc">220 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇹🇷</span><div>Türkiye<div class="gfc">180 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇺🇦</span><div>Ukraine<div class="gfc">410 cases</div></div></div>
+      <div class="geo-flag-pv"><span class="gfe">🇧🇾</span><div>Belarus<div class="gfc">240 cases</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT COMPANY (added in preview) -->
+<section class="about-pv">
+  <div class="about-pv-inner">
+    <div class="about-pv-photo">
+      <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1400&q=85&auto=format&fit=crop" alt="LegalSol team at work">
+    </div>
+    <div class="about-pv-text">
+      <div class="ab-eyebrow">ABOUT LEGALSOL</div>
+      <h2>Foreigners helping <em>foreigners</em> — since 2020</h2>
+      <p>We're a Warsaw-based immigration law firm. <strong>Karta Pobytu, Permanent Residence, Citizenship, Blue Card, appeals</strong> — anything you need to legalise your stay in Poland.</p>
+      <p>Our team went through this path themselves — student visa → residence permit → permanent stay → Polish passport. We know the bureaucracy inside out, and we know what it feels like to wait for an answer in silence.</p>
+      <p>Everything happens on <strong>WhatsApp</strong> — no office visits, no queues, no stress. We submit through MOS online and handle every voivodeship in Poland.</p>
+      <div class="about-pv-stats">
+        <div class="about-pv-stat"><div class="n">3000+</div><div class="l">successful cases</div></div>
+        <div class="about-pv-stat"><div class="n">98%</div><div class="l">approval rate</div></div>
+        <div class="about-pv-stat"><div class="n">5+</div><div class="l">years on the market</div></div>
+      </div>
     </div>
   </div>
 </section>
