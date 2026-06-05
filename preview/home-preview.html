@@ -5064,8 +5064,11 @@ function updateTicker(){}
 <style>
 .geo-strip-pv{
   position:relative;
-  background:#0e0a23 !important;
   padding:36px 24px !important;
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.86) 0%,rgba(14,10,35,.78) 55%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    #0e0a23 !important;
 }
 .geo-strip-pv::before{
   content:'';position:absolute;left:50%;top:20px;bottom:20px;transform:translateX(-50%);
