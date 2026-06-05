@@ -3882,6 +3882,65 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 .hero-svc-btn:active{transform:translateY(-1px) !important;}
 
+/* ───── DOC CALCULATOR: human touch (warmer eyebrow, Lora title, Talysh-bar) ───── */
+#calc-section{background:#0e0a23 !important;}
+#cc-badge{
+  background:rgba(253,224,71,.12) !important;
+  border:1px solid rgba(253,224,71,.3) !important;
+  color:#fde047 !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-style:italic !important;
+  letter-spacing:1.5px !important;
+  font-size:11.5px !important;
+  text-transform:none !important;
+}
+#cc-heading{
+  font-family:'Lora',Georgia,serif !important;
+  font-weight:700 !important;
+  letter-spacing:-.5px !important;
+}
+#cc-heading em{font-style:italic !important;color:#fde047 !important;}
+#cc-subdesc{
+  font-family:'Lora',Georgia,serif !important;
+  font-style:italic !important;
+  font-size:16px !important;
+}
+
+/* Talysh helper bar над прогресс-баром */
+.calc-helper-pv{
+  display:flex;align-items:center;gap:14px;
+  max-width:520px;margin:0 auto 26px;
+  padding:12px 18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(139,130,232,.22);
+  border-radius:60px;
+}
+.calc-helper-pv img{
+  width:42px;height:42px;border-radius:50%;
+  border:2px solid rgba(139,130,232,.5);
+  object-fit:cover;flex-shrink:0;
+}
+.calc-helper-pv .ch-info{flex:1;text-align:left;line-height:1.3;}
+.calc-helper-pv .ch-name{
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff;
+}
+.calc-helper-pv .ch-sub{
+  font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:12px;color:#a09ac8;margin-top:1px;display:flex;align-items:center;gap:6px;
+}
+.calc-helper-pv .ch-dot{
+  width:8px;height:8px;border-radius:50%;background:#4ade80;
+  box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;
+}
+
+/* Progress steps — warmer accent */
+.cc-ps-active{
+  background:linear-gradient(135deg,#fbbf24,#fde047) !important;
+  color:#1a1545 !important;
+  border-color:rgba(251,191,36,.5) !important;
+  box-shadow:0 0 24px rgba(251,191,36,.4) !important;
+}
+
 /* ───── ECO cards: photo header per direction ───── */
 .eco-card{padding-top:0 !important;}
 .eco-photo-pv{
@@ -6654,9 +6713,16 @@ function submitHlead(){
 
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;" id="cc-heading">Узнайте ваши шансы<br>на <em style="font-style:italic;color:var(--p300)">Карту Побыту</em></h2>
 
-    <p style="color:var(--txt2);font-size:15px;max-width:560px;margin:0 auto 36px;line-height:1.7;" id="cc-subdesc">5 вопросов — получите персональный список документов и оценку готовности</p>
+    <p style="color:var(--txt2);font-size:15px;max-width:560px;margin:0 auto 26px;line-height:1.7;" id="cc-subdesc">5 вопросов — получите персональный список документов и оценку готовности</p>
 
-
+    <!-- Talysh helper-bar -->
+    <div class="calc-helper-pv">
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face&q=85" alt="Talysh">
+      <div class="ch-info">
+        <div class="ch-name">Talysh checks every answer</div>
+        <div class="ch-sub"><span class="ch-dot"></span>online · helps you with this calculator</div>
+      </div>
+    </div>
 
     <!-- Progress indicator -->
 
@@ -17648,28 +17714,28 @@ function refSubmit(){
     </div>
     <div class="eco-grid">
       <div class="eco-card eco-res eco-current">
-        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1554224155-1696413565d3?w=900&q=85&auto=format&fit=crop')"></div>
         <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4-3 7.2-7 8.5-4-1.3-7-4.5-7-8.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
         <div class="eco-name">legalsol <span class="eco-tag" id="eco-t1">Residence</span></div>
         <p class="eco-d" id="eco-d1">Residence permits, PESEL, citizenship — our core. 6 years, 3,000+ cases, 98% approval.</p>
         <span class="eco-here" id="eco-here">You are here</span>
       </div>
       <a class="eco-card eco-pol" href="/polish" aria-label="legalsol Polish School">
-        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1577896851231-70ef18881754?w=900&q=85&auto=format&fit=crop')"></div>
         <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9.5L12 5 2 9.5l10 4.5 10-4.5z"/><path d="M6 11.5V17c0 1.2 2.7 3 6 3s6-1.8 6-3v-5.5"/></svg></span>
         <div class="eco-name">legalsol <span class="eco-tag" id="eco-t2">Polish School</span></div>
         <p class="eco-d" id="eco-d2">Learn Polish for your residence, work and daily life — our own language school.</p>
         <span class="eco-arrow">→</span>
       </a>
       <a class="eco-card eco-biz" href="/business" aria-label="legalsol Business">
-        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85&auto=format&fit=crop')"></div>
         <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7"/><path d="M3 12h18"/></svg></span>
         <div class="eco-name">legalsol <span class="eco-tag" id="eco-t3">Business</span></div>
         <p class="eco-d" id="eco-d3">Company registration, accounting and work permits for businesses and entrepreneurs.</p>
         <span class="eco-arrow">→</span>
       </a>
       <a class="eco-card eco-hou" href="/housing" aria-label="legalsol Housing">
-        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1502673530728-f79b4cab31b1?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="eco-photo-pv" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=85&auto=format&fit=crop')"></div>
         <span class="eco-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 9.8V19h14V9.8"/><path d="M10 19v-5h4v5"/></svg></span>
         <div class="eco-name">legalsol <span class="eco-tag" id="eco-t4">Housing</span></div>
         <p class="eco-d" id="eco-d4">We find your apartment and handle the whole rental — contract, meldunek, deposit.</p>
