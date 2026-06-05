@@ -3860,6 +3860,55 @@ html.lang-switching * { transition: none !important; animation: none !important;
   .hero-svc-row-4col{grid-template-columns:1fr 1fr !important;}
 }
 
+/* ───── REVIEWS: warm/human redesign (paper feel, not cyber) ───── */
+.rvhome{background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%) !important;padding:80px 24px !important;}
+.rvhome-head{text-align:center;margin-bottom:40px;}
+.rvhome-eyebrow{font-family:'Lora',Georgia,serif !important;font-size:13px !important;letter-spacing:2px !important;color:#7c5419 !important;font-style:italic !important;text-transform:none !important;font-weight:600 !important;}
+.rvhome-title{font-family:'Lora',Georgia,serif !important;font-size:38px !important;color:#1a1545 !important;font-weight:700 !important;letter-spacing:-.5px !important;margin:12px auto 14px !important;line-height:1.2 !important;}
+.rvhome-title em{font-style:italic;color:#a37013 !important;font-weight:600 !important;}
+.rvhome-sub{font-family:'Lora',Georgia,serif !important;font-style:italic !important;font-size:16px !important;color:#7c6646 !important;max-width:560px;margin:0 auto !important;}
+
+/* Card: paper / polaroid feel */
+.rvhome-card{
+  position:relative !important;
+  background:#fffefb !important;
+  border:none !important;
+  border-radius:6px !important;
+  box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 16px rgba(60,40,10,.18),0 16px 40px rgba(60,40,10,.12) !important;
+  padding:0 !important;
+  overflow:visible !important;
+  transform:rotate(-.6deg) !important;
+  transition:transform .3s ease,box-shadow .3s ease !important;
+}
+.rvhome-card:nth-child(2){transform:rotate(.8deg) !important;}
+.rvhome-card:nth-child(3){transform:rotate(-1.1deg) !important;}
+.rvhome-card:nth-child(4){transform:rotate(.5deg) !important;}
+.rvhome-card:nth-child(5){transform:rotate(-.4deg) !important;}
+.rvhome-card:nth-child(6){transform:rotate(.9deg) !important;}
+.rvhome-card:hover{transform:rotate(0deg) translateY(-4px) !important;box-shadow:0 4px 8px rgba(0,0,0,.1),0 14px 30px rgba(60,40,10,.25),0 30px 60px rgba(60,40,10,.18) !important;}
+
+/* Tape decoration */
+.rvhome-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-3deg);width:90px;height:22px;background:rgba(244,225,180,.85);border:1px solid rgba(180,140,80,.18);box-shadow:0 2px 4px rgba(0,0,0,.06);z-index:3;border-radius:1px;}
+
+.rvhome-photo{aspect-ratio:4/3 !important;overflow:hidden;border-radius:6px 6px 0 0;}
+.rvhome-photo img{filter:saturate(.92) contrast(.96) !important;}
+.rvhome-badge{background:#1a1545 !important;color:#fde047 !important;font-family:'Lora',Georgia,serif !important;font-size:11px !important;letter-spacing:.4px !important;border-radius:4px !important;padding:5px 10px !important;font-weight:700 !important;}
+
+.rvhome-body{padding:24px 22px 26px !important;}
+.rvhome-stars{color:#e0a921 !important;font-size:17px !important;letter-spacing:2px !important;margin-bottom:12px !important;}
+
+.rvhome-q{font-family:'Lora',Georgia,serif !important;font-style:italic !important;font-weight:500 !important;font-size:16px !important;line-height:1.65 !important;color:#3d2c0d !important;margin-bottom:18px !important;}
+.rvhome-q b{color:#1a1545 !important;font-weight:700 !important;font-style:normal !important;}
+
+.rvhome-foot{display:flex !important;justify-content:space-between !important;align-items:center !important;border-top:1px dashed rgba(124,84,25,.3) !important;padding-top:14px !important;}
+.rvhome-name{font-family:'Lora',Georgia,serif !important;font-weight:700 !important;color:#1a1545 !important;font-size:14px !important;font-style:normal !important;}
+.rvhome-chip{background:rgba(224,169,33,.16) !important;color:#7c5419 !important;font-family:'Lora',Georgia,serif !important;font-weight:600 !important;font-style:italic !important;font-size:12px !important;padding:4px 10px !important;border-radius:4px !important;border:none !important;}
+
+@media(max-width:760px){
+  .rvhome-card,.rvhome-card:nth-child(n){transform:rotate(0) !important;}
+  .rvhome-title{font-size:28px !important;}
+}
+
 /* ───── 3. About-company section ───── */
 .about-pv{padding:80px 24px;background:var(--bg2);border-top:1px solid rgba(139,130,232,.12);border-bottom:1px solid rgba(139,130,232,.12);}
 .about-pv-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;}
@@ -5632,7 +5681,7 @@ function updateTicker(){}
 
       <div class="hw-card reveal">
 
-        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1611605698335-8b1569810432?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&q=85&auto=format&fit=crop')"></div>
 
         <div class="hw-ico">💬</div>
 
@@ -5646,7 +5695,7 @@ function updateTicker(){}
 
       <div class="hw-card reveal">
 
-        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=85&auto=format&fit=crop')"></div>
 
         <div class="hw-ico">📄</div>
 
@@ -5660,7 +5709,7 @@ function updateTicker(){}
 
       <div class="hw-card reveal">
 
-        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1577037834154-39c879ff80b3?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1517232115160-ff93364542dd?w=900&q=85&auto=format&fit=crop')"></div>
 
         <div class="hw-ico">🏛️</div>
 
@@ -5674,7 +5723,7 @@ function updateTicker(){}
 
       <div class="hw-card reveal">
 
-        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=900&q=85&auto=format&fit=crop')"></div>
+        <div class="hw-photo" style="background-image:url('https://images.unsplash.com/photo-1556742393-d75f5e6b1b91?w=900&q=85&auto=format&fit=crop')"></div>
 
         <div class="hw-ico">🪪</div>
 
