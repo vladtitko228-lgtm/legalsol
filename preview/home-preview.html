@@ -5995,135 +5995,119 @@ function updateTicker(){}
   </div>
 
 </section>
-<!-- AI CYBER DASHBOARD ON HOME -->
-
-<section class="section" style="background:var(--bg);padding:80px 60px;" onclick="showTab('ai')" style="cursor:pointer;">
-
-  <div class="s-inner">
-
-    <div class="ai-home-cyber reveal" onclick="showTab('ai')">
-
-      <div class="ai-home-cyber-left">
-
-        <div class="ai-home-cyber-badge">LEGALSOL AI · v2.5</div>
-
-        <h3 class="ai-home-cyber-h" id="ai-banner-t">ИИ проверяет<br>ваши <em>документы</em></h3>
-
-        <p class="ai-home-cyber-p" id="ai-banner-d">Автоматическая проверка каждого документа до подачи. Ошибки находятся за секунды, а не в ужонде.</p>
-
-        <div class="ai-home-cyber-feats">
-
-          <div class="ai-home-cyber-feat"><span class="ahc-dot"></span><span id="ai-hf1-home">✓ Автопроверка до подачи</span></div>
-
-          <div class="ai-home-cyber-feat"><span class="ahc-dot"></span><span id="ai-hf2-home">✓ Напоминания за 90/60/30 дней</span></div>
-
-          <div class="ai-home-cyber-feat"><span class="ahc-dot"></span><span id="ai-hf3-home">✓ 77 карт побыту выдано с помощью ИИ</span></div>
-
-          <div class="ai-home-cyber-feat"><span class="ahc-dot"></span><span id="ai-hf4-home">✓ На 2 месяца быстрее решение воеводства</span></div>
-
-        </div>
-
-        <div class="ai-home-cyber-cta-row"><span class="ai-home-cyber-cta" id="ai-banner-cta" onclick="showTab('home');setTimeout(function(){document.getElementById('cs1').scrollIntoView({behavior:'smooth'})},300)">Как ИИ проверяет документы →</span></div>
-
+<!-- AI block — REDESIGNED in preview: "Lawyer + AI together" (human, not cyber) -->
+<section class="aih-pv-sec">
+  <div class="aih-pv-inner">
+    <div class="aih-pv-photo">
+      <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1400&q=85&auto=format&fit=crop" alt="Daria, our lawyer">
+      <div class="aih-pv-photo-badge">
+        <span class="aih-pv-photo-dot"></span>
+        Daria · senior lawyer · 4 years
       </div>
-
-      <div class="ai-home-cyber-right">
-
-        <div class="ahc-dashboard">
-
-          <div class="ahc-topbar">
-
-            <span class="ahc-td" style="background:#ff5f57"></span>
-
-            <span class="ahc-td" style="background:#febc2e"></span>
-
-            <span class="ahc-td" style="background:#28c840"></span>
-
-            <span class="ahc-title">DOCUMENT ANALYSIS</span>
-
-            <span class="ahc-live"><span class="ahc-live-dot"></span>LIVE</span>
-
-          </div>
-
-          <div class="ahc-metrics">
-
-            <div class="ahc-metric"><div class="ahc-metric-val" style="color:#4ade80">+23%</div><div class="ahc-metric-lbl" id="ahc-m1-lbl">К одобрению</div></div>
-
-            <div class="ahc-metric"><div class="ahc-metric-val" id="ahc-m2-val" style="color:var(--p200)">−2 мес</div><div class="ahc-metric-lbl" id="ahc-m2-lbl">Быстрее решение</div></div>
-
-            <div class="ahc-metric"><div class="ahc-metric-val">77</div><div class="ahc-metric-lbl" id="ahc-m3-lbl">Карт с ИИ</div></div>
-
-          </div>
-
-          <div class="ahc-body">
-
-            <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
-
-              <line x1="40" y1="80" x2="100" y2="35" stroke="rgba(91,82,204,.3)" stroke-width="1.2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2s" repeatCount="indefinite"/></line>
-
-              <line x1="40" y1="80" x2="100" y2="125" stroke="rgba(91,82,204,.25)" stroke-width="1.2" stroke-dasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="2.5s" repeatCount="indefinite"/></line>
-
-              <line x1="100" y1="35" x2="180" y2="55" stroke="rgba(139,130,232,.5)" stroke-width="1.8"/>
-
-              <line x1="100" y1="125" x2="180" y2="105" stroke="rgba(139,130,232,.4)" stroke-width="1.4"/>
-
-              <line x1="180" y1="55" x2="240" y2="80" stroke="rgba(74,222,128,.6)" stroke-width="2"/>
-
-              <line x1="180" y1="105" x2="240" y2="80" stroke="rgba(74,222,128,.5)" stroke-width="1.6"/>
-
-              <circle cx="40" cy="80" r="7" fill="rgba(91,82,204,.15)" stroke="rgba(91,82,204,.7)" stroke-width="1.5"><animate attributeName="opacity" values=".7;1;.7" dur="3s" repeatCount="indefinite"/></circle>
-
-              <circle cx="40" cy="80" r="3" fill="var(--p400)"/>
-
-              <circle cx="100" cy="35" r="8" fill="rgba(91,82,204,.2)" stroke="rgba(139,130,232,.8)" stroke-width="1.5"><animate attributeName="r" values="7;9;7" dur="2s" repeatCount="indefinite"/></circle>
-
-              <circle cx="100" cy="35" r="3.5" fill="var(--p300)"/>
-
-              <circle cx="100" cy="125" r="6" fill="rgba(91,82,204,.15)" stroke="rgba(139,130,232,.6)" stroke-width="1.5"/>
-
-              <circle cx="100" cy="125" r="2.5" fill="var(--p400)"/>
-
-              <circle cx="180" cy="55" r="9" fill="rgba(91,82,204,.25)" stroke="rgba(139,130,232,.9)" stroke-width="2"><animate attributeName="opacity" values=".8;1;.8" dur="2.2s" repeatCount="indefinite"/></circle>
-
-              <circle cx="180" cy="55" r="4" fill="var(--p200)"/>
-
-              <circle cx="180" cy="105" r="7" fill="rgba(91,82,204,.2)" stroke="rgba(139,130,232,.7)" stroke-width="1.5"/>
-
-              <circle cx="180" cy="105" r="3" fill="var(--p300)"/>
-
-              <circle cx="240" cy="80" r="12" fill="rgba(74,222,128,.12)" stroke="rgba(74,222,128,.85)" stroke-width="2"><animate attributeName="r" values="11;13;11" dur="1.8s" repeatCount="indefinite"/></circle>
-
-              <circle cx="240" cy="80" r="5" fill="#4ade80"/>
-
-              <text x="40" y="100" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="6.5" font-family="monospace">ЗАГРУЗКА</text>
-
-              <text x="140" y="14" text-anchor="middle" fill="rgba(139,130,232,.55)" font-size="6.5" font-family="monospace">ПРОВЕРКА</text>
-
-              <text x="240" y="100" text-anchor="middle" fill="rgba(74,222,128,.65)" font-size="6.5" font-family="monospace">✓ ОК</text>
-
-            </svg>
-
-            <div class="ahc-progress-row">
-
-              <div class="ahc-progress-label" id="ahc-progress-label">ГОТОВНОСТЬ ПАКЕТА</div>
-
-              <div class="ahc-progress-val">93%</div>
-
-              <div class="ahc-track"><div class="ahc-fill"></div></div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
+    <div class="aih-pv-text">
+      <span class="aih-pv-eyebrow">— AI + Lawyer —</span>
+      <h2 class="aih-pv-title">AI helps. <em>The lawyer decides.</em></h2>
+      <p class="aih-pv-lead">We use AI as an assistant, not as a replacement. It catches the small errors in your file in minutes — the ones that would take a human an hour to find. The decision is always made by a real lawyer who knows your case.</p>
 
+      <div class="aih-pv-feats">
+        <div class="aih-pv-feat">
+          <div class="aih-pv-feat-ico">🔍</div>
+          <div>
+            <b>Pre-submission check</b>
+            <span>AI scans every document for the 12 most common voivodeship rejection reasons. Daria reviews the flags.</span>
+          </div>
+        </div>
+        <div class="aih-pv-feat">
+          <div class="aih-pv-feat-ico">⏰</div>
+          <div>
+            <b>Smart reminders</b>
+            <span>90 / 60 / 30 days before your card expires — automatic ping in WhatsApp.</span>
+          </div>
+        </div>
+        <div class="aih-pv-feat">
+          <div class="aih-pv-feat-ico">⚡</div>
+          <div>
+            <b>~2 months faster</b>
+            <span>Pre-checked applications go through the voivodeship without &laquo;please correct&raquo; delays.</span>
+          </div>
+        </div>
+        <div class="aih-pv-feat">
+          <div class="aih-pv-feat-ico">🎯</div>
+          <div>
+            <b>77 cards delivered with AI&nbsp;help</b>
+            <span>Since we deployed it in 2024 — and counting.</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://wa.me/48735248525?text=Hi%21%20Tell%20me%20about%20your%20document%20pre-check%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="aih-pv-cta">
+        💬 Ask Daria how it works →
+      </a>
+    </div>
   </div>
-
 </section>
+<style>
+.aih-pv-sec{padding:80px 24px;background:var(--bg);}
+.aih-pv-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:center;}
+.aih-pv-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;max-height:560px;}
+.aih-pv-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.aih-pv-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(7,5,15,.85));pointer-events:none;}
+.aih-pv-photo-badge{
+  position:absolute;left:20px;bottom:20px;z-index:2;
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.12);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:13px;font-weight:600;
+  padding:10px 16px;border-radius:60px;
+  font-family:'Inter',sans-serif;
+}
+.aih-pv-photo-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:pulse 2s infinite;}
+.aih-pv-eyebrow{
+  display:block;font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:13px;letter-spacing:2px;color:#8B82E8;font-weight:600;
+  margin-bottom:14px;
+}
+.aih-pv-title{
+  font-family:'Lora',Georgia,serif;
+  font-size:40px;font-weight:700;color:#fff;
+  letter-spacing:-.5px;line-height:1.15;margin-bottom:20px;
+}
+.aih-pv-title em{font-style:italic;color:#c4beff;}
+.aih-pv-lead{
+  font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:16px;color:#a09ac8;line-height:1.65;
+  margin-bottom:30px;
+}
+.aih-pv-feats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:30px;}
+.aih-pv-feat{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:18px 18px 18px 14px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(139,130,232,.18);
+  border-radius:16px;
+  transition:transform .25s ease,border-color .25s ease;
+}
+.aih-pv-feat:hover{transform:translateY(-2px);border-color:rgba(139,130,232,.45);}
+.aih-pv-feat-ico{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px;}
+.aih-pv-feat b{display:block;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.25;}
+.aih-pv-feat span{font-family:'Inter',sans-serif;font-size:12.5px;color:#a09ac8;line-height:1.55;}
+.aih-pv-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#25D366;color:#fff;text-decoration:none;
+  font-weight:700;font-size:14px;
+  padding:14px 28px;border-radius:60px;
+  box-shadow:0 14px 32px rgba(37,211,102,.3);
+  transition:transform .25s ease;
+}
+.aih-pv-cta:hover{transform:translateY(-2px);}
+@media(max-width:920px){
+  .aih-pv-inner{grid-template-columns:1fr;gap:30px;}
+  .aih-pv-title{font-size:30px;}
+  .aih-pv-feats{grid-template-columns:1fr;}
+  .aih-pv-photo{aspect-ratio:1/1;max-height:380px;}
+}
+</style>
 
 
 
