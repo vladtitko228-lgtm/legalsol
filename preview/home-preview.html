@@ -3954,13 +3954,16 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
     var(--bg) !important;
 }
 
-/* Calculator — heavier dark overlay so text always reads */
+/* Calculator — photo bg now visible (lighter overlay, fallback color) */
 #calc-section{
   position:relative;
-  background:
-    linear-gradient(135deg,rgba(7,5,15,.95) 0%,rgba(14,10,35,.92) 50%,rgba(91,82,204,.40) 100%),
-    url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
-    var(--bg) !important;
+  background-color:#0e0a23 !important;
+  background-image:
+    linear-gradient(135deg,rgba(7,5,15,.78) 0%,rgba(14,10,35,.72) 50%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=2400&q=85&auto=format&fit=crop') !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
 }
 .calc-aurora{opacity:.3 !important;}
 
