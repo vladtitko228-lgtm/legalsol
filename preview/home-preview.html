@@ -3854,10 +3854,13 @@ html.lang-switching * { transition: none !important; animation: none !important;
   font-style:normal !important;
 }
 
-/* ───── Hero service row: 4 columns instead of 3 ───── */
-.hero-svc-row-4col{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:10px !important;}
-@media(max-width:900px){
-  .hero-svc-row-4col{grid-template-columns:1fr 1fr !important;}
+/* ───── Hero service row: 3 TRC scenarios ───── */
+.hero-svc-row-trc3{display:grid !important;grid-template-columns:repeat(3,1fr) !important;gap:12px !important;}
+.hero-svc-row-trc3 .hero-svc-btn{min-width:0 !important;padding:18px 20px !important;}
+.hero-svc-row-trc3 .hsb-icon{font-size:24px !important;}
+.hero-svc-row-trc3 .hsb-label{font-size:14.5px !important;font-weight:700 !important;}
+@media(max-width:760px){
+  .hero-svc-row-trc3{grid-template-columns:1fr !important;}
 }
 
 /* ───── FIX v2: радикально отключаю все анимации на hero-svc-btn ───── */
@@ -4785,33 +4788,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span id="hero-wa-cta-label">Message us on WhatsApp</span>
     </a>
 
-    <div class="hero-svc-eyebrow" id="hero-svc-eyebrow">Or pick your situation · free consultation</div>
-    <div class="hero-svc-row hero-svc-row-4col">
-      <a href="https://wa.me/48735248525?text=Hi%21%20I%20need%20a%20residence%20permit%20%28Karta%20Pobytu%29%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
-        <span class="hsb-iwrap"><span class="hsb-icon">🪪</span></span>
-        <span class="hsb-text">
-          <span class="hsb-label">Residence permit</span>
-          <span class="hsb-sub">Free consultation →</span>
-        </span>
-      </a>
-      <a href="https://wa.me/48735248525?text=Hi%21%20This%20is%20my%20first%20submission%20%E2%80%94%20karta%20pobytu%20application%20from%20scratch.%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
+    <div class="hero-svc-eyebrow" id="hero-svc-eyebrow">Karta Pobytu · pick your situation</div>
+    <div class="hero-svc-row hero-svc-row-trc3">
+      <a href="https://wa.me/48735248525?text=Hi%21%20New%20karta%20pobytu%20application%20from%20scratch%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
         <span class="hsb-iwrap"><span class="hsb-icon">🆕</span></span>
         <span class="hsb-text">
-          <span class="hsb-label">New submission</span>
+          <span class="hsb-label">New application</span>
           <span class="hsb-sub">Free consultation →</span>
         </span>
       </a>
-      <a href="https://wa.me/48735248525?text=Hi%21%20I%20got%20a%20refusal%20and%20need%20to%20file%20an%20appeal%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
-        <span class="hsb-iwrap"><span class="hsb-icon">⚖️</span></span>
-        <span class="hsb-text">
-          <span class="hsb-label">Appeal a refusal</span>
-          <span class="hsb-sub">Free consultation →</span>
-        </span>
-      </a>
-      <a href="https://wa.me/48735248525?text=Hi%21%20My%20case%20is%20already%20in%20progress%20%E2%80%94%20need%20help%2Ftracking.%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
+      <a href="https://wa.me/48735248525?text=Hi%21%20My%20karta%20pobytu%20case%20is%20already%20in%20progress%20%E2%80%94%20need%20help%2Ftracking.%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
         <span class="hsb-iwrap"><span class="hsb-icon">⏳</span></span>
         <span class="hsb-text">
-          <span class="hsb-label">Case in progress</span>
+          <span class="hsb-label">In progress</span>
+          <span class="hsb-sub">Free consultation →</span>
+        </span>
+      </a>
+      <a href="https://wa.me/48735248525?text=Hi%21%20I%20got%20a%20refusal%20on%20my%20karta%20pobytu%20%E2%80%94%20need%20an%20appeal.%20legalsol.pl" target="_blank" rel="noopener" class="hero-svc-btn hsb-kp">
+        <span class="hsb-iwrap"><span class="hsb-icon">⚖️</span></span>
+        <span class="hsb-text">
+          <span class="hsb-label">Refusal / Appeal</span>
           <span class="hsb-sub">Free consultation →</span>
         </span>
       </a>
