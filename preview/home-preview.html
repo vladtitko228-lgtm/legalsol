@@ -3860,18 +3860,24 @@ html.lang-switching * { transition: none !important; animation: none !important;
   .hero-svc-row-4col{grid-template-columns:1fr 1fr !important;}
 }
 
-/* ───── FIX: hero-svc-btn hover больше не дёргается ───── */
-/* Убираю perspective+rotateX/Y+scale и оставляю мягкий translateY. */
-.hero-svc-btn{will-change:transform,box-shadow !important;}
+/* ───── FIX v2: радикально отключаю все анимации на hero-svc-btn ───── */
+.hero-svc-btn{
+  animation:none !important;
+  --mx:50% !important;--my:50% !important;
+  --rx:0deg !important;--ry:0deg !important;
+  opacity:1 !important;
+  transform:none !important;
+  will-change:transform !important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease !important;
+}
+.hero-svc-btn::before{display:none !important;}
+.hero-svc-btn::after{display:none !important;}
 .hero-svc-btn:hover{
   transform:translateY(-3px) !important;
-  scale:none !important;
-  box-shadow:0 18px 40px color-mix(in srgb,var(--c1) 45%,transparent),inset 0 1px 0 rgba(255,255,255,.18) !important;
-  animation-play-state:paused !important;
+  box-shadow:0 14px 36px color-mix(in srgb,var(--c1) 40%,transparent),inset 0 1px 0 rgba(255,255,255,.18) !important;
+  border-color:color-mix(in srgb,var(--c2) 60%,transparent) !important;
 }
 .hero-svc-btn:active{transform:translateY(-1px) !important;}
-/* Отключаю tilt-перерасчёт (если есть JS-mousemove на этой кнопке) */
-.hero-svc-btn{--rx:0deg !important;--ry:0deg !important;}
 
 /* ───── ECO cards: photo header per direction ───── */
 .eco-card{padding-top:0 !important;}
@@ -5036,104 +5042,127 @@ function updateTicker(){}
 
 
 
-<!-- GEO STRIP v2 — country cards with halo + dotted bg + title + footer -->
+<!-- GEO STRIP v3 — paper board with passport-stamp medallions -->
 <style>
 .geo-strip-pv{
   position:relative;
-  padding:64px 24px;
-  background:
-    radial-gradient(circle at 20% 30%,rgba(91,82,204,.15),transparent 50%),
-    radial-gradient(circle at 80% 70%,rgba(139,130,232,.12),transparent 50%),
-    linear-gradient(180deg,#0a081d,#0e0a23);
-  border-top:1px solid rgba(139,130,232,.16);
-  border-bottom:1px solid rgba(139,130,232,.16);
-  overflow:hidden;
+  background:#0e0a23 !important;
+  padding:60px 24px !important;
 }
 .geo-strip-pv::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(rgba(139,130,232,.10) 1px,transparent 1px);
-  background-size:24px 24px;
-  pointer-events:none;
-  mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);
-  -webkit-mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);
+  content:'';position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
+  width:min(1240px,calc(100% - 28px));
+  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
+  border-radius:32px;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  z-index:0;
 }
-.geo-inner-pv{max-width:1180px;margin:0 auto;position:relative;text-align:center;}
-.geo-head-pv{margin-bottom:38px;}
+.geo-strip-pv > *{position:relative;z-index:1;}
+.geo-inner-pv{max-width:1100px;margin:0 auto;text-align:center;padding:40px 24px;}
+.geo-head-pv{margin-bottom:40px;}
+.geo-eyebrow-pv{
+  font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:13px;letter-spacing:2px;color:#7c5419;
+  font-weight:600;margin-bottom:12px;display:block;
+}
 .geo-title-pv{
   font-family:'Lora',Georgia,serif;
-  font-size:34px;font-weight:700;color:#fff;
-  letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;
+  font-size:38px;font-weight:700;color:#1a1545;
+  letter-spacing:-.5px;line-height:1.2;margin-bottom:14px;
 }
-.geo-title-pv em{font-style:italic;color:#c4beff;}
+.geo-title-pv em{font-style:italic;color:#a37013;font-weight:600;}
 .geo-sub-pv{
-  font-family:'Lora',Georgia,serif;
-  font-size:15px;color:#a09ac8;font-style:italic;
+  font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:15px;color:#7c6646;
   max-width:580px;margin:0 auto;
 }
-.geo-grid-pv{display:grid;grid-template-columns:repeat(9,1fr);gap:14px;margin-top:6px;}
-@media(max-width:1100px){.geo-grid-pv{grid-template-columns:repeat(5,1fr);}}
-@media(max-width:720px){.geo-grid-pv{grid-template-columns:repeat(3,1fr);gap:10px;}}
+
+.geo-grid-pv{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px 20px;margin-top:10px;
+}
+@media(max-width:720px){.geo-grid-pv{grid-template-columns:repeat(2,1fr);gap:20px 14px;}}
 
 .geo-card-pv{
   position:relative;
-  display:flex;flex-direction:column;align-items:center;
-  padding:20px 6px 18px;
-  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01));
-  border:1px solid rgba(139,130,232,.18);
-  border-radius:18px;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s ease,box-shadow .35s ease;
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;
+  background:#fffefb;
+  border-radius:14px;
+  box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 22px rgba(60,40,10,.12);
+  text-align:left;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;
 }
+.geo-card-pv:nth-child(odd){transform:rotate(-.4deg);}
+.geo-card-pv:nth-child(even){transform:rotate(.5deg);}
+.geo-card-pv:nth-child(3n){transform:rotate(-.3deg);}
 .geo-card-pv:hover{
-  transform:translateY(-5px);
-  border-color:rgba(139,130,232,.5);
-  box-shadow:0 18px 40px rgba(91,82,204,.3),inset 0 0 0 1px rgba(139,130,232,.3);
+  transform:rotate(0) translateY(-4px);
+  box-shadow:0 4px 8px rgba(0,0,0,.1),0 18px 36px rgba(60,40,10,.22);
 }
+
 .gc-flag-pv{
-  position:relative;font-size:44px;line-height:1;margin-bottom:12px;
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,.5));
-  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  position:relative;
+  font-size:38px;line-height:1;flex-shrink:0;
+  width:60px;height:60px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:#fef3df;
+  border:1px dashed rgba(124,84,25,.3);
 }
-.geo-card-pv:hover .gc-flag-pv{transform:scale(1.12);}
-.gc-flag-pv::after{
-  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:66px;height:66px;border-radius:50%;
-  background:radial-gradient(circle,rgba(139,130,232,.28),transparent 65%);z-index:-1;
+.gc-info-pv{flex:1;min-width:0;}
+.gc-name-pv{
+  font-family:'Lora',Georgia,serif;font-weight:700;
+  font-size:16px;color:#1a1545;line-height:1.2;margin-bottom:4px;
 }
-.gc-name-pv{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;}
-.gc-cnt-pv{font-family:'Lora',Georgia,serif;font-size:20px;font-weight:700;color:#c4beff;letter-spacing:-.3px;line-height:1;}
-.gc-cnt-lbl-pv{font-family:'Inter',sans-serif;font-size:9px;color:#a09ac8;text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
+.gc-bar-pv{
+  height:6px;background:rgba(124,84,25,.12);border-radius:3px;overflow:hidden;margin-bottom:6px;
+}
+.gc-bar-fill-pv{
+  height:100%;
+  background:linear-gradient(90deg,#a37013,#e0a921);
+  border-radius:3px;
+  transition:width .8s cubic-bezier(.2,.8,.2,1);
+}
+.gc-meta-pv{
+  display:flex;justify-content:space-between;
+  font-family:'Inter',sans-serif;font-size:11px;color:#7c6646;
+}
+.gc-meta-pv b{color:#1a1545;font-weight:700;font-size:13px;}
 
 .geo-footer-pv{
-  margin-top:38px;
-  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
-  color:#a09ac8;font-family:'Lora',Georgia,serif;font-style:italic;font-size:13px;
+  margin-top:40px;padding:20px 18px;
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
+  background:rgba(255,255,255,.55);
+  border:1px dashed rgba(124,84,25,.3);
+  border-radius:14px;
+  color:#7c6646;font-family:'Lora',Georgia,serif;font-style:italic;font-size:14px;
 }
-.geo-footer-pv b{color:#fff;font-style:normal;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:.3px;}
-.geo-footer-pv .gd{width:4px;height:4px;border-radius:50%;background:rgba(139,130,232,.5);}
+.geo-footer-pv b{color:#1a1545;font-style:normal;font-weight:700;}
 </style>
 <section class="geo-strip-pv">
   <div class="geo-inner-pv">
     <div class="geo-head-pv">
+      <span class="geo-eyebrow-pv">— OUR CLIENTS —</span>
       <h2 class="geo-title-pv">Where our clients <em>come from</em></h2>
       <p class="geo-sub-pv">3000+ foreigners from 9 countries trusted us with their legal stay in Poland since 2020.</p>
     </div>
     <div class="geo-grid-pv">
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇮🇳</div><div class="gc-name-pv">India</div><div class="gc-cnt-pv">820</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇧🇩</div><div class="gc-name-pv">Bangladesh</div><div class="gc-cnt-pv">540</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇰</div><div class="gc-name-pv">Pakistan</div><div class="gc-cnt-pv">310</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇳🇬</div><div class="gc-name-pv">Nigeria</div><div class="gc-cnt-pv">280</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇻🇳</div><div class="gc-name-pv">Vietnam</div><div class="gc-cnt-pv">220</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇦🇿</div><div class="gc-name-pv">Azerbaijan</div><div class="gc-cnt-pv">190</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇹🇷</div><div class="gc-name-pv">Türkiye</div><div class="gc-cnt-pv">180</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇭</div><div class="gc-name-pv">Philippines</div><div class="gc-cnt-pv">150</div><div class="gc-cnt-lbl-pv">cases</div></div>
-      <div class="geo-card-pv"><div class="gc-flag-pv">🇱🇰</div><div class="gc-name-pv">Sri Lanka</div><div class="gc-cnt-pv">120</div><div class="gc-cnt-lbl-pv">cases</div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇮🇳</div><div class="gc-info-pv"><div class="gc-name-pv">India</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:100%"></div></div><div class="gc-meta-pv"><span>cases</span><b>820</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇧🇩</div><div class="gc-info-pv"><div class="gc-name-pv">Bangladesh</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:66%"></div></div><div class="gc-meta-pv"><span>cases</span><b>540</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Pakistan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:38%"></div></div><div class="gc-meta-pv"><span>cases</span><b>310</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇳🇬</div><div class="gc-info-pv"><div class="gc-name-pv">Nigeria</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:34%"></div></div><div class="gc-meta-pv"><span>cases</span><b>280</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇻🇳</div><div class="gc-info-pv"><div class="gc-name-pv">Vietnam</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:27%"></div></div><div class="gc-meta-pv"><span>cases</span><b>220</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇦🇿</div><div class="gc-info-pv"><div class="gc-name-pv">Azerbaijan</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:23%"></div></div><div class="gc-meta-pv"><span>cases</span><b>190</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇹🇷</div><div class="gc-info-pv"><div class="gc-name-pv">Türkiye</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:22%"></div></div><div class="gc-meta-pv"><span>cases</span><b>180</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇵🇭</div><div class="gc-info-pv"><div class="gc-name-pv">Philippines</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:18%"></div></div><div class="gc-meta-pv"><span>cases</span><b>150</b></div></div></div>
+      <div class="geo-card-pv"><div class="gc-flag-pv">🇱🇰</div><div class="gc-info-pv"><div class="gc-name-pv">Sri Lanka</div><div class="gc-bar-pv"><div class="gc-bar-fill-pv" style="width:15%"></div></div><div class="gc-meta-pv"><span>cases</span><b>120</b></div></div></div>
     </div>
     <div class="geo-footer-pv">
       <span>🌍 We work with clients from <b>9 countries</b></span>
-      <span class="gd"></span>
-      <span>📋 <b>3000+</b> successful applications</span>
-      <span class="gd"></span>
-      <span>⭐ <b>98%</b> approval rate</span>
+      <span style="opacity:.5">·</span>
+      <span>📋 <b>3000+</b> applications</span>
+      <span style="opacity:.5">·</span>
+      <span>⭐ <b>98%</b> approval</span>
     </div>
   </div>
 </section>
