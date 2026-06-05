@@ -3786,7 +3786,7 @@ html.lang-switching * { transition: none !important; animation: none !important;
   ⚠️ Превью v2 — фон hero, geo на EN, About-блок, видео вместо 3D-карты, живой шрифт отзывов
 </div>
 
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 
 <style id="preview-overrides">
 /* ───── 1. HERO background image (with people) ───── */
@@ -3860,6 +3860,19 @@ html.lang-switching * { transition: none !important; animation: none !important;
   .hero-svc-row-4col{grid-template-columns:1fr 1fr !important;}
 }
 
+/* ───── FIX: hero-svc-btn hover больше не дёргается ───── */
+/* Убираю perspective+rotateX/Y+scale и оставляю мягкий translateY. */
+.hero-svc-btn{will-change:transform,box-shadow !important;}
+.hero-svc-btn:hover{
+  transform:translateY(-3px) !important;
+  scale:none !important;
+  box-shadow:0 18px 40px color-mix(in srgb,var(--c1) 45%,transparent),inset 0 1px 0 rgba(255,255,255,.18) !important;
+  animation-play-state:paused !important;
+}
+.hero-svc-btn:active{transform:translateY(-1px) !important;}
+/* Отключаю tilt-перерасчёт (если есть JS-mousemove на этой кнопке) */
+.hero-svc-btn{--rx:0deg !important;--ry:0deg !important;}
+
 /* ───── REVIEWS: warm/human redesign (paper feel, not cyber) ───── */
 .rvhome{background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%) !important;padding:80px 24px !important;}
 .rvhome-head{text-align:center;margin-bottom:40px;}
@@ -3874,21 +3887,41 @@ html.lang-switching * { transition: none !important; animation: none !important;
   background:#fffefb !important;
   border:none !important;
   border-radius:6px !important;
-  box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 16px rgba(60,40,10,.18),0 16px 40px rgba(60,40,10,.12) !important;
+  box-shadow:0 1px 2px rgba(0,0,0,.08),0 6px 16px rgba(60,40,10,.15),0 16px 40px rgba(60,40,10,.10) !important;
   padding:0 !important;
   overflow:visible !important;
-  transform:rotate(-.6deg) !important;
-  transition:transform .3s ease,box-shadow .3s ease !important;
+  transform:rotate(-.4deg) !important;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease !important;
 }
-.rvhome-card:nth-child(2){transform:rotate(.8deg) !important;}
-.rvhome-card:nth-child(3){transform:rotate(-1.1deg) !important;}
-.rvhome-card:nth-child(4){transform:rotate(.5deg) !important;}
-.rvhome-card:nth-child(5){transform:rotate(-.4deg) !important;}
-.rvhome-card:nth-child(6){transform:rotate(.9deg) !important;}
-.rvhome-card:hover{transform:rotate(0deg) translateY(-4px) !important;box-shadow:0 4px 8px rgba(0,0,0,.1),0 14px 30px rgba(60,40,10,.25),0 30px 60px rgba(60,40,10,.18) !important;}
+.rvhome-card:nth-child(2){transform:rotate(.5deg) !important;}
+.rvhome-card:nth-child(3){transform:rotate(-.7deg) !important;}
+.rvhome-card:nth-child(4){transform:rotate(.3deg) !important;}
+.rvhome-card:nth-child(5){transform:rotate(-.2deg) !important;}
+.rvhome-card:nth-child(6){transform:rotate(.6deg) !important;}
+.rvhome-card:hover{transform:rotate(0deg) translateY(-6px) !important;box-shadow:0 4px 8px rgba(0,0,0,.1),0 14px 30px rgba(60,40,10,.22),0 30px 60px rgba(60,40,10,.15) !important;}
 
-/* Tape decoration */
-.rvhome-card::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-3deg);width:90px;height:22px;background:rgba(244,225,180,.85);border:1px solid rgba(180,140,80,.18);box-shadow:0 2px 4px rgba(0,0,0,.06);z-index:3;border-radius:1px;}
+/* Tape decoration — теперь тоньше и аккуратнее */
+.rvhome-card::before{
+  content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:64px;height:14px;
+  background:linear-gradient(180deg,rgba(254,240,212,.92),rgba(244,225,180,.85));
+  border-left:1px solid rgba(180,140,80,.10);border-right:1px solid rgba(180,140,80,.10);
+  box-shadow:0 1px 2px rgba(0,0,0,.06);
+  z-index:3;border-radius:1px;
+}
+
+/* «Уголок» — печатный штамп */
+.rvhome-card::after{
+  content:'✓ verified';
+  position:absolute;top:14px;right:-6px;transform:rotate(8deg);
+  background:rgba(74,150,74,.92);color:#fff;
+  font-family:'Lora',Georgia,serif;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:4px 14px 4px 18px;
+  border-radius:3px;
+  box-shadow:0 4px 10px rgba(60,40,10,.18);
+  z-index:4;
+  clip-path:polygon(0 0,100% 0,calc(100% - 6px) 50%,100% 100%,0 100%);
+}
 
 .rvhome-photo{aspect-ratio:4/3 !important;overflow:hidden;border-radius:6px 6px 0 0;}
 .rvhome-photo img{filter:saturate(.92) contrast(.96) !important;}
@@ -3897,12 +3930,32 @@ html.lang-switching * { transition: none !important; animation: none !important;
 .rvhome-body{padding:24px 22px 26px !important;}
 .rvhome-stars{color:#e0a921 !important;font-size:17px !important;letter-spacing:2px !important;margin-bottom:12px !important;}
 
-.rvhome-q{font-family:'Lora',Georgia,serif !important;font-style:italic !important;font-weight:500 !important;font-size:16px !important;line-height:1.65 !important;color:#3d2c0d !important;margin-bottom:18px !important;}
+.rvhome-q{font-family:'Lora',Georgia,serif !important;font-style:italic !important;font-weight:500 !important;font-size:16px !important;line-height:1.65 !important;color:#3d2c0d !important;margin-bottom:18px !important;position:relative;}
+.rvhome-q::before{content:'\201C';font-family:Georgia,serif;font-size:54px;color:rgba(124,84,25,.25);position:absolute;left:-10px;top:-18px;line-height:1;}
 .rvhome-q b{color:#1a1545 !important;font-weight:700 !important;font-style:normal !important;}
 
-.rvhome-foot{display:flex !important;justify-content:space-between !important;align-items:center !important;border-top:1px dashed rgba(124,84,25,.3) !important;padding-top:14px !important;}
-.rvhome-name{font-family:'Lora',Georgia,serif !important;font-weight:700 !important;color:#1a1545 !important;font-size:14px !important;font-style:normal !important;}
-.rvhome-chip{background:rgba(224,169,33,.16) !important;color:#7c5419 !important;font-family:'Lora',Georgia,serif !important;font-weight:600 !important;font-style:italic !important;font-size:12px !important;padding:4px 10px !important;border-radius:4px !important;border:none !important;}
+.rvhome-foot{display:flex !important;justify-content:space-between !important;align-items:center !important;border-top:1px dashed rgba(124,84,25,.3) !important;padding-top:14px !important;gap:10px;}
+/* Имя — рукописным шрифтом, как живая подпись */
+.rvhome-name{
+  font-family:'Caveat',cursive !important;
+  font-weight:700 !important;
+  color:#1a1545 !important;
+  font-size:22px !important;
+  font-style:normal !important;
+  letter-spacing:.3px !important;
+  line-height:1 !important;
+}
+.rvhome-chip{
+  background:rgba(224,169,33,.16) !important;
+  color:#7c5419 !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-weight:600 !important;
+  font-style:italic !important;
+  font-size:12px !important;
+  padding:4px 10px !important;
+  border-radius:4px !important;
+  border:none !important;
+}
 
 @media(max-width:760px){
   .rvhome-card,.rvhome-card:nth-child(n){transform:rotate(0) !important;}
