@@ -4051,15 +4051,20 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 /* ───── REVIEWS: warm/human redesign (paper feel, not cyber) ───── */
 /* Section: тёмный backplate, кремовая «доска» по центру */
 .rvhome{
-  background:#0e0a23 !important;
-  padding:60px 24px !important;
   position:relative;
+  padding:60px 24px !important;
+  background:
+    linear-gradient(135deg,rgba(7,5,15,.88) 0%,rgba(14,10,35,.80) 55%,rgba(91,82,204,.32) 100%),
+    url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    #0e0a23 !important;
 }
 .rvhome::before{
   content:'';
   position:absolute;left:50%;top:30px;bottom:30px;transform:translateX(-50%);
   width:min(1240px,calc(100% - 28px));
-  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
+  background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
   border-radius:32px;
   box-shadow:0 30px 80px rgba(0,0,0,.4);
   z-index:0;
