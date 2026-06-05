@@ -3954,78 +3954,15 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
     var(--bg) !important;
 }
 
-/* Calculator — papers/form bg + same cream paper-board overlay as Geo/Reviews */
+/* Calculator — dark photo bg (no cream board → original light text stays legible) */
 #calc-section{
   position:relative;
   background:
-    linear-gradient(135deg,rgba(7,5,15,.86) 0%,rgba(14,10,35,.78) 50%,rgba(91,82,204,.30) 100%),
+    linear-gradient(135deg,rgba(7,5,15,.92) 0%,rgba(14,10,35,.86) 50%,rgba(91,82,204,.32) 100%),
     url('https://images.unsplash.com/photo-1554224155-cfa08c2a758f?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
     var(--bg) !important;
 }
-#calc-section::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
-  backdrop-filter:blur(2px);
-  -webkit-backdrop-filter:blur(2px);
-  z-index:0;
-  pointer-events:none;
-}
-#calc-section > *{position:relative;z-index:1;}
-.calc-aurora{opacity:.2 !important;}
-/* Re-colour calc on cream board */
-#cc-heading{color:#1a1545 !important;}
-#cc-heading em{color:#a37013 !important;}
-#cc-subdesc{color:#3d2c0d !important;}
-#cc-badge{background:rgba(163,112,19,.12) !important;border-color:rgba(163,112,19,.3) !important;color:#a37013 !important;}
-.calc-helper-pv{background:rgba(26,21,69,.06) !important;border-color:rgba(124,84,25,.25) !important;}
-.calc-helper-pv .ch-name{color:#1a1545 !important;}
-.calc-helper-pv .ch-sub{color:#7c6646 !important;}
-.cc-step-lbl{color:#7c6646 !important;}
-.cc-panel,.cc-panel *{color:inherit;}
-.cc-prog-step{background:rgba(124,84,25,.15) !important;border:1px solid rgba(124,84,25,.3) !important;color:#7c5419 !important;}
-.cc-prog-line{background:rgba(124,84,25,.25) !important;}
-.cc-test-signal{background:rgba(26,21,69,.06) !important;border:1px dashed rgba(124,84,25,.4) !important;}
-#cc-test-signal-txt{color:#1a1545 !important;}
-.cc-test-signal-dot{background:#a37013 !important;}
-.cc-test-arrow{color:#a37013 !important;}
-.cc-country-picker-btn{background:rgba(26,21,69,.06) !important;border:1px solid rgba(124,84,25,.3) !important;color:#1a1545 !important;}
-#cc-picker-label{color:#1a1545 !important;}
-.cc-picker-chevron{color:#7c5419 !important;}
-/* Calculator step labels + question text + answer options */
-#calc-section .cc-panel,
-#calc-section .cc-panel *{color:#3d2c0d !important;}
-#calc-section .cc-step-lbl,
-#calc-section [class*="cc-step"],
-#calc-section [id*="cc-step"]{color:#7c6646 !important;}
-#calc-section [id^="cc-q"],
-#calc-section [id$="-lbl"],
-#calc-section p,
-#calc-section label{color:#3d2c0d !important;}
-#calc-section h2,#calc-section h3,#calc-section b,#calc-section strong{color:#1a1545 !important;}
-/* Answer option buttons */
-#calc-section .calc-choice-btn,
-#calc-section .cc-option,
-#calc-section .cc-answer,
-#calc-section button[onclick*="cc"],
-#calc-section .cc-choice{
-  background:rgba(255,255,255,.7) !important;
-  border:1px solid rgba(124,84,25,.3) !important;
-  color:#1a1545 !important;
-}
-#calc-section .calc-choice-btn:hover,
-#calc-section .cc-option:hover,
-#calc-section .cc-choice:hover{
-  background:rgba(255,255,255,.95) !important;
-  border-color:rgba(163,112,19,.55) !important;
-  transform:translateY(-2px);
-}
-/* Next/back navigation buttons */
-#calc-section .cc-next,
-#calc-section .cc-back,
-#calc-section button[class*="cc-nav"]{
-  background:#1a1545 !important;color:#fde047 !important;border:none !important;
-}
-#calc-section .cc-next:hover{background:#26206a !important;}
+.calc-aurora{opacity:.3 !important;}
 
 /* Guarantee — handshake / trust */
 .guar-section{
