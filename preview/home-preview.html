@@ -5145,7 +5145,9 @@ function updateTicker(){}
 .geo-strip-pv::before{
   content:'';position:absolute;left:50%;top:20px;bottom:20px;transform:translateX(-50%);
   width:min(1100px,calc(100% - 28px));
-  background:linear-gradient(180deg,#fff8eb 0%,#fef0d4 100%);
+  background:linear-gradient(180deg,rgba(255,248,235,.78) 0%,rgba(254,240,212,.78) 100%);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
   border-radius:24px;
   box-shadow:0 22px 60px rgba(0,0,0,.35);
   z-index:0;
