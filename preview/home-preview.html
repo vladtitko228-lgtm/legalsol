@@ -5098,6 +5098,34 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+<style id="hero-symmetry">
+/* ════════════════════════════════════════════════════════════
+   HERO — make the two big CTAs perfectly symmetric (same width)
+   ════════════════════════════════════════════════════════════ */
+.hero-mega-cta{
+  display:flex !important;align-items:center !important;justify-content:center !important;
+  width:100% !important;max-width:420px !important;
+  margin:0 auto 14px !important;
+  padding:16px 28px !important;
+  text-align:center !important;
+  box-sizing:border-box !important;
+}
+.hero-svc-row.hsr-final{max-width:420px !important;}
+.hsr-final .hsb-main{
+  width:100% !important;
+  padding:18px 28px !important;
+  font-size:15.5px !important;
+  box-sizing:border-box !important;
+}
+/* Stack alignment helper — both centered, no margin asymmetry */
+.hero-mega-cta + .hero-svc-row,
+.hero-svc-row + .hero-mega-cta{margin-top:0 !important;}
+
+@media(max-width:760px){
+  .hero-mega-cta,.hero-svc-row.hsr-final{max-width:100% !important;}
+}
+</style>
+
 <style id="header-cta-top">
 /* ════════════════════════════════════════════════════════════
    MAIN CTA in the very top — Free consultation pill in nav
