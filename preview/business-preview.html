@@ -1599,6 +1599,155 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+<style id="kreator-styles">
+/* ════════════════════════════════════════════════════════════
+   KREATOR ŚCIEŻKI LEGALIZACJI — interactive 3-step wizard
+   ════════════════════════════════════════════════════════════ */
+.kreator-wrap{
+  max-width:920px;margin:60px auto;padding:38px 38px 32px;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%);
+  border:1px solid rgba(91,82,204,.30);
+  border-radius:24px;color:#fff;
+  box-shadow:0 20px 60px rgba(7,5,15,.4),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.kreator-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:28px;}
+.kreator-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#5b52cc;font-weight:700;margin-bottom:8px;text-transform:uppercase;}
+.kreator-title{font-family:'Inter',sans-serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;letter-spacing:-.3px;margin:0;}
+.kreator-step-indicator{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.3px;white-space:nowrap;}
+.kreator-step-indicator b{color:#fff;font-weight:700;}
+.kreator-progress{height:6px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden;margin-bottom:32px;}
+.kreator-progress-fill{height:100%;background:linear-gradient(90deg,#5b52cc,#22c55e);border-radius:6px;width:33%;transition:width .5s cubic-bezier(.16,1,.3,1);}
+.kreator-step-label{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:1.8px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:16px;}
+.kreator-goals{display:flex;flex-direction:column;gap:12px;}
+.kreator-goal{display:flex;align-items:center;gap:16px;padding:18px 20px;background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.18);border-radius:14px;cursor:pointer;text-align:left;width:100%;transition:background .2s ease,border-color .2s ease,transform .15s ease;color:#fff;font-family:'Inter',sans-serif;}
+.kreator-goal:hover{background:rgba(91,82,204,.10);border-color:rgba(139,130,232,.45);}
+.kreator-goal-icon{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;}
+.kreator-goal-icon.gi-work{background:rgba(91,82,204,.20);color:#a78bfa;}
+.kreator-goal-icon.gi-biz{background:rgba(251,191,36,.18);color:#fbbf24;}
+.kreator-goal-icon.gi-perm{background:rgba(34,197,94,.18);color:#22c55e;}
+.kreator-goal-icon.gi-refusal{background:rgba(239,68,68,.18);color:#f87171;}
+.kreator-goal-body{flex:1;}
+.kreator-goal-title{font-weight:700;font-size:15.5px;letter-spacing:-.1px;line-height:1.2;color:#fff;}
+.kreator-goal-desc{font-weight:400;font-size:13px;color:rgba(255,255,255,.62);margin-top:3px;line-height:1.4;}
+.kreator-goal-chip{font-family:'Inter',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;background:#dc2626;color:#fff;padding:4px 9px;border-radius:60px;flex-shrink:0;}
+.kreator-goal-arrow{flex-shrink:0;color:rgba(255,255,255,.35);font-size:18px;}
+.kreator-goal.gi-refusal-row{border-color:rgba(239,68,68,.30);background:rgba(239,68,68,.04);}
+.kreator-goal.gi-refusal-row .kreator-goal-title{color:#fca5a5;}
+.kreator-goal.gi-refusal-row .kreator-goal-desc{color:#fca5a5;opacity:.85;}
+.kreator-voivs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.kreator-voiv{display:flex;flex-direction:column;justify-content:center;padding:14px 16px;background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.18);border-radius:12px;cursor:pointer;text-align:left;transition:background .2s ease,border-color .2s ease;color:#fff;font-family:'Inter',sans-serif;}
+.kreator-voiv:hover{background:rgba(91,82,204,.10);border-color:rgba(139,130,232,.45);}
+.kreator-voiv-name{font-weight:700;font-size:14.5px;letter-spacing:-.1px;line-height:1.2;color:#fff;}
+.kreator-voiv-city{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px;}
+.kreator-voiv-inne{grid-column:1/-1;background:rgba(255,255,255,.03);}
+.kreator-result{background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.20);border-radius:16px;padding:24px;}
+.kreator-result-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid rgba(139,130,232,.16);font-family:'Inter',sans-serif;}
+.kreator-result-row:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0;}
+.kreator-result-label{font-size:13.5px;color:rgba(255,255,255,.65);}
+.kreator-result-chip{background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;font-weight:800;font-size:11px;letter-spacing:1.5px;padding:6px 14px;border-radius:60px;text-transform:uppercase;}
+.kreator-times{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.kreator-time-label{font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;}
+.kreator-time-val{font-family:'Inter',sans-serif;font-size:24px;font-weight:800;margin-top:4px;letter-spacing:-.5px;}
+.kreator-time-val.bad{color:#f87171;}
+.kreator-time-val.good{color:#22c55e;}
+.kreator-success-bar{display:flex;align-items:center;gap:14px;width:100%;margin-top:6px;}
+.kreator-success-track{flex:1;height:10px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;}
+.kreator-success-fill{height:100%;background:linear-gradient(90deg,#22c55e,#86efac);border-radius:10px;width:0;transition:width 1.1s cubic-bezier(.16,1,.3,1);}
+.kreator-success-pct{font-family:'Inter',sans-serif;font-weight:800;color:#22c55e;font-size:18px;letter-spacing:-.3px;}
+.kreator-contact{margin-top:22px;}
+.kreator-contact-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);text-align:center;margin-bottom:20px;line-height:1.5;}
+.kreator-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.kreator-field-label{font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;margin-bottom:6px;display:block;}
+.kreator-input{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.22);border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:14.5px;outline:none;box-sizing:border-box;transition:border-color .2s,background .2s;}
+.kreator-input:focus{border-color:#a78bfa;background:rgba(91,82,204,.10);}
+.kreator-input::placeholder{color:rgba(255,255,255,.35);}
+.kreator-submit{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 28px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:60px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:800;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 12px 32px rgba(34,197,94,.35),inset 0 1px 0 rgba(255,255,255,.22);transition:transform .2s,box-shadow .2s;}
+.kreator-submit:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(34,197,94,.5);}
+.kreator-back{display:block;width:100%;margin-top:18px;background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);font-family:'Inter',sans-serif;font-size:14px;text-align:center;transition:color .2s;}
+.kreator-back:hover{color:#fff;}
+@media(max-width:680px){
+  .kreator-wrap{padding:26px 18px;margin:30px 12px;}
+  .kreator-head{flex-direction:column;gap:8px;}
+  .kreator-title{font-size:21px;}
+  .kreator-voivs{grid-template-columns:1fr;}
+  .kreator-times{grid-template-columns:1fr;gap:14px;}
+  .kreator-contact-grid{grid-template-columns:1fr;}
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var VOIVS = [
+    {n:'Mazowieckie',c:'Warszawa'},{n:'Małopolskie',c:'Kraków'},
+    {n:'Dolnośląskie',c:'Wrocław'},{n:'Wielkopolskie',c:'Poznań'},
+    {n:'Pomorskie',c:'Gdańsk'},{n:'Łódzkie',c:'Łódź'},
+    {n:'Śląskie',c:'Katowice'},{n:'Zachodniopomorskie',c:'Szczecin'},
+    {n:'Lubelskie',c:'Lublin'},{n:'Podkarpackie',c:'Rzeszów'},
+    {n:'Kujawsko-Pomorskie',c:'Bydgoszcz / Toruń'},{n:'Warmińsko-Mazurskie',c:'Olsztyn'},
+    {n:'Świętokrzyskie',c:'Kielce'},{n:'Lubuskie',c:'Gorzów Wielkopolski'},
+    {n:'Opolskie',c:'Opole'},{n:'Podlaskie',c:'Białystok'}
+  ];
+  var GOALS = [
+    {i:'💼',cls:'gi-work',t:'Chcę pracować legalnie',d:'Karta Czasowego Pobytu na podstawie pracy',path:'KARTA POBYTU · PRACA',tBad:'8–14 mies.',tGood:'2–4 mies.',success:98.3},
+    {i:'📈',cls:'gi-biz',t:'Prowadzę / Zakładam Spółkę',d:'Relokacja zarządu, spółki z o.o., JDG',path:'ZARZĄD SPÓŁKI',tBad:'12–18 mies.',tGood:'4–5 mies.',success:98.7},
+    {i:'🛂',cls:'gi-perm',t:'Pobyt Stały / Rezydent UE / Obywatelstwo',d:'Karta Polaka, korzenie, rezydent długoterminowy',path:'POBYT STAŁY · OBYWATELSTWO',tBad:'14–22 mies.',tGood:'5–7 mies.',success:97.4},
+    {i:'⚠️',cls:'gi-refusal',t:'Mam odmowę (Refusal) / Zawieszenie',d:'Pilne odwołanie do Szefa UDSC (14 dni)',path:'ODWOŁANIE · APELACJA',tBad:'18–24 mies.',tGood:'3–5 mies.',success:91.2,critical:true}
+  ];
+  var state={step:1,goal:null,voiv:null};
+  var anchor = document.querySelector('section.hero');
+  if(!anchor || document.querySelector('.kreator-wrap')) return;
+  var root = document.createElement('section');
+  root.className='kreator-wrap';
+  anchor.parentNode.insertBefore(root, anchor.nextSibling);
+  function render(){
+    var pct = state.step===1?33:state.step===2?66:100;
+    var g = state.goal!=null?GOALS[state.goal]:null;
+    var v = state.voiv!=null && state.voiv>=0?VOIVS[state.voiv]:null;
+    var body='';
+    if(state.step===1){
+      body='<div class="kreator-step-label">Jaki jest twój główny cel?</div><div class="kreator-goals">'
+        +GOALS.map(function(go,i){return '<button class="kreator-goal '+(go.critical?'gi-refusal-row':'')+'" data-i="'+i+'"><span class="kreator-goal-icon '+go.cls+'">'+go.i+'</span><span class="kreator-goal-body"><span class="kreator-goal-title">'+go.t+'</span><span class="kreator-goal-desc">'+go.d+'</span></span>'+(go.critical?'<span class="kreator-goal-chip">KRYTYCZNE</span>':'')+'<span class="kreator-goal-arrow">›</span></button>';}).join('')+'</div>';
+    } else if(state.step===2){
+      body='<div class="kreator-step-label">Wybierz województwo (urząd wojewódzki)</div><div class="kreator-voivs">'
+        +VOIVS.map(function(vo,i){return '<button class="kreator-voiv" data-i="'+i+'"><span class="kreator-voiv-name">'+vo.n+'</span><span class="kreator-voiv-city">Siedziba: '+vo.c+'</span></button>';}).join('')
+        +'<button class="kreator-voiv kreator-voiv-inne" data-i="-1"><span class="kreator-voiv-name">Inne / nie wiem</span><span class="kreator-voiv-city">Rekomendujemy najlepszą trasę</span></button>'
+      +'</div><button class="kreator-back" data-back="1">← Powrót do poprzedniego kroku</button>';
+    } else if(state.step===3 && g){
+      body='<div class="kreator-result">'
+        +'<div class="kreator-result-row"><span class="kreator-result-label">Rekomendowana Ścieżka:</span><span class="kreator-result-chip">'+g.path+'</span></div>'
+        +'<div class="kreator-result-row" style="display:block"><div class="kreator-times">'
+          +'<div><div class="kreator-time-label">Średni czas urzędowy:</div><div class="kreator-time-val bad">'+g.tBad+'</div></div>'
+          +'<div><div class="kreator-time-label">Z LegalSol:</div><div class="kreator-time-val good">'+g.tGood+'</div></div>'
+        +'</div></div>'
+        +'<div class="kreator-result-row" style="display:block"><div class="kreator-time-label" style="margin-bottom:8px">Prawdopodobieństwo sukcesu (decyzja pozytywna):</div><div class="kreator-success-bar"><div class="kreator-success-track"><div class="kreator-success-fill" id="kreator-sfill"></div></div><div class="kreator-success-pct">'+g.success+'%</div></div></div>'
+      +'</div>'
+      +'<div class="kreator-contact">'
+        +'<p class="kreator-contact-sub">Zostaw kontakt, aby otrzymać darmowy audyt, wycenę oraz spersonalizowaną listę dokumentów na WhatsApp / E-mail.</p>'
+        +'<div class="kreator-contact-grid">'
+          +'<div><label class="kreator-field-label">Twoje imię</label><input class="kreator-input" placeholder="Np. Jan" type="text" id="kreator-name"></div>'
+          +'<div><label class="kreator-field-label">Telefon / WhatsApp</label><input class="kreator-input" placeholder="+48 …" type="tel" id="kreator-phone"></div>'
+        +'</div>'
+        +'<button class="kreator-submit" id="kreator-submit">Zatwierdź i wyślij analizę &nbsp;➤</button>'
+        +'<button class="kreator-back" data-back="2">← Zmień województwo</button>'
+      +'</div>';
+    }
+    root.innerHTML='<div class="kreator-head"><div><div class="kreator-eyebrow">KREATOR ŚCIEŻKI LEGALIZACJI V3.0</div><h2 class="kreator-title">Sprawdź szanse i czas oczekiwania</h2></div><div class="kreator-step-indicator">Krok <b>'+state.step+'</b> z <b>3</b></div></div><div class="kreator-progress"><div class="kreator-progress-fill" style="width:'+pct+'%"></div></div>'+body;
+    root.querySelectorAll('.kreator-goal').forEach(function(b){b.addEventListener('click',function(){state.goal=parseInt(b.dataset.i);state.step=2;render();});});
+    root.querySelectorAll('.kreator-voiv').forEach(function(b){b.addEventListener('click',function(){state.voiv=parseInt(b.dataset.i);state.step=3;render();});});
+    root.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){state.step=parseInt(b.dataset.back);render();});});
+    var sfill=document.getElementById('kreator-sfill');
+    if(sfill && g){setTimeout(function(){sfill.style.width=g.success+'%';},80);}
+    var sub=document.getElementById('kreator-submit');
+    if(sub){sub.addEventListener('click',function(){
+      var name=(document.getElementById('kreator-name')||{}).value||'';
+      var phone=(document.getElementById('kreator-phone')||{}).value||'';
+      var msg='Hi! Kreator analysis · '+(g?g.path:'')+' · '+(v?v.n:'Inne')+(name?' · Name: '+name:'')+(phone?' · Phone: '+phone:'')+' · legalsol.pl';
+      window.open('https://wa.me/48735248525?text='+encodeURIComponent(msg),'_blank');
+    });}
+  }
+  render();
+});
+</script>
+
 <style id="page-photo-bgs">
 /* Photo bgs on light card sections (warm off-white) */
 .section-light,.faq-section,.about-section,.process-section,.guarantee-section{
