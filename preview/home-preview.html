@@ -5427,7 +5427,7 @@ document.addEventListener('DOMContentLoaded', function(){
 .rvhome-grid{
   grid-template-columns:repeat(4,1fr) !important;gap:18px !important;max-width:1180px !important;margin:0 auto !important;
 }
-.rvhome-grid > *:nth-child(n+5){display:none !important;}
+/* (removed: was hiding reviews after #4 — now marquee shows all of them) */
 .rvhome-card{
   transform:none !important;
   background:#fff !important;
@@ -5465,7 +5465,7 @@ document.addEventListener('DOMContentLoaded', function(){
   .preview-final-cta-buttons a{width:100%;justify-content:center;font-size:14px;padding:14px 22px;}
 
   .rvhome-grid{grid-template-columns:1fr !important;}
-  .rvhome-grid > *:nth-child(n+4){display:none !important;}
+  .rvhome-grid > *:nth-child(n+7){display:none !important;}
 
   .hsr-final{max-width:none !important;}
   .hsr-final .hsb-main{font-size:15px !important;padding:16px 22px !important;}
