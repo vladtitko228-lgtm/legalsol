@@ -4527,7 +4527,7 @@ footer a:hover{color:#a78bfa !important;}
 
 /* KILL only the childish/distracting stuff */
 .calc-orb,.calc-aurora{animation:none !important;transform:none !important;}
-.rvhome-marquee,.rvhome-grid{animation:none !important;transform:none !important;}
+/* marquee re-enabled in floating-reviews block below */
 #cc-badge::after{animation:none !important;display:none !important;}
 #cc-heading em{animation:none !important;background-position:0 0 !important;}
 .hero-svc-btn{animation:none !important;}
@@ -4843,7 +4843,234 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 </style>
 
-<style id="good-animations">
+<style id="soft-section-fades">
+/* ════════════════════════════════════════════════════════════
+   SOFT TRANSITIONS between sections (no harsh photo jumps)
+   ════════════════════════════════════════════════════════════ */
+
+/* Body — subtle warm/dark gradient so light cards "float" smoothly */
+body{
+  background:
+    linear-gradient(180deg,#0e0a23 0%,#15103a 35%,#0e0a23 65%,#15103a 100%) !important;
+}
+
+/* Each white card section — soft fade on top + bottom 60px */
+.preview-news,.rvhome,.geo-strip-pv,.faq-section{
+  position:relative;
+}
+.preview-news::before,.rvhome::before,.geo-strip-pv::before,.faq-section::before,
+.preview-news::after,.rvhome::after,.geo-strip-pv::after,.faq-section::after{
+  content:'';position:absolute;left:0;right:0;height:60px;pointer-events:none;z-index:2;
+}
+.preview-news::before,.rvhome::before,.geo-strip-pv::before,.faq-section::before{
+  top:0;background:linear-gradient(180deg,rgba(247,245,242,.95) 0%,rgba(247,245,242,0) 100%);
+}
+.preview-news::after,.rvhome::after,.geo-strip-pv::after,.faq-section::after{
+  bottom:0;background:linear-gradient(0deg,rgba(247,245,242,.95) 0%,rgba(247,245,242,0) 100%);
+}
+
+/* Calculator section — fade edges into the dark page bg */
+#calc-section{position:relative;}
+#calc-section::after{
+  content:'';position:absolute;left:0;right:0;bottom:-1px;height:80px;pointer-events:none;
+  background:linear-gradient(0deg,#0e0a23 0%,rgba(7,5,15,0) 100%);z-index:5;
+}
+#calc-section::before{
+  content:'';position:absolute;left:0;right:0;top:-1px;height:80px;pointer-events:none;
+  background:linear-gradient(180deg,#15103a 0%,rgba(7,5,15,0) 100%);z-index:5;
+}
+</style>
+
+<style id="karta-cta">
+/* ════════════════════════════════════════════════════════════
+   KARTA POBYTU-STYLE CTA — creative, clickable, on-brand
+   ════════════════════════════════════════════════════════════ */
+.preview-karta-cta{
+  max-width:1100px;margin:60px auto;padding:48px 24px;
+  display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;
+}
+.preview-karta-cta-eyebrow{
+  font-family:'Lora',Georgia,serif;font-style:italic;font-size:11.5px;
+  letter-spacing:2px;color:#a78bfa;font-weight:600;text-transform:uppercase;
+}
+.preview-karta-cta-title{
+  font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;
+  letter-spacing:-.5px;line-height:1.2;margin:0;max-width:580px;
+}
+.preview-karta-cta-title em{color:#a78bfa;font-style:italic;font-weight:600;}
+.preview-karta-cta-sub{
+  font-family:'Inter',sans-serif;font-size:14.5px;color:rgba(255,255,255,.65);
+  max-width:480px;margin:0;line-height:1.6;
+}
+
+/* The card itself */
+.karta-link{
+  display:block;text-decoration:none;
+  perspective:1200px;
+  width:100%;max-width:420px;margin:18px auto 0;
+}
+.karta-card{
+  position:relative;
+  width:100%;aspect-ratio:1.586/1;  /* ID-card proportion (CR80) */
+  background:
+    linear-gradient(135deg,#5b52cc 0%,#3d3585 50%,#1a1545 100%);
+  border-radius:18px;padding:22px;
+  box-shadow:
+    0 24px 60px rgba(91,82,204,.40),
+    0 8px 22px rgba(7,5,15,.45),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -1px 0 rgba(0,0,0,.20);
+  overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease;
+  cursor:pointer;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+}
+.karta-link:hover .karta-card{
+  transform:rotateY(-6deg) rotateX(3deg) translateY(-6px);
+  box-shadow:
+    0 36px 80px rgba(91,82,204,.55),
+    0 14px 32px rgba(7,5,15,.55),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(0,0,0,.20);
+}
+
+/* Holographic foil sheen — moves on hover */
+.karta-card::before{
+  content:'';position:absolute;inset:0;border-radius:18px;pointer-events:none;
+  background:
+    linear-gradient(115deg,
+      transparent 30%,
+      rgba(255,255,255,.18) 50%,
+      transparent 70%);
+  transform:translateX(-50%);
+  transition:transform .8s ease;
+  z-index:2;
+}
+.karta-link:hover .karta-card::before{transform:translateX(50%);}
+
+/* Subtle paper texture */
+.karta-card::after{
+  content:'';position:absolute;inset:0;border-radius:18px;pointer-events:none;
+  background:
+    radial-gradient(circle at 80% 30%,rgba(167,139,250,.20),transparent 50%),
+    radial-gradient(circle at 20% 80%,rgba(255,255,255,.08),transparent 45%);
+  z-index:1;
+}
+
+.karta-content{position:relative;z-index:3;display:flex;flex-direction:column;height:100%;}
+
+/* Top row: Republika Polska + flag chip */
+.karta-top{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:9px;letter-spacing:2px;font-weight:700;
+  color:rgba(255,255,255,.85);text-transform:uppercase;
+}
+.karta-flag{
+  display:inline-flex;width:22px;height:14px;border-radius:2px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.3);
+}
+.karta-flag span:first-child{flex:1;background:#fff;}
+.karta-flag span:last-child{flex:1;background:#dc143c;}
+
+/* Eagle/coat-of-arms placeholder */
+.karta-eagle{
+  width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.30),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  margin-top:10px;
+}
+
+/* Main label */
+.karta-label{
+  font-family:'Playfair Display','Lora',Georgia,serif;
+  font-size:18px;font-weight:700;letter-spacing:1.2px;
+  margin-top:10px;line-height:1;
+}
+.karta-label small{
+  display:block;font-family:'Inter',sans-serif;
+  font-size:9px;font-weight:600;letter-spacing:1.5px;
+  color:rgba(255,255,255,.65);margin-top:3px;text-transform:uppercase;
+}
+
+/* Name + meta block */
+.karta-meta{
+  margin-top:auto;display:grid;grid-template-columns:1fr auto;gap:8px 14px;align-items:end;
+}
+.karta-meta-name{
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;
+  color:#fff;
+}
+.karta-meta-name small{display:block;font-size:9px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:1.5px;margin-bottom:2px;}
+.karta-meta-valid{
+  text-align:right;font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.5px;line-height:1.3;
+}
+.karta-meta-valid b{display:block;color:#fff;font-size:11px;font-weight:700;letter-spacing:.4px;}
+
+/* Chip indicator */
+.karta-chip{
+  position:absolute;top:48px;right:22px;
+  width:38px;height:28px;border-radius:5px;
+  background:linear-gradient(135deg,#fcd34d,#a16207);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 2px 4px rgba(0,0,0,.3);
+  z-index:4;
+}
+.karta-chip::before,.karta-chip::after{
+  content:'';position:absolute;background:rgba(0,0,0,.25);left:4px;right:4px;height:1px;
+}
+.karta-chip::before{top:8px;}
+.karta-chip::after{bottom:8px;}
+
+/* "Tap to chat" floating hint under card */
+.karta-hint{
+  margin-top:16px;
+  font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.55);
+  display:inline-flex;align-items:center;gap:6px;
+  letter-spacing:.3px;
+}
+.karta-hint::before{content:'→';color:#a78bfa;font-weight:700;}
+
+@media(max-width:560px){
+  .preview-karta-cta{padding:32px 14px;}
+  .preview-karta-cta-title{font-size:24px;}
+  .karta-link{max-width:340px;}
+  .karta-label{font-size:16px;}
+  .karta-meta-name{font-size:13px;}
+}
+</style>
+
+<style id="floating-reviews">
+/* ════════════════════════════════════════════════════════════
+   FLOATING REVIEWS — smooth marquee back, gentle pace
+   ════════════════════════════════════════════════════════════ */
+@keyframes reviewsFloat{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+@media(min-width:821px){
+  .rvhome-marquee{
+    overflow:hidden !important;
+    mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+    animation:none !important;
+  }
+  .rvhome-grid{
+    grid-template-columns:none !important;
+    display:flex !important;flex-wrap:nowrap !important;
+    gap:18px !important;width:max-content !important;max-width:none !important;
+    animation:reviewsFloat 45s linear infinite !important;
+    transform:translateX(0) !important;
+    margin:0 !important;
+  }
+  .rvhome-grid:hover{animation-play-state:paused !important;}
+  .rvhome-grid > *{flex:0 0 320px;width:320px !important;display:flex !important;}
+  /* Override the "hide after 4" rule from earlier */
+  .rvhome-grid > *:nth-child(n+5){display:flex !important;}
+}
+</style>
 /* ════════════════════════════════════════════════════════════
    PROFESSIONAL ANIMATIONS — subtle, intentional, alive
    ════════════════════════════════════════════════════════════ */
@@ -5174,6 +5401,35 @@ document.addEventListener('DOMContentLoaded', function(){
     /* 3. Calculator — right after Reviews */
     if(reviews && calc && reviews.nextElementSibling !== calc){
       reviews.parentNode.insertBefore(calc, reviews.nextSibling);
+    }
+
+    /* 3b. KARTA POBYTU-style CTA — right after Calculator */
+    if(calc && !document.querySelector('.preview-karta-cta')){
+      var karta = document.createElement('section');
+      karta.className = 'preview-karta-cta';
+      karta.innerHTML = ''
+        +'<span class="preview-karta-cta-eyebrow">YOUR NEXT CARD</span>'
+        +'<h2 class="preview-karta-cta-title">Make this <em>yours</em></h2>'
+        +'<p class="preview-karta-cta-sub">Tap the card. Chat with us on WhatsApp. We&rsquo;ll handle the rest — paperwork, MOS submission, follow-ups.</p>'
+        +'<a class="karta-link" href="https://wa.me/48735248525?text=Hi%21%20I%20want%20my%20karta%20pobytu%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" aria-label="Start your karta pobytu — chat on WhatsApp">'
+          +'<div class="karta-card">'
+            +'<div class="karta-content">'
+              +'<div class="karta-top">'
+                +'<span>RZECZPOSPOLITA POLSKA</span>'
+                +'<span class="karta-flag"><span></span><span></span></span>'
+              +'</div>'
+              +'<div class="karta-eagle">🦅</div>'
+              +'<div class="karta-label">KARTA POBYTU<small>Residence permit · Poland</small></div>'
+              +'<div class="karta-meta">'
+                +'<div class="karta-meta-name"><small>NAZWISKO / NAME</small>YOUR NAME HERE</div>'
+                +'<div class="karta-meta-valid"><span>VALID UNTIL</span><b>UP TO 3 YEARS</b></div>'
+              +'</div>'
+            +'</div>'
+            +'<div class="karta-chip" aria-hidden="true"></div>'
+          +'</div>'
+        +'</a>'
+        +'<div class="karta-hint">Tap the card to start on WhatsApp</div>';
+      calc.parentNode.insertBefore(karta, calc.nextSibling);
     }
 
     /* 4. Final CTA — right before Footer */
