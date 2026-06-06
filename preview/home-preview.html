@@ -4737,6 +4737,163 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
+<style id="how-we-work">
+/* ════════════════════════════════════════════════════════════
+   HOW WE WORK — WhatsApp-chat style timeline (unique to us)
+   ════════════════════════════════════════════════════════════ */
+.preview-how{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  position:relative;
+  background:
+    radial-gradient(ellipse at top right,rgba(37,211,102,.10) 0%,transparent 50%),
+    linear-gradient(135deg,#1a1545 0%,#0e0a23 100%);
+  border:1px solid rgba(139,130,232,.22);
+  border-radius:28px;color:#fff;
+  overflow:hidden;
+}
+.preview-how-head{text-align:center;margin-bottom:32px;}
+.preview-how-eyebrow{
+  font-family:'Lora',Georgia,serif;font-style:italic;font-size:11.5px;
+  letter-spacing:2px;color:#22c55e;font-weight:600;text-transform:uppercase;
+}
+.preview-how-title{
+  font-family:'Lora',Georgia,serif;font-size:36px;font-weight:700;
+  color:#fff;letter-spacing:-.5px;line-height:1.15;margin:8px 0 10px;
+}
+.preview-how-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.preview-how-sub{
+  font-family:'Inter',sans-serif;font-size:15px;color:rgba(255,255,255,.65);
+  max-width:560px;margin:0 auto;line-height:1.55;
+}
+
+/* Two-col layout: phone mockup left, timeline right */
+.preview-how-grid{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:start;
+  position:relative;z-index:1;margin-top:32px;
+}
+
+/* Phone mockup */
+.preview-phone{
+  position:relative;
+  width:100%;max-width:340px;margin:0 auto;
+  aspect-ratio:9/19.5;
+  background:#0b0b0f;
+  border-radius:46px;padding:14px;
+  box-shadow:
+    0 24px 60px rgba(7,5,15,.5),
+    0 0 0 1px rgba(255,255,255,.06),
+    inset 0 0 0 2px rgba(255,255,255,.04);
+}
+.preview-phone-notch{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:112px;height:30px;background:#0b0b0f;border-radius:0 0 18px 18px;
+  z-index:3;
+}
+.preview-phone-screen{
+  width:100%;height:100%;background:#0c1418;
+  border-radius:34px;overflow:hidden;
+  display:flex;flex-direction:column;
+  position:relative;
+}
+.preview-wa-head{
+  display:flex;align-items:center;gap:10px;
+  padding:38px 14px 10px;
+  background:#1f2c34;
+  color:#fff;
+  flex-shrink:0;
+}
+.preview-wa-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:13px;color:#fff;
+}
+.preview-wa-info{flex:1;}
+.preview-wa-name{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;line-height:1.2;}
+.preview-wa-status{font-family:'Inter',sans-serif;font-size:11px;color:#8696a0;display:flex;align-items:center;gap:5px;}
+.preview-wa-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e;}
+
+.preview-wa-body{
+  flex:1;padding:12px 10px 12px;overflow:hidden;
+  background:#0c1418;
+  background-image:
+    radial-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+    radial-gradient(rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:24px 24px;background-position:0 0,12px 12px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.preview-wa-day{
+  align-self:center;background:rgba(31,44,52,.85);color:#8696a0;
+  font-family:'Inter',sans-serif;font-size:10px;
+  padding:4px 10px;border-radius:8px;margin:8px 0 4px;
+}
+.preview-wa-msg{
+  max-width:78%;padding:8px 11px 18px;border-radius:10px;
+  font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.4;
+  position:relative;
+}
+.preview-wa-msg .preview-wa-time{
+  position:absolute;right:9px;bottom:5px;
+  font-size:9.5px;color:rgba(255,255,255,.45);
+  display:flex;align-items:center;gap:3px;
+}
+.preview-wa-msg.wa-in{align-self:flex-start;background:#1f2c34;color:#e9edef;border-top-left-radius:0;}
+.preview-wa-msg.wa-out{align-self:flex-end;background:#005c4b;color:#e9edef;border-top-right-radius:0;}
+.preview-wa-msg.wa-out .preview-wa-time::after{
+  content:'✓✓';margin-left:3px;color:#53bdeb;font-size:10px;letter-spacing:-1px;
+}
+.preview-wa-msg b{color:#fff;font-weight:700;}
+
+/* Timeline column */
+.preview-timeline{padding-top:10px;}
+.preview-tline-item{
+  display:flex;gap:16px;padding:14px 0 18px;position:relative;
+  border-bottom:1px solid rgba(139,130,232,.14);
+}
+.preview-tline-item:last-child{border-bottom:none;}
+.preview-tline-num{
+  flex-shrink:0;width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(34,197,94,.12);
+  border:1px solid rgba(34,197,94,.30);
+  color:#22c55e;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:14px;
+}
+.preview-tline-body{flex:1;}
+.preview-tline-time{
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;
+  color:#22c55e;text-transform:uppercase;font-weight:700;
+}
+.preview-tline-title{
+  font-family:'Lora',Georgia,serif;font-size:18px;font-weight:700;color:#fff;
+  margin:3px 0 5px;line-height:1.25;
+}
+.preview-tline-desc{
+  font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.68);
+  line-height:1.5;
+}
+
+.preview-how-bottom{
+  margin-top:32px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.55);
+  position:relative;z-index:1;
+}
+.preview-how-bottom span{
+  padding:6px 14px;border-radius:60px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.20);
+}
+
+@media(max-width:820px){
+  .preview-how{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .preview-how-title{font-size:24px;}
+  .preview-how-sub{font-size:13px;}
+  .preview-how-grid{grid-template-columns:1fr;gap:30px;}
+  .preview-phone{max-width:280px;}
+  .preview-tline-title{font-size:16px;}
+  .preview-tline-desc{font-size:13px;}
+}
+</style>
+
 <style id="latest-news">
 /* ════════════════════════════════════════════════════════════
    LATEST NEWS — fresh content block before FAQ
@@ -5755,6 +5912,92 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<span>✓ Refund if we refuse the case</span>'
         +'</div>';
       footer.parentNode.insertBefore(cta, footer);
+    }
+
+    /* 3c. HOW WE WORK (WhatsApp timeline) — between About and rest */
+    if(about && !document.querySelector('.preview-how')){
+      var how = document.createElement('section');
+      how.className = 'preview-how';
+      how.innerHTML = ''
+        +'<div class="preview-how-head">'
+          +'<span class="preview-how-eyebrow">HOW WE GET YOU YOUR CARD</span>'
+          +'<h2 class="preview-how-title">It all happens <em>in one chat</em></h2>'
+          +'<p class="preview-how-sub">No office visits. No queues. No 12-page PDF forms. Just a WhatsApp message — and we take it from there.</p>'
+        +'</div>'
+        +'<div class="preview-how-grid">'
+          +'<div class="preview-phone" aria-hidden="true">'
+            +'<div class="preview-phone-notch"></div>'
+            +'<div class="preview-phone-screen">'
+              +'<div class="preview-wa-head">'
+                +'<div class="preview-wa-avatar">LS</div>'
+                +'<div class="preview-wa-info">'
+                  +'<div class="preview-wa-name">LegalSol — Kamil</div>'
+                  +'<div class="preview-wa-status">online · typing…</div>'
+                +'</div>'
+              +'</div>'
+              +'<div class="preview-wa-body">'
+                +'<div class="preview-wa-day">DAY 1 · MONDAY</div>'
+                +'<div class="preview-wa-msg wa-in">Hi! I want to apply for karta pobytu 🙏<span class="preview-wa-time">10:42</span></div>'
+                +'<div class="preview-wa-msg wa-out">Hi! Quick 3 questions — citizenship, job status, time in Poland?<span class="preview-wa-time">10:43</span></div>'
+                +'<div class="preview-wa-msg wa-in">India · employed · since 2024<span class="preview-wa-time">10:45</span></div>'
+                +'<div class="preview-wa-msg wa-out">Got it. Send <b>passport + contract</b> and we&rsquo;re on it.<span class="preview-wa-time">10:46</span></div>'
+                +'<div class="preview-wa-day">DAY 3</div>'
+                +'<div class="preview-wa-msg wa-out">✅ Documents checked. <b>Submitting via MOS today.</b><span class="preview-wa-time">14:10</span></div>'
+                +'<div class="preview-wa-day">DAY 75</div>'
+                +'<div class="preview-wa-msg wa-out">🎉 <b>Approved!</b> Pickup info in next message.<span class="preview-wa-time">11:22</span></div>'
+              +'</div>'
+            +'</div>'
+          +'</div>'
+          +'<div class="preview-timeline">'
+            +'<div class="preview-tline-item">'
+              +'<div class="preview-tline-num">1</div>'
+              +'<div class="preview-tline-body">'
+                +'<div class="preview-tline-time">~60 seconds</div>'
+                +'<div class="preview-tline-title">You ping us on WhatsApp</div>'
+                +'<div class="preview-tline-desc">Any time. Russian, English, Polish, Ukrainian — we reply within 15 minutes on weekdays.</div>'
+              +'</div>'
+            +'</div>'
+            +'<div class="preview-tline-item">'
+              +'<div class="preview-tline-num">2</div>'
+              +'<div class="preview-tline-body">'
+                +'<div class="preview-tline-time">~20 minutes</div>'
+                +'<div class="preview-tline-title">We review your case for free</div>'
+                +'<div class="preview-tline-desc">A real immigration lawyer reads your situation. You get a clear list of what you have / what you need. No payment yet.</div>'
+              +'</div>'
+            +'</div>'
+            +'<div class="preview-tline-item">'
+              +'<div class="preview-tline-num">3</div>'
+              +'<div class="preview-tline-body">'
+                +'<div class="preview-tline-time">2 – 5 days</div>'
+                +'<div class="preview-tline-title">Documents prepared · submitted via MOS</div>'
+                +'<div class="preview-tline-desc">We fill the forms, translate what&rsquo;s needed, and submit through the official online portal. You don&rsquo;t touch a single PDF.</div>'
+              +'</div>'
+            +'</div>'
+            +'<div class="preview-tline-item">'
+              +'<div class="preview-tline-num">4</div>'
+              +'<div class="preview-tline-body">'
+                +'<div class="preview-tline-time">60 – 90 days</div>'
+                +'<div class="preview-tline-title">We chase the office — you live your life</div>'
+                +'<div class="preview-tline-desc">Status checks every 2 weeks. Any question from urząd — we answer it. You get pinged only when there&rsquo;s news.</div>'
+              +'</div>'
+            +'</div>'
+            +'<div class="preview-tline-item">'
+              +'<div class="preview-tline-num">5</div>'
+              +'<div class="preview-tline-body">'
+                +'<div class="preview-tline-time">1 hour</div>'
+                +'<div class="preview-tline-title">Card in your pocket</div>'
+                +'<div class="preview-tline-desc">We schedule the pickup at your voivodeship. You go once — 30 min in and out. Done.</div>'
+              +'</div>'
+            +'</div>'
+          +'</div>'
+        +'</div>'
+        +'<div class="preview-how-bottom">'
+          +'<span>✓ WhatsApp from start to finish</span>'
+          +'<span>✓ Free legal review</span>'
+          +'<span>✓ MOS-only submission (mandatory since April 2026)</span>'
+          +'<span>✓ Real lawyer, not a chatbot</span>'
+        +'</div>';
+      about.parentNode.insertBefore(how, about.nextSibling);
     }
 
     /* 4b. Latest news — inject before FAQ */
