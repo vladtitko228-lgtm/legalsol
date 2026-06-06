@@ -150,7 +150,10 @@ function renderPage(articles) {
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg);
+      background:
+        linear-gradient(180deg,rgba(13,13,43,.92) 0%,rgba(13,13,43,.96) 100%),
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=2400&q=85&auto=format&fit=crop') center top/cover fixed no-repeat,
+        var(--bg);
       color: var(--text);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
