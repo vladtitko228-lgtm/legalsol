@@ -4276,12 +4276,13 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 }
 
 /* ════════════════════════════════════════════════════════════
-   Geo + Reviews + FAQ — neutral photo bg, light overlay (alive but pro)
+   Geo + Reviews + FAQ — warm off-white (NOT pure white, easy on eyes),
+   subtle neutral photo as texture underneath
    ════════════════════════════════════════════════════════════ */
 .geo-strip-pv{
   position:relative !important;
   background:
-    linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(248,249,253,.86) 100%),
+    linear-gradient(180deg,rgba(247,245,242,.94) 0%,rgba(243,241,238,.96) 100%),
     url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat !important;
   border-radius:28px !important;
   border:1px solid rgba(91,82,204,.10) !important;
@@ -4294,7 +4295,7 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 .rvhome{
   position:relative !important;
   background:
-    linear-gradient(180deg,rgba(255,255,255,.80) 0%,rgba(248,249,253,.84) 100%),
+    linear-gradient(180deg,rgba(247,245,242,.94) 0%,rgba(243,241,238,.96) 100%),
     url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat !important;
   border-radius:28px !important;
   border:1px solid rgba(91,82,204,.10) !important;
@@ -4304,10 +4305,10 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 .rvhome::before{display:none !important;}
 .rvhome > *{position:relative;z-index:1;}
 
-/* FAQ — paper texture bg for warmth, still readable */
+/* FAQ — same warm off-white aesthetic */
 .faq-section{
   background:
-    linear-gradient(180deg,rgba(255,255,255,.92) 0%,rgba(248,249,253,.94) 100%),
+    linear-gradient(180deg,rgba(247,245,242,.96) 0%,rgba(243,241,238,.97) 100%),
     url('https://images.unsplash.com/photo-1517842645767-c639042777db?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat !important;
 }
 
@@ -4736,16 +4737,256 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
-<!-- Move reviews up — right after Hero (per Vlad's request) -->
+<style id="final-rewrite">
+/* ════════════════════════════════════════════════════════════
+   FINAL REWRITE — pro layout for our target audience
+   ════════════════════════════════════════════════════════════ */
+
+/* HERO: 1 big CTA + 3 thin text-links underneath */
+.hero-svc-row.hsr-pro.hsr-final{
+  display:flex !important;flex-direction:column !important;
+  align-items:center !important;gap:12px !important;max-width:520px !important;
+  margin:0 auto !important;
+}
+.hsr-final .hsb-main{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,#5b52cc 0%,#7c6fe8 55%,#a78bfa 100%) !important;
+  color:#fff !important;text-decoration:none !important;
+  font-family:'Inter',sans-serif !important;
+  font-weight:700 !important;font-size:16px !important;letter-spacing:.2px !important;
+  padding:18px 28px !important;border-radius:60px !important;
+  box-shadow:0 14px 36px rgba(91,82,204,.42),inset 0 1px 0 rgba(255,255,255,.22) !important;
+  border:none !important;
+  transition:transform .2s ease,box-shadow .2s ease !important;
+  min-height:auto !important;
+}
+.hsr-final .hsb-main:hover{transform:translateY(-2px) !important;box-shadow:0 18px 44px rgba(91,82,204,.55) !important;}
+.hsr-final .hsb-main svg{width:18px;height:18px;}
+.hsr-final .hsb-mini-row{
+  display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
+  font-family:'Inter',sans-serif;font-size:12.5px;
+  color:rgba(255,255,255,.6);
+}
+.hsr-final .hsb-mini{
+  color:rgba(255,255,255,.65) !important;text-decoration:none !important;
+  padding:6px 12px !important;border-radius:30px !important;
+  border:1px solid rgba(139,130,232,.25) !important;
+  background:transparent !important;
+  transition:color .2s ease,background .2s ease,border-color .2s ease !important;
+  font-weight:500 !important;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.hsr-final .hsb-mini:hover{
+  color:#fff !important;background:rgba(91,82,204,.20) !important;border-color:rgba(167,139,250,.5) !important;
+}
+.hsr-final .hsb-mini-dot{width:5px;height:5px;border-radius:50%;background:#a78bfa;}
+
+/* TRUST STRIP — under hero, builds instant credibility */
+.preview-trust-strip{
+  max-width:1100px;margin:-12px auto 0;padding:18px 24px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);
+  border-radius:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.pts-cell{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  border-right:1px solid rgba(139,130,232,.14);
+  padding:8px 12px;
+}
+.pts-cell:last-child{border-right:none;}
+.pts-num{font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#fff;letter-spacing:-.5px;line-height:1;}
+.pts-label{font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.65);letter-spacing:.3px;line-height:1.2;text-align:left;}
+.pts-cell svg{flex-shrink:0;color:#a78bfa;}
+
+/* FINAL CTA — big dark card before footer */
+.preview-final-cta{
+  max-width:1100px;margin:60px auto 40px;padding:48px 32px;
+  background:
+    radial-gradient(ellipse at top right,rgba(167,139,250,.20),transparent 60%),
+    linear-gradient(135deg,#1a1545 0%,#0e0a23 100%);
+  border:1px solid rgba(139,130,232,.30);
+  border-radius:28px;
+  text-align:center;color:#fff;
+  position:relative;overflow:hidden;
+}
+.preview-final-cta h2{
+  font-family:'Lora',Georgia,serif;font-size:36px;font-weight:700;line-height:1.15;
+  margin:0 0 14px;letter-spacing:-.5px;
+}
+.preview-final-cta h2 em{color:#a78bfa;font-style:italic;font-weight:600;}
+.preview-final-cta p{
+  font-family:'Inter',sans-serif;font-size:15.5px;color:rgba(255,255,255,.72);
+  max-width:520px;margin:0 auto 28px;line-height:1.6;
+}
+.preview-final-cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.preview-final-cta-buttons a{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 30px;border-radius:60px;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;letter-spacing:.2px;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.pfc-wa{
+  background:#25D366;color:#fff;
+  box-shadow:0 12px 32px rgba(37,211,102,.40),inset 0 1px 0 rgba(255,255,255,.20);
+}
+.pfc-wa:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(37,211,102,.55);}
+.pfc-call{
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;
+  box-shadow:0 12px 32px rgba(91,82,204,.40),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.pfc-call:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(91,82,204,.55);}
+.preview-final-cta-chips{
+  margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  font-family:'Inter',sans-serif;font-size:12px;color:rgba(255,255,255,.55);
+}
+.preview-final-cta-chips span{
+  padding:5px 12px;border-radius:60px;background:rgba(255,255,255,.05);border:1px solid rgba(139,130,232,.20);
+}
+
+/* GEO — modern flat grid (kill polaroid vibe) */
+.geo-card-pv{
+  background:#fff !important;border:1px solid rgba(91,82,204,.10) !important;
+  border-radius:14px !important;padding:16px !important;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset !important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease !important;
+}
+.geo-card-pv:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 12px 28px rgba(7,5,15,.08) !important;
+  border-color:rgba(91,82,204,.30) !important;
+}
+
+/* REVIEWS — 4 cards, no tilt, modern layout */
+.rvhome-grid{
+  grid-template-columns:repeat(4,1fr) !important;gap:18px !important;max-width:1180px !important;margin:0 auto !important;
+}
+.rvhome-grid > *:nth-child(n+5){display:none !important;}
+.rvhome-card{
+  transform:none !important;
+  background:#fff !important;
+  border:1px solid rgba(91,82,204,.10) !important;
+  border-radius:18px !important;
+  padding:22px !important;
+  box-shadow:0 4px 16px rgba(7,5,15,.05) !important;
+}
+.rvhome-card:hover{transform:translateY(-4px) !important;box-shadow:0 14px 32px rgba(7,5,15,.10) !important;}
+
+/* About — tighter */
+.about-pv-stats{gap:24px !important;}
+.about-pv-stat .n{font-size:36px !important;font-weight:800 !important;color:#a78bfa !important;}
+.about-pv-stat .l{font-size:11.5px !important;letter-spacing:1.5px !important;text-transform:uppercase !important;}
+
+/* Hide standalone AI cyber-dash block (we mention AI inside Calc) */
+.ai-cyber-dash,.ai-pv:not(.ai-keep){display:none !important;}
+
+/* Mobile adjustments to new components */
+@media(max-width:820px){
+  .preview-trust-strip{
+    grid-template-columns:repeat(2,1fr) !important;margin:0 12px;
+    padding:14px 10px;gap:0;
+  }
+  .pts-cell{border-right:none;border-bottom:1px solid rgba(139,130,232,.14);padding:10px 8px;}
+  .pts-cell:nth-child(odd){border-right:1px solid rgba(139,130,232,.14);}
+  .pts-cell:nth-last-child(-n+2){border-bottom:none;}
+  .pts-num{font-size:18px !important;}
+  .pts-label{font-size:10.5px !important;}
+
+  .preview-final-cta{margin:36px 12px;padding:32px 20px;border-radius:20px;}
+  .preview-final-cta h2{font-size:24px;}
+  .preview-final-cta p{font-size:14px;}
+  .preview-final-cta-buttons{flex-direction:column;width:100%;}
+  .preview-final-cta-buttons a{width:100%;justify-content:center;font-size:14px;padding:14px 22px;}
+
+  .rvhome-grid{grid-template-columns:1fr !important;}
+  .rvhome-grid > *:nth-child(n+4){display:none !important;}
+
+  .hsr-final{max-width:none !important;}
+  .hsr-final .hsb-main{font-size:15px !important;padding:16px 22px !important;}
+  .hsr-final .hsb-mini-row{gap:8px !important;}
+  .hsr-final .hsb-mini{font-size:11.5px !important;padding:5px 10px !important;}
+}
+</style>
+
 <script>
+/* Major page reordering + injects */
 document.addEventListener('DOMContentLoaded', function(){
   try{
+    var body = document.body;
     var hero = document.getElementById('hero');
     var reviews = document.querySelector('section.rvhome');
-    if(hero && reviews && hero.nextElementSibling !== reviews){
-      hero.parentNode.insertBefore(reviews, hero.nextSibling);
+    var calc = document.getElementById('calc-section');
+    var about = document.querySelector('section.about-pv');
+
+    /* 1. Trust strip — inject right after Hero */
+    if(hero && !document.querySelector('.preview-trust-strip')){
+      var strip = document.createElement('div');
+      strip.className = 'preview-trust-strip';
+      strip.innerHTML = ''
+        +'<div class="pts-cell"><div><div class="pts-num">3 057</div><div class="pts-label">cases handled</div></div></div>'
+        +'<div class="pts-cell"><div><div class="pts-num">98.1%</div><div class="pts-label">approval rate</div></div></div>'
+        +'<div class="pts-cell"><div><div class="pts-num">5+ y.</div><div class="pts-label">in immigration law</div></div></div>'
+        +'<div class="pts-cell"><div><div class="pts-num">24h</div><div class="pts-label">reply via WhatsApp</div></div></div>';
+      hero.parentNode.insertBefore(strip, hero.nextSibling);
     }
-  }catch(e){console.warn('reviews reorder failed',e);}
+
+    /* 2. Reviews — right after Trust strip */
+    var strip = document.querySelector('.preview-trust-strip');
+    if(strip && reviews && strip.nextElementSibling !== reviews){
+      strip.parentNode.insertBefore(reviews, strip.nextSibling);
+    }
+
+    /* 3. Calculator — right after Reviews */
+    if(reviews && calc && reviews.nextElementSibling !== calc){
+      reviews.parentNode.insertBefore(calc, reviews.nextSibling);
+    }
+
+    /* 4. Final CTA — right before Footer */
+    var footer = document.querySelector('footer');
+    if(footer && !document.querySelector('.preview-final-cta')){
+      var cta = document.createElement('section');
+      cta.className = 'preview-final-cta';
+      cta.innerHTML = ''
+        +'<h2>Ready to <em>legalise your stay</em> in Poland?</h2>'
+        +'<p>Tell us your situation on WhatsApp — we&rsquo;ll review it for free and give you a clear plan with timeline and price within an hour.</p>'
+        +'<div class="preview-final-cta-buttons">'
+          +'<a class="pfc-wa" href="https://wa.me/48735248525?text=Hi%21%20I%20want%20to%20legalise%20my%20stay%20in%20Poland%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener">'
+            +'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>'
+            +'Start on WhatsApp'
+          +'</a>'
+          +'<a class="pfc-call" href="tel:+48735248525">'
+            +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
+            +'+48 735 248 525'
+          +'</a>'
+        +'</div>'
+        +'<div class="preview-final-cta-chips">'
+          +'<span>✓ Free legal review</span>'
+          +'<span>✓ Reply in 24h</span>'
+          +'<span>✓ No advance payment</span>'
+          +'<span>✓ Refund if we refuse the case</span>'
+        +'</div>';
+      footer.parentNode.insertBefore(cta, footer);
+    }
+
+    /* 5. Restructure the hero scenario row → 1 big CTA + 3 mini links */
+    var row = document.querySelector('.hero-svc-row.hsr-pro');
+    if(row && !row.classList.contains('hsr-final')){
+      row.classList.add('hsr-final');
+      row.innerHTML = ''
+        +'<a class="hsb-main" href="https://wa.me/48735248525?text=Hi%21%20Free%20karta%20pobytu%20consultation%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener">'
+          +'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>'
+          +'Free consultation on WhatsApp'
+        +'</a>'
+        +'<div class="hsb-mini-row">'
+          +'<a class="hsb-mini" href="https://wa.me/48735248525?text=Hi%21%20New%20karta%20pobytu%20application%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener"><span class="hsb-mini-dot"></span>New application</a>'
+          +'<a class="hsb-mini" href="https://wa.me/48735248525?text=Hi%21%20My%20karta%20pobytu%20case%20is%20in%20progress%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener"><span class="hsb-mini-dot"></span>In progress</a>'
+          +'<a class="hsb-mini" href="https://wa.me/48735248525?text=Hi%21%20I%20got%20a%20refusal%20%E2%80%94%20need%20appeal.%20legalsol.pl" target="_blank" rel="noopener"><span class="hsb-mini-dot"></span>After refusal</a>'
+        +'</div>';
+    }
+    /* Replace hero eyebrow text with cleaner copy */
+    var eb = document.getElementById('hero-svc-eyebrow');
+    if(eb){eb.textContent = 'Karta Pobytu · Permanent stay · Appeal — chat in 60 sec';}
+
+  }catch(e){console.warn('rewrite init failed',e);}
 });
 </script>
 
