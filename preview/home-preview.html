@@ -5042,6 +5042,53 @@ body{
 }
 </style>
 
+<style id="header-cta-top">
+/* ════════════════════════════════════════════════════════════
+   MAIN CTA in the very top — Free consultation pill in nav
+   ════════════════════════════════════════════════════════════ */
+.preview-top-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.2px;text-decoration:none;
+  padding:11px 22px;border-radius:60px;
+  background:linear-gradient(135deg,#5b52cc 0%,#7c6fe8 55%,#a78bfa 100%);
+  color:#fff !important;
+  box-shadow:0 8px 22px rgba(91,82,204,.38),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s ease,box-shadow .2s ease;
+  white-space:nowrap;
+  margin-left:14px;
+  position:relative;overflow:hidden;
+}
+.preview-top-cta::before{
+  content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  transition:left .6s ease;
+}
+.preview-top-cta:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(91,82,204,.55);}
+.preview-top-cta:hover::before{left:100%;}
+.preview-top-cta svg{flex-shrink:0;}
+.preview-top-cta-text-full{display:inline;}
+.preview-top-cta-text-short{display:none;}
+/* Pulsing dot */
+.preview-top-cta-dot{
+  width:7px;height:7px;border-radius:50%;background:#22c55e;
+  box-shadow:0 0 0 0 rgba(34,197,94,.5);
+  animation:topCtaDot 2s ease-out infinite;
+}
+@keyframes topCtaDot{
+  0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}
+  60%{box-shadow:0 0 0 6px rgba(34,197,94,0);}
+}
+@media(max-width:960px){
+  .preview-top-cta{font-size:12px;padding:9px 16px;margin-left:8px;}
+  .preview-top-cta-text-full{display:none;}
+  .preview-top-cta-text-short{display:inline;}
+}
+@media(max-width:560px){
+  .preview-top-cta{padding:8px 14px;font-size:11.5px;}
+}
+</style>
+
 <style id="header-since-badge">
 /* SINCE 2020 badge in the top nav */
 .preview-since-badge{
@@ -5067,7 +5114,7 @@ body{
 </style>
 
 <script>
-/* Inject Since 2020 badge next to logo on every page render */
+/* Inject Since 2020 badge + main CTA into nav on every page render */
 document.addEventListener('DOMContentLoaded', function(){
   try{
     var nav = document.getElementById('nav') || document.querySelector('nav');
@@ -5078,7 +5125,22 @@ document.addEventListener('DOMContentLoaded', function(){
       b.innerHTML = 'Since 2020';
       logo.appendChild(b);
     }
-  }catch(e){console.warn('since badge inject failed',e);}
+
+    /* MAIN CTA — append to the right end of nav */
+    if(nav && !nav.querySelector('.preview-top-cta')){
+      var cta = document.createElement('a');
+      cta.className = 'preview-top-cta';
+      cta.href = 'https://wa.me/48735248525?text=Hi%21%20Free%20karta%20pobytu%20consultation%20%E2%80%94%20legalsol.pl';
+      cta.target = '_blank';
+      cta.rel = 'noopener';
+      cta.innerHTML = ''
+        +'<span class="preview-top-cta-dot" aria-hidden="true"></span>'
+        +'<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>'
+        +'<span class="preview-top-cta-text-full">Free consultation</span>'
+        +'<span class="preview-top-cta-text-short">Free</span>';
+      nav.appendChild(cta);
+    }
+  }catch(e){console.warn('nav inject failed',e);}
 });
 </script>
 
@@ -5445,34 +5507,7 @@ document.addEventListener('DOMContentLoaded', function(){
       reviews.parentNode.insertBefore(calc, reviews.nextSibling);
     }
 
-    /* 3b. KARTA POBYTU-style CTA — right after Calculator */
-    if(calc && !document.querySelector('.preview-karta-cta')){
-      var karta = document.createElement('section');
-      karta.className = 'preview-karta-cta';
-      karta.innerHTML = ''
-        +'<span class="preview-karta-cta-eyebrow">YOUR NEXT CARD</span>'
-        +'<h2 class="preview-karta-cta-title">Make this <em>yours</em></h2>'
-        +'<p class="preview-karta-cta-sub">Tap the card. Chat with us on WhatsApp. We&rsquo;ll handle the rest — paperwork, MOS submission, follow-ups.</p>'
-        +'<a class="karta-link" href="https://wa.me/48735248525?text=Hi%21%20I%20want%20my%20karta%20pobytu%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" aria-label="Start your karta pobytu — chat on WhatsApp">'
-          +'<div class="karta-card">'
-            +'<div class="karta-content">'
-              +'<div class="karta-top">'
-                +'<span>RZECZPOSPOLITA POLSKA</span>'
-                +'<span class="karta-flag"><span></span><span></span></span>'
-              +'</div>'
-              +'<div class="karta-eagle">🦅</div>'
-              +'<div class="karta-label">KARTA POBYTU<small>Residence permit · Poland</small></div>'
-              +'<div class="karta-meta">'
-                +'<div class="karta-meta-name"><small>NAZWISKO / NAME</small>YOUR NAME HERE</div>'
-                +'<div class="karta-meta-valid"><span>VALID UNTIL</span><b>UP TO 3 YEARS</b></div>'
-              +'</div>'
-            +'</div>'
-            +'<div class="karta-chip" aria-hidden="true"></div>'
-          +'</div>'
-        +'</a>'
-        +'<div class="karta-hint">Tap the card to start on WhatsApp</div>';
-      calc.parentNode.insertBefore(karta, calc.nextSibling);
-    }
+    /* Karta CTA removed by request */
 
     /* 4. Final CTA — right before Footer */
     var footer = document.querySelector('footer');
