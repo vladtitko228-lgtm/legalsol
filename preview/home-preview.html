@@ -3955,18 +3955,21 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
     var(--bg) !important;
 }
 
-/* Calculator — photo bg with lighter overlay so texture shows through */
+/* Calculator — photo bg + radial vignette for readable text in center */
 #calc-section{
   position:relative;
   background-color:#0e0a23 !important;
   background-image:
-    linear-gradient(135deg,rgba(7,5,15,.62) 0%,rgba(14,10,35,.55) 50%,rgba(91,82,204,.30) 100%),
+    radial-gradient(ellipse 900px 700px at center, rgba(7,5,15,.62) 0%, rgba(7,5,15,.42) 55%, rgba(7,5,15,.20) 100%),
+    linear-gradient(135deg,rgba(7,5,15,.58) 0%,rgba(14,10,35,.50) 50%,rgba(91,82,204,.26) 100%),
     url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=2400&q=85&auto=format&fit=crop') !important;
   background-size:cover !important;
   background-position:center !important;
   background-repeat:no-repeat !important;
 }
 .calc-aurora{opacity:.18 !important;}
+/* Text shadow safety for key headings on the photo bg */
+#cc-heading,#cc-subdesc{text-shadow:0 2px 14px rgba(7,5,15,.55),0 1px 3px rgba(7,5,15,.45) !important;}
 
 /* Guarantee — handshake / trust */
 .guar-section{
