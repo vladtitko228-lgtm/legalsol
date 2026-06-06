@@ -4737,6 +4737,103 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
+<style id="preview-docs-checklist">
+/* ════════════════════════════════════════════════════════════
+   INTERACTIVE DOCUMENTS CHECKLIST — Task D
+   ════════════════════════════════════════════════════════════ */
+.preview-docs{
+  max-width:1180px;margin:60px auto;padding:48px 32px 38px;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%);
+  border:1px solid rgba(139,130,232,.22);border-radius:28px;color:#fff;
+}
+.pdoc-head{text-align:center;margin-bottom:28px;}
+.pdoc-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;display:inline-block;}
+.pdoc-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
+.pdoc-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.pdoc-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:640px;margin:0 auto;line-height:1.55;}
+
+.pdoc-tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
+.pdoc-tab{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.22);
+  border-radius:60px;padding:11px 22px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;color:rgba(255,255,255,.75);
+  cursor:pointer;transition:all .2s ease;
+}
+.pdoc-tab:hover{background:rgba(91,82,204,.12);color:#fff;}
+.pdoc-tab.is-active{
+  background:rgba(91,82,204,.20);border-color:#a78bfa;color:#fff;
+  box-shadow:0 0 0 1px rgba(167,139,250,.35);
+}
+
+.pdoc-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.18);
+  border-radius:18px;padding:30px;
+}
+.pdoc-card-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:8px;flex-wrap:wrap;}
+.pdoc-card-title{font-family:'Inter',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-.2px;line-height:1.25;}
+.pdoc-progress-meter{display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.65);font-weight:600;}
+.pdoc-progress-meter b{color:#22c55e;font-weight:800;font-size:14px;}
+.pdoc-progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden;margin:14px 0 22px;}
+.pdoc-progress-fill{height:100%;background:linear-gradient(90deg,#5b52cc,#22c55e);border-radius:6px;width:0%;transition:width .5s cubic-bezier(.16,1,.3,1);}
+
+.pdoc-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+.pdoc-item{
+  display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.16);
+  border-radius:60px;cursor:pointer;
+  transition:background .2s,border-color .2s;
+  font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.85);
+}
+.pdoc-item:hover{background:rgba(91,82,204,.08);border-color:rgba(139,130,232,.30);}
+.pdoc-checkbox{
+  flex-shrink:0;width:22px;height:22px;border-radius:50%;
+  border:1.5px solid rgba(139,130,232,.40);
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;
+  transition:background .2s,border-color .2s;
+}
+.pdoc-item.is-done .pdoc-checkbox{
+  background:#22c55e;border-color:#22c55e;
+}
+.pdoc-checkbox svg{opacity:0;transition:opacity .2s;}
+.pdoc-item.is-done .pdoc-checkbox svg{opacity:1;}
+.pdoc-item.is-done{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.18);}
+.pdoc-item.is-done .pdoc-text{color:rgba(255,255,255,.55);}
+.pdoc-text{flex:1;line-height:1.4;}
+.pdoc-text small{display:block;font-size:11.5px;color:rgba(255,255,255,.50);margin-top:2px;font-weight:400;}
+.pdoc-critical{
+  color:#fca5a5 !important;
+  border-color:rgba(239,68,68,.30) !important;
+  background:rgba(239,68,68,.06) !important;
+}
+.pdoc-critical .pdoc-checkbox{border-color:rgba(239,68,68,.45);}
+.pdoc-critical-chip{font-size:9.5px;letter-spacing:1.5px;font-weight:800;background:#dc2626;color:#fff;padding:3px 8px;border-radius:60px;margin-left:8px;}
+
+.pdoc-foot{
+  margin-top:22px;display:flex;justify-content:space-between;align-items:center;
+  gap:16px;padding-top:22px;border-top:1px solid rgba(139,130,232,.16);
+  flex-wrap:wrap;
+}
+.pdoc-foot-text{font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.70);line-height:1.5;flex:1;min-width:240px;}
+.pdoc-foot-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 26px;border-radius:60px;text-decoration:none;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  box-shadow:0 12px 30px rgba(91,82,204,.40),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s,box-shadow .2s;white-space:nowrap;
+}
+.pdoc-foot-cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(91,82,204,.55);}
+
+@media(max-width:680px){
+  .preview-docs{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .pdoc-title{font-size:22px;}
+  .pdoc-card{padding:20px 18px;}
+  .pdoc-tab{padding:9px 16px;font-size:12.5px;}
+  .pdoc-item{padding:12px 16px;font-size:13px;}
+}
+</style>
+
 <style id="preview-vs2-styles">
 /* ════════════════════════════════════════════════════════════
    "WITHOUT vs WITH us" comparison — dramatic, clear
@@ -6123,6 +6220,127 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<span>✓ Real lawyer, not a chatbot</span>'
         +'</div>';
       about.parentNode.insertBefore(how, about.nextSibling);
+    }
+
+    /* 4a-pre-pre. Documents Checklist (Task D) — interactive doc list per case type */
+    if(calc && !document.querySelector('.preview-docs')){
+      var DOC = {
+        praca:{
+          t:'Wymagane dokumenty: Karta Czasowego Pobytu na podstawie Pracy',
+          d:[
+            {t:'Wniosek o udzielenie zezwolenia (4 egzemplarze)',s:'całkowicie bezbłędny'},
+            {t:'Załącznik nr 1 do wniosku',s:'wypełniony i podpisany przez pracodawcę'},
+            {t:'Aktualna umowa o pracę (lub umowa zlecenie)',s:'zapewniająca stabilny dochód'},
+            {t:'Rozliczenia ZUS RCA za ostatnie miesiące',s:'potwierdzające opłacanie składek'},
+            {t:'Dokument potwierdzający ubezpieczenie zdrowotne w Polsce'},
+            {t:'4 aktualne kolorowe fotografie',s:'wymiar 35mm × 45mm'},
+            {t:'Paszport — kopia stron z danymi i wszystkimi wpisami'},
+            {t:'Potwierdzenie zameldowania w Polsce'},
+            {t:'Informacja starosty (test rynku pracy)',s:'jeśli wymagana dla zawodu'},
+            {t:'Opłata skarbowa 340 PLN',s:'wraz z potwierdzeniem wpłaty'}
+          ]
+        },
+        spolka:{
+          t:'Wymagane dokumenty: Karta Pobytu dla Zarządu / Sp. z o.o.',
+          d:[
+            {t:'Wniosek o udzielenie zezwolenia (4 egzemplarze)'},
+            {t:'Aktualny wpis do KRS / CEIDG'},
+            {t:'Bilans i rachunek zysków za ostatni rok',s:'lub PIT, jeśli JDG'},
+            {t:'Potwierdzenie obrotów i działalności spółki'},
+            {t:'ZUS DRA + potwierdzenie składek za zarząd'},
+            {t:'Lista zatrudnionych pracowników'},
+            {t:'Lista wspólników / oświadczenia',s:'forma pisemna z podpisami'},
+            {t:'Paszport członka zarządu (kopia)'},
+            {t:'Adres siedziby (akt notarialny / najem)'},
+            {t:'Opłata skarbowa 340 PLN'}
+          ]
+        },
+        staly:{
+          t:'Wymagane dokumenty: Pobyt Stały / Rezydent długoterminowy UE',
+          d:[
+            {t:'Wniosek (4 egzemplarze)'},
+            {t:'5 lat udokumentowanego pobytu w Polsce',s:'kopie wszystkich kart pobytu'},
+            {t:'Stabilne źródło dochodu',s:'zaświadczenia za ostatnie 3 lata'},
+            {t:'Ubezpieczenie zdrowotne (NFZ lub prywatne)'},
+            {t:'Mieszkanie — zameldowanie / akt własności / najem'},
+            {t:'Certyfikat j. polskiego B1',s:'wymagany dla rezydenta UE'},
+            {t:'4 aktualne zdjęcia 35×45mm'},
+            {t:'Karta Polaka',s:'jeśli posiadasz (przyspiesza proces)'},
+            {t:'Akt urodzenia / małżeństwa',s:'jeśli polskie pochodzenie'},
+            {t:'Opłata skarbowa 640 PLN'}
+          ]
+        },
+        odwol:{
+          t:'Wymagane dokumenty: Odwołanie od decyzji odmownej',
+          d:[
+            {t:'Kopia decyzji odmownej',c:true,s:'oryginał z datą doręczenia'},
+            {t:'Pełnomocnictwo dla prawnika',c:true,s:'jeśli reprezentuje cię kancelaria'},
+            {t:'Uzasadnienie merytoryczne odwołania',s:'wskazujące błędy w decyzji'},
+            {t:'Dowody błędu organu',s:'np. pominięte dokumenty, naruszenia procedury'},
+            {t:'Aktualne zaświadczenia',s:'jeśli twoja sytuacja się zmieniła'},
+            {t:'Tłumaczenia uwierzytelnione',s:'wszystkich dokumentów obcojęzycznych'},
+            {t:'Opłata skarbowa 10 PLN za odwołanie'},
+            {t:'TERMIN: 14 dni od doręczenia decyzji',c:true,chip:'KRYTYCZNE',s:'liczy się każdy dzień — działaj natychmiast'}
+          ]
+        }
+      };
+      var TABS = [
+        {id:'praca',  label:'Praca (Czasowy)'},
+        {id:'spolka', label:'Spółka / Biznes'},
+        {id:'staly',  label:'Stały / Rezydent'},
+        {id:'odwol',  label:'Odwołanie / Odmowa'}
+      ];
+      var docState = {tab:'praca', done:{}};
+
+      var docs = document.createElement('section');
+      docs.className = 'preview-docs';
+      function renderDocs(){
+        var cur = DOC[docState.tab];
+        var doneKey = docState.tab;
+        if(!docState.done[doneKey]) docState.done[doneKey] = {};
+        var total = cur.d.length;
+        var doneCount = Object.values(docState.done[doneKey]).filter(Boolean).length;
+        var pct = Math.round(doneCount/total*100);
+        docs.innerHTML = ''
+          +'<div class="pdoc-head">'
+            +'<span class="pdoc-eyebrow">WYMAGANE DOKUMENTY · INTERACTIVE CHECKLIST</span>'
+            +'<h2 class="pdoc-title">Sprawdź swoją <em>gotowość dokumentów</em></h2>'
+            +'<p class="pdoc-sub">Wybierz odpowiednią kategorię wniosku i sprawdź swoją aktualną gotowość przed złożeniem.</p>'
+          +'</div>'
+          +'<div class="pdoc-tabs">'
+            + TABS.map(function(t){return '<button class="pdoc-tab '+(t.id===docState.tab?'is-active':'')+'" data-tab="'+t.id+'">'+t.label+'</button>';}).join('')
+          +'</div>'
+          +'<div class="pdoc-card">'
+            +'<div class="pdoc-card-head"><div class="pdoc-card-title">'+cur.t+'</div><div class="pdoc-progress-meter"><b>'+doneCount+'</b> z <b>'+total+'</b> · '+pct+'%</div></div>'
+            +'<div class="pdoc-progress-bar"><div class="pdoc-progress-fill" style="width:'+pct+'%"></div></div>'
+            +'<ul class="pdoc-list">'
+              + cur.d.map(function(item,i){
+                var ok = docState.done[doneKey][i] ? 'is-done' : '';
+                var crit = item.c ? ' pdoc-critical' : '';
+                return '<li class="pdoc-item '+ok+crit+'" data-i="'+i+'">'
+                  +'<div class="pdoc-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>'
+                  +'<div class="pdoc-text">'+item.t+(item.chip?'<span class="pdoc-critical-chip">'+item.chip+'</span>':'')+(item.s?'<small>'+item.s+'</small>':'')+'</div>'
+                +'</li>';
+              }).join('')
+            +'</ul>'
+            +'<div class="pdoc-foot">'
+              +'<div class="pdoc-foot-text">Brakuje Ci któregoś z powyższych dokumentów? <b>Pomożemy Ci go uzyskać</b> — od ZUS RCA po Załącznik nr 1.</div>'
+              +'<a class="pdoc-foot-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Potrzebuję pomocy ze skompletowaniem dokumentów — '+TABS.find(function(t){return t.id===docState.tab;}).label+' — legalsol.pl')+'">Kompletuj z nami →</a>'
+            +'</div>'
+          +'</div>';
+        docs.querySelectorAll('.pdoc-tab').forEach(function(b){
+          b.addEventListener('click',function(){docState.tab=b.dataset.tab;renderDocs();});
+        });
+        docs.querySelectorAll('.pdoc-item').forEach(function(li){
+          li.addEventListener('click',function(){
+            var i = parseInt(li.dataset.i);
+            docState.done[doneKey][i] = !docState.done[doneKey][i];
+            renderDocs();
+          });
+        });
+      }
+      renderDocs();
+      calc.parentNode.insertBefore(docs, calc.nextSibling);
     }
 
     /* 4a-pre. Wait-time tracker — 4 main voivodeships */
