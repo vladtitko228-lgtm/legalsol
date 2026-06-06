@@ -150,16 +150,26 @@ function renderPage(articles) {
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background:
-        linear-gradient(180deg,rgba(13,13,43,.92) 0%,rgba(13,13,43,.96) 100%),
-        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=2400&q=85&auto=format&fit=crop') center top/cover fixed no-repeat,
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       padding-top: 68px;
+      position: relative;
     }
+    /* Decorative fixed photo layer — ::before so it doesn't affect card stacking */
+    body::before{
+      content:'';
+      position:fixed;inset:0;z-index:-1;pointer-events:none;
+      background:
+        linear-gradient(180deg,rgba(13,13,43,.93) 0%,rgba(13,13,43,.96) 100%),
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=2400&q=85&auto=format&fit=crop') center top/cover no-repeat;
+    }
+    /* Make sure article cards & covers always render above the fixed bg */
+    .article-card{position:relative;z-index:1;background:var(--card-bg);}
+    .card-cover{position:relative;z-index:1;background:#1a1545;}
+    .card-cover img{display:block;width:100%;height:200px;object-fit:cover;}
 
     /* NAV */
     nav {
