@@ -4276,17 +4276,31 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 }
 
 /* ════════════════════════════════════════════════════════════
-   PURE WHITE Geo + Reviews (no creamy/photo show-through)
+   Geo — pure white card  |  Reviews — neutral office photo bg
    ════════════════════════════════════════════════════════════ */
-.rvhome,.geo-strip-pv{
+.geo-strip-pv{
   background:#ffffff !important;
   background-image:none !important;
   border-radius:28px !important;
   border:1px solid rgba(91,82,204,.10) !important;
   box-shadow:0 4px 24px rgba(7,5,15,.06),0 1px 0 rgba(255,255,255,.5) inset !important;
 }
-.rvhome::before,.geo-strip-pv::before{display:none !important;}
-.rvhome > *,.geo-strip-pv > *{position:relative;z-index:1;}
+.geo-strip-pv::before{display:none !important;}
+.geo-strip-pv > *{position:relative;z-index:1;}
+
+/* Reviews — soft neutral office bg + light tint so cards stay readable */
+.rvhome{
+  position:relative !important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(248,249,253,.82) 100%),
+    url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat !important;
+  border-radius:28px !important;
+  border:1px solid rgba(91,82,204,.10) !important;
+  box-shadow:0 4px 24px rgba(7,5,15,.06) !important;
+  overflow:hidden !important;
+}
+.rvhome::before{display:none !important;}
+.rvhome > *{position:relative;z-index:1;}
 
 /* ════════════════════════════════════════════════════════════
    FAQ + VS sections — full white paper-board makeover
@@ -4471,26 +4485,27 @@ footer a:hover{color:#a78bfa !important;}
   max-width:780px;margin:0 auto !important;
 }
 
-/* The button itself — kill all the bubble shine / gradient noise */
+/* The button itself — solid dark card, clearly visible, professional */
 .hero-svc-btn.hsb-pro{
   display:flex !important;align-items:center !important;gap:14px !important;
   padding:18px 18px !important;
-  background:rgba(255,255,255,.04) !important;
-  border:1px solid rgba(139,130,232,.22) !important;
-  border-radius:12px !important;
-  box-shadow:none !important;
-  transition:border-color .2s ease,background .2s ease,transform .15s ease !important;
+  background:linear-gradient(180deg,#1a1545 0%,#15103a 100%) !important;
+  border:1px solid rgba(139,130,232,.30) !important;
+  border-radius:14px !important;
+  box-shadow:0 4px 18px rgba(7,5,15,.35),inset 0 1px 0 rgba(255,255,255,.05) !important;
+  transition:border-color .2s ease,background .2s ease,transform .15s ease,box-shadow .2s ease !important;
   animation:none !important;
   transform:none !important;
   text-decoration:none !important;
   position:relative;overflow:hidden;
-  min-height:64px;
+  min-height:68px;
 }
 .hero-svc-btn.hsb-pro::before,.hero-svc-btn.hsb-pro::after{display:none !important;}
 .hero-svc-btn.hsb-pro:hover{
-  border-color:rgba(167,139,250,.6) !important;
-  background:rgba(91,82,204,.08) !important;
-  transform:translateY(-1px) !important;
+  border-color:rgba(167,139,250,.7) !important;
+  background:linear-gradient(180deg,#221a55 0%,#1a1545 100%) !important;
+  transform:translateY(-2px) !important;
+  box-shadow:0 10px 28px rgba(91,82,204,.30),inset 0 1px 0 rgba(255,255,255,.08) !important;
 }
 .hero-svc-btn.hsb-pro:active{transform:translateY(0) !important;}
 
