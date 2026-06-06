@@ -5100,31 +5100,98 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <style id="hero-symmetry">
 /* ════════════════════════════════════════════════════════════
-   HERO — make the two big CTAs perfectly symmetric (same width)
+   HERO — side-by-side CTAs with clear primary/secondary hierarchy
    ════════════════════════════════════════════════════════════ */
-.hero-mega-cta{
-  display:flex !important;align-items:center !important;justify-content:center !important;
-  width:100% !important;max-width:420px !important;
-  margin:0 auto 14px !important;
-  padding:16px 28px !important;
-  text-align:center !important;
-  box-sizing:border-box !important;
-}
-.hero-svc-row.hsr-final{max-width:420px !important;}
-.hsr-final .hsb-main{
-  width:100% !important;
-  padding:18px 28px !important;
-  font-size:15.5px !important;
-  box-sizing:border-box !important;
-}
-/* Stack alignment helper — both centered, no margin asymmetry */
-.hero-mega-cta + .hero-svc-row,
-.hero-svc-row + .hero-mega-cta{margin-top:0 !important;}
 
+/* Wrapper that holds both CTAs side-by-side */
+.preview-hero-actions{
+  display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+  max-width:620px;margin:0 auto 16px;
+}
+
+/* PRIMARY: Free consultation on WhatsApp — filled gradient */
+.hsr-final .hsb-main{
+  width:auto !important;
+  padding:16px 28px !important;
+  font-size:15px !important;
+  font-weight:700 !important;
+  letter-spacing:.2px !important;
+  border-radius:14px !important;
+  box-shadow:0 12px 32px rgba(91,82,204,.42),inset 0 1px 0 rgba(255,255,255,.22) !important;
+  white-space:nowrap !important;
+  flex:1 1 auto;min-width:260px;
+}
+
+/* SECONDARY: Check chances for TRC — outline ghost */
+.hero-mega-cta{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  width:auto !important;max-width:none !important;
+  padding:15px 26px !important;
+  font-size:14px !important;
+  font-weight:700 !important;
+  letter-spacing:.4px !important;
+  border-radius:14px !important;
+  background:rgba(255,255,255,.04) !important;
+  border:1.5px solid rgba(167,139,250,.45) !important;
+  color:#fff !important;
+  box-shadow:none !important;
+  text-transform:uppercase !important;
+  margin:0 !important;
+  white-space:nowrap !important;
+  flex:1 1 auto;min-width:260px;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease !important;
+}
+.hero-mega-cta:hover{
+  background:rgba(91,82,204,.18) !important;
+  border-color:rgba(167,139,250,.85) !important;
+  transform:translateY(-2px) !important;
+}
+
+/* Tighten hsr-final wrapper — only holds main + mini links now */
+.hero-svc-row.hsr-final{
+  max-width:none !important;
+  display:flex !important;flex-direction:column !important;
+  align-items:center !important;gap:14px !important;
+  margin:0 auto !important;
+}
+.hsr-final .hsb-mini-row{margin-top:0 !important;justify-content:center !important;}
+
+/* MOBILE — stack vertically full width, primary first */
 @media(max-width:760px){
-  .hero-mega-cta,.hero-svc-row.hsr-final{max-width:100% !important;}
+  .preview-hero-actions{flex-direction:column-reverse;gap:10px;max-width:none;}
+  .hsr-final .hsb-main,.hero-mega-cta{
+    width:100% !important;max-width:none !important;
+    font-size:15px !important;padding:16px 22px !important;min-width:0;
+  }
 }
 </style>
+
+<script>
+/* Wrap hero-mega-cta + hsr-final into a flex row for side-by-side layout */
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    var mega = document.querySelector('.hero-mega-cta');
+    var row  = document.querySelector('.hero-svc-row.hsr-final');
+    if(mega && row && !document.querySelector('.preview-hero-actions')){
+      var wrap = document.createElement('div');
+      wrap.className = 'preview-hero-actions';
+      mega.parentNode.insertBefore(wrap, mega);
+      /* Order: secondary (outline TRC) left, primary (WhatsApp pill) right */
+      wrap.appendChild(mega);
+      /* The hsr-final row already has mini-links inside; extract just .hsb-main */
+      var main = row.querySelector('.hsb-main');
+      if(main){
+        wrap.appendChild(main);
+        /* Move mini-row below the wrap as its own line */
+        var mini = row.querySelector('.hsb-mini-row');
+        if(mini){wrap.parentNode.insertBefore(mini, wrap.nextSibling);}
+        /* Hide now-empty row */
+        row.style.display = 'none';
+      }
+    }
+  }catch(e){console.warn('hero CTA reorg failed',e);}
+});
+</script>
 
 <style id="header-cta-top">
 /* ════════════════════════════════════════════════════════════
