@@ -5168,29 +5168,25 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <script>
-/* Wrap hero-mega-cta + hsr-final into a flex row for side-by-side layout */
+/* SIMPLIFY HERO: one big WhatsApp CTA, hide secondary + mini-links */
 document.addEventListener('DOMContentLoaded', function(){
   try{
     var mega = document.querySelector('.hero-mega-cta');
     var row  = document.querySelector('.hero-svc-row.hsr-final');
-    if(mega && row && !document.querySelector('.preview-hero-actions')){
-      var wrap = document.createElement('div');
-      wrap.className = 'preview-hero-actions';
-      mega.parentNode.insertBefore(wrap, mega);
-      /* Order: secondary (outline TRC) left, primary (WhatsApp pill) right */
-      wrap.appendChild(mega);
-      /* The hsr-final row already has mini-links inside; extract just .hsb-main */
+    if(row){
+      /* keep only the main pill, hide the mini-row */
+      var mini = row.querySelector('.hsb-mini-row');
+      if(mini) mini.style.display = 'none';
       var main = row.querySelector('.hsb-main');
       if(main){
-        wrap.appendChild(main);
-        /* Move mini-row below the wrap as its own line */
-        var mini = row.querySelector('.hsb-mini-row');
-        if(mini){wrap.parentNode.insertBefore(mini, wrap.nextSibling);}
-        /* Hide now-empty row */
-        row.style.display = 'none';
+        main.style.maxWidth = '420px';
+        main.style.width = '100%';
+        main.style.margin = '0 auto';
       }
     }
-  }catch(e){console.warn('hero CTA reorg failed',e);}
+    /* hide secondary outline TRC button — clean hero */
+    if(mega) mega.style.display = 'none';
+  }catch(e){console.warn('hero simplify failed',e);}
 });
 </script>
 
