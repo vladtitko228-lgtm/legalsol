@@ -3955,21 +3955,38 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
     var(--bg) !important;
 }
 
-/* Calculator — photo bg + radial vignette for readable text in center */
+/* Calculator — cream paper section (matches Geo/Reviews), dark card inside */
 #calc-section{
   position:relative;
-  background-color:#0e0a23 !important;
+  background-color:#f5ebd6 !important;
   background-image:
-    radial-gradient(ellipse 900px 700px at center, rgba(7,5,15,.62) 0%, rgba(7,5,15,.42) 55%, rgba(7,5,15,.20) 100%),
-    linear-gradient(135deg,rgba(7,5,15,.58) 0%,rgba(14,10,35,.50) 50%,rgba(91,82,204,.26) 100%),
+    radial-gradient(circle at 18% 22%, rgba(91,82,204,.10) 0%, transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(253,224,71,.08) 0%, transparent 42%),
     url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=2400&q=85&auto=format&fit=crop') !important;
-  background-size:cover !important;
+  background-size:auto,auto,cover !important;
   background-position:center !important;
   background-repeat:no-repeat !important;
+  background-blend-mode:normal,normal,luminosity !important;
 }
-.calc-aurora{opacity:.18 !important;}
-/* Text shadow safety for key headings on the photo bg */
-#cc-heading,#cc-subdesc{text-shadow:0 2px 14px rgba(7,5,15,.55),0 1px 3px rgba(7,5,15,.45) !important;}
+/* Soft cream wash over photo so it reads like paper texture */
+#calc-section::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(245,235,214,.88) 0%,rgba(245,235,214,.92) 100%);
+  pointer-events:none;z-index:0;
+}
+.calc-aurora{opacity:.10 !important;}
+/* Dark card wrapper around all calculator content */
+#calc-section > div[style*="max-width:920px"]{
+  position:relative;z-index:1;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%) !important;
+  border-radius:32px !important;
+  padding:64px 48px !important;
+  box-shadow:0 30px 90px rgba(7,5,15,.25),0 8px 30px rgba(7,5,15,.15),inset 0 1px 0 rgba(255,255,255,.06) !important;
+  border:1px solid rgba(91,82,204,.18) !important;
+}
+@media(max-width:760px){
+  #calc-section > div[style*="max-width:920px"]{padding:40px 22px !important;border-radius:24px !important;}
+}
 
 /* Guarantee — handshake / trust */
 .guar-section{
