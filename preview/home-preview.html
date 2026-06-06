@@ -5042,6 +5042,46 @@ body{
 }
 </style>
 
+<style id="header-since-badge">
+/* SINCE 2020 badge in the top nav */
+.preview-since-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:10px;letter-spacing:1.8px;
+  padding:4px 10px;border-radius:60px;
+  background:rgba(167,139,250,.10);
+  border:1px solid rgba(167,139,250,.28);
+  color:#a78bfa;font-weight:600;
+  text-transform:uppercase;
+  margin-left:10px;
+  white-space:nowrap;
+}
+.preview-since-badge::before{
+  content:'';width:5px;height:5px;border-radius:50%;background:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.18);
+}
+@media(max-width:760px){
+  .preview-since-badge{font-size:9px;letter-spacing:1.2px;padding:3px 8px;margin-left:6px;}
+  .preview-since-badge::before{width:4px;height:4px;}
+}
+</style>
+
+<script>
+/* Inject Since 2020 badge next to logo on every page render */
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    var nav = document.getElementById('nav') || document.querySelector('nav');
+    var logo = nav ? nav.querySelector('.logo') : null;
+    if(logo && !logo.querySelector('.preview-since-badge')){
+      var b = document.createElement('span');
+      b.className = 'preview-since-badge';
+      b.innerHTML = 'Since 2020';
+      logo.appendChild(b);
+    }
+  }catch(e){console.warn('since badge inject failed',e);}
+});
+</script>
+
 <style id="floating-reviews">
 /* ════════════════════════════════════════════════════════════
    FLOATING REVIEWS — smooth marquee back, gentle pace
