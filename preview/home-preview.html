@@ -4276,89 +4276,190 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 }
 
 /* ════════════════════════════════════════════════════════════
-   ETAP 2 — Footer / FAQ / VS — warmer, less cyber
+   PURE WHITE Geo + Reviews (no creamy/photo show-through)
    ════════════════════════════════════════════════════════════ */
+.rvhome,.geo-strip-pv{
+  background:#ffffff !important;
+  background-image:none !important;
+  border-radius:28px !important;
+  border:1px solid rgba(91,82,204,.10) !important;
+  box-shadow:0 4px 24px rgba(7,5,15,.06),0 1px 0 rgba(255,255,255,.5) inset !important;
+}
+.rvhome::before,.geo-strip-pv::before{display:none !important;}
+.rvhome > *,.geo-strip-pv > *{position:relative;z-index:1;}
 
-/* FAQ — Lora title to match new sections (Geo/Reviews/About) */
-#faq-tag{
-  font-family:'Lora',Georgia,serif !important;
-  font-style:italic !important;
-  color:#5b52cc !important;
+/* ════════════════════════════════════════════════════════════
+   FAQ + VS sections — full white paper-board makeover
+   ════════════════════════════════════════════════════════════ */
+.faq-section{
+  background:#ffffff !important;
+  padding:80px 24px !important;
+}
+.faq-section::before{display:none !important;}
+.faq-section .s-tag{
   background:rgba(91,82,204,.08) !important;
   border:1px solid rgba(91,82,204,.22) !important;
-  letter-spacing:1.5px !important;
-}
-#faq-title{font-family:'Lora',Georgia,serif !important;font-weight:700 !important;letter-spacing:-.5px !important;}
-#faq-title em{color:#5b52cc !important;font-style:italic !important;font-weight:600 !important;}
-#faq-desc{font-family:'Lora',Georgia,serif !important;font-style:italic !important;color:#9c93b8 !important;}
-
-/* VS comparison — softer accents (kill the neon vibe) */
-#vs-tag{
+  border-radius:60px !important;
+  padding:6px 14px !important;
+  color:#5b52cc !important;
   font-family:'Lora',Georgia,serif !important;
   font-style:italic !important;
+  letter-spacing:1.5px !important;
+  font-size:11px !important;
+}
+.faq-section .s-tag::before{display:none !important;}
+.faq-section .s-title{
+  color:#1a1545 !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-weight:700 !important;
+  letter-spacing:-.5px !important;
+}
+.faq-section .s-title em{color:#5b52cc !important;font-style:italic !important;font-weight:600 !important;}
+.faq-section .s-desc{color:#5e5577 !important;font-family:'Lora',Georgia,serif !important;font-style:italic !important;}
+.faq-item{border-bottom:1px solid rgba(91,82,204,.15) !important;}
+.faq-item.open{border-color:#5b52cc !important;}
+.faq-q{color:#1a1545 !important;font-family:'Lora',Georgia,serif !important;font-weight:600 !important;}
+.faq-a{color:#5e5577 !important;}
+.faq-section .faq-q::after,.faq-section .faq-toggle{color:#5b52cc !important;}
+
+.vs-section{
+  background:#ffffff !important;
+  padding:80px 24px !important;
+}
+.vs-section::before{display:none !important;}
+.vs-tag-line{background:rgba(91,82,204,.25) !important;}
+#vs-tag{
   color:#5b52cc !important;
+  font-family:'Lora',Georgia,serif !important;
+  font-style:italic !important;
   letter-spacing:2px !important;
   font-weight:600 !important;
 }
-#vs-h2{font-family:'Lora',Georgia,serif !important;letter-spacing:-.5px !important;}
+#vs-h2{
+  color:#1a1545 !important;
+  font-family:'Lora',Georgia,serif !important;
+  letter-spacing:-.5px !important;
+}
 #vs-h2 em{color:#5b52cc !important;font-style:italic !important;}
+.vs-col{background:#f8f9fd !important;border:1px solid rgba(91,82,204,.12) !important;border-radius:20px !important;}
+.vs-col-bad{background:#fff5f5 !important;border-color:rgba(220,38,38,.15) !important;}
+.vs-col-good{background:linear-gradient(180deg,#f0f4ff,#fff) !important;border-color:rgba(91,82,204,.25) !important;box-shadow:0 8px 32px rgba(91,82,204,.10) !important;}
+.vs-col-label{color:#1a1545 !important;font-family:'Lora',Georgia,serif !important;}
+.vs-col-bad .vs-col-label{color:#dc2626 !important;}
+.vs-col-good .vs-col-label{color:#5b52cc !important;}
+.vs-text{color:#1a1545 !important;}
+.vs-col-bad .vs-text{color:#7c2d2d !important;}
+.vs-ico-bad{color:#dc2626 !important;background:rgba(220,38,38,.12) !important;}
+.vs-ico-good{color:#22c55e !important;background:rgba(34,197,94,.12) !important;}
 .vs-vs{
   background:linear-gradient(135deg,#5b52cc,#8b80e8) !important;
   color:#fff !important;
   font-family:'Lora',Georgia,serif !important;
 }
+.vs-divider-line{background:rgba(91,82,204,.20) !important;}
 
-/* Footer — mute the cyber glow with a warmer base */
+/* Footer — make it visually fit (cleaner, not neon-cyber) */
 footer{
-  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%) !important;
-  border-top:1px solid rgba(91,82,204,.18) !important;
+  background:#0e0a23 !important;
+  border-top:1px solid rgba(91,82,204,.20) !important;
+  padding-top:48px !important;
 }
 footer a:hover{color:#a78bfa !important;}
 
 /* ════════════════════════════════════════════════════════════
-   ETAP 4 — MOBILE adaptations
+   MOBILE — complete redesign (< 760px)
    ════════════════════════════════════════════════════════════ */
 @media(max-width:760px){
-  /* Hero video — show on mobile too (was hidden) */
-  .hero-right{display:flex !important;}
-  .hero-right-pv{max-width:100% !important;aspect-ratio:16/11;}
-  .hero-right-cta-pv{font-size:15px !important;padding:18px 24px !important;}
+  /* hide noisy desktop scaffolding on phone */
+  .hero-svc-btn{font-size:13px !important;padding:13px 12px !important;border-radius:14px !important;}
 
-  /* Geo grid 3 → 2 cols on tablets, 1 col on phones */
-  .geo-grid-pv{grid-template-columns:repeat(2,1fr) !important;gap:12px !important;}
+  /* HERO — compact, single column, video TOP, CTA BIG */
+  #hero{padding:24px 14px 36px !important;}
+  .hero-right{display:flex !important;order:-1 !important;margin:0 0 24px !important;width:100% !important;}
+  .hero-right-pv{max-width:100% !important;aspect-ratio:16/12 !important;border-radius:18px !important;}
+  .hero-right-pv::after{width:64px !important;height:64px !important;font-size:22px !important;}
+  .hero-right-cta-pv{
+    font-size:16px !important;padding:18px 22px !important;
+    border-radius:60px !important;width:100% !important;max-width:100% !important;
+  }
+  .hero-mega-cta{padding:14px 18px !important;font-size:13px !important;}
 
-  /* Real stories — single column polaroid */
-  .rvhome{padding:24px 16px !important;}
-  .rvhome-title{font-size:28px !important;}
-  .rvhome-card{transform:rotate(0deg) !important;margin:0 auto 18px !important;max-width:340px !important;}
+  /* Geo — full white, single column, no rotation */
+  .geo-strip-pv{padding:24px 16px !important;border-radius:20px !important;margin:0 12px !important;}
+  .geo-title-pv{font-size:22px !important;line-height:1.2 !important;}
+  .geo-sub-pv{font-size:13px !important;}
+  .geo-grid-pv{grid-template-columns:1fr !important;gap:10px !important;}
+  .geo-card-pv{padding:14px !important;}
 
-  /* About block — full stack */
-  .about-pv-inner{padding:24px 16px !important;}
-  .about-pv-stat .n{font-size:32px !important;}
+  /* Reviews — single column, no rotation, taller */
+  .rvhome{padding:28px 16px !important;margin:0 12px !important;border-radius:20px !important;}
+  .rvhome-title{font-size:24px !important;line-height:1.2 !important;}
+  .rvhome-sub{font-size:13px !important;}
+  .rvhome-grid{grid-template-columns:1fr !important;gap:14px !important;}
+  .rvhome-card{transform:rotate(0deg) !important;margin:0 auto !important;max-width:none !important;}
+  .rvhome-card:hover{transform:none !important;}
 
-  /* Kamil bar — compact on mobile */
+  /* About — stacked, smaller */
+  .about-pv{padding:48px 16px !important;}
+  .about-pv-inner{grid-template-columns:1fr !important;gap:24px !important;}
+  .about-pv-text h2{font-size:24px !important;}
+  .about-pv-text p{font-size:14px !important;}
+  .about-pv-stats{gap:14px !important;}
+  .about-pv-stat .n{font-size:28px !important;}
+  .about-pv-stat .l{font-size:11px !important;}
+
+  /* Calculator — compact */
+  #calc-section{padding:48px 14px 56px !important;}
+  #cc-heading{font-size:22px !important;line-height:1.2 !important;}
+  #cc-subdesc{font-size:13px !important;}
   .calc-helper-pv{padding:10px 14px !important;gap:10px !important;}
-  .calc-helper-pv img{width:42px !important;height:42px !important;}
+  .calc-helper-pv img{width:40px !important;height:40px !important;}
   .ch-name{font-size:13px !important;}
   .ch-sub{font-size:11px !important;}
 
-  /* Calc section — less padding */
-  #calc-section{padding:48px 14px 56px !important;}
-  #cc-heading{font-size:24px !important;line-height:1.15 !important;}
+  /* AI block — compact */
+  .ai-pv-card,.ai-pv{padding:24px 16px !important;}
+  .ai-pv h2{font-size:22px !important;}
 
-  /* AI block — readable on phone */
-  .ai-pv-card{padding:24px 18px !important;}
+  /* FAQ — readable */
+  .faq-section{padding:48px 16px !important;}
+  .faq-section .s-title{font-size:24px !important;}
+  .faq-q{font-size:14px !important;padding:18px 0 !important;}
+  .faq-a{font-size:13px !important;}
 
-  /* Hero CTA — tighter */
-  .hero-svc-btn{font-size:13px !important;padding:14px !important;}
+  /* VS — stack columns */
+  .vs-section{padding:48px 16px !important;}
+  #vs-h2{font-size:22px !important;}
+  .vs-grid{grid-template-columns:1fr !important;gap:14px !important;}
+  .vs-divider{display:none !important;}
+  .vs-col{padding:18px 16px !important;}
+  .vs-text{font-size:13px !important;}
+
+  /* Footer — readable on phone */
+  footer{padding:32px 16px 20px !important;}
 }
 
 @media(max-width:480px){
-  .geo-grid-pv{grid-template-columns:1fr !important;}
-  .rvhome-title{font-size:24px !important;}
-  .geo-title-pv{font-size:22px !important;}
+  .hero-svc-btn{font-size:12px !important;padding:11px 10px !important;}
+  .rvhome-title,.geo-title-pv{font-size:20px !important;}
+  .about-pv-text h2{font-size:22px !important;}
+  #cc-heading{font-size:20px !important;}
+  .hero-right-cta-pv{font-size:15px !important;}
 }
 </style>
+
+<!-- Move reviews up — right after Hero (per Vlad's request) -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    var hero = document.getElementById('hero');
+    var reviews = document.querySelector('section.rvhome');
+    if(hero && reviews && hero.nextElementSibling !== reviews){
+      hero.parentNode.insertBefore(reviews, hero.nextSibling);
+    }
+  }catch(e){console.warn('reviews reorder failed',e);}
+});
+</script>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34"
