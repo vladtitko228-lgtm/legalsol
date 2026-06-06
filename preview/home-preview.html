@@ -4464,15 +4464,31 @@ footer a:hover{color:#a78bfa !important;}
 
 <style id="kill-all-animations">
 /* ════════════════════════════════════════════════════════════
-   KILL ALL ANIMATIONS — keep only minimal hover transitions
+   FREEZE ANIMATIONS — jump to final state instantly, no motion
    ════════════════════════════════════════════════════════════ */
+/* Instead of killing animation:none (which leaves opacity:0 elements
+   invisible), set duration to 0 and fill-mode:forwards so every
+   animation completes instantly to its FINAL state. */
 *, *::before, *::after{
-  animation:none !important;
-  animation-duration:0s !important;
+  animation-duration:.001s !important;
   animation-delay:0s !important;
   animation-iteration-count:1 !important;
+  animation-fill-mode:forwards !important;
+  animation-play-state:running !important;
 }
-/* Keep hover/focus subtle but instant-ish */
+/* Anything that animates infinitely — explicitly hard-stop */
+.calc-orb,.calc-aurora,.rvhome-marquee,.rvhome-grid,
+#cc-badge::after,#cc-heading em,.badge-dot,
+.hero-badge,.hero-mega-cta,.hero-svc-btn,
+.aij-orb,.aij-pulse,.shimmer,.shine{
+  animation:none !important;
+}
+/* Stuff that had transform inside keyframes — pin to identity */
+.calc-orb{transform:none !important;}
+.rvhome-marquee,.rvhome-grid{transform:none !important;}
+/* Critical reveals — force visible */
+.reveal,.hero-badge-enter,.hero-svc-btn{opacity:1 !important;transform:none !important;visibility:visible !important;}
+/* Hover transitions stay snappy */
 a, button, .btn, .card, .hero-svc-btn, .hero-svc-btn.hsb-pro,
 .hero-right-cta-pv, .hero-mega-cta, .rvhome-card, .geo-card-pv,
 .vs-col, .faq-item, .faq-q{
@@ -4480,16 +4496,8 @@ a, button, .btn, .card, .hero-svc-btn, .hero-svc-btn.hsb-pro,
              color .15s ease, transform .15s ease, box-shadow .15s ease,
              opacity .15s ease !important;
 }
-/* No scroll-reveal jumps */
-.reveal{opacity:1 !important;transform:none !important;}
-/* No marquee scroll on reviews — stay still */
-.rvhome-marquee,.rvhome-grid{animation:none !important;transform:none !important;}
-/* No aurora orb dance on calculator */
-.calc-orb{animation:none !important;transform:none !important;}
-/* No badge sheen / heading gradient sweep */
-#cc-badge::after,#cc-heading em{animation:none !important;background-position:0 0 !important;}
-/* No breathing / pulse anywhere */
-.badge-dot,.hero-badge{animation:none !important;box-shadow:0 0 0 4px rgba(34,197,94,.18) !important;}
+/* Status dot — static green */
+.badge-dot{box-shadow:0 0 0 4px rgba(34,197,94,.18) !important;}
 </style>
 
 <style id="hero-pro-overrides">
