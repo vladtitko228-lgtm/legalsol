@@ -4737,6 +4737,131 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
+<style id="preview-vs2-styles">
+/* ════════════════════════════════════════════════════════════
+   "WITHOUT vs WITH us" comparison — dramatic, clear
+   ════════════════════════════════════════════════════════════ */
+.preview-vs2{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  background:radial-gradient(circle at 50% 0%,rgba(91,82,204,.08),transparent 60%),linear-gradient(180deg,#0e0a23 0%,#161035 100%);
+  border:1px solid rgba(139,130,232,.22);border-radius:28px;color:#fff;position:relative;overflow:hidden;
+}
+.pv2-head{text-align:center;margin-bottom:36px;position:relative;z-index:1;}
+.pv2-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;display:inline-block;}
+.pv2-title{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:700;line-height:1.15;color:#fff;letter-spacing:-.5px;margin:10px 0;}
+.pv2-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.pv2-sub{font-family:'Inter',sans-serif;font-size:14.5px;color:rgba(255,255,255,.65);max-width:540px;margin:0 auto;line-height:1.55;}
+.pv2-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:18px;align-items:stretch;position:relative;z-index:1;}
+.pv2-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.18);
+  border-radius:20px;padding:28px 26px;display:flex;flex-direction:column;
+}
+.pv2-card.pv2-bad{background:linear-gradient(180deg,rgba(127,29,29,.18) 0%,rgba(40,15,18,.12) 100%);border-color:rgba(239,68,68,.32);}
+.pv2-card.pv2-good{background:linear-gradient(180deg,rgba(20,83,45,.18) 0%,rgba(15,40,25,.10) 100%);border-color:rgba(34,197,94,.34);}
+.pv2-card-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08);}
+.pv2-emoji{font-size:34px;line-height:1;}
+.pv2-card-title{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;letter-spacing:-.2px;line-height:1;color:#fff;}
+.pv2-card-sub{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-top:4px;font-weight:700;}
+.pv2-card.pv2-bad .pv2-card-title{color:#fca5a5;}
+.pv2-card.pv2-good .pv2-card-title{color:#86efac;}
+.pv2-list{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:14px;flex:1;}
+.pv2-list li{display:flex;gap:12px;align-items:flex-start;font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.78);}
+.pv2-list li b{display:block;font-weight:700;color:#fff;margin-bottom:2px;}
+.pv2-list li small{display:block;font-size:11.5px;color:rgba(255,255,255,.50);line-height:1.4;}
+.pv2-x,.pv2-check{
+  flex-shrink:0;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;margin-top:1px;
+}
+.pv2-x{background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(239,68,68,.30);}
+.pv2-check{background:rgba(34,197,94,.18);color:#22c55e;border:1px solid rgba(34,197,94,.32);}
+.pv2-stamp{
+  margin-top:auto;text-align:center;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:700;
+  letter-spacing:.5px;padding:10px 14px;border-radius:60px;
+}
+.pv2-stamp-bad{background:rgba(239,68,68,.10);color:#fca5a5;border:1px solid rgba(239,68,68,.25);}
+.pv2-stamp-good{background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.30);}
+.pv2-vs-divider{display:flex;align-items:center;justify-content:center;}
+.pv2-vs{
+  width:54px;height:54px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;
+  font-family:'Lora',Georgia,serif;font-weight:800;font-size:18px;
+  letter-spacing:.5px;box-shadow:0 8px 26px rgba(91,82,204,.45),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.pv2-cta-row{display:flex;justify-content:center;margin-top:32px;position:relative;z-index:1;}
+.pv2-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 32px;background:#25D366;color:#fff;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;
+  border-radius:60px;box-shadow:0 12px 32px rgba(37,211,102,.40),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s,box-shadow .2s;
+}
+.pv2-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(37,211,102,.55);}
+
+@media(max-width:820px){
+  .preview-vs2{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .pv2-title{font-size:24px;}
+  .pv2-sub{font-size:13px;}
+  .pv2-grid{grid-template-columns:1fr;gap:14px;}
+  .pv2-vs-divider{padding:6px 0;}
+  .pv2-vs{width:46px;height:46px;font-size:15px;}
+  .pv2-card{padding:22px 18px;}
+  .pv2-list li{font-size:13px;}
+}
+</style>
+
+<style id="preview-wait-times">
+/* ════════════════════════════════════════════════════════════
+   Real-time Wait-time Tracker — 4 main voivodeships
+   ════════════════════════════════════════════════════════════ */
+.preview-waits{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  background:#0e0a23;border:1px solid rgba(139,130,232,.22);
+  border-radius:28px;color:#fff;
+}
+.pw-head{text-align:center;margin-bottom:32px;}
+.pw-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;}
+.pw-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
+.pw-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.pw-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:580px;margin:0 auto;line-height:1.55;}
+.pw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px;}
+.pw-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.18);
+  border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.pw-card:hover{transform:translateY(-3px);border-color:rgba(167,139,250,.45);box-shadow:0 14px 30px rgba(7,5,15,.4);}
+.pw-card-head{display:flex;align-items:center;gap:10px;}
+.pw-flag{
+  width:36px;height:24px;border-radius:4px;flex-shrink:0;
+  background:linear-gradient(180deg,#fff 50%,#dc143c 50%);
+  border:1px solid rgba(255,255,255,.15);
+}
+.pw-name{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:#fff;letter-spacing:-.1px;line-height:1.15;}
+.pw-city{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.4px;}
+.pw-stat{display:flex;justify-content:space-between;align-items:baseline;font-family:'Inter',sans-serif;}
+.pw-stat-label{font-size:10.5px;letter-spacing:1.2px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;}
+.pw-stat-val{font-size:18px;font-weight:800;letter-spacing:-.4px;}
+.pw-stat-val.bad{color:#f87171;}
+.pw-stat-val.good{color:#22c55e;}
+.pw-bar{height:6px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden;position:relative;}
+.pw-bar-bad{background:#f87171;height:100%;border-radius:6px;}
+.pw-bar-good{background:#22c55e;height:100%;border-radius:6px;}
+.pw-foot{margin-top:24px;font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,.55);text-align:center;line-height:1.6;padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.15);border-radius:14px;}
+.pw-foot b{color:#a78bfa;}
+.pw-live{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#22c55e;font-weight:700;margin-bottom:8px;}
+.pw-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.20);}
+
+@media(max-width:820px){
+  .preview-waits{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .pw-title{font-size:24px;}
+  .pw-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .pw-card{padding:18px;}
+}
+@media(max-width:480px){.pw-grid{grid-template-columns:1fr;}}
+</style>
+
 <style id="how-we-work">
 /* ════════════════════════════════════════════════════════════
    HOW WE WORK — WhatsApp-chat style timeline (unique to us)
@@ -5998,6 +6123,81 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<span>✓ Real lawyer, not a chatbot</span>'
         +'</div>';
       about.parentNode.insertBefore(how, about.nextSibling);
+    }
+
+    /* 4a-pre. Wait-time tracker — 4 main voivodeships */
+    if(faq && !document.querySelector('.preview-waits')){
+      var wt = document.createElement('section');
+      wt.className = 'preview-waits';
+      wt.innerHTML = ''
+        +'<div class="pw-head">'
+          +'<span class="pw-live">● LIVE · updated weekly</span>'
+          +'<div class="pw-eyebrow">MONITOR OPÓŹNIEŃ · WAIT-TIME TRACKER</div>'
+          +'<h2 class="pw-title">Real wait times — and how we <em>cut them in half</em></h2>'
+          +'<p class="pw-sub">Standard procedure times in main voivodeships vs. timeline with LegalSol active case management.</p>'
+        +'</div>'
+        +'<div class="pw-grid">'
+          +'<div class="pw-card"><div class="pw-card-head"><div class="pw-flag"></div><div><div class="pw-name">Mazowieckie</div><div class="pw-city">Warszawa</div></div></div><div class="pw-stat"><span class="pw-stat-label">Standard</span><span class="pw-stat-val bad">11–16 mies.</span></div><div class="pw-bar"><div class="pw-bar-bad" style="width:90%"></div></div><div class="pw-stat"><span class="pw-stat-label">With us</span><span class="pw-stat-val good">3–4 mies.</span></div><div class="pw-bar"><div class="pw-bar-good" style="width:28%"></div></div></div>'
+          +'<div class="pw-card"><div class="pw-card-head"><div class="pw-flag"></div><div><div class="pw-name">Dolnośląskie</div><div class="pw-city">Wrocław</div></div></div><div class="pw-stat"><span class="pw-stat-label">Standard</span><span class="pw-stat-val bad">9–14 mies.</span></div><div class="pw-bar"><div class="pw-bar-bad" style="width:78%"></div></div><div class="pw-stat"><span class="pw-stat-label">With us</span><span class="pw-stat-val good">2–4 mies.</span></div><div class="pw-bar"><div class="pw-bar-good" style="width:22%"></div></div></div>'
+          +'<div class="pw-card"><div class="pw-card-head"><div class="pw-flag"></div><div><div class="pw-name">Małopolskie</div><div class="pw-city">Kraków</div></div></div><div class="pw-stat"><span class="pw-stat-label">Standard</span><span class="pw-stat-val bad">10–15 mies.</span></div><div class="pw-bar"><div class="pw-bar-bad" style="width:84%"></div></div><div class="pw-stat"><span class="pw-stat-label">With us</span><span class="pw-stat-val good">3–5 mies.</span></div><div class="pw-bar"><div class="pw-bar-good" style="width:30%"></div></div></div>'
+          +'<div class="pw-card"><div class="pw-card-head"><div class="pw-flag"></div><div><div class="pw-name">Wielkopolskie</div><div class="pw-city">Poznań</div></div></div><div class="pw-stat"><span class="pw-stat-label">Standard</span><span class="pw-stat-val bad">8–13 mies.</span></div><div class="pw-bar"><div class="pw-bar-bad" style="width:72%"></div></div><div class="pw-stat"><span class="pw-stat-label">With us</span><span class="pw-stat-val good">2–4 mies.</span></div><div class="pw-bar"><div class="pw-bar-good" style="width:22%"></div></div></div>'
+        +'</div>'
+        +'<div class="pw-foot"><b>How we get there:</b> we actively file <b>ponaglenia</b> (urgency requests) and <b>complaints for inactivity</b> (skarga na bezczynność organu) to the Voivode and WSA courts when the office stalls. This is a legitimate legal tool — and we use it on every case where it makes sense.</div>';
+      faq.parentNode.insertBefore(wt, faq);
+    }
+
+    /* 4a. WITHOUT vs WITH us — dramatic comparison */
+    if(faq && !document.querySelector('.preview-vs2')){
+      var vs = document.createElement('section');
+      vs.className = 'preview-vs2';
+      vs.innerHTML = ''
+        +'<div class="pv2-head">'
+          +'<span class="pv2-eyebrow">ZOBACZ RÓŻNICĘ · SEE THE DIFFERENCE</span>'
+          +'<h2 class="pv2-title">What changes the day you <em>let us handle it</em>?</h2>'
+          +'<p class="pv2-sub">Same paperwork, same office, same Poland — totally different experience.</p>'
+        +'</div>'
+        +'<div class="pv2-grid">'
+          +'<div class="pv2-card pv2-bad">'
+            +'<div class="pv2-card-head">'
+              +'<span class="pv2-emoji">😩</span>'
+              +'<div class="pv2-card-title">Without us</div>'
+              +'<div class="pv2-card-sub">DIY through urząd</div>'
+            +'</div>'
+            +'<ul class="pv2-list">'
+              +'<li><span class="pv2-x">✕</span><div><b>You search the doc list yourself</b><small>Outdated forums, broken gov.pl pages, friends&rsquo; advice</small></div></li>'
+              +'<li><span class="pv2-x">✕</span><div><b>Hours in queue at urząd wojewódzki</b><small>4–6 hours waiting · 4 windows open out of 12</small></div></li>'
+              +'<li><span class="pv2-x">✕</span><div><b>12-page form, Polish only</b><small>One small mistake → entire application rejected</small></div></li>'
+              +'<li><span class="pv2-x">✕</span><div><b>6–18 months of silence</b><small>No tracking. No callbacks. No idea what&rsquo;s happening</small></div></li>'
+              +'<li><span class="pv2-x">✕</span><div><b>Refusal — start from scratch</b><small>Pay state fee again. Find a lawyer. Stress.</small></div></li>'
+              +'<li><span class="pv2-x">✕</span><div><b>Your life is on hold</b><small>Can&rsquo;t travel. Can&rsquo;t plan. Can&rsquo;t open bank account.</small></div></li>'
+            +'</ul>'
+            +'<div class="pv2-stamp pv2-stamp-bad">~9 months avg · 38% refused on first try</div>'
+          +'</div>'
+          +'<div class="pv2-vs-divider"><div class="pv2-vs">VS</div></div>'
+          +'<div class="pv2-card pv2-good">'
+            +'<div class="pv2-card-head">'
+              +'<span class="pv2-emoji">😊</span>'
+              +'<div class="pv2-card-title">With LegalSol</div>'
+              +'<div class="pv2-card-sub">Everything on WhatsApp</div>'
+            +'</div>'
+            +'<ul class="pv2-list">'
+              +'<li><span class="pv2-check">✓</span><div><b>Personalised doc checklist in 20 minutes</b><small>Reviewed by a real immigration lawyer. Free.</small></div></li>'
+              +'<li><span class="pv2-check">✓</span><div><b>Submission via MOS · online</b><small>No queues. No tickets. We submit from our office.</small></div></li>'
+              +'<li><span class="pv2-check">✓</span><div><b>We fill the form for you</b><small>Translated, formatted, double-checked — zero mistakes</small></div></li>'
+              +'<li><span class="pv2-check">✓</span><div><b>Status updates every 2 weeks</b><small>WhatsApp message · we chase the office for you</small></div></li>'
+              +'<li><span class="pv2-check">✓</span><div><b>Refusal? We appeal at our cost</b><small>14-day appeal window — handled by us. 98% approval.</small></div></li>'
+              +'<li><span class="pv2-check">✓</span><div><b>You keep living your life</b><small>1 hour for pickup at urząd. The rest is on us.</small></div></li>'
+            +'</ul>'
+            +'<div class="pv2-stamp pv2-stamp-good">~3 months avg · 98.1% approved</div>'
+          +'</div>'
+        +'</div>'
+        +'<div class="pv2-cta-row">'
+          +'<a class="pv2-cta" href="https://wa.me/48735248525?text=Hi%21%20I%20want%20to%20switch%20to%20%E2%80%9CWith%20LegalSol%E2%80%9D%20mode%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener">'
+            +'<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>'
+            +'Switch to the right side →'
+          +'</a>'
+        +'</div>';
+      faq.parentNode.insertBefore(vs, faq);
     }
 
     /* 4b. Latest news — inject before FAQ */
