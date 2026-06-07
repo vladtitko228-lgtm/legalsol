@@ -6661,10 +6661,10 @@ document.addEventListener('DOMContentLoaded', function(){
         {n:'Świętokrzyskie',c:'Kielce',bad:[3,4],sev:'green'}
       ];
       var QW_SRV = [
-        {i:'💼',cls:'s1',t:'Praca / Karta Pobytu',d:'Karta Czasowego Pobytu na podstawie pracy',mul:1.0},
-        {i:'📈',cls:'s2',t:'Spółka / Biznes',d:'Zarząd Sp. z o.o., JDG, B2B',mul:1.2},
-        {i:'🛂',cls:'s3',t:'Pobyt Stały / Obywatelstwo',d:'Rezydent UE, Karta Polaka, obywatelstwo',mul:1.4},
-        {i:'⚠️',cls:'s4',t:'Odwołanie / Odmowa',d:'Skarga, apelacja, ponaglenia',mul:.9}
+        {i:'💼',cls:'s1',t:'Praca / Karta Pobytu',d:'Karta Czasowego Pobytu na podstawie pracy',mul:1.0,good:[2,3]},
+        {i:'📈',cls:'s2',t:'Spółka / Biznes',d:'Zarząd Sp. z o.o., JDG, B2B',mul:1.2,good:[3,4]},
+        {i:'🛂',cls:'s3',t:'Pobyt Stały / Obywatelstwo',d:'Rezydent UE, Karta Polaka, obywatelstwo',mul:1.4,good:[3,5]},
+        {i:'⚠️',cls:'s4',t:'Odwołanie / Odmowa',d:'Skarga, apelacja, ponaglenia',mul:.9,good:[1,2]}
       ];
       var qwState = {voiv:0, srv:0};
       var qw = document.createElement('section');
@@ -6674,8 +6674,8 @@ document.addEventListener('DOMContentLoaded', function(){
         var s = QW_SRV[qwState.srv];
         var badLo = Math.round(v.bad[0]*s.mul);
         var badHi = Math.round(v.bad[1]*s.mul);
-        var goodLo = Math.max(2, Math.round(badLo*0.30));
-        var goodHi = Math.max(3, Math.round(badHi*0.35));
+        var goodLo = s.good[0];
+        var goodHi = s.good[1];
         var saved = Math.round(((badLo+badHi)/2 - (goodLo+goodHi)/2));
         qw.innerHTML = ''
           +'<div class="qw-glow"></div>'
@@ -7063,7 +7063,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /* === MEGA WIZARD — replaces both Calculator and Documents Checklist === */
     if(reviews && !document.querySelector('.preview-mw')){
       var MW_DOC = {
-        praca:{label:'Praca (Czasowy)',  service:'KARTA POBYTU · PRACA',           tBad:'8–14 mies.',tGood:'2–4 mies.',d:[
+        praca:{label:'Praca (Czasowy)',  service:'KARTA POBYTU · PRACA',           tBad:'8–14 mies.',tGood:'2–3 mies.',d:[
           {t:'Wniosek o udzielenie zezwolenia (4 egzemplarze)'},
           {t:'Załącznik nr 1 od pracodawcy',s:'wypełniony i podpisany'},
           {t:'Aktualna umowa o pracę / zlecenie'},
@@ -7075,7 +7075,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'Informacja starosty (test rynku)',s:'jeśli wymagana'},
           {t:'Opłata skarbowa 340 PLN'}
         ]},
-        spolka:{label:'Spółka / Biznes', service:'ZARZĄD SPÓŁKI / KARTA POBYTU',   tBad:'12–18 mies.',tGood:'4–5 mies.',d:[
+        spolka:{label:'Spółka / Biznes', service:'ZARZĄD SPÓŁKI / KARTA POBYTU',   tBad:'12–18 mies.',tGood:'3–4 mies.',d:[
           {t:'Wniosek o udzielenie zezwolenia (4 egz.)'},
           {t:'Aktualny wpis do KRS / CEIDG'},
           {t:'Bilans i rachunek zysków za rok'},
@@ -7087,7 +7087,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'Adres siedziby (akt / najem)'},
           {t:'Opłata skarbowa 340 PLN'}
         ]},
-        staly:{label:'Stały / Rezydent', service:'POBYT STAŁY · REZYDENT UE',      tBad:'14–22 mies.',tGood:'5–7 mies.',d:[
+        staly:{label:'Stały / Rezydent', service:'POBYT STAŁY · REZYDENT UE',      tBad:'14–22 mies.',tGood:'3–5 mies.',d:[
           {t:'Wniosek (4 egzemplarze)'},
           {t:'5 lat pobytu — kopie kart pobytu'},
           {t:'Stabilne źródło dochodu — zaświadczenia za 3 lata'},
@@ -7099,7 +7099,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'Akt urodzenia / małżeństwa',s:'jeśli polskie pochodzenie'},
           {t:'Opłata skarbowa 640 PLN'}
         ]},
-        odwol:{label:'Odwołanie / Odmowa',service:'ODWOŁANIE OD DECYZJI',          tBad:'18–24 mies.',tGood:'3–5 mies.',d:[
+        odwol:{label:'Odwołanie / Odmowa',service:'ODWOŁANIE OD DECYZJI',          tBad:'18–24 mies.',tGood:'1–2 mies.',d:[
           {t:'Kopia decyzji odmownej',c:true},
           {t:'Pełnomocnictwo dla prawnika',c:true},
           {t:'Uzasadnienie merytoryczne odwołania'},
