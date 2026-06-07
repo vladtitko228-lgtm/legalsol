@@ -5637,6 +5637,75 @@ document.addEventListener('DOMContentLoaded', function(){
 @media(max-width:480px){.pw-grid{grid-template-columns:1fr;}}
 </style>
 
+<style id="how-we-work-clean">
+/* ════════════════════════════════════════════════════════════
+   HOW WE WORK — CLEAN PROCESS DIAGRAM (no iPhone mockup)
+   5 vertical step cards, Linear/Stripe minimalism
+   ════════════════════════════════════════════════════════════ */
+.preview-how-clean{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%);
+  border:1px solid rgba(139,130,232,.22);border-radius:28px;color:#fff;
+}
+.phc-head{text-align:center;margin-bottom:36px;}
+.phc-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;text-transform:uppercase;}
+.phc-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0 6px;line-height:1.2;}
+.phc-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.phc-sub{font-family:'Inter',sans-serif;font-size:14.5px;color:rgba(255,255,255,.65);max-width:580px;margin:0 auto;line-height:1.55;}
+
+.phc-flow{display:flex;flex-direction:column;gap:0;position:relative;max-width:780px;margin:0 auto;}
+.phc-step{
+  display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;
+  padding:24px 0;position:relative;
+}
+.phc-step + .phc-step{border-top:1px solid rgba(139,130,232,.14);}
+.phc-num{
+  width:60px;height:60px;border-radius:50%;
+  background:rgba(91,82,204,.12);border:1px solid rgba(167,139,250,.30);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#a78bfa;
+  letter-spacing:-1px;
+}
+.phc-step:hover .phc-num{background:rgba(91,82,204,.22);border-color:#a78bfa;color:#fff;}
+.phc-body{font-family:'Inter',sans-serif;}
+.phc-title-step{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px;line-height:1.25;margin:0 0 4px;}
+.phc-desc{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.5;margin:0;}
+.phc-time{
+  display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right;white-space:nowrap;
+}
+.phc-time-num{font-family:'Inter',sans-serif;font-weight:800;font-size:20px;color:#22c55e;letter-spacing:-.5px;line-height:1;}
+.phc-time-unit{font-family:'Inter',sans-serif;font-size:10.5px;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
+
+.phc-foot{
+  margin-top:28px;padding:20px 24px;background:rgba(255,255,255,.025);
+  border:1px solid rgba(139,130,232,.20);border-radius:18px;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.phc-foot-text{font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.5;flex:1;min-width:240px;}
+.phc-foot-text b{color:#22c55e;}
+.phc-foot-cta{
+  display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:60px;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  box-shadow:0 12px 30px rgba(91,82,204,.40);transition:transform .2s,box-shadow .2s;white-space:nowrap;
+}
+.phc-foot-cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(91,82,204,.55);}
+
+/* Hide old iPhone version */
+.preview-how{display:none !important;}
+
+@media(max-width:760px){
+  .preview-how-clean{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .phc-title{font-size:24px;}
+  .phc-step{grid-template-columns:48px 1fr;gap:14px;padding:18px 0;}
+  .phc-num{width:48px;height:48px;font-size:18px;}
+  .phc-title-step{font-size:15px;}
+  .phc-desc{font-size:13px;}
+  .phc-time{grid-column:1/-1;flex-direction:row;justify-content:flex-end;gap:8px;align-items:baseline;margin-top:4px;}
+  .phc-time-num{font-size:16px;}
+}
+</style>
+
 <style id="how-we-work">
 /* ════════════════════════════════════════════════════════════
    HOW WE WORK — WhatsApp-chat style timeline (unique to us)
@@ -6236,15 +6305,16 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <script>
-/* SIMPLIFY HERO: one big WhatsApp CTA, hide secondary + mini-links */
+/* HERO: ONE button only — hide all extras (no 3-buttons mess) */
 document.addEventListener('DOMContentLoaded', function(){
   try{
     var mega = document.querySelector('.hero-mega-cta');
     var row  = document.querySelector('.hero-svc-row.hsr-final');
+    var rightCta = document.querySelector('.hero-right-cta-pv');
+    var heroBadge = document.querySelector('.hero-right-pv-badge');
     if(row){
-      /* keep only the main pill, hide the mini-row */
-      var mini = row.querySelector('.hsb-mini-row');
-      if(mini) mini.style.display = 'none';
+      var mini = row.querySelector('.hsb-mini-row'); if(mini) mini.style.display = 'none';
+      var eyebrow = document.getElementById('hero-svc-eyebrow'); if(eyebrow) eyebrow.style.display = 'none';
       var main = row.querySelector('.hsb-main');
       if(main){
         main.style.maxWidth = '420px';
@@ -6252,8 +6322,9 @@ document.addEventListener('DOMContentLoaded', function(){
         main.style.margin = '0 auto';
       }
     }
-    /* hide secondary outline TRC button — clean hero */
     if(mega) mega.style.display = 'none';
+    /* Hide the CTA under video — there's already one CTA + nav CTA */
+    if(rightCta) rightCta.style.display = 'none';
   }catch(e){console.warn('hero simplify failed',e);}
 });
 </script>
@@ -6873,8 +6944,32 @@ document.addEventListener('DOMContentLoaded', function(){
       footer.parentNode.insertBefore(cta, footer);
     }
 
-    /* 3c. HOW WE WORK (WhatsApp timeline) — between About and rest */
-    if(about && !document.querySelector('.preview-how')){
+    /* 3c. HOW WE WORK — CLEAN PROCESS DIAGRAM (no iPhone) */
+    if(about && !document.querySelector('.preview-how-clean')){
+      var howClean = document.createElement('section');
+      howClean.className = 'preview-how-clean';
+      howClean.innerHTML = ''
+        +'<div class="phc-head">'
+          +'<span class="phc-eyebrow">JAK TO DZIAŁA · 5 PROSTYCH KROKÓW</span>'
+          +'<h2 class="phc-title">Od pierwszej wiadomości <em>do karty w ręku</em></h2>'
+          +'<p class="phc-sub">Bez wizyt w biurze, bez kolejek, bez papierowych formularzy. Tylko WhatsApp i my, którzy robimy resztę.</p>'
+        +'</div>'
+        +'<div class="phc-flow">'
+          +'<div class="phc-step"><div class="phc-num">01</div><div class="phc-body"><h3 class="phc-title-step">Piszesz do nas na WhatsApp</h3><p class="phc-desc">PL · EN · RU · UA. Odpowiadamy w 15 minut w dni robocze.</p></div><div class="phc-time"><div class="phc-time-num">~60 s</div><div class="phc-time-unit">odpowiedź</div></div></div>'
+          +'<div class="phc-step"><div class="phc-num">02</div><div class="phc-body"><h3 class="phc-title-step">Bezpłatna analiza prawnika</h3><p class="phc-desc">Realny prawnik czyta twoją sytuację, daje listę dokumentów i wycenę. Bez zaliczki.</p></div><div class="phc-time"><div class="phc-time-num">~20 min</div><div class="phc-time-unit">audyt</div></div></div>'
+          +'<div class="phc-step"><div class="phc-num">03</div><div class="phc-body"><h3 class="phc-title-step">Przygotowanie dokumentów + złożenie przez MOS</h3><p class="phc-desc">Wypełniamy wniosek, tłumaczymy, weryfikujemy Załącznik nr 1 i składamy online (Profil Zaufany). Ty nie dotykasz formularzy.</p></div><div class="phc-time"><div class="phc-time-num">7–14 dni</div><div class="phc-time-unit">przygotowanie</div></div></div>'
+          +'<div class="phc-step"><div class="phc-num">04</div><div class="phc-body"><h3 class="phc-title-step">Aktywne pilotowanie sprawy</h3><p class="phc-desc">Składamy ponaglenia, skargi na bezczynność, dzwonimy do urzędu. Ty dostajesz update co 2 tygodnie na WhatsApp.</p></div><div class="phc-time"><div class="phc-time-num">2–3 mies.</div><div class="phc-time-unit">obsługa</div></div></div>'
+          +'<div class="phc-step"><div class="phc-num">05</div><div class="phc-body"><h3 class="phc-title-step">Karta w twoim ręku</h3><p class="phc-desc">Umawiamy odbiór w urzędzie wojewódzkim. Jedna wizyta — 30 min, wchodzisz z paszportem, wychodzisz z kartą.</p></div><div class="phc-time"><div class="phc-time-num">1 h</div><div class="phc-time-unit">odbiór</div></div></div>'
+        +'</div>'
+        +'<div class="phc-foot">'
+          +'<div class="phc-foot-text"><b>Łączny czas: 2–3 miesiące</b> (vs. 8–18 mies. standardowo). MOS · ponaglenia · realny prawnik na czacie.</div>'
+          +'<a class="phc-foot-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Chcę rozpocząć proces — legalsol.pl')+'">Rozpocznij teraz →</a>'
+        +'</div>';
+      about.parentNode.insertBefore(howClean, about.nextSibling);
+    }
+
+    /* 3c-legacy. WhatsApp iPhone mockup — hidden (kept for rollback) */
+    if(false && about && !document.querySelector('.preview-how')){
       var how = document.createElement('section');
       how.className = 'preview-how';
       how.innerHTML = ''
