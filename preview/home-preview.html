@@ -4737,6 +4737,173 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
+<style id="preview-zal-checker">
+/* ════════════════════════════════════════════════════════════
+   Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 — ethical AI assistant
+   ════════════════════════════════════════════════════════════ */
+.preview-zal{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  background:linear-gradient(135deg,#0e0a23 0%,#1a1545 100%);
+  border:1px solid rgba(139,130,232,.30);border-radius:28px;color:#fff;
+  position:relative;overflow:hidden;
+}
+.pz-head{text-align:center;margin-bottom:28px;}
+.pz-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;}
+.pz-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
+.pz-title em{color:#fde047;font-style:italic;font-weight:600;}
+.pz-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:640px;margin:0 auto;line-height:1.55;}
+.pz-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:32px;align-items:start;margin-top:18px;}
+.pz-dropzone{
+  border:2px dashed rgba(167,139,250,.45);border-radius:18px;
+  padding:50px 24px;text-align:center;cursor:pointer;
+  background:rgba(91,82,204,.05);
+  transition:background .2s,border-color .2s;position:relative;overflow:hidden;
+}
+.pz-dropzone:hover{background:rgba(91,82,204,.12);border-color:#a78bfa;}
+.pz-dropzone.is-scanning{cursor:default;}
+.pz-dropzone-icon{
+  width:64px;height:64px;margin:0 auto 16px;border-radius:50%;
+  background:rgba(167,139,250,.15);display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+}
+.pz-dropzone-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-.1px;}
+.pz-dropzone-sub{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,.55);}
+.pz-or{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);margin:14px 0;font-weight:700;}
+.pz-demo-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 20px;
+  background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.40);border-radius:60px;
+  color:#fff;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.4px;cursor:pointer;
+  transition:all .2s;
+}
+.pz-demo-btn:hover{background:rgba(167,139,250,.28);border-color:#a78bfa;}
+.pz-scan-overlay{
+  position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(91,82,204,.20),transparent 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:30px;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.pz-dropzone.is-scanning .pz-scan-overlay{opacity:1;}
+.pz-laser{
+  width:80%;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);
+  box-shadow:0 0 12px rgba(167,139,250,.8);border-radius:2px;
+  animation:zalLaser 1.8s ease-in-out infinite;
+}
+@keyframes zalLaser{0%,100%{transform:translateY(-80px);opacity:.4;}50%{transform:translateY(80px);opacity:1;}}
+.pz-scan-text{
+  font-family:'Inter',sans-serif;font-size:12.5px;color:#a78bfa;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;
+}
+
+.pz-result{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.22);
+  border-radius:18px;padding:24px;font-family:'Inter',sans-serif;color:rgba(255,255,255,.78);
+  min-height:280px;display:flex;flex-direction:column;
+}
+.pz-result-empty{color:rgba(255,255,255,.40);text-align:center;font-size:13px;padding:60px 20px;flex:1;display:flex;align-items:center;justify-content:center;}
+.pz-check-header{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:1.5px;color:#fde047;font-weight:700;text-transform:uppercase;margin-bottom:14px;}
+.pz-check-header::before{content:'';width:8px;height:8px;background:#fde047;border-radius:50%;animation:pzPulse 1.5s ease-out infinite;}
+@keyframes pzPulse{0%,100%{box-shadow:0 0 0 0 rgba(253,224,71,.5);}60%{box-shadow:0 0 0 8px rgba(253,224,71,0);}}
+.pz-check-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;flex:1;}
+.pz-check-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.45;}
+.pz-check-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:1px;}
+.pz-check-ok{background:rgba(34,197,94,.18);color:#22c55e;border:1px solid rgba(34,197,94,.30);}
+.pz-check-warn{background:rgba(251,191,36,.18);color:#fbbf24;border:1px solid rgba(251,191,36,.30);}
+.pz-check-bad{background:rgba(239,68,68,.20);color:#f87171;border:1px solid rgba(239,68,68,.35);}
+.pz-check-item b{display:block;color:#fff;font-weight:700;}
+.pz-check-item small{display:block;font-size:11.5px;color:rgba(255,255,255,.50);margin-top:2px;}
+.pz-cta-wrap{margin-top:20px;padding-top:18px;border-top:1px solid rgba(139,130,232,.20);}
+.pz-result-cta{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px 24px;background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;text-decoration:none;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  border-radius:60px;box-shadow:0 12px 30px rgba(91,82,204,.40);
+  transition:transform .2s,box-shadow .2s;
+}
+.pz-result-cta:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(91,82,204,.55);}
+.pz-disclaimer{
+  font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.45);
+  text-align:center;margin-top:20px;line-height:1.5;font-style:italic;
+}
+@media(max-width:820px){
+  .preview-zal{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .pz-title{font-size:22px;}
+  .pz-grid{grid-template-columns:1fr;gap:18px;}
+  .pz-dropzone{padding:32px 18px;}
+}
+</style>
+
+<style id="preview-cabinet-demo">
+/* ════════════════════════════════════════════════════════════
+   Фишка 4: DEMO PANELU KLIENTA — show real cabinet preview
+   ════════════════════════════════════════════════════════════ */
+.preview-cab{
+  max-width:1180px;margin:60px auto;padding:48px 32px;
+  background:#0e0a23;border:1px solid rgba(139,130,232,.22);
+  border-radius:28px;color:#fff;
+}
+.pcb-head{text-align:center;margin-bottom:32px;}
+.pcb-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;}
+.pcb-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
+.pcb-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.pcb-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:640px;margin:0 auto;line-height:1.55;}
+.pcb-frame{
+  background:#fff;border-radius:18px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(7,5,15,.55),0 0 0 1px rgba(139,130,232,.30);
+  margin:0 auto;max-width:1000px;
+}
+.pcb-browser-bar{
+  background:#f3f1ee;padding:10px 14px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #e5e1dc;font-family:'Inter',sans-serif;
+}
+.pcb-dots{display:flex;gap:6px;}
+.pcb-dot{width:11px;height:11px;border-radius:50%;}
+.pcb-dot.r{background:#ef4444;}.pcb-dot.y{background:#fbbf24;}.pcb-dot.g{background:#22c55e;}
+.pcb-url{
+  flex:1;background:#fff;border-radius:6px;padding:5px 12px;font-size:11.5px;color:#6b7280;
+  display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;
+}
+.pcb-url::before{content:'🔒';font-size:10px;}
+.pcb-body{display:grid;grid-template-columns:230px 1fr;background:#f8f9fd;color:#1a1545;min-height:480px;}
+.pcb-side{background:#0e0a23;color:#fff;padding:20px;}
+.pcb-side-logo{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:2px;font-size:14px;margin-bottom:24px;color:#fff;}
+.pcb-side-logo small{display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.45);font-weight:500;margin-top:3px;}
+.pcb-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:4px;cursor:default;}
+.pcb-nav-item.active{background:rgba(167,139,250,.18);color:#fff;border:1px solid rgba(167,139,250,.30);}
+.pcb-content{padding:24px 28px;}
+.pcb-greeting{font-family:'Inter',sans-serif;font-size:18px;font-weight:700;color:#1a1545;margin-bottom:4px;letter-spacing:-.3px;}
+.pcb-status{font-family:'Inter',sans-serif;font-size:12px;color:#5e5577;margin-bottom:20px;}
+.pcb-progress{display:flex;justify-content:space-between;background:#fff;border-radius:14px;padding:18px;margin-bottom:18px;border:1px solid #e0dcef;}
+.pcb-step{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;}
+.pcb-step::after{content:'';position:absolute;top:14px;left:60%;right:-40%;height:2px;background:#e0dcef;}
+.pcb-step:last-child::after{display:none;}
+.pcb-step.done::after{background:#22c55e;}
+.pcb-step-dot{width:28px;height:28px;border-radius:50%;background:#e0dcef;color:#9c93b8;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;font-family:'Inter',sans-serif;position:relative;z-index:1;}
+.pcb-step.done .pcb-step-dot{background:#22c55e;color:#fff;}
+.pcb-step.active .pcb-step-dot{background:#5b52cc;color:#fff;box-shadow:0 0 0 4px rgba(91,82,204,.18);}
+.pcb-step-label{font-family:'Inter',sans-serif;font-size:10.5px;color:#5e5577;font-weight:600;text-align:center;line-height:1.2;}
+.pcb-cards{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;}
+.pcb-card{background:#fff;border:1px solid #e0dcef;border-radius:14px;padding:18px;}
+.pcb-card-title{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:#5b52cc;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.pcb-chat-msg{padding:9px 12px;border-radius:10px;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.4;margin-bottom:6px;}
+.pcb-chat-in{background:#f0f4ff;color:#1a1545;}
+.pcb-chat-out{background:#e7ddff;color:#1a1545;text-align:right;}
+.pcb-doc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0eff5;font-family:'Inter',sans-serif;font-size:12.5px;color:#1a1545;}
+.pcb-doc-row:last-child{border-bottom:none;}
+.pcb-doc-icon{width:24px;height:24px;border-radius:6px;background:#5b52cc;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+.pcb-doc-name{flex:1;font-weight:600;}
+.pcb-doc-name small{display:block;font-size:10.5px;color:#9c93b8;font-weight:400;}
+.pcb-pieczatka{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;background:#fee2e2;color:#dc2626;border:1px solid rgba(220,38,38,.30);border-radius:60px;font-size:9.5px;letter-spacing:1px;font-weight:800;}
+.pcb-cta-wrap{text-align:center;margin-top:28px;}
+.pcb-cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;border-radius:60px;box-shadow:0 14px 32px rgba(91,82,204,.40);transition:transform .2s,box-shadow .2s;}
+.pcb-cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(91,82,204,.55);}
+@media(max-width:820px){
+  .preview-cab{margin:36px 12px;padding:30px 18px;border-radius:20px;}
+  .pcb-title{font-size:22px;}
+  .pcb-body{grid-template-columns:1fr;min-height:auto;}
+  .pcb-side{display:none;}
+  .pcb-cards{grid-template-columns:1fr;}
+  .pcb-step-label{font-size:9px;}
+}
+</style>
+
 <style id="preview-compensation-calc">
 /* ════════════════════════════════════════════════════════════
    Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ
@@ -6373,6 +6540,119 @@ document.addEventListener('DOMContentLoaded', function(){
       about.parentNode.insertBefore(how, about.nextSibling);
     }
 
+    /* === Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 (ethical) === */
+    if(faq && !document.querySelector('.preview-zal')){
+      var zal = document.createElement('section');
+      zal.className = 'preview-zal';
+      zal.innerHTML = ''
+        +'<div class="pz-head">'
+          +'<span class="pz-eyebrow">WERYFIKATOR ZAŁĄCZNIKA NR 1 · AI ASSISTANT</span>'
+          +'<h2 class="pz-title">Pracodawca dał Ci Załącznik nr 1? <em>Sprawdzimy go zanim złożysz.</em></h2>'
+          +'<p class="pz-sub">Załącznik nr 1 to dokument, na którym 8 z 10 osób traci czas — błędna reprezentacja firmy, niepełna kwota wynagrodzenia, brakujące podpisy. Nasz AI asystent w 3 sekundy wskaże ryzykowne zony.</p>'
+        +'</div>'
+        +'<div class="pz-grid">'
+          +'<div class="pz-dropzone" id="pz-drop">'
+            +'<div class="pz-dropzone-icon">📄</div>'
+            +'<div class="pz-dropzone-title">Przeciągnij tu Załącznik nr 1</div>'
+            +'<div class="pz-dropzone-sub">PDF, JPG, PNG · max 10 MB · plik nie jest wysyłany do serwera</div>'
+            +'<div class="pz-or">— LUB —</div>'
+            +'<button class="pz-demo-btn" id="pz-demo">▶ Pokaż na pliku demonstracyjnym</button>'
+            +'<div class="pz-scan-overlay" aria-hidden="true">'
+              +'<div class="pz-scan-text" id="pz-scan-text">Skanowanie · sprawdzam 10 typowych błędów…</div>'
+              +'<div class="pz-laser"></div>'
+            +'</div>'
+          +'</div>'
+          +'<div class="pz-result" id="pz-result">'
+            +'<div class="pz-result-empty">Wynik weryfikacji pojawi się tutaj po kliknięciu pliku lub przycisku demo.</div>'
+          +'</div>'
+        +'</div>'
+        +'<div class="pz-disclaimer">⚠ Symulacja edukacyjna · Sprawdza listę 10 typowych ryzyk i porównuje z wzorcami. Ostateczną weryfikację zawsze wykonuje żywy prawnik LegalSol.</div>';
+      faq.parentNode.insertBefore(zal, faq);
+
+      function runZalScan(){
+        var dz = document.getElementById('pz-drop');
+        var res = document.getElementById('pz-result');
+        dz.classList.add('is-scanning');
+        var phases = ['Skanowanie · sprawdzam reprezentację KRS…','Skanowanie · weryfikuję minimalne wynagrodzenie…','Skanowanie · sprawdzam podpisy zarządu…','Skanowanie · porównuję z aktualnym wzorem MRPiPS…'];
+        var i=0;var pi=setInterval(function(){i++;var txt=document.getElementById('pz-scan-text');if(txt)txt.textContent=phases[i%phases.length];},700);
+        setTimeout(function(){
+          clearInterval(pi);dz.classList.remove('is-scanning');
+          res.innerHTML = ''
+            +'<div class="pz-check-header">Wynik: 3 ryzyka, 7 OK</div>'
+            +'<ul class="pz-check-list">'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-bad">✕</span><div><b>Sekcja IV — warunki zatrudnienia</b><small>Wynagrodzenie poniżej minimum (sprawdź ogłoszenie GUS na bieżący rok)</small></div></li>'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-warn">!</span><div><b>Reprezentacja Sp. z o.o.</b><small>Wymagany może być drugi członek zarządu — sprawdź KRS</small></div></li>'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-warn">!</span><div><b>Pieczęć / podpis</b><small>Pieczęć imienna brakuje — może być wymagana przez urząd</small></div></li>'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-ok">✓</span><div><b>Sekcja I — dane pracodawcy</b><small>NIP / REGON / KRS — wszystko zgodne</small></div></li>'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-ok">✓</span><div><b>Sekcja II — dane cudzoziemca</b><small>Imię, paszport, adres — kompletnie wypełnione</small></div></li>'
+              +'<li class="pz-check-item"><span class="pz-check-icon pz-check-ok">✓</span><div><b>Sekcja III — opis stanowiska</b><small>Zgodność z PKD pracodawcy potwierdzona</small></div></li>'
+            +'</ul>'
+            +'<div class="pz-cta-wrap"><a class="pz-result-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Sprawdziłem mój Załącznik nr 1 — 3 ryzyka znalezione. Potrzebuję ręcznej weryfikacji prawnika. legalsol.pl')+'">Wyślij do prawnika · darmowa weryfikacja</a></div>';
+        }, 3200);
+      }
+      document.getElementById('pz-demo').addEventListener('click', runZalScan);
+      document.getElementById('pz-drop').addEventListener('click', function(e){
+        if(e.target.closest('.pz-demo-btn')) return;
+        runZalScan();
+      });
+    }
+
+    /* === Фишка 4: DEMO PANELU KLIENTA === */
+    if(faq && !document.querySelector('.preview-cab')){
+      var cab = document.createElement('section');
+      cab.className = 'preview-cab';
+      cab.innerHTML = ''
+        +'<div class="pcb-head">'
+          +'<span class="pcb-eyebrow">PANEL KLIENTA · DEMO</span>'
+          +'<h2 class="pcb-title">Twoje dzieło, <em>w pełni przejrzyste</em></h2>'
+          +'<p class="pcb-sub">Tak wygląda panel Twojego dzieła w LegalSol. Zawsze wiesz, na jakim etapie jesteś, jakie dokumenty zostały złożone i z kim rozmawiać.</p>'
+        +'</div>'
+        +'<div class="pcb-frame">'
+          +'<div class="pcb-browser-bar">'
+            +'<div class="pcb-dots"><span class="pcb-dot r"></span><span class="pcb-dot y"></span><span class="pcb-dot g"></span></div>'
+            +'<div class="pcb-url">legalsol.pl/cabinet — Jan Nowak</div>'
+          +'</div>'
+          +'<div class="pcb-body">'
+            +'<div class="pcb-side">'
+              +'<div class="pcb-side-logo">LEGALSOL<small>PANEL KLIENTA</small></div>'
+              +'<div class="pcb-nav-item active">📊 Status sprawy</div>'
+              +'<div class="pcb-nav-item">📁 Dokumenty</div>'
+              +'<div class="pcb-nav-item">💬 Czat z prawnikiem</div>'
+              +'<div class="pcb-nav-item">📅 Spotkania</div>'
+              +'<div class="pcb-nav-item">🧾 Faktury</div>'
+            +'</div>'
+            +'<div class="pcb-content">'
+              +'<div class="pcb-greeting">Cześć, Jan 👋</div>'
+              +'<div class="pcb-status">Karta Czasowego Pobytu · Mazowieckie · Krok 4 z 5</div>'
+              +'<div class="pcb-progress">'
+                +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Dokumenty<br><b>100%</b></div></div>'
+                +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Złożenie MOS<br><b>100%</b></div></div>'
+                +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Odciski palców<br><b>Wykonane</b></div></div>'
+                +'<div class="pcb-step active"><div class="pcb-step-dot">4</div><div class="pcb-step-label">Decyzja<br><b>w toku</b></div></div>'
+                +'<div class="pcb-step"><div class="pcb-step-dot">5</div><div class="pcb-step-label">Odbiór<br><b>—</b></div></div>'
+              +'</div>'
+              +'<div class="pcb-cards">'
+                +'<div class="pcb-card">'
+                  +'<div class="pcb-card-title">💬 Czat z Twoim prawnikiem</div>'
+                  +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Wniosek został złożony 14 marca. Czekamy na potwierdzenie z urzędu.</div>'
+                  +'<div class="pcb-chat-msg pcb-chat-out">Dziękuję! Czy mogę w międzyczasie wyjechać do Polski?</div>'
+                  +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Tak — stempel w paszporcie ważny przez 6 mies. Bezpiecznie.</div>'
+                +'</div>'
+                +'<div class="pcb-card">'
+                  +'<div class="pcb-card-title">📁 Dokumenty</div>'
+                  +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📄</div><div class="pcb-doc-name">Wniosek · 4 egz.<small>złożone 14.03</small></div><span class="pcb-pieczatka">●</span></div>'
+                  +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📎</div><div class="pcb-doc-name">Załącznik nr 1<small>zweryfikowany</small></div><span class="pcb-pieczatka">●</span></div>'
+                  +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🧾</div><div class="pcb-doc-name">ZUS RCA · 6 mies.<small>komplet</small></div><span class="pcb-pieczatka">●</span></div>'
+                  +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🟥</div><div class="pcb-doc-name">Pieczątka pobrana<small>15.03 · Pobierz PDF</small></div><span class="pcb-pieczatka">CZERWONA</span></div>'
+                +'</div>'
+              +'</div>'
+            +'</div>'
+          +'</div>'
+        +'</div>'
+        +'<div class="pcb-cta-wrap"><a class="pcb-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Chcę założyć moje dzieło w panelu LegalSol — legalsol.pl')+'">Załóż swoje dzieło →</a></div>';
+      faq.parentNode.insertBefore(cab, faq);
+    }
+
     /* === Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ === */
     if(faq && !document.querySelector('.preview-comp')){
       var COMP_VOIVS = [
@@ -6593,8 +6873,8 @@ document.addEventListener('DOMContentLoaded', function(){
       calc.parentNode.insertBefore(docs, calc.nextSibling);
     }
 
-    /* 4a-pre. Wait-time tracker — 4 main voivodeships */
-    if(faq && !document.querySelector('.preview-waits')){
+    /* 4a-pre. Wait-time tracker — DISABLED (replaced by Mapa Kolejek 16 woj.) */
+    if(false && faq && !document.querySelector('.preview-waits')){
       var wt = document.createElement('section');
       wt.className = 'preview-waits';
       wt.innerHTML = ''
@@ -6614,8 +6894,8 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(wt, faq);
     }
 
-    /* 4a. WITHOUT vs WITH us — dramatic comparison */
-    if(faq && !document.querySelector('.preview-vs2')){
+    /* 4a. WITHOUT vs WITH us — DISABLED (duplicates How-we-work + Kalkulator) */
+    if(false && faq && !document.querySelector('.preview-vs2')){
       var vs = document.createElement('section');
       vs.className = 'preview-vs2';
       vs.innerHTML = ''
@@ -6668,9 +6948,9 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(vs, faq);
     }
 
-    /* 4b. Latest news — inject before FAQ */
+    /* 4b. Latest news — DISABLED (placeholder content; re-enable when real blog posts wired) */
     var faq = document.querySelector('.faq-section');
-    if(faq && !document.querySelector('.preview-news')){
+    if(false && faq && !document.querySelector('.preview-news')){
       var news = document.createElement('section');
       news.className = 'preview-news';
       news.innerHTML = ''
