@@ -5100,9 +5100,118 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 </style>
 
+<style id="preview-cabinet-feature">
+/* ════════════════════════════════════════════════════════════
+   PERSONAL CABINET — our know-how (features + dashboard preview)
+   ════════════════════════════════════════════════════════════ */
+.preview-cabinet-feature{
+  max-width:1180px;margin:80px auto;padding:60px 40px;
+  background:
+    radial-gradient(ellipse at top right,rgba(167,139,250,.12) 0%,transparent 55%),
+    radial-gradient(ellipse at bottom left,rgba(91,82,204,.10) 0%,transparent 50%),
+    linear-gradient(180deg,#0e0a23 0%,#1a1545 100%);
+  border:1px solid rgba(167,139,250,.30);
+  border-radius:32px;color:#fff;
+  position:relative;overflow:hidden;
+}
+.pcf-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2.5px;color:#a78bfa;font-weight:700;text-transform:uppercase;text-align:center;display:block;margin-bottom:12px;}
+.pcf-eyebrow::before{content:'⚡ ';margin-right:4px;}
+.pcf-title{
+  font-family:'Playfair Display','Lora',Georgia,serif;
+  font-size:clamp(32px,4.5vw,50px);
+  font-weight:800;color:#fff;letter-spacing:-1px;text-align:center;
+  line-height:1.1;margin:0 auto 14px;max-width:760px;
+}
+.pcf-title em{
+  font-style:italic;background:linear-gradient(135deg,#a78bfa 0%,#c4b5fd 50%,#ddd6fe 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-weight:700;
+}
+.pcf-sub{
+  font-family:'Inter',sans-serif;font-size:16px;color:rgba(255,255,255,.70);
+  max-width:620px;margin:0 auto 48px;text-align:center;line-height:1.6;
+}
+
+/* Features grid 3x2 */
+.pcf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:48px;position:relative;z-index:1;}
+.pcf-card{
+  background:rgba(255,255,255,.025);border:1px solid rgba(167,139,250,.18);
+  border-radius:18px;padding:26px 24px;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease;
+  position:relative;overflow:hidden;
+}
+.pcf-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.45),transparent);
+  opacity:0;transition:opacity .3s ease;
+}
+.pcf-card:hover{
+  transform:translateY(-4px);
+  background:rgba(91,82,204,.10);border-color:rgba(167,139,250,.45);
+  box-shadow:0 18px 40px rgba(7,5,15,.40);
+}
+.pcf-card:hover::before{opacity:1;}
+.pcf-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(91,82,204,.22),rgba(167,139,250,.15));
+  border:1px solid rgba(167,139,250,.30);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px;font-size:24px;color:#c4b5fd;
+}
+.pcf-card h3{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px;margin:0 0 8px;line-height:1.25;}
+.pcf-card p{font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.65);margin:0;line-height:1.55;}
+
+/* Dashboard mockup */
+.pcf-dash-wrap{position:relative;z-index:1;}
+.pcf-dash-label{
+  font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;
+  text-align:center;text-transform:uppercase;margin-bottom:20px;display:block;
+}
+.pcf-dash-label::before,.pcf-dash-label::after{content:'';display:inline-block;width:40px;height:1px;background:rgba(167,139,250,.40);vertical-align:middle;margin:0 14px;}
+.pcf-frame{
+  background:#fff;border-radius:18px;overflow:hidden;
+  box-shadow:0 36px 90px rgba(7,5,15,.55),0 0 0 1px rgba(167,139,250,.30);
+  margin:0 auto;max-width:1000px;
+}
+.pcb-browser-bar{background:#f3f1ee;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e5e1dc;}
+.pcb-dots{display:flex;gap:6px;}
+.pcb-dot{width:11px;height:11px;border-radius:50%;}
+.pcb-dot.r{background:#ef4444;}.pcb-dot.y{background:#fbbf24;}.pcb-dot.g{background:#22c55e;}
+.pcb-url{flex:1;background:#fff;border-radius:6px;padding:5px 12px;font-size:11.5px;color:#6b7280;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:6px;}
+.pcb-url::before{content:'🔒';font-size:10px;}
+
+/* CTA bottom */
+.pcf-cta-row{
+  margin-top:36px;padding:24px 28px;
+  background:rgba(167,139,250,.10);border:1px solid rgba(167,139,250,.30);border-radius:18px;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+.pcf-cta-text{font-family:'Inter',sans-serif;font-size:14.5px;color:#fff;line-height:1.5;flex:1;min-width:240px;}
+.pcf-cta-text b{color:#c4b5fd;}
+.pcf-cta-btn{
+  display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:60px;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;text-decoration:none;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+  box-shadow:0 14px 32px rgba(91,82,204,.45);
+  transition:transform .2s,box-shadow .2s;white-space:nowrap;
+}
+.pcf-cta-btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(91,82,204,.60);}
+
+/* Hide the old small cabinet block — replaced by this big section */
+.preview-cab:not(.preview-cabinet-feature){display:none !important;}
+
+@media(max-width:820px){
+  .preview-cabinet-feature{margin:48px 12px;padding:38px 22px;border-radius:22px;}
+  .pcf-title{font-size:26px;}
+  .pcf-sub{font-size:14px;margin-bottom:32px;}
+  .pcf-grid{grid-template-columns:1fr;gap:12px;}
+  .pcf-card{padding:22px 18px;}
+}
+</style>
+
 <style id="preview-cabinet-demo">
 /* ════════════════════════════════════════════════════════════
-   Фишка 4: DEMO PANELU KLIENTA — show real cabinet preview
+   OLD: DEMO PANELU KLIENTA — kept for inline mockup reuse
    ════════════════════════════════════════════════════════════ */
 .preview-cab{
   max-width:1180px;margin:60px auto;padding:48px 32px;
@@ -7074,11 +7183,11 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<div class="phc-step"><div class="phc-num">01</div><div class="phc-body"><h3 class="phc-title-step">Piszesz do nas na WhatsApp</h3><p class="phc-desc">PL · EN · RU · UA. Odpowiadamy w 15 minut w dni robocze.</p></div><div class="phc-time"><div class="phc-time-num">~60 s</div><div class="phc-time-unit">odpowiedź</div></div></div>'
           +'<div class="phc-step"><div class="phc-num">02</div><div class="phc-body"><h3 class="phc-title-step">Bezpłatna analiza prawnika</h3><p class="phc-desc">Realny prawnik czyta twoją sytuację, daje listę dokumentów i wycenę. Bez zaliczki.</p></div><div class="phc-time"><div class="phc-time-num">~20 min</div><div class="phc-time-unit">audyt</div></div></div>'
           +'<div class="phc-step"><div class="phc-num">03</div><div class="phc-body"><h3 class="phc-title-step">Przygotowanie dokumentów + złożenie przez MOS</h3><p class="phc-desc">Wypełniamy wniosek, tłumaczymy, weryfikujemy Załącznik nr 1 i składamy online (Profil Zaufany). Ty nie dotykasz formularzy.</p></div><div class="phc-time"><div class="phc-time-num">7–14 dni</div><div class="phc-time-unit">przygotowanie</div></div></div>'
-          +'<div class="phc-step"><div class="phc-num">04</div><div class="phc-body"><h3 class="phc-title-step">Aktywne pilotowanie sprawy</h3><p class="phc-desc">Składamy ponaglenia, skargi na bezczynność, dzwonimy do urzędu. Ty dostajesz update co 2 tygodnie na WhatsApp.</p></div><div class="phc-time"><div class="phc-time-num">2–3 mies.</div><div class="phc-time-unit">obsługa</div></div></div>'
+          +'<div class="phc-step"><div class="phc-num">04</div><div class="phc-body"><h3 class="phc-title-step">Aktywne pilotowanie sprawy</h3><p class="phc-desc">Składamy ponaglenia, skargi na bezczynność, dzwonimy do urzędu. Ty dostajesz update co 2 tygodnie na WhatsApp.</p></div><div class="phc-time"><div class="phc-time-num">Active</div><div class="phc-time-unit">obsługa</div></div></div>'
           +'<div class="phc-step"><div class="phc-num">05</div><div class="phc-body"><h3 class="phc-title-step">Karta w twoim ręku</h3><p class="phc-desc">Umawiamy odbiór w urzędzie wojewódzkim. Jedna wizyta — 30 min, wchodzisz z paszportem, wychodzisz z kartą.</p></div><div class="phc-time"><div class="phc-time-num">1 h</div><div class="phc-time-unit">odbiór</div></div></div>'
         +'</div>'
         +'<div class="phc-foot">'
-          +'<div class="phc-foot-text"><b>Łączny czas: 2–3 miesiące</b> (vs. 8–18 mies. standardowo). MOS · ponaglenia · realny prawnik na czacie.</div>'
+          +'<div class="phc-foot-text"><b>MOS · ponaglenia · skarga na bezczynność</b> — używamy wszystkich legalnych narzędzi by przyspieszyć Twoją sprawę.</div>'
           +'<a class="phc-foot-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Chcę rozpocząć proces — legalsol.pl')+'">Rozpocznij teraz →</a>'
         +'</div>';
       about.parentNode.insertBefore(howClean, about.nextSibling);
@@ -7227,8 +7336,73 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
 
-    /* === Фишка 4: DEMO PANELU KLIENTA === */
-    if(faq && !document.querySelector('.preview-cab')){
+    /* === BIG PERSONAL CABINET SECTION — features + dashboard preview === */
+    if(faq && !document.querySelector('.preview-cabinet-feature')){
+      var pcf = document.createElement('section');
+      pcf.className = 'preview-cabinet-feature';
+      pcf.innerHTML = ''
+        +'<span class="pcf-eyebrow">OUR KNOW-HOW · LEGALSOL CABINET</span>'
+        +'<h2 class="pcf-title">Your case, <em>your control</em></h2>'
+        +'<p class="pcf-sub">Every LegalSol client gets a personal dashboard — payments, status, chat with your lawyer, document vault, official confirmations. All in one place, 24/7. <b style="color:#a78bfa">Free with our service.</b></p>'
+        +'<div class="pcf-grid">'
+          +'<div class="pcf-card"><div class="pcf-icon">📊</div><h3>Real-time case status</h3><p>Track every milestone — MOS submission, fingerprints, decision, pickup. No more guessing what your lawyer is doing.</p></div>'
+          +'<div class="pcf-card"><div class="pcf-icon">💬</div><h3>Direct chat with your lawyer</h3><p>Kamil and the team — in WhatsApp and in your cabinet. Reply in 15 minutes on weekdays. No call centers, no scripts.</p></div>'
+          +'<div class="pcf-card"><div class="pcf-icon">📁</div><h3>Secure document vault</h3><p>Upload, store, e-sign — all your residence permit paperwork in one encrypted place. Download anytime, even after pickup.</p></div>'
+          +'<div class="pcf-card"><div class="pcf-icon">💳</div><h3>In-cabinet payments</h3><p>Pay milestones securely with card or BLIK. See every invoice. No bank transfers, no QR confusion, full transparency.</p></div>'
+          +'<div class="pcf-card"><div class="pcf-icon">🔔</div><h3>WhatsApp notifications</h3><p>Every status change → instant ping. Decision issued, fingerprints date set, card ready — you get pinged first.</p></div>'
+          +'<div class="pcf-card"><div class="pcf-icon">🟥</div><h3>Czerwona pieczątka — instant PDF</h3><p>Right after MOS submission you can download the stamped confirmation. Need to travel? It\'s already in your cabinet.</p></div>'
+        +'</div>'
+        +'<div class="pcf-dash-wrap">'
+          +'<span class="pcf-dash-label">Live preview</span>'
+          +'<div class="pcf-frame">'
+            +'<div class="pcb-browser-bar"><div class="pcb-dots"><span class="pcb-dot r"></span><span class="pcb-dot y"></span><span class="pcb-dot g"></span></div><div class="pcb-url">legalsol.pl/cabinet — Jan Nowak · Karta Pobytu</div></div>'
+            +'<div class="pcb-body">'
+              +'<div class="pcb-side">'
+                +'<div class="pcb-side-logo">LEGALSOL<small>YOUR CABINET</small></div>'
+                +'<div class="pcb-nav-item active">📊 Case status</div>'
+                +'<div class="pcb-nav-item">📁 Documents</div>'
+                +'<div class="pcb-nav-item">💬 Chat with lawyer</div>'
+                +'<div class="pcb-nav-item">💳 Payments</div>'
+                +'<div class="pcb-nav-item">🧾 Invoices</div>'
+              +'</div>'
+              +'<div class="pcb-content">'
+                +'<div class="pcb-greeting">Hi Jan 👋</div>'
+                +'<div class="pcb-status">Karta Czasowego Pobytu · Mazowieckie · Step 4 of 5</div>'
+                +'<div class="pcb-progress">'
+                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Documents<br><b>100%</b></div></div>'
+                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">MOS submission<br><b>100%</b></div></div>'
+                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Fingerprints<br><b>Done</b></div></div>'
+                  +'<div class="pcb-step active"><div class="pcb-step-dot">4</div><div class="pcb-step-label">Decision<br><b>in progress</b></div></div>'
+                  +'<div class="pcb-step"><div class="pcb-step-dot">5</div><div class="pcb-step-label">Pickup<br><b>—</b></div></div>'
+                +'</div>'
+                +'<div class="pcb-cards">'
+                  +'<div class="pcb-card">'
+                    +'<div class="pcb-card-title">💬 Your lawyer · Kamil</div>'
+                    +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Application submitted Mar 14. Waiting for confirmation from urząd.</div>'
+                    +'<div class="pcb-chat-msg pcb-chat-out">Thanks! Can I travel in the meantime?</div>'
+                    +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Yes — passport stamp is valid 6 months. Safe to travel.</div>'
+                  +'</div>'
+                  +'<div class="pcb-card">'
+                    +'<div class="pcb-card-title">📁 Documents</div>'
+                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📄</div><div class="pcb-doc-name">Application · 4 copies<small>submitted 14.03</small></div><span class="pcb-pieczatka">●</span></div>'
+                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📎</div><div class="pcb-doc-name">Załącznik nr 1<small>verified</small></div><span class="pcb-pieczatka">●</span></div>'
+                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🧾</div><div class="pcb-doc-name">ZUS RCA · 6 mo<small>complete</small></div><span class="pcb-pieczatka">●</span></div>'
+                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🟥</div><div class="pcb-doc-name">Stamped confirmation<small>15.03 · Download PDF</small></div><span class="pcb-pieczatka">PIECZĄTKA</span></div>'
+                  +'</div>'
+                +'</div>'
+              +'</div>'
+            +'</div>'
+          +'</div>'
+        +'</div>'
+        +'<div class="pcf-cta-row">'
+          +'<div class="pcf-cta-text"><b>The cabinet is included free</b> with every LegalSol service. From your first message to card pickup — everything visible, secure, and on your phone.</div>'
+          +'<a class="pcf-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want a residence card with full transparency — cabinet access included. legalsol.pl')+'">Start with cabinet →</a>'
+        +'</div>';
+      faq.parentNode.insertBefore(pcf, faq);
+    }
+
+    /* === OLD small DEMO PANELU KLIENTA (kept for code reuse, disabled inject) === */
+    if(false && faq && !document.querySelector('.preview-cab')){
       var cab = document.createElement('section');
       cab.className = 'preview-cab';
       cab.innerHTML = ''
@@ -7401,7 +7575,7 @@ document.addEventListener('DOMContentLoaded', function(){
         +'<div class="pmh-head">'
           +'<span class="pmh-eyebrow">RESIDENCE CARD · AVERAGE WAITING TIME 2025</span>'
           +'<h2 class="pmh-title">Where is the office <em>slowest</em>?</h2>'
-          +'<p class="pmh-sub">Real average waiting time per voivodeship — official data 28.02.2025. With LegalSol you get the card in 60–90 days <b>anywhere</b>.</p>'
+          +'<p class="pmh-sub">Real average waiting time per voivodeship — official data from urząd wojewódzki reports (28.02.2025). We actively accelerate your case anywhere in Poland.</p>'
         +'</div>'
         +'<div class="pmh-legend">'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#22c55e"></span>up to 220 days</div>'
@@ -7421,11 +7595,11 @@ document.addEventListener('DOMContentLoaded', function(){
         +'<div class="pmh-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;">'
           +'<div style="background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.30);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;">Shortest</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#86efac;margin-top:4px">Małopolskie · 170 days</div></div>'
           +'<div style="background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.30);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;">Longest</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#fca5a5;margin-top:4px">Śląskie · 687 days</div></div>'
-          +'<div style="background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(167,139,250,.10));border:1px solid rgba(167,139,250,.40);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:#a78bfa;font-weight:700;text-transform:uppercase;">With LegalSol</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#fff;margin-top:4px">60–90 days · anywhere</div></div>'
+          +'<div style="background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(167,139,250,.10));border:1px solid rgba(167,139,250,.40);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:#a78bfa;font-weight:700;text-transform:uppercase;">With LegalSol</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#fff;margin-top:4px">Active acceleration</div></div>'
         +'</div>'
         +'<div class="pmh-cta-row" style="margin-top:18px;">'
-          +'<div class="pmh-cta-text">No matter which voivodeship — <b>with LegalSol you get your card in 60–90 days.</b> We file ponaglenia and complaints for inactivity.</div>'
-          +'<a class="pmh-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want my residence card in 60-90 days, no matter the voivodeship. legalsol.pl')+'">Speed up my case →</a>'
+          +'<div class="pmh-cta-text">No matter which voivodeship — <b>we actively push your case</b> with ponaglenia and complaints for inactivity (skarga na bezczynność).</div>'
+          +'<a class="pmh-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want to accelerate my residence card case. legalsol.pl')+'">Speed up my case →</a>'
         +'</div>';
       if(insertAsTop){ heroSection.parentNode.insertBefore(mp, heroSection.nextSibling); }
       else { faq.parentNode.insertBefore(mp, faq); }
@@ -7435,8 +7609,7 @@ document.addEventListener('DOMContentLoaded', function(){
       mp.querySelectorAll('.pmv').forEach(function(poly){
         function showTip(e){
           var h = SVG_VOIVS[parseInt(poly.dataset.i)];
-          var saved = h.days - 75;  // average of 60-90
-          tt.innerHTML = '<b>'+h.n+'</b><small>Capital: '+h.c+'</small><div class="pmh-tt-row"><span>Standard wait</span><span class="bad">'+h.days+' days</span></div><div class="pmh-tt-row"><span>With LegalSol</span><span class="good">60–90 days</span></div><div class="pmh-tt-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);"><span style="color:#fde047;font-weight:600">You save</span><span style="color:#fde047;font-weight:700">~'+saved+' days</span></div>';
+          tt.innerHTML = '<b>'+h.n+'</b><small>Capital: '+h.c+'</small><div class="pmh-tt-row"><span>Standard wait</span><span class="bad">'+h.days+' days</span></div><div class="pmh-tt-row"><span>With LegalSol</span><span class="good">Actively accelerated</span></div><div class="pmh-tt-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);font-size:11px;color:rgba(255,255,255,.55);">ponaglenia · skarga na bezczynność · MOS</div>';
           var rect = wrap.getBoundingClientRect();
           tt.style.left = (e.clientX - rect.left) + 'px';
           tt.style.top = (e.clientY - rect.top - 20) + 'px';
@@ -7493,7 +7666,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /* === MEGA WIZARD — replaces both Calculator and Documents Checklist === */
     if(reviews && !document.querySelector('.preview-mw')){
       var MW_DOC = {
-        praca:{label:'Praca (Czasowy)',  service:'KARTA POBYTU · PRACA',           tBad:'8–14 mies.',tGood:'2–3 mies.',d:[
+        praca:{label:'Praca (Czasowy)',  service:'KARTA POBYTU · PRACA',           tBad:'8–14 mies.',tGood:'Active acceleration',d:[
           {t:'Wniosek o pobyt czasowy (MOS)',s:'składany elektronicznie przez Profil Zaufany'},
           {t:'Załącznik nr 1 od pracodawcy',c:true,s:'wypełniony elektronicznie przez pracodawcę'},
           {t:'4 fotografie biometryczne 35×45mm',s:'aktualne (do 6 mies.), kolorowe'},
@@ -7506,7 +7679,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'PIT-11 / PIT-37 za ostatni rok',s:'jeśli pracowałeś już w PL'},
           {t:'Opłata skarbowa 440 PLN + karta 100 PLN'}
         ]},
-        spolka:{label:'Spółka / Biznes', service:'ZARZĄD SPÓŁKI / KARTA POBYTU',   tBad:'12–18 mies.',tGood:'3–4 mies.',d:[
+        spolka:{label:'Spółka / Biznes', service:'ZARZĄD SPÓŁKI / KARTA POBYTU',   tBad:'12–18 mies.',tGood:'Active acceleration',d:[
           {t:'Wniosek o pobyt czasowy (MOS)',s:'cel: prowadzenie działalności gospodarczej'},
           {t:'Aktualny odpis z KRS / wpis CEIDG',c:true,s:'wydany w ciągu ostatnich 3 mies.'},
           {t:'Umowa spółki (dla Sp. z o.o.)',s:'oryginał lub uwierzytelniona kopia'},
@@ -7521,7 +7694,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'Tytuł prawny do lokalu + ubezpieczenie zdrowotne'},
           {t:'Opłata skarbowa 340 PLN + karta 100 PLN'}
         ]},
-        staly:{label:'Stały / Rezydent UE', service:'POBYT STAŁY · REZYDENT UE',   tBad:'14–22 mies.',tGood:'3–5 mies.',d:[
+        staly:{label:'Stały / Rezydent UE', service:'POBYT STAŁY · REZYDENT UE',   tBad:'14–22 mies.',tGood:'Active acceleration',d:[
           {t:'Wniosek o pobyt stały / rezydenta UE',s:'składany przez MOS'},
           {t:'Karta Polaka / akt małżeństwa z obywatelem RP / akt urodzenia',c:true,s:'dokument uprawniający'},
           {t:'5 lat nieprzerwanego pobytu w RP',c:true,s:'dla rezydenta UE — kopie wszystkich kart pobytu'},
@@ -7533,7 +7706,7 @@ document.addEventListener('DOMContentLoaded', function(){
           {t:'4 fotografie biometryczne + paszport'},
           {t:'Opłata skarbowa 640 PLN + karta 100 PLN',s:'posiadacze Karty Polaka — zwolnieni'}
         ]},
-        odwol:{label:'Odwołanie / Odmowa',service:'ODWOŁANIE DO SZEFA UDSC',       tBad:'18–24 mies.',tGood:'1–2 mies.',d:[
+        odwol:{label:'Odwołanie / Odmowa',service:'ODWOŁANIE DO SZEFA UDSC',       tBad:'18–24 mies.',tGood:'Priority handling',d:[
           {t:'Pismo odwoławcze do Szefa UDSC',c:true,s:'składane PRZEZ Wojewodę, NIE bezpośrednio'},
           {t:'TERMIN: 14 dni od doręczenia decyzji',c:true,chip:'KRYTYCZNE',s:'art. 129 § 2 KPA — liczy się każdy dzień'},
           {t:'Numer i data zaskarżonej decyzji',s:'musi być cytowana w odwołaniu'},
@@ -7580,7 +7753,7 @@ document.addEventListener('DOMContentLoaded', function(){
           var probTxt = prob>=85?'Bardzo wysokie':prob>=70?'Średnie — wymaga korekty':'Niskie — pomożemy';
           var sum = buildSummary();
           body = '<div class="mw-analysis">'
-            +'<div class="mw-card"><div class="mw-card-label">Ścieżka</div><div class="mw-card-val good" style="font-size:18px;letter-spacing:.5px">'+c.service+'</div><div class="mw-card-sub">Średni czas urzędowy <b style="color:#f87171">'+c.tBad+'</b><br>Z LegalSol <b style="color:#22c55e">'+c.tGood+'</b></div></div>'
+            +'<div class="mw-card"><div class="mw-card-label">Ścieżka</div><div class="mw-card-val good" style="font-size:18px;letter-spacing:.5px">'+c.service+'</div><div class="mw-card-sub">Średni czas urzędowy <b style="color:#f87171">'+c.tBad+'</b><br>Z LegalSol <b style="color:#22c55e;font-size:13px">'+c.tGood+'</b></div></div>'
             +'<div class="mw-card"><div class="mw-card-label">Twoja gotowość</div><div class="mw-card-val '+probColor+'">'+prob+'%</div><div class="mw-card-bar"><div class="mw-card-fill '+probColor+'" style="width:'+prob+'%"></div></div><div class="mw-card-sub">'+probTxt+'</div></div>'
           +'</div>'
           +(sum.missing.length > 0
@@ -8603,21 +8776,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top:0;text-align:center;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.3px;margin-bottom:14px;">
       ✓ First consultation is always free · WhatsApp · 15 min response
     </div>
-    <!-- Hero trust micro-badges row -->
-    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 24px;max-width:560px;">
-      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
-        <span style="color:#22c55e;font-weight:800;">3 057+</span><span>kart wydanych</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
-        <span style="color:#22c55e;font-weight:800;">98.1%</span><span>positive</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
-        <span style="color:#fde047;font-weight:800;">★ 4.9</span><span>Google</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
-        <span style="color:#a78bfa;font-weight:800;">2–3 mies.</span><span>średni czas</span>
-      </div>
-    </div>
+    <!-- Hero trust micro-badges row — REMOVED (looked too playful; Trust strip below handles it) -->
 
     <div class="hero-btns">
 
