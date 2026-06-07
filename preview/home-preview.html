@@ -6257,6 +6257,82 @@ document.addEventListener('DOMContentLoaded', function(){
 .hero-left p,#hero .hero-sub{text-align:center !important;}
 </style>
 
+<style id="hero-clean-layout">
+/* ════════════════════════════════════════════════════════════
+   HERO — clean single-column centered layout (proportional)
+   ════════════════════════════════════════════════════════════ */
+#hero{
+  text-align:center !important;
+  padding:60px 24px 50px !important;
+  min-height:auto !important;
+  display:block !important;
+}
+#hero > *{display:block;max-width:920px;margin-left:auto !important;margin-right:auto !important;}
+.hero-left,#hero-left{
+  text-align:center !important;
+  max-width:820px !important;
+  margin:0 auto !important;
+  width:100% !important;
+  padding:0 !important;
+}
+/* Hide right column (video) until we have a real video file */
+.hero-right{display:none !important;}
+
+/* Heading — sane proportions */
+.hero-title,#hero h1,#hero-h1{
+  font-family:'Playfair Display','Lora',Georgia,serif !important;
+  font-size:clamp(38px, 5.5vw, 62px) !important;
+  font-weight:800 !important;
+  letter-spacing:-1.5px !important;
+  line-height:1.05 !important;
+  margin:0 auto 18px !important;
+  max-width:780px !important;
+  color:#fff !important;
+}
+.hero-title em,#hero h1 em{
+  font-family:'Playfair Display','Lora',Georgia,serif !important;
+  font-style:italic !important;
+  background:linear-gradient(135deg,#a78bfa 0%,#c4b5fd 50%,#ddd6fe 100%) !important;
+  -webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;color:transparent !important;
+  font-weight:700 !important;
+}
+
+/* Sub text */
+.hero-sub,#hero-sub,#hero p:not(.hero-stat-num):not(.hero-stat-lbl){
+  font-family:'Inter',sans-serif !important;
+  font-size:17px !important;
+  color:rgba(255,255,255,.72) !important;
+  max-width:560px !important;
+  margin:0 auto 28px !important;
+  line-height:1.55 !important;
+  letter-spacing:.1px !important;
+}
+
+/* Hero badge — Warsaw · Poland — center */
+.hero-badge{
+  margin:0 auto 24px !important;
+  text-align:center !important;
+  font-size:11px !important;letter-spacing:1.8px !important;
+}
+
+/* Hide bulky duplicate stats — Trust strip below handles them */
+.hero-stats,.stats-strip,#hero-stats{display:none !important;}
+/* Hide "All services →" link in hero — not needed */
+.hero-all-services,a[href*="services"]:not(.btn):not([class*="cta"]){display:none !important;}
+
+/* Single button — make it perfectly centered */
+.hero-single-cta,#hero .hsb-main{
+  margin:0 auto 14px !important;display:flex !important;
+}
+
+@media(max-width:760px){
+  #hero{padding:36px 16px 28px !important;}
+  .hero-title{font-size:32px !important;letter-spacing:-.5px !important;}
+  .hero-sub{font-size:15px !important;}
+}
+</style>
+
 <style id="hero-hard-hide">
 /* HARD-HIDE all extra hero buttons — CSS-level (works even if JS fails) */
 #hero .hero-svc-eyebrow,
