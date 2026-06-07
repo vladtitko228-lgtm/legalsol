@@ -5279,16 +5279,14 @@ document.addEventListener('DOMContentLoaded', function(){
 .pmh-svg{width:100%;height:auto;display:block;}
 .pmv{
   stroke:rgba(7,5,15,.85);stroke-width:1.5;stroke-linejoin:round;
-  cursor:pointer;transition:filter .2s ease, transform .2s ease;
-  transform-origin:center;transform-box:fill-box;
-  filter:url(#pmv-shadow);
+  cursor:pointer;transition:fill-opacity .25s ease;
+  fill-opacity:.92;
 }
-.pmv.pmv-red{fill:url(#redGrad) #dc2626;}
+.pmv.pmv-red{fill:#dc2626;}
 .pmv.pmv-yellow{fill:#fbbf24;}
 .pmv.pmv-green{fill:#22c55e;}
-.pmv:hover{filter:brightness(1.25) url(#pmv-shadow);}
-/* Pulsing extreme red voivodeships */
-@keyframes pmvPulse{0%,100%{filter:url(#pmv-shadow) brightness(1);}50%{filter:url(#pmv-shadow) brightness(1.25);}}
+.pmv:hover{fill-opacity:1;stroke:#fff;stroke-width:2.5;}
+@keyframes pmvPulse{0%,100%{fill-opacity:.85;}50%{fill-opacity:1;}}
 .pmv.pmv-red{animation:pmvPulse 2.8s ease-in-out infinite;}
 .pmv.pmv-red:hover{animation:none;}
 .pml-name{
@@ -7324,9 +7322,6 @@ document.addEventListener('DOMContentLoaded', function(){
         +'</div>'
         +'<div class="pmh-svg-wrap">'
           +'<svg viewBox="0 0 600 540" class="pmh-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa Polski — czasy oczekiwania">'
-            +'<defs>'
-              +'<filter id="pmv-shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="0" dy="2" result="o"/><feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
-            +'</defs>'
             +pathsHtml
             +labelsHtml
           +'</svg>'
