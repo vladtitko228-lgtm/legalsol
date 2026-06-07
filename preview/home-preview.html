@@ -6235,6 +6235,19 @@ document.addEventListener('DOMContentLoaded', function(){
 .hero-left p,#hero .hero-sub{text-align:center !important;}
 </style>
 
+<style id="hero-hard-hide">
+/* HARD-HIDE all extra hero buttons — CSS-level (works even if JS fails) */
+#hero .hero-svc-eyebrow,
+#hero #hero-svc-eyebrow,
+#hero .hero-mega-cta,
+#hero .hero-svc-row.hsr-final .hsb-mini-row,
+.hero-right-cta-pv{
+  display:none !important;
+}
+/* Hero scenario row — only show the main button */
+#hero .hero-svc-row.hsr-final > *:not(.hsb-main){display:none !important;}
+</style>
+
 <style id="hero-symmetry">
 /* ════════════════════════════════════════════════════════════
    HERO — side-by-side CTAs with clear primary/secondary hierarchy
