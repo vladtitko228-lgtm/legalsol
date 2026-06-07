@@ -4737,6 +4737,153 @@ document.addEventListener('DOMContentLoaded', function(){
   </a>
 </div>
 
+<style id="preview-mega-wizard">
+/* ════════════════════════════════════════════════════════════
+   MEGA WIZARD — Checklist → Analysis → WhatsApp
+   Replaces both Calculator and Documents Checklist
+   ════════════════════════════════════════════════════════════ */
+.preview-mw{
+  max-width:980px;margin:60px auto;padding:42px 38px 36px;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%);
+  border:1px solid rgba(91,82,204,.32);border-radius:24px;color:#fff;
+  box-shadow:0 24px 70px rgba(7,5,15,.45),inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+}
+.mw-glow{position:absolute;inset:-40px;pointer-events:none;background:radial-gradient(circle at 80% 20%,rgba(167,139,250,.10),transparent 50%);}
+.mw-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:24px;position:relative;}
+.mw-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;text-transform:uppercase;}
+.mw-title{font-family:'Lora',Georgia,serif;font-size:30px;font-weight:700;color:#fff;letter-spacing:-.4px;margin:6px 0 0;line-height:1.2;}
+.mw-title em{color:#22c55e;font-style:italic;font-weight:600;}
+.mw-step-i{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;}
+.mw-step-i b{color:#fff;}
+.mw-progress{height:6px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden;margin-bottom:28px;position:relative;}
+.mw-progress-fill{height:100%;background:linear-gradient(90deg,#5b52cc,#22c55e);border-radius:6px;width:33%;transition:width .5s cubic-bezier(.16,1,.3,1);}
+
+/* STEP 1 — Tabs + checklist */
+.mw-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.mw-tab{
+  background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.22);
+  border-radius:60px;padding:10px 18px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:rgba(255,255,255,.75);
+  cursor:pointer;transition:all .2s ease;flex:1;min-width:140px;text-align:center;
+}
+.mw-tab:hover{background:rgba(91,82,204,.12);color:#fff;}
+.mw-tab.is-active{background:rgba(91,82,204,.22);border-color:#a78bfa;color:#fff;box-shadow:0 0 0 1px rgba(167,139,250,.40);}
+.mw-meter-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:10px;}
+.mw-meter-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.78);}
+.mw-meter-count{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.65);font-weight:700;}
+.mw-meter-count b{color:#22c55e;font-size:16px;font-weight:800;}
+.mw-meter-bar{height:6px;background:rgba(255,255,255,.06);border-radius:6px;margin-bottom:20px;overflow:hidden;}
+.mw-meter-fill{height:100%;background:linear-gradient(90deg,#5b52cc,#22c55e);border-radius:6px;width:0%;transition:width .4s ease;}
+.mw-list{list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:6px;}
+.mw-item{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:rgba(255,255,255,.02);border:1px solid rgba(139,130,232,.14);
+  border-radius:60px;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.82);
+  transition:all .15s ease;
+}
+.mw-item:hover{background:rgba(91,82,204,.08);border-color:rgba(139,130,232,.30);}
+.mw-cb{
+  flex-shrink:0;width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(139,130,232,.40);
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;transition:all .2s ease;
+}
+.mw-item.is-done .mw-cb{background:#22c55e;border-color:#22c55e;}
+.mw-cb svg{opacity:0;transition:opacity .2s;}
+.mw-item.is-done .mw-cb svg{opacity:1;}
+.mw-item.is-done{background:rgba(34,197,94,.06);border-color:rgba(34,197,94,.20);}
+.mw-item.is-done .mw-txt{color:rgba(255,255,255,.55);}
+.mw-txt{flex:1;line-height:1.4;}
+.mw-txt small{display:block;font-size:11px;color:rgba(255,255,255,.45);margin-top:1px;}
+
+/* STEP 2 — Analysis */
+.mw-analysis{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.mw-card{background:rgba(255,255,255,.025);border:1px solid rgba(139,130,232,.20);border-radius:14px;padding:22px;}
+.mw-card-label{font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:1.5px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;}
+.mw-card-val{font-family:'Inter',sans-serif;font-size:30px;font-weight:800;margin-top:5px;letter-spacing:-.5px;line-height:1;}
+.mw-card-val.good{color:#22c55e;}
+.mw-card-val.bad{color:#f87171;}
+.mw-card-val.warn{color:#fbbf24;}
+.mw-card-sub{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;line-height:1.4;}
+.mw-card-bar{height:8px;background:rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:10px;}
+.mw-card-fill{height:100%;border-radius:8px;}
+.mw-card-fill.good{background:linear-gradient(90deg,#22c55e,#86efac);}
+.mw-card-fill.bad{background:linear-gradient(90deg,#dc2626,#f87171);}
+.mw-missing{
+  background:linear-gradient(180deg,rgba(239,68,68,.10) 0%,rgba(239,68,68,.04) 100%);
+  border:1px solid rgba(239,68,68,.25);border-radius:14px;padding:20px;margin-top:18px;
+}
+.mw-missing-head{display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;color:#fca5a5;margin-bottom:10px;letter-spacing:.3px;}
+.mw-missing-list{display:flex;flex-direction:column;gap:6px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.78);}
+.mw-missing-list span{display:flex;align-items:center;gap:8px;}
+.mw-missing-list span::before{content:'✕';color:#f87171;font-weight:700;flex-shrink:0;}
+.mw-all-ready{
+  background:linear-gradient(180deg,rgba(34,197,94,.10) 0%,rgba(34,197,94,.04) 100%);
+  border:1px solid rgba(34,197,94,.30);border-radius:14px;padding:24px;margin-top:18px;
+  font-family:'Inter',sans-serif;font-size:14px;color:#86efac;text-align:center;font-weight:600;
+}
+
+/* STEP 3 — Contact form */
+.mw-contact{display:flex;flex-direction:column;gap:18px;}
+.mw-summary{
+  background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.20);border-radius:14px;padding:20px;
+  font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.75);line-height:1.55;
+}
+.mw-summary b{color:#fff;}
+.mw-summary-chip{display:inline-block;background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;padding:4px 12px;border-radius:60px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:800;margin-right:8px;}
+.mw-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.mw-flabel{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,.55);font-weight:700;text-transform:uppercase;margin-bottom:6px;display:block;}
+.mw-input{
+  width:100%;padding:14px 16px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(139,130,232,.22);border-radius:12px;
+  color:#fff;font-family:'Inter',sans-serif;font-size:14.5px;
+  outline:none;box-sizing:border-box;
+  transition:border-color .2s,background .2s;
+}
+.mw-input:focus{border-color:#a78bfa;background:rgba(91,82,204,.10);}
+.mw-input::placeholder{color:rgba(255,255,255,.30);}
+
+/* Buttons */
+.mw-btn-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.mw-back{
+  background:none;border:1px solid rgba(139,130,232,.30);color:rgba(255,255,255,.65);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;
+  padding:14px 24px;border-radius:60px;cursor:pointer;
+  transition:all .2s ease;
+}
+.mw-back:hover{background:rgba(139,130,232,.10);color:#fff;}
+.mw-next{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:16px 28px;border-radius:60px;
+  box-shadow:0 12px 30px rgba(91,82,204,.40),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s,box-shadow .2s;text-decoration:none;
+}
+.mw-next:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(91,82,204,.55);}
+.mw-wa{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#25D366;color:#fff;border:none;cursor:pointer;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:1.2px;text-transform:uppercase;
+  padding:16px 28px;border-radius:60px;text-decoration:none;
+  box-shadow:0 14px 32px rgba(37,211,102,.40),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .2s,box-shadow .2s;
+}
+.mw-wa:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(37,211,102,.55);}
+
+@media(max-width:760px){
+  .preview-mw{margin:30px 12px;padding:26px 18px;border-radius:18px;}
+  .mw-head{flex-direction:column;gap:6px;}
+  .mw-title{font-size:22px;}
+  .mw-tabs{flex-direction:column;gap:6px;}
+  .mw-tab{flex:none;}
+  .mw-analysis,.mw-fields{grid-template-columns:1fr;}
+  .mw-card-val{font-size:24px;}
+}
+</style>
+
 <style id="preview-zal-checker">
 /* ════════════════════════════════════════════════════════════
    Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 — ethical AI assistant
@@ -6752,7 +6899,140 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(mapa, faq);
     }
 
-    /* 4a-pre-pre. Documents Checklist (Task D) — interactive doc list per case type */
+    /* === MEGA WIZARD — replaces both Calculator and Documents Checklist === */
+    if(reviews && !document.querySelector('.preview-mw')){
+      var MW_DOC = {
+        praca:{label:'Praca (Czasowy)',  service:'KARTA POBYTU · PRACA',           tBad:'8–14 mies.',tGood:'2–4 mies.',d:[
+          {t:'Wniosek o udzielenie zezwolenia (4 egzemplarze)'},
+          {t:'Załącznik nr 1 od pracodawcy',s:'wypełniony i podpisany'},
+          {t:'Aktualna umowa o pracę / zlecenie'},
+          {t:'Rozliczenia ZUS RCA za ostatnie miesiące'},
+          {t:'Dokument ubezpieczenia zdrowotnego w Polsce'},
+          {t:'4 fotografie 35×45mm'},
+          {t:'Paszport (kopia stron z danymi)'},
+          {t:'Potwierdzenie zameldowania'},
+          {t:'Informacja starosty (test rynku)',s:'jeśli wymagana'},
+          {t:'Opłata skarbowa 340 PLN'}
+        ]},
+        spolka:{label:'Spółka / Biznes', service:'ZARZĄD SPÓŁKI / KARTA POBYTU',   tBad:'12–18 mies.',tGood:'4–5 mies.',d:[
+          {t:'Wniosek o udzielenie zezwolenia (4 egz.)'},
+          {t:'Aktualny wpis do KRS / CEIDG'},
+          {t:'Bilans i rachunek zysków za rok'},
+          {t:'Potwierdzenie obrotów spółki'},
+          {t:'ZUS DRA + składki za zarząd'},
+          {t:'Lista zatrudnionych'},
+          {t:'Lista wspólników z podpisami'},
+          {t:'Paszport członka zarządu'},
+          {t:'Adres siedziby (akt / najem)'},
+          {t:'Opłata skarbowa 340 PLN'}
+        ]},
+        staly:{label:'Stały / Rezydent', service:'POBYT STAŁY · REZYDENT UE',      tBad:'14–22 mies.',tGood:'5–7 mies.',d:[
+          {t:'Wniosek (4 egzemplarze)'},
+          {t:'5 lat pobytu — kopie kart pobytu'},
+          {t:'Stabilne źródło dochodu — zaświadczenia za 3 lata'},
+          {t:'Ubezpieczenie zdrowotne (NFZ lub prywatne)'},
+          {t:'Mieszkanie — zameldowanie / akt / najem'},
+          {t:'Certyfikat j. polskiego B1'},
+          {t:'4 fotografie 35×45mm'},
+          {t:'Karta Polaka',s:'jeśli posiadasz'},
+          {t:'Akt urodzenia / małżeństwa',s:'jeśli polskie pochodzenie'},
+          {t:'Opłata skarbowa 640 PLN'}
+        ]},
+        odwol:{label:'Odwołanie / Odmowa',service:'ODWOŁANIE OD DECYZJI',          tBad:'18–24 mies.',tGood:'3–5 mies.',d:[
+          {t:'Kopia decyzji odmownej',c:true},
+          {t:'Pełnomocnictwo dla prawnika',c:true},
+          {t:'Uzasadnienie merytoryczne odwołania'},
+          {t:'Dowody błędu organu'},
+          {t:'Aktualne zaświadczenia (jeśli stan się zmienił)'},
+          {t:'Tłumaczenia uwierzytelnione'},
+          {t:'Opłata skarbowa 10 PLN'},
+          {t:'TERMIN: 14 dni od doręczenia',c:true,s:'liczy się każdy dzień'}
+        ]}
+      };
+      var mwState = {step:1, cat:'praca', done:{praca:{},spolka:{},staly:{},odwol:{}}, name:'', phone:''};
+
+      var mw = document.createElement('section');
+      mw.className = 'preview-mw';
+
+      function buildSummary(){
+        var c = MW_DOC[mwState.cat];
+        var doneArr = c.d.map(function(it,i){return mwState.done[mwState.cat][i] ? it.t : null;}).filter(Boolean);
+        var missingArr = c.d.map(function(it,i){return !mwState.done[mwState.cat][i] ? it.t : null;}).filter(Boolean);
+        return {cat:c, done:doneArr, missing:missingArr};
+      }
+
+      function render(){
+        var c = MW_DOC[mwState.cat];
+        var done = Object.values(mwState.done[mwState.cat]).filter(Boolean).length;
+        var total = c.d.length;
+        var pct = Math.round(done/total*100);
+        var stepPct = mwState.step===1?33:mwState.step===2?66:100;
+        var body = '';
+        if(mwState.step===1){
+          body = '<div class="mw-tabs">'
+            + Object.entries(MW_DOC).map(function(e){return '<button class="mw-tab '+(e[0]===mwState.cat?'is-active':'')+'" data-cat="'+e[0]+'">'+e[1].label+'</button>';}).join('')
+          +'</div>'
+          +'<div class="mw-meter-row"><span class="mw-meter-title">Twoje dokumenty: '+c.label+'</span><span class="mw-meter-count"><b>'+done+'</b> / '+total+'</span></div>'
+          +'<div class="mw-meter-bar"><div class="mw-meter-fill" style="width:'+pct+'%"></div></div>'
+          +'<ul class="mw-list">'
+            + c.d.map(function(it,i){var ok = mwState.done[mwState.cat][i] ? 'is-done' : '';return '<li class="mw-item '+ok+'" data-i="'+i+'"><div class="mw-cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="mw-txt">'+it.t+(it.s?'<small>'+it.s+'</small>':'')+'</div></li>';}).join('')
+          +'</ul>'
+          +'<div class="mw-btn-row"><a class="mw-next" id="mw-go2">Zobacz analizę szans →</a></div>';
+        } else if(mwState.step===2){
+          var prob = Math.min(99, 60 + done*4); // 60% base + 4% per doc, max 99
+          var probColor = prob>=85?'good':prob>=70?'warn':'bad';
+          var probTxt = prob>=85?'Bardzo wysokie':prob>=70?'Średnie — wymaga korekty':'Niskie — pomożemy';
+          var sum = buildSummary();
+          body = '<div class="mw-analysis">'
+            +'<div class="mw-card"><div class="mw-card-label">Ścieżka</div><div class="mw-card-val good" style="font-size:18px;letter-spacing:.5px">'+c.service+'</div><div class="mw-card-sub">Średni czas urzędowy <b style="color:#f87171">'+c.tBad+'</b><br>Z LegalSol <b style="color:#22c55e">'+c.tGood+'</b></div></div>'
+            +'<div class="mw-card"><div class="mw-card-label">Twoja gotowość</div><div class="mw-card-val '+probColor+'">'+prob+'%</div><div class="mw-card-bar"><div class="mw-card-fill '+probColor+'" style="width:'+prob+'%"></div></div><div class="mw-card-sub">'+probTxt+'</div></div>'
+          +'</div>'
+          +(sum.missing.length > 0
+            ? '<div class="mw-missing"><div class="mw-missing-head">⚠ Brakuje Ci '+sum.missing.length+' dokumentów</div><div class="mw-missing-list">'+sum.missing.slice(0,5).map(function(m){return '<span>'+m+'</span>';}).join('')+(sum.missing.length>5?'<span>+ '+(sum.missing.length-5)+' więcej</span>':'')+'</div></div>'
+            : '<div class="mw-all-ready">✓ Wszystkie kluczowe dokumenty masz w komplecie!<br><br>Pomożemy Ci je zweryfikować i złożyć — za 24 godziny zaczniemy.</div>'
+          )
+          +'<div class="mw-btn-row"><button class="mw-back" data-back="1">← Powrót</button><a class="mw-next" id="mw-go3">Otrzymaj listę i wsparcie →</a></div>';
+        } else if(mwState.step===3){
+          var sum = buildSummary();
+          body = '<div class="mw-contact">'
+            +'<div class="mw-summary"><span class="mw-summary-chip">'+c.service+'</span><b>'+c.label+'</b> · '+done+' z '+total+' dokumentów gotowych. Otrzymasz na WhatsApp pełną listę z linkami i instrukcjami w 15 minut.</div>'
+            +'<div class="mw-fields"><div><label class="mw-flabel">Twoje imię</label><input class="mw-input" id="mw-name" placeholder="Np. Jan" value="'+mwState.name+'"/></div><div><label class="mw-flabel">Telefon / WhatsApp</label><input class="mw-input" id="mw-phone" placeholder="+48 ..." value="'+mwState.phone+'"/></div></div>'
+            +'<div class="mw-btn-row"><button class="mw-back" data-back="2">← Powrót</button><a class="mw-wa" id="mw-submit"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>Wyślij na WhatsApp</a></div>'
+          +'</div>';
+        }
+        mw.innerHTML = ''
+          +'<div class="mw-glow"></div>'
+          +'<div class="mw-head">'
+            +'<div><div class="mw-eyebrow">MEGA KREATOR · CHECKLIST + ANALIZA + KONTAKT</div><h2 class="mw-title">Sprawdź <em>swoją gotowość</em> i otrzymaj plan</h2></div>'
+            +'<div class="mw-step-i">Krok <b>'+mwState.step+'</b> z <b>3</b></div>'
+          +'</div>'
+          +'<div class="mw-progress"><div class="mw-progress-fill" style="width:'+stepPct+'%"></div></div>'
+          +body;
+
+        mw.querySelectorAll('.mw-tab').forEach(function(b){b.addEventListener('click',function(){mwState.cat=b.dataset.cat;render();});});
+        mw.querySelectorAll('.mw-item').forEach(function(li){li.addEventListener('click',function(){var i=parseInt(li.dataset.i);mwState.done[mwState.cat][i]=!mwState.done[mwState.cat][i];render();});});
+        var g2 = document.getElementById('mw-go2'); if(g2) g2.addEventListener('click',function(){mwState.step=2;render();});
+        var g3 = document.getElementById('mw-go3'); if(g3) g3.addEventListener('click',function(){mwState.step=3;render();});
+        mw.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){mwState.step=parseInt(b.dataset.back);render();});});
+        var n=document.getElementById('mw-name'); if(n) n.addEventListener('input',function(){mwState.name=n.value;});
+        var p=document.getElementById('mw-phone'); if(p) p.addEventListener('input',function(){mwState.phone=p.value;});
+        var s=document.getElementById('mw-submit');
+        if(s){s.addEventListener('click',function(){
+          var sum=buildSummary();
+          var msg = 'Cześć! Sprawdziłem swoją gotowość:\n· Ścieżka: '+c.service+'\n· Gotowych: '+done+' / '+total+'\n· Brakuje: '+(sum.missing.length?sum.missing.slice(0,4).join(', ')+(sum.missing.length>4?'...':''):'nic — komplet!')+'\n'+(mwState.name?'\nImię: '+mwState.name:'')+(mwState.phone?'\nTelefon: '+mwState.phone:'')+'\nlegalsol.pl';
+          s.setAttribute('href','https://wa.me/48735248525?text='+encodeURIComponent(msg));
+          s.setAttribute('target','_blank');s.setAttribute('rel','noopener');
+        });}
+      }
+      render();
+      reviews.parentNode.insertBefore(mw, reviews.nextSibling);
+
+      /* HIDE old Calculator and Documents Checklist — replaced by mega wizard */
+      var oldCalc = document.getElementById('calc-section'); if(oldCalc) oldCalc.style.display='none';
+      var oldDocs = document.querySelector('.preview-docs'); if(oldDocs) oldDocs.style.display='none';
+    }
+
+    /* 4a-pre-pre. Documents Checklist (Task D) — interactive doc list per case type (legacy, hidden by mega wizard above) */
     if(calc && !document.querySelector('.preview-docs')){
       var DOC = {
         praca:{
