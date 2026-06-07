@@ -5274,8 +5274,32 @@ document.addEventListener('DOMContentLoaded', function(){
 .pmh-legend-dot.y{background:#fbbf24;box-shadow:0 0 6px rgba(251,191,36,.5);}
 .pmh-legend-dot.g{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.5);}
 
-.pmh-stage{
-  position:relative;width:100%;max-width:680px;margin:0 auto;aspect-ratio:5/4;
+.pmh-stage{position:relative;width:100%;max-width:680px;margin:0 auto;aspect-ratio:5/4;}
+.pmh-svg-wrap{position:relative;max-width:680px;margin:0 auto;}
+.pmh-svg{width:100%;height:auto;display:block;}
+.pmv{
+  stroke:rgba(7,5,15,.85);stroke-width:1.5;stroke-linejoin:round;
+  cursor:pointer;transition:filter .2s ease, transform .2s ease;
+  transform-origin:center;transform-box:fill-box;
+  filter:url(#pmv-shadow);
+}
+.pmv.pmv-red{fill:url(#redGrad) #dc2626;}
+.pmv.pmv-yellow{fill:#fbbf24;}
+.pmv.pmv-green{fill:#22c55e;}
+.pmv:hover{filter:brightness(1.25) url(#pmv-shadow);}
+/* Pulsing extreme red voivodeships */
+@keyframes pmvPulse{0%,100%{filter:url(#pmv-shadow) brightness(1);}50%{filter:url(#pmv-shadow) brightness(1.25);}}
+.pmv.pmv-red{animation:pmvPulse 2.8s ease-in-out infinite;}
+.pmv.pmv-red:hover{animation:none;}
+.pml-name{
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:800;fill:#fff;
+  text-anchor:middle;letter-spacing:.2px;
+  paint-order:stroke;stroke:rgba(7,5,15,.7);stroke-width:2;
+}
+.pml-time{
+  font-family:'Inter',sans-serif;font-size:9px;font-weight:700;fill:#fff;
+  text-anchor:middle;opacity:.92;
+  paint-order:stroke;stroke:rgba(7,5,15,.7);stroke-width:1.6;
 }
 .pmh-hex{
   position:absolute;width:100px;height:115px;
@@ -7236,42 +7260,76 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(comp, faq);
     }
 
-    /* === HEX MAP — animated Poland map with 16 voivodeships === */
+    /* === SVG MAP OF POLAND with 16 voivodeships (real shape) === */
     if(faq && !document.querySelector('.preview-mapa-hex')){
-      // x,y are percentages on the stage (5/4 ratio). Positioned to resemble Poland shape.
-      var HEX = [
-        {n:'Pomorskie',c:'Gdańsk',t:'7–11 mies.',good:'2–3 mies.',sev:'yellow',x:33,y:5},
-        {n:'Warm.-Maz.',c:'Olsztyn',t:'4–6 mies.',good:'2–3 mies.',sev:'green',x:55,y:7},
-        {n:'Zach.Pom.',c:'Szczecin',t:'5–8 mies.',good:'2–3 mies.',sev:'yellow',x:13,y:22},
-        {n:'Kujaw.-Pom.',c:'Bydgoszcz',t:'4–7 mies.',good:'2–3 mies.',sev:'green',x:35,y:22},
-        {n:'Podlaskie',c:'Białystok',t:'3–5 mies.',good:'2 mies.',sev:'green',x:78,y:22},
-        {n:'Mazowieckie',c:'Warszawa',t:'14–18 mies.',good:'2–3 mies.',sev:'red',x:57,y:23},
-        {n:'Lubuskie',c:'Gorzów Wlkp.',t:'3–6 mies.',good:'2–3 mies.',sev:'green',x:11,y:39},
-        {n:'Wielkopolskie',c:'Poznań',t:'8–12 mies.',good:'2–3 mies.',sev:'yellow',x:30,y:39},
-        {n:'Łódzkie',c:'Łódź',t:'6–9 mies.',good:'2–3 mies.',sev:'yellow',x:49,y:39},
-        {n:'Lubelskie',c:'Lublin',t:'4–7 mies.',good:'2–3 mies.',sev:'green',x:73,y:40},
-        {n:'Dolnośląskie',c:'Wrocław',t:'12–16 mies.',good:'2–3 mies.',sev:'red',x:18,y:55},
-        {n:'Opolskie',c:'Opole',t:'3–5 mies.',good:'2 mies.',sev:'green',x:34,y:57},
-        {n:'Świętokrzyskie',c:'Kielce',t:'3–4 mies.',good:'2 mies.',sev:'green',x:55,y:55},
-        {n:'Podkarpackie',c:'Rzeszów',t:'3–5 mies.',good:'2 mies.',sev:'green',x:76,y:60},
-        {n:'Śląskie',c:'Katowice',t:'7–10 mies.',good:'2–3 mies.',sev:'yellow',x:39,y:73},
-        {n:'Małopolskie',c:'Kraków',t:'10–15 mies.',good:'2–3 mies.',sev:'red',x:57,y:75}
+      // viewBox 600 540 — Poland shape, approximate but recognisable
+      // Each voivodeship is a polygon at its real geographic position
+      var SVG_VOIVS = [
+        {id:'zach',n:'Zachodniopomorskie',c:'Szczecin',t:'5–8 mies.',good:'2–3 mies.',sev:'yellow',
+         pts:'40,90 140,75 165,170 70,200 30,180', cx:90,cy:135},
+        {id:'pom',n:'Pomorskie',c:'Gdańsk',t:'7–11 mies.',good:'2–3 mies.',sev:'yellow',
+         pts:'140,75 290,55 305,150 230,175 165,170', cx:215,cy:115},
+        {id:'wm',n:'Warmińsko-Mazurskie',c:'Olsztyn',t:'4–6 mies.',good:'2–3 mies.',sev:'green',
+         pts:'290,55 470,70 500,170 410,180 305,150', cx:395,cy:120},
+        {id:'pdl',n:'Podlaskie',c:'Białystok',t:'3–5 mies.',good:'2 mies.',sev:'green',
+         pts:'470,70 555,110 575,260 480,280 410,180 500,170', cx:510,cy:185},
+        {id:'lub',n:'Lubuskie',c:'Gorzów Wlkp.',t:'3–6 mies.',good:'2–3 mies.',sev:'green',
+         pts:'30,180 70,200 110,300 30,310', cx:65,cy:245},
+        {id:'kp',n:'Kujawsko-Pomorskie',c:'Bydgoszcz',t:'4–7 mies.',good:'2–3 mies.',sev:'green',
+         pts:'165,170 230,175 280,265 175,275 110,225', cx:210,cy:220},
+        {id:'maz',n:'Mazowieckie',c:'Warszawa',t:'14–18 mies.',good:'2–3 mies.',sev:'red',
+         pts:'305,150 410,180 480,280 470,360 360,345 285,290 280,265', cx:380,cy:265},
+        {id:'wlk',n:'Wielkopolskie',c:'Poznań',t:'8–12 mies.',good:'2–3 mies.',sev:'yellow',
+         pts:'70,200 110,225 175,275 200,360 130,375 110,300', cx:145,cy:295},
+        {id:'lodz',n:'Łódzkie',c:'Łódź',t:'6–9 mies.',good:'2–3 mies.',sev:'yellow',
+         pts:'175,275 280,265 285,290 290,365 200,360', cx:235,cy:320},
+        {id:'lbl',n:'Lubelskie',c:'Lublin',t:'4–7 mies.',good:'2–3 mies.',sev:'green',
+         pts:'470,360 575,260 580,440 480,475 415,420 360,400 360,345', cx:485,cy:380},
+        {id:'dln',n:'Dolnośląskie',c:'Wrocław',t:'12–16 mies.',good:'2–3 mies.',sev:'red',
+         pts:'30,310 130,375 175,455 80,485 20,420', cx:90,cy:400},
+        {id:'opl',n:'Opolskie',c:'Opole',t:'3–5 mies.',good:'2 mies.',sev:'green',
+         pts:'130,375 200,360 245,420 175,455', cx:185,cy:405},
+        {id:'sw',n:'Świętokrzyskie',c:'Kielce',t:'3–4 mies.',good:'2 mies.',sev:'green',
+         pts:'290,365 360,345 360,400 320,440 245,420 200,360', cx:285,cy:390},
+        {id:'pdk',n:'Podkarpackie',c:'Rzeszów',t:'3–5 mies.',good:'2 mies.',sev:'green',
+         pts:'415,420 480,475 460,510 360,505 320,440 360,400', cx:405,cy:455},
+        {id:'sls',n:'Śląskie',c:'Katowice',t:'7–10 mies.',good:'2–3 mies.',sev:'yellow',
+         pts:'175,455 245,420 280,490 200,510 130,490', cx:200,cy:470},
+        {id:'mlp',n:'Małopolskie',c:'Kraków',t:'10–15 mies.',good:'2–3 mies.',sev:'red',
+         pts:'245,420 320,440 360,505 280,490', cx:300,cy:470}
       ];
       var mp = document.createElement('section');
       mp.className = 'preview-mapa-hex';
+      var svgFill = {red:'#dc2626',yellow:'#fbbf24',green:'#22c55e'};
+      var svgFillDark = {red:'#7f1d1d',yellow:'#92400e',green:'#14532d'};
+      var pathsHtml = SVG_VOIVS.map(function(v,i){
+        return '<polygon data-i="'+i+'" class="pmv pmv-'+v.sev+'" points="'+v.pts+'" />';
+      }).join('');
+      var labelsHtml = SVG_VOIVS.map(function(v,i){
+        return '<g class="pml" data-i="'+i+'" style="pointer-events:none">'
+          +'<text x="'+v.cx+'" y="'+v.cy+'" class="pml-name">'+v.n+'</text>'
+          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time">'+v.good+'</text>'
+        +'</g>';
+      }).join('');
       mp.innerHTML = ''
         +'<div class="pmh-head">'
           +'<span class="pmh-eyebrow">MAPA POLSKI · WAIT-TIME MONITOR 2026</span>'
-          +'<h2 class="pmh-title">16 województw, jeden czas <em>z LegalSol</em></h2>'
-          +'<p class="pmh-sub">Najedź na województwo — zobacz aktualne kolejki i nasz czas obsługi.</p>'
+          +'<h2 class="pmh-title">Wszystkie 16 województw, <em>nasz czas wszędzie</em></h2>'
+          +'<p class="pmh-sub">Kliknij województwo — zobacz aktualne kolejki urzędu i nasz czas obsługi.</p>'
         +'</div>'
         +'<div class="pmh-legend">'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot r"></span>Extreme · 10+ mies.</div>'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot y"></span>Medium · 5–9 mies.</div>'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot g"></span>Fast · do 5 mies.</div>'
         +'</div>'
-        +'<div class="pmh-stage" id="pmh-stage">'
-          + HEX.map(function(h,i){return '<button class="pmh-hex v-'+h.sev+'" data-i="'+i+'" style="left:'+h.x+'%;top:'+h.y+'%;"><div class="pmh-hex-inner"><div class="pmh-hex-name">'+h.n+'</div><div class="pmh-hex-time">'+h.good+'</div></div></button>';}).join('')
+        +'<div class="pmh-svg-wrap">'
+          +'<svg viewBox="0 0 600 540" class="pmh-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa Polski — czasy oczekiwania">'
+            +'<defs>'
+              +'<filter id="pmv-shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dx="0" dy="2" result="o"/><feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+            +'</defs>'
+            +pathsHtml
+            +labelsHtml
+          +'</svg>'
           +'<div class="pmh-tooltip" id="pmh-tt"></div>'
         +'</div>'
         +'<div class="pmh-cta-row">'
@@ -7281,18 +7339,19 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(mp, faq);
       // Tooltip handlers
       var tt = mp.querySelector('#pmh-tt');
-      var stage = mp.querySelector('#pmh-stage');
-      mp.querySelectorAll('.pmh-hex').forEach(function(btn){
-        btn.addEventListener('mouseenter', function(){
-          var h = HEX[parseInt(btn.dataset.i)];
+      var wrap = mp.querySelector('.pmh-svg-wrap');
+      mp.querySelectorAll('.pmv').forEach(function(poly){
+        function showTip(e){
+          var h = SVG_VOIVS[parseInt(poly.dataset.i)];
           tt.innerHTML = '<b>'+h.n+'</b><small>Siedziba: '+h.c+'</small><div class="pmh-tt-row"><span>Standard</span><span class="bad">'+h.t+'</span></div><div class="pmh-tt-row"><span>Z LegalSol</span><span class="good">'+h.good+'</span></div>';
-          var rect = btn.getBoundingClientRect();
-          var stageRect = stage.getBoundingClientRect();
-          tt.style.left = (rect.left + rect.width/2 - stageRect.left) + 'px';
-          tt.style.top = (rect.top - stageRect.top) + 'px';
+          var rect = wrap.getBoundingClientRect();
+          tt.style.left = (e.clientX - rect.left) + 'px';
+          tt.style.top = (e.clientY - rect.top - 20) + 'px';
           tt.classList.add('is-visible');
-        });
-        btn.addEventListener('mouseleave', function(){ tt.classList.remove('is-visible'); });
+        }
+        poly.addEventListener('mouseenter', showTip);
+        poly.addEventListener('mousemove', showTip);
+        poly.addEventListener('mouseleave', function(){ tt.classList.remove('is-visible'); });
       });
     }
     /* legacy grid (kept code for future, hidden by CSS) */
@@ -8448,8 +8507,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
       Free consultation on WhatsApp
     </a>
-    <div style="margin-top:0;text-align:center;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.3px;margin-bottom:18px;">
+    <div style="margin-top:0;text-align:center;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.3px;margin-bottom:14px;">
       ✓ First consultation is always free · WhatsApp · 15 min response
+    </div>
+    <!-- Hero trust micro-badges row -->
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 24px;max-width:560px;">
+      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
+        <span style="color:#22c55e;font-weight:800;">3 057+</span><span>kart wydanych</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
+        <span style="color:#22c55e;font-weight:800;">98.1%</span><span>positive</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
+        <span style="color:#fde047;font-weight:800;">★ 4.9</span><span>Google</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:60px;font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.78);">
+        <span style="color:#a78bfa;font-weight:800;">2–3 mies.</span><span>średni czas</span>
+      </div>
     </div>
 
     <div class="hero-btns">
