@@ -5278,17 +5278,22 @@ document.addEventListener('DOMContentLoaded', function(){
 .pmh-svg-wrap{position:relative;max-width:680px;margin:0 auto;}
 .pmh-svg{width:100%;height:auto;display:block;}
 .pmv{
-  stroke:rgba(7,5,15,.85);stroke-width:1.5;stroke-linejoin:round;
-  cursor:pointer;transition:fill-opacity .25s ease;
-  fill-opacity:.92;
+  stroke:rgba(7,5,15,.85);stroke-width:1.8;stroke-linejoin:round;
+  cursor:pointer;transition:fill-opacity .25s ease, stroke .2s ease;
+  fill-opacity:.95;
 }
-.pmv.pmv-red{fill:#dc2626;}
-.pmv.pmv-yellow{fill:#fbbf24;}
-.pmv.pmv-green{fill:#22c55e;}
-.pmv:hover{fill-opacity:1;stroke:#fff;stroke-width:2.5;}
+/* Gradient scale by waiting time (real days, 28.02.2025) */
+.pmv.pmv-g1{fill:#22c55e;}  /* ≤ 220 days */
+.pmv.pmv-g2{fill:#84cc16;}  /* 220–280 */
+.pmv.pmv-g3{fill:#facc15;}  /* 280–350 */
+.pmv.pmv-g4{fill:#fb923c;}  /* 350–450 */
+.pmv.pmv-g5{fill:#f97316;}  /* 450–550 */
+.pmv.pmv-g6{fill:#dc2626;}  /* 550+ */
+.pmv:hover{fill-opacity:1;stroke:#fff;stroke-width:3;}
+/* Pulse for extreme (>550 days) — Śląskie, Kujawsko-Pom., Pomorskie */
 @keyframes pmvPulse{0%,100%{fill-opacity:.85;}50%{fill-opacity:1;}}
-.pmv.pmv-red{animation:pmvPulse 2.8s ease-in-out infinite;}
-.pmv.pmv-red:hover{animation:none;}
+.pmv.pmv-g6,.pmv.pmv-g5{animation:pmvPulse 2.8s ease-in-out infinite;}
+.pmv.pmv-g6:hover,.pmv.pmv-g5:hover{animation:none;}
 .pml-name{
   font-family:'Inter',sans-serif;font-size:10px;font-weight:800;fill:#fff;
   text-anchor:middle;letter-spacing:.2px;
@@ -6944,8 +6949,8 @@ document.addEventListener('DOMContentLoaded', function(){
     var calc = document.getElementById('calc-section');
     var about = document.querySelector('section.about-pv');
 
-    /* 0. QUICK WAIT widget — inject right after Hero (top of page) */
-    if(hero && !document.querySelector('.preview-qw')){
+    /* 0. QUICK WAIT widget — DISABLED, replaced by full SVG Mapa Polski below */
+    if(false && hero && !document.querySelector('.preview-qw')){
       var QW_VOIVS = [
         {n:'Mazowieckie',c:'Warszawa',bad:[14,18],sev:'red'},
         {n:'Dolnośląskie',c:'Wrocław',bad:[12,16],sev:'red'},
@@ -7334,67 +7339,77 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(comp, faq);
     }
 
-    /* === SVG MAP OF POLAND with 16 voivodeships (real shape) === */
-    if(faq && !document.querySelector('.preview-mapa-hex')){
+    /* === SVG MAPA POLSKI — REAL waiting times (data 28.02.2025) === */
+    /* Move this map to be RIGHT AFTER Hero (high visibility) */
+    var heroSection = document.getElementById('hero');
+    if(heroSection && !document.querySelector('.preview-mapa-hex')){
+      faq = heroSection;  // anchor swap — insert before hero's next sibling
+      var insertAsTop = true;
       // viewBox 600 540 — Poland shape, approximate but recognisable
-      // Each voivodeship is a polygon at its real geographic position
+      // Real waiting times in DAYS (sourced from urząd wojewódzki reports, 28.02.2025)
       var SVG_VOIVS = [
-        {id:'zach',n:'Zachodniopomorskie',c:'Szczecin',t:'5–8 mies.',good:'2–3 mies.',sev:'yellow',
+        {id:'zach',n:'Zachodniopomorskie',c:'Szczecin',days:433,good:60,
          pts:'40,90 140,75 165,170 70,200 30,180', cx:90,cy:135},
-        {id:'pom',n:'Pomorskie',c:'Gdańsk',t:'7–11 mies.',good:'2–3 mies.',sev:'yellow',
+        {id:'pom',n:'Pomorskie',c:'Gdańsk',days:483,good:60,
          pts:'140,75 290,55 305,150 230,175 165,170', cx:215,cy:115},
-        {id:'wm',n:'Warmińsko-Mazurskie',c:'Olsztyn',t:'4–6 mies.',good:'2–3 mies.',sev:'green',
+        {id:'wm',n:'Warmińsko-Mazurskie',c:'Olsztyn',days:185,good:60,
          pts:'290,55 470,70 500,170 410,180 305,150', cx:395,cy:120},
-        {id:'pdl',n:'Podlaskie',c:'Białystok',t:'3–5 mies.',good:'2 mies.',sev:'green',
+        {id:'pdl',n:'Podlaskie',c:'Białystok',days:240,good:60,
          pts:'470,70 555,110 575,260 480,280 410,180 500,170', cx:510,cy:185},
-        {id:'lub',n:'Lubuskie',c:'Gorzów Wlkp.',t:'3–6 mies.',good:'2–3 mies.',sev:'green',
+        {id:'lub',n:'Lubuskie',c:'Gorzów Wlkp.',days:236,good:60,
          pts:'30,180 70,200 110,300 30,310', cx:65,cy:245},
-        {id:'kp',n:'Kujawsko-Pomorskie',c:'Bydgoszcz',t:'4–7 mies.',good:'2–3 mies.',sev:'green',
+        {id:'kp',n:'Kujawsko-Pomorskie',c:'Bydgoszcz',days:580,good:60,
          pts:'165,170 230,175 280,265 175,275 110,225', cx:210,cy:220},
-        {id:'maz',n:'Mazowieckie',c:'Warszawa',t:'14–18 mies.',good:'2–3 mies.',sev:'red',
+        {id:'maz',n:'Mazowieckie',c:'Warszawa',days:258,good:60,
          pts:'305,150 410,180 480,280 470,360 360,345 285,290 280,265', cx:380,cy:265},
-        {id:'wlk',n:'Wielkopolskie',c:'Poznań',t:'8–12 mies.',good:'2–3 mies.',sev:'yellow',
+        {id:'wlk',n:'Wielkopolskie',c:'Poznań',days:351,good:60,
          pts:'70,200 110,225 175,275 200,360 130,375 110,300', cx:145,cy:295},
-        {id:'lodz',n:'Łódzkie',c:'Łódź',t:'6–9 mies.',good:'2–3 mies.',sev:'yellow',
+        {id:'lodz',n:'Łódzkie',c:'Łódź',days:304,good:60,
          pts:'175,275 280,265 285,290 290,365 200,360', cx:235,cy:320},
-        {id:'lbl',n:'Lubelskie',c:'Lublin',t:'4–7 mies.',good:'2–3 mies.',sev:'green',
+        {id:'lbl',n:'Lubelskie',c:'Lublin',days:236,good:60,
          pts:'470,360 575,260 580,440 480,475 415,420 360,400 360,345', cx:485,cy:380},
-        {id:'dln',n:'Dolnośląskie',c:'Wrocław',t:'12–16 mies.',good:'2–3 mies.',sev:'red',
+        {id:'dln',n:'Dolnośląskie',c:'Wrocław',days:350,good:60,
          pts:'30,310 130,375 175,455 80,485 20,420', cx:90,cy:400},
-        {id:'opl',n:'Opolskie',c:'Opole',t:'3–5 mies.',good:'2 mies.',sev:'green',
+        {id:'opl',n:'Opolskie',c:'Opole',days:258,good:60,
          pts:'130,375 200,360 245,420 175,455', cx:185,cy:405},
-        {id:'sw',n:'Świętokrzyskie',c:'Kielce',t:'3–4 mies.',good:'2 mies.',sev:'green',
+        {id:'sw',n:'Świętokrzyskie',c:'Kielce',days:272,good:60,
          pts:'290,365 360,345 360,400 320,440 245,420 200,360', cx:285,cy:390},
-        {id:'pdk',n:'Podkarpackie',c:'Rzeszów',t:'3–5 mies.',good:'2 mies.',sev:'green',
+        {id:'pdk',n:'Podkarpackie',c:'Rzeszów',days:223,good:60,
          pts:'415,420 480,475 460,510 360,505 320,440 360,400', cx:405,cy:455},
-        {id:'sls',n:'Śląskie',c:'Katowice',t:'7–10 mies.',good:'2–3 mies.',sev:'yellow',
+        {id:'sls',n:'Śląskie',c:'Katowice',days:687,good:60,
          pts:'175,455 245,420 280,490 200,510 130,490', cx:200,cy:470},
-        {id:'mlp',n:'Małopolskie',c:'Kraków',t:'10–15 mies.',good:'2–3 mies.',sev:'red',
+        {id:'mlp',n:'Małopolskie',c:'Kraków',days:170,good:60,
          pts:'245,420 320,440 360,505 280,490', cx:300,cy:470}
       ];
+      // Severity is now derived from days
+      SVG_VOIVS.forEach(function(v){
+        v.sev = v.days <= 220 ? 'g1' : v.days <= 280 ? 'g2' : v.days <= 350 ? 'g3' : v.days <= 450 ? 'g4' : v.days <= 550 ? 'g5' : 'g6';
+      });
       var mp = document.createElement('section');
       mp.className = 'preview-mapa-hex';
-      var svgFill = {red:'#dc2626',yellow:'#fbbf24',green:'#22c55e'};
-      var svgFillDark = {red:'#7f1d1d',yellow:'#92400e',green:'#14532d'};
       var pathsHtml = SVG_VOIVS.map(function(v,i){
         return '<polygon data-i="'+i+'" class="pmv pmv-'+v.sev+'" points="'+v.pts+'" />';
       }).join('');
       var labelsHtml = SVG_VOIVS.map(function(v,i){
+        var shortName = v.n.length > 14 ? v.n.substring(0,12)+'.' : v.n;
         return '<g class="pml" data-i="'+i+'" style="pointer-events:none">'
-          +'<text x="'+v.cx+'" y="'+v.cy+'" class="pml-name">'+v.n+'</text>'
-          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time">'+v.good+'</text>'
+          +'<text x="'+v.cx+'" y="'+v.cy+'" class="pml-name">'+shortName+'</text>'
+          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time">'+v.days+' days</text>'
         +'</g>';
       }).join('');
       mp.innerHTML = ''
         +'<div class="pmh-head">'
-          +'<span class="pmh-eyebrow">MAPA POLSKI · WAIT-TIME MONITOR 2026</span>'
-          +'<h2 class="pmh-title">Wszystkie 16 województw, <em>nasz czas wszędzie</em></h2>'
-          +'<p class="pmh-sub">Kliknij województwo — zobacz aktualne kolejki urzędu i nasz czas obsługi.</p>'
+          +'<span class="pmh-eyebrow">RESIDENCE CARD · AVERAGE WAITING TIME 2025</span>'
+          +'<h2 class="pmh-title">Where is the office <em>slowest</em>?</h2>'
+          +'<p class="pmh-sub">Real average waiting time per voivodeship — official data 28.02.2025. With LegalSol you get the card in 60–90 days <b>anywhere</b>.</p>'
         +'</div>'
         +'<div class="pmh-legend">'
-          +'<div class="pmh-legend-item"><span class="pmh-legend-dot r"></span>Extreme · 10+ mies.</div>'
-          +'<div class="pmh-legend-item"><span class="pmh-legend-dot y"></span>Medium · 5–9 mies.</div>'
-          +'<div class="pmh-legend-item"><span class="pmh-legend-dot g"></span>Fast · do 5 mies.</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#22c55e"></span>up to 220 days</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#84cc16"></span>220–280</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#facc15"></span>280–350</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#fb923c"></span>350–450</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#f97316"></span>450–550</div>'
+          +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#dc2626"></span>550+</div>'
         +'</div>'
         +'<div class="pmh-svg-wrap">'
           +'<svg viewBox="0 0 600 540" class="pmh-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa Polski — czasy oczekiwania">'
@@ -7403,18 +7418,25 @@ document.addEventListener('DOMContentLoaded', function(){
           +'</svg>'
           +'<div class="pmh-tooltip" id="pmh-tt"></div>'
         +'</div>'
-        +'<div class="pmh-cta-row">'
-          +'<div class="pmh-cta-text">Niezależnie od województwa — <b>z LegalSol kartę dostaniesz w 2–3 mies.</b> Aktywnie składamy ponaglenia i skargi na bezczynność.</div>'
-          +'<a class="pmh-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! Chcę dostać kartę w 2-3 miesiące, niezależnie od województwa. legalsol.pl')+'">Sprawdź moją sprawę →</a>'
+        +'<div class="pmh-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;">'
+          +'<div style="background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.30);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;">Shortest</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#86efac;margin-top:4px">Małopolskie · 170 days</div></div>'
+          +'<div style="background:rgba(220,38,38,.10);border:1px solid rgba(220,38,38,.30);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;">Longest</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#fca5a5;margin-top:4px">Śląskie · 687 days</div></div>'
+          +'<div style="background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(167,139,250,.10));border:1px solid rgba(167,139,250,.40);border-radius:14px;padding:14px;text-align:center;"><div style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.2px;color:#a78bfa;font-weight:700;text-transform:uppercase;">With LegalSol</div><div style="font-family:Inter,sans-serif;font-weight:800;font-size:18px;color:#fff;margin-top:4px">60–90 days · anywhere</div></div>'
+        +'</div>'
+        +'<div class="pmh-cta-row" style="margin-top:18px;">'
+          +'<div class="pmh-cta-text">No matter which voivodeship — <b>with LegalSol you get your card in 60–90 days.</b> We file ponaglenia and complaints for inactivity.</div>'
+          +'<a class="pmh-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want my residence card in 60-90 days, no matter the voivodeship. legalsol.pl')+'">Speed up my case →</a>'
         +'</div>';
-      faq.parentNode.insertBefore(mp, faq);
+      if(insertAsTop){ heroSection.parentNode.insertBefore(mp, heroSection.nextSibling); }
+      else { faq.parentNode.insertBefore(mp, faq); }
       // Tooltip handlers
       var tt = mp.querySelector('#pmh-tt');
       var wrap = mp.querySelector('.pmh-svg-wrap');
       mp.querySelectorAll('.pmv').forEach(function(poly){
         function showTip(e){
           var h = SVG_VOIVS[parseInt(poly.dataset.i)];
-          tt.innerHTML = '<b>'+h.n+'</b><small>Siedziba: '+h.c+'</small><div class="pmh-tt-row"><span>Standard</span><span class="bad">'+h.t+'</span></div><div class="pmh-tt-row"><span>Z LegalSol</span><span class="good">'+h.good+'</span></div>';
+          var saved = h.days - 75;  // average of 60-90
+          tt.innerHTML = '<b>'+h.n+'</b><small>Capital: '+h.c+'</small><div class="pmh-tt-row"><span>Standard wait</span><span class="bad">'+h.days+' days</span></div><div class="pmh-tt-row"><span>With LegalSol</span><span class="good">60–90 days</span></div><div class="pmh-tt-row" style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.12);"><span style="color:#fde047;font-weight:600">You save</span><span style="color:#fde047;font-weight:700">~'+saved+' days</span></div>';
           var rect = wrap.getBoundingClientRect();
           tt.style.left = (e.clientX - rect.left) + 'px';
           tt.style.top = (e.clientY - rect.top - 20) + 'px';
