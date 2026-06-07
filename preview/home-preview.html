@@ -6898,11 +6898,11 @@ document.addEventListener('DOMContentLoaded', function(){
             +'<span style="color:rgba(255,255,255,.55)">z LegalSol</span>'
           +'</div>'
           +'<a class="qw-teaser-cta" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Cześć! '+s.t+' · '+v.n+' · legalsol.pl')+'">Start →</a>';
-        document.getElementById('qw-voiv-sel').addEventListener('change',function(e){qwState.voiv=parseInt(e.target.value);renderQw();});
-        document.getElementById('qw-srv-sel').addEventListener('change',function(e){qwState.srv=parseInt(e.target.value);renderQw();});
+        var vSel = qw.querySelector('#qw-voiv-sel'); if(vSel) vSel.addEventListener('change',function(e){qwState.voiv=parseInt(e.target.value);renderQw();});
+        var sSel = qw.querySelector('#qw-srv-sel'); if(sSel) sSel.addEventListener('change',function(e){qwState.srv=parseInt(e.target.value);renderQw();});
       }
-      renderQw();
       hero.parentNode.insertBefore(qw, hero.nextSibling);
+      renderQw();
     }
 
     /* 1. Trust strip — inject right after Hero */
