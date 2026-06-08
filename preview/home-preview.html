@@ -5200,6 +5200,105 @@ document.addEventListener('DOMContentLoaded', function(){
 /* Hide the old small cabinet block — replaced by this big section */
 .preview-cab:not(.preview-cabinet-feature){display:none !important;}
 
+/* Interactive tabs */
+.pcf-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;position:relative;z-index:1;}
+.pcf-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 18px;border-radius:60px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.20);
+  color:rgba(255,255,255,.70);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;
+  transition:all .2s ease;
+}
+.pcf-tab:hover{background:rgba(91,82,204,.12);color:#fff;}
+.pcf-tab.is-active{background:rgba(91,82,204,.22);border-color:#a78bfa;color:#fff;box-shadow:0 0 0 1px rgba(167,139,250,.30);}
+.pcf-tab-ico{font-size:15px;}
+
+/* Feature panel that switches */
+.pcf-panel{
+  display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:center;
+  background:rgba(255,255,255,.03);border:1px solid rgba(167,139,250,.18);
+  border-radius:22px;padding:36px;
+  position:relative;z-index:1;
+}
+.pcf-panel-text h3{
+  font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:#fff;
+  letter-spacing:-.3px;margin:0 0 12px;line-height:1.25;
+}
+.pcf-panel-text h3 em{color:#a78bfa;font-style:italic;font-weight:700;}
+.pcf-panel-text p{
+  font-family:'Inter',sans-serif;font-size:14.5px;color:rgba(255,255,255,.72);
+  line-height:1.6;margin:0 0 18px;
+}
+.pcf-panel-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+.pcf-panel-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.78);line-height:1.5;
+}
+.pcf-panel-list li::before{
+  content:'';width:18px;height:18px;border-radius:50%;
+  background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.45);
+  flex-shrink:0;margin-top:1px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-repeat:no-repeat;background-position:center;background-size:12px;
+}
+
+/* Mockup container */
+.pcf-mock{
+  background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(7,5,15,.50),0 0 0 1px rgba(167,139,250,.20);
+}
+.pcf-mock-bar{background:#f3f1ee;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e5e1dc;}
+.pcf-mock-dots{display:flex;gap:5px;}
+.pcf-mock-dots span{width:9px;height:9px;border-radius:50%;}
+.pcf-mock-dots span:nth-child(1){background:#ef4444;}
+.pcf-mock-dots span:nth-child(2){background:#fbbf24;}
+.pcf-mock-dots span:nth-child(3){background:#22c55e;}
+.pcf-mock-url{flex:1;background:#fff;border-radius:5px;padding:4px 10px;font:600 10.5px/1 'JetBrains Mono',monospace;color:#6b7280;display:flex;align-items:center;gap:5px;}
+.pcf-mock-url::before{content:'🔒';font-size:9px;}
+.pcf-mock-body{padding:20px 22px;background:#f8f9fd;color:#1a1545;min-height:300px;font-family:'Inter',sans-serif;}
+.pcf-mock-greeting{font-size:15px;font-weight:700;color:#1a1545;margin-bottom:3px;}
+.pcf-mock-meta{font-size:11px;color:#5e5577;margin-bottom:16px;letter-spacing:.3px;}
+
+/* Status mockup */
+.pcf-progress{display:flex;gap:6px;background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid #e0dcef;}
+.pcf-pstep{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;}
+.pcf-pstep::after{content:'';position:absolute;top:11px;left:60%;right:-40%;height:2px;background:#e0dcef;}
+.pcf-pstep:last-child::after{display:none;}
+.pcf-pstep.done::after,.pcf-pstep.active::after{background:#22c55e;}
+.pcf-pstep .pcf-pdot{width:22px;height:22px;border-radius:50%;background:#e0dcef;color:#9c93b8;display:flex;align-items:center;justify-content:center;font:800 11px/1 'Inter';position:relative;z-index:1;}
+.pcf-pstep.done .pcf-pdot{background:#22c55e;color:#fff;}
+.pcf-pstep.active .pcf-pdot{background:#5b52cc;color:#fff;box-shadow:0 0 0 3px rgba(91,82,204,.18);}
+.pcf-pstep .pcf-plbl{font-size:9px;color:#5e5577;font-weight:600;text-align:center;line-height:1.2;}
+
+/* Chat mockup */
+.pcf-chat-msg{padding:8px 11px;border-radius:9px;font-size:12px;line-height:1.4;margin-bottom:6px;max-width:90%;}
+.pcf-chat-in{background:#f0f4ff;color:#1a1545;}
+.pcf-chat-out{background:#e7ddff;color:#1a1545;margin-left:auto;}
+.pcf-chat-msg b{font-weight:700;color:#5b52cc;}
+
+/* Documents mockup */
+.pcf-doc{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #ece9f5;font-size:12px;}
+.pcf-doc:last-child{border-bottom:none;}
+.pcf-doc-i{width:24px;height:24px;border-radius:6px;background:#5b52cc;color:#fff;display:flex;align-items:center;justify-content:center;font:800 11px/1 'Inter';flex-shrink:0;}
+.pcf-doc-n{flex:1;font-weight:600;color:#1a1545;}
+.pcf-doc-n small{display:block;font-size:10.5px;color:#9c93b8;font-weight:400;}
+.pcf-doc-c{font-size:9.5px;font-weight:800;padding:3px 7px;border-radius:60px;background:#dcfce7;color:#16a34a;letter-spacing:.5px;}
+.pcf-doc-c.rd{background:#fee2e2;color:#dc2626;}
+
+/* Payments mockup */
+.pcf-pay-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:#fff;border:1px solid #e0dcef;border-radius:10px;margin-bottom:8px;}
+.pcf-pay-name{font-size:12.5px;font-weight:700;color:#1a1545;}
+.pcf-pay-name small{display:block;font-size:10.5px;color:#5e5577;font-weight:500;margin-top:1px;}
+.pcf-pay-status{font-size:9.5px;font-weight:800;padding:4px 9px;border-radius:60px;letter-spacing:.6px;}
+.pcf-pay-status.paid{background:#dcfce7;color:#16a34a;}
+.pcf-pay-status.due{background:#fef3c7;color:#a16207;}
+
+@media(max-width:760px){
+  .pcf-panel{grid-template-columns:1fr;gap:20px;padding:22px;}
+  .pcf-mock{order:-1;}
+}
+
 @media(max-width:820px){
   .preview-cabinet-feature{margin:48px 12px;padding:38px 22px;border-radius:22px;}
   .pcf-title{font-size:26px;}
@@ -7378,70 +7477,102 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
 
-    /* === BIG PERSONAL CABINET SECTION — features + dashboard preview === */
+    /* === BIG PERSONAL CABINET SECTION — interactive tabs + live mockup === */
     if(faq && !document.querySelector('.preview-cabinet-feature')){
+      var PCF_TABS = [
+        {id:'status',ico:'📊',title:'Status tracking',
+          h:'See <em>every milestone</em> in real time',
+          desc:'No more guessing what your lawyer is doing. Your case lives in a clear 5-step pipeline — from documents collection to card pickup. Updated instantly when the office issues anything.',
+          bullets:['Real-time status from MOS portal','5-step timeline · always visible','Updates pushed within seconds','See exactly where your case sits']},
+        {id:'chat',ico:'💬',title:'Chat with lawyer',
+          h:'Talk to <em>your actual lawyer</em>',
+          desc:'No call centers. No scripts. Kamil and the team answer directly — in WhatsApp and inside the cabinet. Multi-language: Polish, Russian, Ukrainian, English.',
+          bullets:['Reply within 15 min on weekdays','Polish · Russian · Ukrainian · English','Same chat history in WhatsApp + cabinet','Voice messages and file attachments']},
+        {id:'docs',ico:'📁',title:'Document vault',
+          h:'Encrypted <em>document vault</em>',
+          desc:'Upload, store, e-sign — all your residence permit paperwork in one place. Encrypted at rest. Download anytime, even years after pickup. The "czerwona pieczątka" confirmation is auto-saved here.',
+          bullets:['256-bit encryption at rest','E-signature for Załącznik nr 1','Auto-versioning — never lose a draft','Czerwona pieczątka PDF on demand']},
+        {id:'pay',ico:'💳',title:'Secure payments',
+          h:'Pay milestones <em>on your terms</em>',
+          desc:'Each phase has its own invoice. Pay with card or BLIK in two taps. Every transaction is logged, downloadable, and matches your case ledger. No bank transfers, no QR confusion.',
+          bullets:['Card, BLIK, instant transfers (PSD2)','Per-milestone invoices automatically','Full payment history downloadable as PDF','No hidden fees · transparent ledger']},
+        {id:'notif',ico:'🔔',title:'Smart notifications',
+          h:'Get pinged <em>before urząd does</em>',
+          desc:'Every status change → instant WhatsApp ping. Decision issued, fingerprints date set, card ready — you hear from us first. Quiet hours and language preference adjustable.',
+          bullets:['WhatsApp · Email · Push (your pick)','Quiet hours per timezone','Reminder 90 / 60 / 30 days before card expiry','Smart batching — no notification spam']}
+      ];
+      var pcfMockups = {
+        status:'<div class="pcf-mock-greeting">Hi, Jan 👋</div><div class="pcf-mock-meta">Karta Czasowego Pobytu · Mazowieckie · Step 4 of 5</div><div class="pcf-progress">'+
+          '<div class="pcf-pstep done"><div class="pcf-pdot">✓</div><div class="pcf-plbl">Documents<br><b>Done</b></div></div>'+
+          '<div class="pcf-pstep done"><div class="pcf-pdot">✓</div><div class="pcf-plbl">MOS<br><b>Submitted</b></div></div>'+
+          '<div class="pcf-pstep done"><div class="pcf-pdot">✓</div><div class="pcf-plbl">Fingerprints<br><b>Done</b></div></div>'+
+          '<div class="pcf-pstep active"><div class="pcf-pdot">4</div><div class="pcf-plbl">Decision<br><b>In progress</b></div></div>'+
+          '<div class="pcf-pstep"><div class="pcf-pdot">5</div><div class="pcf-plbl">Pickup<br><b>—</b></div></div>'+
+          '</div><div style="font-size:11.5px;color:#5e5577;line-height:1.5;padding:10px 14px;background:#fff;border:1px solid #e0dcef;border-radius:10px;">Last update <b style="color:#16a34a">2 hours ago</b> · We sent a ponaglenie to mazowiecki UW · awaiting confirmation.</div>',
+        chat:'<div class="pcf-mock-greeting">💬 Chat with Kamil</div><div class="pcf-mock-meta">Your lawyer · online · typing…</div>'+
+          '<div class="pcf-chat-msg pcf-chat-in"><b>Kamil:</b> Application submitted via MOS on Mar 14. Confirmation in cabinet.</div>'+
+          '<div class="pcf-chat-msg pcf-chat-out">Thanks! Can I travel in the meantime?</div>'+
+          '<div class="pcf-chat-msg pcf-chat-in"><b>Kamil:</b> Yes — the passport stamp + czerwona pieczątka are valid 6 months. Bezpiecznie.</div>'+
+          '<div class="pcf-chat-msg pcf-chat-out">Excellent. How long does the office usually take here?</div>'+
+          '<div class="pcf-chat-msg pcf-chat-in"><b>Kamil:</b> For Mazowieckie, urząd averages 258 days. We\'re pushing actively with ponaglenia.</div>',
+        docs:'<div class="pcf-mock-greeting">📁 Documents</div><div class="pcf-mock-meta">7 files · encrypted · last sync 5 min ago</div>'+
+          '<div class="pcf-doc"><div class="pcf-doc-i">📄</div><div class="pcf-doc-n">Application · MOS<small>submitted 14.03</small></div><span class="pcf-doc-c">VERIFIED</span></div>'+
+          '<div class="pcf-doc"><div class="pcf-doc-i">📎</div><div class="pcf-doc-n">Załącznik nr 1<small>e-signed by employer</small></div><span class="pcf-doc-c">VERIFIED</span></div>'+
+          '<div class="pcf-doc"><div class="pcf-doc-i">🧾</div><div class="pcf-doc-n">ZUS RCA · 6 months<small>complete · auto-fetched</small></div><span class="pcf-doc-c">VERIFIED</span></div>'+
+          '<div class="pcf-doc"><div class="pcf-doc-i">💰</div><div class="pcf-doc-n">Opłata skarbowa · 440 PLN<small>paid · receipt attached</small></div><span class="pcf-doc-c">VERIFIED</span></div>'+
+          '<div class="pcf-doc"><div class="pcf-doc-i">🟥</div><div class="pcf-doc-n">Czerwona pieczątka<small>15.03 · Download PDF</small></div><span class="pcf-doc-c rd">PIECZĄTKA</span></div>',
+        pay:'<div class="pcf-mock-greeting">💳 Payments</div><div class="pcf-mock-meta">Karta Czasowego Pobytu · 4 milestones</div>'+
+          '<div class="pcf-pay-row"><div class="pcf-pay-name">Initial review + plan<small>14.02.2025</small></div><span class="pcf-pay-status paid">PAID</span></div>'+
+          '<div class="pcf-pay-row"><div class="pcf-pay-name">Document preparation<small>02.03.2025</small></div><span class="pcf-pay-status paid">PAID</span></div>'+
+          '<div class="pcf-pay-row"><div class="pcf-pay-name">MOS submission<small>14.03.2025</small></div><span class="pcf-pay-status paid">PAID</span></div>'+
+          '<div class="pcf-pay-row"><div class="pcf-pay-name">Final + pickup support<small>after decision</small></div><span class="pcf-pay-status due">DUE LATER</span></div>'+
+          '<div style="margin-top:14px;padding:10px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;font-size:11.5px;color:#16a34a;line-height:1.5;">✓ <b>3 of 4 paid</b> · BLIK / card / PSD2. Pay only what\'s due — never in advance.</div>',
+        notif:'<div class="pcf-mock-greeting">🔔 Notifications</div><div class="pcf-mock-meta">5 unread · channels: WhatsApp + Email</div>'+
+          '<div style="display:flex;flex-direction:column;gap:8px;">'+
+            '<div style="display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e0dcef;border-radius:10px;"><span style="font-size:18px">✅</span><div style="flex:1;font-size:11.5px;color:#1a1545"><b>Decision issued — POSITIVE</b><br><small style="color:#5e5577;">2 hours ago · Mazowieckie UW</small></div></div>'+
+            '<div style="display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e0dcef;border-radius:10px;"><span style="font-size:18px">📅</span><div style="flex:1;font-size:11.5px;color:#1a1545"><b>Pickup scheduled · April 18, 11:00</b><br><small style="color:#5e5577;">3 hours ago · Sienna 75, Warszawa</small></div></div>'+
+            '<div style="display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e0dcef;border-radius:10px;"><span style="font-size:18px">📩</span><div style="flex:1;font-size:11.5px;color:#1a1545"><b>Ponaglenie sent to UW</b><br><small style="color:#5e5577;">1 day ago · processed</small></div></div>'+
+            '<div style="display:flex;gap:10px;padding:10px 12px;background:#fff;border:1px solid #e0dcef;border-radius:10px;"><span style="font-size:18px">🟥</span><div style="flex:1;font-size:11.5px;color:#1a1545"><b>Czerwona pieczątka available</b><br><small style="color:#5e5577;">5 days ago · ready to download</small></div></div>'+
+          '</div>'
+      };
+
+      var pcfActive = 'status';
       var pcf = document.createElement('section');
       pcf.className = 'preview-cabinet-feature';
-      pcf.innerHTML = ''
-        +'<span class="pcf-eyebrow">OUR KNOW-HOW · LEGALSOL CABINET</span>'
-        +'<h2 class="pcf-title">Your case, <em>your control</em></h2>'
-        +'<p class="pcf-sub">Every LegalSol client gets a personal dashboard — payments, status, chat with your lawyer, document vault, official confirmations. All in one place, 24/7. <b style="color:#a78bfa">Free with our service.</b></p>'
-        +'<div class="pcf-grid">'
-          +'<div class="pcf-card"><div class="pcf-icon">📊</div><h3>Real-time case status</h3><p>Track every milestone — MOS submission, fingerprints, decision, pickup. No more guessing what your lawyer is doing.</p></div>'
-          +'<div class="pcf-card"><div class="pcf-icon">💬</div><h3>Direct chat with your lawyer</h3><p>Kamil and the team — in WhatsApp and in your cabinet. Reply in 15 minutes on weekdays. No call centers, no scripts.</p></div>'
-          +'<div class="pcf-card"><div class="pcf-icon">📁</div><h3>Secure document vault</h3><p>Upload, store, e-sign — all your residence permit paperwork in one encrypted place. Download anytime, even after pickup.</p></div>'
-          +'<div class="pcf-card"><div class="pcf-icon">💳</div><h3>In-cabinet payments</h3><p>Pay milestones securely with card or BLIK. See every invoice. No bank transfers, no QR confusion, full transparency.</p></div>'
-          +'<div class="pcf-card"><div class="pcf-icon">🔔</div><h3>WhatsApp notifications</h3><p>Every status change → instant ping. Decision issued, fingerprints date set, card ready — you get pinged first.</p></div>'
-          +'<div class="pcf-card"><div class="pcf-icon">🟥</div><h3>Czerwona pieczątka — instant PDF</h3><p>Right after MOS submission you can download the stamped confirmation. Need to travel? It\'s already in your cabinet.</p></div>'
-        +'</div>'
-        +'<div class="pcf-dash-wrap">'
-          +'<span class="pcf-dash-label">Live preview</span>'
-          +'<div class="pcf-frame">'
-            +'<div class="pcb-browser-bar"><div class="pcb-dots"><span class="pcb-dot r"></span><span class="pcb-dot y"></span><span class="pcb-dot g"></span></div><div class="pcb-url">legalsol.pl/cabinet — Jan Nowak · Karta Pobytu</div></div>'
-            +'<div class="pcb-body">'
-              +'<div class="pcb-side">'
-                +'<div class="pcb-side-logo">LEGALSOL<small>YOUR CABINET</small></div>'
-                +'<div class="pcb-nav-item active">📊 Case status</div>'
-                +'<div class="pcb-nav-item">📁 Documents</div>'
-                +'<div class="pcb-nav-item">💬 Chat with lawyer</div>'
-                +'<div class="pcb-nav-item">💳 Payments</div>'
-                +'<div class="pcb-nav-item">🧾 Invoices</div>'
-              +'</div>'
-              +'<div class="pcb-content">'
-                +'<div class="pcb-greeting">Hi Jan 👋</div>'
-                +'<div class="pcb-status">Karta Czasowego Pobytu · Mazowieckie · Step 4 of 5</div>'
-                +'<div class="pcb-progress">'
-                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Documents<br><b>100%</b></div></div>'
-                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">MOS submission<br><b>100%</b></div></div>'
-                  +'<div class="pcb-step done"><div class="pcb-step-dot">✓</div><div class="pcb-step-label">Fingerprints<br><b>Done</b></div></div>'
-                  +'<div class="pcb-step active"><div class="pcb-step-dot">4</div><div class="pcb-step-label">Decision<br><b>in progress</b></div></div>'
-                  +'<div class="pcb-step"><div class="pcb-step-dot">5</div><div class="pcb-step-label">Pickup<br><b>—</b></div></div>'
-                +'</div>'
-                +'<div class="pcb-cards">'
-                  +'<div class="pcb-card">'
-                    +'<div class="pcb-card-title">💬 Your lawyer · Kamil</div>'
-                    +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Application submitted Mar 14. Waiting for confirmation from urząd.</div>'
-                    +'<div class="pcb-chat-msg pcb-chat-out">Thanks! Can I travel in the meantime?</div>'
-                    +'<div class="pcb-chat-msg pcb-chat-in"><b>Kamil:</b> Yes — passport stamp is valid 6 months. Safe to travel.</div>'
-                  +'</div>'
-                  +'<div class="pcb-card">'
-                    +'<div class="pcb-card-title">📁 Documents</div>'
-                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📄</div><div class="pcb-doc-name">Application · 4 copies<small>submitted 14.03</small></div><span class="pcb-pieczatka">●</span></div>'
-                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">📎</div><div class="pcb-doc-name">Załącznik nr 1<small>verified</small></div><span class="pcb-pieczatka">●</span></div>'
-                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🧾</div><div class="pcb-doc-name">ZUS RCA · 6 mo<small>complete</small></div><span class="pcb-pieczatka">●</span></div>'
-                    +'<div class="pcb-doc-row"><div class="pcb-doc-icon">🟥</div><div class="pcb-doc-name">Stamped confirmation<small>15.03 · Download PDF</small></div><span class="pcb-pieczatka">PIECZĄTKA</span></div>'
-                  +'</div>'
-                +'</div>'
-              +'</div>'
+      function renderPcf(){
+        var t = PCF_TABS.find(function(x){return x.id===pcfActive;});
+        pcf.innerHTML = ''
+          +'<span class="pcf-eyebrow">OUR KNOW-HOW · LEGALSOL CABINET</span>'
+          +'<h2 class="pcf-title">Your case, <em>your control</em></h2>'
+          +'<p class="pcf-sub">Every LegalSol client gets a personal dashboard — status, lawyer, documents, payments, notifications. All in one secured place. <b style="color:#a78bfa">Included free</b> with our service.</p>'
+          +'<div class="pcf-tabs">'
+            + PCF_TABS.map(function(x){return '<button class="pcf-tab '+(x.id===pcfActive?'is-active':'')+'" data-id="'+x.id+'"><span class="pcf-tab-ico">'+x.ico+'</span>'+x.title+'</button>';}).join('')
+          +'</div>'
+          +'<div class="pcf-panel">'
+            +'<div class="pcf-panel-text">'
+              +'<h3>'+t.h+'</h3>'
+              +'<p>'+t.desc+'</p>'
+              +'<ul class="pcf-panel-list">'+t.bullets.map(function(b){return '<li>'+b+'</li>';}).join('')+'</ul>'
+            +'</div>'
+            +'<div class="pcf-mock">'
+              +'<div class="pcf-mock-bar"><div class="pcf-mock-dots"><span></span><span></span><span></span></div><div class="pcf-mock-url">legalsol.pl/cabinet — '+t.title+'</div></div>'
+              +'<div class="pcf-mock-body">'+pcfMockups[pcfActive]+'</div>'
             +'</div>'
           +'</div>'
-        +'</div>'
         +'<div class="pcf-cta-row">'
           +'<div class="pcf-cta-text"><b>The cabinet is included free</b> with every LegalSol service. From your first message to card pickup — everything visible, secure, and on your phone.</div>'
           +'<a class="pcf-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want a residence card with full transparency — cabinet access included. legalsol.pl')+'">Start with cabinet →</a>'
         +'</div>';
+        // Attach tab handlers
+        pcf.querySelectorAll('.pcf-tab').forEach(function(b){
+          b.addEventListener('click', function(){ pcfActive = b.dataset.id; renderPcf(); });
+        });
+      }
+      renderPcf();
       faq.parentNode.insertBefore(pcf, faq);
     }
+
+    /* legacy dashboard mockup — unused */
 
     /* === OLD small DEMO PANELU KLIENTA (kept for code reuse, disabled inject) === */
     if(false && faq && !document.querySelector('.preview-cab')){
