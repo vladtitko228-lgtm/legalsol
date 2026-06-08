@@ -4292,17 +4292,22 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
 .geo-strip-pv .geo-title-pv{color:#fff !important;}
 .geo-strip-pv .geo-title-pv em{color:#22c55e !important;}
 .geo-strip-pv .geo-sub-pv{color:rgba(255,255,255,.65) !important;}
-/* Geo cards inside — slight glass effect */
+/* Geo cards inside — solid dark glass, properly visible */
 .geo-strip-pv .geo-card-pv{
-  background:rgba(255,255,255,.04) !important;
-  border:1px solid rgba(139,130,232,.20) !important;
+  background:linear-gradient(180deg,rgba(91,82,204,.14) 0%,rgba(91,82,204,.08) 100%) !important;
+  border:1px solid rgba(139,130,232,.30) !important;
   color:#fff !important;
+  box-shadow:0 6px 16px rgba(7,5,15,.30) !important;
 }
 .geo-strip-pv .geo-card-pv:hover{
-  background:rgba(91,82,204,.12) !important;
-  border-color:rgba(167,139,250,.45) !important;
+  background:linear-gradient(180deg,rgba(91,82,204,.22) 0%,rgba(91,82,204,.14) 100%) !important;
+  border-color:rgba(167,139,250,.60) !important;
   transform:translateY(-3px) !important;
+  box-shadow:0 12px 28px rgba(7,5,15,.40) !important;
 }
+.geo-strip-pv .geo-card-pv *{color:#fff !important;}
+.geo-strip-pv .geo-card-pv .gc-flag{filter:none !important;}
+.geo-strip-pv .geo-card-pv .gc-count{color:#a78bfa !important;font-weight:800 !important;}
 .geo-strip-pv::before{display:none !important;}
 .geo-strip-pv > *{position:relative;z-index:1;}
 
@@ -6272,19 +6277,19 @@ body{
 }
 
 /* Each white card section — soft fade on top + bottom 60px */
-.preview-news,.rvhome,.geo-strip-pv,.faq-section{
-  position:relative;
-}
-.preview-news::before,.rvhome::before,.geo-strip-pv::before,.faq-section::before,
-.preview-news::after,.rvhome::after,.geo-strip-pv::after,.faq-section::after{
+.preview-news,.rvhome,.faq-section{position:relative;}
+.preview-news::before,.rvhome::before,.faq-section::before,
+.preview-news::after,.rvhome::after,.faq-section::after{
   content:'';position:absolute;left:0;right:0;height:60px;pointer-events:none;z-index:2;
 }
-.preview-news::before,.rvhome::before,.geo-strip-pv::before,.faq-section::before{
+.preview-news::before,.rvhome::before,.faq-section::before{
   top:0;background:linear-gradient(180deg,rgba(247,245,242,.95) 0%,rgba(247,245,242,0) 100%);
 }
-.preview-news::after,.rvhome::after,.geo-strip-pv::after,.faq-section::after{
+.preview-news::after,.rvhome::after,.faq-section::after{
   bottom:0;background:linear-gradient(0deg,rgba(247,245,242,.95) 0%,rgba(247,245,242,0) 100%);
 }
+/* Geo no longer has cream fades — it's now a dark section */
+.geo-strip-pv::before,.geo-strip-pv::after{display:none !important;}
 
 /* Calculator section — fade edges into the dark page bg */
 #calc-section{position:relative;}
