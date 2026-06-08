@@ -7549,7 +7549,7 @@ document.addEventListener('DOMContentLoaded', function(){
           time:'~60 sec',title:'Ping us on WhatsApp',
           desc:'PL · EN · RU · UA. Reply within 15 min on weekdays.',
           details:'Send us your situation in any of 4 languages — Polish, Russian, Ukrainian, English. You can write at any hour, but we reply within 15 minutes on weekdays (and within 1 hour on weekends). No bots, no call-center scripts — a real immigration specialist reads your message and asks the right follow-up questions: citizenship, employment, time in Poland, prior cases.',
-          photo:'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=900&q=85&auto=format&fit=crop'},
+          photo:'https://images.unsplash.com/photo-1556745757-8d76bdb6984b?w=900&q=85&auto=format&fit=crop'},
         {ico:svgIco('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>'),
           time:'~20 min',title:'Free legal audit',
           desc:'Real lawyer reviews your case, gives doc list + quote. No deposit.',
@@ -7606,16 +7606,7 @@ document.addEventListener('DOMContentLoaded', function(){
       var phcIO = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');phcIO.unobserve(e.target);}});},{threshold:.2});
       phcIO.observe(howClean);
 
-      // Group Mapa Polski + MEGA Wizard side-by-side
-      var mapaSplit = document.querySelector('.preview-mapa-hex');
-      var mwSplit = document.querySelector('.preview-mw');
-      if(mapaSplit && mwSplit && !document.querySelector('.preview-split-section')){
-        var split = document.createElement('div');
-        split.className = 'preview-split-section';
-        mapaSplit.parentNode.insertBefore(split, mapaSplit);
-        split.appendChild(mapaSplit);
-        split.appendChild(mwSplit);
-      }
+      /* split disabled — Vlad prefers Mapa + Wizard as separate sections */
       // Expandable cards — click toggle/card to expand
       howClean.querySelectorAll('.phc-step-toggle').forEach(function(btn){
         btn.addEventListener('click',function(ev){
