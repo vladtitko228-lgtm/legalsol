@@ -6989,10 +6989,9 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <style id="header-cta-top">
-/* ════════════════════════════════════════════════════════════
-   MAIN CTA in the very top — Free consultation pill in nav
-   ════════════════════════════════════════════════════════════ */
-.preview-top-cta{
+/* Nav CTA disabled — Hero has the main button, duplicate not needed */
+.preview-top-cta{display:none !important;}
+.preview-top-cta-legacy{
   display:inline-flex;align-items:center;gap:8px;
   font-family:'Inter',sans-serif;font-weight:700;font-size:13px;
   letter-spacing:.2px;text-decoration:none;
@@ -7347,10 +7346,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
 /* TRUST STRIP — under hero, builds instant credibility */
 .preview-trust-strip{
-  max-width:1100px;margin:-12px auto 0;padding:18px 24px;
+  max-width:1100px;margin:20px auto 40px;padding:22px 28px;
   display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-  background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);
-  border-radius:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  background:linear-gradient(180deg,rgba(91,82,204,.15) 0%,rgba(91,82,204,.08) 100%);
+  border:1px solid rgba(139,130,232,.35);
+  border-radius:18px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 8px 28px rgba(7,5,15,.30);
 }
 .pts-cell{
   display:flex;align-items:center;justify-content:center;gap:10px;
