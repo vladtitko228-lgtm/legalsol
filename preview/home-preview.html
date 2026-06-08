@@ -7956,7 +7956,15 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<div class="pmh-cta-text">No matter which voivodeship — <b>we actively push your case</b> with ponaglenia and complaints for inactivity (skarga na bezczynność).</div>'
           +'<a class="pmh-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want to accelerate my residence card case. legalsol.pl')+'">Speed up my case →</a>'
         +'</div>';
-      if(insertAsTop){ heroSection.parentNode.insertBefore(mp, heroSection.nextSibling); }
+      if(insertAsTop){
+        /* Mapa goes AFTER reviews — Reviews come first */
+        var revAnchor = document.querySelector('section.rvhome');
+        if(revAnchor){
+          revAnchor.parentNode.insertBefore(mp, revAnchor.nextSibling);
+        } else {
+          heroSection.parentNode.insertBefore(mp, heroSection.nextSibling);
+        }
+      }
       else { faq.parentNode.insertBefore(mp, faq); }
       // Tooltip handlers
       var tt = mp.querySelector('#pmh-tt');
