@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegalSol · Human-version preview v2</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07050f;
+  --bg2:#0e0a23;
+  --p400:#5B52CC;
+  --p300:#8B82E8;
+  --p200:#c4beff;
+  --txt:#fff;
+  --txt2:#a09ac8;
+  --gold:#fde047;
+}
+html,body{background:var(--bg);color:var(--txt);font-family:'Inter','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;}
+body{overflow-x:hidden;}
+.demo-bar{position:sticky;top:0;background:linear-gradient(90deg,#fde047,#fbbf24);color:#1a1545;padding:10px 20px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.3px;z-index:100;}
+.section{padding:80px 24px;border-bottom:1px solid rgba(139,130,232,.12);}
+.section-inner{max-width:1180px;margin:0 auto;}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:1.5px;color:var(--p300);text-transform:uppercase;margin-bottom:12px;}
+.title{font-size:36px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;line-height:1.15;}
+.title em{font-style:italic;color:var(--p200);font-weight:600;}
+.subtitle{font-size:16px;color:var(--txt2);max-width:680px;line-height:1.6;}
+.tag-mock{display:inline-block;background:rgba(74,222,128,.15);color:#86efac;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;}
+.tag-note{display:inline-block;background:rgba(253,224,71,.13);color:#fde047;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;}
+
+/* === HERO === */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding:80px 24px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2400&q=85&auto=format&fit=crop');background-size:cover;background-position:center;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,5,15,.94) 0%,rgba(14,10,35,.86) 55%,rgba(91,82,204,.45) 100%);}
+.hero-content{position:relative;z-index:2;max-width:760px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);padding:8px 16px;border-radius:60px;font-size:12px;font-weight:600;color:#fff;margin-bottom:24px;}
+.hero-badge::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;box-shadow:0 0 12px #4ade80;animation:pulse 2s infinite;}
+@keyframes pulse{50%{opacity:.5;}}
+.hero-h1{font-size:64px;font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:24px;}
+.hero-h1 em{font-style:italic;color:var(--p200);font-weight:600;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.85);margin-bottom:36px;line-height:1.55;max-width:560px;}
+.hero-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-cta{background:linear-gradient(135deg,var(--p400),var(--p300));color:#fff;border:none;padding:16px 36px;border-radius:60px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(91,82,204,.45);transition:transform .2s;}
+.hero-cta:hover{transform:translateY(-2px);}
+.manager-online{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.85);font-size:14px;}
+.manager-avatars{display:flex;}
+.manager-avatars img{width:36px;height:36px;border-radius:50%;border:2px solid rgba(7,5,15,.9);margin-left:-10px;object-fit:cover;}
+.manager-avatars img:first-child{margin-left:0;}
+
+/* === Manager-CTA-card === */
+.mgr-cta{display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(139,130,232,.25);border-radius:18px;padding:20px 24px;max-width:560px;margin-top:48px;}
+.mgr-cta-ava{width:64px;height:64px;border-radius:50%;border:2px solid var(--p300);flex-shrink:0;object-fit:cover;}
+.mgr-cta-text{flex:1;}
+.mgr-cta-name{font-size:15px;font-weight:700;color:#fff;}
+.mgr-cta-status{font-size:12px;color:#86efac;display:flex;align-items:center;gap:6px;margin-top:2px;}
+.mgr-cta-status::before{content:'';width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite;}
+.mgr-cta-msg{font-size:14px;color:rgba(255,255,255,.85);margin-top:8px;line-height:1.5;font-style:italic;}
+.mgr-cta-btn{background:#25D366;color:#fff;border:none;padding:11px 22px;border-radius:60px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+
+/* === Geographic strip — флаги откуда наши клиенты === */
+.geo-strip{padding:30px 24px;background:rgba(91,82,204,.06);border-bottom:1px solid rgba(139,130,232,.12);}
+.geo-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:30px;flex-wrap:wrap;justify-content:center;}
+.geo-label{font-size:12px;color:var(--txt2);font-weight:600;letter-spacing:.8px;text-transform:uppercase;}
+.geo-flags{display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+.geo-flag{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#fff;}
+.geo-flag-emoji{font-size:22px;}
+.geo-flag-count{font-size:11px;color:var(--p300);font-weight:700;}
+
+/* === Team grid === */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;}
+.team-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(139,130,232,.18);border-radius:22px;padding:24px;text-align:center;transition:transform .3s,border-color .3s;}
+.team-card:hover{transform:translateY(-4px);border-color:rgba(139,130,232,.4);}
+.team-photo{width:130px;height:130px;border-radius:50%;margin:0 auto 18px;border:3px solid rgba(139,130,232,.3);object-fit:cover;display:block;}
+.team-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+.team-role{font-size:12px;font-weight:600;color:var(--p300);letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;}
+.team-bio{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:16px;min-height:70px;}
+.team-langs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;}
+.team-lang{font-size:10px;font-weight:600;background:rgba(91,82,204,.18);color:var(--p200);padding:3px 9px;border-radius:6px;}
+.team-wa{display:inline-flex;align-items:center;gap:6px;color:#25D366;text-decoration:none;font-size:12px;font-weight:600;margin-top:14px;}
+
+/* === Story cards === */
+.stories{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px;}
+.story{background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.15);border-radius:22px;overflow:hidden;}
+.story-photo{height:280px;background-size:cover;background-position:center;position:relative;}
+.story-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(7,5,15,.92));}
+.story-badge{position:absolute;top:16px;left:16px;background:rgba(74,222,128,.95);color:#1a1545;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;z-index:2;}
+.story-flag{position:absolute;top:16px;right:16px;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600;z-index:2;}
+.story-content{padding:24px;}
+.story-meta{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--txt2);font-size:12px;font-weight:600;}
+.story-quote{font-size:15px;color:#fff;line-height:1.55;margin-bottom:14px;font-style:italic;}
+.story-result{font-size:13px;color:#86efac;font-weight:600;}
+
+/* === Karta Pobytu showcase === */
+.kp-show{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin-top:40px;}
+.kp-show-img{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3;background:url('https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=1200&q=85&auto=format&fit=crop') center/cover;}
+.kp-show-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(91,82,204,.3));}
+.kp-show-text h3{font-size:30px;font-weight:800;margin-bottom:18px;line-height:1.2;}
+.kp-show-text p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:14px;}
+.kp-show-text strong{color:#fff;}
+.kp-show-text ul{list-style:none;margin-top:18px;}
+.kp-show-text ul li{padding:8px 0;color:rgba(255,255,255,.85);font-size:14px;display:flex;align-items:start;gap:10px;}
+.kp-show-text ul li::before{content:'✅';flex-shrink:0;}
+
+/* === Office === */
+.office-row{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;margin-top:40px;}
+.office-photos{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.office-photos img{width:100%;height:240px;object-fit:cover;border-radius:16px;}
+.office-photos img:first-child{grid-column:span 2;height:340px;}
+.office-text{padding:0 12px;}
+.office-text h3{font-size:24px;font-weight:700;margin-bottom:14px;}
+.office-text p{color:var(--txt2);font-size:14px;line-height:1.7;margin-bottom:12px;}
+.office-text strong{color:#fff;}
+
+/* === Video block === */
+.video-block{background:linear-gradient(135deg,#1a1545,#2a1f6e);border-radius:24px;padding:36px;display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:center;margin-top:40px;}
+.video-frame{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:9/16;max-height:480px;background:#000;}
+.video-frame::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&q=85&auto=format&fit=crop') center/cover;}
+.video-frame::after{content:'▶';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--p400);padding-left:8px;}
+.video-text h3{font-size:30px;font-weight:800;margin-bottom:18px;line-height:1.2;}
+.video-text p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:14px;}
+.video-text strong{color:#fff;}
+
+/* === Comparison === */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;}
+.cmp-card{padding:28px;border-radius:18px;}
+.cmp-bad{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);}
+.cmp-good{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.25);}
+.cmp-h{font-size:18px;font-weight:700;margin-bottom:14px;}
+.cmp-bad .cmp-h{color:#fca5a5;}
+.cmp-good .cmp-h{color:#86efac;}
+.cmp-text{font-size:14px;color:var(--txt2);line-height:1.6;}
+
+@media(max-width:900px){
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .stories,.office-row,.video-block,.kp-show{grid-template-columns:1fr;}
+  .cmp{grid-template-columns:1fr;}
+  .hero-h1{font-size:42px;}
+  .title{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  ⚠️ Превью v2 · фото подобраны под ЦА (🇮🇳 🇧🇩 🇵🇰 🇳🇬 🇻🇳 🇹🇷 🇺🇦) и под нашу услугу. Прод не тронут.
+</div>
+
+<!-- ─────────────────── HERO ─────────────────── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Талыш онлайн · ответит за 5 минут</div>
+    <h1 class="hero-h1">Карта побыту<br><em>в Польше — без стресса</em></h1>
+    <p class="hero-sub">5 лет помогаем иностранцам легализоваться в Польше. 3000+ карт побыту, 98% одобрений. Только WhatsApp, без офиса и очередей.</p>
+    <div class="hero-cta-row">
+      <a href="https://wa.me/48735248525" class="hero-cta" target="_blank">💬 Написать в WhatsApp</a>
+      <div class="manager-online">
+        <div class="manager-avatars">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=160&h=160&fit=crop&crop=face&q=85" alt="Talysh">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=face&q=85" alt="Daria">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=face&q=85" alt="Andrian">
+        </div>
+        <span>3 специалиста онлайн прямо сейчас</span>
+      </div>
+    </div>
+
+    <div class="mgr-cta">
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop&crop=face&q=85" class="mgr-cta-ava" alt="Talysh">
+      <div class="mgr-cta-text">
+        <div class="mgr-cta-name">Талыш М. · ведущий специалист</div>
+        <div class="mgr-cta-status">онлайн · отвечает за 5 минут</div>
+        <div class="mgr-cta-msg">«Привет 👋 Расскажите вашу ситуацию — посмотрю что лучше сделать. Бесплатно.»</div>
+      </div>
+      <a href="https://wa.me/48735248525" class="mgr-cta-btn" target="_blank">Ответить</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── ГЕОГРАФИЯ — откуда клиенты ─────────────── -->
+<section class="geo-strip">
+  <div class="geo-inner">
+    <span class="geo-label">Откуда наши клиенты</span>
+    <div class="geo-flags">
+      <div class="geo-flag"><span class="geo-flag-emoji">🇮🇳</span><div>Индия<div class="geo-flag-count">820 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇧🇩</span><div>Бангладеш<div class="geo-flag-count">540 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇵🇰</span><div>Пакистан<div class="geo-flag-count">310 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇳🇬</span><div>Нигерия<div class="geo-flag-count">280 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇻🇳</span><div>Вьетнам<div class="geo-flag-count">220 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇹🇷</span><div>Турция<div class="geo-flag-count">180 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇺🇦</span><div>Украина<div class="geo-flag-count">410 кейсов</div></div></div>
+      <div class="geo-flag"><span class="geo-flag-emoji">🇧🇾</span><div>Беларусь<div class="geo-flag-count">240 кейсов</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── BLOCK: Карта побыту showcase ─────────────── -->
+<section class="section">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Что вы получите</div>
+    <h2 class="title">Пластиковая карта побыту — <em>на 1–3 года</em></h2>
+    <p class="subtitle">Это и есть результат нашей работы — официальный документ резидента Польши. С ней вы законно живёте, работаете и путешествуете по Шенгену.</p>
+
+    <div class="kp-show">
+      <div class="kp-show-img"></div>
+      <div class="kp-show-text">
+        <h3>Что даёт карта побыту:</h3>
+        <ul>
+          <li>Легально жить и работать в Польше до 3 лет</li>
+          <li>Путешествовать по ЕС без виз</li>
+          <li>Привезти семью (воссоединение)</li>
+          <li>Открыть бизнес, счёт в банке, ипотеку</li>
+          <li>Через 5 лет — подать на ПМЖ</li>
+          <li>Через 10 лет — на гражданство Польши</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── BLOCK: TEAM ─────────────── -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Кто будет вести ваше дело</div>
+    <h2 class="title">Команда, а не <em>компания</em></h2>
+    <p class="subtitle">Вас встретит конкретный человек — с именем, телефоном и опытом. Не «менеджер», а Талыш, Дарья, Андриан или Влад.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&h=400&fit=crop&crop=face&q=85" class="team-photo" alt="Talysh">
+        <div class="team-name">Талыш М.</div>
+        <div class="team-role">Ведущий специалист</div>
+        <div class="team-bio">5 лет в LegalSol. Карта побыту, апелляции, ПМЖ. Сам прошёл путь от студента до польского паспорта.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇵🇱 PL</span><span class="team-lang">🇬🇧 EN</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face&q=85" class="team-photo" alt="Daria">
+        <div class="team-name">Дарья К.</div>
+        <div class="team-role">Юрист по апелляциям</div>
+        <div class="team-bio">Сложные кейсы: отказы воеводства, защита от депортации, международная защита. 4 года практики, 200+ выигранных апелляций.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇺🇦 UA</span><span class="team-lang">🇵🇱 PL</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face&q=85" class="team-photo" alt="Andrian">
+        <div class="team-name">Андриан О.</div>
+        <div class="team-role">Спец. по MOS и PESEL</div>
+        <div class="team-bio">MOS-онлайн подача, Profil Zaufany, замена прав. Знает все офисы воеводства в Варшаве и Кракове.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇵🇱 PL</span><span class="team-lang">🇬🇧 EN</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&h=400&fit=crop&crop=face&q=85" class="team-photo" alt="Vlad">
+        <div class="team-name">Влад Т.</div>
+        <div class="team-role">Основатель</div>
+        <div class="team-bio">Сам из Беларуси. Прошёл всё: побыт → ПМЖ → гражданство. С 2020 года ведёт LegalSol. Если что-то пойдёт не так — пишите лично.</div>
+        <div class="team-langs"><span class="team-lang">🇷🇺 RU</span><span class="team-lang">🇧🇾 BY</span><span class="team-lang">🇵🇱 PL</span></div>
+        <a href="https://wa.me/48735248525" class="team-wa">💬 WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── VIDEO ─────────────── -->
+<section class="section">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Видео-приветствие</div>
+    <h2 class="title">Я объясню всё <em>за 30 секунд</em></h2>
+    <p class="subtitle">Короткое видео от Влада — почему мы делаем эту работу и почему нам стоит доверять.</p>
+
+    <div class="video-block">
+      <div class="video-frame"></div>
+      <div class="video-text">
+        <h3>«Привет. Я Влад, основатель LegalSol.»</h3>
+        <p>«Мы помогаем иностранцам в Польше с <strong>2020 года</strong>. <strong>3000+ карт побыту</strong>, ПМЖ, гражданств — для людей из Индии, Бангладеш, Пакистана, Нигерии, Вьетнама.»</p>
+        <p>«Сам прошёл этот путь. Знаю что значит ждать ответа воеводства месяцами и не понимать что происходит. Знаю что значит быть в чужой стране и нуждаться в карте чтобы остаться.»</p>
+        <p>«У нас работают <strong>4 человека</strong> — все говорят по-русски, английски и польски. Все на связи в WhatsApp.»</p>
+        <p style="color:#fde047;font-weight:600;margin-top:18px;">«Если что-то пойдёт не так — пишите мне лично. Я отвечу.»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── STORIES ─────────────── -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Расширенный блок</div>
+    <div class="eyebrow">Истории клиентов</div>
+    <h2 class="title">Не отзывы — а <em>истории людей</em></h2>
+    <p class="subtitle">Реальные клиенты с фото в день получения карты побыту. Что у них было, что мы сделали, как закончилось.</p>
+
+    <div class="stories">
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">✓ 3 месяца</span>
+          <span class="story-flag">🇮🇳 Индия</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Rajesh K. · IT-инженер · Варшава</div>
+          <div class="story-quote">«Подавал сам, ждал <strong>8 месяцев в тишине</strong>. LegalSol за один WhatsApp нашли что не хватало — через 3 месяца карта на руках.»</div>
+          <div class="story-result">✅ Карта побыту на 3 года</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1610276198568-eb6d0ff53e48?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">⚖️ Спасли от депорта</span>
+          <span class="story-flag">🇧🇩 Бангладеш</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Mohammad H. · стройка · Краков</div>
+          <div class="story-quote">«Первая фирма облажалась — <strong>отказ</strong>, 14 дней до депортации. Дарья подала апелляцию, выиграла, <strong>дали 3 года</strong>.»</div>
+          <div class="story-result">✅ Апелляция выиграна</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">⚡ Спидап</span>
+          <span class="story-flag">🇳🇬 Нигерия</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Emeka A. · водитель · Варшава</div>
+          <div class="story-quote">«Работодатель ушёл <strong>за неделю до конца визы</strong>. LegalSol нашли другие основания за 2 дня и спасли дело.»</div>
+          <div class="story-result">✅ Спасли за 2 дня</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">👨‍👩‍👧 Семья</span>
+          <span class="story-flag">🇵🇰 Пакистан</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Ahmed S. · ресторан · Гданьск</div>
+          <div class="story-quote">«Перевёз жену и двоих детей. LegalSol оформили всем сразу — <strong>прозрачная цена и сроки</strong>, без сюрпризов.»</div>
+          <div class="story-result">✅ Воссоединение семьи</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">🎓 Студент</span>
+          <span class="story-flag">🇻🇳 Вьетнам</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Linh N. · студентка · Познань</div>
+          <div class="story-quote">«Учусь в Polonia — закончилась студенческая виза. LegalSol перевели на рабочую <strong>без перерыва в статусе</strong>.»</div>
+          <div class="story-result">✅ Перешла на работу</div>
+        </div>
+      </div>
+      <div class="story">
+        <div class="story-photo" style="background-image:url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=900&q=85&auto=format&fit=crop')">
+          <span class="story-badge">🇵🇱 ПМЖ</span>
+          <span class="story-flag">🇺🇦 Украина</span>
+        </div>
+        <div class="story-content">
+          <div class="story-meta">Олена П. · бухгалтер · Вроцлав</div>
+          <div class="story-quote">«5 лет на карте побыту — пора было на ПМЖ. LegalSol собрали все справки и подали <strong>с первого раза одобрили</strong>.»</div>
+          <div class="story-result">✅ Постоянный побыт</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── OFFICE ─────────────── -->
+<section class="section">
+  <div class="section-inner">
+    <div class="tag-mock">🆕 Новое</div>
+    <div class="eyebrow">Где мы работаем</div>
+    <h2 class="title">Sienna 75, <em>Варшава</em></h2>
+    <p class="subtitle">Настоящий офис в центре Варшавы. Большинство клиентов вообще не приходят сюда — всё делаем через WhatsApp. Но если хотите встретиться лично — мы тут.</p>
+
+    <div class="office-row">
+      <div class="office-photos">
+        <img src="https://images.unsplash.com/photo-1543248939-4296e1fea89b?w=1400&q=85&auto=format&fit=crop" alt="Warsaw office">
+        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=900&q=85&auto=format&fit=crop" alt="Workspace">
+        <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&q=85&auto=format&fit=crop" alt="Team meeting">
+      </div>
+      <div class="office-text">
+        <h3>Открыты пн-пт 9:00–18:00</h3>
+        <p>📍 <strong>Sienna 75</strong>, 00-833 Варшава<br>📞 +48 735 248 525<br>📧 legalsol.communication@gmail.com</p>
+        <p>Большинство клиентов вообще не приходят в офис — всё делаем через WhatsApp и MOS. Но если хотите встретиться лично — приходите, кофе бесплатно ☕</p>
+        <p>Команда — <strong>4 специалиста</strong>, говорим на 4 языках. Работаем по Польше и со всей Европы — Германия, Нидерланды, Чехия, Австрия.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── TONE COMPARISON ─────────────── -->
+<section class="section" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="tag-mock">💡 Идея</div>
+    <div class="eyebrow">Что ещё можно изменить</div>
+    <h2 class="title">Тон текста — <em>как разговор</em>, а не как контракт</h2>
+    <p class="subtitle">Маленькие правки в копирайтинге, которые делают сайт «своим», а не корпоративным.</p>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (формально)</div>
+        <div class="cmp-text">«Мы предоставляем услуги по легализации иностранцев в Польше. Наша компания работает с 2020 года и имеет более 3000 успешно закрытых кейсов.»</div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так (по-человечески)</div>
+        <div class="cmp-text">«Сами иностранцы. Прошли путь от карты побыту до паспорта. Знаем боль изнутри — поэтому помогаем другим. 3000+ клиентов с 2020, 4 человека в команде, все на связи в WhatsApp.»</div>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (CTA)</div>
+        <div class="cmp-text">«Оставьте заявку — наш специалист свяжется с вами в ближайшее время.»</div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так</div>
+        <div class="cmp-text">«Напишите в WhatsApp. Талыш или Дарья ответят за 15 минут (правда). Расскажете ситуацию — мы скажем что делать.»</div>
+      </div>
+    </div>
+
+    <div class="cmp">
+      <div class="cmp-card cmp-bad">
+        <div class="cmp-h">Сейчас (гарантия)</div>
+        <div class="cmp-text">«98% одобрений. В случае отказа — мы подаём апелляцию.»</div>
+      </div>
+      <div class="cmp-card cmp-good">
+        <div class="cmp-h">Можно так</div>
+        <div class="cmp-text">«Из 100 наших клиентов карту получают 98. Двум — отказ. Тогда мы делаем апелляцию <strong>бесплатно</strong>. Не потому что обещали — а потому что верим что вытащим. И обычно вытаскиваем.»</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer note -->
+<section class="section" style="text-align:center;padding:60px 24px;">
+  <div class="section-inner">
+    <p style="color:var(--txt2);font-size:14px;line-height:1.7;max-width:620px;margin:0 auto;">
+      Это превью v2 — все фото с <a href="https://unsplash.com" style="color:var(--p300);">Unsplash</a> подобраны под вашу ЦА (🇮🇳 🇧🇩 🇵🇰 🇳🇬 🇻🇳 🇹🇷 🇺🇦) и под нашу услугу (карта побыту).<br><br>
+      В реальной реализации тут будут <strong>фото вашей команды, офиса и согласившихся клиентов</strong>.<br><br>
+      <span style="color:#fde047;">Что нужно собрать:</span><br>
+      📸 Фотосессия команды (1 час с фотографом в офисе)<br>
+      🎥 Запись 30-секундного видео Влада на iPhone<br>
+      📷 5-6 фото офиса (на мобильник, не стоковый glanc)<br>
+      📝 Согласие 3-6 клиентов из разных стран на использование фото в их историях
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
