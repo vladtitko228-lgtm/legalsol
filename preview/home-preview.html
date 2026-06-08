@@ -6480,10 +6480,15 @@ document.addEventListener('DOMContentLoaded', function(){
    SOFT TRANSITIONS between sections (no harsh photo jumps)
    ════════════════════════════════════════════════════════════ */
 
-/* Body — subtle warm/dark gradient so light cards "float" smoothly */
+/* Body — premium purple-ambient background */
 body{
   background:
-    linear-gradient(180deg,#0e0a23 0%,#15103a 35%,#0e0a23 65%,#15103a 100%) !important;
+    radial-gradient(ellipse 800px 600px at 15% 10%,rgba(91,82,204,.18) 0%,transparent 50%),
+    radial-gradient(ellipse 700px 500px at 85% 40%,rgba(167,139,250,.14) 0%,transparent 50%),
+    radial-gradient(ellipse 900px 700px at 50% 75%,rgba(91,82,204,.16) 0%,transparent 50%),
+    radial-gradient(ellipse 600px 400px at 90% 95%,rgba(167,139,250,.12) 0%,transparent 50%),
+    linear-gradient(180deg,#0e0a23 0%,#15103a 30%,#1a1545 60%,#0e0a23 100%) !important;
+  background-attachment:fixed !important;
 }
 
 /* Each white card section — soft fade on top + bottom 60px */
