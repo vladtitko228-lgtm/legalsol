@@ -4625,11 +4625,11 @@ footer a:hover{color:#a78bfa !important;}
     margin:14px 10px !important;padding:28px 16px !important;border-radius:18px !important;
   }
 
-  /* Geo — single column with all 9 country cards stacked */
-  .geo-title-pv{font-size:22px !important;line-height:1.2 !important;}
+  /* Geo — 2 columns compact (less scrolling) */
+  .geo-title-pv{font-size:20px !important;line-height:1.2 !important;}
   .geo-sub-pv{font-size:13px !important;line-height:1.45 !important;}
-  .geo-grid-pv{grid-template-columns:1fr !important;gap:10px !important;}
-  .geo-card-pv{padding:14px !important;}
+  .geo-grid-pv{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;}
+  .geo-card-pv{padding:12px 10px !important;}
 
   /* Reviews — single column, neutral office bg preserved */
   .rvhome-head{padding-top:8px !important;margin-bottom:24px !important;}
@@ -9891,7 +9891,7 @@ function updateTicker(){}
   max-width:520px;margin:0 auto;
 }
 .geo-grid-pv{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:6px;max-width:780px;margin-left:auto;margin-right:auto;}
-@media(max-width:720px){.geo-grid-pv{grid-template-columns:1fr;gap:10px;}}
+@media(max-width:720px){.geo-grid-pv{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;}.geo-card-pv{padding:12px 10px !important;}.gc-name{font-size:13px !important;}.gc-count{font-size:11px !important;}.gc-flag{font-size:20px !important;}.geo-strip-pv{padding:24px 16px !important;}.geo-title-pv{font-size:20px !important;}.geo-sub-pv{font-size:13px !important;}}
 .geo-card-pv{
   position:relative;
   display:flex;align-items:center;gap:11px;
