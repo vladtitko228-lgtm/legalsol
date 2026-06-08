@@ -3914,6 +3914,13 @@ window.PV_I18N = {
     pzTitle:'Роботодавець дав вам Załącznik nr 1? <em>Перевіримо його до подачі.</em>',
   }
 };
+/* MEGA Wizard category labels per language */
+window.PV_I18N_CATS = {
+  en: {praca:'Work (TRC)', spolka:'Company / Business', staly:'Permanent / EU Resident', odwol:'Appeal / Refusal'},
+  pl: {praca:'Praca (Czasowy)', spolka:'Spółka / Biznes', staly:'Stały / Rezydent UE', odwol:'Odwołanie / Odmowa'},
+  ru: {praca:'Работа (KCP)', spolka:'Компания / Бизнес', staly:'ПМЖ / Резидент ЕС', odwol:'Апелляция / Отказ'},
+  uk: {praca:'Робота (KCP)', spolka:'Компанія / Бізнес', staly:'ПМП / Резидент ЄС', odwol:'Апеляція / Відмова'}
+};
 window.PV_I18N_APPLY = function(lang){
   var dict = window.PV_I18N[lang] || window.PV_I18N.en;
   var map = {
@@ -3942,10 +3949,19 @@ window.PV_I18N_APPLY = function(lang){
     var val = dict[map[sel]];
     if(el && val) el.innerHTML = val;
   });
-  // Buttons that change inside MEGA Wizard depending on step (dynamic re-render):
+  // Buttons that change inside MEGA Wizard depending on step
   var g2 = document.querySelector('#mw-go2'); if(g2 && dict.mwGo2) g2.innerHTML = dict.mwGo2;
   var g3 = document.querySelector('#mw-go3'); if(g3 && dict.mwGo3) g3.innerHTML = dict.mwGo3;
   document.querySelectorAll('.mw-back').forEach(function(b){ if(dict.mwBack) b.innerHTML = dict.mwBack; });
+  var sub = document.querySelector('#mw-submit'); if(sub && dict.mwSubmit) sub.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>'+dict.mwSubmit;
+  var nm = document.querySelector('#mw-name'); if(nm && dict.mwName) nm.setAttribute('placeholder', dict.mwName);
+  var ph = document.querySelector('#mw-phone'); if(ph && dict.mwPhone) ph.setAttribute('placeholder', dict.mwPhone);
+  // MEGA Wizard category tabs (translate labels)
+  var catDict = window.PV_I18N_CATS[lang] || window.PV_I18N_CATS.en;
+  document.querySelectorAll('.mw-tab[data-cat]').forEach(function(b){
+    var c = b.dataset.cat;
+    if(catDict[c]) b.textContent = catDict[c];
+  });
 };
 </script>
 </head>
@@ -7575,46 +7591,37 @@ document.addEventListener('DOMContentLoaded', function(){
 
 /* TRUST STRIP — under hero, builds instant credibility */
 .preview-trust-strip{
-  max-width:1180px;margin:30px auto 60px;padding:0 14px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  max-width:1100px;margin:40px auto 60px;padding:0 24px;
+  display:flex;align-items:stretch;justify-content:space-around;gap:0;
   background:none;border:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;
 }
 .preview-trust-strip .pts-cell{
-  position:relative;
-  background:linear-gradient(180deg,rgba(91,82,204,.20) 0%,rgba(91,82,204,.06) 100%);
-  border:1px solid rgba(139,130,232,.32);
-  border-radius:20px;padding:28px 22px;
-  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;
-  transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease;
-  overflow:hidden;
+  position:relative;flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:0 18px;
+  background:none;border:none;border-radius:0;
 }
-.preview-trust-strip .pts-cell::before{
-  content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(167,139,250,.7),transparent);
+.preview-trust-strip .pts-cell:not(:last-child)::after{
+  content:'';position:absolute;top:20%;bottom:20%;right:0;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(139,130,232,.30),transparent);
 }
-.preview-trust-strip .pts-cell:hover{
-  transform:translateY(-3px);
-  border-color:rgba(167,139,250,.60);
-  box-shadow:0 16px 40px rgba(91,82,204,.25);
-}
-.preview-trust-strip .pts-cell svg{
-  width:22px;height:22px;color:#a78bfa;margin-bottom:12px;
-  filter:drop-shadow(0 4px 10px rgba(167,139,250,.35));
-}
+.preview-trust-strip .pts-cell svg{display:none;}
 .preview-trust-strip .pts-num{
-  font-family:'Inter',sans-serif;font-weight:800;font-size:36px;letter-spacing:-1px;line-height:1;
-  background:linear-gradient(135deg,#fff 0%,#c4b5fd 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  font-family:'Playfair Display','Lora',Georgia,serif;
+  font-weight:800;font-size:42px;letter-spacing:-1.5px;line-height:1;color:#fff;
+  background:none;-webkit-text-fill-color:#fff;
 }
 .preview-trust-strip .pts-label{
-  font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.62);
-  letter-spacing:1.4px;text-transform:uppercase;font-weight:700;line-height:1.3;
+  font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.55);
+  letter-spacing:1.2px;text-transform:uppercase;font-weight:600;line-height:1.3;text-align:center;
 }
 @media(max-width:760px){
-  .preview-trust-strip{grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 12px 36px;padding:0;}
-  .preview-trust-strip .pts-cell{padding:20px 18px;border-radius:16px;}
-  .preview-trust-strip .pts-num{font-size:26px;}
-  .preview-trust-strip .pts-label{font-size:10.5px;letter-spacing:1px;}
+  .preview-trust-strip{flex-wrap:wrap;gap:24px 0;margin:30px 12px;padding:0;}
+  .preview-trust-strip .pts-cell{flex:0 0 50%;padding:8px 12px;}
+  .preview-trust-strip .pts-cell:nth-child(2)::after,
+  .preview-trust-strip .pts-cell:nth-child(4)::after{display:none;}
+  .preview-trust-strip .pts-num{font-size:32px;}
+  .preview-trust-strip .pts-label{font-size:10.5px;}
 }
 .pts-cell{
   display:flex;align-items:center;justify-content:center;gap:10px;
@@ -28884,8 +28891,8 @@ function setLang(lang){
   document.documentElement.classList.add('lang-switching');
 
   L=lang;
-  // === Preview blocks i18n patch ===
-  setTimeout(function(){ try{ if(window.PV_I18N_APPLY) window.PV_I18N_APPLY(lang); }catch(e){console.warn('pv i18n',e);} }, 50);
+  // === Preview blocks i18n patch — sync to avoid flash ===
+  try{ if(window.PV_I18N_APPLY) window.PV_I18N_APPLY(lang); }catch(e){console.warn('pv i18n',e);}
 
   // Runtime swap of common hardcoded RU snippets in job cards / countries.
   // This is a stop-gap until full job-listing i18n is done.
