@@ -6994,6 +6994,7 @@ document.addEventListener('DOMContentLoaded', function(){
   max-width:820px;margin:30px auto 50px;padding:0 20px;
   position:relative;
 }
+.preview-hero-video-top{margin:0 auto 36px !important;padding:0 20px;}
 .preview-hero-video-eyebrow{
   text-align:center;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2.5px;
   color:#a78bfa;font-weight:700;text-transform:uppercase;margin-bottom:12px;
@@ -7610,18 +7611,18 @@ document.addEventListener('DOMContentLoaded', function(){
       renderQw();
     }
 
-    /* 0. Hero founder video — inject right after Hero (before Trust strip) */
+    /* 0. Hero founder video — inject INSIDE hero, as the very first element (above heading) */
     if(hero && !document.querySelector('.preview-hero-video')){
       var vid = document.createElement('div');
-      vid.className = 'preview-hero-video';
+      vid.className = 'preview-hero-video preview-hero-video-top';
       vid.innerHTML = ''
         +'<div class="preview-hero-video-eyebrow">MEET LEGALSOL</div>'
         +'<div class="preview-hero-video-wrap">'
           +'<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc" title="LegalSol — about us" '
           +'frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>'
-        +'</div>'
-        +'<div class="preview-hero-video-caption"><b>Vlad, founder</b> — about how we work, why MOS changed everything, and what makes LegalSol different.</div>';
-      hero.parentNode.insertBefore(vid, hero.nextSibling);
+        +'</div>';
+      // Insert at the very beginning of the hero (above heading + badge)
+      hero.insertBefore(vid, hero.firstChild);
     }
 
     /* 1. Trust strip — inject right after Hero */
