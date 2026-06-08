@@ -4281,13 +4281,27 @@ section.section[style*="background:var(--bg)"]:has(#steps-tag){
    ════════════════════════════════════════════════════════════ */
 .geo-strip-pv{
   position:relative !important;
-  background:
-    linear-gradient(180deg,rgba(247,245,242,.94) 0%,rgba(243,241,238,.96) 100%),
-    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat !important;
+  background:linear-gradient(180deg,#0e0a23 0%,#161035 100%) !important;
   border-radius:28px !important;
-  border:1px solid rgba(91,82,204,.10) !important;
-  box-shadow:0 4px 24px rgba(7,5,15,.06) !important;
+  border:1px solid rgba(139,130,232,.22) !important;
+  box-shadow:0 4px 24px rgba(7,5,15,.30) !important;
   overflow:hidden !important;
+  color:#fff !important;
+}
+.geo-strip-pv .geo-eyebrow-pv{color:#a78bfa !important;}
+.geo-strip-pv .geo-title-pv{color:#fff !important;}
+.geo-strip-pv .geo-title-pv em{color:#22c55e !important;}
+.geo-strip-pv .geo-sub-pv{color:rgba(255,255,255,.65) !important;}
+/* Geo cards inside — slight glass effect */
+.geo-strip-pv .geo-card-pv{
+  background:rgba(255,255,255,.04) !important;
+  border:1px solid rgba(139,130,232,.20) !important;
+  color:#fff !important;
+}
+.geo-strip-pv .geo-card-pv:hover{
+  background:rgba(91,82,204,.12) !important;
+  border-color:rgba(167,139,250,.45) !important;
+  transform:translateY(-3px) !important;
 }
 .geo-strip-pv::before{display:none !important;}
 .geo-strip-pv > *{position:relative;z-index:1;}
