@@ -4879,6 +4879,46 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 </style>
 
+<style id="preview-split-section">
+/* SIDE-BY-SIDE: Mapa Polski (left) + MEGA Wizard (right) */
+.preview-split-section{
+  max-width:1280px;margin:50px auto;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;
+}
+.preview-split-section .preview-mapa-hex,
+.preview-split-section .preview-mw{
+  margin:0 !important;max-width:none !important;width:100% !important;
+  padding:30px 24px !important;
+}
+.preview-split-section .pmh-title,
+.preview-split-section .mw-title{
+  font-size:clamp(20px,2.2vw,28px) !important;
+}
+.preview-split-section .pmh-sub,
+.preview-split-section .mw-eyebrow{font-size:12px !important;}
+.preview-split-section .pmh-svg-wrap{max-width:none !important;}
+.preview-split-section .pmh-legend{gap:8px !important;}
+.preview-split-section .pmh-legend-item{font-size:10px !important;}
+.preview-split-section .pmh-stats{grid-template-columns:1fr !important;gap:6px !important;}
+.preview-split-section .pmh-cta-row{padding:14px 16px !important;}
+.preview-split-section .pmh-cta-text{font-size:12px !important;min-width:140px !important;}
+.preview-split-section .pmh-cta-btn{font-size:11px !important;padding:11px 18px !important;}
+.preview-split-section .mw-tab{font-size:12px !important;padding:8px 14px !important;}
+.preview-split-section .mw-tabs{gap:5px !important;}
+.preview-split-section .mw-item{font-size:12.5px !important;padding:10px 14px !important;}
+.preview-split-section .pml-name{font-size:7.5px !important;}
+.preview-split-section .pml-time-days{font-size:7px !important;}
+.preview-split-section .pml-time-active{font-size:6.5px !important;}
+
+@media(max-width:1100px){
+  .preview-split-section{grid-template-columns:1fr;gap:14px;}
+  .preview-split-section .preview-mapa-hex,
+  .preview-split-section .preview-mw{padding:36px 28px !important;}
+  .preview-split-section .pmh-title,
+  .preview-split-section .mw-title{font-size:24px !important;}
+}
+</style>
+
 <style id="preview-mega-wizard">
 /* ════════════════════════════════════════════════════════════
    MEGA WIZARD — Checklist → Analysis → WhatsApp
@@ -7565,6 +7605,17 @@ document.addEventListener('DOMContentLoaded', function(){
       // In-view observer for animations
       var phcIO = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');phcIO.unobserve(e.target);}});},{threshold:.2});
       phcIO.observe(howClean);
+
+      // Group Mapa Polski + MEGA Wizard side-by-side
+      var mapaSplit = document.querySelector('.preview-mapa-hex');
+      var mwSplit = document.querySelector('.preview-mw');
+      if(mapaSplit && mwSplit && !document.querySelector('.preview-split-section')){
+        var split = document.createElement('div');
+        split.className = 'preview-split-section';
+        mapaSplit.parentNode.insertBefore(split, mapaSplit);
+        split.appendChild(mapaSplit);
+        split.appendChild(mwSplit);
+      }
       // Expandable cards — click toggle/card to expand
       howClean.querySelectorAll('.phc-step-toggle').forEach(function(btn){
         btn.addEventListener('click',function(ev){
