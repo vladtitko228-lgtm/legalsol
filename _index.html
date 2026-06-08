@@ -4131,8 +4131,8 @@ window.PV_I18N_APPLY = function(lang){
 }
 .hero-svc-btn:active{transform:translateY(-1px) !important;}
 
-/* ───── HERO: vertical alignment + clean up old artifacts under video ───── */
-#hero{align-items:start !important;padding-top:108px !important;}
+/* ───── HERO: removed old 108px padding override that created empty space below ───── */
+/* #hero{align-items:start !important;padding-top:108px !important;} */
 .hero-right-pv{margin-top:48px !important;}
 @media(max-width:900px){.hero-right-pv{margin-top:24px !important;}}
 /* Hide old 3D-card artefacts under the video (tags + Legal-analysis CTA + card hint) */
@@ -7007,10 +7007,10 @@ document.addEventListener('DOMContentLoaded', function(){
 @media(min-width:980px){
   #hero{
     display:grid !important;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;
-    text-align:left !important;max-width:1600px;margin:0 auto !important;
-    padding:50px 70px 60px !important;
+    text-align:left !important;max-width:none !important;margin:0 !important;
+    padding:50px max(70px,8vw) 50px !important;min-height:auto !important;
   }
-  .preview-hero-video-side{max-width:640px !important;}
+  .preview-hero-video-side{max-width:680px !important;}
   #hero .hero-left{text-align:left !important;max-width:none !important;margin:0 !important;}
   #hero .hero-title,#hero h1,#hero-h1{text-align:left !important;margin-left:0 !important;margin-right:0 !important;}
   #hero .hero-sub,#hero-sub{text-align:left !important;margin-left:0 !important;margin-right:0 !important;}
