@@ -6480,15 +6480,16 @@ document.addEventListener('DOMContentLoaded', function(){
    SOFT TRANSITIONS between sections (no harsh photo jumps)
    ════════════════════════════════════════════════════════════ */
 
-/* Body — premium purple-ambient background */
+/* Body — premium purple-ambient with subtle photo texture */
 body{
   background:
     radial-gradient(ellipse 800px 600px at 15% 10%,rgba(91,82,204,.18) 0%,transparent 50%),
-    radial-gradient(ellipse 700px 500px at 85% 40%,rgba(167,139,250,.14) 0%,transparent 50%),
-    radial-gradient(ellipse 900px 700px at 50% 75%,rgba(91,82,204,.16) 0%,transparent 50%),
-    radial-gradient(ellipse 600px 400px at 90% 95%,rgba(167,139,250,.12) 0%,transparent 50%),
-    linear-gradient(180deg,#0e0a23 0%,#15103a 30%,#1a1545 60%,#0e0a23 100%) !important;
-  background-attachment:fixed !important;
+    radial-gradient(ellipse 700px 500px at 85% 40%,rgba(167,139,250,.12) 0%,transparent 50%),
+    radial-gradient(ellipse 900px 700px at 50% 75%,rgba(91,82,204,.14) 0%,transparent 50%),
+    linear-gradient(180deg,rgba(14,10,35,.86) 0%,rgba(26,21,69,.90) 50%,rgba(14,10,35,.92) 100%),
+    url('https://images.unsplash.com/photo-1538370965046-79c0d6907d47?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    #0e0a23 !important;
+  background-attachment:fixed,fixed,fixed,fixed,fixed !important;
 }
 
 /* Each white card section — soft fade on top + bottom 60px */
