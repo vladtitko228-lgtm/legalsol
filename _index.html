@@ -3778,6 +3778,56 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<style id="preview-wider-sections">
+/* Make all preview sections wider — fill the screen on large monitors */
+@media(min-width:1200px){
+  .preview-trust-strip,
+  .preview-mapa-hex,
+  .preview-mw,
+  .preview-cabinet-feature,
+  .preview-how-clean,
+  .geo-strip-pv,
+  .preview-comp,
+  .preview-zal,
+  .preview-news,
+  .preview-vs2,
+  .preview-waits,
+  .rvhome,
+  .preview-final-cta{
+    max-width:1500px !important;
+  }
+  .preview-mw{max-width:1300px !important;}  /* wizard text needs to stay readable */
+  .preview-trust-strip{max-width:1300px !important;}
+  /* Wider padding so content doesn't hug the borders on large screens */
+  .preview-mapa-hex,
+  .preview-cabinet-feature,
+  .preview-how-clean,
+  .geo-strip-pv,
+  .preview-comp,
+  .preview-zal,
+  .preview-news,
+  .preview-final-cta{
+    padding-left:60px !important;padding-right:60px !important;
+  }
+  .preview-mw{padding-left:50px !important;padding-right:50px !important;}
+}
+@media(min-width:1600px){
+  /* Use even more screen real estate on 4K / wide monitors */
+  .preview-mapa-hex,
+  .preview-cabinet-feature,
+  .preview-how-clean,
+  .geo-strip-pv,
+  .preview-comp,
+  .preview-zal,
+  .preview-news,
+  .preview-vs2,
+  .rvhome,
+  .preview-final-cta{
+    max-width:1680px !important;
+  }
+}
+</style>
+
 <script id="preview-i18n">
 /* I18N for new preview blocks — 4 main languages + EN fallback */
 window.PV_I18N = {
