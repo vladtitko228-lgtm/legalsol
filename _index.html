@@ -3778,6 +3778,176 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<script id="preview-i18n">
+/* I18N for new preview blocks — 4 main languages + EN fallback */
+window.PV_I18N = {
+  en: {
+    heroVideoEyebrow:'MEET LEGALSOL',
+    mapaEyebrow:'RESIDENCE CARD · AVERAGE WAITING TIME 2025',
+    mapaTitle:'Drag the switch — see <em>the difference</em>',
+    mapaSub:'Official waiting times across all 16 Polish voivodeships (data: urząd wojewódzki reports, 28.02.2025). Slide right — see how LegalSol accelerates your case.',
+    mapaHint:'Slide the switch right to see the difference',
+    mapaWithoutBtn:'Without LegalSol',
+    mapaWithBtn:'With LegalSol →',
+    mapaShortest:'Shortest',
+    mapaLongest:'Longest',
+    mapaWithLegalsol:'With LegalSol',
+    mapaActive:'Active acceleration',
+    mapaCtaText:'No matter which voivodeship — <b>we actively push your case</b> with ponaglenia and complaints for inactivity (skarga na bezczynność).',
+    mapaCtaBtn:'Speed up my case →',
+    mwEyebrow:'WIZARD · CHECKLIST · ANALYSIS · CONTACT',
+    mwTitle:'Check <em>your readiness</em> and get a plan',
+    mwGo2:'See readiness analysis →',
+    mwGo3:'Get checklist + support →',
+    mwBack:'← Back',
+    mwSubmit:'Send via WhatsApp',
+    mwName:'Your name',
+    mwPhone:'Phone / WhatsApp',
+    pcfEyebrow:'OUR KNOW-HOW · LEGALSOL CABINET',
+    pcfTitle:'Your case, <em>your control</em>',
+    pcfCtaBtn:'Start with cabinet →',
+    phcEyebrow:'HOW IT WORKS · 5 STEPS',
+    phcTitle:'From first message <em>to card in hand</em>',
+    phcFootCta:'Start now →',
+    pcEyebrow:'COMPENSATION CALCULATOR · OFFICE INACTIVITY',
+    pcTitle:'Your case sitting idle for months? <em>The State will pay you.</em>',
+    pzEyebrow:'ZAŁĄCZNIK NR 1 VERIFIER · AI ASSISTANT',
+    pzTitle:'Your employer gave you Załącznik nr 1? <em>We\'ll verify it before submission.</em>',
+  },
+  pl: {
+    heroVideoEyebrow:'POZNAJ LEGALSOL',
+    mapaEyebrow:'KARTA POBYTU · ŚREDNI CZAS OCZEKIWANIA 2025',
+    mapaTitle:'Przesuń przełącznik — zobacz <em>różnicę</em>',
+    mapaSub:'Oficjalne czasy oczekiwania we wszystkich 16 polskich województwach (dane: raporty urzędów wojewódzkich, 28.02.2025). Przesuń w prawo — zobacz jak LegalSol przyspiesza Twoją sprawę.',
+    mapaHint:'Przesuń przełącznik w prawo, by zobaczyć różnicę',
+    mapaWithoutBtn:'Bez LegalSol',
+    mapaWithBtn:'Z LegalSol →',
+    mapaShortest:'Najkrótszy',
+    mapaLongest:'Najdłuższy',
+    mapaWithLegalsol:'Z LegalSol',
+    mapaActive:'Aktywne przyspieszanie',
+    mapaCtaText:'Niezależnie od województwa — <b>aktywnie pchamy Twoją sprawę</b> przez ponaglenia i skargi na bezczynność.',
+    mapaCtaBtn:'Przyspiesz moją sprawę →',
+    mwEyebrow:'KREATOR · CHECKLISTA · ANALIZA · KONTAKT',
+    mwTitle:'Sprawdź <em>swoją gotowość</em> i otrzymaj plan',
+    mwGo2:'Zobacz analizę szans →',
+    mwGo3:'Otrzymaj listę i wsparcie →',
+    mwBack:'← Powrót',
+    mwSubmit:'Wyślij na WhatsApp',
+    mwName:'Twoje imię',
+    mwPhone:'Telefon / WhatsApp',
+    pcfEyebrow:'NASZE KNOW-HOW · PANEL KLIENTA',
+    pcfTitle:'Twoja sprawa, <em>pod Twoją kontrolą</em>',
+    pcfCtaBtn:'Zacznij z panelem →',
+    phcEyebrow:'JAK TO DZIAŁA · 5 KROKÓW',
+    phcTitle:'Od pierwszej wiadomości <em>do karty w ręku</em>',
+    phcFootCta:'Zacznij teraz →',
+    pcEyebrow:'KALKULATOR ODSZKODOWAŃ · ZA BEZCZYNNOŚĆ ORGANU',
+    pcTitle:'Twoja sprawa leży miesiącami? <em>Państwo Ci zapłaci.</em>',
+    pzEyebrow:'WERYFIKATOR ZAŁĄCZNIKA NR 1 · AI ASSISTANT',
+    pzTitle:'Pracodawca dał Ci Załącznik nr 1? <em>Sprawdzimy go zanim złożysz.</em>',
+  },
+  ru: {
+    heroVideoEyebrow:'ПОЗНАКОМЬТЕСЬ С LEGALSOL',
+    mapaEyebrow:'КАРТА ПОБЫТУ · СРЕДНИЙ СРОК ОЖИДАНИЯ 2025',
+    mapaTitle:'Двигай переключатель — увидь <em>разницу</em>',
+    mapaSub:'Официальные сроки ожидания во всех 16 воеводствах Польши (данные: отчёты воеводских управлений, 28.02.2025). Сдвиньте вправо — увидите как LegalSol ускоряет ваше дело.',
+    mapaHint:'Сдвиньте переключатель вправо, чтобы увидеть разницу',
+    mapaWithoutBtn:'Без LegalSol',
+    mapaWithBtn:'С LegalSol →',
+    mapaShortest:'Самый короткий',
+    mapaLongest:'Самый длинный',
+    mapaWithLegalsol:'С LegalSol',
+    mapaActive:'Активное ускорение',
+    mapaCtaText:'Независимо от воеводства — <b>активно проталкиваем ваше дело</b> через ponaglenia и жалобы на бездействие.',
+    mapaCtaBtn:'Ускорить моё дело →',
+    mwEyebrow:'МАСТЕР · ЧЕКЛИСТ · АНАЛИЗ · КОНТАКТ',
+    mwTitle:'Проверьте <em>свою готовность</em> и получите план',
+    mwGo2:'Показать анализ шансов →',
+    mwGo3:'Получить чеклист и поддержку →',
+    mwBack:'← Назад',
+    mwSubmit:'Отправить в WhatsApp',
+    mwName:'Ваше имя',
+    mwPhone:'Телефон / WhatsApp',
+    pcfEyebrow:'НАШЕ НОУ-ХАУ · КАБИНЕТ КЛИЕНТА',
+    pcfTitle:'Ваше дело, <em>под вашим контролем</em>',
+    pcfCtaBtn:'Начать с кабинетом →',
+    phcEyebrow:'КАК ЭТО РАБОТАЕТ · 5 ШАГОВ',
+    phcTitle:'От первого сообщения <em>до карты в руках</em>',
+    phcFootCta:'Начать сейчас →',
+    pcEyebrow:'КАЛЬКУЛЯТОР КОМПЕНСАЦИЙ · ЗА БЕЗДЕЙСТВИЕ',
+    pcTitle:'Ваше дело лежит месяцами? <em>Государство заплатит вам.</em>',
+    pzEyebrow:'ВЕРИФИКАТОР ZAŁĄCZNIK NR 1 · AI АССИСТЕНТ',
+    pzTitle:'Работодатель дал вам Załącznik nr 1? <em>Проверим его до подачи.</em>',
+  },
+  uk: {
+    heroVideoEyebrow:'ПОЗНАЙОМТЕСЯ З LEGALSOL',
+    mapaEyebrow:'КАРТА ПОБИТУ · СЕРЕДНІЙ ЧАС ОЧІКУВАННЯ 2025',
+    mapaTitle:'Пересуньте перемикач — побачте <em>різницю</em>',
+    mapaSub:'Офіційний час очікування у всіх 16 воєводствах Польщі (дані: звіти воєводських управлінь, 28.02.2025). Посуньте вправо — побачте як LegalSol прискорює вашу справу.',
+    mapaHint:'Посуньте перемикач праворуч, щоб побачити різницю',
+    mapaWithoutBtn:'Без LegalSol',
+    mapaWithBtn:'З LegalSol →',
+    mapaShortest:'Найкоротший',
+    mapaLongest:'Найдовший',
+    mapaWithLegalsol:'З LegalSol',
+    mapaActive:'Активне прискорення',
+    mapaCtaText:'Незалежно від воєводства — <b>активно проштовхуємо вашу справу</b> через ponaglenia та скарги на бездіяльність.',
+    mapaCtaBtn:'Прискорити мою справу →',
+    mwEyebrow:'МАЙСТЕР · ЧЕКЛИСТ · АНАЛІЗ · КОНТАКТ',
+    mwTitle:'Перевірте <em>свою готовність</em> та отримайте план',
+    mwGo2:'Показати аналіз шансів →',
+    mwGo3:'Отримати чеклист і підтримку →',
+    mwBack:'← Назад',
+    mwSubmit:'Надіслати у WhatsApp',
+    mwName:'Ваше ім\'я',
+    mwPhone:'Телефон / WhatsApp',
+    pcfEyebrow:'НАШЕ НОУ-ХАУ · КАБІНЕТ КЛІЄНТА',
+    pcfTitle:'Ваша справа, <em>під вашим контролем</em>',
+    pcfCtaBtn:'Розпочати з кабінетом →',
+    phcEyebrow:'ЯК ЦЕ ПРАЦЮЄ · 5 КРОКІВ',
+    phcTitle:'Від першого повідомлення <em>до карти в руках</em>',
+    phcFootCta:'Розпочати зараз →',
+    pcEyebrow:'КАЛЬКУЛЯТОР КОМПЕНСАЦІЙ · ЗА БЕЗДІЯЛЬНІСТЬ',
+    pcTitle:'Ваша справа лежить місяцями? <em>Держава заплатить вам.</em>',
+    pzEyebrow:'ВЕРИФІКАТОР ZAŁĄCZNIK NR 1 · AI АСИСТЕНТ',
+    pzTitle:'Роботодавець дав вам Załącznik nr 1? <em>Перевіримо його до подачі.</em>',
+  }
+};
+window.PV_I18N_APPLY = function(lang){
+  var dict = window.PV_I18N[lang] || window.PV_I18N.en;
+  var map = {
+    '.preview-hero-video-eyebrow':'heroVideoEyebrow',
+    '.pmh-eyebrow':'mapaEyebrow',
+    '.pmh-title':'mapaTitle',
+    '.pmh-sub':'mapaSub',
+    '.pmh-toggle-hint span:first-child':'mapaHint',
+    '.pmh-toggle-btn[data-set-mode="without"]':'mapaWithoutBtn',
+    '.pmh-toggle-btn[data-set-mode="with"]':'mapaWithBtn',
+    '.mw-eyebrow':'mwEyebrow',
+    '.mw-title':'mwTitle',
+    '.pcf-eyebrow':'pcfEyebrow',
+    '.pcf-title':'pcfTitle',
+    '.pcf-cta-btn':'pcfCtaBtn',
+    '.phc-eyebrow':'phcEyebrow',
+    '.phc-title':'phcTitle',
+    '.phc-foot-cta':'phcFootCta',
+    '.pc-eyebrow':'pcEyebrow',
+    '.pc-title':'pcTitle',
+    '.pz-eyebrow':'pzEyebrow',
+    '.pz-title':'pzTitle'
+  };
+  Object.keys(map).forEach(function(sel){
+    var el = document.querySelector(sel);
+    var val = dict[map[sel]];
+    if(el && val) el.innerHTML = val;
+  });
+  // Buttons that change inside MEGA Wizard depending on step (dynamic re-render):
+  var g2 = document.querySelector('#mw-go2'); if(g2 && dict.mwGo2) g2.innerHTML = dict.mwGo2;
+  var g3 = document.querySelector('#mw-go3'); if(g3 && dict.mwGo3) g3.innerHTML = dict.mwGo3;
+  document.querySelectorAll('.mw-back').forEach(function(b){ if(dict.mwBack) b.innerHTML = dict.mwBack; });
+};
+</script>
 </head>
 
 <body>
@@ -28690,6 +28860,8 @@ function setLang(lang){
   document.documentElement.classList.add('lang-switching');
 
   L=lang;
+  // === Preview blocks i18n patch ===
+  setTimeout(function(){ try{ if(window.PV_I18N_APPLY) window.PV_I18N_APPLY(lang); }catch(e){console.warn('pv i18n',e);} }, 50);
 
   // Runtime swap of common hardcoded RU snippets in job cards / countries.
   // This is a stop-gap until full job-listing i18n is done.
