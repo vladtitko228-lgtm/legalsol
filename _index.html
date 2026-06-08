@@ -6934,8 +6934,8 @@ document.addEventListener('DOMContentLoaded', function(){
    HERO — left text / right video (desktop), stacked on mobile
    ════════════════════════════════════════════════════════════ */
 #hero{
-  padding:60px 24px 50px !important;
-  min-height:auto !important;
+  padding:80px 60px 60px !important;
+  min-height:88vh !important;
 }
 .hero-left,#hero-left{padding:0 !important;}
 .hero-right{display:flex !important;align-items:center;justify-content:center;}
@@ -6955,8 +6955,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
 @media(min-width:980px){
   #hero{
-    display:grid !important;grid-template-columns:1fr 1fr;gap:50px;align-items:center;
-    text-align:left !important;max-width:1240px;margin:0 auto !important;
+    display:grid !important;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+    text-align:left !important;max-width:1440px;margin:0 auto !important;
   }
   #hero .hero-left{text-align:left !important;max-width:none !important;margin:0 !important;}
   #hero .hero-title,#hero h1,#hero-h1{text-align:left !important;margin-left:0 !important;margin-right:0 !important;}
@@ -7820,7 +7820,7 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc" title="LegalSol — about us" '
           +'frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>'
         +'</div>'
-        +'<div class="preview-hero-video-cap">▶ Vlad, founder — meet LegalSol</div>';
+        +'<div class="preview-hero-video-cap">We tell you about our company</div>';
       var rc = hero.querySelector('.hero-right');
       if(rc){ rc.innerHTML = ''; rc.appendChild(vid); }
       else { hero.appendChild(vid); }
