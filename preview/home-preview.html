@@ -5486,9 +5486,37 @@ document.addEventListener('DOMContentLoaded', function(){
    ════════════════════════════════════════════════════════════ */
 .preview-mapa-hex{
   max-width:1180px;margin:60px auto;padding:48px 32px;
-  background:radial-gradient(ellipse at center,rgba(91,82,204,.08),transparent 60%),#0e0a23;
+  background:
+    linear-gradient(180deg,rgba(14,10,35,.92) 0%,rgba(22,16,53,.94) 100%),
+    url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=2400&q=85&auto=format&fit=crop') center/cover no-repeat,
+    #0e0a23;
   border:1px solid rgba(139,130,232,.22);border-radius:28px;color:#fff;
+  position:relative;overflow:hidden;
 }
+.preview-mapa-hex::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 30%,rgba(91,82,204,.18) 0%,transparent 40%),
+    radial-gradient(ellipse at 80% 70%,rgba(34,197,94,.10) 0%,transparent 40%);
+}
+.preview-mapa-hex > *{position:relative;z-index:1;}
+
+/* Toggle hint — animated arrow pointing right */
+.pmh-toggle-hint{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:-14px auto 18px;max-width:520px;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+  color:#fde047;letter-spacing:.4px;
+}
+.pmh-toggle-hint-arrow{
+  display:inline-block;font-size:14px;
+  animation:hintArrow 1.4s ease-in-out infinite;
+}
+@keyframes hintArrow{
+  0%,100%{transform:translateX(0);opacity:.55;}
+  50%{transform:translateX(6px);opacity:1;}
+}
+.preview-mapa-hex[data-toggled="true"] .pmh-toggle-hint{display:none;}
 .pmh-head{text-align:center;margin-bottom:28px;}
 .pmh-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;color:#a78bfa;font-weight:700;}
 .pmh-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
@@ -7891,6 +7919,7 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<button class="pmh-toggle-btn" data-set-mode="with">With LegalSol →</button>'
           +'<div class="pmh-toggle-slider" aria-hidden="true"></div>'
         +'</div>'
+        +'<div class="pmh-toggle-hint"><span>Slide the switch right to see the difference</span><span class="pmh-toggle-hint-arrow">→</span></div>'
         +'<div class="pmh-legend">'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#22c55e"></span>up to 220 days</div>'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#84cc16"></span>220–280</div>'
@@ -7944,6 +7973,7 @@ document.addEventListener('DOMContentLoaded', function(){
           mp.querySelectorAll('.pmh-toggle-btn').forEach(function(b){
             b.classList.toggle('is-active', b.dataset.setMode === mode);
           });
+          mp.setAttribute('data-toggled','true');
         });
       });
     }
