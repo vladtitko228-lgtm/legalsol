@@ -6109,16 +6109,23 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 
 @media(max-width:820px){
-  .phc-step-card,.phc-step-card:nth-child(even){grid-template-columns:1fr;min-height:auto;}
-  .phc-photo{height:200px;min-height:200px;}
-  .phc-step-card:nth-child(even) .phc-photo{order:0;}
+  .phc-step-card,.phc-step-card:nth-child(even){
+    grid-template-columns:1fr !important;min-height:auto !important;border-radius:18px !important;
+  }
+  .phc-photo,.phc-step-card:nth-child(even) .phc-photo{
+    height:160px !important;min-height:160px !important;order:0 !important;
+  }
   .phc-step-card:nth-child(odd) .phc-photo::before,
   .phc-step-card:nth-child(even) .phc-photo::before{
-    background:linear-gradient(180deg,transparent 60%,#0e0a23 100%);
+    background:linear-gradient(180deg,transparent 50%,rgba(14,10,35,.92) 100%) !important;opacity:1 !important;
   }
-  .phc-text-wrap{padding:26px 22px 30px;}
-  .phc-step-title{font-size:22px;}
-  .phc-step-desc{font-size:14px;}
+  .phc-text-wrap{padding:22px 20px 26px !important;gap:12px !important;}
+  .phc-step-num-row{gap:10px !important;}
+  .phc-orb{width:44px !important;height:44px !important;border-radius:10px !important;}
+  .phc-orb svg{width:22px !important;height:22px !important;}
+  .phc-step-title{font-size:20px !important;line-height:1.2 !important;}
+  .phc-step-desc{font-size:14px !important;line-height:1.5 !important;}
+  .phc-step-time-pill{font-size:10.5px !important;padding:4px 10px !important;}
 }
 
 @media(max-width:760px){
@@ -8123,7 +8130,7 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<ul class="mw-list">'
             + c.d.map(function(it,i){var ok = mwState.done[mwState.cat][i] ? 'is-done' : '';return '<li class="mw-item '+ok+'" data-i="'+i+'"><div class="mw-cb"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="mw-txt">'+it.t+(it.s?'<small>'+it.s+'</small>':'')+'</div></li>';}).join('')
           +'</ul>'
-          +'<div class="mw-btn-row"><a class="mw-next" id="mw-go2">Zobacz analizę szans →</a></div>';
+          +'<div class="mw-btn-row"><button type="button" class="mw-next" id="mw-go2">Zobacz analizę szans →</button></div>';
         } else if(mwState.step===2){
           var prob = Math.min(99, 60 + done*4); // 60% base + 4% per doc, max 99
           var probColor = prob>=85?'good':prob>=70?'warn':'bad';
@@ -8137,7 +8144,7 @@ document.addEventListener('DOMContentLoaded', function(){
             ? '<div class="mw-missing"><div class="mw-missing-head">⚠ Brakuje Ci '+sum.missing.length+' dokumentów</div><div class="mw-missing-list">'+sum.missing.slice(0,5).map(function(m){return '<span>'+m+'</span>';}).join('')+(sum.missing.length>5?'<span>+ '+(sum.missing.length-5)+' więcej</span>':'')+'</div></div>'
             : '<div class="mw-all-ready">✓ Wszystkie kluczowe dokumenty masz w komplecie!<br><br>Pomożemy Ci je zweryfikować i złożyć — za 24 godziny zaczniemy.</div>'
           )
-          +'<div class="mw-btn-row"><button class="mw-back" data-back="1">← Powrót</button><a class="mw-next" id="mw-go3">Otrzymaj listę i wsparcie →</a></div>';
+          +'<div class="mw-btn-row"><button type="button" class="mw-back" data-back="1">← Powrót</button><button type="button" class="mw-next" id="mw-go3">Otrzymaj listę i wsparcie →</button></div>';
         } else if(mwState.step===3){
           var sum = buildSummary();
           body = '<div class="mw-contact">'
@@ -8155,14 +8162,14 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<div class="mw-progress"><div class="mw-progress-fill" style="width:'+stepPct+'%"></div></div>'
           +body;
 
-        mw.querySelectorAll('.mw-tab').forEach(function(b){b.addEventListener('click',function(){mwState.cat=b.dataset.cat;render();});});
-        mw.querySelectorAll('.mw-item').forEach(function(li){li.addEventListener('click',function(){var i=parseInt(li.dataset.i);mwState.done[mwState.cat][i]=!mwState.done[mwState.cat][i];render();});});
-        var g2 = document.getElementById('mw-go2'); if(g2) g2.addEventListener('click',function(){mwState.step=2;render();});
-        var g3 = document.getElementById('mw-go3'); if(g3) g3.addEventListener('click',function(){mwState.step=3;render();});
-        mw.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){mwState.step=parseInt(b.dataset.back);render();});});
-        var n=document.getElementById('mw-name'); if(n) n.addEventListener('input',function(){mwState.name=n.value;});
-        var p=document.getElementById('mw-phone'); if(p) p.addEventListener('input',function(){mwState.phone=p.value;});
-        var s=document.getElementById('mw-submit');
+        mw.querySelectorAll('.mw-tab').forEach(function(b){b.addEventListener('click',function(ev){ev.preventDefault();mwState.cat=b.dataset.cat;render();});});
+        mw.querySelectorAll('.mw-item').forEach(function(li){li.addEventListener('click',function(ev){ev.preventDefault();var i=parseInt(li.dataset.i);mwState.done[mwState.cat][i]=!mwState.done[mwState.cat][i];render();});});
+        var g2 = mw.querySelector('#mw-go2'); if(g2) g2.addEventListener('click',function(ev){ev.preventDefault();mwState.step=2;render();mw.scrollIntoView({behavior:'smooth',block:'start'});});
+        var g3 = mw.querySelector('#mw-go3'); if(g3) g3.addEventListener('click',function(ev){ev.preventDefault();mwState.step=3;render();mw.scrollIntoView({behavior:'smooth',block:'start'});});
+        mw.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(ev){ev.preventDefault();mwState.step=parseInt(b.dataset.back);render();mw.scrollIntoView({behavior:'smooth',block:'start'});});});
+        var n=mw.querySelector('#mw-name'); if(n) n.addEventListener('input',function(){mwState.name=n.value;});
+        var p=mw.querySelector('#mw-phone'); if(p) p.addEventListener('input',function(){mwState.phone=p.value;});
+        var s=mw.querySelector('#mw-submit');
         if(s){s.addEventListener('click',function(){
           var sum=buildSummary();
           var msg = 'Cześć! Sprawdziłem swoją gotowość:\n· Ścieżka: '+c.service+'\n· Gotowych: '+done+' / '+total+'\n· Brakuje: '+(sum.missing.length?sum.missing.slice(0,4).join(', ')+(sum.missing.length>4?'...':''):'nic — komplet!')+'\n'+(mwState.name?'\nImię: '+mwState.name:'')+(mwState.phone?'\nTelefon: '+mwState.phone:'')+'\nlegalsol.pl';
