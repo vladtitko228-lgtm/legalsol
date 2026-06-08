@@ -5376,6 +5376,48 @@ document.addEventListener('DOMContentLoaded', function(){
 .pmh-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:700;color:#fff;letter-spacing:-.5px;margin:8px 0;line-height:1.2;}
 .pmh-title em{color:#22c55e;font-style:italic;font-weight:600;}
 .pmh-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:540px;margin:0 auto;line-height:1.55;}
+/* TOGGLE: Without us / With us — animated switch */
+.pmh-toggle{
+  display:flex;align-items:center;justify-content:center;gap:0;margin:18px auto 22px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.30);
+  border-radius:60px;padding:5px;max-width:520px;position:relative;
+}
+.pmh-toggle-btn{
+  flex:1;padding:11px 22px;border:none;background:transparent;cursor:pointer;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:13px;letter-spacing:.4px;
+  color:rgba(255,255,255,.65);
+  border-radius:60px;transition:color .3s ease;
+  position:relative;z-index:1;white-space:nowrap;
+}
+.pmh-toggle-btn.is-active{color:#fff;}
+.pmh-toggle-slider{
+  position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);
+  background:linear-gradient(135deg,#dc2626 0%,#f97316 100%);
+  border-radius:60px;
+  box-shadow:0 8px 22px rgba(220,38,38,.42),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .42s cubic-bezier(.65,.05,.36,1), background .4s ease, box-shadow .4s ease;
+  pointer-events:none;
+}
+.pmh-toggle[data-mode="with"] .pmh-toggle-slider{
+  transform:translateX(100%);
+  background:linear-gradient(135deg,#16a34a 0%,#22c55e 100%);
+  box-shadow:0 8px 22px rgba(34,197,94,.42),inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+/* When in "with" mode — all voivodeships become green smoothly */
+.pmh-svg-wrap[data-mode="with"] .pmv{animation:none !important;fill-opacity:1 !important;}
+.pmh-svg-wrap[data-mode="with"] .pmv-g1,
+.pmh-svg-wrap[data-mode="with"] .pmv-g2{fill:#16a34a !important;}
+.pmh-svg-wrap[data-mode="with"] .pmv-g3,
+.pmh-svg-wrap[data-mode="with"] .pmv-g4{fill:#22c55e !important;}
+.pmh-svg-wrap[data-mode="with"] .pmv-g5,
+.pmh-svg-wrap[data-mode="with"] .pmv-g6{fill:#4ade80 !important;}
+.pmh-svg-wrap .pmv{transition:fill 1.1s cubic-bezier(.16,1,.3,1), fill-opacity .3s ease, stroke .2s ease;}
+.pmh-svg-wrap[data-mode="with"] .pml-time-days{opacity:0;}
+.pmh-svg-wrap[data-mode="with"] .pml-time-active{opacity:1;fill:#fff;}
+.pml-time-days{transition:opacity .35s ease;}
+.pml-time-active{opacity:0;transition:opacity .35s ease;font-family:'Inter',sans-serif;font-size:8.5px;font-weight:800;text-anchor:middle;letter-spacing:.4px;}
+
 .pmh-legend{display:flex;gap:18px;justify-content:center;margin:14px 0 28px;flex-wrap:wrap;}
 .pmh-legend-item{display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,.65);letter-spacing:.4px;}
 .pmh-legend-dot{width:11px;height:11px;border-radius:50%;}
@@ -7570,14 +7612,20 @@ document.addEventListener('DOMContentLoaded', function(){
         var shortName = v.n.length > 14 ? v.n.substring(0,12)+'.' : v.n;
         return '<g class="pml" data-i="'+i+'" style="pointer-events:none">'
           +'<text x="'+v.cx+'" y="'+v.cy+'" class="pml-name">'+shortName+'</text>'
-          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time">'+v.days+' days</text>'
+          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time pml-time-days">'+v.days+' days</text>'
+          +'<text x="'+v.cx+'" y="'+(v.cy+13)+'" class="pml-time-active">ACCELERATED</text>'
         +'</g>';
       }).join('');
       mp.innerHTML = ''
         +'<div class="pmh-head">'
           +'<span class="pmh-eyebrow">RESIDENCE CARD · AVERAGE WAITING TIME 2025</span>'
-          +'<h2 class="pmh-title">Where is the office <em>slowest</em>?</h2>'
-          +'<p class="pmh-sub">Real average waiting time per voivodeship — official data from urząd wojewódzki reports (28.02.2025). We actively accelerate your case anywhere in Poland.</p>'
+          +'<h2 class="pmh-title">Drag the switch — see <em>the difference</em></h2>'
+          +'<p class="pmh-sub">Official waiting times across all 16 Polish voivodeships (data: urząd wojewódzki reports, 28.02.2025). Slide right — see how LegalSol accelerates your case.</p>'
+        +'</div>'
+        +'<div class="pmh-toggle" id="pmh-toggle" data-mode="without">'
+          +'<button class="pmh-toggle-btn is-active" data-set-mode="without">Without LegalSol</button>'
+          +'<button class="pmh-toggle-btn" data-set-mode="with">With LegalSol →</button>'
+          +'<div class="pmh-toggle-slider" aria-hidden="true"></div>'
         +'</div>'
         +'<div class="pmh-legend">'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#22c55e"></span>up to 220 days</div>'
@@ -7587,7 +7635,7 @@ document.addEventListener('DOMContentLoaded', function(){
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#f97316"></span>450–550</div>'
           +'<div class="pmh-legend-item"><span class="pmh-legend-dot" style="background:#dc2626"></span>550+</div>'
         +'</div>'
-        +'<div class="pmh-svg-wrap">'
+        +'<div class="pmh-svg-wrap" id="pmh-svg-wrap" data-mode="without">'
           +'<svg viewBox="0 0 612 577" class="pmh-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa Polski — czasy oczekiwania">'
             +pathsHtml
             +labelsHtml
@@ -7620,6 +7668,19 @@ document.addEventListener('DOMContentLoaded', function(){
         poly.addEventListener('mouseenter', showTip);
         poly.addEventListener('mousemove', showTip);
         poly.addEventListener('mouseleave', function(){ tt.classList.remove('is-visible'); });
+      });
+      // TOGGLE: without us / with us
+      var toggle = mp.querySelector('#pmh-toggle');
+      var svgWrap = mp.querySelector('#pmh-svg-wrap');
+      mp.querySelectorAll('.pmh-toggle-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var mode = btn.dataset.setMode;
+          toggle.setAttribute('data-mode', mode);
+          svgWrap.setAttribute('data-mode', mode);
+          mp.querySelectorAll('.pmh-toggle-btn').forEach(function(b){
+            b.classList.toggle('is-active', b.dataset.setMode === mode);
+          });
+        });
       });
     }
     /* legacy grid (kept code for future, hidden by CSS) */
