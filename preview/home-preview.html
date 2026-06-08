@@ -7092,31 +7092,82 @@ document.addEventListener('DOMContentLoaded', function(){
 /* ════════════════════════════════════════════════════════════
    FLOATING REVIEWS — smooth marquee back, gentle pace
    ════════════════════════════════════════════════════════════ */
-@keyframes reviewsFloat{
-  0%{transform:translateX(0);}
-  100%{transform:translateX(-50%);}
+/* Reviews now use NATIVE scroll for swipe + JS auto-pump */
+.rvhome-marquee{
+  overflow-x:auto !important;overflow-y:hidden !important;
+  -webkit-overflow-scrolling:touch !important;
+  scrollbar-width:none !important;
+  cursor:grab;
+  scroll-snap-type:x proximity;
+  mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
 }
+.rvhome-marquee::-webkit-scrollbar{display:none !important;}
+.rvhome-marquee.is-dragging{cursor:grabbing;}
 @media(min-width:821px){
-  .rvhome-marquee{
-    overflow:hidden !important;
-    mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
-    animation:none !important;
-  }
   .rvhome-grid{
     grid-template-columns:none !important;
     display:flex !important;flex-wrap:nowrap !important;
     gap:18px !important;width:max-content !important;max-width:none !important;
-    animation:reviewsFloat 45s linear infinite !important;
     transform:translateX(0) !important;
+    animation:none !important;
     margin:0 !important;
   }
-  .rvhome-grid:hover{animation-play-state:paused !important;}
-  .rvhome-grid > *{flex:0 0 320px;width:320px !important;display:flex !important;}
-  /* Override the "hide after 4" rule from earlier */
+  .rvhome-grid > *{flex:0 0 320px;width:320px !important;display:flex !important;scroll-snap-align:start;}
   .rvhome-grid > *:nth-child(n+5){display:flex !important;}
 }
+@media(max-width:820px){
+  .rvhome-marquee{margin:0 -16px;padding:0 16px;}
+  .rvhome-grid{grid-template-columns:none !important;display:flex !important;flex-wrap:nowrap !important;gap:14px !important;width:max-content !important;}
+  .rvhome-grid > *{flex:0 0 280px;width:280px !important;scroll-snap-align:start;}
+}
 </style>
+<script>
+/* Reviews — auto-pump + manual swipe support */
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    var marq = document.querySelector('.rvhome-marquee');
+    if(!marq) return;
+    var auto = true;
+    var lastInteract = 0;
+    var paused = false;
+    function pump(){
+      if(auto && !paused && marq.scrollWidth > marq.clientWidth){
+        marq.scrollLeft += 0.4;
+        // wrap around when reaching the end of the first half (we have duplicated content)
+        if(marq.scrollLeft >= marq.scrollWidth - marq.clientWidth - 2){
+          marq.scrollLeft = 0;
+        }
+      }
+      requestAnimationFrame(pump);
+    }
+    requestAnimationFrame(pump);
+    marq.addEventListener('mouseenter', function(){ paused = true; });
+    marq.addEventListener('mouseleave', function(){ paused = false; });
+    marq.addEventListener('touchstart', function(){ paused = true; lastInteract = performance.now(); });
+    marq.addEventListener('touchend', function(){
+      lastInteract = performance.now();
+      setTimeout(function(){ if(performance.now() - lastInteract >= 2400) paused = false; }, 2500);
+    });
+    // Mouse drag-to-scroll
+    var isDown = false, startX = 0, startScroll = 0;
+    marq.addEventListener('mousedown', function(e){
+      isDown = true; marq.classList.add('is-dragging');
+      startX = e.pageX - marq.offsetLeft;
+      startScroll = marq.scrollLeft;
+      paused = true;
+    });
+    marq.addEventListener('mouseup', function(){ isDown = false; marq.classList.remove('is-dragging'); });
+    marq.addEventListener('mouseleave', function(){ if(isDown){isDown = false; marq.classList.remove('is-dragging');} });
+    marq.addEventListener('mousemove', function(e){
+      if(!isDown) return;
+      e.preventDefault();
+      var x = e.pageX - marq.offsetLeft;
+      marq.scrollLeft = startScroll - (x - startX);
+    });
+  }, 700);
+});
+</script>
 
 <style id="good-animations">
 /* ════════════════════════════════════════════════════════════
