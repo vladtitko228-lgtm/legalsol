@@ -7454,12 +7454,13 @@ document.addEventListener('DOMContentLoaded', function(){
     if(about && !document.querySelector('.preview-how-clean')){
       var howClean = document.createElement('section');
       howClean.className = 'preview-how-clean';
+      var svgIco = function(p){return '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';};
       var phcSteps = [
-        {ico:'💬',time:'~60 sec',title:'Ping us on WhatsApp',desc:'PL · EN · RU · UA. Reply within 15 min on weekdays.',photo:'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&auto=format&fit=crop'},
-        {ico:'⚖️',time:'~20 min',title:'Free legal audit',desc:'Real lawyer reviews your case, gives doc list + quote. No deposit.',photo:'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80&auto=format&fit=crop'},
-        {ico:'📤',time:'7–14 dni',title:'Prep + MOS submission',desc:'We fill the form, translate, verify Załącznik nr 1, submit online.',photo:'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&auto=format&fit=crop'},
-        {ico:'🚀',time:'Active',title:'Active case pushing',desc:'Ponaglenia, skarga na bezczynność, direct calls. Updates every 2 weeks.',photo:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop'},
-        {ico:'✅',time:'1 hour',title:'Card in your hand',desc:'We book pickup. One visit — 30 min in, 30 min out. Done.',photo:'https://images.unsplash.com/photo-1556742500-b343c7196ad8?w=600&q=80&auto=format&fit=crop'}
+        {ico:svgIco('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>'),time:'~60 sec',title:'Ping us on WhatsApp',desc:'PL · EN · RU · UA. Reply within 15 min on weekdays.',photo:'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80&auto=format&fit=crop'},
+        {ico:svgIco('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>'),time:'~20 min',title:'Free legal audit',desc:'Real lawyer reviews your case, gives doc list + quote. No deposit.',photo:'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80&auto=format&fit=crop'},
+        {ico:svgIco('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>'),time:'7–14 dni',title:'Prep + MOS submission',desc:'We fill the form, translate, verify Załącznik nr 1, submit online.',photo:'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&auto=format&fit=crop'},
+        {ico:svgIco('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'),time:'Active',title:'Active case pushing',desc:'Ponaglenia, skarga na bezczynność, direct calls. Updates every 2 weeks.',photo:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop'},
+        {ico:svgIco('<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>'),time:'1 hour',title:'Card in your hand',desc:'We book pickup. One visit — 30 min in, 30 min out. Done.',photo:'https://images.unsplash.com/photo-1556742500-b343c7196ad8?w=600&q=80&auto=format&fit=crop'}
       ];
       howClean.innerHTML = ''
         +'<div class="phc-head">'
@@ -7640,24 +7641,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* === BIG PERSONAL CABINET SECTION — interactive tabs + live mockup === */
     if(faq && !document.querySelector('.preview-cabinet-feature')){
+      var svgT = function(p){return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';};
       var PCF_TABS = [
-        {id:'status',ico:'📊',title:'Status tracking',
+        {id:'status',ico:svgT('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'),title:'Status tracking',
           h:'See <em>every milestone</em> in real time',
           desc:'No more guessing what your lawyer is doing. Your case lives in a clear 5-step pipeline — from documents collection to card pickup. Updated instantly when the office issues anything.',
           bullets:['Real-time status from MOS portal','5-step timeline · always visible','Updates pushed within seconds','See exactly where your case sits']},
-        {id:'chat',ico:'💬',title:'Chat with lawyer',
+        {id:'chat',ico:svgT('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>'),title:'Chat with lawyer',
           h:'Talk to <em>your actual lawyer</em>',
           desc:'No call centers. No scripts. Kamil and the team answer directly — in WhatsApp and inside the cabinet. Multi-language: Polish, Russian, Ukrainian, English.',
           bullets:['Reply within 15 min on weekdays','Polish · Russian · Ukrainian · English','Same chat history in WhatsApp + cabinet','Voice messages and file attachments']},
-        {id:'docs',ico:'📁',title:'Document vault',
+        {id:'docs',ico:svgT('<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>'),title:'Document vault',
           h:'Encrypted <em>document vault</em>',
           desc:'Upload, store, e-sign — all your residence permit paperwork in one place. Encrypted at rest. Download anytime, even years after pickup. The "czerwona pieczątka" confirmation is auto-saved here.',
           bullets:['256-bit encryption at rest','E-signature for Załącznik nr 1','Auto-versioning — never lose a draft','Czerwona pieczątka PDF on demand']},
-        {id:'pay',ico:'💳',title:'Secure payments',
+        {id:'pay',ico:svgT('<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>'),title:'Secure payments',
           h:'Pay milestones <em>on your terms</em>',
           desc:'Each phase has its own invoice. Pay with card or BLIK in two taps. Every transaction is logged, downloadable, and matches your case ledger. No bank transfers, no QR confusion.',
           bullets:['Card, BLIK, instant transfers (PSD2)','Per-milestone invoices automatically','Full payment history downloadable as PDF','No hidden fees · transparent ledger']},
-        {id:'notif',ico:'🔔',title:'Smart notifications',
+        {id:'notif',ico:svgT('<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>'),title:'Smart notifications',
           h:'Get pinged <em>before urząd does</em>',
           desc:'Every status change → instant WhatsApp ping. Decision issued, fingerprints date set, card ready — you hear from us first. Quiet hours and language preference adjustable.',
           bullets:['WhatsApp · Email · Push (your pick)','Quiet hours per timezone','Reminder 90 / 60 / 30 days before card expiry','Smart batching — no notification spam']}
