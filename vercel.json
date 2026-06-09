@@ -63,11 +63,7 @@
       "destination": "/housing.html"
     }
   ],
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "_index.html"
-    }
-  },
+  "buildCommand": "cp _index.html api/_index.html",
   "headers": [
     {
       "source": "/(.*)",

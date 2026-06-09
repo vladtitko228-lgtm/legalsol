@@ -19,7 +19,16 @@ const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 // "/" → "/api/index" rewrite actually fires.
 let INDEX_HTML = "";
 try {
-  INDEX_HTML = fs.readFileSync(path.join(__dirname, "..", "_index.html"), "utf8");
+  // 2026-06-09: Vercel's `functions.includeFiles` config stopped accepting
+  // `api/index.js` as a pattern ("doesn't match any Serverless Functions").
+  // Workaround: keep a copy of _index.html INSIDE api/ — Vercel auto-bundles
+  // files next to a function — and try the in-dir copy first, falling back
+  // to project root for local dev and older deploys that include both.
+  try {
+    INDEX_HTML = fs.readFileSync(path.join(__dirname, "_index.html"), "utf8");
+  } catch (innerErr) {
+    INDEX_HTML = fs.readFileSync(path.join(__dirname, "..", "_index.html"), "utf8");
+  }
   INDEX_HTML = minifyHtml(INDEX_HTML);
 } catch (e) {
   console.error("[/api/index] failed to load _index.html:", e && e.message);
