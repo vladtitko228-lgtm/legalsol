@@ -135,15 +135,13 @@ document.addEventListener('click',function(e){
 
 <link rel="canonical" href="https://www.legalsol.pl/"/>
 
-<!-- hreflang: 8 language variants via ?lang= query param. Bootstrap reads URL on load and triggers setLang(). -->
+<!-- hreflang: 4 fully-translated variants via ?lang= query param.
+     ES/TR/AZ/HI removed 2026-06-09 — PV_I18N coverage was partial,
+     Google was indexing partly-English pages as if Spanish/Hindi/etc. -->
 <link rel="alternate" hreflang="en" href="https://www.legalsol.pl/?lang=en"/>
 <link rel="alternate" hreflang="ru" href="https://www.legalsol.pl/?lang=ru"/>
 <link rel="alternate" hreflang="uk" href="https://www.legalsol.pl/?lang=uk"/>
 <link rel="alternate" hreflang="pl" href="https://www.legalsol.pl/?lang=pl"/>
-<link rel="alternate" hreflang="es" href="https://www.legalsol.pl/?lang=es"/>
-<link rel="alternate" hreflang="tr" href="https://www.legalsol.pl/?lang=tr"/>
-<link rel="alternate" hreflang="az" href="https://www.legalsol.pl/?lang=az"/>
-<link rel="alternate" hreflang="hi" href="https://www.legalsol.pl/?lang=hi"/>
 <link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/"/>
 
 <!-- Open Graph -->
@@ -3793,6 +3791,82 @@ html.lang-switching * { transition: none !important; animation: none !important;
   .geo-card-pv .gc-meta-pv{font-size:9.5px !important;}
   .geo-card-pv .gc-meta-pv b{font-size:11px !important;}
 }
+</style>
+
+<style id="mobile-burger-fix">
+/* ============================================================
+   MOBILE NAV / BURGER VISIBILITY — make the menu trigger
+   unmistakable and guarantee it never gets pushed off-screen.
+   Reported issue: burger was hard / impossible to find on phone.
+   ============================================================ */
+@media(max-width:960px){
+  /* Reserve room — burger ALWAYS visible, ALWAYS the right edge */
+  .mob-burger{
+    display:flex !important;
+    flex-shrink:0 !important;
+    width:42px !important;height:42px !important;
+    margin-left:6px !important;
+    padding:9px 10px !important;
+    border-radius:12px !important;
+    background:rgba(91,82,204,.22) !important;
+    border:1px solid rgba(139,130,232,.45) !important;
+    box-shadow:0 4px 14px rgba(91,82,204,.28),inset 0 1px 0 rgba(255,255,255,.10) !important;
+    position:relative;z-index:10 !important;
+    transition:background .2s,transform .15s;
+  }
+  .mob-burger:active{transform:scale(.93);background:rgba(91,82,204,.36) !important;}
+  .mob-burger span{
+    width:20px !important;height:2.5px !important;
+    background:#fff !important;border-radius:2px !important;
+    box-shadow:0 0 8px rgba(139,130,232,.6) !important;
+  }
+  /* Soft pulsing ring so first-time users notice it */
+  .mob-burger::after{
+    content:'';position:absolute;inset:-4px;border-radius:16px;
+    border:1.5px solid rgba(139,130,232,.55);
+    opacity:0;animation:burgerPulse 2.6s ease-out infinite;
+    pointer-events:none;
+  }
+  @keyframes burgerPulse{
+    0%{opacity:.7;transform:scale(.85);}
+    70%{opacity:0;transform:scale(1.15);}
+    100%{opacity:0;transform:scale(1.15);}
+  }
+
+  /* Free up width on the right — nav-right gets compact */
+  nav{gap:8px !important;padding:0 10px 0 12px !important;}
+  .nav-right{gap:6px !important;}
+
+  /* preview-top-cta (Free consultation pill) was already hidden on mobile,
+     but be paranoid — never let it eat burger's space */
+  .preview-top-cta{display:none !important;}
+}
+
+/* Phones (≤ 600 px): keep School/B2B/Housing chips (they convert),
+   drop only the noisy social cluster — socials are in mob-soc-row inside drawer */
+@media(max-width:600px){
+  .nav-soc{display:none !important;}          /* Follow us → in drawer (mob-soc-row) */
+  .nav-circle,.nav-circle-wa,.nav-circle-em{display:none !important;}
+  .nav-ph{display:none !important;}
+  .logo-block{flex:0 1 auto;min-width:0;}
+  .logo-name{font-size:18px !important;letter-spacing:1.2px !important;}
+  .logo-sub{font-size:8.5px !important;letter-spacing:1.8px !important;}
+  .brand-fam{gap:6px !important;padding-left:0 !important;flex-wrap:nowrap !important;}
+  .brand-fam .bf{font-size:10.5px !important;}
+}
+
+/* Tightest phones (≤ 380 px) — drop brand-fam too so burger has room */
+@media(max-width:380px){
+  .brand-fam{display:none !important;}
+}
+
+/* Drawer: rock-solid layering above any sticky element */
+#mob-nav{z-index:10000 !important;}
+#mob-nav.open{display:block !important;}
+
+/* Make sure tap can reach the burger even if some overlay
+   stretched over the top-right corner */
+#mob-burger-btn{position:relative;z-index:10001 !important;}
 </style>
 
 <style id="preview-wider-sections">
@@ -9452,19 +9526,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="lang-dd-panel" id="lang-dd-panel">
 
+        <!-- Narrowed to 4 fully-covered langs (see PV_I18N notes). -->
         <button class="ldp-btn" onclick="pickLang('ru')" ontouchend="event.preventDefault();pickLang('ru');"><span class="ldp-flag" data-lang="ru"></span><span class="ldp-code">RU</span><span class="ldp-name">Русский</span></button>
 
         <button class="ldp-btn" onclick="pickLang('en')" ontouchend="event.preventDefault();pickLang('en');"><span class="ldp-flag" data-lang="en"></span><span class="ldp-code">EN</span><span class="ldp-name">English</span></button>
 
         <button class="ldp-btn" onclick="pickLang('pl')" ontouchend="event.preventDefault();pickLang('pl');"><span class="ldp-flag" data-lang="pl"></span><span class="ldp-code">PL</span><span class="ldp-name">Polski</span></button>
-
-        <button class="ldp-btn" onclick="pickLang('es')" ontouchend="event.preventDefault();pickLang('es');"><span class="ldp-flag" data-lang="es"></span><span class="ldp-code">ES</span><span class="ldp-name">Español</span></button>
-
-        <button class="ldp-btn" onclick="pickLang('tr')" ontouchend="event.preventDefault();pickLang('tr');"><span class="ldp-flag" data-lang="tr"></span><span class="ldp-code">TR</span><span class="ldp-name">Türkçe</span></button>
-
-        <button class="ldp-btn" onclick="pickLang('az')" ontouchend="event.preventDefault();pickLang('az');"><span class="ldp-flag" data-lang="az"></span><span class="ldp-code">AZ</span><span class="ldp-name">Azərbaycan</span></button>
-
-        <button class="ldp-btn" onclick="pickLang('hi')" ontouchend="event.preventDefault();pickLang('hi');"><span class="ldp-flag" data-lang="hi"></span><span class="ldp-code">HI</span><span class="ldp-name">हिन्दी</span></button>
 
         <button class="ldp-btn" onclick="pickLang('uk')" ontouchend="event.preventDefault();pickLang('uk');"><span class="ldp-flag" data-lang="uk"></span><span class="ldp-code">UA</span><span class="ldp-name">Українська</span></button>
 
@@ -9487,14 +9554,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Language chips row — lives at the top of the drawer; topbar trigger is hidden on mobile -->
   <div class="mob-lang-row" id="mob-lang-row" aria-label="Language">
+    <!-- Narrowed to 4 fully-covered languages (RU/EN/PL/UA).
+         HI/ES/TR/AZ were partially translated in preview blocks → confusing UX.
+         If we re-add a language, complete PV_I18N coverage first. -->
     <button type="button" class="mob-lang-chip" data-lang="en" onclick="pickLang('en');closeMobNav();">🇬🇧 EN</button>
     <button type="button" class="mob-lang-chip" data-lang="ru" onclick="pickLang('ru');closeMobNav();">🇷🇺 RU</button>
     <button type="button" class="mob-lang-chip" data-lang="pl" onclick="pickLang('pl');closeMobNav();">🇵🇱 PL</button>
-    <button type="button" class="mob-lang-chip" data-lang="uk" onclick="pickLang('uk');closeMobNav();">🇺🇦 UK</button>
-    <button type="button" class="mob-lang-chip" data-lang="hi" onclick="pickLang('hi');closeMobNav();">🇮🇳 HI</button>
-    <button type="button" class="mob-lang-chip" data-lang="es" onclick="pickLang('es');closeMobNav();">🇪🇸 ES</button>
-    <button type="button" class="mob-lang-chip" data-lang="tr" onclick="pickLang('tr');closeMobNav();">🇹🇷 TR</button>
-    <button type="button" class="mob-lang-chip" data-lang="az" onclick="pickLang('az');closeMobNav();">🇦🇿 AZ</button>
+    <button type="button" class="mob-lang-chip" data-lang="uk" onclick="pickLang('uk');closeMobNav();">🇺🇦 UA</button>
   </div>
 
   <button class="mob-nav-btn mob-nav-active" onclick="showTab('home');closeMobNav()">
@@ -9652,14 +9718,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span id="hero-wa-cta-label">Message us on WhatsApp</span>
     </a>
 
-    <!-- Hero scenario buttons — REMOVED (replaced by single WhatsApp CTA below) -->
-    <a href="https://wa.me/48735248525?text=Hi%21%20Free%20karta%20pobytu%20consultation%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hsb-main hero-single-cta" style="display:flex !important;align-items:center !important;justify-content:center !important;gap:10px !important;width:100% !important;max-width:420px !important;margin:0 auto 14px !important;background:linear-gradient(135deg,#5b52cc 0%,#7c6fe8 55%,#a78bfa 100%) !important;color:#fff !important;text-decoration:none !important;font-family:'Inter',sans-serif !important;font-weight:700 !important;font-size:15.5px !important;letter-spacing:.2px !important;padding:18px 28px !important;border-radius:60px !important;box-shadow:0 14px 36px rgba(91,82,204,.42),inset 0 1px 0 rgba(255,255,255,.22) !important;box-sizing:border-box !important;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.555 4.106 1.527 5.846L0 24l6.345-1.66A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-      Free consultation on WhatsApp
-    </a>
-    <div style="margin-top:0;text-align:center;font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.3px;margin-bottom:14px;">
-      ✓ First consultation is always free · WhatsApp · 15 min response
-    </div>
+    <!-- Hero scenario buttons / duplicate purple "Free consultation on WhatsApp"
+         REMOVED 2026-06-09: the green "Message us on WhatsApp" above already
+         covers this intent, and the sticky #m-cta-bar at bottom handles the
+         pinned variant. Two WA buttons in the same hero felt redundant. -->
     <!-- Hero trust micro-badges row — REMOVED (looked too playful; Trust strip below handles it) -->
 
     <div class="hero-btns">
@@ -28677,7 +28739,10 @@ function _doInit(){
 
   _initFlags();
 
-  var _allLangs=['en','ru','uk','pl','es','tr','az','hi'];
+  // Narrowed 2026-06-09: PV_I18N coverage is solid only for these 4.
+  // Old set kept commented in case we re-expand after a full translation pass:
+  // ['en','ru','uk','pl','es','tr','az','hi']
+  var _allLangs=['en','ru','uk','pl'];
   // ?lang=xx in URL takes priority (for hreflang SEO + share links)
   var _urlLang=null;
   try{
@@ -28861,6 +28926,10 @@ function toggleNavSoc(e){
 function pickLang(lang){
 
   try{
+
+    // Hard allow-list — keep in sync with _allLangs in _doInit().
+    // Anything else (legacy hi/es/tr/az calls, junk input) silently → 'en'.
+    if(['en','ru','uk','pl'].indexOf(lang)===-1)lang='en';
 
     if(typeof localStorage!=='undefined')try{localStorage.setItem('ls-lang',lang);}catch(e){}
 
@@ -31603,19 +31672,12 @@ function quizSubmit(){
 
 <div id="mob-lang-panel" style="display:none;position:fixed;top:66px;right:8px;z-index:199999;background:rgba(8,6,26,.95);border:1px solid rgba(139,130,232,.3);border-radius:14px;padding:6px 4px;width:90px;box-shadow:0 16px 48px rgba(0,0,0,.85);">
 
+  <!-- Narrowed to 4 fully-covered langs -->
   <button class="ldp-btn" onclick="pickLang('ru');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="ru"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">RU</span></button>
 
   <button class="ldp-btn" onclick="pickLang('en');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="en"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">EN</span></button>
 
   <button class="ldp-btn" onclick="pickLang('pl');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="pl"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">PL</span></button>
-
-  <button class="ldp-btn" onclick="pickLang('es');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="es"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">ES</span></button>
-
-  <button class="ldp-btn" onclick="pickLang('tr');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="tr"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">TR</span></button>
-
-  <button class="ldp-btn" onclick="pickLang('az');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="az"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">AZ</span></button>
-
-  <button class="ldp-btn" onclick="pickLang('hi');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="hi"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">HI</span></button>
 
   <button class="ldp-btn" onclick="pickLang('uk');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="uk"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">UA</span></button>
 
@@ -32338,4 +32400,5 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 </body>
 
 </html>
+
 
