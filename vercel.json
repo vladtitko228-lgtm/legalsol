@@ -24,7 +24,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/api/index"
+      "destination": "/api/ssr"
     },
     {
       "source": "/blog/:slug",
@@ -63,11 +63,6 @@
       "destination": "/housing.html"
     }
   ],
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "_index.html"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
