@@ -648,48 +648,83 @@ img{max-width:100%;height:auto;}
 /* On mobile (≤600px) the topbar lang trigger is hidden — language picking moves into the burger drawer */
 @media(max-width:600px){.lang-dd{display:none!important;}}
 
-/* Mobile lang block — sits sticky at top of mob-nav drawer, all 8 langs in clean 4×2 grid */
+/* Mobile lang block in drawer — compact horizontal scroller, no header.
+   Quick lang nav in the top bar (.mob-quick-globe) is the primary
+   switcher; this row is a backup for users already inside the drawer. */
 .mob-lang-block{
-  position:sticky;top:0;z-index:5;
-  padding:14px 16px 12px;
-  background:linear-gradient(180deg,rgba(20,15,58,.98) 0%,rgba(14,10,45,.96) 100%);
-  border-bottom:1px solid rgba(139,130,232,.14);
-  box-shadow:0 4px 14px rgba(0,0,0,.25);
+  padding:8px 12px 6px;
+  background:rgba(91,82,204,.04);
+  border-bottom:1px solid rgba(139,130,232,.10);
 }
-.mob-lang-head{
-  display:flex;align-items:center;gap:6px;
-  font-family:'Inter',sans-serif;font-weight:600;
-  font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;
-  color:rgba(167,139,250,.85);margin-bottom:10px;padding-left:2px;
-}
-.mob-lang-head svg{opacity:.85;flex-shrink:0;}
+.mob-lang-head{display:none;}     /* Header takes too much room; globe icon covers intent. */
 .mob-lang-row{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:7px;padding:0;background:transparent;border:none;
+  display:flex !important;
+  flex-wrap:nowrap;overflow-x:auto;
+  gap:6px;padding:0;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  background:transparent;border:none;
 }
+.mob-lang-row::-webkit-scrollbar{display:none;}
 .mob-lang-chip{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  padding:10px 6px;border-radius:11px;
-  background:rgba(139,130,232,.10);border:1px solid rgba(139,130,232,.22);
-  color:rgba(255,255,255,.82);font-size:12px;font-weight:700;
-  font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.4px;
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  padding:7px 11px;border-radius:60px;
+  background:rgba(139,130,232,.10);border:1px solid rgba(139,130,232,.20);
+  color:rgba(255,255,255,.80);font-size:12px;font-weight:700;
+  font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.3px;
   transition:background .2s,border-color .2s,color .2s,transform .15s,box-shadow .2s;
-  -webkit-tap-highlight-color:transparent;min-height:42px;
+  -webkit-tap-highlight-color:transparent;
+  flex-shrink:0;white-space:nowrap;min-height:32px;
 }
-.mob-lang-chip .mlc-flag{font-size:15px;line-height:1;}
-.mob-lang-chip .mlc-code{font-size:11.5px;letter-spacing:.6px;}
+.mob-lang-chip .mlc-flag{font-size:14px;line-height:1;}
+.mob-lang-chip .mlc-code{font-size:11.5px;letter-spacing:.5px;}
 .mob-lang-chip:hover{background:rgba(91,82,204,.22);border-color:rgba(139,130,232,.45);color:#fff;}
 .mob-lang-chip.mob-lang-active{
-  background:linear-gradient(135deg,rgba(91,82,204,.45),rgba(124,92,252,.35));
+  background:linear-gradient(135deg,rgba(91,82,204,.50),rgba(124,92,252,.35));
   border-color:rgba(167,139,250,.65);color:#fff;
-  box-shadow:0 4px 14px rgba(91,82,204,.32),inset 0 1px 0 rgba(255,255,255,.18);
+  box-shadow:0 2px 8px rgba(91,82,204,.32),inset 0 1px 0 rgba(255,255,255,.18);
 }
 .mob-lang-chip:active{transform:scale(.94);}
-@media(max-width:360px){
-  .mob-lang-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;}
-  .mob-lang-chip{padding:9px 4px;font-size:11px;}
-  .mob-lang-chip .mlc-flag{font-size:14px;}
+
+/* Compact mobile-only nav triggers — globe + social dots
+   Visible <=960px, hidden on desktop where the full controls live. */
+.mob-quick{
+  display:none;
+  align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:10px;
+  background:rgba(139,130,232,.10);
+  border:1px solid rgba(139,130,232,.22);
+  color:rgba(255,255,255,.78);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;flex-shrink:0;
+  transition:background .2s,border-color .2s,color .2s,transform .15s;
+}
+.mob-quick:active{transform:scale(.92);background:rgba(91,82,204,.28);}
+.mob-quick:hover{background:rgba(91,82,204,.22);border-color:rgba(139,130,232,.45);color:#fff;}
+.mob-quick svg{display:block;}
+/* Show the compact triggers only on phones where the full nav-soc + lang-dd
+   are themselves hidden (we hide them at ≤600px above). On 601-960px we
+   keep the original nav-soc dropdown + lang-dd, so the compact pair would be
+   redundant — keep them out. */
+@media(max-width:600px){
+  .mob-quick{display:inline-flex !important;}
+}
+@media(max-width:380px){
+  .mob-quick{width:32px;height:32px;}
+  .mob-quick svg{width:16px;height:16px;}
+}
+
+/* On mobile, when user taps the soc dots, surface nav-soc-row as a
+   fly-out anchored to the soc dots button.
+   Force-enable nav-soc (we'd hidden it on <=600px earlier) ONLY when
+   triggered by the new compact button. */
+@media(max-width:600px){
+  body.nav-soc-open .nav-soc{display:flex !important;position:static !important;}
+  body.nav-soc-open .nav-soc .nav-soc-toggle{display:none !important;}
+  body.nav-soc-open .nav-soc-row{
+    position:fixed !important;
+    top:calc(env(safe-area-inset-top,0px) + 64px) !important;
+    right:8px !important;left:auto !important;
+    min-width:180px !important;z-index:10002 !important;
+  }
 }
 
 .lang-dd.open .lang-dd-panel{display:flex;animation:ldSlide .2s cubic-bezier(.34,1.2,.64,1);}
@@ -9763,6 +9798,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <button class="btn-cta nav-cab-btn" onclick="showTab('cabinet')" id="nav-cabinet-btn">👤 Кабинет</button>
+
+    <!-- Compact mobile-only triggers: globe + social — added 2026-06-09
+         so users can pick a language or open socials WITHOUT opening the burger drawer. -->
+    <button type="button" class="mob-quick mob-quick-globe" id="mob-quick-globe-btn" onclick="openMobLang()" aria-label="Language">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5a14 14 0 010 19M12 2.5a14 14 0 000 19"/></svg>
+    </button>
+    <button type="button" class="mob-quick mob-quick-soc" id="mob-quick-soc-btn" onclick="toggleNavSoc(event)" aria-label="Social media">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><line x1="8.3" y1="10.9" x2="15.7" y2="6.1"/><line x1="8.3" y1="13.1" x2="15.7" y2="17.9"/></svg>
+    </button>
 
     <button class="mob-burger" id="mob-burger-btn" onclick="toggleMobNav()" aria-label="Меню"><span></span><span></span><span></span></button>
 
@@ -29122,12 +29166,16 @@ function toggleLangDd(e){
 function _closeNavSoc(){
   var ns=document.getElementById('navSoc');
   if(ns)ns.classList.remove('open');
+  document.body.classList.remove('nav-soc-open');
   var t=document.getElementById('navSocToggle');
   if(t)t.setAttribute('aria-expanded','false');
 }
 function _navSocOutside(ev){
   var ns=document.getElementById('navSoc');
-  if(ns && !ns.contains(ev.target)){
+  // Also treat the compact mobile trigger as "inside" so its own tap doesn't
+  // immediately close the panel it just opened.
+  var qsb=document.getElementById('mob-quick-soc-btn');
+  if(ns && !ns.contains(ev.target) && !(qsb && qsb.contains(ev.target))){
     _closeNavSoc();
     document.removeEventListener('click', _navSocOutside, true);
   }
@@ -29142,6 +29190,8 @@ function toggleNavSoc(e){
   if(!ns)return;
   var willOpen=!ns.classList.contains('open');
   ns.classList.toggle('open', willOpen);
+  // Sync body class so the mobile fly-out CSS can override the default-hidden nav-soc
+  document.body.classList.toggle('nav-soc-open', willOpen);
   var t=document.getElementById('navSocToggle');
   if(t)t.setAttribute('aria-expanded', willOpen?'true':'false');
   // attach the close-on-outside listener only AFTER this click finishes
