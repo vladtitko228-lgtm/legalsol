@@ -135,13 +135,15 @@ document.addEventListener('click',function(e){
 
 <link rel="canonical" href="https://www.legalsol.pl/"/>
 
-<!-- hreflang: 4 fully-translated variants via ?lang= query param.
-     ES/TR/AZ/HI removed 2026-06-09 — PV_I18N coverage was partial,
-     Google was indexing partly-English pages as if Spanish/Hindi/etc. -->
+<!-- hreflang: 8 language variants via ?lang= query param. Bootstrap reads URL on load and triggers setLang(). -->
 <link rel="alternate" hreflang="en" href="https://www.legalsol.pl/?lang=en"/>
 <link rel="alternate" hreflang="ru" href="https://www.legalsol.pl/?lang=ru"/>
 <link rel="alternate" hreflang="uk" href="https://www.legalsol.pl/?lang=uk"/>
 <link rel="alternate" hreflang="pl" href="https://www.legalsol.pl/?lang=pl"/>
+<link rel="alternate" hreflang="es" href="https://www.legalsol.pl/?lang=es"/>
+<link rel="alternate" hreflang="tr" href="https://www.legalsol.pl/?lang=tr"/>
+<link rel="alternate" hreflang="az" href="https://www.legalsol.pl/?lang=az"/>
+<link rel="alternate" hreflang="hi" href="https://www.legalsol.pl/?lang=hi"/>
 <link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/"/>
 
 <!-- Open Graph -->
@@ -646,12 +648,49 @@ img{max-width:100%;height:auto;}
 /* On mobile (≤600px) the topbar lang trigger is hidden — language picking moves into the burger drawer */
 @media(max-width:600px){.lang-dd{display:none!important;}}
 
-/* Mobile lang chips row — sticky at top of mob-nav drawer */
-.mob-lang-row{display:flex;flex-wrap:wrap;gap:6px;padding:14px 18px 12px;border-bottom:1px solid rgba(139,130,232,.08);background:rgba(91,82,204,.04);}
-.mob-lang-chip{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:60px;background:rgba(139,130,232,.08);border:1px solid rgba(139,130,232,.18);color:rgba(255,255,255,.78);font-size:12px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.3px;transition:background .2s,border-color .2s,color .2s,transform .2s;-webkit-tap-highlight-color:transparent;}
-.mob-lang-chip:hover,.mob-lang-chip.mob-lang-active{background:rgba(91,82,204,.28);border-color:rgba(139,130,232,.55);color:#fff;}
-.mob-lang-chip.mob-lang-active{box-shadow:0 0 0 2px rgba(139,130,232,.25);}
-.mob-lang-chip:active{transform:scale(.96);}
+/* Mobile lang block — sits sticky at top of mob-nav drawer, all 8 langs in clean 4×2 grid */
+.mob-lang-block{
+  position:sticky;top:0;z-index:5;
+  padding:14px 16px 12px;
+  background:linear-gradient(180deg,rgba(20,15,58,.98) 0%,rgba(14,10,45,.96) 100%);
+  border-bottom:1px solid rgba(139,130,232,.14);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.mob-lang-head{
+  display:flex;align-items:center;gap:6px;
+  font-family:'Inter',sans-serif;font-weight:600;
+  font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:rgba(167,139,250,.85);margin-bottom:10px;padding-left:2px;
+}
+.mob-lang-head svg{opacity:.85;flex-shrink:0;}
+.mob-lang-row{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:7px;padding:0;background:transparent;border:none;
+}
+.mob-lang-chip{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 6px;border-radius:11px;
+  background:rgba(139,130,232,.10);border:1px solid rgba(139,130,232,.22);
+  color:rgba(255,255,255,.82);font-size:12px;font-weight:700;
+  font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.4px;
+  transition:background .2s,border-color .2s,color .2s,transform .15s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;min-height:42px;
+}
+.mob-lang-chip .mlc-flag{font-size:15px;line-height:1;}
+.mob-lang-chip .mlc-code{font-size:11.5px;letter-spacing:.6px;}
+.mob-lang-chip:hover{background:rgba(91,82,204,.22);border-color:rgba(139,130,232,.45);color:#fff;}
+.mob-lang-chip.mob-lang-active{
+  background:linear-gradient(135deg,rgba(91,82,204,.45),rgba(124,92,252,.35));
+  border-color:rgba(167,139,250,.65);color:#fff;
+  box-shadow:0 4px 14px rgba(91,82,204,.32),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.mob-lang-chip:active{transform:scale(.94);}
+@media(max-width:360px){
+  .mob-lang-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;}
+  .mob-lang-chip{padding:9px 4px;font-size:11px;}
+  .mob-lang-chip .mlc-flag{font-size:14px;}
+}
 
 .lang-dd.open .lang-dd-panel{display:flex;animation:ldSlide .2s cubic-bezier(.34,1.2,.64,1);}
 
@@ -4037,6 +4076,138 @@ window.PV_I18N = {
     pcTitle:'Ваша справа лежить місяцями? <em>Держава заплатить вам.</em>',
     pzEyebrow:'ВЕРИФІКАТОР ZAŁĄCZNIK NR 1 · AI АСИСТЕНТ',
     pzTitle:'Роботодавець дав вам Załącznik nr 1? <em>Перевіримо його до подачі.</em>',
+  },
+  es: {
+    heroVideoEyebrow:'CONOCE A LEGALSOL',
+    mapaEyebrow:'TARJETA DE RESIDENCIA · TIEMPO MEDIO DE ESPERA 2025',
+    mapaTitle:'Desliza el interruptor — ve <em>la diferencia</em>',
+    mapaSub:'Tiempos oficiales de espera en los 16 voivodatos polacos (datos: informes del urząd wojewódzki, 28.02.2025). Desliza a la derecha — mira cómo LegalSol acelera tu caso.',
+    mapaHint:'Desliza el interruptor a la derecha para ver la diferencia',
+    mapaWithoutBtn:'Sin LegalSol',
+    mapaWithBtn:'Con LegalSol →',
+    mapaShortest:'Más corto',
+    mapaLongest:'Más largo',
+    mapaWithLegalsol:'Con LegalSol',
+    mapaActive:'Aceleración activa',
+    mapaCtaText:'Sin importar el voivodato — <b>impulsamos activamente tu caso</b> con ponaglenia y quejas por inactividad (skarga na bezczynność).',
+    mapaCtaBtn:'Acelerar mi caso →',
+    mwEyebrow:'ASISTENTE · CHECKLIST · ANÁLISIS · CONTACTO',
+    mwTitle:'Comprueba <em>tu preparación</em> y recibe un plan',
+    mwGo2:'Ver análisis de oportunidades →',
+    mwGo3:'Recibir checklist + apoyo →',
+    mwBack:'← Atrás',
+    mwSubmit:'Enviar por WhatsApp',
+    mwName:'Tu nombre',
+    mwPhone:'Teléfono / WhatsApp',
+    pcfEyebrow:'NUESTRO KNOW-HOW · PANEL DE CLIENTE',
+    pcfTitle:'Tu caso, <em>bajo tu control</em>',
+    pcfCtaBtn:'Comenzar con el panel →',
+    phcEyebrow:'CÓMO FUNCIONA · 5 PASOS',
+    phcTitle:'Del primer mensaje <em>a la tarjeta en mano</em>',
+    phcFootCta:'Comenzar ahora →',
+    pcEyebrow:'CALCULADORA DE COMPENSACIÓN · INACTIVIDAD ADMINISTRATIVA',
+    pcTitle:'¿Tu caso parado durante meses? <em>El Estado te pagará.</em>',
+    pzEyebrow:'VERIFICADOR ZAŁĄCZNIK NR 1 · ASISTENTE IA',
+    pzTitle:'¿Tu empleador te dio el Załącznik nr 1? <em>Lo verificamos antes de presentarlo.</em>',
+  },
+  tr: {
+    heroVideoEyebrow:'LEGALSOL İLE TANIŞIN',
+    mapaEyebrow:'OTURMA İZNİ KARTI · 2025 ORTALAMA BEKLEME SÜRESİ',
+    mapaTitle:'Anahtarı kaydır — <em>farkı gör</em>',
+    mapaSub:'16 Polonya voyvodalığındaki resmi bekleme süreleri (kaynak: urząd wojewódzki raporları, 28.02.2025). Sağa kaydır — LegalSol\'un davanı nasıl hızlandırdığını gör.',
+    mapaHint:'Farkı görmek için anahtarı sağa kaydır',
+    mapaWithoutBtn:'LegalSol olmadan',
+    mapaWithBtn:'LegalSol ile →',
+    mapaShortest:'En kısa',
+    mapaLongest:'En uzun',
+    mapaWithLegalsol:'LegalSol ile',
+    mapaActive:'Aktif hızlandırma',
+    mapaCtaText:'Voyvodalık fark etmez — <b>davanı aktif olarak ileri itiyoruz</b>: ponaglenia ve hareketsizlik şikayetleri (skarga na bezczynność) ile.',
+    mapaCtaBtn:'Davamı hızlandır →',
+    mwEyebrow:'SİHİRBAZ · KONTROL LİSTESİ · ANALİZ · İLETİŞİM',
+    mwTitle:'<em>Hazırlığını</em> kontrol et ve bir plan al',
+    mwGo2:'Şans analizini gör →',
+    mwGo3:'Kontrol listesi + destek al →',
+    mwBack:'← Geri',
+    mwSubmit:'WhatsApp ile gönder',
+    mwName:'Adınız',
+    mwPhone:'Telefon / WhatsApp',
+    pcfEyebrow:'KNOW-HOW\'IMIZ · LEGALSOL PANELİ',
+    pcfTitle:'Davanız, <em>kontrolünüz altında</em>',
+    pcfCtaBtn:'Panel ile başla →',
+    phcEyebrow:'NASIL ÇALIŞIR · 5 ADIM',
+    phcTitle:'İlk mesajdan <em>karta uzanan yol</em>',
+    phcFootCta:'Şimdi başla →',
+    pcEyebrow:'TAZMİNAT HESAPLAYICI · İDARİ HAREKETSİZLİK',
+    pcTitle:'Davan aylardır bekliyor mu? <em>Devlet sana ödeme yapacak.</em>',
+    pzEyebrow:'ZAŁĄCZNIK NR 1 DOĞRULAYICI · YZ ASİSTAN',
+    pzTitle:'İşveren sana Załącznik nr 1 verdi mi? <em>Teslim etmeden önce doğrularız.</em>',
+  },
+  az: {
+    heroVideoEyebrow:'LEGALSOL İLƏ TANIŞ OLUN',
+    mapaEyebrow:'İQAMƏT İCAZƏSİ · 2025-Cİ İLİN ORTA GÖZLƏMƏ MÜDDƏTİ',
+    mapaTitle:'Açarı sürüşdür — <em>fərqi gör</em>',
+    mapaSub:'Polşanın 16 voyvodalığında rəsmi gözləmə müddətləri (mənbə: urząd wojewódzki hesabatları, 28.02.2025). Sağa sürüşdürün — LegalSol-un işinizi necə sürətləndirdiyini görəcəksiniz.',
+    mapaHint:'Fərqi görmək üçün açarı sağa sürüşdürün',
+    mapaWithoutBtn:'LegalSol olmadan',
+    mapaWithBtn:'LegalSol ilə →',
+    mapaShortest:'Ən qısa',
+    mapaLongest:'Ən uzun',
+    mapaWithLegalsol:'LegalSol ilə',
+    mapaActive:'Aktiv sürətləndirmə',
+    mapaCtaText:'Voyvodalıqdan asılı olmayaraq — <b>işinizi aktiv şəkildə irəli itələyirik</b>: ponaglenia və hərəkətsizliyə şikayət (skarga na bezczynność) ilə.',
+    mapaCtaBtn:'İşimi sürətləndir →',
+    mwEyebrow:'SEHRBAZ · YOXLAMA SİYAHISI · TƏHLİL · ƏLAQƏ',
+    mwTitle:'<em>Hazırlığınızı</em> yoxlayın və plan alın',
+    mwGo2:'Şans təhlilini göstər →',
+    mwGo3:'Yoxlama siyahısı və dəstək al →',
+    mwBack:'← Geri',
+    mwSubmit:'WhatsApp ilə göndər',
+    mwName:'Adınız',
+    mwPhone:'Telefon / WhatsApp',
+    pcfEyebrow:'NOU-XAU-MUZ · LEGALSOL KABİNETİ',
+    pcfTitle:'İşiniz, <em>sizin nəzarətiniz altında</em>',
+    pcfCtaBtn:'Kabinetlə başla →',
+    phcEyebrow:'NECƏ İŞLƏYİR · 5 ADDIM',
+    phcTitle:'İlk mesajdan <em>əldə karta qədər</em>',
+    phcFootCta:'İndi başla →',
+    pcEyebrow:'KOMPENSASİYA KALKULYATORU · İNZİBATİ HƏRƏKƏTSİZLİK',
+    pcTitle:'İşiniz aylarla durur? <em>Dövlət sizə ödəyəcək.</em>',
+    pzEyebrow:'ZAŁĄCZNIK NR 1 YOXLAYICI · Sİ ASSİSTENT',
+    pzTitle:'İşəgötürəniniz sizə Załącznik nr 1 verdi? <em>Təqdim etməzdən əvvəl yoxlayacağıq.</em>',
+  },
+  hi: {
+    heroVideoEyebrow:'LEGALSOL से मिलिए',
+    mapaEyebrow:'रेजिडेंस कार्ड · औसत प्रतीक्षा समय 2025',
+    mapaTitle:'स्विच खिसकाएँ — <em>अंतर देखें</em>',
+    mapaSub:'सभी 16 पोलिश वोइवोडशिप्स में आधिकारिक प्रतीक्षा समय (स्रोत: urząd wojewódzki रिपोर्ट्स, 28.02.2025)। दाएँ खिसकाएँ — देखें कि LegalSol आपके मामले को कैसे तेज़ करता है।',
+    mapaHint:'अंतर देखने के लिए स्विच को दाएँ खिसकाएँ',
+    mapaWithoutBtn:'LegalSol के बिना',
+    mapaWithBtn:'LegalSol के साथ →',
+    mapaShortest:'सबसे छोटा',
+    mapaLongest:'सबसे लंबा',
+    mapaWithLegalsol:'LegalSol के साथ',
+    mapaActive:'सक्रिय गति-वर्धन',
+    mapaCtaText:'चाहे कोई भी वोइवोडशिप हो — <b>हम आपके मामले को सक्रिय रूप से आगे बढ़ाते हैं</b> ponaglenia और निष्क्रियता शिकायतों (skarga na bezczynność) के साथ।',
+    mapaCtaBtn:'मेरा मामला तेज़ करें →',
+    mwEyebrow:'विज़ार्ड · चेकलिस्ट · विश्लेषण · संपर्क',
+    mwTitle:'अपनी <em>तैयारी</em> जाँचें और प्लान पाएँ',
+    mwGo2:'अवसरों का विश्लेषण देखें →',
+    mwGo3:'चेकलिस्ट + सहायता पाएँ →',
+    mwBack:'← वापस',
+    mwSubmit:'WhatsApp पर भेजें',
+    mwName:'आपका नाम',
+    mwPhone:'फ़ोन / WhatsApp',
+    pcfEyebrow:'हमारी विशेषज्ञता · LEGALSOL कैबिनेट',
+    pcfTitle:'आपका मामला, <em>आपके नियंत्रण में</em>',
+    pcfCtaBtn:'कैबिनेट से शुरू करें →',
+    phcEyebrow:'यह कैसे काम करता है · 5 चरण',
+    phcTitle:'पहले संदेश से <em>हाथ में कार्ड तक</em>',
+    phcFootCta:'अभी शुरू करें →',
+    pcEyebrow:'मुआवज़ा कैलकुलेटर · प्रशासनिक निष्क्रियता',
+    pcTitle:'आपका मामला महीनों से रुका है? <em>राज्य आपको भुगतान करेगा।</em>',
+    pzEyebrow:'ZAŁĄCZNIK NR 1 सत्यापक · AI सहायक',
+    pzTitle:'आपके नियोक्ता ने Załącznik nr 1 दिया? <em>जमा करने से पहले हम इसे जाँचेंगे।</em>',
   }
 };
 /* MEGA Wizard category labels per language */
@@ -4044,7 +4215,11 @@ window.PV_I18N_CATS = {
   en: {praca:'Work (TRC)', spolka:'Company / Business', staly:'Permanent / EU Resident', odwol:'Appeal / Refusal'},
   pl: {praca:'Praca (Czasowy)', spolka:'Spółka / Biznes', staly:'Stały / Rezydent UE', odwol:'Odwołanie / Odmowa'},
   ru: {praca:'Работа (KCP)', spolka:'Компания / Бизнес', staly:'ПМЖ / Резидент ЕС', odwol:'Апелляция / Отказ'},
-  uk: {praca:'Робота (KCP)', spolka:'Компанія / Бізнес', staly:'ПМП / Резидент ЄС', odwol:'Апеляція / Відмова'}
+  uk: {praca:'Робота (KCP)', spolka:'Компанія / Бізнес', staly:'ПМП / Резидент ЄС', odwol:'Апеляція / Відмова'},
+  es: {praca:'Trabajo (TRC)', spolka:'Empresa / Negocio', staly:'Permanente / Residente UE', odwol:'Apelación / Denegación'},
+  tr: {praca:'İş (TRC)', spolka:'Şirket / İş', staly:'Daimi / AB Mukimi', odwol:'İtiraz / Ret'},
+  az: {praca:'İş (TRC)', spolka:'Şirkət / Biznes', staly:'Daimi / AB Rezidenti', odwol:'Apellyasiya / İmtina'},
+  hi: {praca:'काम (TRC)', spolka:'कंपनी / व्यापार', staly:'स्थायी / EU निवासी', odwol:'अपील / अस्वीकृति'}
 };
 window.PV_I18N_APPLY = function(lang){
   var dict = window.PV_I18N[lang] || window.PV_I18N.en;
@@ -9526,7 +9701,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="lang-dd-panel" id="lang-dd-panel">
 
-        <!-- Narrowed to 4 fully-covered langs (see PV_I18N notes). -->
         <button class="ldp-btn" onclick="pickLang('ru')" ontouchend="event.preventDefault();pickLang('ru');"><span class="ldp-flag" data-lang="ru"></span><span class="ldp-code">RU</span><span class="ldp-name">Русский</span></button>
 
         <button class="ldp-btn" onclick="pickLang('en')" ontouchend="event.preventDefault();pickLang('en');"><span class="ldp-flag" data-lang="en"></span><span class="ldp-code">EN</span><span class="ldp-name">English</span></button>
@@ -9534,6 +9708,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <button class="ldp-btn" onclick="pickLang('pl')" ontouchend="event.preventDefault();pickLang('pl');"><span class="ldp-flag" data-lang="pl"></span><span class="ldp-code">PL</span><span class="ldp-name">Polski</span></button>
 
         <button class="ldp-btn" onclick="pickLang('uk')" ontouchend="event.preventDefault();pickLang('uk');"><span class="ldp-flag" data-lang="uk"></span><span class="ldp-code">UA</span><span class="ldp-name">Українська</span></button>
+
+        <button class="ldp-btn" onclick="pickLang('es')" ontouchend="event.preventDefault();pickLang('es');"><span class="ldp-flag" data-lang="es"></span><span class="ldp-code">ES</span><span class="ldp-name">Español</span></button>
+
+        <button class="ldp-btn" onclick="pickLang('tr')" ontouchend="event.preventDefault();pickLang('tr');"><span class="ldp-flag" data-lang="tr"></span><span class="ldp-code">TR</span><span class="ldp-name">Türkçe</span></button>
+
+        <button class="ldp-btn" onclick="pickLang('az')" ontouchend="event.preventDefault();pickLang('az');"><span class="ldp-flag" data-lang="az"></span><span class="ldp-code">AZ</span><span class="ldp-name">Azərbaycan</span></button>
+
+        <button class="ldp-btn" onclick="pickLang('hi')" ontouchend="event.preventDefault();pickLang('hi');"><span class="ldp-flag" data-lang="hi"></span><span class="ldp-code">HI</span><span class="ldp-name">हिन्दी</span></button>
 
       </div>
 
@@ -9552,15 +9734,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="mob-nav">
 
-  <!-- Language chips row — lives at the top of the drawer; topbar trigger is hidden on mobile -->
-  <div class="mob-lang-row" id="mob-lang-row" aria-label="Language">
-    <!-- Narrowed to 4 fully-covered languages (RU/EN/PL/UA).
-         HI/ES/TR/AZ were partially translated in preview blocks → confusing UX.
-         If we re-add a language, complete PV_I18N coverage first. -->
-    <button type="button" class="mob-lang-chip" data-lang="en" onclick="pickLang('en');closeMobNav();">🇬🇧 EN</button>
-    <button type="button" class="mob-lang-chip" data-lang="ru" onclick="pickLang('ru');closeMobNav();">🇷🇺 RU</button>
-    <button type="button" class="mob-lang-chip" data-lang="pl" onclick="pickLang('pl');closeMobNav();">🇵🇱 PL</button>
-    <button type="button" class="mob-lang-chip" data-lang="uk" onclick="pickLang('uk');closeMobNav();">🇺🇦 UA</button>
+  <!-- Language picker — sits at top of drawer, clean 4×2 grid, all 8 langs visible at once -->
+  <div class="mob-lang-block" aria-label="Language">
+    <div class="mob-lang-head"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg><span id="mob-lang-head-lbl">Language</span></div>
+    <div class="mob-lang-row" id="mob-lang-row">
+      <button type="button" class="mob-lang-chip" data-lang="en" onclick="pickLang('en');closeMobNav();"><span class="mlc-flag">🇬🇧</span><span class="mlc-code">EN</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="ru" onclick="pickLang('ru');closeMobNav();"><span class="mlc-flag">🇷🇺</span><span class="mlc-code">RU</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="pl" onclick="pickLang('pl');closeMobNav();"><span class="mlc-flag">🇵🇱</span><span class="mlc-code">PL</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="uk" onclick="pickLang('uk');closeMobNav();"><span class="mlc-flag">🇺🇦</span><span class="mlc-code">UA</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="es" onclick="pickLang('es');closeMobNav();"><span class="mlc-flag">🇪🇸</span><span class="mlc-code">ES</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="tr" onclick="pickLang('tr');closeMobNav();"><span class="mlc-flag">🇹🇷</span><span class="mlc-code">TR</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="az" onclick="pickLang('az');closeMobNav();"><span class="mlc-flag">🇦🇿</span><span class="mlc-code">AZ</span></button>
+      <button type="button" class="mob-lang-chip" data-lang="hi" onclick="pickLang('hi');closeMobNav();"><span class="mlc-flag">🇮🇳</span><span class="mlc-code">HI</span></button>
+    </div>
   </div>
 
   <button class="mob-nav-btn mob-nav-active" onclick="showTab('home');closeMobNav()">
@@ -28739,10 +28925,7 @@ function _doInit(){
 
   _initFlags();
 
-  // Narrowed 2026-06-09: PV_I18N coverage is solid only for these 4.
-  // Old set kept commented in case we re-expand after a full translation pass:
-  // ['en','ru','uk','pl','es','tr','az','hi']
-  var _allLangs=['en','ru','uk','pl'];
+  var _allLangs=['en','ru','uk','pl','es','tr','az','hi'];
   // ?lang=xx in URL takes priority (for hreflang SEO + share links)
   var _urlLang=null;
   try{
@@ -28928,8 +29111,7 @@ function pickLang(lang){
   try{
 
     // Hard allow-list — keep in sync with _allLangs in _doInit().
-    // Anything else (legacy hi/es/tr/az calls, junk input) silently → 'en'.
-    if(['en','ru','uk','pl'].indexOf(lang)===-1)lang='en';
+    if(['en','ru','uk','pl','es','tr','az','hi'].indexOf(lang)===-1)lang='en';
 
     if(typeof localStorage!=='undefined')try{localStorage.setItem('ls-lang',lang);}catch(e){}
 
@@ -31672,7 +31854,6 @@ function quizSubmit(){
 
 <div id="mob-lang-panel" style="display:none;position:fixed;top:66px;right:8px;z-index:199999;background:rgba(8,6,26,.95);border:1px solid rgba(139,130,232,.3);border-radius:14px;padding:6px 4px;width:90px;box-shadow:0 16px 48px rgba(0,0,0,.85);">
 
-  <!-- Narrowed to 4 fully-covered langs -->
   <button class="ldp-btn" onclick="pickLang('ru');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="ru"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">RU</span></button>
 
   <button class="ldp-btn" onclick="pickLang('en');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="en"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">EN</span></button>
@@ -31680,6 +31861,14 @@ function quizSubmit(){
   <button class="ldp-btn" onclick="pickLang('pl');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="pl"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">PL</span></button>
 
   <button class="ldp-btn" onclick="pickLang('uk');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="uk"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">UA</span></button>
+
+  <button class="ldp-btn" onclick="pickLang('es');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="es"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">ES</span></button>
+
+  <button class="ldp-btn" onclick="pickLang('tr');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="tr"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">TR</span></button>
+
+  <button class="ldp-btn" onclick="pickLang('az');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="az"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">AZ</span></button>
+
+  <button class="ldp-btn" onclick="pickLang('hi');closeMobLang();" style="padding:10px 10px;gap:8px;justify-content:flex-start;width:100%;"><span class="ldp-flag" data-lang="hi"></span><span class="ldp-code" style="font-size:13px;font-weight:700;">HI</span></button>
 
 </div>
 
