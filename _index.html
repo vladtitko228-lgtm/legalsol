@@ -71,15 +71,21 @@ function loadMetaPixel(){
   else inject();
 })();
 
-// WhatsApp-клик → Contact (FB Pixel) + GA4 wa_click с атрибуцией.
+// WhatsApp-клик → Contact (FB Pixel) + GA4 lead_submit с атрибуцией.
+// ВАЖНО: GTM-контейнер слушает только lead_submit/whatsapp_click/phone_click,
+// и лишь тег lead_submit→generate_lead прокидывает параметры (lead_service и др.) в GA4.
+// Событие wa_click из dataLayer GTM игнорировал — атрибуция терялась.
 // lead_service берётся из data-lead-service атрибута на ссылке (если есть),
 // иначе выводится из URL/контекста. lead_lang — текущий язык интерфейса.
 document.addEventListener('click',function(e){
-  var a=e.target.closest('a[href*="wa.me/"]');
+  var a=e.target.closest && e.target.closest('a');
   if(!a) return;
+  var _href=a.getAttribute('href')||'';
+  var _isWa=_href.indexOf('wa.me/')!==-1, _isTel=_href.indexOf('tel:')===0;
+  if(!_isWa && !_isTel) return;
   // FB Pixel
-  if(window.fbq) fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});
-  // GA4 dataLayer — wa_click с атрибуцией услуги и языка
+  if(_isWa && window.fbq) fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});
+  // GA4 dataLayer — lead_submit с атрибуцией услуги и языка
   try{
     var lead_service = a.getAttribute('data-lead-service');
     if(!lead_service){
@@ -103,11 +109,11 @@ document.addEventListener('click',function(e){
     var lead_source = a.getAttribute('data-lead-source') || a.id || 'unknown';
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: 'wa_click',
+      event: 'lead_submit',
+      lead_source: (_isWa ? 'wa:' : 'tel:') + lead_source,
       lead_service: lead_service,
       lead_lang: lead_lang,
-      lead_source: lead_source,
-      page_path: location.pathname,
+      lead_page: location.pathname,
     });
   }catch(err){ /* never block the click */ }
 });

@@ -1815,11 +1815,28 @@ function renderPage(a, contentHtml, faqs) {
       var href=a.getAttribute('href')||'';
       try{
         window.dataLayer=window.dataLayer||[];
-        if(href.indexOf('wa.me/')!==-1){
+        var isWa=href.indexOf('wa.me/')!==-1, isTel=href.indexOf('tel:')===0;
+        if(!isWa && !isTel) return;
+        if(isWa){
           window.dataLayer.push({event:'whatsapp_click',wa_link:href.split('?')[0],lead_page:location.pathname});
-        } else if(href.indexOf('tel:')===0){
+        } else {
           window.dataLayer.push({event:'phone_click',tel_link:href,lead_page:location.pathname});
         }
+        // Лид-интент с атрибуцией — GTM превращает lead_submit в GA4 generate_lead
+        // (только этот тег прокидывает lead_service/lead_lang/lead_source в GA4)
+        var p=location.pathname, svc='general';
+        if(p.indexOf('karta-pobytu')!==-1||p.indexOf('pmz')!==-1) svc='karta_pobytu';
+        else if(p.indexOf('citizenship')!==-1||p.indexOf('obywatelstwo')!==-1) svc='citizenship';
+        else if(p.indexOf('international-protection')!==-1) svc='international_protection';
+        else if(p.indexOf('work')!==-1||p.indexOf('visa')!==-1) svc='work_permit';
+        else if(p.indexOf('housing')!==-1||p.indexOf('rent')!==-1) svc='housing';
+        window.dataLayer.push({
+          event:'lead_submit',
+          lead_source:(isWa?'wa:':'tel:')+(a.getAttribute('data-lead-source')||a.id||'blog'),
+          lead_service:a.getAttribute('data-lead-service')||svc,
+          lead_lang:document.documentElement.lang||'unknown',
+          lead_page:p
+        });
       }catch(_){}
     });
 
