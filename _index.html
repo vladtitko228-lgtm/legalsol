@@ -278,6 +278,13 @@ document.addEventListener('click',function(e){
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
+/* Глобальная страховка доступности: для тех, кто отключил анимации в системе
+   (укачивание, вестибулярные нарушения), почти выключаем всё движение разом.
+   Точечные reduced-motion-блоки ниже остаются как более тонкая настройка. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+}
+
 html{scroll-behavior:smooth;overflow-x:clip;}
 
 /* overflow-x:clip вместо overflow:hidden — обрезает горизонтальный скролл, но НЕ создаёт
@@ -566,7 +573,7 @@ img{max-width:100%;height:auto;}
 
 .tl-step:last-child .tl-chip{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2);color:#86efac;}
 
-.tl-step.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform;}
+.tl-step.reveal{opacity:0;transform:translateY(16px);filter:blur(4px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .55s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter;}
 
 .tl-step:nth-child(2).reveal{transition-delay:.12s;}
 
@@ -574,7 +581,7 @@ img{max-width:100%;height:auto;}
 
 .tl-step:nth-child(4).reveal{transition-delay:.36s;}
 
-.tl-step.reveal.on{opacity:1;transform:translateY(0);}
+.tl-step.reveal.on{opacity:1;transform:translateY(0);filter:blur(0);}
 
 @media(max-width:960px){.timeline{grid-template-columns:1fr 1fr;gap:22px;}.timeline::before{display:none;}}
 
@@ -1964,17 +1971,19 @@ h1 .acc{color:var(--p300);}
 
 .s-desc{font-size:15px;color:var(--txt2);max-width:520px;line-height:1.75;font-weight:300;}
 
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+/* Scroll-reveal: меньше ход (16px), быстрее (.55s), мягкое размытие в фокус —
+   ощущается легче и дороже, чем прыжок на 32px. Единая кривая .16,1,.3,1. */
+.reveal{opacity:0;transform:translateY(16px);filter:blur(4px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .55s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter;}
 
-.reveal.on{opacity:1;transform:translateY(0);}
+.reveal.on{opacity:1;transform:translateY(0);filter:blur(0);}
 
-.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal-left{opacity:0;transform:translateX(-18px);filter:blur(4px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .55s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter;}
 
-.reveal-left.on{opacity:1;transform:translateX(0);}
+.reveal-left.on{opacity:1;transform:translateX(0);filter:blur(0);}
 
-.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal-right{opacity:0;transform:translateX(18px);filter:blur(4px);transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),filter .55s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter;}
 
-.reveal-right.on{opacity:1;transform:translateX(0);}
+.reveal-right.on{opacity:1;transform:translateX(0);filter:blur(0);}
 
 .reveal-scale{opacity:0;transform:scale(.92);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
 
