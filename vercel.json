@@ -64,6 +64,7 @@
     }
   ],
   "buildCommand": "cp _index.html api/_index.html",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/(.*)",
