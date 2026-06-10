@@ -71,7 +71,7 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 async function load(){
   $('list').innerHTML='<div class="empty"><span class="spin"></span> Загружаю черновики…</div>';
   try{
-    var r=await fetch('/api/team/list-drafts?adminToken='+encodeURIComponent(TOK));
+    var r=await fetch('/api/team?op=list&adminToken='+encodeURIComponent(TOK));
     if(r.status===401){bad();return;}
     var d=await r.json();
     render(d.drafts||[]);
@@ -97,7 +97,7 @@ async function approve(leadId,btn){
   var text=ta.value.trim();if(!text){toast('Текст пустой');return;}
   btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
   try{
-    var r=await fetch('/api/team/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({leadId:leadId,adminToken:TOK,action:'approve',text:text})});
+    var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'approve',leadId:leadId,adminToken:TOK,text:text})});
     var d=await r.json();
     if(d.ok){toast('Отправлено клиенту ✓');load();}else{toast('Ошибка: '+(d.message||d.error));btn.disabled=false;btn.textContent='✓ Отправить клиенту';}
   }catch(e){toast('Ошибка сети');btn.disabled=false;btn.textContent='✓ Отправить клиенту';}
@@ -105,13 +105,13 @@ async function approve(leadId,btn){
 async function reject(leadId,btn){
   btn.disabled=true;
   try{
-    var r=await fetch('/api/team/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({leadId:leadId,adminToken:TOK,action:'reject'})});
+    var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'reject',leadId:leadId,adminToken:TOK})});
     var d=await r.json();
     if(d.ok){toast('Черновик отклонён');load();}else{toast('Ошибка: '+(d.message||d.error));btn.disabled=false;}
   }catch(e){toast('Ошибка сети');btn.disabled=false;}
 }
 async function doGen(leadId){
-  var r=await fetch('/api/team/ai-draft',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({leadId:leadId,adminToken:TOK})});
+  var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'draft',leadId:leadId,adminToken:TOK})});
   return r.json();
 }
 async function gen(){
