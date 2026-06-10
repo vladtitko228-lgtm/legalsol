@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>LegalSol — Апдейты клиентам (ИИ-черновики)</title>
+<style>
+  :root{--bg:#0d0b20;--bg2:#13103a;--card:rgba(255,255,255,.04);--bd:rgba(139,130,232,.22);--p:#7c6fe8;--p2:#a78bfa;--txt:#e8e6f7;--txt2:#a39fc4;--ok:#22c55e;--bad:#f87171;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--txt);min-height:100vh;}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 18px 80px;}
+  h1{font-size:20px;font-weight:800;letter-spacing:.3px;margin:0 0 4px;}
+  .sub{color:var(--txt2);font-size:13px;margin-bottom:24px;}
+  .login{max-width:360px;margin:60px auto;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:28px;}
+  input,textarea{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:12px;color:var(--txt);padding:12px 14px;font-size:14px;font-family:inherit;}
+  textarea{resize:vertical;min-height:84px;line-height:1.5;}
+  label{display:block;font-size:12px;color:var(--txt2);margin:0 0 6px;letter-spacing:.3px;}
+  button{cursor:pointer;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:13.5px;padding:12px 18px;transition:transform .12s,filter .2s;}
+  button:active{transform:scale(.97);}
+  .btn-p{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;width:100%;}
+  .btn-ok{background:var(--ok);color:#04210f;}
+  .btn-bad{background:rgba(248,113,113,.15);color:var(--bad);border:1px solid rgba(248,113,113,.4);}
+  .btn-gen{background:rgba(139,130,232,.16);color:var(--p2);border:1px solid var(--bd);}
+  .row{display:flex;gap:10px;flex-wrap:wrap;}
+  .gen-bar{display:flex;gap:8px;margin:0 0 22px;}
+  .gen-bar input{flex:1;}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:16px;}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+  .name{font-weight:700;font-size:15px;}
+  .meta{font-size:11.5px;color:var(--txt2);margin-bottom:12px;}
+  .chip{display:inline-block;background:rgba(124,111,232,.18);color:var(--p2);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+  .empty{text-align:center;color:var(--txt2);padding:50px 0;font-size:14px;}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1545;border:1px solid var(--bd);padding:12px 20px;border-radius:12px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9;}
+  .toast.show{opacity:1;}
+  .hint{font-size:11px;color:var(--txt2);margin-top:8px;line-height:1.5;}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:s .7s linear infinite;vertical-align:-2px;}
+  @keyframes s{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Апдейты клиентам</h1>
+  <div class="sub">ИИ пишет черновик апдейта по сделке из Kommo — вы проверяете, правите при желании и отправляете клиенту в кабинет.</div>
+
+  <div id="login" class="login" style="display:none;">
+    <label>Код доступа сотрудника</label>
+    <input id="tok" type="password" placeholder="Введите код" autocomplete="off"/>
+    <div style="height:12px;"></div>
+    <button class="btn-p" onclick="saveTok()">Войти</button>
+    <div class="hint">Код выдаёт Влад. Это тот же CABINET_ADMIN_TOKEN.</div>
+  </div>
+
+  <div id="app" style="display:none;">
+    <div class="gen-bar">
+      <input id="genLead" placeholder="ID сделки в Kommo" inputmode="numeric"/>
+      <button class="btn-gen" onclick="gen()">Сгенерировать черновик</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+var TOK = '';
+function $(id){return document.getElementById(id);}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2600);}
+function saveTok(){var v=$('tok').value.trim();if(!v)return;sessionStorage.setItem('ls_team_tok',v);TOK=v;boot();}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function load(){
+  $('list').innerHTML='<div class="empty"><span class="spin"></span> Загружаю черновики…</div>';
+  try{
+    var r=await fetch('/api/team?op=list&adminToken='+encodeURIComponent(TOK));
+    if(r.status===401){bad();return;}
+    var d=await r.json();
+    render(d.drafts||[]);
+  }catch(e){$('list').innerHTML='<div class="empty">Ошибка загрузки: '+esc(e.message)+'</div>';}
+}
+function render(drafts){
+  if(!drafts.length){$('list').innerHTML='<div class="empty">Нет черновиков на проверку.<br>Сгенерируйте по ID сделки сверху.</div>';return;}
+  $('list').innerHTML=drafts.map(function(d){
+    return '<div class="card" data-lead="'+d.leadId+'">'
+      +'<div class="card-top"><div class="name">'+esc(d.name)+'</div><span class="chip">шаг '+d.step+'/6</span></div>'
+      +'<div class="meta">'+esc(d.service||'')+' · '+esc(d.stage||'')+' · сделка #'+d.leadId+'</div>'
+      +'<label>Текст для клиента (можно отредактировать)</label>'
+      +'<textarea>'+esc(d.draftText)+'</textarea>'
+      +'<div class="row" style="margin-top:12px;">'
+        +'<button class="btn-ok" onclick="approve('+d.leadId+',this)">✓ Отправить клиенту</button>'
+        +'<button class="btn-bad" onclick="reject('+d.leadId+',this)">Отклонить</button>'
+        +'<button class="btn-gen" onclick="regen('+d.leadId+',this)">↻ Перегенерировать</button>'
+      +'</div></div>';
+  }).join('');
+}
+async function approve(leadId,btn){
+  var ta=btn.closest('.card').querySelector('textarea');
+  var text=ta.value.trim();if(!text){toast('Текст пустой');return;}
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  try{
+    var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'approve',leadId:leadId,adminToken:TOK,text:text})});
+    var d=await r.json();
+    if(d.ok){toast('Отправлено клиенту ✓');load();}else{toast('Ошибка: '+(d.message||d.error));btn.disabled=false;btn.textContent='✓ Отправить клиенту';}
+  }catch(e){toast('Ошибка сети');btn.disabled=false;btn.textContent='✓ Отправить клиенту';}
+}
+async function reject(leadId,btn){
+  btn.disabled=true;
+  try{
+    var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'reject',leadId:leadId,adminToken:TOK})});
+    var d=await r.json();
+    if(d.ok){toast('Черновик отклонён');load();}else{toast('Ошибка: '+(d.message||d.error));btn.disabled=false;}
+  }catch(e){toast('Ошибка сети');btn.disabled=false;}
+}
+async function doGen(leadId){
+  var r=await fetch('/api/team',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({op:'draft',leadId:leadId,adminToken:TOK})});
+  return r.json();
+}
+async function gen(){
+  var id=$('genLead').value.trim();if(!id){toast('Введите ID сделки');return;}
+  toast('ИИ пишет черновик…');
+  try{var d=await doGen(id);if(d.ok){$('genLead').value='';toast('Черновик готов ✓');load();}else{toast('Ошибка: '+(d.message||d.error));}}
+  catch(e){toast('Ошибка сети');}
+}
+async function regen(leadId,btn){
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  try{var d=await doGen(leadId);if(d.ok){toast('Перегенерировано ✓');load();}else{toast('Ошибка: '+(d.message||d.error));btn.disabled=false;btn.textContent='↻ Перегенерировать';}}
+  catch(e){toast('Ошибка сети');btn.disabled=false;btn.textContent='↻ Перегенерировать';}
+}
+function bad(){sessionStorage.removeItem('ls_team_tok');TOK='';$('app').style.display='none';$('login').style.display='block';toast('Неверный код');}
+function boot(){
+  if(!TOK){$('login').style.display='block';$('app').style.display='none';return;}
+  $('login').style.display='none';$('app').style.display='block';load();
+}
+TOK=sessionStorage.getItem('ls_team_tok')||'';
+boot();
+</script>
+</body>
+</html>

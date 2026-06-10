@@ -156,6 +156,21 @@ function stripClientPrefix(text) {
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
 const STAGE_NAMES = STAGE_NAMES_OPS;
 
+// === ИИ-черновики апдейтов (draft → апрув сотрудника) ===
+// ИИ пишет апдейт клиенту с этим префиксом. Он НЕ входит в CLIENT_NOTE_PREFIXES,
+// поэтому клиент его НЕ видит. Сотрудник на странице ревью аппрувит → текст
+// перепостится как «КЛИЕНТУ:» и станет виден клиенту.
+const DRAFT_PREFIX = 'ЧЕРНОВИК ИИ:';
+function isDraftNote(text) {
+  if (!text) return false;
+  return decodeHtmlEntities(text).trim().toUpperCase().startsWith(DRAFT_PREFIX.toUpperCase());
+}
+function stripDraftPrefix(text) {
+  if (!text) return '';
+  const t = decodeHtmlEntities(text).trim();
+  return isDraftNote(t) ? t.slice(DRAFT_PREFIX.length).trim() : t;
+}
+
 // === Kommo HTTP wrapper ===
 async function kommo(method, path, body) {
   const url = `https://${KOMMO_SUBDOMAIN}.kommo.com/api/v4${path}`;
@@ -171,6 +186,14 @@ async function kommo(method, path, body) {
   }
   if (resp.status === 204) return null;
   return resp.json();
+}
+
+// Добавить текстовую заметку к сделке. text уже должен содержать нужный префикс
+// (DRAFT_PREFIX для черновика ИИ, CLIENT_NOTE_PREFIX для апрувнутого апдейта клиенту).
+async function addLeadNote(leadId, text) {
+  return kommo('POST', `/leads/${leadId}/notes`, [
+    { note_type: 'common', params: { text: String(text || '') } }
+  ]);
 }
 
 // Нормализуем телефон: только цифры, добавляем 48 для польских 9-значных.
@@ -321,6 +344,11 @@ async function readJsonBody(req) {
 
 module.exports = {
   kommo,
+  addLeadNote,
+  DRAFT_PREFIX,
+  isDraftNote,
+  stripDraftPrefix,
+  decodeHtmlEntities,
   normalizePhone,
   findContactByPhone,
   getCfValue,
