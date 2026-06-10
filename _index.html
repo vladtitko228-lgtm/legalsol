@@ -29785,18 +29785,25 @@ function setLang(lang){
                 dateFmt = months[parseInt(d[1],10)-1] + ' ' + parseInt(d[2],10) + ', ' + d[0];
               }
             }
-            var title = a.title || '';
-            var desc = a.seoDescription || '';
-            html += '<a class="blog-card reveal" href="'+href+'" style="text-decoration:none;display:block;color:inherit">'
+            // XSS-защита: title/desc/cat/cover приходят из Notion (редактируют люди) —
+            // экранируем перед вставкой в innerHTML; href/cover — только http(s)/-схемы.
+            var _e = function(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); };
+            var _safeUrl = function(u){ u=String(u==null?'':u); return /^(https?:|\/)/i.test(u) ? u : ''; };
+            cat = _e(cat);
+            cover = _safeUrl(cover) || fallbackCover;
+            href = _safeUrl(href) || '#';
+            var title = _e(a.title || '');
+            var desc = _e(a.seoDescription || '');
+            html += '<a class="blog-card reveal" href="'+_e(href)+'" style="text-decoration:none;display:block;color:inherit">'
                   + '<div class="blog-thumb" style="overflow:hidden;background:#1a1638;">'
-                  +   '<img src="'+cover+'" alt="'+title.replace(/"/g,'&quot;')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.78;"/>'
+                  +   '<img src="'+_e(cover)+'" alt="'+title+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.78;"/>'
                   +   '<div class="blog-cat">'+cat+'</div>'
                   + '</div>'
                   + '<div class="blog-body">'
-                  +   '<div class="blog-date">'+dateFmt+'</div>'
+                  +   '<div class="blog-date">'+_e(dateFmt)+'</div>'
                   +   '<div class="blog-t">'+title+'</div>'
                   +   '<div class="blog-e">'+desc+'</div>'
-                  +   '<span class="blog-read">'+readText+'</span>'
+                  +   '<span class="blog-read">'+_e(readText)+'</span>'
                   + '</div>'
                   + '</a>';
           });

@@ -100,18 +100,21 @@ function blocksToHtml(blocks) {
 
       case "image":
 
-        const imgUrl = block.image.type === "external" ? block.image.external.url : block.image.file.url;
+        const imgUrl = safeUrl(block.image.type === "external" ? block.image.external.url : block.image.file.url);
 
         const caption = block.image.caption?.length ? richTextToHtml(block.image.caption) : "";
 
+        // alt — только чистый текст (caption — это уже HTML), экранированный для атрибута
+        const altText = esc((block.image.caption || []).map(t => t.plain_text).join("") || "Article image");
+
         // Premium magazine-style figure: gradient frame, hover zoom, italic caption with accent
-        html += `<figure class="article-img"><div class="article-img-frame"><img src="${imgUrl}" alt="${caption || 'Article image'}" loading="lazy" decoding="async"></div>${caption ? `<figcaption><span class="cap-bar"></span>${caption}</figcaption>` : ''}</figure>\n`;
+        html += imgUrl ? `<figure class="article-img"><div class="article-img-frame"><img src="${esc(imgUrl)}" alt="${altText}" loading="lazy" decoding="async"></div>${caption ? `<figcaption><span class="cap-bar"></span>${caption}</figcaption>` : ''}</figure>\n` : "";
 
         break;
 
       case "callout":
 
-        const icon = block.callout.icon?.emoji || "\u{1F4A1}";
+        const icon = esc(block.callout.icon?.emoji || "\u{1F4A1}");
 
         html += `<div class="callout"><span class="callout-icon">${icon}</span><div>${richTextToHtml(block.callout.rich_text)}</div></div>\n`;
 
@@ -151,7 +154,7 @@ function richTextToHtml(arr) {
 
     if (t.annotations.underline) s = `<u>${s}</u>`;
 
-    if (t.href) s = `<a href="${t.href}" target="_blank" rel="noopener">${s}</a>`;
+    if (t.href) { const u = safeUrl(t.href); if (u) s = `<a href="${esc(u)}" target="_blank" rel="noopener nofollow">${s}</a>`; }
 
     return s;
 
@@ -163,7 +166,23 @@ function richTextToHtml(arr) {
 
 function esc(s) {
 
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+}
+
+// Только безопасные схемы ссылок/картинок из Notion (отсекаем javascript:, data: и пр.)
+function safeUrl(u) {
+
+  u = String(u == null ? "" : u).trim();
+
+  return /^(https?:\/\/|mailto:|tel:|\/)/i.test(u) ? u : "";
+
+}
+
+// Экранирование JSON для вставки внутрь <script> (иначе "</script>" в тексте Notion закроет тег)
+function jsonForScript(obj) {
+
+  return JSON.stringify(obj).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
 
 }
 
@@ -437,7 +456,7 @@ function renderPage(a, contentHtml, faqs) {
 
   </script>
   ${Array.isArray(faqs) && faqs.length >= 2 ? `<script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":${JSON.stringify(faqs.map(f => ({
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":${jsonForScript(faqs.map(f => ({
     "@type": "Question",
     "name": f.q,
     "acceptedAnswer": { "@type": "Answer", "text": f.a }
