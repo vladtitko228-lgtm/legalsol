@@ -61,6 +61,10 @@
     {
       "source": "/housing",
       "destination": "/housing.html"
+    },
+    {
+      "source": "/team",
+      "destination": "/team.html"
     }
   ],
   "buildCommand": "cp _index.html api/_index.html",
