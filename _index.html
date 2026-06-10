@@ -8489,8 +8489,10 @@ document.addEventListener('DOMContentLoaded', function(){
       about.parentNode.insertBefore(how, about.nextSibling);
     }
 
-    /* === Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 (ethical) === */
-    if(faq && !document.querySelector('.preview-zal')){
+    /* === Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 (ethical) ===
+       DISABLED 2026-06-10 (Vlad: рано добавлять). Re-enable: _zalEnabled=true. */
+    var _zalEnabled = false;
+    if(_zalEnabled && faq && !document.querySelector('.preview-zal')){
       var zal = document.createElement('section');
       zal.className = 'preview-zal';
       zal.innerHTML = ''
@@ -8710,8 +8712,10 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(cab, faq);
     }
 
-    /* === Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ === */
-    if(faq && !document.querySelector('.preview-comp')){
+    /* === Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ ===
+       DISABLED 2026-06-10 (Vlad: рано добавлять). Re-enable: _compEnabled=true. */
+    var _compEnabled = false;
+    if(_compEnabled && faq && !document.querySelector('.preview-comp')){
       var COMP_VOIVS = [
         {n:'Mazowieckie',c:'Warszawa',sev:3.2},{n:'Dolnośląskie',c:'Wrocław',sev:3.0},
         {n:'Małopolskie',c:'Kraków',sev:2.8},{n:'Wielkopolskie',c:'Poznań',sev:2.6},
