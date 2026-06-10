@@ -298,10 +298,23 @@ document.addEventListener('click',function(e){
   [class*="sv-bg"],[class*="-orbit"],[class*="-ripple"],.aij-hud-1,.aij-r1,.ex-hero-stat,
   .aij-bit,.hpt,.sv-blink-el,.ex-ico,.ls-cb-particle,.aij-jp-arr,.aij-bit *,
   .sv-layout::after,.sv-layout::before{animation:none!important;}
-  /* На мобиле reveal без blur — анимация filter дороже всего на скролле; оставляем
-     только сдвиг+прозрачность, появление остаётся плавным. */
-  .reveal,.reveal-left,.reveal-right,.tl-step.reveal{filter:none!important;transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);}
-  .reveal.on,.reveal-left.on,.reveal-right.on,.tl-step.reveal.on{filter:none!important;}
+  /* На мобиле reveal без blur (filter дорог на скролле), но появление мягкое:
+     малый ход (8px), мягкая кривая easeOutCubic (без резкого «щелчка» expo),
+     дольше (.85s) и с упором на плавное проявление — всплывает, а не выпрыгивает. */
+  .reveal,.tl-step.reveal,.rvhome-card.reveal,.geo-card-pv.reveal,.story-card.reveal,.review-card.reveal{transform:translateY(8px)!important;filter:none!important;transition:opacity .8s cubic-bezier(.33,.7,.4,1),transform .8s cubic-bezier(.33,.7,.4,1)!important;}
+  .reveal-left{transform:translateX(-8px)!important;filter:none!important;transition:opacity .8s cubic-bezier(.33,.7,.4,1),transform .8s cubic-bezier(.33,.7,.4,1)!important;}
+  .reveal-right{transform:translateX(8px)!important;filter:none!important;transition:opacity .8s cubic-bezier(.33,.7,.4,1),transform .8s cubic-bezier(.33,.7,.4,1)!important;}
+  .reveal.on,.reveal-left.on,.reveal-right.on,.tl-step.reveal.on,.rvhome-card.reveal.on,.geo-card-pv.reveal.on,.story-card.reveal.on,.review-card.reveal.on{transform:none!important;filter:none!important;}
+  /* Главная причина «резкости» — входные анимации на expo-кривой (.16,1,.3,1):
+     она пролетает 80% пути мгновенно и резко тормозит. На мобиле меняем на мягкий
+     easeOutCubic и чуть удлиняем — карточки/герой плавно всплывают, а не выпрыгивают. */
+  .hero-enter-left,.hero-enter-right,.hero-enter-up,.hero-badge-enter,
+  .rvhome-card,.geo-card-pv,.cc-panel,.pre-doc-1,.pre-doc-2,.pre-doc-3,.pre-mark,
+  .rcm-mi,.sv-detail.mob-open,.sv-detail.mob-open>*,.tab-more-wrap.is-open .tab-more-row,
+  .ft-ci-anim,.about-pv-stat,.story-card,.review-card,.vs-col{
+    animation-timing-function:cubic-bezier(.33,.7,.4,1)!important;
+    animation-duration:.8s!important;
+  }
 }
 
 html{scroll-behavior:smooth;overflow-x:clip;}
@@ -30461,16 +30474,18 @@ function setLang(lang){
   } catch(e) {}
     }catch(err){console.error('[setLang] error at lang='+lang+':',err);}
 
-  // Remove jitter-freeze class after layout settles (2 frames = ~33ms)
+  // Remove jitter-freeze class after layout settles (2 frames = ~33ms).
+  // Страховка: rAF НЕ срабатывает в фоновой/свёрнутой вкладке — без таймаута класс
+  // мог зависнуть навсегда и убить ВСЕ анимации сайта (transition/animation:none).
+  // Поэтому всегда дублируем снятие через setTimeout.
   try{
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         document.documentElement.classList.remove('lang-switching');
       });
     });
-  }catch(e){
-    setTimeout(function(){document.documentElement.classList.remove('lang-switching');}, 50);
-  }
+  }catch(e){}
+  setTimeout(function(){document.documentElement.classList.remove('lang-switching');}, 400);
 
 }
 
