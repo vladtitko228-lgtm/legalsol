@@ -11637,7 +11637,7 @@ button.geo-card-pv:hover::after{opacity:1;transform:translateX(2px);}
     az:{'extras-desc':'Dörd ayrı istiqamət — bizneslər, polyak dili öyrənənlər, yaşayış axtaranlar və əlaqəmizi paylaşmaq istəyənlər üçün.','ex-badge-house':'Ətraflı →','ex-house-stat':'1 gün','ex-house-stat-sub':'yaşayış axtarışı','ex-house-h':'Mənzil','ex-house-p':'Mənzil və ya otaq tapırıq; icarə, qeydiyyat və depozit ilə bütün köçməni həll edirik. Proseslə ayrıca səhifə.','ex-house-f1':'🔑 Açar təslim','ex-house-f2':'📄 Bütün sənədlər','ex-house-f3':'📍 Bütün Polşa','ex-house-cta':'Mənzil səhifəsini aç'}
   };
   function applyHX(l){ var d=HX[l]||HX.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
-  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&HX[s]) return s;}catch(e){} var h=document.documentElement.lang; return HX[h]?h:'en'; }
+  function curLang(){ var h=document.documentElement.lang; if(HX[h]) return h; try{var s=localStorage.getItem('ls-lang'); if(s&&HX[s]) return s;}catch(e){} return 'en'; }
   function hook(){ var _p=window.setLang; window.setLang=function(l){ var r; if(typeof _p==='function'){ try{ r=_p.apply(this,arguments); }catch(e){} } try{ applyHX(HX[l]?l:curLang()); }catch(e){} return r; }; applyHX(curLang()); }
   if(document.readyState==='complete') hook(); else window.addEventListener('load',hook);
 })();
@@ -22943,7 +22943,7 @@ function refSubmit(){
     az:{'blog3-eyebrow':'BLOQUMUZ','blog3-title':'Komandadan təzə','blog3-sub':'Hər həftə yeni bələdçilər — vizalar, iş kartları, Polşada həyat.','blog3-all':'Bütün məqalələr →'}
   };
   function applyBL(l){ var d=BL[l]||BL.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
-  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&BL[s]) return s;}catch(e){} var h=document.documentElement.lang; return BL[h]?h:'en'; }
+  function curLang(){ var h=document.documentElement.lang; if(BL[h]) return h; try{var s=localStorage.getItem('ls-lang'); if(s&&BL[s]) return s;}catch(e){} return 'en'; }
   function hookBL(){
     var _prev=window.setLang;
     window.setLang=function(l){ var r; if(typeof _prev==='function'){ try{ r=_prev.apply(this,arguments); }catch(e){} } try{ applyBL(BL[l]?l:curLang()); }catch(e){} return r; };
@@ -23075,7 +23075,7 @@ function refSubmit(){
     az:{'bf-school':'Məktəb','bf-biz':'B2B','bf-house':'Mənzil','eco-pill':'Bir şirkət','eco-title':'Bir legalsol. Dörd istiqamət.','eco-sub':'Polşada məskunlaşmaq üçün nəyə ehtiyacınız olsa — hamısı bir yerdə, bir əlaqə, öz dilinizdə.','eco-t1':'Yaşayış','eco-t2':'Polyak dili məktəbi','eco-t3':'Biznes','eco-t4':'Mənzil','eco-here':'Siz buradasınız','eco-d1':'Yaşayış icazələri, PESEL, vətəndaşlıq — əsas işimiz. 6 il, 3000+ iş, 98% təsdiq.','eco-d2':'Yaşayış, iş və gündəlik həyat üçün polyak dili — öz dil məktəbimiz.','eco-d3':'Şirkət qeydiyyatı, mühasibatlıq və iş icazələri — bizneslər üçün.','eco-d4':'Mənzilinizi tapırıq və bütün icarəni üzərimizə götürürük — müqavilə, qeydiyyat, depozit.'}
   };
   function applyEco(l){ var d=E[l]||E.en; for(var id in d){ var el=document.getElementById(id); if(el) el.textContent=d[id]; } }
-  function curLang(){ try{var s=localStorage.getItem('ls-lang'); if(s&&E[s]) return s;}catch(e){} var h=document.documentElement.lang; return E[h]?h:'en'; }
+  function curLang(){ var h=document.documentElement.lang; if(E[h]) return h; try{var s=localStorage.getItem('ls-lang'); if(s&&E[s]) return s;}catch(e){} return 'en'; }
   function hook(){
     var _prev=window.setLang;
     window.setLang=function(l){ var r; if(typeof _prev==='function'){ try{ r=_prev.apply(this,arguments); }catch(e){} } try{ applyEco(E[l]?l:curLang()); }catch(e){} return r; };
