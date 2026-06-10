@@ -1845,7 +1845,10 @@ h1 .acc{color:var(--p300);}
 .hero-wa-cta svg{flex-shrink:0;}
 @keyframes heroWaPulse{0%,100%{box-shadow:0 8px 26px rgba(37,211,102,.4);}50%{box-shadow:0 8px 34px rgba(37,211,102,.65);}}
 .hero-wa-cta:active{transform:scale(.98);}
-@media(max-width:900px){.hero-wa-cta{display:flex;}}
+/* 2026-06-10: green "Message us on WhatsApp" retired — user picked the outline
+   "Free consultation on WhatsApp" (hero-consult-cta) as the single hero WA CTA;
+   the sticky bottom #m-cta-bar keeps the pinned green variant. */
+.hero-wa-cta{display:none !important;}
 
 .hero-mega-cta::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:shimmerBtn 3s ease-in-out infinite;}
 
@@ -3066,8 +3069,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
   .hero-mega-cta{width:100%;max-width:100%;box-sizing:border-box;text-align:center;justify-content:center;padding:15px 16px;font-size:13px;letter-spacing:.1px;margin-bottom:10px;}
 
-  /* WhatsApp-кнопка в hero — показываем на мобиле под главным CTA */
-  .hero-wa-cta{display:flex;margin-bottom:16px;}
+  /* 2026-06-10: green hero-wa-cta retired (duplicate of hero-consult-cta) */
 
   .hero-btns{margin-bottom:0;}
 
@@ -6267,6 +6269,12 @@ document.addEventListener('DOMContentLoaded', function(){
   .pmh-title{font-size:22px;}
   .pmh-stage{transform:scale(.78);transform-origin:top center;margin-bottom:-100px;}
   .pmh-tooltip{font-size:11px;padding:10px 14px;}
+  /* Stat cards: 3-up grid squeezes "Active acceleration" out of its card on
+     phones — stack them instead, value sits inline next to the label */
+  .pmh-stats{grid-template-columns:1fr !important;gap:8px !important;}
+  .pmh-stats>div{display:flex !important;align-items:center;justify-content:space-between;gap:10px;text-align:left !important;padding:11px 16px !important;}
+  .pmh-stats>div>div{margin-top:0 !important;}
+  .pmh-stats>div>div:last-child{font-size:14.5px !important;overflow-wrap:break-word;min-width:0;text-align:right;}
 }
 
 /* Old grid mapa — HIDDEN (replaced by hex map) */
