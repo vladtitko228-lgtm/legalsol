@@ -21920,6 +21920,9 @@ function cabSyncDataToCases(){
       typeName=isTechName?'':rawName;
     }
     if(!typeName)typeName='Услуга легализации';
+    // typeName приходит из Kommo (имя сделки / тип услуги — может содержать данные лида
+    // из рекламы). Санитайзим у источника — дальше рендерится в innerHTML в 6 местах.
+    typeName=String(typeName).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
     return{
       id:'LS-'+ld.id,
