@@ -33077,6 +33077,67 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 })();
 </script>
 
+
+<!-- ── Section visibility analytics ─────────────────────────────────── -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-21MYMMYF6C"></script>
+<script>
+/* Прямой канал в GA4 для кастомных событий. GTM-контейнер слушает только
+   lead_submit/whatsapp_click/phone_click и молча игнорирует остальные события
+   (см. KB: Сайт/Аналитика — лид-трекинг). gtag.js шлёт в тот же GA4
+   (G-21MYMMYF6C) напрямую; send_page_view:false — page_view уже шлёт GTM,
+   сессии/юзеры не задваиваются (общий _ga cookie). */
+function _lsGtag(){ window.dataLayer = window.dataLayer || []; dataLayer.push(arguments); }
+_lsGtag('js', new Date());
+_lsGtag('config', 'G-21MYMMYF6C', {send_page_view: false});
+
+/* Section view: блок засчитан, если видим (≥35% блока или ≥50% высоты экрана
+   для длинных секций) непрерывно ≥1.2 сек. Одно событие на блок за визит.
+   Имя секции зашито в имя события (section_view_hero): параметры без
+   регистрации custom dimension в GA4-отчётах не видны, имена событий — видны. */
+document.addEventListener('DOMContentLoaded', function(){
+  if(!('IntersectionObserver' in window)) return;
+  var MAP = [
+    ['#hero','hero'],
+    ['section.rvhome','reviews'],
+    ['section.geo-strip-pv','geo'],
+    ['section.about-pv','about'],
+    ['.ai-pv','ai'],
+    ['#calc-section','calc'],
+    ['.timeline-section','timeline'],
+    ['.vs-section','vs'],
+    ['.faq-section','faq'],
+    ['#family','family'],
+    ['#cta','cta'],
+    ['#cta-jobs','cta_jobs'],
+    ['footer','footer']
+  ];
+  var seen = {}, timers = {};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      var name = en.target.getAttribute('data-sv');
+      if(!name || seen[name]) return;
+      var vh = window.innerHeight || 800;
+      var ok = en.isIntersecting &&
+               (en.intersectionRatio >= 0.35 || en.intersectionRect.height >= vh * 0.5);
+      if(ok){
+        if(!timers[name]) timers[name] = setTimeout(function(){
+          if(seen[name]) return;
+          seen[name] = 1;
+          try{ _lsGtag('event', 'section_view_' + name, {section: name, page_path: location.pathname}); }catch(e){}
+          io.unobserve(en.target);
+        }, 1200);
+      } else if(timers[name]){
+        clearTimeout(timers[name]); timers[name] = null;
+      }
+    });
+  }, {threshold: [0.15, 0.35]});
+  MAP.forEach(function(m){
+    var el = document.querySelector(m[0]);
+    if(el && !el.hasAttribute('data-sv')){ el.setAttribute('data-sv', m[1]); io.observe(el); }
+  });
+});
+</script>
+
 </body>
 
 </html>
