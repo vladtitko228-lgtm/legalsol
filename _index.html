@@ -29300,6 +29300,7 @@ function setLang(lang){
   L=lang;
   // === Preview blocks i18n patch — sync to avoid flash ===
   try{ if(window.PV_I18N_APPLY) window.PV_I18N_APPLY(lang); }catch(e){console.warn('pv i18n',e);}
+  try{ if(window.CABCMP_APPLY) window.CABCMP_APPLY(lang); }catch(e){console.warn('cabcmp i18n',e);}
 
   // Hero "Free consultation on WhatsApp" CTA label — covered separately because
   // the button was restored 2026-06-09 and the giant per-lang dict above is
@@ -32704,6 +32705,96 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     var b=-32; (function rot(){b+=0.05;map.setBearing(b);requestAnimationFrame(rot);})();
   });
   } // end initHeroMap
+})();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════
+     CABINET BEFORE/AFTER — pains vs cabinet life + day-one outcomes
+     Sits right above the existing .preview-cabinet-feature tabs block,
+     so the suite reads: pains → outcomes → feature deep-dive (tabs).
+     ════════════════════════════════════════════════════════════ -->
+<style id="cab-compare-css">
+.cab-compare{max-width:1180px;margin:60px auto;padding:48px 28px;background:#0e0a23;border:1px solid rgba(139,130,232,.22);border-radius:28px;color:#fff;}
+.cbc-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2.5px;color:#a78bfa;font-weight:700;text-transform:uppercase;text-align:center;display:block;margin-bottom:12px;}
+.cbc-title{font-family:'Lora',Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:700;text-align:center;letter-spacing:-.5px;line-height:1.2;margin:0 0 10px;}
+.cbc-title em{color:#a78bfa;font-style:italic;font-weight:600;}
+.cbc-sub{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,.65);max-width:620px;margin:0 auto 32px;line-height:1.55;text-align:center;}
+.cbc-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:26px;}
+.cbc-col{border-radius:20px;padding:24px 22px;}
+.cbc-col-bad{background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.25);}
+.cbc-col-good{background:linear-gradient(160deg,rgba(91,82,204,.16),rgba(34,197,94,.07));border:1px solid rgba(167,139,250,.40);box-shadow:0 18px 50px rgba(91,82,204,.18);}
+.cbc-col-head{display:flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:16px;}
+.cbc-col-bad .cbc-col-head{color:#fca5a5;}
+.cbc-col-good .cbc-col-head{color:#86efac;}
+.cbc-row{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.82);}
+.cbc-row+.cbc-row{border-top:1px solid rgba(255,255,255,.06);}
+.cbc-ic{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:1px;}
+.cbc-col-bad .cbc-ic{background:rgba(220,38,38,.18);color:#fca5a5;}
+.cbc-col-good .cbc-ic{background:rgba(34,197,94,.18);color:#86efac;}
+.cbc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px;}
+.cbc-stat{background:rgba(139,130,232,.07);border:1px solid rgba(139,130,232,.20);border-radius:16px;padding:16px 12px;text-align:center;}
+.cbc-stat-v{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:700;color:#a78bfa;line-height:1;}
+.cbc-stat-l{font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,.62);margin-top:7px;line-height:1.4;}
+.cbc-cta-row{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:20px 24px;background:rgba(91,82,204,.10);border:1px solid rgba(167,139,250,.30);border-radius:18px;}
+.cbc-cta-text{font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.80);line-height:1.5;flex:1;min-width:220px;}
+.cbc-cta-text b{color:#a78bfa;}
+.cbc-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:60px;background:linear-gradient(135deg,#5b52cc,#a78bfa);color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 12px 30px rgba(91,82,204,.40);transition:transform .2s,box-shadow .2s;white-space:nowrap;}
+.cbc-cta-btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(91,82,204,.55);}
+@media(max-width:860px){
+  .cab-compare{margin:36px 10px;padding:30px 14px;}
+  .cbc-cols{grid-template-columns:1fr;gap:12px;}
+  .cbc-stats{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .cbc-stat-v{font-size:22px;}
+}
+</style>
+<script id="cab-compare-js">
+(function(){
+  var T = {
+    en:{eyebrow:'PERSONAL CABINET · WHY IT CHANGES EVERYTHING',title:'Life before and after <em>your cabinet</em>',sub:'Most firms leave you guessing for months. Every LegalSol client gets a personal cabinet from day one — included free.',badHead:'Without a cabinet',goodHead:'With LegalSol cabinet',bad:['“Wait, what’s my case status?” — texting and waiting for days','Scrolling months of chat history for that one PDF','Calling the urząd — nobody picks up','Paper folders, lost documents, certificates collected twice','Surprise invoices you didn’t plan for'],good:['Case status live on your phone — 5 steps, always visible','Every document in an encrypted vault, downloadable anytime','Your lawyer one tap away — replies within 15 minutes','We ping you before the urząd even updates its system','Milestone payments — you see what’s paid and what’s next'],stats:[['24/7','your case status, on any device'],['15 min','average lawyer reply on weekdays'],['100%','of your documents in one secure place'],['0','surprise payments — transparent milestones']],ctaText:'<b>The cabinet is free</b> with every LegalSol service — from first message to card pickup.',ctaBtn:'Get my cabinet →'},
+    ru:{eyebrow:'ЛИЧНЫЙ КАБИНЕТ · ПОЧЕМУ ЭТО МЕНЯЕТ ВСЁ',title:'Жизнь до и после <em>личного кабинета</em>',sub:'Большинство фирм держат вас в неведении месяцами. Каждый клиент LegalSol получает личный кабинет с первого дня — бесплатно.',badHead:'Без кабинета',goodHead:'С кабинетом LegalSol',bad:['«Подождите, какой статус у моего дела?» — пишешь и ждёшь днями','Листаешь месяцы переписки ради одного PDF','Звонишь в ужонд — никто не берёт трубку','Бумажные папки, потерянные документы, справки по второму кругу','Неожиданные счета, которые вы не планировали'],good:['Статус дела онлайн на телефоне — 5 шагов, всегда видно','Все документы в зашифрованном хранилище, скачать можно всегда','Юрист в одном тапе — ответ в течение 15 минут','Уведомим раньше, чем ужонд обновит свою систему','Оплата по этапам — видно, что оплачено и что дальше'],stats:[['24/7','статус дела с любого устройства'],['15 мин','средний ответ юриста в будни'],['100%','документов в одном надёжном месте'],['0','неожиданных платежей — прозрачные этапы']],ctaText:'<b>Кабинет бесплатный</b> при любой услуге LegalSol — от первого сообщения до получения карты.',ctaBtn:'Хочу кабинет →'},
+    pl:{eyebrow:'PANEL KLIENTA · DLACZEGO ZMIENIA WSZYSTKO',title:'Życie przed i po <em>panelu klienta</em>',sub:'Większość firm zostawia Cię w niepewności na miesiące. Każdy klient LegalSol dostaje panel od pierwszego dnia — za darmo.',badHead:'Bez panelu',goodHead:'Z panelem LegalSol',bad:['„Chwila, jaki jest status mojej sprawy?” — piszesz i czekasz dniami','Przewijasz miesiące czatu w poszukiwaniu jednego PDF-a','Dzwonisz do urzędu — nikt nie odbiera','Papierowe teczki, zgubione dokumenty, zaświadczenia po raz drugi','Niespodziewane faktury, których nie planowałeś'],good:['Status sprawy na żywo w telefonie — 5 kroków, zawsze widoczne','Każdy dokument w szyfrowanym sejfie, do pobrania zawsze','Prawnik na jedno kliknięcie — odpowiedź w 15 minut','Powiadomimy Cię, zanim urząd zaktualizuje swój system','Płatności etapami — widzisz, co opłacone i co dalej'],stats:[['24/7','status sprawy na każdym urządzeniu'],['15 min','średni czas odpowiedzi prawnika'],['100%','dokumentów w jednym bezpiecznym miejscu'],['0','niespodziewanych płatności — przejrzyste etapy']],ctaText:'<b>Panel jest darmowy</b> przy każdej usłudze LegalSol — od pierwszej wiadomości po odbiór karty.',ctaBtn:'Chcę panel →'},
+    uk:{eyebrow:'ОСОБИСТИЙ КАБІНЕТ · ЧОМУ ЦЕ ЗМІНЮЄ ВСЕ',title:'Життя до та після <em>особистого кабінету</em>',sub:'Більшість фірм тримають вас у невіданні місяцями. Кожен клієнт LegalSol отримує кабінет з першого дня — безкоштовно.',badHead:'Без кабінету',goodHead:'З кабінетом LegalSol',bad:['«Зачекайте, який статус моєї справи?» — пишеш і чекаєш днями','Гортаєш місяці листування заради одного PDF','Телефонуєш в ужонд — ніхто не бере слухавку','Паперові папки, загублені документи, довідки по другому колу','Несподівані рахунки, яких ви не планували'],good:['Статус справи онлайн у телефоні — 5 кроків, завжди видно','Усі документи в зашифрованому сховищі, завантажити можна завжди','Юрист в одному тапі — відповідь протягом 15 хвилин','Повідомимо раніше, ніж ужонд оновить свою систему','Оплата етапами — видно, що оплачено і що далі'],stats:[['24/7','статус справи з будь-якого пристрою'],['15 хв','середня відповідь юриста в будні'],['100%','документів в одному надійному місці'],['0','несподіваних платежів — прозорі етапи']],ctaText:'<b>Кабінет безкоштовний</b> з будь-якою послугою LegalSol — від першого повідомлення до отримання карти.',ctaBtn:'Хочу кабінет →'},
+    es:{eyebrow:'PANEL PERSONAL · POR QUÉ LO CAMBIA TODO',title:'La vida antes y después de <em>tu panel</em>',sub:'La mayoría de firmas te dejan adivinando durante meses. Cada cliente de LegalSol recibe un panel personal desde el primer día — gratis.',badHead:'Sin panel',goodHead:'Con el panel de LegalSol',bad:['«¿Cuál es el estado de mi caso?» — escribes y esperas días','Buscar un PDF entre meses de mensajes','Llamar al urząd — nadie contesta','Carpetas de papel, documentos perdidos, certificados duplicados','Facturas sorpresa que no planeabas'],good:['Estado del caso en vivo en tu móvil — 5 pasos, siempre visible','Cada documento en una bóveda cifrada, descargable siempre','Tu abogado a un toque — responde en 15 minutos','Te avisamos antes de que el urząd actualice su sistema','Pagos por hitos — ves qué está pagado y qué sigue'],stats:[['24/7','estado de tu caso en cualquier dispositivo'],['15 min','respuesta media del abogado entre semana'],['100%','de tus documentos en un lugar seguro'],['0','pagos sorpresa — hitos transparentes']],ctaText:'<b>El panel es gratis</b> con cada servicio de LegalSol — del primer mensaje a la recogida de la tarjeta.',ctaBtn:'Quiero mi panel →'},
+    tr:{eyebrow:'KİŞİSEL PANEL · NEDEN HER ŞEYİ DEĞİŞTİRİR',title:'Panelden önce ve sonra <em>hayatınız</em>',sub:'Çoğu firma sizi aylarca belirsizlikte bırakır. Her LegalSol müşterisi ilk günden kişisel panel alır — ücretsiz.',badHead:'Panel olmadan',goodHead:'LegalSol paneli ile',bad:['«Davamın durumu ne?» — yazıp günlerce bekliyorsunuz','Tek bir PDF için aylarca mesaj geçmişi kaydırmak','Urząd’ı aramak — kimse açmıyor','Kağıt klasörler, kaybolan belgeler, ikinci kez toplanan evraklar','Planlamadığınız sürpriz faturalar'],good:['Dava durumu telefonunuzda canlı — 5 adım, her zaman görünür','Her belge şifreli kasada, istediğiniz zaman indirin','Avukatınız bir dokunuş uzakta — 15 dakikada yanıt','Urząd sistemini güncellemeden önce sizi bilgilendiririz','Aşamalı ödemeler — ne ödendi, sırada ne var görürsünüz'],stats:[['24/7','her cihazdan dava durumu'],['15 dk','hafta içi ortalama avukat yanıtı'],['100%','belgeleriniz tek güvenli yerde'],['0','sürpriz ödeme — şeffaf aşamalar']],ctaText:'<b>Panel ücretsizdir</b> — her LegalSol hizmetiyle, ilk mesajdan kart teslimine kadar.',ctaBtn:'Panelimi istiyorum →'},
+    az:{eyebrow:'ŞƏXSİ KABİNET · NİYƏ HƏR ŞEYİ DƏYİŞİR',title:'Kabinetdən əvvəl və sonra <em>həyatınız</em>',sub:'Əksər firmalar sizi aylarla qaranlıqda saxlayır. Hər LegalSol müştərisi ilk gündən şəxsi kabinet alır — pulsuz.',badHead:'Kabinetsiz',goodHead:'LegalSol kabineti ilə',bad:['«İşimin statusu nədir?» — yazırsınız və günlərlə gözləyirsiniz','Bir PDF üçün aylarla yazışmanı vərəqləmək','Urząd-a zəng — heç kim cavab vermir','Kağız qovluqlar, itən sənədlər, ikinci dəfə yığılan arayışlar','Planlaşdırmadığınız gözlənilməz hesablar'],good:['İşin statusu telefonunuzda canlı — 5 addım, həmişə görünür','Hər sənəd şifrəli anbarda, istənilən vaxt yükləyin','Vəkiliniz bir toxunuş məsafəsində — 15 dəqiqəyə cavab','Urząd sistemini yeniləməzdən əvvəl sizə xəbər veririk','Mərhələli ödənişlər — nə ödənilib, növbəti nədir görürsünüz'],stats:[['24/7','istənilən cihazdan işin statusu'],['15 dəq','həftə içi vəkilin orta cavab vaxtı'],['100%','sənədləriniz bir təhlükəsiz yerdə'],['0','gözlənilməz ödəniş — şəffaf mərhələlər']],ctaText:'<b>Kabinet pulsuzdur</b> — hər LegalSol xidməti ilə, ilk mesajdan kartın təhvilinə qədər.',ctaBtn:'Kabinetimi istəyirəm →'},
+    hi:{eyebrow:'पर्सनल कैबिनेट · यह सब कुछ क्यों बदल देता है',title:'कैबिनेट से पहले और बाद की <em>आपकी ज़िंदगी</em>',sub:'ज़्यादातर फ़र्में आपको महीनों अंधेरे में रखती हैं। हर LegalSol क्लाइंट को पहले दिन से पर्सनल कैबिनेट मिलता है — मुफ़्त।',badHead:'कैबिनेट के बिना',goodHead:'LegalSol कैबिनेट के साथ',bad:['«मेरे केस का स्टेटस क्या है?» — लिखते हैं और दिनों इंतज़ार करते हैं','एक PDF के लिए महीनों की चैट स्क्रॉल करना','Urząd को कॉल — कोई नहीं उठाता','कागज़ी फ़ोल्डर, खोए दस्तावेज़, दोबारा जुटाए प्रमाणपत्र','अचानक आने वाले बिल जिनकी योजना नहीं थी'],good:['केस स्टेटस फ़ोन पर लाइव — 5 चरण, हमेशा दिखें','हर दस्तावेज़ एन्क्रिप्टेड वॉल्ट में, कभी भी डाउनलोड करें','आपका वकील एक टैप दूर — 15 मिनट में जवाब','Urząd के सिस्टम अपडेट से पहले हम आपको बताते हैं','माइलस्टोन पेमेंट — दिखता है क्या चुकाया, आगे क्या है'],stats:[['24/7','किसी भी डिवाइस से केस स्टेटस'],['15 मिनट','कार्यदिवसों में वकील का औसत जवाब'],['100%','दस्तावेज़ एक सुरक्षित जगह'],['0','अचानक पेमेंट — पारदर्शी चरण']],ctaText:'<b>कैबिनेट मुफ़्त है</b> — हर LegalSol सेवा के साथ, पहले संदेश से कार्ड मिलने तक।',ctaBtn:'मुझे कैबिनेट चाहिए →'}
+  };
+  function curLang(){try{var s=localStorage.getItem('ls-lang');if(s&&T[s])return s;}catch(e){}var h=document.documentElement.lang;return T[h]?h:'en';}
+  function render(lang){
+    var d = T[lang]||T.en;
+    var el = document.querySelector('.cab-compare');
+    if(!el) return;
+    el.innerHTML = ''
+      +'<span class="cbc-eyebrow">'+d.eyebrow+'</span>'
+      +'<h2 class="cbc-title">'+d.title+'</h2>'
+      +'<p class="cbc-sub">'+d.sub+'</p>'
+      +'<div class="cbc-cols">'
+        +'<div class="cbc-col cbc-col-bad"><div class="cbc-col-head">✕ '+d.badHead+'</div>'
+          +d.bad.map(function(b){return '<div class="cbc-row"><span class="cbc-ic">✕</span><span>'+b+'</span></div>';}).join('')
+        +'</div>'
+        +'<div class="cbc-col cbc-col-good"><div class="cbc-col-head">✓ '+d.goodHead+'</div>'
+          +d.good.map(function(b){return '<div class="cbc-row"><span class="cbc-ic">✓</span><span>'+b+'</span></div>';}).join('')
+        +'</div>'
+      +'</div>'
+      +'<div class="cbc-stats">'
+        +d.stats.map(function(s){return '<div class="cbc-stat"><div class="cbc-stat-v">'+s[0]+'</div><div class="cbc-stat-l">'+s[1]+'</div></div>';}).join('')
+      +'</div>'
+      +'<div class="cbc-cta-row">'
+        +'<div class="cbc-cta-text">'+d.ctaText+'</div>'
+        +'<a class="cbc-cta-btn" target="_blank" rel="noopener" href="https://wa.me/48735248525?text='+encodeURIComponent('Hi! I want a residence card with the personal cabinet included. legalsol.pl')+'">'+d.ctaBtn+'</a>'
+      +'</div>';
+  }
+  window.CABCMP_APPLY = render;
+  document.addEventListener('DOMContentLoaded', function(){
+    // This listener registers after the big inject script's, so by the time it
+    // runs the .preview-cabinet-feature tabs block already exists in the DOM.
+    var anchor = document.querySelector('.preview-cabinet-feature');
+    if(!anchor || document.querySelector('.cab-compare')) return;
+    var sec = document.createElement('section');
+    sec.className = 'cab-compare';
+    anchor.parentNode.insertBefore(sec, anchor);
+    render(curLang());
+  });
 })();
 </script>
 
