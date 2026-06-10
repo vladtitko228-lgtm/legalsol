@@ -8492,8 +8492,18 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
 
-    /* === BIG PERSONAL CABINET SECTION — interactive tabs + live mockup === */
-    if(faq && !document.querySelector('.preview-cabinet-feature')){
+    /* === BIG PERSONAL CABINET SECTION — interactive tabs + live mockup ===
+       PREVIEW-ONLY (2026-06-10): hidden on the live legalsol.pl domain while
+       the cabinet copy is still being edited. Renders on *.vercel.app preview
+       deployments and localhost, or on prod with ?cabinet=show for review. */
+    var _cabPreviewOnly = (function(){
+      try{
+        var h = location.hostname;
+        if(h==='legalsol.pl' || h==='www.legalsol.pl') return /[?&]cabinet=(show|preview|1)/.test(location.search);
+        return true; // previews / localhost
+      }catch(e){ return false; }
+    })();
+    if(_cabPreviewOnly && faq && !document.querySelector('.preview-cabinet-feature')){
       var svgT = function(p){return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';};
       var PCF_TABS = [
         {id:'status',ico:svgT('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'),title:'Status tracking',
