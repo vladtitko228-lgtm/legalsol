@@ -8135,6 +8135,11 @@ document.addEventListener('DOMContentLoaded', function(){
     var reviews = document.querySelector('section.rvhome');
     var calc = document.getElementById('calc-section');
     var about = document.querySelector('section.about-pv');
+    // faq anchor MUST be defined up here — the Załącznik verifier, Personal
+    // Cabinet (pcf) and Compensation calc all do `if(faq && …)` BEFORE the
+    // old `var faq` further down (~line 9216). Hoisting left faq=undefined
+    // there, so those three blocks were silently skipped and never rendered.
+    var faq = document.querySelector('.faq-section');
 
     /* 0. QUICK WAIT widget — DISABLED, replaced by full SVG Mapa Polski below */
     if(false && hero && !document.querySelector('.preview-qw')){
@@ -9213,7 +9218,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     /* 4b. Latest news — DISABLED (placeholder content; re-enable when real blog posts wired) */
-    var faq = document.querySelector('.faq-section');
+    /* faq already declared at top of this function (see note there). */
     if(false && faq && !document.querySelector('.preview-news')){
       var news = document.createElement('section');
       news.className = 'preview-news';
