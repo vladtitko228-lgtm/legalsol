@@ -18,13 +18,16 @@ module.exports = async function handler(req, res) {
     if (normalized.length < 9) return res.status(400).json({ error: 'invalid_phone' });
 
     const contact = await findContactByPhone(normalized);
-    // Не палим существует ли контакт — обобщённая ошибка
-    if (!contact) return res.status(401).json({ error: 'invalid_credentials' });
+    const storedHash = contact ? getCfValue(contact, PASSWORD_FIELD_ID) : null;
 
-    const storedHash = getCfValue(contact, PASSWORD_FIELD_ID);
-    if (!storedHash) return res.status(401).json({ error: 'no_password_set', message: 'Менеджер ещё не задал вам пароль. Напишите в WhatsApp.' });
-
-    if (!verifyPassword(password, storedHash)) {
+    // ЕДИНЫЙ ответ для всех неудач (нет контакта / нет пароля / неверный пароль),
+    // иначе перебором телефонов можно вычислить, кто из них клиент LS (база ПДн).
+    // Подсказку «менеджер ещё не задал пароль» показывает страница логина статически.
+    // Холостой scrypt при промахе — чтобы время ответа не выдавало существование контакта.
+    const ok = storedHash
+      ? verifyPassword(password, storedHash)
+      : (verifyPassword(password, 'scrypt$' + '0'.repeat(32) + '$' + '0'.repeat(64)), false);
+    if (!ok) {
       return res.status(401).json({ error: 'invalid_credentials' });
     }
 

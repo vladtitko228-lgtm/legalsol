@@ -196,23 +196,25 @@ module.exports = async function handler(req, res) {
 
     // build cards
 
+    js += "function _e(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}";
+    js += "function _u(s){s=String(s==null?'':s);return /^(https?:|\\/)/i.test(s)?s:'';}";
     js += "var h='';a.forEach(function(x){var ct=x.c||'';var ds=x.d||'';";
 
     js += "if(ds.length>120)ds=ds.substring(0,117)+'...';";
 
-    js += "var imgHtml='<img src=\"'+x.img+'\" alt=\"'+(x.t||x.c||'').replace(/\"/g,\"&quot;\")+'\" loading=\"lazy\" style=\"width:100%;height:180px;object-fit:cover;display:block;border-radius:12px 12px 0 0\" onerror=\"this.src=\\''+x.fb+'\\';this.onerror=null;\">';";
+    js += "var imgHtml='<img src=\"'+_e(_u(x.img))+'\" alt=\"'+_e(x.t||x.c||'')+'\" loading=\"lazy\" style=\"width:100%;height:180px;object-fit:cover;display:block;border-radius:12px 12px 0 0\" onerror=\"this.src=\\''+x.fb+'\\';this.onerror=null;\">';";
 
-    js += "h+='<a href=\"/blog/'+x.s+'\" class=\"blog-card ls-card\" data-t=\"'+x.t.toLowerCase()+'\" data-d=\"'+(x.d||'').toLowerCase()+'\" data-c=\"'+ct.toLowerCase()+'\" data-tg=\"'+(x.tg||'').toLowerCase()+'\" style=\"text-decoration:none;color:inherit\">';";
+    js += "h+='<a href=\"/blog/'+_e(_u(x.s))+'\" class=\"blog-card ls-card\" data-t=\"'+_e(x.t.toLowerCase())+'\" data-d=\"'+_e((x.d||'').toLowerCase())+'\" data-c=\"'+_e(ct.toLowerCase())+'\" data-tg=\"'+_e((x.tg||'').toLowerCase())+'\" style=\"text-decoration:none;color:inherit\">';";
 
-    js += "h+='<div style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;background:linear-gradient(135deg,#3D35A0,#7B72E8)\">'+imgHtml+(ct?'<div style=\"position:absolute;top:12px;left:12px;z-index:2;background:rgba(10,8,30,.72);backdrop-filter:blur(8px);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)\">'+ct+'</div>':'')+'</div>';";
+    js += "h+='<div style=\"height:180px;overflow:hidden;border-radius:12px 12px 0 0;position:relative;background:linear-gradient(135deg,#3D35A0,#7B72E8)\">'+imgHtml+(ct?'<div style=\"position:absolute;top:12px;left:12px;z-index:2;background:rgba(10,8,30,.72);backdrop-filter:blur(8px);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)\">'+_e(ct)+'</div>':'')+'</div>';";
 
-    js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+x.dt+'</div>';";
+    js += "h+='<div class=\"blog-body\"><div class=\"blog-date\">'+_e(x.dt)+'</div>';";
 
-    js += "h+='<div class=\"blog-t\" style=\"font-size:15px;font-weight:700;line-height:1.3;margin:6px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word\">'+x.t+'</div>';";
+    js += "h+='<div class=\"blog-t\" style=\"font-size:15px;font-weight:700;line-height:1.3;margin:6px 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word\">'+_e(x.t)+'</div>';";
 
-    js += "h+='<div class=\"blog-e\" style=\"font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden\">'+ds+'</div>';";
+    js += "h+='<div class=\"blog-e\" style=\"font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden\">'+_e(ds)+'</div>';";
 
-    js += "h+=(x.tg?'<div style=\"display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px\">'+x.tg.split('|').filter(Boolean).slice(0,10).map(function(t){return '<span style=\"font-size:11px;color:rgba(167,139,250,.6);\">#'+t+'</span>';}).join('')+'</div>':'');";
+    js += "h+=(x.tg?'<div style=\"display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px\">'+x.tg.split('|').filter(Boolean).slice(0,10).map(function(t){return '<span style=\"font-size:11px;color:rgba(167,139,250,.6);\">#'+_e(t)+'</span>';}).join('')+'</div>':'');";
 
     js += "h+='<span class=\"blog-read\" style=\"color:#8B82E8;font-size:12px\">Read \\u2192</span>';";
 
