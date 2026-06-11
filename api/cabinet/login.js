@@ -2,7 +2,8 @@
 // Найти контакт в Kommo по телефону, проверить пароль из кастомного поля → выдать cookie.
 const {
   findContactByPhone, getCfValue, verifyPassword, signJwt, setAuthCookie,
-  readJsonBody, normalizePhone, PASSWORD_FIELD_ID
+  readJsonBody, normalizePhone, PASSWORD_FIELD_ID,
+  clientIp, rateLimitBlocked, rateLimitFail, rateLimitReset
 } = require('./_helpers');
 
 module.exports = async function handler(req, res) {
@@ -17,6 +18,12 @@ module.exports = async function handler(req, res) {
     const normalized = normalizePhone(phone);
     if (normalized.length < 9) return res.status(400).json({ error: 'invalid_phone' });
 
+    // Защита от перебора: ≥5 неудач на (IP+телефон) или ≥30 на IP за 15 мин → блок.
+    const ip = clientIp(req);
+    if (await rateLimitBlocked(ip, normalized)) {
+      return res.status(429).json({ error: 'too_many_attempts', message: 'Слишком много попыток входа. Попробуйте через 15 минут или напишите менеджеру в WhatsApp.' });
+    }
+
     const contact = await findContactByPhone(normalized);
     const storedHash = contact ? getCfValue(contact, PASSWORD_FIELD_ID) : null;
 
@@ -28,9 +35,11 @@ module.exports = async function handler(req, res) {
       ? verifyPassword(password, storedHash)
       : (verifyPassword(password, 'scrypt$' + '0'.repeat(32) + '$' + '0'.repeat(64)), false);
     if (!ok) {
+      await rateLimitFail(ip, normalized);
       return res.status(401).json({ error: 'invalid_credentials' });
     }
 
+    await rateLimitReset(ip, normalized);
     const token = signJwt({ cid: contact.id });
     setAuthCookie(res, token);
     return res.status(200).json({ ok: true, name: contact.name || '' });

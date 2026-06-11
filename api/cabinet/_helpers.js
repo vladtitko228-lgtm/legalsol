@@ -324,8 +324,59 @@ async function readJsonBody(req) {
   });
 }
 
+// === Rate limiting (Upstash KV via REST) ===
+// Защита входа от перебора паролей. Fail-open: если KV не настроен/недоступен —
+// НЕ блокируем (доступность важнее; KV-сбой не должен запирать всех клиентов).
+const KV_URL = process.env.KV_REST_API_URL;
+const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+const RL_WINDOW = 900;     // окно 15 минут
+const RL_MAX_CRED = 5;     // попыток на (ip+телефон)
+const RL_MAX_IP = 30;      // попыток на IP (защита от password spray по многим телефонам)
+
+async function kvCmd(...cmd) {
+  if (!KV_URL || !KV_TOKEN) return null;
+  try {
+    const r = await fetch(KV_URL, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${KV_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(cmd),
+    });
+    if (!r.ok) return null;
+    const j = await r.json();
+    return j.result;
+  } catch (e) { return null; }
+}
+
+function clientIp(req) {
+  const xff = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  return xff || (req.socket && req.socket.remoteAddress) || 'unknown';
+}
+
+// true → заблокировать (лимит превышен)
+async function rateLimitBlocked(ip, phone) {
+  const ck = `rl:l:${ip}:${phone}`, ik = `rl:i:${ip}`;
+  const [c, i] = await Promise.all([kvCmd('GET', ck), kvCmd('GET', ik)]);
+  return Number(c) >= RL_MAX_CRED || Number(i) >= RL_MAX_IP;
+}
+
+// зафиксировать неудачную попытку (INCR + установить TTL при первом)
+async function rateLimitFail(ip, phone) {
+  const ck = `rl:l:${ip}:${phone}`, ik = `rl:i:${ip}`;
+  const c = await kvCmd('INCR', ck); if (c === 1) await kvCmd('EXPIRE', ck, RL_WINDOW);
+  const i = await kvCmd('INCR', ik); if (i === 1) await kvCmd('EXPIRE', ik, RL_WINDOW);
+}
+
+// сбросить счётчик (ip+телефон) после успешного входа
+async function rateLimitReset(ip, phone) {
+  await kvCmd('DEL', `rl:l:${ip}:${phone}`);
+}
+
 module.exports = {
   kommo,
+  clientIp,
+  rateLimitBlocked,
+  rateLimitFail,
+  rateLimitReset,
   normalizePhone,
   findContactByPhone,
   getCfValue,
