@@ -5,6 +5,11 @@
 <head>
 
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<!-- Анти-вспышка языка: до перевода сырая разметка по-русски. На мобиле прелоадера
+     нет, поэтому прячем контент до применения языка (setLang в _doInit снимет класс;
+     setTimeout-страховка — на случай ошибки JS, чтобы страница не осталась пустой). -->
+<style>@media(max-width:768px){html.lng-init body{visibility:hidden!important;}}</style>
+<script>document.documentElement.classList.add('lng-init');setTimeout(function(){document.documentElement.classList.remove('lng-init');},2000);</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -949,18 +954,23 @@ nav.scrolled{background:rgba(10,8,28,.75);backdrop-filter:blur(30px) saturate(20
 .tab-more-chev{transition:transform .25s ease;opacity:.7;}
 .tab-more-wrap.is-open .tab-more-chev{transform:rotate(180deg);}
 .tab-more-wrap.is-open > .tab-more-btn{background:rgba(139,130,232,.18);color:#fff;}
-.tab-more-panel{position:absolute;top:calc(100% + 10px);right:0;min-width:240px;background:rgba(20,16,50,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(139,130,232,.22);border-radius:14px;padding:7px;box-shadow:0 22px 60px rgba(0,0,0,.6),0 0 0 1px rgba(139,130,232,.08) inset;opacity:0;visibility:hidden;transform:translateY(-12px) scale(.96);transform-origin:top right;transition:opacity .26s cubic-bezier(.16,1,.3,1),transform .32s cubic-bezier(.16,1,.3,1),visibility .32s;z-index:120;}
+.tab-more-panel{position:absolute;top:calc(100% + 10px);right:0;min-width:240px;background:rgba(20,16,50,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(139,130,232,.22);border-radius:14px;padding:7px;box-shadow:0 22px 60px rgba(0,0,0,.6),0 0 0 1px rgba(139,130,232,.08) inset;opacity:0;visibility:hidden;transform:translateY(-8px) scale(.985);transform-origin:top right;transition:opacity .34s cubic-bezier(.22,.61,.36,1),transform .42s cubic-bezier(.22,.61,.36,1),visibility .42s;z-index:120;}
 /* Slim violet pointer that visually connects the panel to the "Ещё" trigger */
 .tab-more-panel::before{content:'';position:absolute;top:-6px;right:22px;width:12px;height:12px;background:rgba(20,16,50,.96);border-left:1px solid rgba(139,130,232,.22);border-top:1px solid rgba(139,130,232,.22);transform:rotate(45deg);}
 .tab-more-wrap.is-open .tab-more-panel{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
 
 /* Each row slides down with a small stagger after the panel opens — feels like the menu "drops in" */
-.tab-more-row{display:flex;align-items:center;gap:11px;width:100%;background:none;border:1px solid transparent;border-radius:10px;padding:10px 12px;font-size:13px;color:rgba(255,255,255,.82);text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:background .2s,color .2s,border-color .2s,transform .2s;opacity:0;transform:translateY(-8px);position:relative;overflow:hidden;}
-.tab-more-wrap.is-open .tab-more-row{animation:tabMoreRowIn .32s cubic-bezier(.16,1,.3,1) forwards;}
-.tab-more-wrap.is-open .tab-more-row:nth-child(1){animation-delay:.04s;}
-.tab-more-wrap.is-open .tab-more-row:nth-child(2){animation-delay:.12s;}
-.tab-more-wrap.is-open .tab-more-row:nth-child(3){animation-delay:.20s;}
-@keyframes tabMoreRowIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.tab-more-row{display:flex;align-items:center;gap:11px;width:100%;background:none;border:1px solid transparent;border-radius:10px;padding:10px 12px;font-size:13px;color:rgba(255,255,255,.82);text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:background .2s,color .2s,border-color .2s,transform .2s;opacity:0;transform:translateY(-6px);position:relative;overflow:hidden;}
+/* Изящный каскад: мягкая кривая easeOutCubic (без резкого expo), полный stagger
+   на все пункты — пункты «проявляются» один за другим, спокойно и premium. */
+.tab-more-wrap.is-open .tab-more-row{animation:tabMoreRowIn .44s cubic-bezier(.22,.61,.36,1) forwards;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(1){animation-delay:.05s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(2){animation-delay:.10s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(3){animation-delay:.15s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(4){animation-delay:.20s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(5){animation-delay:.25s;}
+.tab-more-wrap.is-open .tab-more-row:nth-child(6){animation-delay:.30s;}
+@keyframes tabMoreRowIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
 
 .tab-more-row:hover{transform:translateX(2px);}
 
@@ -5671,11 +5681,16 @@ document.addEventListener('DOMContentLoaded', function(){
 .mw-wa:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(37,211,102,.55);}
 
 @media(max-width:760px){
-  .preview-mw{margin:30px 12px;padding:26px 18px;border-radius:18px;}
-  .mw-head{flex-direction:column;gap:6px;}
+  /* Плотнее на мобиле — было слишком много воздуха: меньше padding панели,
+     ужимаем отступы между головой/прогрессом/опциями/чеклистом. */
+  .preview-mw.preview-mw{margin:18px 10px!important;padding:24px 16px!important;border-radius:18px;}
+  .mw-head{flex-direction:column;gap:4px;margin-bottom:14px!important;}
   .mw-title{font-size:22px;}
-  .mw-tabs{flex-direction:column;gap:6px;}
+  .mw-progress{margin-bottom:16px!important;}
+  .mw-tabs{flex-direction:column;gap:6px;margin-bottom:14px!important;}
   .mw-tab{flex:none;}
+  .mw-meter-bar{margin-bottom:14px!important;}
+  .mw-list{margin-bottom:14px!important;}
   .mw-analysis,.mw-fields{grid-template-columns:1fr;}
   .mw-card-val{font-size:24px;}
 }
@@ -29099,9 +29114,16 @@ function _doInit(){
       try{localStorage.setItem('ls-lang',_urlLang);}catch(e){}
     }
   }catch(e){}
-  // English on every load. Only an explicit ?lang= URL param overrides (hreflang SEO + share links). Stored choice is ignored by design.
-  var _sl=_urlLang;
-  setLang(_sl&&_allLangs.indexOf(_sl)!==-1?_sl:'en');
+  // Язык: ?lang= в URL (SEO/share) > сохранённый выбор пользователя > английский.
+  // Раньше выбор игнорировался и каждый refresh сбрасывал на EN — пользователь,
+  // выбравший свой язык, терял его при перезагрузке.
+  var _stored=null;
+  try{var _s=localStorage.getItem('ls-lang'); if(_s&&_allLangs.indexOf(_s)!==-1)_stored=_s;}catch(e){}
+  var _sl=_urlLang||_stored||'en';
+  setLang(_allLangs.indexOf(_sl)!==-1?_sl:'en');
+  // Язык применён — снимаем маску, скрывавшую сырую (русскую) разметку до перевода
+  // (на мобиле прелоадера нет, иначе мелькал бы русский). Страховка ниже на случай ошибки.
+  document.documentElement.classList.remove('lng-init');
 
   // Preloader: first visit = percentage, repeat = docs animation
   var _pre=document.getElementById('preloader');
