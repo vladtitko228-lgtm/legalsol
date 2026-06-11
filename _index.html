@@ -22031,7 +22031,7 @@ function cabPage(name,btn){
 
 function cabFmtDate(ms){if(!ms)return'';try{var d=new Date(ms);var p=function(n){return(n<10?'0':'')+n;};return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear();}catch(e){return'';}}
 function cabFmtTime(ms){if(!ms)return'';try{var d=new Date(ms);var p=function(n){return(n<10?'0':'')+n;};return p(d.getHours())+':'+p(d.getMinutes());}catch(e){return'';}}
-function cabClientName(){return(window.cabData&&window.cabData.contact&&window.cabData.contact.name)||'Клиент';}
+function cabClientName(){var n=(window.cabData&&window.cabData.contact&&window.cabData.contact.name)||'Клиент';return String(n).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function cabClientInitials(){
   var n=cabClientName();
   if(!n||n==='Клиент')return'?';
@@ -23072,7 +23072,7 @@ function refSubmit(){
     hi:'मैं रेफ़रल प्रोग्राम में शामिल होना चाहता/चाहती हूँ। मेरा नंबर: '
   };
   var _refLang=(document.documentElement.lang||'en').slice(0,2);
-  window.open('https://wa.me/48735248525?text='+encodeURIComponent((_refMsg[_refLang]||_refMsg.en)+ph),'_blank');
+  window.open('https://wa.me/48735248525?text='+encodeURIComponent((_refMsg[_refLang]||_refMsg.en)+ph),'_blank','noopener');
 
 }
 
