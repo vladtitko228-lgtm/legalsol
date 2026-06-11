@@ -1496,6 +1496,7 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
 }
 </style>
 
+<style>.form-input:focus-visible,.form-textarea:focus-visible,.status-input:focus-visible,.calc-slider:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #fde047!important;outline-offset:2px!important;}</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1807,15 +1808,15 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
           <div class="calc-section-h"><span id="cs1">📊 Workforce</span></div>
           <div class="calc-control">
             <div class="calc-control-lbl"><span class="calc-control-name" id="cl-emp">Employees per year</span><span class="calc-control-val"><span id="cv-emp">10</span></span></div>
-            <input type="range" class="calc-slider" id="sl-emp" min="1" max="200" value="10"/>
+            <input type="range" class="calc-slider" id="sl-emp" min="1" max="200" value="10" aria-label="Number of employees to legalize"/>
           </div>
           <div class="calc-control">
             <div class="calc-control-lbl"><span class="calc-control-name" id="cl-fam">Family members per employee (avg)</span><span class="calc-control-val"><span id="cv-fam">0</span></span></div>
-            <input type="range" class="calc-slider" id="sl-fam" min="0" max="4" value="0" step="0.5"/>
+            <input type="range" class="calc-slider" id="sl-fam" min="0" max="4" value="0" step="0.5" aria-label="Family members ratio"/>
           </div>
           <div class="calc-control">
             <div class="calc-control-lbl"><span class="calc-control-name" id="cl-renew">% renewals (vs first-time)</span><span class="calc-control-val"><span id="cv-renew">30</span>%</span></div>
-            <input type="range" class="calc-slider" id="sl-renew" min="0" max="100" value="30"/>
+            <input type="range" class="calc-slider" id="sl-renew" min="0" max="100" value="30" aria-label="Percentage of renewals"/>
           </div>
         </div>
 
