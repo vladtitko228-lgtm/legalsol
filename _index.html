@@ -3965,6 +3965,60 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<style id="services-mobile-tap-fix">
+/* ============================================================
+   SERVICES — MOBILE TAP FIX (2026-06-10)
+   На телефоне тап по карточке услуги ничего не показывал:
+   .sv-detail оставался display:none, потому что мобильная
+   ветка openSvc не добавляла нужного класса.
+   Теперь openSvc(...) добавляет .mob-open на .sv-detail,
+   а CSS ниже делает блок реально видимым + правит кнопку «Назад».
+   ============================================================ */
+@media(max-width:960px){
+  /* Карточка услуги — точно тапается, никаких невидимых перекрытий */
+  #tab-services .sv-item{
+    cursor:pointer !important;
+    -webkit-tap-highlight-color:rgba(139,130,232,.22) !important;
+    touch-action:manipulation;
+    position:relative;z-index:1;
+    pointer-events:auto;
+  }
+  /* Внутренности не перехватывают тап у листенера на .sv-item */
+  #tab-services .sv-item *{pointer-events:none;}
+
+  /* Детальный блок: на мобиле раскрывается под сеткой */
+  #tab-services .sv-detail.mob-open{
+    display:flex !important;
+    position:relative !important;
+    width:100% !important;
+    margin:18px 0 24px !important;
+    padding:18px 14px 26px !important;
+    background:linear-gradient(155deg,rgba(20,16,52,.96),rgba(10,8,32,.96)) !important;
+    border:1px solid rgba(139,130,232,.22) !important;
+    border-radius:18px !important;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+  }
+
+  /* Локальная кнопка «← Все услуги» внутри detail */
+  .sv-mob-back{
+    display:inline-flex;align-items:center;gap:8px;
+    margin:-6px 0 12px;padding:10px 16px;
+    background:rgba(91,82,204,.22);
+    border:1px solid rgba(139,130,232,.4);
+    border-radius:60px;
+    color:#fff;font:600 13px/1 'Inter',sans-serif;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+    transition:background .2s,transform .15s;
+    align-self:flex-start;
+  }
+  .sv-mob-back:active{transform:scale(.94);background:rgba(91,82,204,.36);}
+  .sv-mob-back svg{flex-shrink:0;}
+
+  /* Десктопный sv-back-wrap (fixed top-left) на мобиле прячем — он мешает */
+  #sv-back-wrap{display:none !important;}
+}
+</style>
+
 <style id="mobile-burger-fix">
 /* ============================================================
    MOBILE NAV / BURGER VISIBILITY — make the menu trigger
@@ -8523,8 +8577,10 @@ document.addEventListener('DOMContentLoaded', function(){
       about.parentNode.insertBefore(how, about.nextSibling);
     }
 
-    /* === Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 (ethical) === */
-    if(faq && !document.querySelector('.preview-zal')){
+    /* === Фишка 2: WERYFIKATOR ZAŁĄCZNIKA NR 1 (ethical) ===
+       DISABLED 2026-06-10 (Vlad: рано добавлять). Re-enable: _zalEnabled=true. */
+    var _zalEnabled = false;
+    if(_zalEnabled && faq && !document.querySelector('.preview-zal')){
       var zal = document.createElement('section');
       zal.className = 'preview-zal';
       zal.innerHTML = ''
@@ -8581,17 +8637,17 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     /* === BIG PERSONAL CABINET SECTION — interactive tabs + live mockup ===
-       PREVIEW-ONLY (2026-06-10): hidden on the live legalsol.pl domain while
-       the cabinet copy is still being edited. Renders on *.vercel.app preview
-       deployments and localhost, or on prod with ?cabinet=show for review. */
-    var _cabPreviewOnly = (function(){
-      try{
-        var h = location.hostname;
-        if(h==='legalsol.pl' || h==='www.legalsol.pl') return /[?&]cabinet=(show|preview|1)/.test(location.search);
-        return true; // previews / localhost
-      }catch(e){ return false; }
-    })();
-    if(_cabPreviewOnly && faq && !document.querySelector('.preview-cabinet-feature')){
+       DISABLED 2026-06-10 (Vlad: «эти блоки пока рано добавлять»). The
+       marketing cabinet blocks (this tabs demo + the .cab-compare before/after
+       below) do NOT render anywhere. The FUNCTIONAL cabinet (#tab-cabinet login
+       + dashboard, the real Kommo-backed product) is unaffected.
+       To re-enable later: flip _cabEnabled back to the hostname gate.
+       (Old gate kept for reference:
+         var h=location.hostname;
+         if(h==='legalsol.pl'||h==='www.legalsol.pl') return /[?&]cabinet=(show|preview|1)/.test(location.search);
+         return true;) */
+    var _cabEnabled = false;
+    if(_cabEnabled && faq && !document.querySelector('.preview-cabinet-feature')){
       var svgT = function(p){return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';};
       var PCF_TABS = [
         {id:'status',ico:svgT('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>'),title:'Status tracking',
@@ -8744,8 +8800,10 @@ document.addEventListener('DOMContentLoaded', function(){
       faq.parentNode.insertBefore(cab, faq);
     }
 
-    /* === Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ === */
-    if(faq && !document.querySelector('.preview-comp')){
+    /* === Фишка 1: KALKULATOR ODSZKODOWAŃ ZA BEZCZYNNOŚĆ ===
+       DISABLED 2026-06-10 (Vlad: рано добавлять). Re-enable: _compEnabled=true. */
+    var _compEnabled = false;
+    if(_compEnabled && faq && !document.querySelector('.preview-comp')){
       var COMP_VOIVS = [
         {n:'Mazowieckie',c:'Warszawa',sev:3.2},{n:'Dolnośląskie',c:'Wrocław',sev:3.0},
         {n:'Małopolskie',c:'Kraków',sev:2.8},{n:'Wielkopolskie',c:'Poznań',sev:2.6},
@@ -27442,6 +27500,7 @@ function showSvc(key){
 // Open service detail. Desktop = full-page swap; mobile = existing accordion behavior.
 function openSvc(key){
   showSvc(key);
+  var detail=document.getElementById('sv-detail');
   if(window.innerWidth>960){
     document.body.classList.add('sv-detail-open');
     // PORTAL the back button wrap to body root — гарантирует position:fixed без багов containing block
@@ -27453,6 +27512,26 @@ function openSvc(key){
     if(sec){
       var y=sec.getBoundingClientRect().top+window.pageYOffset-80;
       window.scrollTo({top:y,behavior:'smooth'});
+    }
+  } else {
+    // ── MOBILE: detail был display:none, надо показать через .mob-open + локальную кнопку «Назад»
+    if(detail){
+      detail.classList.remove('mob-closing');
+      detail.classList.add('mob-open');
+      if(!detail.querySelector('.sv-mob-back')){
+        var back=document.createElement('button');
+        back.type='button';
+        back.className='sv-mob-back';
+        back.setAttribute('aria-label','Назад к услугам');
+        back.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true"><path d="M10 3l-5 5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Все услуги</span>';
+        back.addEventListener('click',function(){closeSvcMobile_();});
+        detail.insertBefore(back,detail.firstChild);
+      }
+      setTimeout(function(){
+        var r=detail.getBoundingClientRect();
+        var y=r.top+window.pageYOffset-72;
+        window.scrollTo({top:y,behavior:'smooth'});
+      },60);
     }
   }
   // Wire scroll-reveal animation for the freshly-rendered detail sections
@@ -27476,12 +27555,27 @@ function openSvc(key){
   },80);
 }
 
-// Return to grid view (desktop only — mobile uses its existing accordion close)
+// Return to grid view (desktop)
 function closeSvc(){
   document.body.classList.remove('sv-detail-open');
   var sec=document.getElementById('tab-services');
   if(sec){
     var y=sec.getBoundingClientRect().top+window.pageYOffset-80;
+    window.scrollTo({top:y,behavior:'smooth'});
+  }
+}
+
+// Return to grid view (mobile) — снимаем .mob-open + скролл к сетке
+function closeSvcMobile_(){
+  var detail=document.getElementById('sv-detail');
+  if(detail){
+    detail.classList.remove('mob-open');
+    detail.classList.add('mob-closing');
+    setTimeout(function(){ detail.classList.remove('mob-closing'); },340);
+  }
+  var grid=document.querySelector('#tab-services .sv-grid')||document.getElementById('tab-services');
+  if(grid){
+    var y=grid.getBoundingClientRect().top+window.pageYOffset-72;
     window.scrollTo({top:y,behavior:'smooth'});
   }
 }
@@ -32936,6 +33030,81 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
    ════════════════════════════════════════════════════════════ */
 (function(){
   var D = {
+    "Find Your Perfect Job":{r:"Найдите идеальную работу",p:"Znajdź idealną pracę",u:"Знайдіть ідеальну роботу",e:"Encuentra tu trabajo ideal",t:"İdeal işini bul",a:"İdeal işini tap",h:"अपनी आदर्श नौकरी खोजें"},
+    "When can you start?":{r:"Когда можете начать?",p:"Kiedy możesz zacząć?",u:"Коли можете почати?",e:"¿Cuándo puedes empezar?",t:"Ne zaman başlayabilirsin?",a:"Nə vaxt başlaya bilərsiniz?",h:"आप कब शुरू कर सकते हैं?"},
+    "Step 1 of 6":{r:"Шаг 1 из 6",p:"Krok 1 z 6",u:"Крок 1 з 6",e:"Paso 1 de 6",t:"6 adımdan 1.",a:"6 addımdan 1-ci",h:"6 में से चरण 1"},
+    "Step 2 of 6":{r:"Шаг 2 из 6",p:"Krok 2 z 6",u:"Крок 2 з 6",e:"Paso 2 de 6",t:"6 adımdan 2.",a:"6 addımdan 2-ci",h:"6 में से चरण 2"},
+    "Step 3 of 6 · Select all that apply":{r:"Шаг 3 из 6 · Отметьте все подходящие",p:"Krok 3 z 6 · Zaznacz wszystkie pasujące",u:"Крок 3 з 6 · Позначте всі, що підходять",e:"Paso 3 de 6 · Marca todas las que apliquen",t:"6 adımdan 3. · Uygun olanların hepsini seç",a:"6 addımdan 3-cü · Uyğun olanların hamısını seçin",h:"6 में से चरण 3 · सभी लागू चुनें"},
+    "Step 4 of 6":{r:"Шаг 4 из 6",p:"Krok 4 z 6",u:"Крок 4 з 6",e:"Paso 4 de 6",t:"6 adımdan 4.",a:"6 addımdan 4-cü",h:"6 में से चरण 4"},
+    "Step 5 of 6":{r:"Шаг 5 из 6",p:"Krok 5 z 6",u:"Крок 5 з 6",e:"Paso 5 de 6",t:"6 adımdan 5.",a:"6 addımdan 5-ci",h:"6 में से चरण 5"},
+    "Step 6 of 6":{r:"Шаг 6 из 6",p:"Krok 6 z 6",u:"Крок 6 з 6",e:"Paso 6 de 6",t:"6 adımdan 6.",a:"6 addımdan 6-cı",h:"6 में से चरण 6"},
+    "Right now — I’m ready to go":{r:"Прямо сейчас — я готов",p:"Od razu — jestem gotowy",u:"Прямо зараз — я готовий",e:"Ahora mismo — estoy listo",t:"Hemen — hazırım",a:"İndi — hazıram",h:"अभी — मैं तैयार हूँ"},
+    "Available immediately, can leave any day":{r:"Готов сразу, могу выехать в любой день",p:"Dostępny od zaraz, mogę wyjechać każdego dnia",u:"Готовий одразу, можу виїхати будь-якого дня",e:"Disponible de inmediato, puedo salir cualquier día",t:"Hemen müsait, her gün yola çıkabilirim",a:"Dərhal hazıram, istənilən gün çıxa bilərəm",h:"तुरंत उपलब्ध, किसी भी दिन निकल सकता हूँ"},
+    "In 1–2 months":{r:"Через 1–2 месяца",p:"Za 1–2 miesiące",u:"Через 1–2 місяці",e:"En 1–2 meses",t:"1–2 ay içinde",a:"1–2 ay ərzində",h:"1–2 महीनों में"},
+    "Need a short time to prepare":{r:"Нужно немного времени на подготовку",p:"Potrzebuję chwili na przygotowanie",u:"Потрібно трохи часу на підготовку",e:"Necesito un poco de tiempo para prepararme",t:"Hazırlanmak için biraz zaman lazım",a:"Hazırlaşmaq üçün bir az vaxt lazımdır",h:"तैयारी के लिए थोड़ा समय चाहिए"},
+    "In 3–6 months":{r:"Через 3–6 месяцев",p:"Za 3–6 miesięcy",u:"Через 3–6 місяців",e:"En 3–6 meses",t:"3–6 ay içinde",a:"3–6 ay ərzində",h:"3–6 महीनों में"},
+    "Planning the move, saving up":{r:"Планирую переезд, коплю",p:"Planuję przeprowadzkę, oszczędzam",u:"Планую переїзд, заощаджую",e:"Planeando la mudanza, ahorrando",t:"Taşınmayı planlıyorum, biriktiriyorum",a:"Köçməyi planlaşdırıram, yığıram",h:"स्थानांतरण की योजना, बचत कर रहा हूँ"},
+    "No fixed timeline yet":{r:"Пока без чётких сроков",p:"Na razie bez konkretnego terminu",u:"Поки без чітких термінів",e:"Aún sin fecha definida",t:"Henüz net bir zaman yok",a:"Hələ dəqiq vaxt yoxdur",h:"अभी कोई तय समय नहीं"},
+    "No experience / Fresh start":{r:"Без опыта / С нуля",p:"Bez doświadczenia / Od zera",u:"Без досвіду / З нуля",e:"Sin experiencia / Desde cero",t:"Deneyim yok / Sıfırdan",a:"Təcrübə yox / Sıfırdan",h:"कोई अनुभव नहीं / नई शुरुआत"},
+    "Some basic skills and practice":{r:"Базовые навыки и практика",p:"Podstawowe umiejętności i praktyka",u:"Базові навички та практика",e:"Algunas habilidades básicas y práctica",t:"Temel beceriler ve biraz pratik",a:"Əsas bacarıqlar və təcrübə",h:"कुछ बुनियादी कौशल और अभ्यास"},
+    "Solid experience in my field":{r:"Уверенный опыт в своей сфере",p:"Solidne doświadczenie w mojej branży",u:"Впевнений досвід у своїй сфері",e:"Sólida experiencia en mi campo",t:"Alanımda sağlam deneyim",a:"Sahəmdə möhkəm təcrübə",h:"मेरे क्षेत्र में ठोस अनुभव"},
+    "Expert in my field":{r:"Эксперт в своей сфере",p:"Ekspert w mojej branży",u:"Експерт у своїй сфері",e:"Experto en mi campo",t:"Alanımda uzman",a:"Sahəmdə ekspert",h:"मेरे क्षेत्र में विशेषज्ञ"},
+    "No exp.":{r:"Без опыта",p:"Bez dośw.",u:"Без досвіду",e:"Sin exp.",t:"Deneyim yok",a:"Təcrübəsiz",h:"अनुभव नहीं"},
+    "Languages you speak":{r:"Языки, которыми владеете",p:"Języki, którymi mówisz",u:"Мови, якими володієте",e:"Idiomas que hablas",t:"Konuştuğun diller",a:"Danışdığınız dillər",h:"आप जो भाषाएँ बोलते हैं"},
+    "What documents do you have?":{r:"Какие документы у вас есть?",p:"Jakie masz dokumenty?",u:"Які документи у вас є?",e:"¿Qué documentos tienes?",t:"Hangi belgelere sahipsin?",a:"Hansı sənədləriniz var?",h:"आपके पास कौन से दस्तावेज़ हैं?"},
+    "Valid card or stamp in passport":{r:"Действующая карта или штамп в паспорте",p:"Ważna karta lub pieczątka w paszporcie",u:"Дійсна карта або штамп у паспорті",e:"Tarjeta válida o sello en el pasaporte",t:"Geçerli kart veya pasaportta damga",a:"Etibarlı kart və ya pasportda möhür",h:"वैध कार्ड या पासपोर्ट में मुहर"},
+    "Valid but need to upgrade status":{r:"Действует, но нужно повысить статус",p:"Ważny, ale trzeba zmienić status",u:"Дійсний, але потрібно підвищити статус",e:"Válido pero necesito mejorar el estatus",t:"Geçerli ama statümü yükseltmem gerek",a:"Etibarlıdır, amma statusu yüksəltmək lazımdır",h:"वैध है पर स्टेटस अपग्रेड करना है"},
+    "Need help getting legal status first":{r:"Сначала нужна помощь с легализацией",p:"Najpierw potrzebuję pomocy z legalizacją",u:"Спершу потрібна допомога з легалізацією",e:"Primero necesito ayuda con el estatus legal",t:"Önce yasal statü için yardım lazım",a:"Əvvəlcə qanuni status üçün kömək lazımdır",h:"पहले कानूनी स्टेटस में मदद चाहिए"},
+    "No documents yet":{r:"Пока нет документов",p:"Jeszcze brak dokumentów",u:"Поки немає документів",e:"Aún no tengo documentos",t:"Henüz belge yok",a:"Hələ sənəd yoxdur",h:"अभी कोई दस्तावेज़ नहीं"},
+    "First, let’s get your documents":{r:"Сначала оформим ваши документы",p:"Najpierw załatwmy Twoje dokumenty",u:"Спершу оформимо ваші документи",e:"Primero, organicemos tus documentos",t:"Önce belgelerini halledelim",a:"Əvvəlcə sənədlərinizi həll edək",h:"पहले, आपके दस्तावेज़ तैयार करें"},
+    "Great news — we have a match!":{r:"Отличные новости — есть совпадение!",p:"Świetna wiadomość — mamy dopasowanie!",u:"Чудові новини — є збіг!",e:"¡Buenas noticias — tenemos una coincidencia!",t:"Harika haber — bir eşleşme bulduk!",a:"Əla xəbər — uyğunluq tapdıq!",h:"बढ़िया खबर — मेल मिल गया!"},
+    "✦ Vacancies found for you!":{r:"✦ Найдены вакансии для вас!",p:"✦ Znaleziono dla Ciebie oferty!",u:"✦ Знайдено вакансії для вас!",e:"✦ ¡Vacantes encontradas para ti!",t:"✦ Sana uygun ilanlar bulundu!",a:"✦ Sizin üçün vakansiyalar tapıldı!",h:"✦ आपके लिए नौकरियाँ मिलीं!"},
+    "Get legal status + job":{r:"Получите статус + работу",p:"Zdobądź status + pracę",u:"Отримайте статус + роботу",e:"Consigue estatus legal + trabajo",t:"Yasal statü + iş edin",a:"Qanuni status + iş əldə edin",h:"कानूनी स्टेटस + नौकरी पाएँ"},
+    "Work in Europe / Poland":{r:"Работа в Европе / Польше",p:"Praca w Europie / Polsce",u:"Робота в Європі / Польщі",e:"Trabajo en Europa / Polonia",t:"Avrupa / Polonya'da iş",a:"Avropa / Polşada iş",h:"यूरोप / पोलैंड में काम"},
+    "All work permits for EU":{r:"Все рабочие разрешения для ЕС",p:"Wszystkie zezwolenia na pracę w UE",u:"Усі дозволи на роботу для ЄС",e:"Todos los permisos de trabajo para la UE",t:"AB için tüm çalışma izinleri",a:"AB üçün bütün iş icazələri",h:"EU के लिए सभी वर्क परमिट"},
+    "Anywhere in Europe":{r:"Где угодно в Европе",p:"W dowolnym miejscu w Europie",u:"Будь-де в Європі",e:"En cualquier lugar de Europa",t:"Avrupa'nın her yerinde",a:"Avropanın istənilən yerində",h:"यूरोप में कहीं भी"},
+    "Full right to work anywhere in EU":{r:"Полное право работать в любой стране ЕС",p:"Pełne prawo do pracy w całej UE",u:"Повне право працювати в будь-якій країні ЄС",e:"Pleno derecho a trabajar en toda la UE",t:"AB'nin her yerinde tam çalışma hakkı",a:"AB-nin hər yerində tam iş hüququ",h:"पूरे EU में काम करने का पूरा अधिकार"},
+    "From 28 PLN/h to 22 EUR/h":{r:"От 28 PLN/ч до 22 EUR/ч",p:"Od 28 PLN/h do 22 EUR/h",u:"Від 28 PLN/год до 22 EUR/год",e:"De 28 PLN/h a 22 EUR/h",t:"28 PLN/saat'ten 22 EUR/saat'e",a:"28 PLN/saatdan 22 EUR/saata",h:"28 PLN/घंटा से 22 EUR/घंटा"},
+    "I want the same → WhatsApp":{r:"Хочу так же → WhatsApp",p:"Chcę tego samego → WhatsApp",u:"Хочу так само → WhatsApp",e:"Quiero lo mismo → WhatsApp",t:"Aynısını istiyorum → WhatsApp",a:"Eynisini istəyirəm → WhatsApp",h:"मुझे भी यही चाहिए → WhatsApp"},
+    "Need a residence permit for work?":{r:"Нужен ВНЖ для работы?",p:"Potrzebujesz karty pobytu do pracy?",u:"Потрібен ВНЖ для роботи?",e:"¿Necesitas un permiso de residencia para trabajar?",t:"İş için oturma izni mi lazım?",a:"İş üçün iqamət icazəsi lazımdır?",h:"काम के लिए रेज़िडेंस परमिट चाहिए?"},
+    "Legal Status +":{r:"Легальный статус +",p:"Legalny status +",u:"Легальний статус +",e:"Estatus legal +",t:"Yasal statü +",a:"Qanuni status +",h:"कानूनी स्टेटस +"},
+    "— AI + Lawyer —":{r:"— ИИ + Юрист —",p:"— AI + Prawnik —",u:"— ШІ + Юрист —",e:"— IA + Abogado —",t:"— YZ + Avukat —",a:"— Sİ + Vəkil —",h:"— AI + वकील —"},
+    "The lawyer decides.":{r:"Решает юрист.",p:"Decyduje prawnik.",u:"Вирішує юрист.",e:"El abogado decide.",t:"Kararı avukat verir.",a:"Qərarı vəkil verir.",h:"फैसला वकील करता है।"},
+    "AI DOCUMENT PROCESSOR":{r:"ИИ-ОБРАБОТКА ДОКУМЕНТОВ",p:"PROCESOR DOKUMENTÓW AI",u:"ШІ-ОБРОБКА ДОКУМЕНТІВ",e:"PROCESADOR DE DOCUMENTOS IA",t:"YZ BELGE İŞLEMCİSİ",a:"Sİ SƏNƏD PROSESORU",h:"AI दस्तावेज़ प्रोसेसर"},
+    "DOCUMENT STATUS":{r:"СТАТУС ДОКУМЕНТОВ",p:"STATUS DOKUMENTÓW",u:"СТАТУС ДОКУМЕНТІВ",e:"ESTADO DEL DOCUMENTO",t:"BELGE DURUMU",a:"SƏNƏD STATUSU",h:"दस्तावेज़ स्थिति"},
+    "AI scans every document for the 12 most common voivodeship rejection reasons. Daria reviews the flags.":{r:"ИИ проверяет каждый документ по 12 частым причинам отказа воеводства. Дарья просматривает помеченное.",p:"AI sprawdza każdy dokument pod kątem 12 najczęstszych powodów odmowy wojewody. Daria weryfikuje oznaczenia.",u:"ШІ перевіряє кожен документ за 12 поширеними причинами відмови воєводства. Дарія переглядає позначене.",e:"La IA revisa cada documento por las 12 causas de rechazo más comunes del voivodato. Daria revisa las alertas.",t:"YZ her belgeyi voyvodalığın en sık 12 ret nedenine göre tarar. Daria işaretlenenleri inceler.",a:"Sİ hər sənədi voyevodalığın 12 ən çox rast gəlinən imtina səbəbinə görə yoxlayır. Daria işarələnənləri nəzərdən keçirir.",h:"AI हर दस्तावेज़ को वोइवोडशिप की 12 सबसे आम अस्वीकृति वजहों के लिए स्कैन करता है। Daria फ़्लैग जाँचती है।"},
+    "90 / 60 / 30 days before your card expires — automatic ping in WhatsApp.":{r:"За 90 / 60 / 30 дней до конца карты — автоматический пинг в WhatsApp.",p:"90 / 60 / 30 dni przed końcem karty — automatyczny ping na WhatsApp.",u:"За 90 / 60 / 30 днів до кінця карти — автоматичний пінг у WhatsApp.",e:"90 / 60 / 30 días antes de caducar — aviso automático por WhatsApp.",t:"Kart bitiminden 90 / 60 / 30 gün önce — otomatik WhatsApp bildirimi.",a:"Kartın bitməsinə 90 / 60 / 30 gün qalmış — avtomatik WhatsApp bildirişi.",h:"कार्ड समाप्ति से 90 / 60 / 30 दिन पहले — WhatsApp पर स्वतः सूचना।"},
+    "Pre-checked applications go through the voivodeship without «please correct» delays.":{r:"Проверенные заявки проходят воеводство без задержек «исправьте».",p:"Sprawdzone wnioski przechodzą przez wojewodę bez opóźnień typu „proszę poprawić”.",u:"Перевірені заявки проходять воєводство без затримок «виправте».",e:"Las solicitudes pre-revisadas pasan el voivodato sin demoras de «por favor corrija».",t:"Önceden kontrol edilen başvurular «lütfen düzeltin» gecikmesi olmadan voyvodalıktan geçer.",a:"Əvvəlcədən yoxlanılmış müraciətlər «zəhmət olmasa düzəldin» gecikmələri olmadan voyevodalıqdan keçir.",h:"पूर्व-जाँची अर्ज़ियाँ «कृपया सुधारें» देरी के बिना वोइवोडशिप से गुज़रती हैं।"},
+    "77 cards delivered with AI help":{r:"77 карт получено с помощью ИИ",p:"77 kart wydanych z pomocą AI",u:"77 карт отримано за допомогою ШІ",e:"77 tarjetas entregadas con ayuda de IA",t:"YZ yardımıyla teslim edilen 77 kart",a:"Sİ köməyi ilə təhvil verilən 77 kart",h:"AI की मदद से 77 कार्ड दिए गए"},
+    "Since we deployed it in 2024 — and counting.":{r:"С момента запуска в 2024 — и счёт растёт.",p:"Od wdrożenia w 2024 — i liczba rośnie.",u:"Від запуску у 2024 — і лічба зростає.",e:"Desde que lo lanzamos en 2024 — y subiendo.",t:"2024'te devreye aldığımızdan beri — ve artıyor.",a:"2024-cü ildə tətbiq etdiyimizdən bəri — və artır.",h:"2024 में लागू करने के बाद से — और बढ़ रहा है।"},
+    "💬 Ask Daria how it works →":{r:"💬 Спросите Дарью, как это работает →",p:"💬 Zapytaj Darię, jak to działa →",u:"💬 Запитайте Дарію, як це працює →",e:"💬 Pregúntale a Daria cómo funciona →",t:"💬 Daria'ya nasıl çalıştığını sor →",a:"💬 Dariadan necə işlədiyini soruşun →",h:"💬 Daria से पूछें यह कैसे काम करता है →"},
+    "Daria · senior lawyer · 4 years":{r:"Дарья · старший юрист · 4 года",p:"Daria · starszy prawnik · 4 lata",u:"Дарія · старший юрист · 4 роки",e:"Daria · abogada sénior · 4 años",t:"Daria · kıdemli avukat · 4 yıl",a:"Daria · böyük vəkil · 4 il",h:"Daria · वरिष्ठ वकील · 4 साल"},
+    "We're a Warsaw-based immigration law firm.":{r:"Мы — иммиграционная юридическая фирма в Варшаве.",p:"Jesteśmy kancelarią imigracyjną z siedzibą w Warszawie.",u:"Ми — імміграційна юридична фірма у Варшаві.",e:"Somos un bufete de inmigración con sede en Varsovia.",t:"Varşova merkezli bir göçmenlik hukuk firmasıyız.",a:"Biz Varşava mərkəzli immiqrasiya hüquq firmasıyıq.",h:"हम वारसॉ स्थित एक इमिग्रेशन लॉ फर्म हैं।"},
+    "Karta Pobytu, Permanent Residence, Citizenship, Blue Card, appeals":{r:"Карта побыту, ПМЖ, гражданство, Blue Card, апелляции",p:"Karta pobytu, pobyt stały, obywatelstwo, Blue Card, odwołania",u:"Карта побиту, ПМП, громадянство, Blue Card, оскарження",e:"Karta Pobytu, residencia permanente, ciudadanía, Blue Card, apelaciones",t:"Karta Pobytu, daimi ikamet, vatandaşlık, Blue Card, itirazlar",a:"Karta Pobytu, daimi iqamət, vətəndaşlıq, Blue Card, apellyasiyalar",h:"Karta Pobytu, स्थायी निवास, नागरिकता, Blue Card, अपील"},
+    "— anything you need to legalise your stay in Poland.":{r:"— всё, что нужно для легализации в Польше.",p:"— wszystko, czego potrzebujesz, aby zalegalizować pobyt w Polsce.",u:"— усе, що потрібно для легалізації в Польщі.",e:"— todo lo que necesitas para legalizar tu estancia en Polonia.",t:"— Polonya'da oturumunu yasallaştırmak için gereken her şey.",a:"— Polşada qalmağınızı qanuniləşdirmək üçün lazım olan hər şey.",h:"— पोलैंड में अपना प्रवास वैध करने के लिए जो भी चाहिए।"},
+    "Everything happens on":{r:"Всё происходит в",p:"Wszystko dzieje się na",u:"Усе відбувається в",e:"Todo ocurre en",t:"Her şey şurada olur:",a:"Hər şey burada baş verir:",h:"सब कुछ होता है"},
+    "— no office visits, no queues, no stress. We submit through MOS online and handle every voivodeship in Poland.":{r:"— без визитов в офис, без очередей, без стресса. Подаём онлайн через MOS и работаем со всеми воеводствами Польши.",p:"— bez wizyt w urzędzie, bez kolejek, bez stresu. Składamy online przez MOS i obsługujemy każde województwo w Polsce.",u:"— без візитів до офісу, без черг, без стресу. Подаємо онлайн через MOS і працюємо з усіма воєводствами Польщі.",e:"— sin visitas a oficinas, sin colas, sin estrés. Presentamos online por MOS y cubrimos todos los voivodatos de Polonia.",t:"— ofis ziyareti yok, kuyruk yok, stres yok. MOS üzerinden online başvuruyor, Polonya'nın her voyvodalığını hallediyoruz.",a:"— ofisə getmək yox, növbə yox, stress yox. MOS vasitəsilə onlayn təqdim edirik və Polşanın bütün voyevodalıqları ilə işləyirik.",h:"— कोई ऑफ़िस विज़िट नहीं, कतार नहीं, तनाव नहीं। हम MOS से ऑनलाइन जमा करते हैं और पोलैंड के हर वोइवोडशिप को संभालते हैं।"},
+    "years on the market":{r:"лет на рынке",p:"lat na rynku",u:"років на ринку",e:"años en el mercado",t:"yıl piyasada",a:"il bazarda",h:"साल बाज़ार में"},
+    "🇵🇱 Where they live now":{r:"🇵🇱 Где они живут сейчас",p:"🇵🇱 Gdzie teraz mieszkają",u:"🇵🇱 Де вони живуть зараз",e:"🇵🇱 Dónde viven ahora",t:"🇵🇱 Şimdi nerede yaşıyorlar",a:"🇵🇱 İndi harada yaşayırlar",h:"🇵🇱 अब वे कहाँ रहते हैं"},
+    "🌍 We work with clients from":{r:"🌍 Мы работаем с клиентами из",p:"🌍 Pracujemy z klientami z",u:"🌍 Ми працюємо з клієнтами з",e:"🌍 Trabajamos con clientes de",t:"🌍 Şu ülkelerden müşterilerle çalışıyoruz:",a:"🌍 Bu ölkələrdən müştərilərlə işləyirik:",h:"🌍 हम इन देशों के क्लाइंट के साथ काम करते हैं"},
+    "💬 Talk to a manager who works with":{r:"💬 Поговорите с менеджером, который работает с",p:"💬 Porozmawiaj z menedżerem, który pracuje z",u:"💬 Поговоріть з менеджером, який працює з",e:"💬 Habla con un gestor que trabaja con",t:"💬 Şununla çalışan bir yöneticiyle konuş:",a:"💬 Bununla işləyən menecerlə danışın:",h:"💬 उस मैनेजर से बात करें जो इनके साथ काम करता है"},
+    "Our Services":{r:"Наши услуги",p:"Nasze usługi",u:"Наші послуги",e:"Nuestros servicios",t:"Hizmetlerimiz",a:"Xidmətlərimiz",h:"हमारी सेवाएँ"},
+    "Click a service to learn more — what's included, required documents and how the process works.":{r:"Нажмите на услугу, чтобы узнать больше — что входит, какие документы нужны и как идёт процесс.",p:"Kliknij usługę, aby dowiedzieć się więcej — co obejmuje, jakie dokumenty i jak przebiega proces.",u:"Натисніть на послугу, щоб дізнатися більше — що входить, які документи й як іде процес.",e:"Haz clic en un servicio para saber más — qué incluye, qué documentos y cómo funciona.",t:"Daha fazlası için bir hizmete tıkla — neler dahil, hangi belgeler ve süreç nasıl işliyor.",a:"Ətraflı üçün xidmətə klikləyin — nə daxildir, hansı sənədlər və proses necə gedir.",h:"अधिक जानने के लिए सेवा पर क्लिक करें — क्या शामिल है, कौन से दस्तावेज़ और प्रक्रिया कैसे चलती है।"},
+    "Call now":{r:"Позвонить сейчас",p:"Zadzwoń teraz",u:"Зателефонувати зараз",e:"Llamar ahora",t:"Şimdi ara",a:"İndi zəng et",h:"अभी कॉल करें"},
+    "Free consultation":{r:"Бесплатная консультация",p:"Bezpłatna konsultacja",u:"Безкоштовна консультація",e:"Consulta gratuita",t:"Ücretsiz danışma",a:"Pulsuz məsləhət",h:"मुफ़्त परामर्श"},
+    "Free Consultation →":{r:"Бесплатная консультация →",p:"Bezpłatna konsultacja →",u:"Безкоштовна консультація →",e:"Consulta gratuita →",t:"Ücretsiz danışma →",a:"Pulsuz məsləhət →",h:"मुफ़्त परामर्श →"},
+    "💬 Free eligibility check on WhatsApp":{r:"💬 Бесплатная проверка шансов в WhatsApp",p:"💬 Bezpłatne sprawdzenie szans na WhatsApp",u:"💬 Безкоштовна перевірка шансів у WhatsApp",e:"💬 Verificación gratuita de elegibilidad por WhatsApp",t:"💬 WhatsApp'ta ücretsiz uygunluk kontrolü",a:"💬 WhatsApp-da pulsuz uyğunluq yoxlaması",h:"💬 WhatsApp पर मुफ़्त पात्रता जाँच"},
+    "Read the story →":{r:"Читать историю →",p:"Przeczytaj historię →",u:"Читати історію →",e:"Leer la historia →",t:"Hikayeyi oku →",a:"Hekayəni oxu →",h:"कहानी पढ़ें →"},
+    "Read the full story →":{r:"Читать историю полностью →",p:"Przeczytaj całą historię →",u:"Читати історію повністю →",e:"Leer la historia completa →",t:"Hikayenin tamamını oku →",a:"Hekayənin tamamını oxu →",h:"पूरी कहानी पढ़ें →"},
+    "Kamil is waiting for you":{r:"Камиль ждёт вас",p:"Kamil na Ciebie czeka",u:"Каміль чекає на вас",e:"Kamil te está esperando",t:"Kamil seni bekliyor",a:"Kamil sizi gözləyir",h:"Kamil आपका इंतज़ार कर रहा है"},
+    "online · will go through the answers with you":{r:"онлайн · разберёт ответы вместе с вами",p:"online · przejdzie z Tobą przez odpowiedzi",u:"онлайн · розбере відповіді разом з вами",e:"en línea · repasará las respuestas contigo",t:"çevrimiçi · cevapları seninle gözden geçirecek",a:"onlayn · cavabları sizinlə birlikdə nəzərdən keçirəcək",h:"ऑनलाइन · आपके साथ जवाब देखेगा"},
+    "Real people on the day they collected their card — not stock photos, not stock quotes.":{r:"Реальные люди в день получения карты — не стоковые фото и не выдуманные отзывы.",p:"Prawdziwi ludzie w dniu odbioru karty — żadnych zdjęć stockowych ani wymyślonych opinii.",u:"Реальні люди в день отримання карти — не стокові фото й не вигадані відгуки.",e:"Personas reales el día que recogieron su tarjeta — sin fotos de stock ni reseñas inventadas.",t:"Kartlarını aldıkları gün gerçek insanlar — stok fotoğraf değil, uydurma yorum değil.",a:"Kartlarını aldıqları gün real insanlar — stok foto deyil, uydurma rəy deyil.",h:"असली लोग जिस दिन उन्होंने कार्ड लिया — स्टॉक फ़ोटो नहीं, नकली समीक्षा नहीं।"},
+    "No invented ratings — just what we deliver":{r:"Без выдуманных оценок — только то, что делаем",p:"Bez wymyślonych ocen — tylko to, co dostarczamy",u:"Без вигаданих оцінок — лише те, що робимо",e:"Sin valoraciones inventadas — solo lo que entregamos",t:"Uydurma puanlar yok — sadece teslim ettiğimiz",a:"Uydurma reytinqlər yox — yalnız etdiyimiz",h:"कोई बनावटी रेटिंग नहीं — बस जो हम देते हैं"},
+    "They got their card with us":{r:"Они получили карту с нами",p:"Dostali kartę z nami",u:"Вони отримали карту з нами",e:"Consiguieron su tarjeta con nosotros",t:"Kartlarını bizimle aldılar",a:"Kartlarını bizimlə aldılar",h:"उन्हें हमारे साथ कार्ड मिला"},
+    "These clients agreed to show their photo — on the day they picked up their Karta Pobytu.":{r:"Эти клиенты согласились показать фото — в день получения карты побыту.",p:"Ci klienci zgodzili się pokazać zdjęcie — w dniu odbioru karty pobytu.",u:"Ці клієнти погодилися показати фото — у день отримання карти побиту.",e:"Estos clientes accedieron a mostrar su foto — el día que recogieron su Karta Pobytu.",t:"Bu müşteriler fotoğraflarını göstermeyi kabul etti — Karta Pobytu'larını aldıkları gün.",a:"Bu müştərilər fotolarını göstərməyə razılaşdılar — Karta Pobytu-larını aldıqları gün.",h:"इन क्लाइंट्स ने अपनी फ़ोटो दिखाने की सहमति दी — जिस दिन उन्होंने Karta Pobytu ली।"},
+    "Małopolskie · 170 days":{r:"Малопольское · 170 дней",p:"Małopolskie · 170 dni",u:"Малопольське · 170 днів",e:"Małopolskie · 170 días",t:"Małopolskie · 170 gün",a:"Małopolskie · 170 gün",h:"Małopolskie · 170 दिन"},
+    "Śląskie · 687 days":{r:"Силезское · 687 дней",p:"Śląskie · 687 dni",u:"Сілезьке · 687 днів",e:"Śląskie · 687 días",t:"Śląskie · 687 gün",a:"Śląskie · 687 gün",h:"Śląskie · 687 दिन"},
+    "up to 220 days":{r:"до 220 дней",p:"do 220 dni",u:"до 220 днів",e:"hasta 220 días",t:"220 güne kadar",a:"220 günə qədər",h:"220 दिन तक"},
     /* — Trust strip — */
     "cases handled":{r:"успешных дел",p:"prowadzonych spraw",u:"успішних справ",e:"casos gestionados",t:"yürütülen dosya",a:"aparılan iş",h:"संभाले गए केस"},
     "approval rate":{r:"одобрений",p:"skuteczności",u:"схвалень",e:"tasa de aprobación",t:"onay oranı",a:"təsdiq nisbəti",h:"स्वीकृति दर"},
@@ -33126,25 +33295,36 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     {re:/^· (\d+) z (\d+) documents gotowych\. Otrzymasz na WhatsApp pełną listę z linkami i instrukcjami w 15 minut\.$/,t:{r:"· $1 из $2 документов готово. Получите в WhatsApp полный список со ссылками и инструкциями за 15 минут.",p:"· $1 z $2 dokumentów gotowych. Otrzymasz na WhatsApp pełną listę z linkami i instrukcjami w 15 minut.",u:"· $1 із $2 документів готово. Отримаєте у WhatsApp повний список із посиланнями та інструкціями за 15 хвилин.",e:"· $1 de $2 documentos listos. Recibirás por WhatsApp la lista completa con enlaces e instrucciones en 15 minutos.",t:"· $2 belgeden $1'i hazır. 15 dakika içinde WhatsApp'tan bağlantılar ve talimatlarla tam listeyi alacaksınız.",a:"· $2 sənəddən $1-i hazırdır. 15 dəqiqəyə WhatsApp-da linklər və təlimatlarla tam siyahını alacaqsınız.",h:"· $2 में से $1 दस्तावेज़ तैयार। 15 मिनट में WhatsApp पर लिंक और निर्देशों के साथ पूरी सूची मिलेगी।"}}
   ];
   var LMAP = {ru:"r",pl:"p",uk:"u",es:"e",tr:"t",az:"a",hi:"h"};
-  var SCOPES = ".preview-trust-strip,.preview-hero-video-cap,.preview-final-cta,.preview-how-clean,.preview-zal,.preview-cabinet-feature,.preview-comp,.preview-mapa-hex,.preview-mw,.rvhome,.geo-strip-pv";
+  var SKIP_TAGS = { SCRIPT:1, STYLE:1, NOSCRIPT:1, TEXTAREA:1, CODE:1, IFRAME:1, SVG:1, svg:1 };
   var curLang = "en", applyTimer = null;
   function walk(root, lk){
-    var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        var p = node.parentNode;
+        while(p && p.nodeType === 1){
+          if(SKIP_TAGS[p.tagName] || SKIP_TAGS[p.nodeName]) return NodeFilter.FILTER_REJECT;
+          p = p.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
     var nodes = []; var n;
     while(n = tw.nextNode()) nodes.push(n);
     nodes.forEach(function(node){
       var orig = node.__pvO != null ? node.__pvO : node.nodeValue;
-      var key = orig.trim();
+      var lead = (orig.match(/^\s*/) || [''])[0];
+      var trail = (orig.match(/\s*$/) || [''])[0];
+      var key = orig.replace(/[\u00a0\u2007\u202f]/g, ' ').replace(/\s+/g, ' ').trim();
       if(key.length < 2) return;
       var out = null;
       if(!lk){ out = orig; }                       /* en → restore original */
       else {
         var entry = D[key];
-        if(entry && entry[lk]) out = orig.replace(key, entry[lk]);
+        if(entry && entry[lk]) out = lead + entry[lk] + trail;
         else {
           for(var i = 0; i < RX.length; i++){
             var m = key.match(RX[i].re);
-            if(m && RX[i].t[lk]){ out = orig.replace(key, key.replace(RX[i].re, RX[i].t[lk])); break; }
+            if(m && RX[i].t[lk]){ out = lead + key.replace(RX[i].re, RX[i].t[lk]) + trail; break; }
           }
         }
       }
@@ -33156,7 +33336,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
   function apply(lang){
     if(lang) curLang = lang;
     var lk = LMAP[curLang] || null;   /* null → English (restore) */
-    document.querySelectorAll(SCOPES).forEach(function(r){ walk(r, lk); });
+    if(document.body) walk(document.body, lk);
   }
   window.PV_TEXT_APPLY = apply;
   function schedule(){ clearTimeout(applyTimer); applyTimer = setTimeout(function(){ apply(); }, 80); }
