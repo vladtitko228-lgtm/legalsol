@@ -310,6 +310,8 @@ document.addEventListener('click',function(e){
   .reveal-left{transform:translateX(-8px)!important;filter:none!important;transition:opacity .8s cubic-bezier(.33,.7,.4,1),transform .8s cubic-bezier(.33,.7,.4,1)!important;}
   .reveal-right{transform:translateX(8px)!important;filter:none!important;transition:opacity .8s cubic-bezier(.33,.7,.4,1),transform .8s cubic-bezier(.33,.7,.4,1)!important;}
   .reveal.on,.reveal-left.on,.reveal-right.on,.tl-step.reveal.on,.rvhome-card.reveal.on,.geo-card-pv.reveal.on,.story-card.reveal.on,.review-card.reveal.on{transform:none!important;filter:none!important;}
+  /* Панель языков: исключение из запрета blur — один элемент, виден только открытым */
+  .lang-dd-panel{backdrop-filter:blur(18px) saturate(160%)!important;-webkit-backdrop-filter:blur(18px) saturate(160%)!important;}
   /* Главная причина «резкости» — входные анимации на expo-кривой (.16,1,.3,1):
      она пролетает 80% пути мгновенно и резко тормозит. На мобиле меняем на мягкий
      easeOutCubic и чуть удлиняем — карточки/герой плавно всплывают, а не выпрыгивают. */
@@ -691,7 +693,7 @@ img{max-width:100%;height:auto;}
 
 .ldf svg,.ldf-mini{border-radius:2px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.4);}
 
-.lang-dd-panel{position:absolute;top:calc(100% + 8px);right:0;background:rgba(12,10,36,.97);border:1px solid rgba(139,130,232,.22);border-radius:16px;padding:6px;display:none;flex-direction:column;gap:1px;min-width:158px;box-shadow:0 24px 60px rgba(0,0,0,.7);backdrop-filter:blur(20px);z-index:99999;}
+.lang-dd-panel{position:absolute;top:calc(100% + 8px);right:0;background:rgba(12,10,36,.80);border:1px solid rgba(139,130,232,.22);border-radius:16px;padding:6px;display:none;flex-direction:column;gap:1px;min-width:158px;box-shadow:0 24px 60px rgba(0,0,0,.7);backdrop-filter:blur(20px);z-index:99999;}
 
 @media(max-width:960px){.lang-dd-panel{position:fixed!important;top:64px!important;right:8px!important;left:auto!important;}}
 
@@ -7617,7 +7619,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 /* Dropdown panel — cleaner glass */
 .lang-dd-panel{
-  background:rgba(14,10,35,.96) !important;
+  background:rgba(14,10,35,.78) !important;
   border:1px solid rgba(139,130,232,.30) !important;
   border-radius:14px !important;
   padding:8px !important;
