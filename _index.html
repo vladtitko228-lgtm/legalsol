@@ -348,6 +348,8 @@ document.addEventListener('click',function(e){
   }
 }
 
+/* A11y: видимый фокус на полях форм (WCAG 2.4.7) — было outline:none без замены */
+.cta-in:focus-visible,.modal-in:focus-visible,.status-input:focus-visible,.cp-search:focus-visible,.hlead-in:focus-visible,.cab-input:focus-visible,#m-name:focus-visible,#m-phone:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #fde047!important;outline-offset:2px!important;}
 html{scroll-behavior:smooth;overflow-x:clip;}
 
 /* overflow-x:clip вместо overflow:hidden — обрезает горизонтальный скролл, но НЕ создаёт
@@ -9615,7 +9617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="toast">
 
-  <div class="tt"><div class="tt-t" id="toast-title">📋 Бесплатная консультация</div><button class="tt-x" onclick="hideToast()">✕</button></div>
+  <div class="tt"><div class="tt-t" id="toast-title">📋 Бесплатная консультация</div><button class="tt-x" onclick="hideToast()" aria-label="Закрыть">✕</button></div>
 
   <div class="tt-b" id="toast-body">Узнайте бесплатно, какой документ вам нужен и как быстро его получить.</div>
 
@@ -9730,7 +9732,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="modal-box">
 
-    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">✕</button>
 
     <div style="font-size:28px;margin-bottom:12px;">📋</div>
 
@@ -12312,7 +12314,7 @@ function submitHlead(){
 
           <div class="cp-title" id="cp-modal-title">Выберите страну гражданства</div>
 
-          <button class="cp-close" onclick="closeCountryPicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+          <button class="cp-close" onclick="closeCountryPicker()" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
 
         </div>
 
