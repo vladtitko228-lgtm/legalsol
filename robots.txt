@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /preview/
+Disallow: /_index.backup.html
 
 Sitemap: https://www.legalsol.pl/sitemap.xml

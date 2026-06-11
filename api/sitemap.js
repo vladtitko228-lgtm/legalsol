@@ -21,8 +21,14 @@ function txt(p) {
 
 module.exports = async function handler(req, res) {
   const staticUrls = [
-    { loc: `${SITE}/`,      priority: "1.0", changefreq: "weekly"  },
-    { loc: `${SITE}/blog`,  priority: "0.9", changefreq: "daily"   },
+    { loc: `${SITE}/`,         priority: "1.0", changefreq: "weekly"  },
+    { loc: `${SITE}/blog`,     priority: "0.9", changefreq: "daily"   },
+    { loc: `${SITE}/business`, priority: "0.8", changefreq: "monthly" },
+    { loc: `${SITE}/housing`,  priority: "0.8", changefreq: "monthly" },
+    { loc: `${SITE}/polish`,   priority: "0.8", changefreq: "monthly" },
+    { loc: `${SITE}/guide`,    priority: "0.8", changefreq: "monthly" },
+    { loc: `${SITE}/privacy`,  priority: "0.3", changefreq: "yearly"  },
+    { loc: `${SITE}/terms`,    priority: "0.3", changefreq: "yearly"  },
   ];
 
   let articleUrls = [];
