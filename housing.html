@@ -1185,7 +1185,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     for(var id in d){ var el=document.getElementById(id); if(!el) continue; if(id==='hero-title') el.innerHTML=d[id]; else el.textContent=d[id]; }
     var fl=document.getElementById('lang-flag'); if(fl) fl.innerHTML=FLAGS[l];
     var cur=document.getElementById('lang-cur'); if(cur) cur.textContent=l.toUpperCase();
-    try{ localStorage.setItem('ls_housing_lang',l); }catch(e){}
+    try{ localStorage.setItem('ls-lang',l); }catch(e){}
   }
   window.waLead=function(src){
     // Questionnaire-first: route every "contact" entry point to the #calc form so the
@@ -1233,7 +1233,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   document.addEventListener('DOMContentLoaded',function(){
     // English on every load; only an explicit ?lang= overrides
     var start='en';
-    try{ var m=location.search.match(/[?&]lang=([a-z]{2})\b/i); if(m && T[m[1].toLowerCase()]) start=m[1].toLowerCase(); }catch(e){}
+    try{
+      var m=location.search.match(/[?&]lang=([a-z]{2})\b/i);
+      if(m && T[m[1].toLowerCase()]) start=m[1].toLowerCase();
+      else { var st=localStorage.getItem('ls-lang'); if(st && T[st.toLowerCase()]) start=st.toLowerCase(); }
+    }catch(e){}
     applyLang(start);
 
     // language dropdown
