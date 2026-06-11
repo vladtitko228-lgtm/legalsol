@@ -699,7 +699,7 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
 
   var state={step:0,score:0,answers:[]};
 
-  function getLang(){var l=(document.documentElement.lang||'').toLowerCase().slice(0,2);return STR[l]?l:(STR.ru?'ru':'en');}
+  function getLang(){var l=(document.documentElement.lang||'').toLowerCase().slice(0,2);return STR[l]?l:'en';}
   function dict(){return STR[getLang()];}
   function levelFromScore(s){if(s<=4)return'A1';if(s<=9)return'A2';if(s<=14)return'B1';if(s<=18)return'B2';return'C1';}
 

@@ -455,7 +455,7 @@ function renderPage(articles) {
         </button>
         <div class="lang-dd-panel">
           <a class="ldp-btn active" href="/blog"><svg width="20" height="14" viewBox="0 0 60 30" style="border-radius:2px;vertical-align:middle"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></svg><span>EN</span></a>
-          <a class="ldp-btn" href="/blog"><svg width="20" height="14" viewBox="0 0 9 6" style="border-radius:2px;vertical-align:middle"><rect width="9" height="2" fill="#fff"/><rect y="2" width="9" height="2" fill="#0039A6"/><rect y="4" width="9" height="2" fill="#D52B1E"/></svg><span>RU</span></a>
+          <a class="ldp-btn" href="/blog?lang=ru"><svg width="20" height="14" viewBox="0 0 9 6" style="border-radius:2px;vertical-align:middle"><rect width="9" height="2" fill="#fff"/><rect y="2" width="9" height="2" fill="#0039A6"/><rect y="4" width="9" height="2" fill="#D52B1E"/></svg><span>RU</span></a>
         </div>
       </div>
       <a href="https://www.legalsol.pl#tab-cabinet" class="nav-cab-btn">👤 Cabinet</a>
