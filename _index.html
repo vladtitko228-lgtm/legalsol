@@ -7815,7 +7815,8 @@ document.addEventListener('DOMContentLoaded', function(){
 <style id="header-since-badge">
 /* SINCE 2020 badge in the top nav */
 .preview-since-badge{
-  display:inline-flex;align-items:center;gap:5px;
+  display:none !important; /* 2026-06-11 Vlad: скрыть «SINCE 2020» возле лого (десктоп + телефон) */
+  align-items:center;gap:5px;
   font-family:'Lora',Georgia,serif;font-style:italic;
   font-size:10px;letter-spacing:1.8px;
   padding:4px 10px;border-radius:60px;
