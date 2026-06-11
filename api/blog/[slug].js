@@ -100,18 +100,21 @@ function blocksToHtml(blocks) {
 
       case "image":
 
-        const imgUrl = block.image.type === "external" ? block.image.external.url : block.image.file.url;
+        const imgUrl = safeUrl(block.image.type === "external" ? block.image.external.url : block.image.file.url);
 
         const caption = block.image.caption?.length ? richTextToHtml(block.image.caption) : "";
 
+        // alt — только чистый текст (caption — это уже HTML), экранированный для атрибута
+        const altText = esc((block.image.caption || []).map(t => t.plain_text).join("") || "Article image");
+
         // Premium magazine-style figure: gradient frame, hover zoom, italic caption with accent
-        html += `<figure class="article-img"><div class="article-img-frame"><img src="${imgUrl}" alt="${caption || 'Article image'}" loading="lazy" decoding="async"></div>${caption ? `<figcaption><span class="cap-bar"></span>${caption}</figcaption>` : ''}</figure>\n`;
+        html += imgUrl ? `<figure class="article-img"><div class="article-img-frame"><img src="${esc(imgUrl)}" alt="${altText}" loading="lazy" decoding="async"></div>${caption ? `<figcaption><span class="cap-bar"></span>${caption}</figcaption>` : ''}</figure>\n` : "";
 
         break;
 
       case "callout":
 
-        const icon = block.callout.icon?.emoji || "\u{1F4A1}";
+        const icon = esc(block.callout.icon?.emoji || "\u{1F4A1}");
 
         html += `<div class="callout"><span class="callout-icon">${icon}</span><div>${richTextToHtml(block.callout.rich_text)}</div></div>\n`;
 
@@ -151,7 +154,7 @@ function richTextToHtml(arr) {
 
     if (t.annotations.underline) s = `<u>${s}</u>`;
 
-    if (t.href) s = `<a href="${t.href}" target="_blank" rel="noopener">${s}</a>`;
+    if (t.href) { const u = safeUrl(t.href); if (u) s = `<a href="${esc(u)}" target="_blank" rel="noopener nofollow">${s}</a>`; }
 
     return s;
 
@@ -163,7 +166,23 @@ function richTextToHtml(arr) {
 
 function esc(s) {
 
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+}
+
+// Только безопасные схемы ссылок/картинок из Notion (отсекаем javascript:, data: и пр.)
+function safeUrl(u) {
+
+  u = String(u == null ? "" : u).trim();
+
+  return /^(https?:\/\/|mailto:|tel:|\/)/i.test(u) ? u : "";
+
+}
+
+// Экранирование JSON для вставки внутрь <script> (иначе "</script>" в тексте Notion закроет тег)
+function jsonForScript(obj) {
+
+  return JSON.stringify(obj).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
 
 }
 
@@ -437,7 +456,7 @@ function renderPage(a, contentHtml, faqs) {
 
   </script>
   ${Array.isArray(faqs) && faqs.length >= 2 ? `<script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":${JSON.stringify(faqs.map(f => ({
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":${jsonForScript(faqs.map(f => ({
     "@type": "Question",
     "name": f.q,
     "acceptedAnswer": { "@type": "Answer", "text": f.a }
@@ -1340,7 +1359,7 @@ function renderPage(a, contentHtml, faqs) {
 
         <div class="cta-btns-row">
 
-          <a href="https://wa.me/48735248525?text=${encodeURIComponent((isRu ? 'Здравствуйте! Читал статью «' : 'Hello! I read the article \\u201C') + title + (isRu ? '» на legalsol.pl. Хочу бесплатную консультацию.' : '\\u201D on legalsol.pl. I would like a free consultation.'))}" target="_blank" rel="noopener" class="cta-btn cta-btn-wa">
+          <a href="https://wa.me/48735248525?text=${encodeURIComponent((isRu ? 'Здравствуйте! Читал статью «' : 'Hello! I read the article \\u201C') + title + (isRu ? '» на legalsol.pl. Хочу бесплатную консультацию.' : '\\u201D on legalsol.pl. I would like a free consultation.'))}" target="_blank" rel="noopener" class="cta-btn cta-btn-wa" data-lead-source="blog_article_cta">
 
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 
@@ -1372,7 +1391,7 @@ function renderPage(a, contentHtml, faqs) {
 
   <div class="float-btns">
 
-    <a href="https://wa.me/48735248525" class="float-wa" target="_blank" rel="noopener">
+    <a href="https://wa.me/48735248525" class="float-wa" target="_blank" rel="noopener" data-lead-source="blog_float_wa">
 
       <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 
@@ -1799,7 +1818,7 @@ function renderPage(a, contentHtml, faqs) {
           '${isRu ? "телефон: " : "phone: "}'+phone+'. '+
           '${isRu ? "Статья: " : "Article: "}'+article+'.';
         modalBody.innerHTML='<p style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;margin:0 0 16px;">${isRu ? "Не хотите ждать? Напишите в WhatsApp — ответим сразу." : "Don\\u2019t want to wait? Message us on WhatsApp — we\\u2019ll reply immediately."}</p>'+
-          '<a href="https://wa.me/48735248525?text='+encodeURIComponent(prefillMsg)+'" target="_blank" rel="noopener" class="modal-wa-btn" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#25d366,#1eb555);">'+
+          '<a href="https://wa.me/48735248525?text='+encodeURIComponent(prefillMsg)+'" target="_blank" rel="noopener" class="modal-wa-btn" data-lead-source="blog_consult_modal" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#25d366,#1eb555);">'+
           '<svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'+
           '<span>${isRu ? "Написать в WhatsApp" : "Message us on WhatsApp"}</span>'+
           '</a>'+
@@ -1815,11 +1834,28 @@ function renderPage(a, contentHtml, faqs) {
       var href=a.getAttribute('href')||'';
       try{
         window.dataLayer=window.dataLayer||[];
-        if(href.indexOf('wa.me/')!==-1){
+        var isWa=href.indexOf('wa.me/')!==-1, isTel=href.indexOf('tel:')===0;
+        if(!isWa && !isTel) return;
+        if(isWa){
           window.dataLayer.push({event:'whatsapp_click',wa_link:href.split('?')[0],lead_page:location.pathname});
-        } else if(href.indexOf('tel:')===0){
+        } else {
           window.dataLayer.push({event:'phone_click',tel_link:href,lead_page:location.pathname});
         }
+        // Лид-интент с атрибуцией — GTM превращает lead_submit в GA4 generate_lead
+        // (только этот тег прокидывает lead_service/lead_lang/lead_source в GA4)
+        var p=location.pathname, svc='general';
+        if(p.indexOf('karta-pobytu')!==-1||p.indexOf('pmz')!==-1) svc='karta_pobytu';
+        else if(p.indexOf('citizenship')!==-1||p.indexOf('obywatelstwo')!==-1) svc='citizenship';
+        else if(p.indexOf('international-protection')!==-1) svc='international_protection';
+        else if(p.indexOf('work')!==-1||p.indexOf('visa')!==-1) svc='work_permit';
+        else if(p.indexOf('housing')!==-1||p.indexOf('rent')!==-1) svc='housing';
+        window.dataLayer.push({
+          event:'lead_submit',
+          lead_source:(isWa?'wa:':'tel:')+(a.getAttribute('data-lead-source')||a.id||'blog'),
+          lead_service:a.getAttribute('data-lead-service')||svc,
+          lead_lang:document.documentElement.lang||'unknown',
+          lead_page:p
+        });
       }catch(_){}
     });
 

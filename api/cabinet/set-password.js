@@ -15,10 +15,14 @@ module.exports = async function handler(req, res) {
   try {
     const { contactId, phone, password, adminToken } = await readJsonBody(req);
 
-    if (!ADMIN_TOKEN || adminToken !== ADMIN_TOKEN) {
+    // timing-safe сравнение admin-токена (обычное !== уязвимо к timing-атаке)
+    const okToken = ADMIN_TOKEN && typeof adminToken === 'string' &&
+      adminToken.length === ADMIN_TOKEN.length &&
+      require('crypto').timingSafeEqual(Buffer.from(adminToken), Buffer.from(ADMIN_TOKEN));
+    if (!okToken) {
       return res.status(401).json({ error: 'unauthorized' });
     }
-    if (!password || password.length < 4) {
+    if (!password || password.length < 8) {
       return res.status(400).json({ error: 'password_too_short' });
     }
 
