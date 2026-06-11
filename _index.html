@@ -10212,13 +10212,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-right hero-enter-right">
 
     <!-- Preview: video block replaces removed 3D map -->
-    <div class="hero-right-pv" onclick="window.open('https://www.youtube.com','_blank')">
+    <!-- Статичный фолбэк: превью реального ролика + ссылка на него (если JS-инжект
+         фасада не сработает, посетитель всё равно видит превью, а не лого,
+         и клик ведёт на само видео, а не на youtube.com). JS заменяет этот блок. -->
+    <a class="hero-right-pv" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener"
+       style="display:block;background:#0f0d22 center/cover no-repeat url('https://i.ytimg.com/vi/WRYMR8caNPc/maxresdefault.jpg');text-decoration:none;">
       <span class="hero-right-pv-badge">▶ ABOUT US</span>
       <div class="hero-right-pv-caption">
         <div class="hr-title">Watch how we help foreigners in Poland</div>
         <div class="hr-sub">30 sec · Vlad, founder · since 2020</div>
       </div>
-    </div>
+    </a>
     <a href="https://wa.me/48735248525?text=Hi%21%20I%20want%20my%20karta%20pobytu%20%E2%80%94%20legalsol.pl" target="_blank" rel="noopener" class="hero-right-cta-pv">
       🎴  Get your karta pobytu  →
     </a>
