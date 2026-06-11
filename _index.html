@@ -7667,6 +7667,16 @@ document.addEventListener('DOMContentLoaded', function(){
 .preview-hero-video-wrap iframe{
   position:absolute;inset:0;width:100%;height:100%;border:none;
 }
+/* Click-to-play фасад: затемнение для контраста постера + кнопка Play */
+.phv-facade{transition:filter .3s ease;}
+.phv-facade::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,13,34,.15),rgba(15,13,34,.45));}
+.phv-facade:hover{filter:brightness(1.06);}
+.phv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;
+  background:rgba(91,82,204,.92);box-shadow:0 10px 36px rgba(91,82,204,.5),0 0 0 8px rgba(255,255,255,.10);
+  display:flex;align-items:center;justify-content:center;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease;z-index:2;}
+.phv-play::before{content:'';margin-left:5px;border-style:solid;border-width:13px 0 13px 22px;border-color:transparent transparent transparent #fff;}
+.phv-facade:hover .phv-play{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 14px 44px rgba(91,82,204,.7),0 0 0 10px rgba(255,255,255,.14);}
+@media(max-width:760px){.phv-play{width:64px;height:64px;}.phv-play::before{border-width:11px 0 11px 18px;}}
 .preview-hero-video-caption{
   text-align:center;margin-top:18px;
   font-family:'Inter',sans-serif;font-size:13.5px;color:rgba(255,255,255,.65);
@@ -8266,15 +8276,29 @@ document.addEventListener('DOMContentLoaded', function(){
     if(hero && !document.querySelector('.preview-hero-video')){
       var vid = document.createElement('div');
       vid.className = 'preview-hero-video preview-hero-video-side';
+      // Click-to-play facade: своя картинка-превью + кнопка Play; YouTube грузится
+      // только по клику (быстрее загрузка + свой постер вместо дефолтной заставки YT).
+      // Постер заменить на свой: положи файл и поменяй путь в data-poster ниже.
+      var _ytId = 'WRYMR8caNPc';
+      var _poster = '/og-image.jpg';
       vid.innerHTML = ''
         +'<div class="preview-hero-video-wrap">'
-          +'<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc" title="LegalSol — about us" '
-          +'frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>'
+          +'<button class="phv-facade" data-yt="'+_ytId+'" aria-label="Play video" '
+            +'style="position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:#0f0d22 center/cover no-repeat url(\''+_poster+'\');">'
+            +'<span class="phv-play" aria-hidden="true"></span>'
+          +'</button>'
         +'</div>'
         +'<div class="preview-hero-video-cap">We tell you about our company</div>';
       var rc = hero.querySelector('.hero-right');
       if(rc){ rc.innerHTML = ''; rc.appendChild(vid); }
       else { hero.appendChild(vid); }
+      var _fac = vid.querySelector('.phv-facade');
+      if(_fac) _fac.addEventListener('click', function(){
+        var w = vid.querySelector('.preview-hero-video-wrap');
+        w.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/'+_ytId+'?autoplay=1&rel=0" '
+          +'title="LegalSol — about us" frameborder="0" '
+          +'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+      });
     }
 
     /* 1. Trust strip — inject right after Hero */
