@@ -3,7 +3,12 @@ const crypto = require('crypto');
 
 const KOMMO_SUBDOMAIN = process.env.KOMMO_SUBDOMAIN || 'legalsol';
 const KOMMO_TOKEN = process.env.KOMMO_TOKEN;
-const JWT_SECRET = process.env.CABINET_JWT_SECRET || 'change-me';
+// Без секрета — НЕ запускаемся: дефолтный секрет позволил бы подделать токен
+// любого клиента и слить его персональные данные (паспорт, гражданство и пр.).
+const JWT_SECRET = process.env.CABINET_JWT_SECRET;
+if (!JWT_SECRET || JWT_SECRET.length < 16) {
+  throw new Error('CABINET_JWT_SECRET is not set or too short (need >=16 chars) — refusing to start cabinet auth');
+}
 const PASSWORD_FIELD_ID = parseInt(process.env.KOMMO_PASSWORD_FIELD_ID || '2425096', 10);
 const PHONE_FIELD_ID = 2103374;
 const EMAIL_FIELD_ID = 2103376;

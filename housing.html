@@ -316,6 +316,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media(max-width:520px){.eco-grid{grid-template-columns:1fr;}}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;}.anim{opacity:1;transform:none;}}
 </style>
+<!-- Унифицированный переключатель языка + кнопка «назад» (одинаково на всех лендингах,
+     стиль как на главной). Вставлено 11.06.2026 — раньше каждый лендинг стилил по-своему,
+     а .nav-back был скрыт на мобиле (не было выхода со страницы). -->
+<style id="ls-canonical-lang-nav">
+.lang-dd{position:relative;z-index:9999;}
+.lang-dd-trigger{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:10px;
+  background:rgba(139,130,232,.12);border:1px solid rgba(139,130,232,.24);color:#fff;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.4px;cursor:pointer;line-height:1;
+  transition:background .18s,border-color .18s;-webkit-tap-highlight-color:transparent;}
+.lang-dd-trigger:hover{background:rgba(139,130,232,.22);border-color:rgba(139,130,232,.42);}
+.lang-dd-trigger .ldf{width:20px;height:14px;border-radius:3px;overflow:hidden;display:block;box-shadow:0 1px 3px rgba(0,0,0,.4);flex-shrink:0;}
+.lang-dd-trigger .ldf svg{display:block;width:100%;height:100%;}
+#lang-dd-arrow,.lang-dd-arrow{transition:transform .25s ease;opacity:.7;}
+.lang-dd.open #lang-dd-arrow,.lang-dd.open .lang-dd-arrow{transform:rotate(180deg);}
+.lang-dd-panel{position:absolute;top:calc(100% + 8px);right:0;min-width:200px;
+  background:rgba(20,16,50,.80);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(139,130,232,.24);border-radius:14px;padding:7px;
+  box-shadow:0 22px 60px rgba(0,0,0,.55);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);
+  transform-origin:top right;transition:opacity .26s ease,transform .3s cubic-bezier(.22,.61,.36,1),visibility .3s;}
+.lang-dd.open .lang-dd-panel{opacity:1;visibility:visible;transform:translateY(0) scale(1);}
+.lang-dd-panel .ldp-btn{display:flex;align-items:center;gap:9px;width:100%;background:none;border:1px solid transparent;
+  border-radius:10px;padding:8px 10px;cursor:pointer;color:rgba(255,255,255,.72);
+  font-family:'Inter',sans-serif;text-align:left;transition:background .15s,color .15s;}
+.lang-dd-panel .ldp-btn:hover,.lang-dd-panel .ldp-btn.active{background:rgba(91,82,204,.28);color:#fff;}
+.lang-dd-panel .ldp-flag{width:22px;height:15px;border-radius:3px;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.45);display:block;}
+.lang-dd-panel .ldp-flag svg{display:block;width:100%;height:100%;}
+.lang-dd-panel .ldp-code{font-size:11px;font-weight:700;letter-spacing:.5px;min-width:18px;}
+.lang-dd-panel .ldp-name{font-size:11px;font-weight:400;opacity:.7;flex:1;}
+/* Кнопка «назад на главную» — всегда видна, в т.ч. на мобиле */
+.nav-back{display:inline-flex!important;align-items:center;gap:5px;font-size:13px;line-height:1;
+  color:rgba(255,255,255,.72);text-decoration:none;padding:8px 12px;border-radius:10px;white-space:nowrap;
+  border:1px solid rgba(139,130,232,.22);background:rgba(139,130,232,.08);transition:all .18s;min-width:0;}
+.nav-back:hover{background:rgba(139,130,232,.2);color:#fff;}
+@media(max-width:600px){
+  .nav-back{padding:8px 11px;font-size:12px;}
+}
+</style>
+
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NVH4HK34" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1257,8 +1295,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <script>
-/* Cross-page WhatsApp click → GA4 wa_click with attribution.
-   Same handler as homepage — keeps lead_service/lead_lang/lead_source in dataLayer. */
+/* Cross-page WhatsApp click → GA4 с атрибуцией. Same handler as homepage.
+   GTM слушает только lead_submit/whatsapp_click/phone_click; параметры (lead_service
+   и др.) в GA4 прокидывает лишь тег lead_submit→generate_lead — поэтому пушим
+   whatsapp_click (счётчик клика) + lead_submit (лид-интент с атрибуцией). */
 document.addEventListener('click',function(e){
   var a=e.target.closest('a[href*="wa.me/"]');
   if(!a) return;
@@ -1278,12 +1318,13 @@ document.addEventListener('click',function(e){
                   || 'unknown';
     var lead_source = a.getAttribute('data-lead-source') || a.id || 'unknown';
     window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'whatsapp_click', wa_link:(a.getAttribute('href')||'').split('?')[0]});
     window.dataLayer.push({
-      event: 'wa_click',
+      event: 'lead_submit',
+      lead_source: 'wa:' + lead_source,
       lead_service: lead_service,
       lead_lang: lead_lang,
-      lead_source: lead_source,
-      page_path: location.pathname,
+      lead_page: location.pathname,
     });
   }catch(err){}
 });

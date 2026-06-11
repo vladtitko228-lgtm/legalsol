@@ -702,8 +702,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <script src="/cookie-banner.js" defer></script>
 <script>
-/* Cross-page WhatsApp click → GA4 wa_click with attribution.
-   Same handler as homepage — keeps lead_service/lead_lang/lead_source in dataLayer. */
+/* Cross-page WhatsApp click → GA4 с атрибуцией. Same handler as homepage.
+   GTM слушает только lead_submit/whatsapp_click/phone_click; параметры (lead_service
+   и др.) в GA4 прокидывает лишь тег lead_submit→generate_lead — поэтому пушим
+   whatsapp_click (счётчик клика) + lead_submit (лид-интент с атрибуцией). */
 document.addEventListener('click',function(e){
   var a=e.target.closest('a[href*="wa.me/"]');
   if(!a) return;
@@ -723,12 +725,13 @@ document.addEventListener('click',function(e){
                   || 'unknown';
     var lead_source = a.getAttribute('data-lead-source') || a.id || 'unknown';
     window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'whatsapp_click', wa_link:(a.getAttribute('href')||'').split('?')[0]});
     window.dataLayer.push({
-      event: 'wa_click',
+      event: 'lead_submit',
+      lead_source: 'wa:' + lead_source,
       lead_service: lead_service,
       lead_lang: lead_lang,
-      lead_source: lead_source,
-      page_path: location.pathname,
+      lead_page: location.pathname,
     });
   }catch(err){}
 });
