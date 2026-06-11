@@ -33427,8 +33427,13 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 
 <style id="emg-block-css">
 .emg-sec{position:relative;max-width:1040px;margin:56px auto;padding:0 16px;}
-.emg{position:relative;border-radius:28px;overflow:hidden;background:linear-gradient(160deg,rgba(40,18,18,.62),rgba(14,10,32,.92) 55%);border:1px solid rgba(248,113,113,.28);box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);padding:46px 44px 40px;}
-.emg::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 88% 0%,rgba(248,113,113,.16),transparent 60%);}
+.emg{position:relative;border-radius:28px;overflow:hidden;background:#0e0a20;border:1px solid rgba(248,113,113,.28);box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);padding:46px 44px 40px;}
+.emg-photo{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80&auto=format&fit=crop') center/cover;animation:emgZoom 26s ease-in-out infinite alternate;will-change:transform;}
+.emg-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(125deg,rgba(36,10,10,.80) 0%,rgba(14,10,32,.92) 52%,rgba(14,10,32,.97) 100%);}
+.emg>*:not(.emg-photo){position:relative;z-index:2;}
+@keyframes emgZoom{0%{transform:scale(1.03);}100%{transform:scale(1.12);}}
+@media(prefers-reduced-motion:reduce){.emg-photo{animation:none;}}
+.emg::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 88% 0%,rgba(248,113,113,.20),transparent 60%);}
 .emg-scan{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#f87171,#fbbf24,#f87171,transparent);background-size:200% 100%;animation:emgScan 3s linear infinite;}
 @keyframes emgScan{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 .emg-eb{display:inline-flex;align-items:center;gap:8px;font:800 11.5px/1 'Inter',sans-serif;letter-spacing:2px;text-transform:uppercase;color:#fca5a5;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3);padding:7px 14px;border-radius:60px;position:relative;}
@@ -33483,7 +33488,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
     var resp = sel<0
       ? '<div class="emg-resp-t">'+d.pick+'</div><div class="emg-resp-x">'+d.pickx+'</div>'
       : '<div class="emg-resp-t">'+d.resp[sel].t+'</div><div class="emg-resp-x">'+d.resp[sel].x+'</div>';
-    sec.innerHTML='<div class="emg"><div class="emg-scan"></div>'
+    sec.innerHTML='<div class="emg"><div class="emg-photo"></div><div class="emg-scan"></div>'
       +'<span class="emg-eb"><i></i>'+d.eb+'</span>'
       +'<h2 class="emg-h">'+d.h+'</h2>'
       +'<p class="emg-sub">'+d.sub+'</p>'
