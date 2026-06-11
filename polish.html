@@ -695,8 +695,237 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
         B2:{title:'Twój poziom: B2 — Wyższy średni',desc:'Wystarcza do obywatelstwa polskiego. Przygotowanie do egzaminu B2 w 8 tygodni.',recName:'B2 Exam Prep · obywatelstwo',recMeta:'8 tygodni · gwarancja zaliczenia · od 4500 zł'},
         C1:{title:'Twój poziom: C1 — Zaawansowany',desc:'Uniwersytecki poziom polskiego. Możesz aplikować na miejsca budżetowe (UW / AGH / PW).',recName:'C1 Academic · dokumenty na uczelnię',recMeta:'10–12 tygodni · przygotowanie do egzaminu'}
       }
-    }
-  };
+    },uk:{
+      title:'Дізнайтеся свій рівень польської',
+      total:'із 5',
+      back:'← Назад',
+      restart:'↻ Пройти ще раз',
+      ctaLabel:'📝 Записатися на безкоштовний пробний урок →',
+      recLbl:'📚 Рекомендований курс',
+      questions:[
+        {q:'Скільки часу ви вивчаєте польську?',a:[
+          {t:'Ніколи',p:0},
+          {t:'Менше року · кілька слів',p:1},
+          {t:'1–2 роки · можу говорити на базовому рівні',p:2},
+          {t:'3+ роки · говорю впевнено',p:4}
+        ]},
+        {q:'Чи зможете ви замовити їжу в польському кафе?',a:[
+          {t:'Ні, зовсім ні',p:0},
+          {t:'Жестами і кількома словами',p:1},
+          {t:'Так, розумію меню і роблю замовлення',p:2},
+          {t:'Так, ще й можу побалакати з офіціантом',p:3}
+        ]},
+        {q:'Чи можете ви прочитати польську новинну статтю?',a:[
+          {t:'Нічого не розумію',p:0},
+          {t:'З перекладачем — загальний зміст',p:1},
+          {t:'Розумію більшу частину',p:2},
+          {t:'Читаю вільно',p:4}
+        ]},
+        {q:'Чи змогли б ви пройти співбесіду польською?',a:[
+          {t:'Ні, мені потрібен перекладач',p:0},
+          {t:'Лише базова розмова',p:1},
+          {t:'Так, із певними труднощами',p:3},
+          {t:'Так, упевнено на складні теми',p:5}
+        ]},
+        {q:'Яка ваша мета?',a:[
+          {t:'Побут · покупки, документи',p:0},
+          {t:'Karta Pobytu (потрібен B1)',p:2},
+          {t:'Польське громадянство (потрібен B2)',p:3},
+          {t:'Університет у Польщі (потрібен C1)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Ваш рівень: A1 — Початковий',desc:'Ви тільки починаєте. Це нормально — 80% наших студентів стартують саме звідси.',recName:'Курс для початківців A1 → A2',recMeta:'60–80 годин · 4–6 місяців · від 80 zł/година'},
+        A2:{title:'Ваш рівень: A2 — Елементарний',desc:'У вас є основи. Близько 3–4 місяців інтенсиву — і ви дійдете до B1 (Karta Pobytu).',recName:'Елементарний курс A2 → B1',recMeta:'80 годин · 4 місяці · від 80 zł/година'},
+        B1:{title:'Ваш рівень: B1 — Середній',desc:'Вітаємо — це рівень, потрібний для Karta Pobytu. Ви готові до державного іспиту.',recName:'Підготовка до іспиту B1 · складання з першої спроби',recMeta:'8 тижнів · гарантія складання · від 4500 zł'},
+        B2:{title:'Ваш рівень: B2 — Вище середнього',desc:'Достатньо для польського громадянства. Готуємо до державного іспиту B2 за 8 тижнів.',recName:'Підготовка до іспиту B2 · громадянство',recMeta:'8 тижнів · гарантія складання · від 4500 zł'},
+        C1:{title:'Ваш рівень: C1 — Просунутий',desc:'Польська університетського рівня. Можете подаватися на бюджетні місця в UW / AGH / PW.',recName:'Академічний C1 · вступ',recMeta:'10–12 тижнів · підготовка до іспиту'}
+      }
+    },es:{
+      title:'Descubre tu nivel de polaco',
+      total:'de 5',
+      back:'← Atrás',
+      restart:'↻ Repetir',
+      ctaLabel:'📝 Reserva una clase de prueba gratis →',
+      recLbl:'📚 Curso recomendado',
+      questions:[
+        {q:'¿Cuánto tiempo llevas estudiando polaco?',a:[
+          {t:'Nunca',p:0},
+          {t:'Menos de un año · unas pocas palabras',p:1},
+          {t:'1–2 años · me defiendo con lo básico',p:2},
+          {t:'3+ años · hablo con soltura',p:4}
+        ]},
+        {q:'¿Puedes pedir comida en un café polaco?',a:[
+          {t:'No, para nada',p:0},
+          {t:'Con gestos y algunas palabras',p:1},
+          {t:'Sí, entiendo el menú y pido',p:2},
+          {t:'Sí, y hasta charlo con el camarero',p:3}
+        ]},
+        {q:'¿Puedes leer un artículo de noticias en polaco?',a:[
+          {t:'No entiendo nada',p:0},
+          {t:'Con traductor — la idea general',p:1},
+          {t:'Entiendo la mayor parte',p:2},
+          {t:'Leo con fluidez',p:4}
+        ]},
+        {q:'¿Podrías hacer una entrevista de trabajo en polaco?',a:[
+          {t:'No, necesito un traductor',p:0},
+          {t:'Solo una conversación básica',p:1},
+          {t:'Sí, con algo de dificultad',p:3},
+          {t:'Sí, con soltura sobre temas complejos',p:5}
+        ]},
+        {q:'¿Cuál es tu objetivo?',a:[
+          {t:'Vida cotidiana · compras, trámites',p:0},
+          {t:'Karta Pobytu (se requiere B1)',p:2},
+          {t:'Ciudadanía polaca (se requiere B2)',p:3},
+          {t:'Universidad en Polonia (se requiere C1)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Tu nivel: A1 — Principiante',desc:'Estás empezando. No pasa nada: el 80% de nuestros alumnos empieza aquí.',recName:'Curso para principiantes A1 → A2',recMeta:'60–80 horas · 4–6 meses · desde 80 zł/hora'},
+        A2:{title:'Tu nivel: A2 — Elemental',desc:'Ya tienes la base. Con unos 3–4 meses de intensivo llegarás al B1 (Karta Pobytu).',recName:'Curso elemental A2 → B1',recMeta:'80 horas · 4 meses · desde 80 zł/hora'},
+        B1:{title:'Tu nivel: B1 — Intermedio',desc:'Enhorabuena: este es el nivel exigido para la Karta Pobytu. Listo para el examen estatal.',recName:'Preparación examen B1 · aprobado al primer intento',recMeta:'8 semanas · garantía de aprobado · desde 4500 zł'},
+        B2:{title:'Tu nivel: B2 — Intermedio alto',desc:'Suficiente para la ciudadanía polaca. Preparamos el examen estatal B2 en 8 semanas.',recName:'Preparación examen B2 · ciudadanía',recMeta:'8 semanas · garantía de aprobado · desde 4500 zł'},
+        C1:{title:'Tu nivel: C1 — Avanzado',desc:'Polaco de nivel universitario. Puedes optar a plazas gratuitas en UW / AGH / PW.',recName:'C1 Académico · admisiones',recMeta:'10–12 semanas · preparación de examen'}
+      }
+    },tr:{
+      title:'Lehçe seviyeni öğren',
+      total:'/ 5',
+      back:'← Geri',
+      restart:'↻ Yeniden başlat',
+      ctaLabel:'📝 Ücretsiz deneme dersi ayırt →',
+      recLbl:'📚 Önerilen kurs',
+      questions:[
+        {q:'Ne zamandır Lehçe çalışıyorsun?',a:[
+          {t:'Hiç',p:0},
+          {t:'Bir yıldan az · birkaç kelime',p:1},
+          {t:'1–2 yıl · temel düzeyde konuşabilirim',p:2},
+          {t:'3+ yıl · rahatça konuşurum',p:4}
+        ]},
+        {q:'Bir Polonya kafesinde yemek sipariş edebilir misin?',a:[
+          {t:'Hayır, hiç',p:0},
+          {t:'El kol hareketleri ve birkaç kelimeyle',p:1},
+          {t:'Evet, menüyü anlar ve sipariş veririm',p:2},
+          {t:'Evet, garsonla sohbet bile ederim',p:3}
+        ]},
+        {q:'Lehçe bir haber yazısını okuyabilir misin?',a:[
+          {t:'Hiçbir şey anlamam',p:0},
+          {t:'Çeviri yardımıyla — ana fikri',p:1},
+          {t:'Büyük kısmını anlarım',p:2},
+          {t:'Akıcı şekilde okurum',p:4}
+        ]},
+        {q:'Lehçe bir iş görüşmesi yapabilir misin?',a:[
+          {t:'Hayır, çevirmene ihtiyacım var',p:0},
+          {t:'Sadece basit bir sohbet',p:1},
+          {t:'Evet, biraz zorlanarak',p:3},
+          {t:'Evet, karmaşık konularda rahatça',p:5}
+        ]},
+        {q:'Hedefin ne?',a:[
+          {t:'Günlük yaşam · alışveriş, evrak işleri',p:0},
+          {t:'Karta Pobytu (B1 gerekli)',p:2},
+          {t:'Polonya vatandaşlığı (B2 gerekli)',p:3},
+          {t:'Polonya\'da üniversite (C1 gerekli)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Seviyen: A1 — Başlangıç',desc:'Daha yeni başlıyorsun. Sorun değil — öğrencilerimizin %80\'i buradan başlıyor.',recName:'Başlangıç Kursu A1 → A2',recMeta:'60–80 saat · 4–6 ay · 80 zł/saatten başlayan'},
+        A2:{title:'Seviyen: A2 — Temel',desc:'Temellere sahipsin. Yaklaşık 3–4 aylık yoğun çalışmayla B1\'e (Karta Pobytu) ulaşırsın.',recName:'Temel Kurs A2 → B1',recMeta:'80 saat · 4 ay · 80 zł/saatten başlayan'},
+        B1:{title:'Seviyen: B1 — Orta',desc:'Tebrikler — bu, Karta Pobytu için gereken seviye. Devlet sınavına hazırsın.',recName:'B1 Sınav Hazırlığı · ilk denemede geçme',recMeta:'8 hafta · geçme garantisi · 4500 zł\'den başlayan'},
+        B2:{title:'Seviyen: B2 — Orta-üstü',desc:'Polonya vatandaşlığı için yeterli. Devlet B2 sınavına 8 haftada hazırlıyoruz.',recName:'B2 Sınav Hazırlığı · vatandaşlık',recMeta:'8 hafta · geçme garantisi · 4500 zł\'den başlayan'},
+        C1:{title:'Seviyen: C1 — İleri',desc:'Üniversite düzeyinde Lehçe. UW / AGH / PW\'de ücretsiz kontenjanlara başvurabilirsin.',recName:'C1 Akademik · kayıt',recMeta:'10–12 hafta · sınav hazırlığı'}
+      }
+    },az:{
+      title:'Polyak dili səviyyəni öyrən',
+      total:'/ 5',
+      back:'← Geri',
+      restart:'↻ Yenidən başla',
+      ctaLabel:'📝 Pulsuz sınaq dərsinə yazıl →',
+      recLbl:'📚 Tövsiyə olunan kurs',
+      questions:[
+        {q:'Polyak dilini nə vaxtdan öyrənirsən?',a:[
+          {t:'Heç vaxt',p:0},
+          {t:'Bir ildən az · bir neçə söz',p:1},
+          {t:'1–2 il · əsas səviyyədə danışa bilirəm',p:2},
+          {t:'3+ il · sərbəst danışıram',p:4}
+        ]},
+        {q:'Polyak kafesində yemək sifariş edə bilərsən?',a:[
+          {t:'Xeyr, ümumiyyətlə yox',p:0},
+          {t:'İşarələr və bir neçə sözlə',p:1},
+          {t:'Bəli, menyunu anlayır və sifariş verirəm',p:2},
+          {t:'Bəli, ofisiantla söhbət də edirəm',p:3}
+        ]},
+        {q:'Polyak dilində xəbər məqaləsini oxuya bilərsən?',a:[
+          {t:'Heç nə başa düşmürəm',p:0},
+          {t:'Tərcüməçi ilə — ümumi mənanı',p:1},
+          {t:'Çox hissəsini başa düşürəm',p:2},
+          {t:'Sərbəst oxuyuram',p:4}
+        ]},
+        {q:'Polyak dilində iş müsahibəsi keçə bilərsən?',a:[
+          {t:'Xeyr, tərcüməçiyə ehtiyacım var',p:0},
+          {t:'Yalnız sadə söhbət',p:1},
+          {t:'Bəli, bir az çətinliklə',p:3},
+          {t:'Bəli, mürəkkəb mövzularda sərbəst',p:5}
+        ]},
+        {q:'Məqsədin nədir?',a:[
+          {t:'Gündəlik həyat · alış-veriş, sənədlər',p:0},
+          {t:'Karta Pobytu (B1 tələb olunur)',p:2},
+          {t:'Polyak vətəndaşlığı (B2 tələb olunur)',p:3},
+          {t:'Polşada universitet (C1 tələb olunur)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'Səviyyən: A1 — Başlanğıc',desc:'Yenicə başlayırsan. Bu normaldır — tələbələrimizin 80%-i buradan başlayır.',recName:'Başlanğıc Kursu A1 → A2',recMeta:'60–80 saat · 4–6 ay · 80 zł/saatdan'},
+        A2:{title:'Səviyyən: A2 — İbtidai',desc:'Əsasların var. Təxminən 3–4 aylıq intensiv kurs səni B1-ə (Karta Pobytu) çatdıracaq.',recName:'İbtidai Kurs A2 → B1',recMeta:'80 saat · 4 ay · 80 zł/saatdan'},
+        B1:{title:'Səviyyən: B1 — Orta',desc:'Təbriklər — bu, Karta Pobytu üçün tələb olunan səviyyədir. Dövlət imtahanına hazırsan.',recName:'B1 İmtahan Hazırlığı · ilk cəhddə uğur',recMeta:'8 həftə · uğur zəmanəti · 4500 zł-dən'},
+        B2:{title:'Səviyyən: B2 — Ortadan yuxarı',desc:'Polyak vətəndaşlığı üçün kifayətdir. Dövlət B2 imtahanına 8 həftəyə hazırlayırıq.',recName:'B2 İmtahan Hazırlığı · vətəndaşlıq',recMeta:'8 həftə · uğur zəmanəti · 4500 zł-dən'},
+        C1:{title:'Səviyyən: C1 — Yüksək',desc:'Universitet səviyyəsində polyak dili. UW / AGH / PW-də pulsuz yerlərə müraciət edə bilərsən.',recName:'C1 Akademik · qəbul',recMeta:'10–12 həftə · imtahan hazırlığı'}
+      }
+    },hi:{
+      title:'अपना पोलिश स्तर जानें',
+      total:'/ 5',
+      back:'← पीछे',
+      restart:'↻ फिर से करें',
+      ctaLabel:'📝 मुफ़्त ट्रायल क्लास बुक करें →',
+      recLbl:'📚 अनुशंसित कोर्स',
+      questions:[
+        {q:'आप कब से पोलिश सीख रहे हैं?',a:[
+          {t:'कभी नहीं',p:0},
+          {t:'एक साल से कम · कुछ शब्द',p:1},
+          {t:'1–2 साल · बुनियादी बातचीत कर लेता हूँ',p:2},
+          {t:'3+ साल · आत्मविश्वास से बोलता हूँ',p:4}
+        ]},
+        {q:'क्या आप किसी पोलिश कैफ़े में खाना ऑर्डर कर सकते हैं?',a:[
+          {t:'नहीं, बिल्कुल नहीं',p:0},
+          {t:'इशारों और कुछ शब्दों से',p:1},
+          {t:'हाँ, मेन्यू समझकर ऑर्डर कर लेता हूँ',p:2},
+          {t:'हाँ, वेटर से थोड़ी बातचीत भी कर लेता हूँ',p:3}
+        ]},
+        {q:'क्या आप पोलिश समाचार लेख पढ़ सकते हैं?',a:[
+          {t:'मुझे कुछ समझ नहीं आता',p:0},
+          {t:'अनुवादक की मदद से — मुख्य बात',p:1},
+          {t:'ज़्यादातर हिस्सा समझ लेता हूँ',p:2},
+          {t:'धाराप्रवाह पढ़ लेता हूँ',p:4}
+        ]},
+        {q:'क्या आप पोलिश में नौकरी का इंटरव्यू दे सकते हैं?',a:[
+          {t:'नहीं, मुझे अनुवादक चाहिए',p:0},
+          {t:'केवल बुनियादी बातचीत',p:1},
+          {t:'हाँ, थोड़ी कठिनाई के साथ',p:3},
+          {t:'हाँ, जटिल विषयों पर आत्मविश्वास से',p:5}
+        ]},
+        {q:'आपका लक्ष्य क्या है?',a:[
+          {t:'रोज़मर्रा की ज़िंदगी · खरीदारी, कागज़ी काम',p:0},
+          {t:'Karta Pobytu (B1 आवश्यक)',p:2},
+          {t:'पोलिश नागरिकता (B2 आवश्यक)',p:3},
+          {t:'पोलैंड में विश्वविद्यालय (C1 आवश्यक)',p:4}
+        ]}
+      ],
+      results:{
+        A1:{title:'आपका स्तर: A1 — शुरुआती',desc:'आप अभी शुरुआत कर रहे हैं। कोई बात नहीं — हमारे 80% छात्र यहीं से शुरू करते हैं।',recName:'शुरुआती कोर्स A1 → A2',recMeta:'60–80 घंटे · 4–6 महीने · 80 zł/घंटा से'},
+        A2:{title:'आपका स्तर: A2 — प्रारंभिक',desc:'आपकी बुनियाद तैयार है। लगभग 3–4 महीने की गहन पढ़ाई आपको B1 (Karta Pobytu) तक पहुँचा देगी।',recName:'प्रारंभिक कोर्स A2 → B1',recMeta:'80 घंटे · 4 महीने · 80 zł/घंटा से'},
+        B1:{title:'आपका स्तर: B1 — मध्यम',desc:'बधाई हो — यही वह स्तर है जो Karta Pobytu के लिए ज़रूरी है। आप राज्य परीक्षा के लिए तैयार हैं।',recName:'B1 परीक्षा तैयारी · पहली बार में पास',recMeta:'8 सप्ताह · पास की गारंटी · 4500 zł से'},
+        B2:{title:'आपका स्तर: B2 — उच्च-मध्यम',desc:'पोलिश नागरिकता के लिए पर्याप्त। हम 8 सप्ताह में राज्य B2 परीक्षा की तैयारी कराते हैं।',recName:'B2 परीक्षा तैयारी · नागरिकता',recMeta:'8 सप्ताह · पास की गारंटी · 4500 zł से'},
+        C1:{title:'आपका स्तर: C1 — उन्नत',desc:'विश्वविद्यालय स्तर की पोलिश। आप UW / AGH / PW में मुफ़्त सीटों के लिए आवेदन कर सकते हैं।',recName:'C1 शैक्षणिक · प्रवेश',recMeta:'10–12 सप्ताह · परीक्षा तैयारी'}
+      }
+    }};
 
   var state={step:0,score:0,answers:[]};
 
