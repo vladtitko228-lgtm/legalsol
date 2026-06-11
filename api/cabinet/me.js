@@ -29,6 +29,8 @@ module.exports = async function handler(req, res) {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'method_not_allowed' });
   }
+  // Ответ содержит ПДн (паспорт/гражданство/заметки) — запрещаем любое кэширование
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   try {
     const token = readCookie(req, 'cabinet_token');
     const payload = verifyJwt(token);

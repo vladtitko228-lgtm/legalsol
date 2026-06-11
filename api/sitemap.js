@@ -6,6 +6,11 @@ const { Client } = require("@notionhq/client");
 
 const SITE = "https://www.legalsol.pl";
 
+// slug приходит из Notion — экранируем перед вставкой в XML (иначе & < > в slug ломают sitemap)
+function xmlEsc(s) {
+  return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 function txt(p) {
   if (!p) return "";
   if (p.type === "title") return (p.title || []).map(t => t.plain_text).join("");
@@ -69,12 +74,12 @@ ${allUrls.map(u => {
       const ruSlug = isEn ? u.slug.replace(/-en$/, '') : u.slug;
       const enSlug = isEn ? u.slug : u.slug + '-en';
       hreflang = `
-    <xhtml:link rel="alternate" hreflang="ru" href="${SITE}/blog/${ruSlug}"/>
-    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/blog/${enSlug}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/blog/${enSlug}"/>`;
+    <xhtml:link rel="alternate" hreflang="ru" href="${SITE}/blog/${xmlEsc(ruSlug)}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/blog/${xmlEsc(enSlug)}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/blog/${xmlEsc(enSlug)}"/>`;
     }
     return `  <url>
-    <loc>${u.loc}</loc>
+    <loc>${xmlEsc(u.loc)}</loc>
     ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : `<lastmod>${today}</lastmod>`}
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>${hreflang}
