@@ -2782,10 +2782,7 @@ document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',
   function applyB2BLang(lang, isInitial){
     if (!B2B_T[lang]) lang = 'en';
     function doSwap(){
-      Object.keys(B2B_T[lang]).forEach(function(id){
-        var el = document.getElementById(id);
-        if (el) el.innerHTML = B2B_T[lang][id];
-      });
+      (function(){var _ids={},_en=B2B_T.en||{};for(var _k in _en)_ids[_k]=1;for(var _k2 in B2B_T[lang])_ids[_k2]=1;Object.keys(_ids).forEach(function(id){var el=document.getElementById(id);if(!el)return;var v=(B2B_T[lang][id]!=null)?B2B_T[lang][id]:_en[id];if(v!=null)el.innerHTML=v;});})();
       try{localStorage.setItem('ls-lang', lang);}catch(e){}
       document.documentElement.lang = lang;
       // update trigger
