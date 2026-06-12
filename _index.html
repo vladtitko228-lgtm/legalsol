@@ -8,8 +8,8 @@
 <!-- Анти-вспышка языка: до перевода сырая разметка по-русски. На мобиле прелоадера
      нет, поэтому прячем контент до применения языка (setLang в _doInit снимет класс;
      setTimeout-страховка — на случай ошибки JS, чтобы страница не осталась пустой). -->
-<style>@media(max-width:768px){html.lng-init body{visibility:hidden!important;}}</style>
-<script>document.documentElement.classList.add('lng-init');setTimeout(function(){document.documentElement.classList.remove('lng-init');},700);</script>
+<style>html.lng-init body>*:not(#preloader){visibility:hidden!important;}</style>
+<script>document.documentElement.classList.add('lng-init');setTimeout(function(){document.documentElement.classList.remove('lng-init');},4000);</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
