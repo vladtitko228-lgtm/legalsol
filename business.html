@@ -1476,6 +1476,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   // Delegated events bind always — guarded by window.fbq, fire only once Pixel is loaded.
   document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
   document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+  // Баннер этой страницы шлёт same-tab событие при accept — грузим сразу
+  window.addEventListener('ls-consent',go);
   if(!go()){
     setTimeout(go,2000);
     window.addEventListener('storage',function(e){if(e.key&&(e.key.indexOf('cc')===0||e.key==='ls_cookie_v1'||e.key==='clarity_consent'))go();});
@@ -2920,5 +2922,9 @@ document.addEventListener('click',function(e){
   }catch(err){}
 });
 </script>
+<!-- Cookie consent banner (RODO) — даёт прямому рекламному трафику дать согласие на месте.
+     LS_CLARITY_TAG: у B2B-страницы свой Clarity-проект. -->
+<script>window.LS_CLARITY_TAG='tn4tw11pri';</script>
+<script src="/cookie-banner.js" defer></script>
 </body>
 </html>

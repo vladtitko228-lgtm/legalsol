@@ -373,6 +373,7 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
   }
   document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
   document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+  window.addEventListener('ls-consent',function(){if(consented())loadPixel();});
   if(consented()){loadPixel();return;}
   setTimeout(function(){if(consented())loadPixel();},2000);
   window.addEventListener('storage',function(e){if(e.key&&(e.key.indexOf('cc')===0||e.key==='ls_cookie_v1'||e.key==='clarity_consent'))if(consented())loadPixel();});
@@ -1738,5 +1739,8 @@ document.addEventListener('click',function(e){
   }catch(err){}
 });
 </script>
+<!-- Cookie consent banner (RODO) — согласие на месте для прямого трафика. -->
+<script>window.LS_CLARITY_TAG='tn4tw11pri';</script>
+<script src="/cookie-banner.js" defer></script>
 </body>
 </html>
