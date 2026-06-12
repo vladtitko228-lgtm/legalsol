@@ -19,6 +19,7 @@
     return false;
   }
   if (anyConsent()) return;
+  try { if (sessionStorage.getItem('ls_cb_closed')) return; } catch(e){}
 
   // Inject CSS
   var style = document.createElement('style');
@@ -72,6 +73,9 @@
   + '.ls-cb-p3 { left: 75%; animation-delay: 3s; background: rgba(255,107,53,0.5); box-shadow: 0 0 8px rgba(255,107,53,0.6); }'
   + '.ls-cb-p4 { left: 90%; animation-delay: 4.5s; }'
   + '@media (max-width: 800px) { #ls-cb { grid-template-columns: 1fr; padding: 18px; gap: 18px; bottom: 12px; width: calc(100vw - 24px); } .ls-cb-stage { width: 100%; height: 130px; } .ls-cb-btn { width: 100%; padding: 14px; } .ls-cb-text { font-size: 13px; } }'
+  + '@media (max-width: 640px) { #ls-cb { padding: 14px 14px 12px; gap: 10px; max-height: 36vh; overflow: auto; } .ls-cb-stage { display: none; } .ls-cb-pill { font-size: 14px; padding: 8px 14px; } .ls-cb-text { font-size: 12px; line-height: 1.5; } .ls-cb-btn { padding: 12px; font-size: 14px; } }'
+  + '#ls-cb-close { position: absolute; top: 10px; right: 12px; width: 30px; height: 30px; border-radius: 999px; border: 1px solid rgba(139,130,232,.35); background: rgba(139,130,232,.12); color: rgba(255,255,255,.75); font-size: 15px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }'
+  + '#ls-cb-close:hover { background: rgba(91,82,204,.3); color: #fff; }'
   + 'body.ls-cb-active #cc-main .cm, body.ls-cb-active #cm, body.ls-cb-active .cc--anim { display: none !important; }';
   document.head.appendChild(style);
 
@@ -92,6 +96,7 @@
 
   // Inject HTML
   var html = '<div id="ls-cb" role="dialog" aria-labelledby="ls-cb-title" aria-describedby="ls-cb-desc">'
+    + '<button id="ls-cb-close" type="button" aria-label="Close">\u2715</button>'
     + '<div class="ls-cb-stage" aria-hidden="true">'
     + '<div class="ls-cb-particle ls-cb-p1"></div>'
     + '<div class="ls-cb-particle ls-cb-p2"></div>'
@@ -139,6 +144,13 @@
     });
     document.getElementById('ls-cb-policy').addEventListener('click', function(){
       window.location.href = '/privacy#cookies';
+    });
+    var closeBtn = document.getElementById('ls-cb-close');
+    if (closeBtn) closeBtn.addEventListener('click', function(){
+      try { sessionStorage.setItem('ls_cb_closed','1'); } catch(e){}
+      el.classList.add('ls-cb-hide');
+      document.body.classList.remove('ls-cb-active');
+      setTimeout(function(){ el.remove(); }, 400);
     });
   }
 
