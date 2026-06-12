@@ -14802,6 +14802,51 @@ body.sv-detail-open #tab-services .sv-sidebar{display:none!important;}
 }
 /* v2 leftovers — never render */
 #tab-services .sv-card-image,#tab-services .sv-speed-line,#tab-services .sv-glow-border,#tab-services .sv-ripple,#tab-services .sv-card-arrow{display:none!important;}
+
+/* ═══════════ SERVICE DETAIL — v3 reskin (2026-06-12) ═══════════
+   Влад: деталь выглядела «плосковато» на фоне новых плиток. Причины: три
+   мутные сток-полосы (unsplash, чужой брендинг в кадре), полупрозрачный фон
+   детали (сквозь него просвечивал заголовок секции) и плоские карточки.
+   Чистый CSS-рескин: разметка/i18n/логика не тронуты. */
+/* заголовок секции не должен просвечивать под открытой деталью */
+body.sv-detail-open #tab-services .s-tag,
+body.sv-detail-open #tab-services .s-title,
+body.sv-detail-open #tab-services .s-desc{display:none!important;}
+/* плотный корпус детали в языке v3 */
+#tab-services .sv-detail{background:linear-gradient(168deg,rgba(27,22,64,.99),rgba(12,10,34,1))!important;
+  border:1px solid rgba(139,130,232,.22)!important;border-radius:26px!important;
+  box-shadow:0 34px 90px rgba(7,5,15,.6),0 0 0 1px rgba(124,92,252,.07)!important;}
+/* сток-полосы → чистые секционные шапки: фото и оверлей прячем, лейбл оформляем */
+#tab-services .svd-photo-strip{height:auto!important;min-height:0!important;margin:34px 0 18px!important;
+  background:linear-gradient(160deg,rgba(34,28,78,.82),rgba(16,13,42,.9))!important;
+  border:1px solid rgba(139,130,232,.18)!important;border-radius:18px!important;overflow:hidden;}
+#tab-services .svd-photo-strip img,
+#tab-services .svd-photo-strip .svd-photo-strip-overlay{display:none!important;}
+#tab-services .svd-photo-strip-label{position:static!important;display:flex!important;align-items:center;gap:15px;
+  padding:16px 20px!important;transform:none!important;}
+#tab-services .svd-photo-strip-icon{flex-shrink:0;width:46px;height:46px;border-radius:14px;
+  background:linear-gradient(135deg,#3D3585,#5B52CC);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px rgba(7,5,15,.45),inset 0 1px 0 rgba(255,255,255,.14);}
+#tab-services .svd-photo-strip-icon svg{width:22px;height:22px;}
+/* hero детали: фото глушим плотным брендовым градиентом — текст и статы дышат */
+#tab-services .svd-hero-v2 .svd-hero-img{opacity:.16!important;filter:saturate(.7) brightness(.8);}
+#tab-services .svd-hero-v2 .svd-hero-gradient{background:linear-gradient(165deg,rgba(27,22,64,.55) 0%,rgba(15,12,40,.92) 62%,rgba(12,10,34,.99) 100%)!important;}
+/* карточки «что входит» → v3-плитки */
+#tab-services .svd-benefit-card{background:linear-gradient(160deg,rgba(32,26,74,.72),rgba(15,12,40,.88))!important;
+  border:1px solid rgba(139,130,232,.16)!important;border-radius:18px!important;
+  transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .25s ease,box-shadow .3s ease;}
+@media(hover:hover){
+  #tab-services .svd-benefit-card:hover{transform:translateY(-4px);border-color:rgba(139,130,232,.42)!important;
+    box-shadow:0 16px 40px rgba(7,5,15,.4);}
+}
+#tab-services .svd-benefit-icon{background:linear-gradient(135deg,#3D3585,#5B52CC)!important;color:#fff!important;
+  border-radius:13px!important;box-shadow:0 6px 18px rgba(7,5,15,.4),inset 0 1px 0 rgba(255,255,255,.14)!important;}
+/* строки документов — фирменная рамка и плотный фон */
+#tab-services .svd-doc-row{background:linear-gradient(160deg,rgba(30,25,70,.6),rgba(15,12,40,.75))!important;
+  border:1px solid rgba(139,130,232,.14)!important;border-radius:14px!important;}
+#tab-services .svd-doc-row.req{border-left:3px solid rgba(124,92,252,.65)!important;border-radius:0 14px 14px 0!important;}
+
 /* mobile ≤960 — the existing compact 2-col tile grid stays (icon + name, tap
    opens detail); v3 only reskins the tile and hides desktop-only parts. */
 @media(max-width:960px){
