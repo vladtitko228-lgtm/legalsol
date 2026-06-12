@@ -2,7 +2,7 @@
 // Body: { contactId | phone, password, adminToken }
 const {
   kommo, findContactByPhone, hashPassword, readJsonBody,
-  PASSWORD_FIELD_ID
+  PASSWORD_FIELD_ID, clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
 const ADMIN_TOKEN = process.env.CABINET_ADMIN_TOKEN || '';
@@ -15,11 +15,19 @@ module.exports = async function handler(req, res) {
   try {
     const { contactId, phone, password, adminToken } = await readJsonBody(req);
 
+    // Брутфорс admin-токена: общий per-IP пул с логином (30/15 мин).
+    // Раньше эндпоинт был без лимита вовсе — токен можно было перебирать.
+    const ip = clientIp(req);
+    if (await rateLimitBlocked(ip, '__setpw__')) {
+      return res.status(429).json({ error: 'too_many_attempts' });
+    }
+
     // timing-safe сравнение admin-токена (обычное !== уязвимо к timing-атаке)
     const okToken = ADMIN_TOKEN && typeof adminToken === 'string' &&
       adminToken.length === ADMIN_TOKEN.length &&
       require('crypto').timingSafeEqual(Buffer.from(adminToken), Buffer.from(ADMIN_TOKEN));
     if (!okToken) {
+      await rateLimitFail(ip, '__setpw__');
       return res.status(401).json({ error: 'unauthorized' });
     }
     if (!password || password.length < 8) {

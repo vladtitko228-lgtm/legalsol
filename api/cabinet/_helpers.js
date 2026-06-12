@@ -348,8 +348,14 @@ async function kvCmd(...cmd) {
 }
 
 function clientIp(req) {
-  const xff = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
-  return xff || (req.socket && req.socket.remoteAddress) || 'unknown';
+  // Левый токен XFF контролируется клиентом (Vercel дописывает реальный IP в
+  // конец) — брать его значит позволить обходить rate-limit подделкой
+  // заголовка. x-real-ip Vercel выставляет сам и перезаписывает входящий.
+  const real = (req.headers['x-real-ip'] || '').trim();
+  if (real) return real;
+  const xff = (req.headers['x-forwarded-for'] || '').split(',');
+  const last = xff[xff.length - 1].trim();
+  return last || (req.socket && req.socket.remoteAddress) || 'unknown';
 }
 
 // true → заблокировать (лимит превышен)
