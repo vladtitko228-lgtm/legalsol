@@ -3957,7 +3957,7 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
-<style id="hero-consult-cta">
+<style id="hero-consult-cta-css">
 /* Hero secondary CTA — "Free consultation on WhatsApp"
    Subtle outline pill, sits right under the primary calc CTA.
    Different visual weight so it complements (not duplicates) hero-mega-cta. */
@@ -3981,6 +3981,18 @@ html.lang-switching * { transition: none !important; animation: none !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 28px rgba(37,211,102,.28);
 }
 .hero-consult-cta:active{transform:scale(.985);}
+/* Periodic shine sweep — draws the eye to the WhatsApp CTA. transform-only
+   (composited), fires once per ~5s; the global prefers-reduced-motion rule
+   collapses it. Pseudo-element, so the mobile decorative-animation kill-list
+   (which matches class names) does not affect it intentionally — this is the
+   primary conversion button. */
+.hero-consult-cta{position:relative;overflow:hidden;}
+.hero-consult-cta::after{content:'';position:absolute;top:0;left:0;width:55%;height:100%;
+  background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.28) 50%,transparent 75%);
+  transform:translateX(-170%) skewX(-18deg);
+  animation:lsCtaSheen 5.2s ease-in-out infinite;
+  pointer-events:none;}
+@keyframes lsCtaSheen{0%,64%{transform:translateX(-170%) skewX(-18deg);}90%,100%{transform:translateX(330%) skewX(-18deg);}}
 @media(max-width:960px){
   .hero-consult-cta{
     width:100%;max-width:420px;
