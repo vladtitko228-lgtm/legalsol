@@ -14738,6 +14738,11 @@ body.sv-detail-open #sv-back-wrap{
    footer. All v2 hooks kept: .sv-item-t (i18n titles), .sv-card-desc /
    .sv-card-tag / .sv3-stat (filled by fillSvcCardDescs), openSvc click. */
 #tab-services .sv-sidebar{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;perspective:none;}
+/* v3 regression fix: the grid rule above (ID selector) out-specifies the old
+   body.sv-detail-open .sv-sidebar{display:none} — so on desktop the grid kept
+   showing and the opened detail rendered BELOW it, off-screen ("opens at the
+   bottom"). Re-assert the hide with matching specificity. */
+body.sv-detail-open #tab-services .sv-sidebar{display:none!important;}
 #tab-services .sv-item{position:relative;display:flex;flex-direction:column;gap:12px;align-items:stretch;
   padding:24px 22px 20px;min-height:0;height:auto;border-radius:22px;overflow:hidden;cursor:pointer;
   background:linear-gradient(160deg,rgba(32,26,74,.72),rgba(15,12,40,.88));
