@@ -1,11 +1,24 @@
 /* Legal Solutions — Cookie Banner (RODO/GDPR)
    Animated banner with Karta Pobytu illustration.
-   Used on: homepage, /blog, /blog/<slug>, /privacy, /terms.
+   Used on: /guide, /business, /polish (landings define window.LS_CLARITY_TAG
+   before including this script to load their own Clarity project).
+   On accept: stores ls_cookie_v1, loads Clarity, and dispatches the same-tab
+   'ls-consent' event so page-level gates (Meta Pixel etc.) fire immediately.
 */
 (function(){
-  // Не показывать если уже принято
+  // Не показывать, если согласие уже дано ЛЮБЫМ баннером сайта
+  // (главная использует orestbida cc_cookie — не дублируем вопрос).
   var STORAGE_KEY = 'ls_cookie_v1';
-  if (localStorage.getItem(STORAGE_KEY)) return;
+  function anyConsent(){
+    try{
+      if (localStorage.getItem(STORAGE_KEY)) return true;
+      var cc = (localStorage.getItem('cc_cookie') || localStorage.getItem('cc-cookie') || '');
+      if (cc.indexOf('analytics') !== -1 || cc.indexOf('all') !== -1 || cc.indexOf('accepted') !== -1) return true;
+      if (localStorage.getItem('clarity_consent') === '1') return true;
+    }catch(e){}
+    return false;
+  }
+  if (anyConsent()) return;
 
   // Inject CSS
   var style = document.createElement('style');
@@ -120,6 +133,8 @@
       document.body.classList.remove('ls-cb-active');
       // Загрузить Microsoft Clarity после accept
       try { if (typeof loadClarity === 'function') loadClarity(); } catch(e){}
+      // Сообщить гейтам этой же вкладки (Pixel/Clarity на лендингах) — storage-событие в своей вкладке не стреляет
+      try { window.dispatchEvent(new CustomEvent('ls-consent')); } catch(e){}
       setTimeout(function(){ el.remove(); }, 400);
     });
     document.getElementById('ls-cb-policy').addEventListener('click', function(){
@@ -179,11 +194,12 @@
 function loadClarity(){
   if(window._clarityLoaded)return;
   window._clarityLoaded=true;
+  var _tag=(typeof window.LS_CLARITY_TAG==='string'&&window.LS_CLARITY_TAG)?window.LS_CLARITY_TAG:"wispohj28j";
   (function(c,l,a,r,i,t,y){
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window,document,"clarity","script","wispohj28j");
+  })(window,document,"clarity","script",_tag);
 }
 
 /* Глобально доступная функция — открыть настройки/политику */
