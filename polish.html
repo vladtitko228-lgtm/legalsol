@@ -353,15 +353,31 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 .toast.on{transform:translateX(-50%) translateY(0);}
 </style>
 
-<!-- Meta Pixel (FB/IG) — ID 1302017295233281. PageView + delegated Contact/Lead events. -->
+<!-- Meta Pixel (FB/IG) — RODO: грузится ТОЛЬКО после согласия (Clarity на этой странице
+     уже гейтится отдельно ниже). Проверяем cc_cookie / clarity_consent / ls_cookie_v1. -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1302017295233281');
-fbq('track','PageView');
-document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
-document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+(function(){
+  function consented(){
+    try{
+      var cc=(localStorage.getItem('cc_cookie')||localStorage.getItem('cc-cookie')||'');
+      if(cc.indexOf('analytics')!==-1||cc.indexOf('all')!==-1||cc.indexOf('accepted')!==-1)return true;
+      if(localStorage.getItem('clarity_consent')==='1')return true;
+      if(localStorage.getItem('ls_cookie_v1'))return true;
+    }catch(e){}
+    return false;
+  }
+  function loadPixel(){
+    if(window._mpLoaded)return; window._mpLoaded=true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','1302017295233281'); fbq('track','PageView');
+  }
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
+  document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+  if(consented()){loadPixel();return;}
+  setTimeout(function(){if(consented())loadPixel();},2000);
+  window.addEventListener('storage',function(e){if(e.key&&(e.key.indexOf('cc')===0||e.key==='ls_cookie_v1'||e.key==='clarity_consent'))if(consented())loadPixel();});
+})();
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1302017295233281&ev=PageView&noscript=1"/></noscript>
 <!-- Унифицированный переключатель языка + кнопка «назад» (одинаково на всех лендингах,
      стиль как на главной). Вставлено 11.06.2026 — раньше каждый лендинг стилил по-своему,
      а .nav-back был скрыт на мобиле (не было выхода со страницы). -->

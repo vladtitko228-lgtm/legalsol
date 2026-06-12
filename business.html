@@ -1449,20 +1449,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.legalsol.pl"},{"@type":"ListItem","position":2,"name":"Business","item":"https://www.legalsol.pl/business"}]}
 </script>
 
-<!-- Microsoft Clarity (раньше отсутствовал на B2B — теперь есть аналитика этой страницы) -->
+<!-- Analytics (Microsoft Clarity + Meta Pixel) — RODO: грузятся ТОЛЬКО после согласия на cookie.
+     Проверяем все три ключа согласия, которые ставят разные баннеры сайта:
+     cc_cookie (главная, orestbida), clarity_consent, ls_cookie_v1 (cookie-banner.js). -->
 <script>
-(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","tn4tw11pri");
+(function(){
+  function consented(){
+    try{
+      var cc=(localStorage.getItem('cc_cookie')||localStorage.getItem('cc-cookie')||'');
+      if(cc.indexOf('analytics')!==-1||cc.indexOf('all')!==-1||cc.indexOf('accepted')!==-1)return true;
+      if(localStorage.getItem('clarity_consent')==='1')return true;
+      if(localStorage.getItem('ls_cookie_v1'))return true;
+    }catch(e){}
+    return false;
+  }
+  function loadClarity(){
+    if(window._clarityLoaded)return; window._clarityLoaded=true;
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","tn4tw11pri");
+  }
+  function loadPixel(){
+    if(window._mpLoaded)return; window._mpLoaded=true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','1302017295233281'); fbq('track','PageView');
+  }
+  function go(){ if(consented()){ loadClarity(); loadPixel(); return true; } return false; }
+  // Delegated events bind always — guarded by window.fbq, fire only once Pixel is loaded.
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
+  document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
+  if(!go()){
+    setTimeout(go,2000);
+    window.addEventListener('storage',function(e){if(e.key&&(e.key.indexOf('cc')===0||e.key==='ls_cookie_v1'||e.key==='clarity_consent'))go();});
+  }
+})();
 </script>
-
-<!-- Meta Pixel (FB/IG) — ID 1302017295233281. PageView + delegated Contact/Lead events. -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1302017295233281');
-fbq('track','PageView');
-document.addEventListener('click',function(e){var a=e.target.closest('a[href*="wa.me/"]');if(a&&window.fbq)fbq('track','Contact',{content_name:'WhatsApp_click',source_url:location.pathname});});
-document.addEventListener('submit',function(e){if(window.fbq)fbq('track','Lead',{content_name:e.target.id||'form_submit',source_url:location.pathname});},true);
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1302017295233281&ev=PageView&noscript=1"/></noscript>
 <!-- Унифицированный переключатель языка + кнопка «назад» (одинаково на всех лендингах,
      стиль как на главной). Вставлено 11.06.2026 — раньше каждый лендинг стилил по-своему,
      а .nav-back был скрыт на мобиле (не было выхода со страницы). -->
