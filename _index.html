@@ -31847,65 +31847,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
 </script>
 
 
-<script>
-(function(){
-  var wrap = document.getElementById('hero-map-wrap');
-  if(!wrap) return;
-  // Страховка: на тяжёлой карте/слабом устройстве убедимся что hero виден
-  setTimeout(function(){
-    document.querySelectorAll('.hero-enter-left,.hero-enter-right').forEach(function(el){
-      if(parseFloat(getComputedStyle(el).opacity) < 0.05){ el.style.opacity='1'; el.style.transform='none'; }
-    });
-  }, 1600);
-
-  // На мобиле карту НЕ грузим вообще — ни JS, ни CSS (показываем лёгкий постер).
-  // Экономит ~374 KB и не блокирует LCP — критично для рекламного мобильного трафика.
-  if(window.matchMedia('(max-width: 900px)').matches) return;
-
-  // Десктоп: подгружаем Mapbox CSS + JS асинхронно (не блокируя рендер), потом инициализируем.
-  function lazyLoadMapbox(cb){
-    var css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css';
-    document.head.appendChild(css);
-    var s = document.createElement('script');
-    s.src = 'https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js';
-    s.async = true;
-    s.onload = cb;
-    document.head.appendChild(s);
-  }
-  // Запускаем после простоя браузера, чтобы не конкурировать с критичным рендером
-  var kick = function(){ lazyLoadMapbox(initHeroMap); };
-  if('requestIdleCallback' in window){ requestIdleCallback(kick, {timeout: 1500}); }
-  else { setTimeout(kick, 300); }
-
-  function initHeroMap(){
-  if(typeof mapboxgl === 'undefined') return;
-  // Container removed from DOM — skip silently
-  if(!document.getElementById('hero-map')) return;
-  mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
-  var OFFICE = [20.994474, 52.230356];
-  var map = new mapboxgl.Map({
-    container: 'hero-map',
-    style: 'mapbox://styles/mapbox/dark-v11',
-    center: OFFICE, zoom: 16.5, pitch: 62, bearing: -32, antialias: true,
-    attributionControl: true, cooperativeGestures: false
-  });
-  function ring(c, m){var p=[],R=6378137,d=m/R,la=c[1]*Math.PI/180;for(var i=0;i<=24;i++){var b=i/24*2*Math.PI;var sl=Math.sin(la)*Math.cos(d)+Math.cos(la)*Math.sin(d)*Math.cos(b);var nl=Math.asin(sl);var ng=c[0]*Math.PI/180+Math.atan2(Math.sin(b)*Math.sin(d)*Math.cos(la),Math.cos(d)-Math.sin(la)*sl);p.push([ng*180/Math.PI,nl*180/Math.PI]);}return p;}
-  map.on('load', function(){
-    var layers = map.getStyle().layers;
-    var lbl; for(var k=0;k<layers.length;k++){if(layers[k].type==='symbol'&&layers[k].layout&&layers[k].layout['text-field']){lbl=layers[k].id;break;}}
-    map.addLayer({id:'3d-buildings',source:'composite','source-layer':'building',filter:['==','extrude','true'],type:'fill-extrusion',minzoom:14,paint:{'fill-extrusion-color':['interpolate',['linear'],['get','height'],0,'#2D2869',15,'#3D3585',40,'#5B52CC',80,'#7C5CFC'],'fill-extrusion-height':['interpolate',['linear'],['zoom'],14,0,14.5,['get','height']],'fill-extrusion-base':['interpolate',['linear'],['zoom'],14,0,14.5,['get','min_height']],'fill-extrusion-opacity':0.95}}, lbl);
-    map.addSource('off-tower',{type:'geojson',data:{type:'Feature',geometry:{type:'Polygon',coordinates:[ring(OFFICE,18)]}}});
-    map.addLayer({id:'off-tower-3d',type:'fill-extrusion',source:'off-tower',paint:{'fill-extrusion-color':'#FBBF24','fill-extrusion-height':90,'fill-extrusion-base':0,'fill-extrusion-opacity':0.78}});
-    var el=document.createElement('div');el.className='hm-pin';
-    var pop=new mapboxgl.Popup({closeButton:false,closeOnClick:false,offset:24,anchor:'bottom'}).setHTML('<div style="font-family:SF Mono,monospace;font-size:9.5px;color:#FBBF24;letter-spacing:1.5px;margin-bottom:3px;">★ LEGALSOL OFFICE</div><div style="font-size:14px;font-weight:700;color:#fff;">Sienna 75</div><div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;">00-833 Warszawa · Wola</div><a href="https://maps.google.com/?q=Sienna+75+00-833+Warszawa" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;background:#FBBF24;color:#1A0E00;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;text-decoration:none;">Open in Google Maps →</a>');
-    new mapboxgl.Marker({element:el}).setLngLat(OFFICE).setPopup(pop).addTo(map).togglePopup();
-    var b=-32; (function rot(){b+=0.05;map.setBearing(b);requestAnimationFrame(rot);})();
-  });
-  } // end initHeroMap
-})();
-</script>
+<!-- mapbox office map removed (container long gone; dead loader + token purged) -->
 
 <!-- ════════════════════════════════════════════════════════════
      CABINET BEFORE/AFTER — pains vs cabinet life + day-one outcomes
