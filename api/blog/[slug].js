@@ -1366,6 +1366,8 @@ function renderPage(a, contentHtml, faqs) {
             ${t.ctaBtnWa}
 
           </a>
+          <span class="cta-btn-or">${t.ctaOr}</span>
+          <button type="button" onclick="openConsultModal()" class="cta-btn cta-btn-request" data-lead-source="blog_article_form">${t.ctaBtnRequest}</button>
 
         </div>
 
