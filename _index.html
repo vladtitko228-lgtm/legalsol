@@ -4506,6 +4506,8 @@ window.PV_I18N_APPLY = function(lang){
 </head>
 
 <body>
+<a class="ls-skip" href="#main-content">Skip to content</a>
+<style>.ls-skip{position:fixed;top:8px;left:8px;z-index:100001;background:#5B52CC;color:#fff;padding:12px 20px;border-radius:10px;font:600 14px/1 'Inter',sans-serif;text-decoration:none;transform:translateY(-160%);transition:transform .18s ease;}.ls-skip:focus{transform:translateY(0);outline:2px solid #fff;outline-offset:2px;}</style>
 
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=Caveat:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,500&family=Caveat:wght@500;700&display=swap" rel="stylesheet"></noscript>
 
@@ -10194,7 +10196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══ TAB: ГЛАВНАЯ ═══ -->
 
-<div id="tab-home" class="tab-content active">
+<div id="tab-home" class="tab-content active" role="main"><span id="main-content" tabindex="-1" style="position:absolute;width:1px;height:1px;overflow:hidden;"></span>
 
 
 
