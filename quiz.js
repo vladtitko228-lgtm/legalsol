@@ -29,6 +29,8 @@
     bolt:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
   };
   function ic(n,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||20)+'" height="'+(sz||20)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+P[n]+'</svg>';}
+  /* exact site brand mark */
+  var LOGO='<svg class="lsq-mark" width="26" height="24" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>';
 
   /* ---- question structure (stable values; labels come from TXT) ---- */
   var QSDEF=[
@@ -222,9 +224,9 @@
     fab.innerHTML='<span class="lsq-fdot"></span>'+ic('compass',19)+'<span id="lsq-fab-tx">'+esc(t.fab)+'</span>';
     ov=document.createElement('div');
     ov.id='lsq-ov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',t.dialog);
-    ov.innerHTML='<div id="lsq-card"><div id="lsq-head"><div class="lsq-brand"><span class="lsq-logo">'+ic('shield',15)+'</span><span id="lsq-brand-tx">LegalSol</span></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
+    ov.innerHTML='<div id="lsq-card"><div id="lsq-head"><div class="lsq-brand">'+LOGO+'<div class="lsq-bn"><span class="lsq-name">LEGALSOL</span><span class="lsq-sub">LEGALIZATION SERVICES</span></div></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
     document.body.appendChild(fab); document.body.appendChild(ov);
-    bodyEl=document.getElementById('lsq-body'); barEl=document.getElementById('lsq-bar'); stepEl=document.getElementById('lsq-step'); brandEl=document.getElementById('lsq-brand-tx'); card=document.getElementById('lsq-card');
+    bodyEl=document.getElementById('lsq-body'); barEl=document.getElementById('lsq-bar'); stepEl=document.getElementById('lsq-step'); card=document.getElementById('lsq-card');
     fab.addEventListener('click',open);
     document.getElementById('lsq-close').addEventListener('click',close);
     ov.addEventListener('click',function(e){if(e.target===ov)close();});
@@ -241,7 +243,7 @@
   function setProg(){var n=QSDEF.length,cur=Math.min(step,n);barEl.style.width=Math.round((cur/(n+1))*100)+'%';stepEl.textContent=step<n?T().stepFmt(step+1,n):(step===n?T().almost:T().done);if(step>n)barEl.style.width='100%';}
 
   function render(){
-    var t=T(); brandEl.textContent='LegalSol'; setProg();
+    var t=T(); setProg();
     if(step<QSDEF.length){
       var D=QSDEF[step],id=D.id;
       var h='<div class="lsq-slide"><h3 class="lsq-qh">'+t.q[id]+'</h3>';
@@ -308,8 +310,11 @@
   +'#lsq-card{width:100%;max-width:468px;margin:auto;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(10,6,25,.45);font-family:Inter,system-ui,sans-serif;animation:lsqUp .35s cubic-bezier(.16,1,.3,1);outline:none;}'
   +'@keyframes lsqUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}'
   +'#lsq-head{position:relative;padding:18px 20px 14px;border-bottom:1px solid #f0eef8;}'
-  +'.lsq-brand{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:#1a1535;}'
-  +'.lsq-logo{width:24px;height:24px;border-radius:7px;background:#7C5CFC;color:#fff;display:inline-flex;align-items:center;justify-content:center;}'
+  +'.lsq-brand{display:flex;align-items:center;gap:9px;}'
+  +'.lsq-mark{flex-shrink:0;display:block;}'
+  +'.lsq-bn{display:flex;flex-direction:column;line-height:1;}'
+  +'.lsq-name{font-size:13px;font-weight:800;letter-spacing:.04em;color:#1a1535;}'
+  +'.lsq-sub{font-size:8px;font-weight:600;letter-spacing:.16em;color:#9a93b5;text-transform:uppercase;margin-top:3px;}'
   +'#lsq-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;background:#f4f2fb;color:#8b84a8;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s;}'
   +'#lsq-close:hover{background:#ece9f6;color:#1a1535;}'
   +'.lsq-progwrap{margin:12px 0 7px;}#lsq-step{font-size:11.5px;color:#8b84a8;font-weight:600;}'
