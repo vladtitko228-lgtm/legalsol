@@ -47,7 +47,7 @@
 
   var TXT={
    en:{
-    fab:'Find your path', dialog:'Legalization path quiz', back:'Back', restart:'Start over', close:'Close',
+    fab:'Check your chances', dialog:'Legalization path quiz', back:'Back', restart:'Start over', close:'Close',
     stepFmt:function(a,b){return 'Step '+a+' of '+b;}, almost:'almost done', done:'done',
     contactH:'Preparing your analysis', contactS:'Leave your contact — we will send a personal analysis and plan. Or message us on WhatsApp right away; your answers are already collected.',
     name:'Your name', phone:'Phone / WhatsApp', submit:'Show my analysis', or:'or', waPre:'Straight to WhatsApp with all answers',
@@ -99,7 +99,7 @@
     wa:{intro:'Hello! I took the quiz on the LegalSol site. My situation:',lbl:{goal:'Need',cit:'Citizenship',now:'Status now',basis:'Basis',expiry:'Expires',profil:'Profil Zaufany',dur:'In Poland',family:'Family',ref:'Applied before'},name:'Name',tail:'I want the analysis and a free consultation.'}
    },
    ru:{
-    fab:'Подобрать путь', dialog:'Квиз по легализации', back:'Назад', restart:'Пройти заново', close:'Закрыть',
+    fab:'Узнай свои шансы', dialog:'Квиз по легализации', back:'Назад', restart:'Пройти заново', close:'Закрыть',
     stepFmt:function(a,b){return 'Шаг '+a+' из '+b;}, almost:'почти готово', done:'готово',
     contactH:'Готовим ваш разбор', contactS:'Оставьте контакт — пришлём персональный разбор и план. Или сразу напишите в WhatsApp, мы уже собрали ваши ответы.',
     name:'Ваше имя', phone:'Телефон / WhatsApp', submit:'Показать мой разбор', or:'или', waPre:'Сразу в WhatsApp со всеми ответами',
