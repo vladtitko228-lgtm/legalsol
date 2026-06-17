@@ -21288,13 +21288,13 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <div class="cab-quick-actions">
 
-        <div class="cab-qa-btn" onclick="cabToast('Открываем форму новой услуги...','info');setTimeout(openModal,400)">
+        <div class="cab-qa-btn" onclick="cabRequestUpdate()" style="border-color:rgba(91,82,204,.35);background:linear-gradient(135deg,#fff,#f3f1ff)">
 
-          <div class="cab-qa-ico">➕</div>
+          <div class="cab-qa-ico">🔄</div>
 
-          <div class="cab-qa-label">Добавить услугу</div>
+          <div class="cab-qa-label">Запросить апдейт</div>
 
-          <div class="cab-qa-sub">Начать новое дело</div>
+          <div class="cab-qa-sub">Узнать статус дела</div>
 
         </div>
 
@@ -22816,6 +22816,30 @@ async function cabSend(){
     cabToast('Не удалось отправить. Попробуйте ещё раз или напишите в WhatsApp.','error');
   }finally{
     if(inp){inp.disabled=false;inp.focus();}
+  }
+}
+
+// Кнопка «Запросить апдейт» — один тап: отправляет стандартный запрос статуса
+// по делу клиента. Дальше: ИИ готовит ответ → менеджер апрувит → клиент видит в Сообщениях.
+async function cabRequestUpdate(leadId){
+  var caseData=leadId
+    ? CAB_CASES.find(function(c){return c._kommoLeadId===leadId||c.id===leadId;})
+    : (CAB_CASES[0]||null);
+  if(!caseData){cabToast('Нет активного дела','info');return;}
+  var lid=caseData._kommoLeadId;
+  var txt='Прошу обновить статус по моему делу — на каком этапе сейчас и что дальше?';
+  caseData._chat=(caseData._chat||[]).concat([{from:'client',text:txt,createdAt:Date.now()}]);
+  cabToast('Запрос отправлен — ответ придёт в «Сообщения»','success');
+  try{
+    var r=await fetch('/api/cabinet/me',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({leadId:lid,text:txt})
+    });
+    if(!r.ok)throw new Error();
+    // Перекинем в Сообщения, чтобы клиент видел переписку и будущий ответ
+    cabPage('messages',document.querySelectorAll('.cab-nav-item')[2]);
+  }catch(e){
+    cabToast('Не удалось отправить. Попробуйте ещё раз.','error');
   }
 }
 
