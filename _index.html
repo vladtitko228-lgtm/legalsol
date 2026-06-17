@@ -22782,8 +22782,9 @@ function cabLoadChat(){
       var mine=u.from==='client';
       var bubble=document.createElement('div');
       bubble.className='cab-msg'+(mine?' usr':' spec');
-      var body='<div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
-        '<div class="cab-msg-meta">'+(mine?'Вы':'Менеджер')+' · '+timeStr+'</div>';
+      var metaTxt=(mine?'Вы':'Менеджер')+' · '+(u._pending?'отправляется…':timeStr);
+      var body='<div class="cab-msg-bbl"'+(u._pending?' style="opacity:.6"':'')+'>'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+        '<div class="cab-msg-meta">'+metaTxt+'</div>';
       bubble.innerHTML=
         '<div class="cab-msg-av '+(mine?'usr':'spec')+'">'+(mine?'Вы':'LS')+'</div>'+
         '<div>'+body+'</div>';
@@ -22799,21 +22800,32 @@ async function cabSend(){
   if(!txt){cabToast('Напишите сообщение','info');return;}
   var sel=document.getElementById('cab-chat-sel');
   var cid=sel?sel.value:(CAB_CASES[0]&&CAB_CASES[0].id);
-  var caseData=CAB_CASES.find(function(c){return c.id===cid;});
+  var caseData=CAB_CASES.find(function(c){return c.id===cid;})||CAB_CASES[0];
   var leadId=caseData?caseData._kommoLeadId:null;
-  if(inp){inp.disabled=true;}
-  // Оптимистично показываем своё сообщение сразу
-  if(caseData){caseData._chat=(caseData._chat||[]).concat([{from:'client',text:txt,createdAt:Date.now()}]);cabLoadChat();}
-  try{
+  if(inp){inp.disabled=true;inp.value='';}
+  // Оптимистично показываем своё сообщение с пометкой «отправляется»
+  var stamp=Date.now();
+  if(caseData){caseData._chat=(caseData._chat||[]).concat([{from:'client',text:txt,createdAt:stamp,_pending:true}]);cabLoadChat();}
+
+  async function attempt(){
     var r=await fetch('/api/cabinet/me',{
       method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
       body:JSON.stringify({leadId:leadId,text:txt})
     });
-    if(!r.ok)throw new Error();
-    if(inp)inp.value='';
-    cabToast('Отправлено менеджеру','success');
+    if(!r.ok)throw new Error('http '+r.status);
+    return true;
+  }
+  try{
+    try{ await attempt(); }
+    catch(e1){ await new Promise(function(r){setTimeout(r,900);}); await attempt(); } // 1 авто-повтор
+    // успех — снимаем пометку pending
+    if(caseData&&caseData._chat){var m=caseData._chat.find(function(x){return x.createdAt===stamp;});if(m)delete m._pending;}
+    cabToast('Отправлено','success');
   }catch(e){
-    cabToast('Не удалось отправить. Попробуйте ещё раз или напишите в WhatsApp.','error');
+    // убираем «фантомное» сообщение и возвращаем текст в поле
+    if(caseData&&caseData._chat){caseData._chat=caseData._chat.filter(function(x){return x.createdAt!==stamp;});cabLoadChat();}
+    if(inp)inp.value=txt;
+    cabToast('Не удалось отправить. Попробуйте ещё раз.','error');
   }finally{
     if(inp){inp.disabled=false;inp.focus();}
   }
