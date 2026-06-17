@@ -26,7 +26,8 @@
     shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
     checkc:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
     chat:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
-    bolt:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
+    bolt:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
   };
   function ic(n,sz){return '<svg viewBox="0 0 24 24" width="'+(sz||20)+'" height="'+(sz||20)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+P[n]+'</svg>';}
   /* exact site brand mark */
@@ -53,6 +54,7 @@
     name:'Your name', phone:'Phone / WhatsApp', submit:'Show my analysis', or:'or', waPre:'Straight to WhatsApp with all answers',
     resultH:'Analysis of your situation', accepted:'Request received — we reply on WhatsApp within 15 minutes',
     secCritical:'Urgent now', secTiming:'Time-sensitive', secLaw:'Where you stand legally', secPath:'Your path', secSteps:'What we will do', secWhy:'Why LegalSol',
+    recommended:'Recommended for you', tFree:'Free', tReply:'15-min reply', tNoSpam:'No spam', bApproval:'approval rate', bClients:'clients', bAppeal:'appeal for clients', bFree:'Free',
     waResultUrgent:'Urgently to a lawyer on WhatsApp', waResult:'Discuss the analysis on WhatsApp', yourCountry:'your country',
     q:{goal:'What do you need?',cit:'Your citizenship?',now:'Are you in Poland now?',basis:'On what basis do you stay?',expiry:'When does your current status expire?',profil:'Do you have a Profil Zaufany?',dur:'How long have you been in Poland?',family:'Are you moving with family?',ref:'Have you applied before?'},
     s:{goal:'Your main goal — we will find the exact path',cit:'Your country determines documents and apostilles',basis:'What backs your status',expiry:'From 27.04.2026 filing is online via MOS only — timing is critical',profil:'A trusted e-signature. Without it you cannot file online — it is the first step',dur:'Time of residence affects the path to PR and citizenship',family:'We file for everyone together — one package, one timeline'},
@@ -105,6 +107,7 @@
     name:'Ваше имя', phone:'Телефон / WhatsApp', submit:'Показать мой разбор', or:'или', waPre:'Сразу в WhatsApp со всеми ответами',
     resultH:'Разбор вашей ситуации', accepted:'Заявка принята — ответим в WhatsApp за 15 минут',
     secCritical:'Критично сейчас', secTiming:'Важно по срокам', secLaw:'Что у вас по закону', secPath:'Ваш путь', secSteps:'Что мы сделаем', secWhy:'Почему LegalSol',
+    recommended:'Рекомендуем вам', tFree:'Бесплатно', tReply:'Ответ 15 мин', tNoSpam:'Без спама', bApproval:'одобрений', bClients:'клиентов', bAppeal:'апелляция клиентам', bFree:'Беспл.',
     waResultUrgent:'Срочно к юристу в WhatsApp', waResult:'Обсудить разбор в WhatsApp', yourCountry:'вашей страны',
     q:{goal:'Что вам нужно?',cit:'Ваше гражданство?',now:'Вы сейчас в Польше?',basis:'На каком основании пребывание?',expiry:'Когда истекает текущий статус?',profil:'Есть Profil Zaufany?',dur:'Как долго вы в Польше?',family:'Переезжаете с семьёй?',ref:'Подавали заявление раньше?'},
     s:{goal:'Главная цель — подберём точный путь',cit:'От страны зависит набор документов и апостили',basis:'Чем подтверждается ваш статус',expiry:'С 27.04.2026 подача только онлайн через MOS — сроки критичны',profil:'Электронная подпись. Без неё подать онлайн нельзя — это первый шаг',dur:'Стаж влияет на путь к ПМЖ и гражданству',family:'Соберём заявки всех вместе — одним пакетом, в один срок'},
@@ -212,7 +215,7 @@
   }
 
   /* ---- DOM scaffold ---- */
-  var fab,ov,card,bodyEl,barEl,stepEl,brandEl;
+  var fab,ov,card,bodyEl,barEl,stepEl,pctEl,brandEl;
   function build(){
     LANG=pickLang();
     var st=document.createElement('style');
@@ -224,9 +227,9 @@
     fab.innerHTML='<span class="lsq-fdot"></span>'+ic('compass',19)+'<span id="lsq-fab-tx">'+esc(t.fab)+'</span>';
     ov=document.createElement('div');
     ov.id='lsq-ov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',t.dialog);
-    ov.innerHTML='<div id="lsq-card"><div id="lsq-head"><div class="lsq-brand">'+LOGO+'<div class="lsq-bn"><span class="lsq-name">LEGALSOL</span><span class="lsq-sub">LEGALIZATION SERVICES</span></div></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
+    ov.innerHTML='<div id="lsq-card"><div class="lsq-accent"></div><div id="lsq-head"><div class="lsq-brand">'+LOGO+'<div class="lsq-bn"><span class="lsq-name">LEGALSOL</span><span class="lsq-sub">LEGALIZATION SERVICES</span></div></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span><span id="lsq-pct"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
     document.body.appendChild(fab); document.body.appendChild(ov);
-    bodyEl=document.getElementById('lsq-body'); barEl=document.getElementById('lsq-bar'); stepEl=document.getElementById('lsq-step'); card=document.getElementById('lsq-card');
+    bodyEl=document.getElementById('lsq-body'); barEl=document.getElementById('lsq-bar'); stepEl=document.getElementById('lsq-step'); pctEl=document.getElementById('lsq-pct'); card=document.getElementById('lsq-card');
     fab.addEventListener('click',open);
     document.getElementById('lsq-close').addEventListener('click',close);
     ov.addEventListener('click',function(e){if(e.target===ov)close();});
@@ -240,7 +243,7 @@
     try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'quiz_open',quiz_lang:LANG});}catch(e){}}
   function close(){ov.classList.remove('on');document.documentElement.style.overflow='';}
 
-  function setProg(){var n=QSDEF.length,cur=Math.min(step,n);barEl.style.width=Math.round((cur/(n+1))*100)+'%';stepEl.textContent=step<n?T().stepFmt(step+1,n):(step===n?T().almost:T().done);if(step>n)barEl.style.width='100%';}
+  function setProg(){var n=QSDEF.length,cur=Math.min(step,n),p=Math.round((cur/(n+1))*100);if(step>n)p=100;barEl.style.width=p+'%';if(pctEl)pctEl.textContent=p+'%';stepEl.textContent=step<n?T().stepFmt(step+1,n):(step===n?T().almost:T().done);}
 
   function render(){
     var t=T(); setProg();
@@ -252,6 +255,7 @@
       h+='<div class="lsq-opts'+(D.grid?' lsq-grid':'')+'">';
       D.opts.forEach(function(v){var sel=ans[id]===v?' sel':'';h+='<button class="lsq-opt'+sel+'" type="button" data-v="'+esc(v)+'"><span>'+t.opt[id][v]+'</span><span class="lsq-chk">'+ic('check',18)+'</span></button>';});
       h+='</div>';
+      h+='<div class="lsq-trust"><span>'+ic('check',13)+t.tFree+'</span><span>'+ic('check',13)+t.tReply+'</span><span>'+ic('check',13)+t.tNoSpam+'</span></div>';
       if(step>0)h+='<button class="lsq-back" id="lsq-back" type="button">'+ic('arrowL',16)+t.back+'</button>';
       h+='</div>';
       bodyEl.innerHTML=h; bodyEl.scrollTop=0;
@@ -277,21 +281,21 @@
       function dl(){d+=80;return ' style="animation-delay:'+d+'ms"';}
       var hi=ans.name?(', '+esc(ans.name)):'';
       var h='<div class="lsq-result">';
-      h+='<div style="text-align:center;margin-bottom:4px;"><div class="lsq-pop lsq-badge">'+ic('file',26)+'</div>';
+      h+='<div style="text-align:center;margin-bottom:4px;"><div class="lsq-pop lsq-badge">'+ic('checkc',28)+'</div>';
       h+='<h3 class="lsq-rise"'+dl()+' style="font-size:18px;font-weight:600;margin:0;color:#1a1535;">'+t.resultH+hi+'</h3>';
       h+='<p class="lsq-rise"'+dl()+' style="font-size:12px;color:#8b84a8;margin:5px 0 16px;">'+t.accepted+'</p></div>';
       if(R.urg){var fr=R.urg.lvl==='fire';var col=fr?'#c0392b':'#9a6800';var bg=fr?'rgba(226,75,74,.08)':'rgba(186,117,23,.09)';var bd=fr?'rgba(226,75,74,.32)':'rgba(186,117,23,.32)';
         h+='<div class="lsq-blk lsq-rise"'+dl()+' style="background:'+bg+';border-color:'+bd+';"><div class="lsq-bt" style="color:'+col+';">'+ic(fr?'alert':'clock',14)+(fr?t.secCritical:t.secTiming)+'</div><p style="color:'+col+';font-weight:600;margin:0 0 4px;">'+R.urg.h+'</p><p style="color:#5a5470;margin:0;">'+R.urg.t+'</p></div>';
       }
+      h+='<div class="lsq-verdict lsq-rise"'+dl()+'><div class="lsq-vlabel">'+ic('nav',13)+t.recommended+'</div><div class="lsq-vsvc">'+R.svc+'</div><div class="lsq-vtime">'+ic('clock',13)+R.time+'</div><div class="lsq-vgive">'+R.gives+'</div></div>';
       h+='<div class="lsq-blk lsq-rise"'+dl()+' style="background:#f7f6fc;border-color:#ece9f6;"><div class="lsq-bt" style="color:#8b84a8;">'+ic('file',14)+t.secLaw+'</div><p style="color:#2a2545;margin:0;">'+R.diag+'</p></div>';
-      h+='<div class="lsq-blk lsq-rise"'+dl()+' style="background:rgba(124,92,252,.06);border-color:rgba(124,92,252,.26);"><div class="lsq-bt" style="color:#7C5CFC;">'+ic('nav',14)+t.secPath+'</div><p style="font-size:16px;font-weight:600;color:#1a1535;margin:0 0 3px;">'+R.svc+'</p><p style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#6d28d9;font-weight:600;margin:0 0 8px;">'+ic('clock',13)+R.time+'</p><p style="color:#5a5470;margin:0;">'+R.gives+'</p></div>';
       R.notes.forEach(function(n){var w=n.lvl==='warn';var col=w?'#9a6800':'#7C5CFC';var bg=w?'rgba(186,117,23,.09)':'#f7f6fc';var bd=w?'rgba(186,117,23,.3)':'#ece9f6';
         h+='<div class="lsq-blk lsq-rise"'+dl()+' style="display:flex;gap:10px;align-items:flex-start;background:'+bg+';border-color:'+bd+';"><span style="color:'+col+';flex-shrink:0;margin-top:1px;">'+ic(n.i,18)+'</span><p style="color:#5a5470;margin:0;">'+n.t+'</p></div>';
       });
-      h+='<div class="lsq-rise"'+dl()+' style="margin:16px 0 14px;"><div class="lsq-steps-h">'+t.secSteps+'</div>';
-      R.steps.forEach(function(s,i){h+='<div class="lsq-stp"><span class="lsq-num">'+(i+1)+'</span><span>'+s+'</span></div>';});
+      h+='<div class="lsq-tl lsq-rise"'+dl()+'><div class="lsq-tl-h">'+t.secSteps+'</div>';
+      R.steps.forEach(function(s,i){h+='<div class="lsq-tl-step"><span class="lsq-tl-num">'+(i+1)+'</span><span>'+s+'</span></div>';});
       h+='</div>';
-      h+='<div class="lsq-blk lsq-rise"'+dl()+' style="background:#f7f6fc;border-color:#ece9f6;"><div class="lsq-bt" style="color:#7C5CFC;">'+ic('shield',14)+t.secWhy+'</div><p style="color:#5a5470;margin:0 0 8px;">'+R.why+'</p><p style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#6d28d9;margin:0;">'+ic('checkc',14)+R.conf+'</p></div>';
+      h+='<div class="lsq-badges lsq-rise"'+dl()+'><div class="lsq-tbadge">'+ic('checkc',18)+'<b>98%</b><span>'+t.bApproval+'</span></div><div class="lsq-tbadge">'+ic('users',18)+'<b>3000+</b><span>'+t.bClients+'</span></div><div class="lsq-tbadge">'+ic('shield',18)+'<b>'+t.bFree+'</b><span>'+t.bAppeal+'</span></div></div>';
       h+='<a class="lsq-wa lsq-rise"'+dl()+' href="'+waHref()+'" target="_blank" rel="noopener" style="margin-top:6px;" data-lead-source="quiz_result_wa">'+ic('chat',18)+(R.urg&&R.urg.lvl==='fire'?t.waResultUrgent:t.waResult)+'</a>';
       h+='<button class="lsq-back" id="lsq-restart" type="button" style="margin:14px auto 0;">'+ic('refresh',15)+t.restart+'</button></div>';
       bodyEl.innerHTML=h; bodyEl.scrollTop=0;
@@ -317,7 +321,8 @@
   +'.lsq-sub{font-size:8px;font-weight:600;letter-spacing:.16em;color:#9a93b5;text-transform:uppercase;margin-top:3px;}'
   +'#lsq-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;background:#f4f2fb;color:#8b84a8;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s;}'
   +'#lsq-close:hover{background:#ece9f6;color:#1a1535;}'
-  +'.lsq-progwrap{margin:12px 0 7px;}#lsq-step{font-size:11.5px;color:#8b84a8;font-weight:600;}'
+  +'.lsq-accent{height:4px;background:linear-gradient(90deg,#5B52CC,#7C5CFC 55%,#34d3b0);}'
+  +'.lsq-progwrap{display:flex;align-items:center;justify-content:space-between;margin:12px 0 7px;}#lsq-step{font-size:11.5px;color:#8b84a8;font-weight:600;}#lsq-pct{font-size:11.5px;color:#7C5CFC;font-weight:700;}'
   +'.lsq-track{height:6px;border-radius:99px;background:#efedf7;overflow:hidden;}#lsq-bar{height:100%;width:11%;border-radius:99px;background:linear-gradient(90deg,#7C5CFC,#5eead4);transition:width .5s cubic-bezier(.16,1,.3,1);}'
   +'#lsq-body{padding:22px 20px 26px;max-height:64vh;overflow-y:auto;}'
   +'.lsq-qh{font-size:21px;font-weight:600;line-height:1.25;color:#1a1535;margin:0 0 6px;letter-spacing:-.01em;}'
@@ -325,9 +330,12 @@
   +'.lsq-hint{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:#6d28d9;background:rgba(124,92,252,.1);padding:5px 11px;border-radius:99px;margin:0 0 12px;}'
   +'.lsq-opts{display:flex;flex-direction:column;gap:9px;}'
   +'.lsq-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}'
-  +'.lsq-opt{position:relative;display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:14px 15px;border-radius:13px;background:#fff;border:1px solid #e7e3f3;color:#1a1535;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;opacity:0;transform:translateY(8px);animation:lsqIn .38s cubic-bezier(.16,1,.3,1) forwards;transition:transform .15s,border-color .15s,box-shadow .15s,background .15s;}'
+  +'.lsq-opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:14px 15px 14px 16px;border-radius:13px;background:#fff;border:1px solid #e7e3f3;color:#1a1535;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;opacity:0;transform:translateY(8px);animation:lsqIn .38s cubic-bezier(.16,1,.3,1) forwards;transition:transform .15s,border-color .15s,box-shadow .15s,background .15s;}'
+  +".lsq-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#7C5CFC,#34d3b0);transform:scaleY(0);transition:transform .2s cubic-bezier(.16,1,.3,1);}"
+  +'.lsq-opt:hover::before,.lsq-opt.sel::before{transform:scaleY(1);}'
+  +'.lsq-grid .lsq-opt::before{display:none;}'
   +'.lsq-grid .lsq-opt{justify-content:center;text-align:center;}'
-  +'.lsq-opt:hover{transform:translateY(-2px);border-color:#7C5CFC;box-shadow:0 6px 16px rgba(124,92,252,.16);}'
+  +'.lsq-opt:hover{transform:translateX(4px);border-color:#7C5CFC;box-shadow:0 8px 20px rgba(124,92,252,.18);}'
   +'.lsq-opt.sel{border-color:#7C5CFC;background:rgba(124,92,252,.07);box-shadow:0 0 0 1px #7C5CFC;}'
   +'.lsq-opt .lsq-chk{margin-left:auto;color:#7C5CFC;opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s cubic-bezier(.34,1.5,.6,1);display:inline-flex;}'
   +'.lsq-grid .lsq-opt .lsq-chk{position:absolute;top:6px;right:7px;margin:0;}'
@@ -359,6 +367,25 @@
   +'@keyframes lsqPop{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}'
   +'.lsq-rise{opacity:0;animation:lsqRise .5s cubic-bezier(.16,1,.3,1) forwards;}'
   +'@keyframes lsqRise{to{opacity:1;transform:none;}}'
+  +'.lsq-trust{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid #f0eef8;}'
+  +'.lsq-trust span{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#9a93b5;}'
+  +'.lsq-trust span svg{color:#34c79a;}'
+  +'.lsq-verdict{position:relative;overflow:hidden;text-align:left;border-radius:16px;padding:17px 18px;margin:0 0 11px;background:linear-gradient(140deg,#5B52CC,#7C5CFC);color:#fff;box-shadow:0 14px 32px rgba(91,82,204,.34);opacity:0;animation:lsqRise .5s cubic-bezier(.16,1,.3,1) forwards;}'
+  +'.lsq-vlabel{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.74);margin-bottom:6px;}'
+  +'.lsq-vsvc{font-size:19px;font-weight:700;line-height:1.2;letter-spacing:-.01em;margin-bottom:9px;}'
+  +'.lsq-vtime{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:99px;margin-bottom:11px;}'
+  +'.lsq-vgive{font-size:13px;line-height:1.55;color:rgba(255,255,255,.94);}'
+  +'.lsq-tl{margin:16px 0 14px;}'
+  +'.lsq-tl-h{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:#a49dbf;margin-bottom:13px;}'
+  +'.lsq-tl-step{position:relative;display:flex;gap:13px;padding-bottom:15px;}'
+  +".lsq-tl-step:not(:last-child)::before{content:'';position:absolute;left:12.5px;top:27px;bottom:-1px;width:2px;background:#e7e3f3;}"
+  +'.lsq-tl-num{position:relative;z-index:1;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#5B52CC,#7C5CFC);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(91,82,204,.3);}'
+  +'.lsq-tl-step>span:last-child{font-size:13px;line-height:1.42;color:#2a2545;padding-top:4px;}'
+  +'.lsq-badges{display:flex;gap:8px;margin:4px 0 14px;}'
+  +'.lsq-tbadge{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:#f7f6fc;border:1px solid #ece9f6;border-radius:12px;padding:11px 6px;}'
+  +'.lsq-tbadge svg{color:#7C5CFC;}'
+  +'.lsq-tbadge b{font-size:13px;font-weight:700;color:#1a1535;}'
+  +'.lsq-tbadge span{font-size:9.5px;font-weight:500;color:#9a93b5;letter-spacing:.02em;line-height:1.2;}'
   +'@media(max-width:900px){#lsq-fab{bottom:76px;left:12px;padding:11px 15px;font-size:13px;}}'
   +'@media(max-width:380px){#lsq-fab #lsq-fab-tx{display:none;}#lsq-fab{padding:13px;}}'
   +'@media(prefers-reduced-motion:reduce){#lsq-fab,#lsq-fab *,#lsq-ov *{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;}}';
