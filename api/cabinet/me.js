@@ -35,7 +35,13 @@ module.exports = async function handler(req, res) {
   try {
     const token = readCookie(req, 'cabinet_token');
     const payload = verifyJwt(token);
-    if (!payload || !payload.cid) return res.status(401).json({ error: 'unauthorized' });
+    if (!payload) return res.status(401).json({ error: 'unauthorized' });
+
+    // Сотрудник (Даша) — отдаём роль, без клиентских данных. Фронт покажет админ-панель.
+    if (payload.staff) {
+      return res.status(200).json({ role: 'staff', name: payload.name || 'Сотрудник' });
+    }
+    if (!payload.cid) return res.status(401).json({ error: 'unauthorized' });
 
     // 1) Контакт
     const cRes = await kommo('GET', `/contacts/${payload.cid}?with=leads`);

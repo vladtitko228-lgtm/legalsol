@@ -10,6 +10,29 @@ if (!JWT_SECRET || JWT_SECRET.length < 16) {
   throw new Error('CABINET_JWT_SECRET is not set or too short (need >=16 chars) — refusing to start cabinet auth');
 }
 const PASSWORD_FIELD_ID = parseInt(process.env.KOMMO_PASSWORD_FIELD_ID || '2425096', 10);
+
+// Сотрудники (Даша и др.) — могут входить в админ-панель и заводить клиентам доступы.
+// env CABINET_STAFF = «phone:scryptHash:Имя» через запятую (телефон не секрет, хеш — секрет).
+// Пример: +48884007199:scrypt$...$...:Дарья
+function parseStaff() {
+  const raw = process.env.CABINET_STAFF || '';
+  const out = [];
+  for (const part of raw.split(',')) {
+    const s = part.trim();
+    if (!s) continue;
+    // hash содержит «$», поэтому делим аккуратно: phone : scrypt$salt$hash : name
+    const m = s.match(/^([^:]+):(scrypt\$[^:]+):(.*)$/);
+    if (!m) continue;
+    out.push({ phone: m[1].replace(/[^\d]/g, ''), hash: m[2], name: (m[3] || 'Сотрудник').trim() });
+  }
+  return out;
+}
+const STAFF = parseStaff();
+function findStaffByPhone(normalizedPhone) {
+  const p = String(normalizedPhone || '').replace(/[^\d]/g, '');
+  return STAFF.find(s => s.phone === p) || null;
+}
+
 const PHONE_FIELD_ID = 2103374;
 const EMAIL_FIELD_ID = 2103376;
 const CF_GRAZHDANSTVO = 2422198;
@@ -444,6 +467,7 @@ module.exports = {
   PAYMENT_NOTE_PREFIXES,
   isPaymentNote,
   parsePaymentNote,
+  findStaffByPhone,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,

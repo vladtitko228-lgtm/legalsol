@@ -20407,6 +20407,40 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 
 #cab-login-screen{min-height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(145deg,#0d0b20 0%,#13103a 50%,#0d0b20 100%);position:relative;overflow:hidden;}
 
+/* ── АДМИН-ПАНЕЛЬ СОТРУДНИКА (Даша) ── */
+#cab-staff-panel{display:none;position:fixed;inset:0;z-index:6000;background:linear-gradient(145deg,#0d0b20,#13103a 55%,#0d0b20);overflow-y:auto;}
+.stf-wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:48px 18px;}
+.stf-card{width:100%;max-width:440px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.22);border-radius:24px;padding:28px 26px;box-shadow:0 30px 90px rgba(0,0,0,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
+.stf-head{display:flex;align-items:center;gap:13px;margin-bottom:24px;}
+.stf-logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:16px;letter-spacing:1px;flex-shrink:0;}
+.stf-title{font-size:17px;font-weight:800;color:#fff;}
+.stf-sub{font-size:12px;color:#9c93b8;margin-top:2px;}
+.stf-logout{margin-left:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#c8c2e8;font-size:12px;font-weight:600;padding:8px 13px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.stf-logout:hover{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);color:#fff;}
+.stf-label{font-size:12px;font-weight:600;color:#b8b2d8;margin:14px 0 7px;letter-spacing:.2px;}
+.stf-in{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(139,130,232,.28);border-radius:12px;padding:13px 15px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box;transition:border-color .2s;}
+.stf-in:focus{border-color:#7c6fe8;background:rgba(255,255,255,.07);}
+.stf-in::placeholder{color:rgba(255,255,255,.3);}
+.stf-pwrow{display:flex;gap:8px;}
+.stf-pwrow .stf-in{flex:1;}
+.stf-gen{flex-shrink:0;width:48px;background:rgba(91,82,204,.22);border:1.5px solid rgba(139,130,232,.35);border-radius:12px;color:#c4b9ff;font-size:19px;cursor:pointer;transition:all .2s;}
+.stf-gen:hover{background:rgba(91,82,204,.4);color:#fff;}
+.stf-btn{width:100%;margin-top:20px;background:linear-gradient(135deg,#5B52CC,#7c6fe8);border:none;border-radius:60px;color:#fff;font-size:15px;font-weight:700;padding:15px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 10px 28px rgba(91,82,204,.42);transition:transform .15s,box-shadow .2s;}
+.stf-btn:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(91,82,204,.55);}
+.stf-btn:disabled{opacity:.6;cursor:default;transform:none;}
+.stf-result{margin-top:18px;}
+.stf-err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:13px 16px;color:#fca5a5;font-size:13px;line-height:1.5;}
+.stf-ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:14px;padding:16px 18px;}
+.stf-ok-h{font-size:14px;font-weight:700;color:#4ade80;margin-bottom:10px;}
+.stf-cred{font-size:14px;color:#e8e4ff;margin:3px 0;}
+.stf-cred b{color:#fff;}
+.stf-warn{margin-top:10px;font-size:12px;color:#fcd34d;line-height:1.5;}
+.stf-acts{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;}
+.stf-copy{flex:1;min-width:120px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:600;padding:11px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;}
+.stf-copy:hover{background:rgba(255,255,255,.14);}
+.stf-wa{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:11px;border-radius:10px;}
+.stf-hint{margin-top:20px;font-size:11.5px;color:#7d76a0;line-height:1.55;text-align:center;}
+
 #cab-login-screen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.18) 0%,transparent 70%);top:-100px;right:-100px;animation:cabBlob1 8s ease-in-out infinite;pointer-events:none;}
 
 #cab-login-screen::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(139,130,232,.12) 0%,transparent 70%);bottom:-80px;left:-80px;animation:cabBlob2 10s ease-in-out infinite;pointer-events:none;}
@@ -21739,10 +21773,111 @@ async function cabBootstrapApp(){
   var resp=await fetch('/api/cabinet/me',{credentials:'same-origin'});
   if(!resp.ok){throw new Error('unauthorized');}
   window.cabData=await resp.json();
+  // Сотрудник (Даша) → админ-панель вместо клиентского кабинета
+  if(window.cabData&&window.cabData.role==='staff'){
+    document.getElementById('cab-login-screen').style.display='none';
+    cabShowStaffPanel(window.cabData.name||'Сотрудник');
+    return;
+  }
   cabApplyData();
   document.getElementById('cab-login-screen').style.display='none';
   document.getElementById('cab-app').style.display='flex';
   cabRenderDash();cabLoadChat();cabRenderHistory();
+}
+
+// ─── АДМИН-ПАНЕЛЬ СОТРУДНИКА (Даша заводит клиентам доступы) ───
+function cabShowStaffPanel(name){
+  var host=document.getElementById('cab-staff-panel');
+  if(!host){
+    host=document.createElement('div');
+    host.id='cab-staff-panel';
+    document.body.appendChild(host);
+  }
+  host.style.display='block';
+  host.innerHTML=
+  '<div class="stf-wrap">'+
+    '<div class="stf-card">'+
+      '<div class="stf-head">'+
+        '<div class="stf-logo">LS</div>'+
+        '<div><div class="stf-title">Панель сотрудника</div><div class="stf-sub">'+ (name||'') +' · выдача доступов в кабинет</div></div>'+
+        '<button class="stf-logout" onclick="cabStaffLogout()">Выйти</button>'+
+      '</div>'+
+      '<div class="stf-body">'+
+        '<div class="stf-label">Телефон клиента (его логин)</div>'+
+        '<input class="stf-in" id="stf-phone" type="tel" inputmode="tel" placeholder="+48 600 123 456" autocomplete="off"/>'+
+        '<div class="stf-label">Пароль для клиента</div>'+
+        '<div class="stf-pwrow">'+
+          '<input class="stf-in" id="stf-pass" type="text" placeholder="придумайте пароль" autocomplete="off"/>'+
+          '<button class="stf-gen" type="button" onclick="cabStaffGenPass()" title="Сгенерировать">⟳</button>'+
+        '</div>'+
+        '<button class="stf-btn" id="stf-create" onclick="cabStaffCreate()">Создать доступ</button>'+
+        '<div class="stf-result" id="stf-result"></div>'+
+      '</div>'+
+      '<div class="stf-hint">Клиент должен быть в воронке «Легализация» в Kommo. После создания — перешлите ему логин и пароль (кнопка WhatsApp).</div>'+
+    '</div>'+
+  '</div>';
+}
+
+function cabStaffGenPass(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  var s='';for(var i=0;i<10;i++)s+=chars[Math.floor(Math.random()*chars.length)];
+  var el=document.getElementById('stf-pass');if(el)el.value=s+'!';
+}
+
+async function cabStaffCreate(){
+  var phone=(document.getElementById('stf-phone')||{}).value||'';
+  var pass=(document.getElementById('stf-pass')||{}).value||'';
+  var res=document.getElementById('stf-result');
+  var btn=document.getElementById('stf-create');
+  phone=phone.trim();pass=pass.trim();
+  if(!phone){res.innerHTML='<div class="stf-err">Введите телефон клиента.</div>';return;}
+  if(pass.length<6){res.innerHTML='<div class="stf-err">Пароль — минимум 6 символов.</div>';return;}
+  if(btn){btn.disabled=true;btn.textContent='Создаём…';}
+  try{
+    var r=await fetch('/api/cabinet/staff-set-password',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({phone:phone,password:pass})
+    });
+    var d=await r.json().catch(function(){return{};});
+    if(!r.ok){
+      res.innerHTML='<div class="stf-err">'+(d.message||'Не удалось создать доступ. Проверьте телефон.')+'</div>';
+      return;
+    }
+    var waText=encodeURIComponent('Здравствуйте! Доступ в ваш личный кабинет LegalSol:\nСайт: legalsol.pl → «Кабинет»\nЛогин (телефон): '+d.login+'\nПароль: '+pass);
+    var waPhone=(d.login||phone).replace(/[^\d]/g,'');
+    res.innerHTML=
+      '<div class="stf-ok">'+
+        '<div class="stf-ok-h">✓ Доступ создан'+(d.updated?' (пароль обновлён)':'')+'</div>'+
+        '<div class="stf-cred"><b>'+(d.name?cabEsc(d.name)+' · ':'')+'</b></div>'+
+        '<div class="stf-cred">Логин: <b>'+cabEsc(d.login)+'</b></div>'+
+        '<div class="stf-cred">Пароль: <b>'+cabEsc(pass)+'</b></div>'+
+        (d.inOps?'':'<div class="stf-warn">⚠️ Клиент не в воронке «Легализация» — войти сможет, но дел не увидит, пока не переведёте сделку.</div>')+
+        '<div class="stf-acts">'+
+          '<button class="stf-copy" onclick="cabStaffCopy(\''+cabEsc(d.login)+'\',\''+cabEsc(pass).replace(/'/g,"\\'")+'\')">Скопировать</button>'+
+          '<a class="stf-wa" href="https://wa.me/'+waPhone+'?text='+waText+'" target="_blank" rel="noopener">Отправить в WhatsApp</a>'+
+        '</div>'+
+      '</div>';
+    document.getElementById('stf-phone').value='';
+    document.getElementById('stf-pass').value='';
+  }catch(e){
+    res.innerHTML='<div class="stf-err">Ошибка сети. Попробуйте ещё раз.</div>';
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Создать доступ';}
+  }
+}
+
+function cabEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function cabStaffCopy(login,pass){
+  var t='Логин: '+login+'\nПароль: '+pass;
+  if(navigator.clipboard)navigator.clipboard.writeText(t);
+  cabToast('Скопировано','success');
+}
+function cabStaffLogout(){
+  fetch('/api/cabinet/logout',{method:'POST',credentials:'same-origin'}).finally(function(){
+    var p=document.getElementById('cab-staff-panel');if(p)p.style.display='none';
+    window.cabData=null;
+    document.getElementById('cab-login-screen').style.display='flex';
+  });
 }
 
 function cabApplyData(){
