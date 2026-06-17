@@ -20441,6 +20441,73 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-wa{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:11px;border-radius:10px;}
 .stf-hint{margin-top:20px;font-size:11.5px;color:#7d76a0;line-height:1.55;text-align:center;}
 
+/* ── Дашборд сотрудника ── */
+.stf-shell{width:100%;max-width:860px;}
+.stf-shell .stf-head{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.2);border-radius:18px;padding:16px 20px;margin-bottom:16px;}
+.stf-newbtn{margin-left:auto;background:linear-gradient(135deg,#5B52CC,#7c6fe8);border:none;color:#fff;font-size:13px;font-weight:700;padding:10px 16px;border-radius:60px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 6px 18px rgba(91,82,204,.4);white-space:nowrap;}
+.stf-newbtn:hover{transform:translateY(-1px);}
+.stf-head .stf-logout{margin-left:10px;}
+.stf-loading{padding:40px;text-align:center;color:#9c93b8;font-size:14px;}
+.stf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:14px;}
+.stf-stat{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:14px;padding:14px 12px;text-align:center;}
+.stf-stat-wide{grid-column:span 2;}
+.stf-stat-n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
+.stf-stat-l{font-size:11px;color:#9c93b8;margin-top:5px;}
+.stf-stages{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.stf-chip{font-size:11.5px;color:#c4bce8;background:rgba(91,82,204,.14);border:1px solid rgba(139,130,232,.2);border-radius:30px;padding:5px 11px;}
+.stf-chip b{color:#fff;}
+.stf-controls{margin-bottom:14px;}
+.stf-search{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(139,130,232,.25);border-radius:12px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box;margin-bottom:10px;}
+.stf-search:focus{border-color:#7c6fe8;}
+.stf-search::placeholder{color:rgba(255,255,255,.3);}
+.stf-filters{display:flex;gap:8px;flex-wrap:wrap;}
+.stf-fbtn{background:rgba(255,255,255,.05);border:1px solid rgba(139,130,232,.2);color:#b0a8d0;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:30px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.stf-fbtn.on{background:linear-gradient(135deg,#5B52CC,#7c6fe8);color:#fff;border-color:transparent;}
+.stf-row{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.035);border:1px solid rgba(139,130,232,.16);border-radius:14px;padding:14px 18px;margin-bottom:9px;cursor:pointer;transition:all .18s;}
+.stf-row:hover{background:rgba(91,82,204,.12);border-color:rgba(139,130,232,.4);transform:translateY(-1px);}
+.stf-row-main{flex:1;min-width:0;}
+.stf-row-name{font-size:15px;font-weight:700;color:#fff;}
+.stf-row-meta{font-size:12px;color:#9c93b8;margin:2px 0 8px;}
+.stf-row-bar{height:5px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden;max-width:240px;}
+.stf-row-fill{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:5px;}
+.stf-row-side{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0;}
+.stf-stbadge{font-size:11px;font-weight:700;color:#c4bce8;background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.25);border-radius:30px;padding:4px 11px;white-space:nowrap;}
+.stf-stbadge.done{color:#4ade80;background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);}
+.stf-row-tags{display:flex;gap:6px;align-items:center;}
+.stf-acc{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:30px;white-space:nowrap;}
+.stf-acc.on{color:#4ade80;background:rgba(34,197,94,.12);}
+.stf-acc.off{color:#fbbf24;background:rgba(251,191,36,.12);}
+.stf-idle{font-size:10.5px;font-weight:700;color:#f87171;background:rgba(248,113,113,.12);padding:3px 9px;border-radius:30px;}
+.stf-empty{text-align:center;padding:40px;color:#7d76a0;font-size:14px;}
+.stf-dim{color:#7d76a0;font-size:13px;padding:4px 0;}
+/* Модалка клиента / создания */
+.stf-modal-bg{display:none;position:fixed;inset:0;z-index:6100;background:rgba(8,6,22,.7);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
+.stf-modal-bg.on{display:flex;}
+.stf-modal{width:100%;max-width:480px;background:#16122e;border:1px solid rgba(139,130,232,.25);border-radius:20px;padding:24px 24px 26px;box-shadow:0 30px 90px rgba(0,0,0,.6);}
+.stf-m-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+.stf-m-name{font-size:18px;font-weight:800;color:#fff;}
+.stf-m-sub{font-size:13px;color:#9c93b8;margin-top:3px;}
+.stf-m-close{margin-left:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#c8c2e8;width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:14px;flex-shrink:0;}
+.stf-m-close:hover{background:rgba(239,68,68,.2);color:#fff;}
+.stf-m-stage{background:rgba(91,82,204,.12);border:1px solid rgba(139,130,232,.25);border-radius:12px;padding:12px 16px;margin-bottom:14px;}
+.stf-m-stage-name{font-size:15px;font-weight:700;color:#fff;}
+.stf-m-stage-eta{font-size:12px;color:#b0a8d0;margin-top:3px;}
+.stf-m-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:8px;}
+.stf-m-box{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.16);border-radius:12px;padding:11px 12px;text-align:center;}
+.stf-m-box-l{font-size:10.5px;color:#9c93b8;margin-bottom:5px;}
+.stf-m-box-v{font-size:15px;font-weight:800;color:#fff;}
+.stf-m-sec{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#8b84b8;text-transform:uppercase;margin:18px 0 8px;}
+.stf-line{display:flex;gap:12px;align-items:center;font-size:13px;color:#d8d3f0;padding:7px 0;border-bottom:1px solid rgba(139,130,232,.1);}
+.stf-line span:first-child{color:#9c93b8;font-size:12px;white-space:nowrap;min-width:74px;}
+.stf-line b{color:#fff;}
+.stf-m-access{margin-top:18px;padding-top:18px;border-top:1px solid rgba(139,130,232,.16);}
+@media(max-width:600px){
+  .stf-stat-wide{grid-column:span 2;}
+  .stf-row{padding:13px 14px;}
+  .stf-m-grid{grid-template-columns:1fr;}
+  .stf-newbtn{font-size:12px;padding:9px 12px;}
+}
+
 #cab-login-screen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.18) 0%,transparent 70%);top:-100px;right:-100px;animation:cabBlob1 8s ease-in-out infinite;pointer-events:none;}
 
 #cab-login-screen::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(139,130,232,.12) 0%,transparent 70%);bottom:-80px;left:-80px;animation:cabBlob2 10s ease-in-out infinite;pointer-events:none;}
@@ -21786,36 +21853,174 @@ async function cabBootstrapApp(){
 }
 
 // ─── АДМИН-ПАНЕЛЬ СОТРУДНИКА (Даша заводит клиентам доступы) ───
+var STF_DATA=null;       // последние данные панели
+var STF_SEARCH='';
+var STF_FILTER='all';    // all|active|noaccess|stale
+
+function cabEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function cabStaffMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+function cabStaffFmtDate(ms){if(!ms)return'';try{var d=new Date(ms);return('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}catch(e){return'';}}
+
 function cabShowStaffPanel(name){
   var host=document.getElementById('cab-staff-panel');
-  if(!host){
-    host=document.createElement('div');
-    host.id='cab-staff-panel';
-    document.body.appendChild(host);
-  }
+  if(!host){host=document.createElement('div');host.id='cab-staff-panel';document.body.appendChild(host);}
   host.style.display='block';
   host.innerHTML=
   '<div class="stf-wrap">'+
-    '<div class="stf-card">'+
+    '<div class="stf-shell">'+
       '<div class="stf-head">'+
         '<div class="stf-logo">LS</div>'+
-        '<div><div class="stf-title">Панель сотрудника</div><div class="stf-sub">'+ (name||'') +' · выдача доступов в кабинет</div></div>'+
+        '<div><div class="stf-title">Рабочая панель</div><div class="stf-sub">'+cabEsc(name||'')+' · легализация</div></div>'+
+        '<button class="stf-newbtn" onclick="cabStaffOpenCreate()">+ Выдать доступ</button>'+
         '<button class="stf-logout" onclick="cabStaffLogout()">Выйти</button>'+
       '</div>'+
-      '<div class="stf-body">'+
-        '<div class="stf-label">Телефон клиента (его логин)</div>'+
-        '<input class="stf-in" id="stf-phone" type="tel" inputmode="tel" placeholder="+48 600 123 456" autocomplete="off"/>'+
-        '<div class="stf-label">Пароль для клиента</div>'+
-        '<div class="stf-pwrow">'+
-          '<input class="stf-in" id="stf-pass" type="text" placeholder="придумайте пароль" autocomplete="off"/>'+
-          '<button class="stf-gen" type="button" onclick="cabStaffGenPass()" title="Сгенерировать">⟳</button>'+
-        '</div>'+
-        '<button class="stf-btn" id="stf-create" onclick="cabStaffCreate()">Создать доступ</button>'+
-        '<div class="stf-result" id="stf-result"></div>'+
-      '</div>'+
-      '<div class="stf-hint">Клиент должен быть в воронке «Легализация» в Kommo. После создания — перешлите ему логин и пароль (кнопка WhatsApp).</div>'+
+      '<div id="stf-dash"><div class="stf-loading">Загружаю клиентов из Kommo…</div></div>'+
     '</div>'+
-  '</div>';
+  '</div>'+
+  '<div class="stf-modal-bg" id="stf-modal-bg" onclick="cabStaffCloseModal(event)"><div class="stf-modal" id="stf-modal"></div></div>';
+  cabStaffLoadData();
+}
+
+async function cabStaffLoadData(){
+  try{
+    var r=await fetch('/api/cabinet/staff?action=data',{credentials:'same-origin'});
+    if(!r.ok)throw new Error('load');
+    STF_DATA=await r.json();
+    cabStaffRenderDash();
+  }catch(e){
+    var d=document.getElementById('stf-dash');
+    if(d)d.innerHTML='<div class="stf-err" style="margin:20px">Не удалось загрузить данные. <span onclick="cabStaffLoadData()" style="text-decoration:underline;cursor:pointer">Повторить</span></div>';
+  }
+}
+
+function cabStaffRenderDash(){
+  var d=document.getElementById('stf-dash');if(!d||!STF_DATA)return;
+  var s=STF_DATA.stats||{};
+  var stats=
+    '<div class="stf-stats">'+
+      '<div class="stf-stat"><div class="stf-stat-n">'+(s.active||0)+'</div><div class="stf-stat-l">в работе</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#4ade80">'+(s.completed||0)+'</div><div class="stf-stat-l">завершено</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#a78bfa">'+(s.withAccess||0)+'</div><div class="stf-stat-l">с доступом</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#fbbf24">'+(s.noAccess||0)+'</div><div class="stf-stat-l">без доступа</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#f87171">'+(s.stale48||0)+'</div><div class="stf-stat-l">висят 2+ дня</div></div>'+
+      '<div class="stf-stat stf-stat-wide"><div class="stf-stat-n" style="font-size:19px">'+cabStaffMoney(s.contractTotal||0)+' zł</div><div class="stf-stat-l">сумма контрактов</div></div>'+
+    '</div>';
+  // Разбивка по этапам
+  var bs=STF_DATA.byStage||{};var stageChips='';
+  Object.keys(bs).forEach(function(k){stageChips+='<span class="stf-chip">'+cabEsc(k)+' · <b>'+bs[k]+'</b></span>';});
+  var stageRow=stageChips?'<div class="stf-stages">'+stageChips+'</div>':'';
+  // Фильтры + поиск
+  function fbtn(key,lbl){return '<button class="stf-fbtn'+(STF_FILTER===key?' on':'')+'" onclick="cabStaffSetFilter(\''+key+'\')">'+lbl+'</button>';}
+  var controls=
+    '<div class="stf-controls">'+
+      '<input class="stf-search" id="stf-search" placeholder="Поиск по имени или телефону…" oninput="cabStaffSearch(this.value)" value="'+cabEsc(STF_SEARCH)+'"/>'+
+      '<div class="stf-filters">'+fbtn('all','Все')+fbtn('active','В работе')+fbtn('noaccess','Без доступа')+fbtn('stale','Висят')+'</div>'+
+    '</div>';
+  d.innerHTML=stats+stageRow+controls+'<div id="stf-list"></div>';
+  cabStaffRenderList();
+}
+
+function cabStaffRenderList(){
+  var box=document.getElementById('stf-list');if(!box||!STF_DATA)return;
+  var q=STF_SEARCH.toLowerCase().trim();
+  var list=(STF_DATA.clients||[]).filter(function(c){
+    if(STF_FILTER==='active'&&c.isDone)return false;
+    if(STF_FILTER==='noaccess'&&c.hasAccess)return false;
+    if(STF_FILTER==='stale'&&!(!c.isDone&&c.daysIdle>=2))return false;
+    if(q){var hay=((c.name||'')+' '+(c.phone||'')).toLowerCase();if(hay.indexOf(q)<0)return false;}
+    return true;
+  });
+  if(!list.length){box.innerHTML='<div class="stf-empty">Ничего не найдено</div>';return;}
+  box.innerHTML=list.map(function(c){
+    var stageBadge='<span class="stf-stbadge'+(c.isDone?' done':'')+'">'+cabEsc(c.stage)+'</span>';
+    var access=c.hasAccess
+      ?'<span class="stf-acc on">✓ доступ</span>'
+      :'<span class="stf-acc off">нет доступа</span>';
+    var idle=(!c.isDone&&c.daysIdle>=2)?'<span class="stf-idle">'+c.daysIdle+' дн</span>':'';
+    var pct=c.totalSteps?Math.round((c.step||0)/c.totalSteps*100):0;
+    return '<div class="stf-row" onclick="cabStaffOpenClient('+c.leadId+')">'+
+      '<div class="stf-row-main">'+
+        '<div class="stf-row-name">'+cabEsc(c.name)+'</div>'+
+        '<div class="stf-row-meta">'+(c.phone?cabEsc(c.phone):'без телефона')+(c.service?' · '+cabEsc(c.service):'')+'</div>'+
+        '<div class="stf-row-bar"><div class="stf-row-fill" style="width:'+pct+'%"></div></div>'+
+      '</div>'+
+      '<div class="stf-row-side">'+stageBadge+'<div class="stf-row-tags">'+access+idle+'</div></div>'+
+    '</div>';
+  }).join('');
+}
+
+function cabStaffSearch(v){STF_SEARCH=v;cabStaffRenderList();}
+function cabStaffSetFilter(k){STF_FILTER=k;cabStaffRenderDash();}
+
+async function cabStaffOpenClient(leadId){
+  var bg=document.getElementById('stf-modal-bg');var m=document.getElementById('stf-modal');
+  bg.classList.add('on');m.innerHTML='<div class="stf-loading">Загружаю…</div>';
+  try{
+    var r=await fetch('/api/cabinet/staff?action=client&leadId='+encodeURIComponent(leadId),{credentials:'same-origin'});
+    var c=await r.json();
+    if(!r.ok)throw new Error();
+    var paysHtml=(c.payments&&c.payments.length)
+      ? c.payments.map(function(p){return '<div class="stf-line"><span>'+(p.dateText||cabStaffFmtDate(p.createdAt))+'</span><b>'+cabStaffMoney(p.amount)+' zł</b><span>'+cabEsc(p.method||'')+'</span></div>';}).join('')
+      : '<div class="stf-dim">платежей нет</div>';
+    var tasksHtml=(c.tasks&&c.tasks.length)
+      ? c.tasks.map(function(t){return '<div class="stf-line"><span>'+cabStaffFmtDate(t.completeTill)+'</span><span style="flex:1">'+cabEsc(t.text||'задача')+'</span></div>';}).join('')
+      : '<div class="stf-dim">активных задач нет</div>';
+    var updHtml=(c.updates&&c.updates.length)
+      ? c.updates.slice(0,5).map(function(u){return '<div class="stf-line"><span>'+cabStaffFmtDate(u.createdAt)+'</span><span style="flex:1">'+cabEsc((u.text||'').slice(0,140))+'</span></div>';}).join('')
+      : '<div class="stf-dim">апдейтов клиенту ещё не было</div>';
+    var waPhone=(c.phone||'').replace(/[^\d]/g,'');
+    m.innerHTML=
+      '<div class="stf-m-head">'+
+        '<div><div class="stf-m-name">'+cabEsc(c.name||'Клиент')+'</div>'+
+        '<div class="stf-m-sub">'+(c.phone?cabEsc(c.phone):'')+(c.service?' · '+cabEsc(c.service):'')+'</div></div>'+
+        '<button class="stf-m-close" onclick="cabStaffCloseModal()">✕</button>'+
+      '</div>'+
+      '<div class="stf-m-stage">'+
+        '<div class="stf-m-stage-name">'+cabEsc(c.stage&&c.stage.ru||'В работе')+'</div>'+
+        '<div class="stf-m-stage-eta">'+(c.stage&&c.stage.etaText?'Срок: '+cabEsc(c.stage.etaText):'')+'</div>'+
+      '</div>'+
+      '<div class="stf-m-grid">'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Контракт</div><div class="stf-m-box-v">'+cabStaffMoney(c.price)+' zł</div></div>'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Оплачено</div><div class="stf-m-box-v" style="color:#16a34a">'+cabStaffMoney(c.paidTotal)+' zł</div></div>'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Остаток</div><div class="stf-m-box-v" style="color:#d97706">'+cabStaffMoney(c.remaining)+' zł</div></div>'+
+      '</div>'+
+      '<div class="stf-m-sec">Платежи</div>'+paysHtml+
+      '<div class="stf-m-sec">Задачи / дедлайны</div>'+tasksHtml+
+      '<div class="stf-m-sec">Апдейты клиенту</div>'+updHtml+
+      '<div class="stf-m-access">'+
+        (c.hasAccess
+          ?'<div class="stf-acc on" style="margin-bottom:10px">✓ Доступ в кабинет выдан</div>'
+          :'<div class="stf-acc off" style="margin-bottom:10px">Доступа в кабинет ещё нет</div>')+
+        '<button class="stf-btn" onclick="cabStaffOpenCreate(\''+cabEsc(c.phone||'')+'\')">'+(c.hasAccess?'Сменить пароль':'Выдать доступ')+'</button>'+
+        (waPhone?'<a class="stf-wa" style="margin-top:8px;display:flex" href="https://wa.me/'+waPhone+'" target="_blank" rel="noopener">Написать клиенту в WhatsApp</a>':'')+
+      '</div>';
+  }catch(e){
+    m.innerHTML='<div class="stf-err" style="margin:8px">Не удалось загрузить клиента. <button class="stf-m-close" onclick="cabStaffCloseModal()" style="position:static">Закрыть</button></div>';
+  }
+}
+
+function cabStaffCloseModal(ev){
+  if(ev&&ev.target&&ev.target.id!=='stf-modal-bg'&&ev.type==='click')return;
+  var bg=document.getElementById('stf-modal-bg');if(bg)bg.classList.remove('on');
+}
+
+// Форма выдачи доступа (модалка). prefillPhone — необязательно.
+function cabStaffOpenCreate(prefillPhone){
+  var bg=document.getElementById('stf-modal-bg');var m=document.getElementById('stf-modal');
+  bg.classList.add('on');
+  m.innerHTML=
+    '<div class="stf-m-head"><div class="stf-m-name">Выдать доступ в кабинет</div>'+
+      '<button class="stf-m-close" onclick="cabStaffCloseModal()">✕</button></div>'+
+    '<div class="stf-label">Телефон клиента (его логин)</div>'+
+    '<input class="stf-in" id="stf-phone" type="tel" inputmode="tel" placeholder="+48 600 123 456" autocomplete="off" value="'+cabEsc(prefillPhone||'')+'"/>'+
+    '<div class="stf-label">Пароль для клиента</div>'+
+    '<div class="stf-pwrow"><input class="stf-in" id="stf-pass" type="text" placeholder="придумайте или сгенерируйте" autocomplete="off"/>'+
+      '<button class="stf-gen" type="button" onclick="cabStaffGenPass()" title="Сгенерировать">⟳</button></div>'+
+    '<button class="stf-btn" id="stf-create" onclick="cabStaffCreate()">Создать доступ</button>'+
+    '<div class="stf-result" id="stf-result"></div>'+
+    '<div class="stf-hint">Клиент должен быть в воронке «Легализация». После создания — кнопка отправки в WhatsApp.</div>';
+  cabStaffGenPass();
+  setTimeout(function(){var p=document.getElementById('stf-phone');if(p&&!prefillPhone)p.focus();},80);
 }
 
 function cabStaffGenPass(){
@@ -21834,31 +22039,27 @@ async function cabStaffCreate(){
   if(pass.length<6){res.innerHTML='<div class="stf-err">Пароль — минимум 6 символов.</div>';return;}
   if(btn){btn.disabled=true;btn.textContent='Создаём…';}
   try{
-    var r=await fetch('/api/cabinet/staff-set-password',{
+    var r=await fetch('/api/cabinet/staff?action=set-password',{
       method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
       body:JSON.stringify({phone:phone,password:pass})
     });
     var d=await r.json().catch(function(){return{};});
-    if(!r.ok){
-      res.innerHTML='<div class="stf-err">'+(d.message||'Не удалось создать доступ. Проверьте телефон.')+'</div>';
-      return;
-    }
+    if(!r.ok){res.innerHTML='<div class="stf-err">'+(d.message||'Не удалось создать доступ.')+'</div>';return;}
     var waText=encodeURIComponent('Здравствуйте! Доступ в ваш личный кабинет LegalSol:\nСайт: legalsol.pl → «Кабинет»\nЛогин (телефон): '+d.login+'\nПароль: '+pass);
     var waPhone=(d.login||phone).replace(/[^\d]/g,'');
     res.innerHTML=
       '<div class="stf-ok">'+
         '<div class="stf-ok-h">✓ Доступ создан'+(d.updated?' (пароль обновлён)':'')+'</div>'+
-        '<div class="stf-cred"><b>'+(d.name?cabEsc(d.name)+' · ':'')+'</b></div>'+
+        (d.name?'<div class="stf-cred"><b>'+cabEsc(d.name)+'</b></div>':'')+
         '<div class="stf-cred">Логин: <b>'+cabEsc(d.login)+'</b></div>'+
         '<div class="stf-cred">Пароль: <b>'+cabEsc(pass)+'</b></div>'+
-        (d.inOps?'':'<div class="stf-warn">⚠️ Клиент не в воронке «Легализация» — войти сможет, но дел не увидит, пока не переведёте сделку.</div>')+
+        (d.inOps?'':'<div class="stf-warn">⚠️ Клиент не в воронке «Легализация» — войдёт, но дел не увидит, пока не переведёте сделку.</div>')+
         '<div class="stf-acts">'+
-          '<button class="stf-copy" onclick="cabStaffCopy(\''+cabEsc(d.login)+'\',\''+cabEsc(pass).replace(/'/g,"\\'")+'\')">Скопировать</button>'+
+          '<button class="stf-copy" onclick="cabStaffCopy(\''+cabEsc(d.login)+'\',\''+cabEsc(pass).replace(/\\/g,"\\\\").replace(/'/g,"\\'")+'\')">Скопировать</button>'+
           '<a class="stf-wa" href="https://wa.me/'+waPhone+'?text='+waText+'" target="_blank" rel="noopener">Отправить в WhatsApp</a>'+
         '</div>'+
       '</div>';
-    document.getElementById('stf-phone').value='';
-    document.getElementById('stf-pass').value='';
+    cabStaffLoadData(); // обновим список (доступ появился)
   }catch(e){
     res.innerHTML='<div class="stf-err">Ошибка сети. Попробуйте ещё раз.</div>';
   }finally{
@@ -21866,7 +22067,6 @@ async function cabStaffCreate(){
   }
 }
 
-function cabEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function cabStaffCopy(login,pass){
   var t='Логин: '+login+'\nПароль: '+pass;
   if(navigator.clipboard)navigator.clipboard.writeText(t);
@@ -21875,7 +22075,7 @@ function cabStaffCopy(login,pass){
 function cabStaffLogout(){
   fetch('/api/cabinet/logout',{method:'POST',credentials:'same-origin'}).finally(function(){
     var p=document.getElementById('cab-staff-panel');if(p)p.style.display='none';
-    window.cabData=null;
+    window.cabData=null;STF_DATA=null;
     document.getElementById('cab-login-screen').style.display='flex';
   });
 }
