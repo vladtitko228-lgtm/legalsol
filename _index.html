@@ -4015,6 +4015,13 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<style id="cabinet-hide-fab">
+/* В открытом кабинете прячем плавающие WhatsApp-кнопки/бары — мешают чату и сбивают тап */
+body.cab-open #fab,
+body.cab-open #wa-fab,
+body.cab-open #m-cta-bar{display:none!important;}
+</style>
+
 <style id="services-mobile-tap-fix">
 /* ============================================================
    SERVICES — MOBILE TAP FIX (2026-06-10)
@@ -24403,6 +24410,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeTabMore
 function showTab(name){
 
   closeNavMenu();
+
+  // В кабинете прячем плавающие WhatsApp-кнопки (FAB / sticky bar) — иначе они
+  // висят поверх чата и клиент тапает по ним вместо отправки сообщения.
+  if(name==='cabinet')document.body.classList.add('cab-open');
+  else document.body.classList.remove('cab-open');
 
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
 
