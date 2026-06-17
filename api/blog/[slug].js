@@ -413,6 +413,7 @@ function renderPage(a, contentHtml, faqs) {
 
   <!-- Cookie Consent banner + Clarity (loads after accept) -->
   <script src="/cookie-banner.js" defer></script>
+  <script src="/quiz.js" defer></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
