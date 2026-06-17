@@ -20460,6 +20460,20 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-stat-wide{grid-column:span 2;}
 .stf-stat-n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
 .stf-stat-l{font-size:11px;color:#9c93b8;margin-top:5px;}
+/* Фокус дня (панель Даши) */
+.stf-focus-title{font-size:15px;font-weight:700;color:#fff;margin:4px 0 11px;}
+.stf-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+.stf-focus-card{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:16px;padding:14px 16px;}
+.stf-focus-h{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#c8c2e8;margin-bottom:10px;}
+.stf-focus-h .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.stf-focus-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid rgba(139,130,232,.1);cursor:pointer;transition:opacity .15s;}
+.stf-focus-row:first-of-type{border-top:none;}
+.stf-focus-row:hover{opacity:.7;}
+.stf-focus-main{flex:1;min-width:0;}
+.stf-focus-name{font-size:13.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stf-focus-sub{font-size:11px;color:#9c93b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stf-focus-tag{font-size:11.5px;font-weight:700;white-space:nowrap;flex-shrink:0;}
+@media(max-width:600px){.stf-focus-grid{grid-template-columns:1fr;}}
 .stf-stages{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
 .stf-chip{font-size:11.5px;color:#c4bce8;background:rgba(91,82,204,.14);border:1px solid rgba(139,130,232,.2);border-radius:30px;padding:5px 11px;}
 .stf-chip b{color:#fff;}
@@ -20690,6 +20704,62 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .cab-action-btn.primary{background:#fff;color:#5B52CC;border-color:#fff;}
 
 .cab-action-btn.primary:hover{background:rgba(255,255,255,.9);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15);}
+
+/* ── Путь дела (журней) ── */
+.cab-jrn{background:#fff;border:1px solid #e8e4f5;border-radius:22px;padding:26px 28px;margin-bottom:22px;box-shadow:0 4px 20px rgba(91,82,204,.07);position:relative;overflow:hidden;}
+.cab-jrn::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#5B52CC,#8B82E8,#22c55e);}
+.cab-jrn-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.cab-jrn-svc{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8b84b8;margin-bottom:6px;}
+.cab-jrn-stage{font-size:24px;font-weight:800;color:#1a1545;line-height:1.15;}
+.cab-jrn-id{font-size:12px;color:#a09ac8;margin-top:6px;font-family:'SF Mono',ui-monospace,monospace;}
+.cab-jrn-eta{flex-shrink:0;text-align:right;}
+.cab-jrn-eta-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#a09ac8;}
+.cab-jrn-eta-val{font-size:15px;font-weight:700;color:#5B52CC;margin-top:3px;max-width:160px;}
+/* Степпер */
+.cab-jrn-steps{display:flex;align-items:flex-start;gap:0;margin-bottom:22px;}
+.cab-jrn-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;min-width:0;}
+.cab-jrn-step::before{content:'';position:absolute;top:15px;left:-50%;width:100%;height:3px;background:#e8e4f5;z-index:0;}
+.cab-jrn-step:first-child::before{display:none;}
+.cab-jrn-step.done::before,.cab-jrn-step.cur::before{background:linear-gradient(90deg,#5B52CC,#8B82E8);}
+.cab-jrn-dot{width:32px;height:32px;border-radius:50%;background:#f0eeff;border:2px solid #e8e4f5;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;flex-shrink:0;transition:all .3s;}
+.cab-jrn-dot svg{width:15px;height:15px;}
+.cab-jrn-step.done .cab-jrn-dot{background:linear-gradient(135deg,#5B52CC,#8B82E8);border-color:transparent;color:#fff;}
+.cab-jrn-step.cur .cab-jrn-dot{background:#fff;border-color:#5B52CC;border-width:3px;box-shadow:0 0 0 5px rgba(91,82,204,.14);color:#5B52CC;}
+.cab-jrn-step.cur .cab-jrn-dot::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(91,82,204,.4);animation:cabJrnPulse 2s ease-out infinite;}
+@keyframes cabJrnPulse{0%{opacity:.7;transform:scale(.85);}70%{opacity:0;transform:scale(1.25);}100%{opacity:0;}}
+.cab-jrn-step-lbl{font-size:10.5px;line-height:1.25;color:#8b84b8;text-align:center;margin-top:8px;max-width:84px;}
+.cab-jrn-step.cur .cab-jrn-step-lbl{color:#5B52CC;font-weight:700;}
+.cab-jrn-step.done .cab-jrn-step-lbl{color:#6b63a8;}
+/* «Что делаем сейчас» */
+.cab-jrn-now{background:#f7f5ff;border-radius:14px;padding:15px 18px;display:flex;gap:12px;align-items:flex-start;}
+.cab-jrn-now-ico{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cab-jrn-now-ico svg{width:17px;height:17px;color:#fff;}
+.cab-jrn-now-txt{font-size:13.5px;color:#3a3568;line-height:1.55;}
+.cab-jrn-now-txt b{color:#1a1545;}
+/* «Нужно от вас» */
+.cab-jrn-action{margin-top:12px;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(245,158,11,.04));border:1px solid rgba(245,158,11,.3);border-radius:14px;padding:14px 18px;display:flex;gap:12px;align-items:center;}
+.cab-jrn-action-ico{width:34px;height:34px;border-radius:10px;background:#f59e0b;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cab-jrn-action-ico svg{width:17px;height:17px;color:#fff;}
+.cab-jrn-action-txt{flex:1;}
+.cab-jrn-action-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#b8860b;margin-bottom:2px;}
+.cab-jrn-action-val{font-size:13.5px;color:#1a1545;font-weight:600;line-height:1.4;}
+.cab-jrn-cta{margin-top:16px;display:flex;gap:9px;flex-wrap:wrap;}
+.cab-jrn-cta button{flex:1;min-width:140px;border:none;border-radius:12px;padding:13px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.cab-jrn-cta .pri{background:linear-gradient(135deg,#5B52CC,#7c6fe8);color:#fff;box-shadow:0 6px 18px rgba(91,82,204,.32);}
+.cab-jrn-cta .pri:hover{transform:translateY(-1px);}
+.cab-jrn-cta .sec{background:#f0eeff;color:#5B52CC;}
+.cab-jrn-cta .sec:hover{background:#e6e2fb;}
+@media(max-width:560px){
+  .cab-jrn{padding:20px 16px;}
+  .cab-jrn-stage{font-size:20px;}
+  .cab-jrn-dot{width:26px;height:26px;}
+  .cab-jrn-dot svg{width:12px;height:12px;}
+  .cab-jrn-eta{text-align:left;width:100%;margin-top:4px;}
+  /* подписи под точками наезжают на узком экране — прячем, крупный заголовок этапа всё объясняет */
+  .cab-jrn-step-lbl{display:none;}
+  .cab-jrn-steps{margin-bottom:18px;padding:0 4px;}
+  .cab-jrn-step::before{top:12px;}
+}
 
 /* Stats */
 
@@ -21142,7 +21212,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Мои услуги</span>
 
-          <span class="cab-sb-row-val blue">4</span>
+          <span class="cab-sb-row-val blue" id="cab-sb-services">—</span>
 
         </div>
 
@@ -21150,9 +21220,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <div class="cab-sb-row-ico" style="background:rgba(239,68,68,.1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
 
-          <span class="cab-sb-row-label">Непрочитанных</span>
+          <span class="cab-sb-row-label">Сообщения</span>
 
-          <span class="cab-sb-row-val red">2</span>
+          <span class="cab-sb-row-val blue" id="cab-sb-unread">—</span>
 
         </div>
 
@@ -21162,7 +21232,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">К оплате</span>
 
-          <span class="cab-sb-row-val amber">1</span>
+          <span class="cab-sb-row-val amber" id="cab-sb-topay">—</span>
 
         </div>
 
@@ -21172,7 +21242,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Активных сроков</span>
 
-          <span class="cab-sb-row-val red">3</span>
+          <span class="cab-sb-row-val red" id="cab-sb-deadlines">—</span>
 
         </div>
 
@@ -21182,7 +21252,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Дел всего</span>
 
-          <span class="cab-sb-row-val green">4</span>
+          <span class="cab-sb-row-val green" id="cab-sb-total">—</span>
 
         </div>
 
@@ -21248,9 +21318,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <div class="cab-hero-meta">
 
-            <span>📧 user@example.com</span>
+            <span id="cab-hero-email" style="display:none">📧 </span>
 
-            <span>📱 +48 *** *** ***</span>
+            <span id="cab-hero-phone" style="display:none">📱 </span>
 
             <span>Клиент LegalSol</span>
 
@@ -21269,6 +21339,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
         </div>
 
       </div>
+
+      <!-- Путь дела (журней активного дела) — заполняется cabRenderJourney() -->
+      <div id="cab-journey"></div>
 
       <!-- Stats -->
 
@@ -21934,6 +22007,27 @@ function cabStaffRenderDash(){
       '<div class="stf-stat"><div class="stf-stat-n" style="color:#f87171">'+(s.stale48||0)+'</div><div class="stf-stat-l">висят 2+ дня</div></div>'+
       '<div class="stf-stat stf-stat-wide"><div class="stf-stat-n" style="font-size:19px">'+cabStaffMoney(s.contractTotal||0)+' zł</div><div class="stf-stat-l">сумма контрактов</div></div>'+
     '</div>';
+  // ── Фокус дня: конкретные клиенты, требующие действия ──
+  var clients=STF_DATA.clients||[];
+  var stale=clients.filter(function(c){return !c.isDone&&c.daysIdle>=2;}).sort(function(a,b){return b.daysIdle-a.daysIdle;}).slice(0,5);
+  var noacc=clients.filter(function(c){return !c.hasAccess&&!c.isDone;}).slice(0,5);
+  function focusRow(c,right,rcolor){
+    return '<div class="stf-focus-row" onclick="cabStaffOpenClient('+c.leadId+')">'+
+      '<div class="stf-focus-main"><div class="stf-focus-name">'+cabEsc(c.name)+'</div>'+
+      '<div class="stf-focus-sub">'+cabEsc(c.stage)+'</div></div>'+
+      '<div class="stf-focus-tag" style="color:'+rcolor+'">'+right+'</div></div>';
+  }
+  var focusCards='';
+  if(stale.length){
+    focusCards+='<div class="stf-focus-card"><div class="stf-focus-h"><i class="dot" style="background:#f87171"></i>Висят без движения</div>'+
+      stale.map(function(c){return focusRow(c,c.daysIdle+' дн','#f87171');}).join('')+'</div>';
+  }
+  if(noacc.length){
+    focusCards+='<div class="stf-focus-card"><div class="stf-focus-h"><i class="dot" style="background:#fbbf24"></i>Без доступа в кабинет</div>'+
+      noacc.map(function(c){return focusRow(c,'выдать →','#fbbf24');}).join('')+'</div>';
+  }
+  var focusBlock=focusCards?'<div class="stf-focus-title">Фокус дня</div><div class="stf-focus-grid">'+focusCards+'</div>':'';
+
   // Разбивка по этапам
   var bs=STF_DATA.byStage||{};var stageChips='';
   Object.keys(bs).forEach(function(k){stageChips+='<span class="stf-chip">'+cabEsc(k)+' · <b>'+bs[k]+'</b></span>';});
@@ -21945,7 +22039,7 @@ function cabStaffRenderDash(){
       '<input class="stf-search" id="stf-search" placeholder="Поиск по имени или телефону…" oninput="cabStaffSearch(this.value)" value="'+cabEsc(STF_SEARCH)+'"/>'+
       '<div class="stf-filters">'+fbtn('all','Все')+fbtn('active','В работе')+fbtn('noaccess','Без доступа')+fbtn('stale','Висят')+'</div>'+
     '</div>';
-  d.innerHTML=stats+stageRow+controls+'<div id="stf-list"></div>';
+  d.innerHTML=stats+focusBlock+stageRow+controls+'<div id="stf-list"></div>';
   cabStaffRenderList();
 }
 
@@ -22165,6 +22259,11 @@ function cabApplyData(){
   // Hero блок (Dashboard вверху)
   var heroAv=document.querySelector('.cab-hero-av');if(heroAv)heroAv.textContent=initials;
   var heroName=document.querySelector('.cab-hero-name');if(heroName)heroName.textContent=fullName;
+  // Реальные email/телефон в шапке (вместо фейка). Прячем, если нет.
+  var heroEm=document.getElementById('cab-hero-email');
+  if(heroEm){ if(c.email){heroEm.textContent='📧 '+c.email;heroEm.style.display='';} else heroEm.style.display='none'; }
+  var heroPh=document.getElementById('cab-hero-phone');
+  if(heroPh){ var ph=c.phone||(phoneLike?c.name:''); if(ph){heroPh.textContent='📱 '+ph;heroPh.style.display='';} else heroPh.style.display='none'; }
 
   // Страница «Профиль»
   var profAv=document.querySelector('.cab-prof-av');if(profAv)profAv.textContent=initials;
@@ -22360,6 +22459,19 @@ function cabSyncDataToCases(){
     sel.innerHTML=CAB_CASES.map(function(c){return'<option value="'+c.id+'">'+c.typeName+' ('+c.id+')</option>';}).join('');
   }
 
+  // Сайдбар — реальные числа вместо хардкода
+  try{
+    var act=CAB_CASES.filter(function(c){return c.status!=='completed';}).length;
+    var topay=CAB_CASES.filter(function(c){return (c.remaining||0)>0;}).length;
+    var msgs=CAB_CASES.filter(function(c){return (c._chat&&c._chat.length)||(c._updates&&c._updates.length);}).length;
+    function sbset(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+    sbset('cab-sb-services',CAB_CASES.length);
+    sbset('cab-sb-unread',msgs);
+    sbset('cab-sb-topay',topay);
+    sbset('cab-sb-deadlines',act);
+    sbset('cab-sb-total',CAB_CASES.length);
+  }catch(e){}
+
   // Реальные данные → страницы Оплаты, Дедлайны, Мои услуги, статы дашборда (вместо статичной демки)
   try{ cabRenderPayments(); }catch(e){}
   try{ cabRenderDeadlines(); }catch(e){}
@@ -22538,7 +22650,64 @@ window.cabApplyData=function(){
   cabSyncDataToCases();
 };
 
+// ── Путь дела: красивый журней активного дела ──
+function cabRenderJourney(){
+  var box=document.getElementById('cab-journey');if(!box)return;
+  var cases=CAB_CASES||[];
+  if(!cases.length){box.innerHTML='';return;}
+  // приоритет: первое незавершённое дело, иначе первое
+  var c=cases.find(function(x){return x.status!=='completed';})||cases[0];
+  var stage=c._stage||{ru:'В работе',step:2,whatWeDo:'',clientAction:null,etaText:null};
+  var curStep=stage.step||1;
+  var esc=function(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+  var checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  var dotSvg='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>';
+
+  // степпер
+  var steps=CAB_STEPS.map(function(st){
+    var cls=st.n<curStep?'done':(st.n===curStep?'cur':'');
+    var inner=st.n<curStep?checkSvg:(st.n===curStep?dotSvg:'');
+    return '<div class="cab-jrn-step '+cls+'">'+
+      '<div class="cab-jrn-dot">'+inner+'</div>'+
+      '<div class="cab-jrn-step-lbl">'+esc(st.label)+'</div>'+
+    '</div>';
+  }).join('');
+
+  var etaBlock=stage.etaText
+    ? '<div class="cab-jrn-eta"><div class="cab-jrn-eta-lbl">Ориентир. срок</div><div class="cab-jrn-eta-val">'+esc(stage.etaText)+'</div></div>'
+    : '';
+
+  var nowBlock=stage.whatWeDo
+    ? '<div class="cab-jrn-now"><div class="cab-jrn-now-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>'+
+        '<div class="cab-jrn-now-txt"><b>Что происходит сейчас:</b> '+esc(stage.whatWeDo)+'</div></div>'
+    : '';
+
+  var actionBlock=stage.clientAction
+    ? '<div class="cab-jrn-action"><div class="cab-jrn-action-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div>'+
+        '<div class="cab-jrn-action-txt"><div class="cab-jrn-action-lbl">Нужно от вас</div><div class="cab-jrn-action-val">'+esc(stage.clientAction)+'</div></div></div>'
+    : '';
+
+  box.innerHTML=
+    '<div class="cab-jrn">'+
+      '<div class="cab-jrn-top">'+
+        '<div><div class="cab-jrn-svc">'+esc(c.typeName||'Ваше дело')+'</div>'+
+          '<div class="cab-jrn-stage">'+esc(stage.ru||'В работе')+'</div>'+
+          '<div class="cab-jrn-id">'+esc(c.id)+' · шаг '+curStep+' из '+CAB_STEPS.length+'</div></div>'+
+        etaBlock+
+      '</div>'+
+      '<div class="cab-jrn-steps">'+steps+'</div>'+
+      nowBlock+
+      actionBlock+
+      '<div class="cab-jrn-cta">'+
+        '<button class="pri" onclick="cabRequestUpdate(\''+c._kommoLeadId+'\')">Запросить апдейт</button>'+
+        '<button class="sec" onclick="cabOpenChat(\''+c.id+'\')">Написать специалисту</button>'+
+      '</div>'+
+    '</div>';
+}
+
 function cabRenderDash(){
+
+  try{ cabRenderJourney(); }catch(e){}
 
   var g=document.getElementById('cab-cases-grid');if(!g)return;g.innerHTML='';
   if(!CAB_CASES.length){
