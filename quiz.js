@@ -224,7 +224,7 @@
     var t=T();
     fab=document.createElement('button');
     fab.id='lsq-fab'; fab.type='button'; fab.setAttribute('aria-haspopup','dialog');
-    fab.innerHTML='<span class="lsq-fbadge">'+LOGO+'</span><span id="lsq-fab-tx">'+esc(t.fab)+'</span>';
+    fab.innerHTML='<span id="lsq-fab-tx">'+esc(t.fab)+'</span><span class="lsq-farr">'+ic('arrowR',16)+'</span>';
     ov=document.createElement('div');
     ov.id='lsq-ov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',t.dialog);
     ov.innerHTML='<div id="lsq-card"><div class="lsq-accent"></div><div id="lsq-head"><div class="lsq-brand">'+LOGO+'<div class="lsq-bn"><span class="lsq-name">LEGALSOL</span><span class="lsq-sub">LEGALIZATION SERVICES</span></div></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span><span id="lsq-pct"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
@@ -303,8 +303,10 @@
     }
   }
 
-  var CSS='#lsq-fab{position:fixed;left:20px;bottom:24px;z-index:900;display:flex;align-items:center;gap:10px;padding:12px 20px 12px 13px;border-radius:60px;cursor:pointer;font-family:Inter,system-ui,sans-serif;font-size:14.5px;font-weight:600;letter-spacing:.01em;color:#fff;background:linear-gradient(135deg,rgba(46,33,102,.52),rgba(72,50,138,.44));-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);border:1px solid rgba(255,255,255,.3);box-shadow:0 14px 40px rgba(18,11,48,.32),inset 0 1px 0 rgba(255,255,255,.42);text-shadow:0 1px 5px rgba(10,6,30,.4);transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .3s,background .3s;animation:lsqPulse 3.2s ease-in-out infinite;}'
+  var CSS='#lsq-fab{position:fixed;left:20px;bottom:24px;z-index:900;display:flex;align-items:center;gap:9px;padding:14px 22px;border-radius:60px;cursor:pointer;font-family:Inter,system-ui,sans-serif;font-size:14.5px;font-weight:600;letter-spacing:.015em;color:#fff;background:linear-gradient(135deg,rgba(46,33,102,.52),rgba(72,50,138,.44));-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);border:1px solid rgba(255,255,255,.3);box-shadow:0 14px 40px rgba(18,11,48,.32),inset 0 1px 0 rgba(255,255,255,.42);text-shadow:0 1px 5px rgba(10,6,30,.4);transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .3s,background .3s;animation:lsqPulse 3.2s ease-in-out infinite;}'
   +'#lsq-fab:hover{transform:translateY(-3px);background:linear-gradient(135deg,rgba(56,40,120,.66),rgba(88,60,160,.56));box-shadow:0 20px 50px rgba(18,11,48,.4),inset 0 1px 0 rgba(255,255,255,.5);}'
+  +'.lsq-farr{display:inline-flex;align-items:center;opacity:.7;transform:translateX(0);transition:transform .25s cubic-bezier(.16,1,.3,1),opacity .25s;}'
+  +'#lsq-fab:hover .lsq-farr{opacity:1;transform:translateX(4px);}'
   +'.lsq-fdot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:lsqDot 1.6s ease-out infinite;}'
   +'.lsq-fbadge{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:6px;padding:3px 4px;flex-shrink:0;}'
   +'.lsq-fbadge svg{width:16px;height:15px;display:block;}'
