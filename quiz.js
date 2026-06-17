@@ -224,7 +224,7 @@
     var t=T();
     fab=document.createElement('button');
     fab.id='lsq-fab'; fab.type='button'; fab.setAttribute('aria-haspopup','dialog');
-    fab.innerHTML='<span class="lsq-fdot"></span>'+ic('compass',19)+'<span id="lsq-fab-tx">'+esc(t.fab)+'</span>';
+    fab.innerHTML='<span class="lsq-fdot"></span><span class="lsq-fbadge">'+LOGO+'</span><span id="lsq-fab-tx">'+esc(t.fab)+'</span>';
     ov=document.createElement('div');
     ov.id='lsq-ov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',t.dialog);
     ov.innerHTML='<div id="lsq-card"><div class="lsq-accent"></div><div id="lsq-head"><div class="lsq-brand">'+LOGO+'<div class="lsq-bn"><span class="lsq-name">LEGALSOL</span><span class="lsq-sub">LEGALIZATION SERVICES</span></div></div><button id="lsq-close" type="button" aria-label="'+esc(t.close)+'">'+ic('x',20)+'</button><div class="lsq-progwrap"><span id="lsq-step"></span><span id="lsq-pct"></span></div><div class="lsq-track"><div id="lsq-bar"></div></div></div><div id="lsq-body"></div></div>';
@@ -306,6 +306,8 @@
   var CSS='#lsq-fab{position:fixed;left:20px;bottom:24px;z-index:900;display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:60px;border:none;cursor:pointer;font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:600;color:#fff;background:linear-gradient(135deg,#5B52CC,#7C5CFC);box-shadow:0 8px 28px rgba(91,82,204,.5);transition:transform .2s,box-shadow .2s;animation:lsqPulse 2.8s ease-in-out infinite;}'
   +'#lsq-fab:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(91,82,204,.62);}'
   +'.lsq-fdot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 0 rgba(74,222,128,.7);animation:lsqDot 1.6s ease-out infinite;}'
+  +'.lsq-fbadge{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:6px;padding:3px 4px;flex-shrink:0;}'
+  +'.lsq-fbadge svg{width:16px;height:15px;display:block;}'
   +'@keyframes lsqDot{0%{box-shadow:0 0 0 0 rgba(74,222,128,.6);}70%{box-shadow:0 0 0 7px rgba(74,222,128,0);}100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}}'
   +'@keyframes lsqPulse{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}'
   +'#lsq-ov{position:fixed;inset:0;z-index:100000;display:none;align-items:flex-start;justify-content:center;padding:24px 16px;background:rgba(20,16,40,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow-y:auto;}'
