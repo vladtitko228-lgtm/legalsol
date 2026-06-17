@@ -5,6 +5,7 @@ const {
   kommo, getCfValue, hashPassword, verifyJwt, readCookie, readJsonBody, normalizePhone, findContactByPhone,
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
   isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote,
+  isClientMsgNote, stripClientMsgPrefix,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
@@ -112,12 +113,18 @@ async function actionClient(req, res) {
   // Имя клиента: имя сделки, если оно не телефон; иначе имя контакта
   const leadNm = cleanLeadName(lead.name);
   const displayName = (leadNm && !looksLikePhone(leadNm)) ? leadNm : ((cname && !looksLikePhone(cname)) ? cname : (leadNm || cname || 'Клиент'));
-  let updates = [], payments = [];
+  let updates = [], payments = [], chat = [];
   try {
     const nRes = await kommo('GET', `/leads/${leadId}/notes?limit=100`);
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
-    updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
+    updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
+    // Двусторонний чат для Даши: ОТ КЛИЕНТА: (входящие) + КЛИЕНТУ: (её ответы)
+    chat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+      .map(n => isClientMsgNote(n.text)
+        ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
+        : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+      .sort((a, b) => a.createdAt - b.createdAt);
   } catch (_) {}
   let tasks = [];
   try {
@@ -130,7 +137,7 @@ async function actionClient(req, res) {
     leadId: lead.id, name: displayName, phone, hasAccess,
     service: getCfValue(lead, CF_SERVICE_TYPE) || stage.service || '',
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
-    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates
+    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates, chat
   });
 }
 
@@ -155,6 +162,19 @@ async function actionSetPassword(req, res) {
   return res.status(200).json({ ok: true, contactId: contact.id, name: contact.name || '', login: '+' + normalized, inOps, updated: already });
 }
 
+// ── action=reply ── Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+async function actionReply(req, res) {
+  const { leadId, text } = await readJsonBody(req);
+  const lid = String(leadId || '').replace(/[^\d]/g, '');
+  const msg = String(text || '').trim().slice(0, 1500);
+  if (!lid) return res.status(400).json({ error: 'leadId_required' });
+  if (!msg) return res.status(400).json({ error: 'text_required' });
+  await kommo('POST', `/leads/${lid}/notes`, [
+    { note_type: 'common', params: { text: 'КЛИЕНТУ: ' + msg } }
+  ]);
+  return res.status(200).json({ ok: true });
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   try {
@@ -164,6 +184,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'data') return actionData(req, res, payload);
     if (req.method === 'GET' && action === 'client') return actionClient(req, res);
     if (req.method === 'POST' && action === 'set-password') return actionSetPassword(req, res);
+    if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
     return res.status(400).json({ error: 'bad_action' });
   } catch (e) {
     console.error('staff err:', e.message);

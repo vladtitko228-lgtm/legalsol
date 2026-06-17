@@ -20501,6 +20501,28 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-line span:first-child{color:#9c93b8;font-size:12px;white-space:nowrap;min-width:74px;}
 .stf-line b{color:#fff;}
 .stf-m-access{margin-top:18px;padding-top:18px;border-top:1px solid rgba(139,130,232,.16);}
+/* Чат с клиентом в карточке Даши */
+.stf-chatbox{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px;}
+.stf-cmsg{max-width:82%;}
+.stf-cmsg.in{align-self:flex-start;}
+.stf-cmsg.out{align-self:flex-end;}
+.stf-cmsg-b{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.45;}
+.stf-cmsg.in .stf-cmsg-b{background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.18);color:#e8e4ff;border-bottom-left-radius:4px;}
+.stf-cmsg.out .stf-cmsg-b{background:linear-gradient(135deg,#5B52CC,#7c6fe8);color:#fff;border-bottom-right-radius:4px;}
+.stf-cmsg-t{font-size:10px;color:#8b84b8;margin-top:3px;}
+.stf-cmsg.out .stf-cmsg-t{text-align:right;}
+.stf-reply{display:flex;gap:8px;margin-top:12px;}
+.stf-reply .stf-in{flex:1;}
+
+/* Нарядность: мягкое появление, акцент-градиент шапки */
+#cab-staff-panel{background:radial-gradient(ellipse at 20% 0%,rgba(124,92,252,.18),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(34,211,238,.10),transparent 50%),linear-gradient(155deg,#0d0b20,#13103a 60%,#0d0b20)!important;}
+.stf-shell{animation:stfIn .5s cubic-bezier(.16,1,.3,1);}
+@keyframes stfIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.stf-shell .stf-head{background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(255,255,255,.03))!important;}
+.stf-stat{transition:transform .2s,border-color .2s;}
+.stf-stat:hover{transform:translateY(-2px);border-color:rgba(167,139,250,.4);}
+.stf-row{animation:stfRow .35s ease both;}
+@keyframes stfRow{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:none;}}
 @media(max-width:600px){
   .stf-stat-wide{grid-column:span 2;}
   .stf-row{padding:13px 14px;}
@@ -21347,7 +21369,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         <div class="cab-chat-bar">
 
-          <input class="cab-chat-in" id="cab-chat-in" placeholder="Написать менеджеру в WhatsApp..." onkeydown="if(event.key==='Enter')cabSend()"/>
+          <input class="cab-chat-in" id="cab-chat-in" placeholder="Напишите ваш вопрос менеджеру…" onkeydown="if(event.key==='Enter')cabSend()"/>
 
           <button class="cab-chat-send" onclick="cabSend()">↑</button>
 
@@ -21965,10 +21987,15 @@ async function cabStaffOpenClient(leadId){
     var tasksHtml=(c.tasks&&c.tasks.length)
       ? c.tasks.map(function(t){return '<div class="stf-line"><span>'+cabStaffFmtDate(t.completeTill)+'</span><span style="flex:1">'+cabEsc(t.text||'задача')+'</span></div>';}).join('')
       : '<div class="stf-dim">активных задач нет</div>';
-    var updHtml=(c.updates&&c.updates.length)
-      ? c.updates.slice(0,5).map(function(u){return '<div class="stf-line"><span>'+cabStaffFmtDate(u.createdAt)+'</span><span style="flex:1">'+cabEsc((u.text||'').slice(0,140))+'</span></div>';}).join('')
-      : '<div class="stf-dim">апдейтов клиенту ещё не было</div>';
+    var chat=c.chat||[];
+    var chatHtml=chat.length
+      ? '<div class="stf-chatbox">'+chat.map(function(u){
+          var mine=u.from==='manager';
+          return '<div class="stf-cmsg '+(mine?'out':'in')+'"><div class="stf-cmsg-b">'+cabEsc((u.text||'').slice(0,400))+'</div><div class="stf-cmsg-t">'+(mine?'Вы → клиенту':'Клиент')+' · '+cabStaffFmtDate(u.createdAt)+'</div></div>';
+        }).join('')+'</div>'
+      : '<div class="stf-dim">переписки пока нет</div>';
     var waPhone=(c.phone||'').replace(/[^\d]/g,'');
+    window.STF_CUR_LEAD=c.leadId;
     m.innerHTML=
       '<div class="stf-m-head">'+
         '<div><div class="stf-m-name">'+cabEsc(c.name||'Клиент')+'</div>'+
@@ -21984,9 +22011,11 @@ async function cabStaffOpenClient(leadId){
         '<div class="stf-m-box"><div class="stf-m-box-l">Оплачено</div><div class="stf-m-box-v" style="color:#16a34a">'+cabStaffMoney(c.paidTotal)+' zł</div></div>'+
         '<div class="stf-m-box"><div class="stf-m-box-l">Остаток</div><div class="stf-m-box-v" style="color:#d97706">'+cabStaffMoney(c.remaining)+' zł</div></div>'+
       '</div>'+
+      '<div class="stf-m-sec">Переписка с клиентом</div>'+chatHtml+
+      '<div class="stf-reply"><input class="stf-in" id="stf-reply-in" placeholder="Ответить клиенту в кабинет…" onkeydown="if(event.key===\'Enter\')cabStaffReply()"/>'+
+        '<button class="stf-gen" style="width:auto;padding:0 16px" onclick="cabStaffReply()">→</button></div>'+
       '<div class="stf-m-sec">Платежи</div>'+paysHtml+
       '<div class="stf-m-sec">Задачи / дедлайны</div>'+tasksHtml+
-      '<div class="stf-m-sec">Апдейты клиенту</div>'+updHtml+
       '<div class="stf-m-access">'+
         (c.hasAccess
           ?'<div class="stf-acc on" style="margin-bottom:10px">✓ Доступ в кабинет выдан</div>'
@@ -22071,6 +22100,27 @@ function cabStaffCopy(login,pass){
   var t='Логин: '+login+'\nПароль: '+pass;
   if(navigator.clipboard)navigator.clipboard.writeText(t);
   cabToast('Скопировано','success');
+}
+
+// Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+async function cabStaffReply(){
+  var inp=document.getElementById('stf-reply-in');
+  var txt=inp?inp.value.trim():'';
+  var leadId=window.STF_CUR_LEAD;
+  if(!txt||!leadId)return;
+  if(inp)inp.disabled=true;
+  try{
+    var r=await fetch('/api/cabinet/staff?action=reply',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({leadId:leadId,text:txt})
+    });
+    if(!r.ok)throw new Error();
+    cabToast('Ответ отправлен клиенту','success');
+    cabStaffOpenClient(leadId); // перезагрузим карточку — ответ появится в переписке
+  }catch(e){
+    cabToast('Не удалось отправить','error');
+    if(inp)inp.disabled=false;
+  }
 }
 function cabStaffLogout(){
   fetch('/api/cabinet/logout',{method:'POST',credentials:'same-origin'}).finally(function(){
@@ -22283,7 +22333,8 @@ function cabSyncDataToCases(){
       _kommoLeadId:ld.id,
       _stage:ld.stage,
       _nextTask:nextTask,
-      _updates:ld.updates||ld.notes||[]
+      _updates:ld.updates||ld.notes||[],
+      _chat:ld.chat||[]
     };
   });
 
@@ -22699,17 +22750,17 @@ function cabLoadChat(){
       (stage.etaText?'<div style="margin-top:6px;font-size:12px;opacity:.9">⏰ Срок: '+stage.etaText+'</div>':'')+
     '</div>';
 
-  // Лента апдейтов как сообщения от менеджера
-  var updates=caseData._updates||[];
-  if(!updates.length){
+  // Двусторонняя лента: КЛИЕНТУ: — менеджер слева, ОТ КЛИЕНТА: — клиент справа
+  var chatArr=(caseData._chat&&caseData._chat.length)?caseData._chat
+    :(caseData._updates||[]).map(function(u){return{from:'manager',text:u.text,createdAt:u.createdAt};});
+  if(!chatArr.length){
     c.innerHTML+=
       '<div style="text-align:center;padding:50px 24px;color:#a09ac8">'+
         '<div style="font-size:38px;margin-bottom:12px">💬</div>'+
-        '<div style="font-size:14px;line-height:1.55;max-width:380px;margin:0 auto">Менеджер ещё не оставлял публичных сообщений по этому делу. Они будут появляться здесь по ходу работы. Если что — напишите в WhatsApp.</div>'+
+        '<div style="font-size:14px;line-height:1.55;max-width:380px;margin:0 auto">Напишите ваш вопрос ниже — менеджер ответит, и вся переписка по делу будет здесь.</div>'+
       '</div>';
   }else{
-    // Сортируем хронологически (старые сверху, новые снизу — как в мессенджере)
-    var sorted=updates.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
+    var sorted=chatArr.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
     var lastDay=null;
     sorted.forEach(function(u){
       var d=new Date(u.createdAt);
@@ -22721,31 +22772,44 @@ function cabLoadChat(){
       }
       var p=function(n){return(n<10?'0':'')+n;};
       var timeStr=p(d.getHours())+':'+p(d.getMinutes());
+      var mine=u.from==='client';
       var bubble=document.createElement('div');
-      bubble.className='cab-msg spec';
+      bubble.className='cab-msg'+(mine?' usr':' spec');
+      var body='<div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+        '<div class="cab-msg-meta">'+(mine?'Вы':'Менеджер')+' · '+timeStr+'</div>';
       bubble.innerHTML=
-        '<div class="cab-msg-av spec">LS</div>'+
-        '<div><div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
-        '<div class="cab-msg-meta">Менеджер · '+timeStr+'</div></div>';
+        '<div class="cab-msg-av '+(mine?'usr':'spec')+'">'+(mine?'Вы':'LS')+'</div>'+
+        '<div>'+body+'</div>';
       c.appendChild(bubble);
     });
   }
   c.scrollTop=c.scrollHeight;
 }
 
-function cabSend(){
+async function cabSend(){
   var inp=document.getElementById('cab-chat-in');
   var txt=inp?inp.value.trim():'';
   if(!txt){cabToast('Напишите сообщение','info');return;}
   var sel=document.getElementById('cab-chat-sel');
   var cid=sel?sel.value:(CAB_CASES[0]&&CAB_CASES[0].id);
   var caseData=CAB_CASES.find(function(c){return c.id===cid;});
-  // Открываем WhatsApp с предзаполненным сообщением — реальный канал общения с менеджером
-  var prefix=caseData?('По делу '+caseData.id+' ('+caseData.typeName+'):\n'):'';
-  var url='https://wa.me/48735248525?text='+encodeURIComponent(prefix+txt);
-  window.open(url,'_blank','noopener');
-  if(inp)inp.value='';
-  cabToast('Открываем WhatsApp с вашим сообщением','success');
+  var leadId=caseData?caseData._kommoLeadId:null;
+  if(inp){inp.disabled=true;}
+  // Оптимистично показываем своё сообщение сразу
+  if(caseData){caseData._chat=(caseData._chat||[]).concat([{from:'client',text:txt,createdAt:Date.now()}]);cabLoadChat();}
+  try{
+    var r=await fetch('/api/cabinet/me',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({leadId:leadId,text:txt})
+    });
+    if(!r.ok)throw new Error();
+    if(inp)inp.value='';
+    cabToast('Отправлено менеджеру','success');
+  }catch(e){
+    cabToast('Не удалось отправить. Попробуйте ещё раз или напишите в WhatsApp.','error');
+  }finally{
+    if(inp){inp.disabled=false;inp.focus();}
+  }
 }
 
 function cabFilter(status,btn){

@@ -151,6 +151,23 @@ const CLIENT_NOTE_PREFIXES = [
   '>>>', '&gt;&gt;&gt;',
   '📢'
 ];
+
+// Сообщения, которые пишет САМ клиент из кабинета. Префикс «ОТ КЛИЕНТА:».
+// Менеджер/Даша видит их в карточке клиента; в чате кабинета — как реплика клиента справа.
+const CLIENT_MSG_PREFIX = 'ОТ КЛИЕНТА:';
+const CLIENT_MSG_PREFIXES = ['ОТ КЛИЕНТА:', 'От клиента:', 'от клиента:', '[ОТ КЛИЕНТА]'];
+function isClientMsgNote(text) {
+  if (!text) return false;
+  const t = String(text).trim();
+  return CLIENT_MSG_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+function stripClientMsgPrefix(text) {
+  let t = String(text || '').trim();
+  for (const p of CLIENT_MSG_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) return t.slice(p.length).trim();
+  }
+  return t;
+}
 const CLIENT_NOTE_PREFIX = 'КЛИЕНТУ:'; // дефолтный (для UI и сообщений)
 
 // Платёжные заметки: менеджер (или TG-бот /paid) ставит префикс «ОПЛАТА:».
@@ -468,6 +485,9 @@ module.exports = {
   isPaymentNote,
   parsePaymentNote,
   findStaffByPhone,
+  CLIENT_MSG_PREFIX,
+  isClientMsgNote,
+  stripClientMsgPrefix,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,
