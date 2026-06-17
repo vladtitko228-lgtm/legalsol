@@ -3,7 +3,8 @@
 const {
   findContactByPhone, getCfValue, verifyPassword, signJwt, setAuthCookie,
   readJsonBody, normalizePhone, PASSWORD_FIELD_ID,
-  clientIp, rateLimitBlocked, rateLimitFail, rateLimitReset
+  clientIp, rateLimitBlocked, rateLimitFail, rateLimitReset,
+  findStaffByPhone
 } = require('./_helpers');
 
 module.exports = async function handler(req, res) {
@@ -22,6 +23,19 @@ module.exports = async function handler(req, res) {
     const ip = clientIp(req);
     if (await rateLimitBlocked(ip, normalized)) {
       return res.status(429).json({ error: 'too_many_attempts', message: 'Слишком много попыток входа. Попробуйте через 15 минут или напишите менеджеру в WhatsApp.' });
+    }
+
+    // ── СОТРУДНИК (Даша и др.) — вход в админ-панель ──
+    const staff = findStaffByPhone(normalized);
+    if (staff) {
+      if (!verifyPassword(password, staff.hash)) {
+        await rateLimitFail(ip, normalized);
+        return res.status(401).json({ error: 'invalid_credentials' });
+      }
+      await rateLimitReset(ip, normalized);
+      const stoken = signJwt({ staff: true, name: staff.name });
+      setAuthCookie(res, stoken);
+      return res.status(200).json({ ok: true, staff: true, name: staff.name });
     }
 
     const contact = await findContactByPhone(normalized);

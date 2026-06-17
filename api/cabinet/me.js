@@ -1,9 +1,11 @@
 // GET /api/cabinet/me — данные авторизованного клиента из Kommo.
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
-  kommo, getCfValue, getCfAllValues, verifyJwt, readCookie,
+  kommo, getCfValue, getCfAllValues, verifyJwt, readCookie, readJsonBody,
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
   isClientNote, stripClientPrefix,
+  isPaymentNote, parsePaymentNote,
+  CLIENT_MSG_PREFIX, isClientMsgNote, stripClientMsgPrefix,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
@@ -25,16 +27,46 @@ function looksLikePhoneOnly(name) {
 }
 
 module.exports = async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
-    return res.status(405).json({ error: 'method_not_allowed' });
-  }
   // Ответ содержит ПДн (паспорт/гражданство/заметки) — запрещаем любое кэширование
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST');
+    return res.status(405).json({ error: 'method_not_allowed' });
+  }
   try {
     const token = readCookie(req, 'cabinet_token');
     const payload = verifyJwt(token);
-    if (!payload || !payload.cid) return res.status(401).json({ error: 'unauthorized' });
+    if (!payload) return res.status(401).json({ error: 'unauthorized' });
+
+    // Сотрудник (Даша) — отдаём роль, без клиентских данных. Фронт покажет админ-панель.
+    if (payload.staff) {
+      return res.status(200).json({ role: 'staff', name: payload.name || 'Сотрудник' });
+    }
+    if (!payload.cid) return res.status(401).json({ error: 'unauthorized' });
+
+    // ── POST: клиент пишет сообщение менеджеру → заметка «ОТ КЛИЕНТА:» в его сделку ──
+    if (req.method === 'POST') {
+      const body = await readJsonBody(req);
+      const text = String(body.text || '').trim().slice(0, 1500);
+      const leadId = String(body.leadId || '').replace(/[^\d]/g, '');
+      if (!text) return res.status(400).json({ error: 'text_required' });
+      // Проверяем, что сделка принадлежит этому контакту и она в воронке Легализации
+      const cRes2 = await kommo('GET', `/contacts/${payload.cid}?with=leads`);
+      const ownLeadIds = (cRes2?._embedded?.leads || []).map(l => String(l.id));
+      let targetLead = leadId && ownLeadIds.indexOf(leadId) >= 0 ? leadId : null;
+      if (!targetLead) {
+        // нет указанной — берём первую сделку клиента в Pipeline 2
+        for (const lid of ownLeadIds) {
+          const l = await kommo('GET', `/leads/${lid}`);
+          if (l && l.pipeline_id === PIPELINE_OPS) { targetLead = String(lid); break; }
+        }
+      }
+      if (!targetLead) return res.status(404).json({ error: 'no_lead' });
+      await kommo('POST', `/leads/${targetLead}/notes`, [
+        { note_type: 'common', params: { text: CLIENT_MSG_PREFIX + ' ' + text } }
+      ]);
+      return res.status(200).json({ ok: true });
+    }
 
     // 1) Контакт
     const cRes = await kommo('GET', `/contacts/${payload.cid}?with=leads`);
@@ -56,8 +88,10 @@ module.exports = async function handler(req, res) {
         // Кабинет — только для оплаченных клиентов (Pipeline 2)
         if (lead.pipeline_id !== PIPELINE_OPS) continue;
 
-        // Тянем все заметки → выделяем клиентские (с префиксом 📢)
+        // Тянем все заметки → выделяем клиентские (с префиксом 📢) и платёжные (ОПЛАТА:)
         let updates = [];
+        let payments = [];
+        let chat = [];
         try {
           const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
           const all = (nRes?._embedded?.notes || []).map(n => ({
@@ -67,28 +101,47 @@ module.exports = async function handler(req, res) {
             type: n.note_type,
             author: n.created_by || null
           })).filter(n => n.text);
-          // Только клиентские — поддерживаем несколько префиксов (>>>, 📢, [c], [К], [к])
+          // Только клиентские текстовые апдейты (префиксы >>>, 📢, [c], [К], [к], КЛИЕНТУ:).
+          // Платёжные (ОПЛАТА:) и сообщения клиента (ОТ КЛИЕНТА:) исключаем.
           updates = all
-            .filter(n => isClientNote(n.text))
+            .filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text))
             .map(n => ({ ...n, text: stripClientPrefix(n.text) }))
             .sort((a, b) => b.createdAt - a.createdAt);
+
+          // Платежи — заметки с префиксом ОПЛАТА: (ставит TG-бот /paid или менеджер вручную)
+          payments = all
+            .filter(n => isPaymentNote(n.text))
+            .map(n => {
+              const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '', raw: '' };
+              return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText };
+            })
+            .filter(p => p.amount > 0)
+            .sort((a, b) => b.createdAt - a.createdAt);
+
+          // Двусторонний чат: КЛИЕНТУ: → менеджер, ОТ КЛИЕНТА: → клиент. По возрастанию времени.
+          chat = all
+            .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+            .map(n => isClientMsgNote(n.text)
+              ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
+              : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+            .sort((a, b) => a.createdAt - b.createdAt);
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе
         const notes = updates;
 
-        // Задачи (ближайшие активные)
+        // Задачи (ближайшие активные). ТЕКСТ задач — внутренняя кухня («дожать по оплате»),
+        // клиенту НЕ отдаём; фронт использует только дату для дедлайнов.
         let tasks = [];
         try {
           const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`);
           tasks = (tRes?._embedded?.tasks || []).map(t => ({
             id: t.id,
             completeTill: t.complete_till * 1000,
-            text: t.text || '',
             taskType: t.task_type_id
           })).sort((a, b) => a.completeTill - b.completeTill);
         } catch (_) {}
 
-        const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '' };
+        const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '', whatWeDo: '', clientAction: null, etaText: null };
         const serviceType = getCfValue(lead, CF_SERVICE_TYPE) || stage.service || 'Услуга легализации';
         const cleanName = cleanLeadName(lead.name);
 
@@ -97,19 +150,30 @@ module.exports = async function handler(req, res) {
           displayName = cleanName;
         }
 
+        const price = lead.price || 0;
+        const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
+
         leads.push({
           id: lead.id,
           name: cleanName || lead.name || '',
           serviceType,
-          price: lead.price || 0,
+          price,
+          paidTotal,
+          remaining: price > paidTotal ? price - paidTotal : 0,
+          payments,
           createdAt: lead.created_at * 1000,
           updatedAt: lead.updated_at * 1000,
           pipelineId: lead.pipeline_id,
           statusId: lead.status_id,
           stage,
+          // Срок/действие текущего этапа — для страницы «Дедлайны» (типовые, не внутренние задачи)
+          etaText: stage.etaText || '',
+          clientAction: stage.clientAction || '',
+          whatWeDo: stage.whatWeDo || '',
           totalSteps: TOTAL_STEPS,
           notes,        // совместимость — здесь только клиентские (с 📢)
           updates,      // тоже клиентские, более явное имя
+          chat,         // двусторонний чат: {from:'client'|'manager', text, createdAt}
           tasks
         });
       } catch (e) {

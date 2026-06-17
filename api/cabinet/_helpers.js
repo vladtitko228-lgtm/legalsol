@@ -10,6 +10,29 @@ if (!JWT_SECRET || JWT_SECRET.length < 16) {
   throw new Error('CABINET_JWT_SECRET is not set or too short (need >=16 chars) — refusing to start cabinet auth');
 }
 const PASSWORD_FIELD_ID = parseInt(process.env.KOMMO_PASSWORD_FIELD_ID || '2425096', 10);
+
+// Сотрудники (Даша и др.) — могут входить в админ-панель и заводить клиентам доступы.
+// env CABINET_STAFF = «phone:scryptHash:Имя» через запятую (телефон не секрет, хеш — секрет).
+// Пример: +48884007199:scrypt$...$...:Дарья
+function parseStaff() {
+  const raw = process.env.CABINET_STAFF || '';
+  const out = [];
+  for (const part of raw.split(',')) {
+    const s = part.trim();
+    if (!s) continue;
+    // hash содержит «$», поэтому делим аккуратно: phone : scrypt$salt$hash : name
+    const m = s.match(/^([^:]+):(scrypt\$[^:]+):(.*)$/);
+    if (!m) continue;
+    out.push({ phone: m[1].replace(/[^\d]/g, ''), hash: m[2], name: (m[3] || 'Сотрудник').trim() });
+  }
+  return out;
+}
+const STAFF = parseStaff();
+function findStaffByPhone(normalizedPhone) {
+  const p = String(normalizedPhone || '').replace(/[^\d]/g, '');
+  return STAFF.find(s => s.phone === p) || null;
+}
+
 const PHONE_FIELD_ID = 2103374;
 const EMAIL_FIELD_ID = 2103376;
 const CF_GRAZHDANSTVO = 2422198;
@@ -128,7 +151,30 @@ const CLIENT_NOTE_PREFIXES = [
   '>>>', '&gt;&gt;&gt;',
   '📢'
 ];
+
+// Сообщения, которые пишет САМ клиент из кабинета. Префикс «ОТ КЛИЕНТА:».
+// Менеджер/Даша видит их в карточке клиента; в чате кабинета — как реплика клиента справа.
+const CLIENT_MSG_PREFIX = 'ОТ КЛИЕНТА:';
+const CLIENT_MSG_PREFIXES = ['ОТ КЛИЕНТА:', 'От клиента:', 'от клиента:', '[ОТ КЛИЕНТА]'];
+function isClientMsgNote(text) {
+  if (!text) return false;
+  const t = String(text).trim();
+  return CLIENT_MSG_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+function stripClientMsgPrefix(text) {
+  let t = String(text || '').trim();
+  for (const p of CLIENT_MSG_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) return t.slice(p.length).trim();
+  }
+  return t;
+}
 const CLIENT_NOTE_PREFIX = 'КЛИЕНТУ:'; // дефолтный (для UI и сообщений)
+
+// Платёжные заметки: менеджер (или TG-бот /paid) ставит префикс «ОПЛАТА:».
+// Формат тела (любой из): «1500 zł · Visa · 17.06.2026» / «1500 zl Visa» / «1500».
+// Клиент видит их в кабинете на странице «Оплаты» отдельно от текстовых апдейтов.
+const PAYMENT_NOTE_PREFIXES = ['ОПЛАТА:', 'Оплата:', 'оплата:', '💳'];
+const PAYMENT_NOTE_PREFIX = 'ОПЛАТА:';
 
 function decodeHtmlEntities(s) {
   if (!s) return '';
@@ -156,6 +202,36 @@ function stripClientPrefix(text) {
     }
   }
   return t;
+}
+
+// === Платёжные заметки ===
+function isPaymentNote(text) {
+  if (!text) return false;
+  const t = decodeHtmlEntities(text).trim();
+  return PAYMENT_NOTE_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+
+// Разбор «ОПЛАТА: 1500 zł · Visa · 17.06.2026» → { amount, method, dateText, raw }
+// amount — число (zł), method — способ (если есть), dateText — дата как написана (если есть).
+function parsePaymentNote(text) {
+  if (!text) return null;
+  let t = decodeHtmlEntities(text).trim();
+  for (const p of PAYMENT_NOTE_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) { t = t.slice(p.length).trim(); break; }
+  }
+  // Платёжная инфа всегда на первой строке; после \n — служебный план рассрочки, его игнорим.
+  t = t.split('\n')[0].trim();
+  // Сумма — первое число (допускаем пробелы-разделители тысяч: «1 500»)
+  const amtMatch = t.replace(/(\d)[  ](?=\d{3}\b)/g, '$1').match(/(\d[\d.,]*)/);
+  const amount = amtMatch ? parseInt(amtMatch[1].replace(/[.,]/g, ''), 10) : null;
+  // Дата dd.mm.yyyy / dd.mm если есть
+  const dateMatch = t.match(/\b(\d{1,2}[.\/]\d{1,2}(?:[.\/]\d{2,4})?)\b/);
+  const dateText = dateMatch ? dateMatch[1] : '';
+  // Способ — слово вроде Visa/перевод/blik/наличные между разделителями
+  const methodMatch = t.match(/(?:·|\||-|,)\s*([A-Za-zА-Яа-я][A-Za-zА-Яа-я ]{1,18})/);
+  let method = methodMatch ? methodMatch[1].trim() : '';
+  if (/^\d/.test(method)) method = '';
+  return { amount: amount || 0, method, dateText, raw: t };
 }
 
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
@@ -404,6 +480,14 @@ module.exports = {
   CLIENT_NOTE_PREFIXES,
   isClientNote,
   stripClientPrefix,
+  PAYMENT_NOTE_PREFIX,
+  PAYMENT_NOTE_PREFIXES,
+  isPaymentNote,
+  parsePaymentNote,
+  findStaffByPhone,
+  CLIENT_MSG_PREFIX,
+  isClientMsgNote,
+  stripClientMsgPrefix,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,

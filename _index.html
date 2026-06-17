@@ -4015,6 +4015,13 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<style id="cabinet-hide-fab">
+/* В открытом кабинете прячем плавающие WhatsApp-кнопки/бары — мешают чату и сбивают тап */
+body.cab-open #fab,
+body.cab-open #wa-fab,
+body.cab-open #m-cta-bar{display:none!important;}
+</style>
+
 <style id="services-mobile-tap-fix">
 /* ============================================================
    SERVICES — MOBILE TAP FIX (2026-06-10)
@@ -20407,6 +20414,129 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 
 #cab-login-screen{min-height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(145deg,#0d0b20 0%,#13103a 50%,#0d0b20 100%);position:relative;overflow:hidden;}
 
+/* ── АДМИН-ПАНЕЛЬ СОТРУДНИКА (Даша) ── */
+#cab-staff-panel{display:none;position:fixed;inset:0;z-index:6000;background:linear-gradient(145deg,#0d0b20,#13103a 55%,#0d0b20);overflow-y:auto;}
+.stf-wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:48px 18px;}
+.stf-card{width:100%;max-width:440px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.22);border-radius:24px;padding:28px 26px;box-shadow:0 30px 90px rgba(0,0,0,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
+.stf-head{display:flex;align-items:center;gap:13px;margin-bottom:24px;}
+.stf-logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:16px;letter-spacing:1px;flex-shrink:0;}
+.stf-title{font-size:17px;font-weight:800;color:#fff;}
+.stf-sub{font-size:12px;color:#9c93b8;margin-top:2px;}
+.stf-logout{margin-left:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#c8c2e8;font-size:12px;font-weight:600;padding:8px 13px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.stf-logout:hover{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);color:#fff;}
+.stf-label{font-size:12px;font-weight:600;color:#b8b2d8;margin:14px 0 7px;letter-spacing:.2px;}
+.stf-in{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(139,130,232,.28);border-radius:12px;padding:13px 15px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box;transition:border-color .2s;}
+.stf-in:focus{border-color:#7c6fe8;background:rgba(255,255,255,.07);}
+.stf-in::placeholder{color:rgba(255,255,255,.3);}
+.stf-pwrow{display:flex;gap:8px;}
+.stf-pwrow .stf-in{flex:1;}
+.stf-gen{flex-shrink:0;width:48px;background:rgba(91,82,204,.22);border:1.5px solid rgba(139,130,232,.35);border-radius:12px;color:#c4b9ff;font-size:19px;cursor:pointer;transition:all .2s;}
+.stf-gen:hover{background:rgba(91,82,204,.4);color:#fff;}
+.stf-btn{width:100%;margin-top:20px;background:linear-gradient(135deg,#5B52CC,#7c6fe8);border:none;border-radius:60px;color:#fff;font-size:15px;font-weight:700;padding:15px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 10px 28px rgba(91,82,204,.42);transition:transform .15s,box-shadow .2s;}
+.stf-btn:hover{transform:translateY(-1px);box-shadow:0 14px 34px rgba(91,82,204,.55);}
+.stf-btn:disabled{opacity:.6;cursor:default;transform:none;}
+.stf-result{margin-top:18px;}
+.stf-err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:13px 16px;color:#fca5a5;font-size:13px;line-height:1.5;}
+.stf-ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3);border-radius:14px;padding:16px 18px;}
+.stf-ok-h{font-size:14px;font-weight:700;color:#4ade80;margin-bottom:10px;}
+.stf-cred{font-size:14px;color:#e8e4ff;margin:3px 0;}
+.stf-cred b{color:#fff;}
+.stf-warn{margin-top:10px;font-size:12px;color:#fcd34d;line-height:1.5;}
+.stf-acts{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;}
+.stf-copy{flex:1;min-width:120px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:600;padding:11px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;}
+.stf-copy:hover{background:rgba(255,255,255,.14);}
+.stf-wa{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#25D366,#1da851);color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:11px;border-radius:10px;}
+.stf-hint{margin-top:20px;font-size:11.5px;color:#7d76a0;line-height:1.55;text-align:center;}
+
+/* ── Дашборд сотрудника ── */
+.stf-shell{width:100%;max-width:860px;}
+.stf-shell .stf-head{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.2);border-radius:18px;padding:16px 20px;margin-bottom:16px;}
+.stf-newbtn{margin-left:auto;background:linear-gradient(135deg,#5B52CC,#7c6fe8);border:none;color:#fff;font-size:13px;font-weight:700;padding:10px 16px;border-radius:60px;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 6px 18px rgba(91,82,204,.4);white-space:nowrap;}
+.stf-newbtn:hover{transform:translateY(-1px);}
+.stf-head .stf-logout{margin-left:10px;}
+.stf-loading{padding:40px;text-align:center;color:#9c93b8;font-size:14px;}
+.stf-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:14px;}
+.stf-stat{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:14px;padding:14px 12px;text-align:center;}
+.stf-stat-wide{grid-column:span 2;}
+.stf-stat-n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
+.stf-stat-l{font-size:11px;color:#9c93b8;margin-top:5px;}
+.stf-stages{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.stf-chip{font-size:11.5px;color:#c4bce8;background:rgba(91,82,204,.14);border:1px solid rgba(139,130,232,.2);border-radius:30px;padding:5px 11px;}
+.stf-chip b{color:#fff;}
+.stf-controls{margin-bottom:14px;}
+.stf-search{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(139,130,232,.25);border-radius:12px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;box-sizing:border-box;margin-bottom:10px;}
+.stf-search:focus{border-color:#7c6fe8;}
+.stf-search::placeholder{color:rgba(255,255,255,.3);}
+.stf-filters{display:flex;gap:8px;flex-wrap:wrap;}
+.stf-fbtn{background:rgba(255,255,255,.05);border:1px solid rgba(139,130,232,.2);color:#b0a8d0;font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:30px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.stf-fbtn.on{background:linear-gradient(135deg,#5B52CC,#7c6fe8);color:#fff;border-color:transparent;}
+.stf-row{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.035);border:1px solid rgba(139,130,232,.16);border-radius:14px;padding:14px 18px;margin-bottom:9px;cursor:pointer;transition:all .18s;}
+.stf-row:hover{background:rgba(91,82,204,.12);border-color:rgba(139,130,232,.4);transform:translateY(-1px);}
+.stf-row-main{flex:1;min-width:0;}
+.stf-row-name{font-size:15px;font-weight:700;color:#fff;}
+.stf-row-meta{font-size:12px;color:#9c93b8;margin:2px 0 8px;}
+.stf-row-bar{height:5px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden;max-width:240px;}
+.stf-row-fill{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:5px;}
+.stf-row-side{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0;}
+.stf-stbadge{font-size:11px;font-weight:700;color:#c4bce8;background:rgba(91,82,204,.18);border:1px solid rgba(139,130,232,.25);border-radius:30px;padding:4px 11px;white-space:nowrap;}
+.stf-stbadge.done{color:#4ade80;background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);}
+.stf-row-tags{display:flex;gap:6px;align-items:center;}
+.stf-acc{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:30px;white-space:nowrap;}
+.stf-acc.on{color:#4ade80;background:rgba(34,197,94,.12);}
+.stf-acc.off{color:#fbbf24;background:rgba(251,191,36,.12);}
+.stf-idle{font-size:10.5px;font-weight:700;color:#f87171;background:rgba(248,113,113,.12);padding:3px 9px;border-radius:30px;}
+.stf-empty{text-align:center;padding:40px;color:#7d76a0;font-size:14px;}
+.stf-dim{color:#7d76a0;font-size:13px;padding:4px 0;}
+/* Модалка клиента / создания */
+.stf-modal-bg{display:none;position:fixed;inset:0;z-index:6100;background:rgba(8,6,22,.7);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
+.stf-modal-bg.on{display:flex;}
+.stf-modal{width:100%;max-width:480px;background:#16122e;border:1px solid rgba(139,130,232,.25);border-radius:20px;padding:24px 24px 26px;box-shadow:0 30px 90px rgba(0,0,0,.6);}
+.stf-m-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+.stf-m-name{font-size:18px;font-weight:800;color:#fff;}
+.stf-m-sub{font-size:13px;color:#9c93b8;margin-top:3px;}
+.stf-m-close{margin-left:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#c8c2e8;width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:14px;flex-shrink:0;}
+.stf-m-close:hover{background:rgba(239,68,68,.2);color:#fff;}
+.stf-m-stage{background:rgba(91,82,204,.12);border:1px solid rgba(139,130,232,.25);border-radius:12px;padding:12px 16px;margin-bottom:14px;}
+.stf-m-stage-name{font-size:15px;font-weight:700;color:#fff;}
+.stf-m-stage-eta{font-size:12px;color:#b0a8d0;margin-top:3px;}
+.stf-m-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:8px;}
+.stf-m-box{background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.16);border-radius:12px;padding:11px 12px;text-align:center;}
+.stf-m-box-l{font-size:10.5px;color:#9c93b8;margin-bottom:5px;}
+.stf-m-box-v{font-size:15px;font-weight:800;color:#fff;}
+.stf-m-sec{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#8b84b8;text-transform:uppercase;margin:18px 0 8px;}
+.stf-line{display:flex;gap:12px;align-items:center;font-size:13px;color:#d8d3f0;padding:7px 0;border-bottom:1px solid rgba(139,130,232,.1);}
+.stf-line span:first-child{color:#9c93b8;font-size:12px;white-space:nowrap;min-width:74px;}
+.stf-line b{color:#fff;}
+.stf-m-access{margin-top:18px;padding-top:18px;border-top:1px solid rgba(139,130,232,.16);}
+/* Чат с клиентом в карточке Даши */
+.stf-chatbox{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px;}
+.stf-cmsg{max-width:82%;}
+.stf-cmsg.in{align-self:flex-start;}
+.stf-cmsg.out{align-self:flex-end;}
+.stf-cmsg-b{padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.45;}
+.stf-cmsg.in .stf-cmsg-b{background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.18);color:#e8e4ff;border-bottom-left-radius:4px;}
+.stf-cmsg.out .stf-cmsg-b{background:linear-gradient(135deg,#5B52CC,#7c6fe8);color:#fff;border-bottom-right-radius:4px;}
+.stf-cmsg-t{font-size:10px;color:#8b84b8;margin-top:3px;}
+.stf-cmsg.out .stf-cmsg-t{text-align:right;}
+.stf-reply{display:flex;gap:8px;margin-top:12px;}
+.stf-reply .stf-in{flex:1;}
+
+/* Нарядность: мягкое появление, акцент-градиент шапки */
+#cab-staff-panel{background:radial-gradient(ellipse at 20% 0%,rgba(124,92,252,.18),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(34,211,238,.10),transparent 50%),linear-gradient(155deg,#0d0b20,#13103a 60%,#0d0b20)!important;}
+.stf-shell{animation:stfIn .5s cubic-bezier(.16,1,.3,1);}
+@keyframes stfIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.stf-shell .stf-head{background:linear-gradient(135deg,rgba(91,82,204,.18),rgba(255,255,255,.03))!important;}
+.stf-stat{transition:transform .2s,border-color .2s;}
+.stf-stat:hover{transform:translateY(-2px);border-color:rgba(167,139,250,.4);}
+.stf-row{animation:stfRow .35s ease both;}
+@keyframes stfRow{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:none;}}
+@media(max-width:600px){
+  .stf-stat-wide{grid-column:span 2;}
+  .stf-row{padding:13px 14px;}
+  .stf-m-grid{grid-template-columns:1fr;}
+  .stf-newbtn{font-size:12px;padding:9px 12px;}
+}
+
 #cab-login-screen::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.18) 0%,transparent 70%);top:-100px;right:-100px;animation:cabBlob1 8s ease-in-out infinite;pointer-events:none;}
 
 #cab-login-screen::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(139,130,232,.12) 0%,transparent 70%);bottom:-80px;left:-80px;animation:cabBlob2 10s ease-in-out infinite;pointer-events:none;}
@@ -21066,13 +21196,13 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <button class="cab-nav-item" onclick="cabPage('history',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>Мои дела</button>
 
-      <button class="cab-nav-item" onclick="cabPage('messages',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения<span class="cab-nav-badge">2</span></button>
+      <button class="cab-nav-item" onclick="cabPage('messages',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Сообщения</button>
 
       <button class="cab-nav-item" onclick="cabPage('myservices',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span>Мои услуги</button>
 
       <button class="cab-nav-item" onclick="cabPage('payments',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>Оплаты</button>
 
-      <button class="cab-nav-item" onclick="cabPage('deadlines',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="16" r="2"/></svg></span>Дедлайны<span class="cab-nav-badge" style="background:#ef4444">3</span></button>
+      <button class="cab-nav-item" onclick="cabPage('deadlines',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="16" r="2"/></svg></span>Дедлайны</button>
 
       <button class="cab-nav-item" onclick="cabPage('services-catalog',this)"><span class="cab-nav-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>Заказать услугу</button>
 
@@ -21144,11 +21274,11 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <div class="cab-stats">
 
-        <div class="cab-stat"><div class="cab-stat-ico">📁</div><div class="cab-stat-lbl">Активных дел</div><div class="cab-stat-val">3</div><div class="cab-stat-note">из 4 всего</div></div>
+        <div class="cab-stat"><div class="cab-stat-ico">📁</div><div class="cab-stat-lbl">Активных дел</div><div class="cab-stat-val" id="cab-stat-active">—</div><div class="cab-stat-note" id="cab-stat-active-note">всего</div></div>
 
-        <div class="cab-stat"><div class="cab-stat-ico">📎</div><div class="cab-stat-lbl">Документов ожидает</div><div class="cab-stat-val" style="color:#d97706">6</div><div class="cab-stat-note">требуют загрузки</div></div>
+        <div class="cab-stat"><div class="cab-stat-ico">✅</div><div class="cab-stat-lbl">Завершено</div><div class="cab-stat-val" style="color:#16a34a" id="cab-stat-done">—</div><div class="cab-stat-note">услуг готово</div></div>
 
-        <div class="cab-stat"><div class="cab-stat-ico">⏳</div><div class="cab-stat-lbl">Следующий этап</div><div class="cab-stat-val" style="font-size:14px;line-height:1.3;margin-top:4px">Решение воеводства</div><div class="cab-stat-note">CASE-2024-001</div></div>
+        <div class="cab-stat"><div class="cab-stat-ico">⏳</div><div class="cab-stat-lbl">Текущий этап</div><div class="cab-stat-val" style="font-size:14px;line-height:1.3;margin-top:4px" id="cab-stat-stage">—</div><div class="cab-stat-note" id="cab-stat-stage-note"></div></div>
 
       </div>
 
@@ -21237,11 +21367,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
       <div class="cab-pg-sub">Чат с вашим специалистом</div>
 
       <select class="cab-chat-cs" id="cab-chat-sel" onchange="cabLoadChat()">
-
-        <option value="CASE-2024-001">CASE-2024-001 — Карта побыту</option>
-
-        <option value="CASE-2024-003">CASE-2024-003 — ПМЖ</option>
-
+        <!-- Опции заполняются реальными делами в cabSyncDataToCases() -->
       </select>
 
       <div class="cab-chat-wrap">
@@ -21250,7 +21376,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         <div class="cab-chat-bar">
 
-          <input class="cab-chat-in" id="cab-chat-in" placeholder="Написать менеджеру в WhatsApp..." onkeydown="if(event.key==='Enter')cabSend()"/>
+          <input class="cab-chat-in" id="cab-chat-in" placeholder="Напишите ваш вопрос менеджеру…" onkeydown="if(event.key==='Enter')cabSend()"/>
 
           <button class="cab-chat-send" onclick="cabSend()">↑</button>
 
@@ -21544,113 +21670,10 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <div class="cab-pg-title">Мои услуги</div>
 
-      <div class="cab-pg-sub">Активные и завершённые услуги</div>
+      <div class="cab-pg-sub">Ваши услуги в работе и завершённые</div>
 
-      <div style="display:flex;flex-direction:column;gap:12px">
-
-        <div class="cab-widget" style="padding:20px 24px">
-
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-
-            <div style="display:flex;align-items:center;gap:14px">
-
-              <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-
-              <div>
-
-                <div style="font-size:15px;font-weight:700;color:#1a1545">Карта побыту (ВНЖ)</div>
-
-                <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2024-001 · Специалист: Мария Ковальска</div>
-
-              </div>
-
-            </div>
-
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-
-              <span style="padding:4px 12px;background:rgba(91,82,204,.1);color:#5B52CC;border-radius:20px;font-size:11px;font-weight:600">В РАБОТЕ</span>
-
-              <button class="cab-open-btn" onclick="cabOpenCase('CASE-2024-001')">Подробнее →</button>
-
-            </div>
-
-          </div>
-
-          <div style="margin-top:14px"><div style="display:flex;justify-content:space-between;font-size:11px;color:#a09ac8;margin-bottom:5px"><span>Прогресс</span><span>65%</span></div><div style="height:5px;background:#f0eeff;border-radius:3px"><div style="height:100%;width:65%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:3px"></div></div></div>
-
-        </div>
-
-        <div class="cab-widget" style="padding:20px 24px">
-
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-
-            <div style="display:flex;align-items:center;gap:14px">
-
-              <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#16a34a,#4ade80);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
-
-              <div>
-
-                <div style="font-size:15px;font-weight:700;color:#1a1545">PESEL</div>
-
-                <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2024-002 · Специалист: Пётр Новак</div>
-
-              </div>
-
-            </div>
-
-            <div style="display:flex;align-items:center;gap:10px">
-
-              <span style="padding:4px 12px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">ЗАВЕРШЕНО</span>
-
-              <button class="cab-open-btn" onclick="cabOpenCase('CASE-2024-002')">Подробнее →</button>
-
-            </div>
-
-          </div>
-
-          <div style="margin-top:14px"><div style="display:flex;justify-content:space-between;font-size:11px;color:#a09ac8;margin-bottom:5px"><span>Прогресс</span><span>100%</span></div><div style="height:5px;background:#f0eeff;border-radius:3px"><div style="height:100%;width:100%;background:linear-gradient(90deg,#16a34a,#4ade80);border-radius:3px"></div></div></div>
-
-        </div>
-
-        <div class="cab-widget" style="padding:20px 24px">
-
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-
-            <div style="display:flex;align-items:center;gap:14px">
-
-              <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#d97706,#fbbf24);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-
-              <div>
-
-                <div style="font-size:15px;font-weight:700;color:#1a1545">Blue Card (ЕС)</div>
-
-                <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2023-047 · Специалист: Анна Вишневска</div>
-
-              </div>
-
-            </div>
-
-            <div style="display:flex;align-items:center;gap:10px">
-
-              <span style="padding:4px 12px;background:rgba(217,119,6,.1);color:#d97706;border-radius:20px;font-size:11px;font-weight:600">НУЖНЫ ДОКУМЕНТЫ</span>
-
-              <button class="cab-open-btn" onclick="cabOpenCase('CASE-2023-047')">Подробнее →</button>
-
-            </div>
-
-          </div>
-
-          <div style="margin-top:14px"><div style="display:flex;justify-content:space-between;font-size:11px;color:#a09ac8;margin-bottom:5px"><span>Прогресс</span><span>35%</span></div><div style="height:5px;background:#f0eeff;border-radius:3px"><div style="height:100%;width:35%;background:linear-gradient(90deg,#d97706,#fbbf24);border-radius:3px"></div></div></div>
-
-        </div>
-
-      </div>
-
-      <div style="margin-top:20px">
-
-        <button class="cab-btn-primary" onclick="cabPage('services-catalog',document.querySelectorAll('.cab-nav-item')[6])">+ Добавить новую услугу</button>
-
-      </div>
+      <!-- Реальные услуги клиента из Kommo. Заполняется cabRenderMyServices(). -->
+      <div id="cab-my-body"></div>
 
     </div>
 
@@ -21662,55 +21685,10 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
       <div class="cab-pg-title">Оплаты</div>
 
-      <div class="cab-pg-sub">История платежей и текущие счета</div>
+      <div class="cab-pg-sub">Сумма услуг, оплаченное и история платежей</div>
 
-      <!-- Pending payment banner -->
-
-      <div style="background:linear-gradient(135deg,rgba(99,91,255,.12),rgba(139,130,232,.08));border:1px solid rgba(99,91,255,.25);border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-
-        <div style="flex:1;min-width:200px">
-
-          <div style="font-size:13px;font-weight:700;color:#1a1545;margin-bottom:3px">Ожидает оплаты · CASE-2024-001</div>
-
-          <div style="font-size:12px;color:#6b63a8">Услуга: Карта побыту (ВНЖ) · Срок: 30.04.2026</div>
-
-        </div>
-
-        <div style="font-size:22px;font-weight:800;color:#5B52CC;white-space:nowrap">2 500 PLN</div>
-
-        <button class="cab-stripe-btn" onclick="cabToast('Переход на страницу оплаты Stripe...','info')">
-
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-
-          Оплатить онлайн
-
-        </button>
-
-      </div>
-
-      <!-- History table -->
-
-      <div class="cab-widget">
-
-        <div class="cab-widget-title">История платежей</div>
-
-        <table class="cab-tbl" style="margin-top:0">
-
-          <thead><tr><th>Дата</th><th>Услуга</th><th>Сумма</th><th>Метод</th><th>Статус</th></tr></thead>
-
-          <tbody>
-
-            <tr><td style="color:#6b63a8;font-size:12px">15.02.2024</td><td>PESEL</td><td style="font-weight:700;color:#1a1545">450 PLN</td><td style="font-size:12px;color:#6b63a8">Карта Visa</td><td><span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено</span></td></tr>
-
-            <tr><td style="color:#6b63a8;font-size:12px">10.01.2024</td><td>Консультация</td><td style="font-weight:700;color:#1a1545">200 PLN</td><td style="font-size:12px;color:#6b63a8">Карта Visa</td><td><span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено</span></td></tr>
-
-            <tr><td style="color:#6b63a8;font-size:12px">15.10.2023</td><td>Blue Card (аванс)</td><td style="font-weight:700;color:#1a1545">1 000 PLN</td><td style="font-size:12px;color:#6b63a8">Перевод</td><td><span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено</span></td></tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
+      <!-- Реальные данные из Kommo (заметки ОПЛАТА:). Заполняется cabRenderPayments(). -->
+      <div id="cab-pay-body"></div>
 
     </div>
 
@@ -21720,229 +21698,12 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     <div class="cab-section" id="cab-p-deadlines">
 
-      <div class="cab-pg-title">Дедлайны и визиты</div>
+      <div class="cab-pg-title">Дедлайны и сроки</div>
 
-      <div class="cab-pg-sub">Все важные даты, назначения и сроки по вашим делам</div>
+      <div class="cab-pg-sub">Текущий этап и ориентировочные сроки по вашим делам</div>
 
-
-
-      <!-- Upcoming appointment banner -->
-
-      <div style="background:linear-gradient(135deg,#1a1545,#2d2869);border-radius:18px;padding:22px 28px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-
-        <div style="width:48px;height:48px;background:rgba(255,255,255,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="16" r="2"/></svg>
-
-        </div>
-
-        <div style="flex:1;min-width:180px">
-
-          <div style="font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:4px">БЛИЖАЙШИЙ ВИЗИТ</div>
-
-          <div style="font-size:17px;font-weight:700;color:#fff">Сдача биометрии (отпечатки пальцев)</div>
-
-          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Urząd Wojewódzki Mazowieckie · ул. Крукова 5, кабинет 114</div>
-
-        </div>
-
-        <div style="text-align:right;flex-shrink:0">
-
-          <div style="font-size:22px;font-weight:800;color:#fff">22.04.2026</div>
-
-          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:2px">вторник · 10:30</div>
-
-          <div style="font-size:11px;color:#f59e0b;margin-top:4px;font-weight:600">через 11 дней</div>
-
-        </div>
-
-      </div>
-
-
-
-      <div style="display:flex;flex-direction:column;gap:10px">
-
-        <!-- СРОЧНО: банковская выписка -->
-
-        <div style="background:#fff;border:1px solid rgba(239,68,68,.2);border-left:4px solid #ef4444;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-
-          <div style="width:36px;height:36px;background:rgba(239,68,68,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-
-          </div>
-
-          <div style="flex:1;min-width:180px">
-
-            <div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#ef4444;margin-bottom:4px">СРОЧНО · через 5 дней</div>
-
-            <div style="font-size:14px;font-weight:700;color:#1a1545">Загрузить выписку с банковского счёта</div>
-
-            <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2024-001 · Карта побыту · Требует Мария Ковальска</div>
-
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-
-            <div style="font-size:14px;font-weight:700;color:#ef4444">16.04.2026</div>
-
-            <button class="cab-open-btn" style="margin-top:0" onclick="cabOpenCase('CASE-2024-001')">Открыть →</button>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Биометрия -->
-
-        <div style="background:#fff;border:1px solid rgba(91,82,204,.2);border-left:4px solid #5B52CC;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-
-          <div style="width:36px;height:36px;background:rgba(91,82,204,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B52CC" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-
-          </div>
-
-          <div style="flex:1;min-width:180px">
-
-            <div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#5B52CC;margin-bottom:4px">НАЗНАЧЕНО · через 11 дней</div>
-
-            <div style="font-size:14px;font-weight:700;color:#1a1545">Биометрия — сдача отпечатков пальцев</div>
-
-            <div style="font-size:12px;color:#6b63a8;margin-top:2px">Urząd Wojewódzki · кабинет 114 · 22.04.2026 в 10:30</div>
-
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-
-            <div style="font-size:14px;font-weight:700;color:#5B52CC">22.04.2026</div>
-
-            <button class="cab-cal-btn" style="padding:7px 13px;font-size:11px;border-radius:8px" onclick="cabToast('Добавляем в Google Календарь...','info')">+ Календарь</button>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Трудовой договор -->
-
-        <div style="background:#fff;border:1px solid rgba(245,158,11,.2);border-left:4px solid #f59e0b;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-
-          <div style="width:36px;height:36px;background:rgba(245,158,11,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-
-          </div>
-
-          <div style="flex:1;min-width:180px">
-
-            <div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#f59e0b;margin-bottom:4px">ВАЖНО · через 19 дней</div>
-
-            <div style="font-size:14px;font-weight:700;color:#1a1545">Предоставить трудовой договор работодателя</div>
-
-            <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2023-047 · Blue Card (ЕС) · min 5 550 PLN брутто</div>
-
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-
-            <div style="font-size:14px;font-weight:700;color:#f59e0b">30.04.2026</div>
-
-            <button class="cab-open-btn" style="margin-top:0" onclick="cabOpenCase('CASE-2023-047')">Открыть →</button>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- Оплата -->
-
-        <div style="background:#fff;border:1px solid rgba(99,91,255,.2);border-left:4px solid #635BFF;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-
-          <div style="width:36px;height:36px;background:rgba(99,91,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#635BFF" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-
-          </div>
-
-          <div style="flex:1;min-width:180px">
-
-            <div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#635BFF;margin-bottom:4px">ОПЛАТА · через 19 дней</div>
-
-            <div style="font-size:14px;font-weight:700;color:#1a1545">Оплата услуги — Карта побыту (ВНЖ)</div>
-
-            <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2024-001 · Остаток: 2 500 PLN</div>
-
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-
-            <div style="font-size:14px;font-weight:700;color:#635BFF">30.04.2026</div>
-
-            <button class="cab-stripe-btn" style="padding:8px 14px;font-size:12px;border-radius:8px" onclick="cabToast('Переход на страницу оплаты Stripe...','info')">Оплатить</button>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- ПМЖ документы -->
-
-        <div style="background:#fff;border:1px solid #e8e4f5;border-left:4px solid #a09ac8;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;opacity:.8">
-
-          <div style="width:36px;height:36px;background:#f7f5ff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a09ac8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-
-          </div>
-
-          <div style="flex:1;min-width:180px">
-
-            <div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#a09ac8;margin-bottom:4px">ПЛАНОВО · через 2 месяца</div>
-
-            <div style="font-size:14px;font-weight:700;color:#1a1545">Начать сбор документов для ПМЖ</div>
-
-            <div style="font-size:12px;color:#6b63a8;margin-top:2px">CASE-2024-003 · ПМЖ · Нужна история за 5 лет</div>
-
-          </div>
-
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-
-            <div style="font-size:14px;font-weight:700;color:#a09ac8">15.06.2026</div>
-
-            <button class="cab-open-btn" style="margin-top:0" onclick="cabOpenCase('CASE-2024-003')">Открыть →</button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
-
-        <button class="cab-cal-btn" style="display:inline-flex" onclick="cabToast('Синхронизация с Google Календарь...','info')">
-
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-
-          Синхронизировать все с Google Календарь
-
-        </button>
-
-        <button class="cab-wa-btn" onclick="cabToast('Открываем WhatsApp...','info')">
-
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-
-          Спросить специалиста о сроках
-
-        </button>
-
-      </div>
+      <!-- Реальные сроки этапа из Kommo. Заполняется cabRenderDeadlines(). -->
+      <div id="cab-deadl-body"></div>
 
     </div>
 
@@ -22016,67 +21777,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
 // ══ CABINET DATA ══
 
-var CAB_CASES=[
+var CAB_CASES=[];  // реальные дела грузятся из /api/cabinet/me (cabSyncDataToCases)
 
-  {id:'CASE-2024-001',typeName:'Карта побыту',status:'in_progress',progress:65,createdAt:'15.03.2024',updatedAt:'20.11.2024',
-
-   spec:{name:'Мария Ковальска',role:'Старший юрист',phone:'+48501234567',phoneLabel:'+48 501 234 567',email:'legalsol.communication@gmail.com',initials:'МК'},
-
-   timeline:[{date:'15.03.2024',ev:'Дело открыто',note:'Первичная консультация проведена',done:true},{date:'20.03.2024',ev:'Документы получены',note:'Базовый пакет принят',done:true},{date:'05.04.2024',ev:'Заявление подано',note:'Подача в Urząd Wojewódzki',done:true},{date:'10.04.2024',ev:'Штамп получен',note:'Легальное пребывание подтверждено',done:true},{date:'—',ev:'Решение воеводства',note:'Ожидается 3–8 месяцев',done:false},{date:'—',ev:'Карта побыту',note:'Финальный результат',done:false}],
-
-   docs:[{n:'Паспорт (копия + оригинал)',st:'up',dt:'16.03.2024'},{n:'Договор аренды жилья',st:'up',dt:'16.03.2024'},{n:'Справка с работы (umowa o pracę)',st:'up',dt:'18.03.2024'},{n:'Фото 3.5×4.5 (4 шт)',st:'up',dt:'20.03.2024'},{n:'Выписка с банковского счёта',st:'pend',dt:null},{n:'Страховой полис',st:'pend',dt:null}],
-
-   checks:[{t:'Первичная консультация',d:true},{t:'Сбор документов',d:true},{t:'Проверка юристом',d:true},{t:'Подача заявления',d:true},{t:'Ожидание решения',d:false},{t:'Получение карты',d:false}]},
-
-  {id:'CASE-2024-002',typeName:'PESEL',status:'completed',progress:100,createdAt:'10.01.2024',updatedAt:'15.02.2024',
-
-   spec:{name:'Пётр Новак',role:'Юрист',phone:'+48502345678',phoneLabel:'+48 502 345 678',email:'legalsol.communication@gmail.com',initials:'ПН'},
-
-   timeline:[{date:'10.01.2024',ev:'Дело открыто',note:'Консультация по PESEL',done:true},{date:'12.01.2024',ev:'Документы поданы',note:'Заявление в Urząd Dzielnicy',done:true},{date:'15.02.2024',ev:'PESEL получен',note:'88012301234',done:true}],
-
-   docs:[{n:'Паспорт',st:'up',dt:'10.01.2024'},{n:'Подтверждение адреса',st:'up',dt:'10.01.2024'}],
-
-   checks:[{t:'Консультация',d:true},{t:'Подача документов',d:true},{t:'Получение PESEL',d:true}]},
-
-  {id:'CASE-2024-003',typeName:'ПМЖ (постоянный побыт)',status:'pending',progress:10,createdAt:'01.11.2024',updatedAt:'05.11.2024',
-
-   spec:{name:'Мария Ковальска',role:'Старший юрист',phone:'+48501234567',phoneLabel:'+48 501 234 567',email:'legalsol.communication@gmail.com',initials:'МК'},
-
-   timeline:[{date:'01.11.2024',ev:'Дело открыто',note:'Консультация по ПМЖ',done:true},{date:'—',ev:'Сбор документов',note:'В процессе',done:false},{date:'—',ev:'Подача заявления',note:'Планируется',done:false},{date:'—',ev:'Получение ПМЖ',note:'Финальный результат',done:false}],
-
-   docs:[{n:'Паспорт (копия + оригинал)',st:'pend',dt:null},{n:'Карта побыту (5 лет)',st:'pend',dt:null},{n:'Справка о доходах (5 лет)',st:'pend',dt:null},{n:'Сертификат польского языка',st:'pend',dt:null}],
-
-   checks:[{t:'Первичная консультация',d:true},{t:'Сбор документов',d:false},{t:'Проверка документов',d:false},{t:'Подача заявления',d:false},{t:'Получение ПМЖ',d:false}]},
-
-  {id:'CASE-2023-047',typeName:'Blue Card (ЕС)',status:'documents_needed',progress:35,createdAt:'15.10.2023',updatedAt:'02.11.2023',
-
-   spec:{name:'Анна Вишневска',role:'Юрист по трудовым вопросам',phone:'+48503456789',phoneLabel:'+48 503 456 789',email:'legalsol.communication@gmail.com',initials:'АВ'},
-
-   timeline:[{date:'15.10.2023',ev:'Дело открыто',note:'Консультация по Blue Card',done:true},{date:'20.10.2023',ev:'Базовые документы приняты',note:'Паспорт + диплом',done:true},{date:'—',ev:'Документы от работодателя',note:'Ожидаем трудовой договор',done:false},{date:'—',ev:'Подача заявления',note:'Планируется',done:false}],
-
-   docs:[{n:'Паспорт',st:'up',dt:'16.10.2023'},{n:'Диплом о высшем образовании',st:'up',dt:'16.10.2023'},{n:'Трудовой договор (min 5550 PLN)',st:'pend',dt:null},{n:'Подтверждение квалификации',st:'pend',dt:null}],
-
-   checks:[{t:'Консультация',d:true},{t:'Базовые документы',d:true},{t:'Документы работодателя',d:false},{t:'Подача заявления',d:false},{t:'Решение',d:false}]}
-
-];
-
-var CAB_MSGS={'CASE-2024-001':[
-
-  {sender:'spec',initials:'МК',name:'Мария Ковальска',text:'Добрый день, Александр! Ваше заявление успешно подано. Штамп о подаче действителен — вы можете свободно находиться в Польше.',time:'10:30'},
-
-  {sender:'usr',initials:'АП',name:'Александр',text:'Спасибо! А когда ожидать ответа?',time:'10:45'},
-
-  {sender:'spec',initials:'МК',name:'Мария Ковальска',text:'По Мазовецкому воеводству обычно 4–6 месяцев. Мы уведомим вас при любых изменениях. Также нужна выписка с банковского счёта — загрузите при возможности.',time:'11:02'},
-
-  {sender:'usr',initials:'АП',name:'Александр',text:'Понял, загружу сегодня. Спасибо!',time:'11:15'},
-
-  {sender:'spec',initials:'МК',name:'Мария Ковальска',text:'Отлично! Если возникнут вопросы — пишите 😊',time:'11:17'}
-
-],'CASE-2024-003':[
-
-  {sender:'spec',initials:'МК',name:'Мария Ковальска',text:'Добрый день! Дело по ПМЖ открыто. Пожалуйста, подготовьте документы согласно списку. По вопросам — пишите.',time:'14:00'}
-
-]};
+var CAB_MSGS={};   // реальная переписка из заметок Kommo
 
 var CAB_FILTER='all';
 
@@ -22166,10 +21869,272 @@ async function cabBootstrapApp(){
   var resp=await fetch('/api/cabinet/me',{credentials:'same-origin'});
   if(!resp.ok){throw new Error('unauthorized');}
   window.cabData=await resp.json();
+  // Сотрудник (Даша) → админ-панель вместо клиентского кабинета
+  if(window.cabData&&window.cabData.role==='staff'){
+    document.getElementById('cab-login-screen').style.display='none';
+    cabShowStaffPanel(window.cabData.name||'Сотрудник');
+    return;
+  }
   cabApplyData();
   document.getElementById('cab-login-screen').style.display='none';
   document.getElementById('cab-app').style.display='flex';
   cabRenderDash();cabLoadChat();cabRenderHistory();
+}
+
+// ─── АДМИН-ПАНЕЛЬ СОТРУДНИКА (Даша заводит клиентам доступы) ───
+var STF_DATA=null;       // последние данные панели
+var STF_SEARCH='';
+var STF_FILTER='all';    // all|active|noaccess|stale
+
+function cabEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function cabStaffMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+function cabStaffFmtDate(ms){if(!ms)return'';try{var d=new Date(ms);return('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();}catch(e){return'';}}
+
+function cabShowStaffPanel(name){
+  var host=document.getElementById('cab-staff-panel');
+  if(!host){host=document.createElement('div');host.id='cab-staff-panel';document.body.appendChild(host);}
+  host.style.display='block';
+  host.innerHTML=
+  '<div class="stf-wrap">'+
+    '<div class="stf-shell">'+
+      '<div class="stf-head">'+
+        '<div class="stf-logo">LS</div>'+
+        '<div><div class="stf-title">Рабочая панель</div><div class="stf-sub">'+cabEsc(name||'')+' · легализация</div></div>'+
+        '<button class="stf-newbtn" onclick="cabStaffOpenCreate()">+ Выдать доступ</button>'+
+        '<button class="stf-logout" onclick="cabStaffLogout()">Выйти</button>'+
+      '</div>'+
+      '<div id="stf-dash"><div class="stf-loading">Загружаю клиентов из Kommo…</div></div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="stf-modal-bg" id="stf-modal-bg" onclick="cabStaffCloseModal(event)"><div class="stf-modal" id="stf-modal"></div></div>';
+  cabStaffLoadData();
+}
+
+async function cabStaffLoadData(){
+  try{
+    var r=await fetch('/api/cabinet/staff?action=data',{credentials:'same-origin'});
+    if(!r.ok)throw new Error('load');
+    STF_DATA=await r.json();
+    cabStaffRenderDash();
+  }catch(e){
+    var d=document.getElementById('stf-dash');
+    if(d)d.innerHTML='<div class="stf-err" style="margin:20px">Не удалось загрузить данные. <span onclick="cabStaffLoadData()" style="text-decoration:underline;cursor:pointer">Повторить</span></div>';
+  }
+}
+
+function cabStaffRenderDash(){
+  var d=document.getElementById('stf-dash');if(!d||!STF_DATA)return;
+  var s=STF_DATA.stats||{};
+  var stats=
+    '<div class="stf-stats">'+
+      '<div class="stf-stat"><div class="stf-stat-n">'+(s.active||0)+'</div><div class="stf-stat-l">в работе</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#4ade80">'+(s.completed||0)+'</div><div class="stf-stat-l">завершено</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#a78bfa">'+(s.withAccess||0)+'</div><div class="stf-stat-l">с доступом</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#fbbf24">'+(s.noAccess||0)+'</div><div class="stf-stat-l">без доступа</div></div>'+
+      '<div class="stf-stat"><div class="stf-stat-n" style="color:#f87171">'+(s.stale48||0)+'</div><div class="stf-stat-l">висят 2+ дня</div></div>'+
+      '<div class="stf-stat stf-stat-wide"><div class="stf-stat-n" style="font-size:19px">'+cabStaffMoney(s.contractTotal||0)+' zł</div><div class="stf-stat-l">сумма контрактов</div></div>'+
+    '</div>';
+  // Разбивка по этапам
+  var bs=STF_DATA.byStage||{};var stageChips='';
+  Object.keys(bs).forEach(function(k){stageChips+='<span class="stf-chip">'+cabEsc(k)+' · <b>'+bs[k]+'</b></span>';});
+  var stageRow=stageChips?'<div class="stf-stages">'+stageChips+'</div>':'';
+  // Фильтры + поиск
+  function fbtn(key,lbl){return '<button class="stf-fbtn'+(STF_FILTER===key?' on':'')+'" onclick="cabStaffSetFilter(\''+key+'\')">'+lbl+'</button>';}
+  var controls=
+    '<div class="stf-controls">'+
+      '<input class="stf-search" id="stf-search" placeholder="Поиск по имени или телефону…" oninput="cabStaffSearch(this.value)" value="'+cabEsc(STF_SEARCH)+'"/>'+
+      '<div class="stf-filters">'+fbtn('all','Все')+fbtn('active','В работе')+fbtn('noaccess','Без доступа')+fbtn('stale','Висят')+'</div>'+
+    '</div>';
+  d.innerHTML=stats+stageRow+controls+'<div id="stf-list"></div>';
+  cabStaffRenderList();
+}
+
+function cabStaffRenderList(){
+  var box=document.getElementById('stf-list');if(!box||!STF_DATA)return;
+  var q=STF_SEARCH.toLowerCase().trim();
+  var list=(STF_DATA.clients||[]).filter(function(c){
+    if(STF_FILTER==='active'&&c.isDone)return false;
+    if(STF_FILTER==='noaccess'&&c.hasAccess)return false;
+    if(STF_FILTER==='stale'&&!(!c.isDone&&c.daysIdle>=2))return false;
+    if(q){var hay=((c.name||'')+' '+(c.phone||'')).toLowerCase();if(hay.indexOf(q)<0)return false;}
+    return true;
+  });
+  if(!list.length){box.innerHTML='<div class="stf-empty">Ничего не найдено</div>';return;}
+  box.innerHTML=list.map(function(c){
+    var stageBadge='<span class="stf-stbadge'+(c.isDone?' done':'')+'">'+cabEsc(c.stage)+'</span>';
+    var access=c.hasAccess
+      ?'<span class="stf-acc on">✓ доступ</span>'
+      :'<span class="stf-acc off">нет доступа</span>';
+    var idle=(!c.isDone&&c.daysIdle>=2)?'<span class="stf-idle">'+c.daysIdle+' дн</span>':'';
+    var pct=c.totalSteps?Math.round((c.step||0)/c.totalSteps*100):0;
+    return '<div class="stf-row" onclick="cabStaffOpenClient('+c.leadId+')">'+
+      '<div class="stf-row-main">'+
+        '<div class="stf-row-name">'+cabEsc(c.name)+'</div>'+
+        '<div class="stf-row-meta">'+(c.phone?cabEsc(c.phone):'без телефона')+(c.service?' · '+cabEsc(c.service):'')+'</div>'+
+        '<div class="stf-row-bar"><div class="stf-row-fill" style="width:'+pct+'%"></div></div>'+
+      '</div>'+
+      '<div class="stf-row-side">'+stageBadge+'<div class="stf-row-tags">'+access+idle+'</div></div>'+
+    '</div>';
+  }).join('');
+}
+
+function cabStaffSearch(v){STF_SEARCH=v;cabStaffRenderList();}
+function cabStaffSetFilter(k){STF_FILTER=k;cabStaffRenderDash();}
+
+async function cabStaffOpenClient(leadId){
+  var bg=document.getElementById('stf-modal-bg');var m=document.getElementById('stf-modal');
+  bg.classList.add('on');m.innerHTML='<div class="stf-loading">Загружаю…</div>';
+  try{
+    var r=await fetch('/api/cabinet/staff?action=client&leadId='+encodeURIComponent(leadId),{credentials:'same-origin'});
+    var c=await r.json();
+    if(!r.ok)throw new Error();
+    var paysHtml=(c.payments&&c.payments.length)
+      ? c.payments.map(function(p){return '<div class="stf-line"><span>'+(p.dateText||cabStaffFmtDate(p.createdAt))+'</span><b>'+cabStaffMoney(p.amount)+' zł</b><span>'+cabEsc(p.method||'')+'</span></div>';}).join('')
+      : '<div class="stf-dim">платежей нет</div>';
+    var tasksHtml=(c.tasks&&c.tasks.length)
+      ? c.tasks.map(function(t){return '<div class="stf-line"><span>'+cabStaffFmtDate(t.completeTill)+'</span><span style="flex:1">'+cabEsc(t.text||'задача')+'</span></div>';}).join('')
+      : '<div class="stf-dim">активных задач нет</div>';
+    var chat=c.chat||[];
+    var chatHtml=chat.length
+      ? '<div class="stf-chatbox">'+chat.map(function(u){
+          var mine=u.from==='manager';
+          return '<div class="stf-cmsg '+(mine?'out':'in')+'"><div class="stf-cmsg-b">'+cabEsc((u.text||'').slice(0,400))+'</div><div class="stf-cmsg-t">'+(mine?'Вы → клиенту':'Клиент')+' · '+cabStaffFmtDate(u.createdAt)+'</div></div>';
+        }).join('')+'</div>'
+      : '<div class="stf-dim">переписки пока нет</div>';
+    var waPhone=(c.phone||'').replace(/[^\d]/g,'');
+    window.STF_CUR_LEAD=c.leadId;
+    m.innerHTML=
+      '<div class="stf-m-head">'+
+        '<div><div class="stf-m-name">'+cabEsc(c.name||'Клиент')+'</div>'+
+        '<div class="stf-m-sub">'+(c.phone?cabEsc(c.phone):'')+(c.service?' · '+cabEsc(c.service):'')+'</div></div>'+
+        '<button class="stf-m-close" onclick="cabStaffCloseModal()">✕</button>'+
+      '</div>'+
+      '<div class="stf-m-stage">'+
+        '<div class="stf-m-stage-name">'+cabEsc(c.stage&&c.stage.ru||'В работе')+'</div>'+
+        '<div class="stf-m-stage-eta">'+(c.stage&&c.stage.etaText?'Срок: '+cabEsc(c.stage.etaText):'')+'</div>'+
+      '</div>'+
+      '<div class="stf-m-grid">'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Контракт</div><div class="stf-m-box-v">'+cabStaffMoney(c.price)+' zł</div></div>'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Оплачено</div><div class="stf-m-box-v" style="color:#16a34a">'+cabStaffMoney(c.paidTotal)+' zł</div></div>'+
+        '<div class="stf-m-box"><div class="stf-m-box-l">Остаток</div><div class="stf-m-box-v" style="color:#d97706">'+cabStaffMoney(c.remaining)+' zł</div></div>'+
+      '</div>'+
+      '<div class="stf-m-sec">Переписка с клиентом</div>'+chatHtml+
+      '<div class="stf-reply"><input class="stf-in" id="stf-reply-in" placeholder="Ответить клиенту в кабинет…" onkeydown="if(event.key===\'Enter\')cabStaffReply()"/>'+
+        '<button class="stf-gen" style="width:auto;padding:0 16px" onclick="cabStaffReply()">→</button></div>'+
+      '<div class="stf-m-sec">Платежи</div>'+paysHtml+
+      '<div class="stf-m-sec">Задачи / дедлайны</div>'+tasksHtml+
+      '<div class="stf-m-access">'+
+        (c.hasAccess
+          ?'<div class="stf-acc on" style="margin-bottom:10px">✓ Доступ в кабинет выдан</div>'
+          :'<div class="stf-acc off" style="margin-bottom:10px">Доступа в кабинет ещё нет</div>')+
+        '<button class="stf-btn" onclick="cabStaffOpenCreate(\''+cabEsc(c.phone||'')+'\')">'+(c.hasAccess?'Сменить пароль':'Выдать доступ')+'</button>'+
+        (waPhone?'<a class="stf-wa" style="margin-top:8px;display:flex" href="https://wa.me/'+waPhone+'" target="_blank" rel="noopener">Написать клиенту в WhatsApp</a>':'')+
+      '</div>';
+  }catch(e){
+    m.innerHTML='<div class="stf-err" style="margin:8px">Не удалось загрузить клиента. <button class="stf-m-close" onclick="cabStaffCloseModal()" style="position:static">Закрыть</button></div>';
+  }
+}
+
+function cabStaffCloseModal(ev){
+  if(ev&&ev.target&&ev.target.id!=='stf-modal-bg'&&ev.type==='click')return;
+  var bg=document.getElementById('stf-modal-bg');if(bg)bg.classList.remove('on');
+}
+
+// Форма выдачи доступа (модалка). prefillPhone — необязательно.
+function cabStaffOpenCreate(prefillPhone){
+  var bg=document.getElementById('stf-modal-bg');var m=document.getElementById('stf-modal');
+  bg.classList.add('on');
+  m.innerHTML=
+    '<div class="stf-m-head"><div class="stf-m-name">Выдать доступ в кабинет</div>'+
+      '<button class="stf-m-close" onclick="cabStaffCloseModal()">✕</button></div>'+
+    '<div class="stf-label">Телефон клиента (его логин)</div>'+
+    '<input class="stf-in" id="stf-phone" type="tel" inputmode="tel" placeholder="+48 600 123 456" autocomplete="off" value="'+cabEsc(prefillPhone||'')+'"/>'+
+    '<div class="stf-label">Пароль для клиента</div>'+
+    '<div class="stf-pwrow"><input class="stf-in" id="stf-pass" type="text" placeholder="придумайте или сгенерируйте" autocomplete="off"/>'+
+      '<button class="stf-gen" type="button" onclick="cabStaffGenPass()" title="Сгенерировать">⟳</button></div>'+
+    '<button class="stf-btn" id="stf-create" onclick="cabStaffCreate()">Создать доступ</button>'+
+    '<div class="stf-result" id="stf-result"></div>'+
+    '<div class="stf-hint">Клиент должен быть в воронке «Легализация». После создания — кнопка отправки в WhatsApp.</div>';
+  cabStaffGenPass();
+  setTimeout(function(){var p=document.getElementById('stf-phone');if(p&&!prefillPhone)p.focus();},80);
+}
+
+function cabStaffGenPass(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  var s='';for(var i=0;i<10;i++)s+=chars[Math.floor(Math.random()*chars.length)];
+  var el=document.getElementById('stf-pass');if(el)el.value=s+'!';
+}
+
+async function cabStaffCreate(){
+  var phone=(document.getElementById('stf-phone')||{}).value||'';
+  var pass=(document.getElementById('stf-pass')||{}).value||'';
+  var res=document.getElementById('stf-result');
+  var btn=document.getElementById('stf-create');
+  phone=phone.trim();pass=pass.trim();
+  if(!phone){res.innerHTML='<div class="stf-err">Введите телефон клиента.</div>';return;}
+  if(pass.length<6){res.innerHTML='<div class="stf-err">Пароль — минимум 6 символов.</div>';return;}
+  if(btn){btn.disabled=true;btn.textContent='Создаём…';}
+  try{
+    var r=await fetch('/api/cabinet/staff?action=set-password',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({phone:phone,password:pass})
+    });
+    var d=await r.json().catch(function(){return{};});
+    if(!r.ok){res.innerHTML='<div class="stf-err">'+(d.message||'Не удалось создать доступ.')+'</div>';return;}
+    var waText=encodeURIComponent('Здравствуйте! Доступ в ваш личный кабинет LegalSol:\nСайт: legalsol.pl → «Кабинет»\nЛогин (телефон): '+d.login+'\nПароль: '+pass);
+    var waPhone=(d.login||phone).replace(/[^\d]/g,'');
+    res.innerHTML=
+      '<div class="stf-ok">'+
+        '<div class="stf-ok-h">✓ Доступ создан'+(d.updated?' (пароль обновлён)':'')+'</div>'+
+        (d.name?'<div class="stf-cred"><b>'+cabEsc(d.name)+'</b></div>':'')+
+        '<div class="stf-cred">Логин: <b>'+cabEsc(d.login)+'</b></div>'+
+        '<div class="stf-cred">Пароль: <b>'+cabEsc(pass)+'</b></div>'+
+        (d.inOps?'':'<div class="stf-warn">⚠️ Клиент не в воронке «Легализация» — войдёт, но дел не увидит, пока не переведёте сделку.</div>')+
+        '<div class="stf-acts">'+
+          '<button class="stf-copy" onclick="cabStaffCopy(\''+cabEsc(d.login)+'\',\''+cabEsc(pass).replace(/\\/g,"\\\\").replace(/'/g,"\\'")+'\')">Скопировать</button>'+
+          '<a class="stf-wa" href="https://wa.me/'+waPhone+'?text='+waText+'" target="_blank" rel="noopener">Отправить в WhatsApp</a>'+
+        '</div>'+
+      '</div>';
+    cabStaffLoadData(); // обновим список (доступ появился)
+  }catch(e){
+    res.innerHTML='<div class="stf-err">Ошибка сети. Попробуйте ещё раз.</div>';
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Создать доступ';}
+  }
+}
+
+function cabStaffCopy(login,pass){
+  var t='Логин: '+login+'\nПароль: '+pass;
+  if(navigator.clipboard)navigator.clipboard.writeText(t);
+  cabToast('Скопировано','success');
+}
+
+// Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+async function cabStaffReply(){
+  var inp=document.getElementById('stf-reply-in');
+  var txt=inp?inp.value.trim():'';
+  var leadId=window.STF_CUR_LEAD;
+  if(!txt||!leadId)return;
+  if(inp)inp.disabled=true;
+  try{
+    var r=await fetch('/api/cabinet/staff?action=reply',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({leadId:leadId,text:txt})
+    });
+    if(!r.ok)throw new Error();
+    cabToast('Ответ отправлен клиенту','success');
+    cabStaffOpenClient(leadId); // перезагрузим карточку — ответ появится в переписке
+  }catch(e){
+    cabToast('Не удалось отправить','error');
+    if(inp)inp.disabled=false;
+  }
+}
+function cabStaffLogout(){
+  fetch('/api/cabinet/logout',{method:'POST',credentials:'same-origin'}).finally(function(){
+    var p=document.getElementById('cab-staff-panel');if(p)p.style.display='none';
+    window.cabData=null;STF_DATA=null;
+    document.getElementById('cab-login-screen').style.display='flex';
+  });
 }
 
 function cabApplyData(){
@@ -22362,6 +22327,12 @@ function cabSyncDataToCases(){
       createdAt:cabFmtDate(ld.createdAt),
       updatedAt:cabFmtDate(updatedMs)||cabFmtDate(Date.now()),
       price:ld.price||0,
+      paidTotal:ld.paidTotal||0,
+      remaining:(typeof ld.remaining==='number')?ld.remaining:Math.max(0,(ld.price||0)-(ld.paidTotal||0)),
+      payments:ld.payments||[],
+      etaText:ld.etaText||(ld.stage&&ld.stage.etaText)||'',
+      clientAction:ld.clientAction||(ld.stage&&ld.stage.clientAction)||'',
+      whatWeDo:ld.whatWeDo||(ld.stage&&ld.stage.whatWeDo)||'',
       spec:{name:'Менеджер LegalSol',role:'Ваш специалист',phone:'48735248525',phoneLabel:'+48 735 248 525',email:'legalsol.communication@gmail.com',initials:'LS'},
       timeline:timeline.length?timeline:[{date:cabFmtDate(ld.createdAt),ev:'Заявка получена',note:'Спасибо! Менеджер свяжется с вами.',done:true}],
       docs:docs,
@@ -22369,7 +22340,8 @@ function cabSyncDataToCases(){
       _kommoLeadId:ld.id,
       _stage:ld.stage,
       _nextTask:nextTask,
-      _updates:ld.updates||ld.notes||[]
+      _updates:ld.updates||ld.notes||[],
+      _chat:ld.chat||[]
     };
   });
 
@@ -22387,6 +22359,176 @@ function cabSyncDataToCases(){
   if(sel){
     sel.innerHTML=CAB_CASES.map(function(c){return'<option value="'+c.id+'">'+c.typeName+' ('+c.id+')</option>';}).join('');
   }
+
+  // Реальные данные → страницы Оплаты, Дедлайны, Мои услуги, статы дашборда (вместо статичной демки)
+  try{ cabRenderPayments(); }catch(e){}
+  try{ cabRenderDeadlines(); }catch(e){}
+  try{ cabRenderMyServices(); }catch(e){}
+  try{ cabUpdateDashStats(); }catch(e){}
+  try{ cabUpdateNavBadges(); }catch(e){}
+}
+
+// ─── Статы дашборда — реальные числа ───
+function cabUpdateDashStats(){
+  var cases=CAB_CASES||[];
+  var active=cases.filter(function(c){return c.status!=='completed';});
+  var done=cases.filter(function(c){return c.status==='completed'||c.progress===100;});
+  function set(id,v){var el=document.getElementById(id);if(el)el.textContent=v;}
+  set('cab-stat-active',active.length);
+  set('cab-stat-active-note','из '+cases.length+' всего');
+  set('cab-stat-done',done.length);
+  // Текущий этап — берём первое активное дело
+  var cur=active[0]||cases[0];
+  if(cur){
+    set('cab-stat-stage',(cur._stage&&cur._stage.ru)||'В работе');
+    set('cab-stat-stage-note',cur.id);
+  } else {
+    set('cab-stat-stage','—'); set('cab-stat-stage-note','');
+  }
+}
+
+// ─── МОИ УСЛУГИ — реальные дела клиента ───
+function cabRenderMyServices(){
+  var body=document.getElementById('cab-my-body');if(!body)return;
+  var cases=CAB_CASES||[];
+  if(!cases.length){
+    body.innerHTML=
+    '<div style="text-align:center;padding:46px 24px;color:#a09ac8;background:#fff;border:1px solid #e8e4f5;border-radius:16px">'+
+      '<div style="font-size:42px;margin-bottom:14px">📋</div>'+
+      '<div style="font-size:15px;font-weight:700;color:#1a1545;margin-bottom:8px">Услуг пока нет</div>'+
+      '<div style="font-size:13px;max-width:380px;margin:0 auto 18px;line-height:1.5">Здесь появятся ваши услуги, когда менеджер откроет дело.</div>'+
+      '<a href="https://wa.me/48735248525" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;text-decoration:none;font-weight:600;font-size:13px;padding:11px 22px;border-radius:60px">Написать в WhatsApp</a>'+
+    '</div>';
+    return;
+  }
+  body.innerHTML='<div style="display:flex;flex-direction:column;gap:12px">'+cases.map(function(c){
+    var done=c.status==='completed'||c.progress===100;
+    var badge=done
+      ?'<span style="padding:3px 12px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:700">Завершено</span>'
+      :'<span style="padding:3px 12px;background:rgba(91,82,204,.1);color:#5B52CC;border-radius:20px;font-size:11px;font-weight:700">В работе</span>';
+    var barColor=done?'linear-gradient(90deg,#22c55e,#4ade80)':'linear-gradient(90deg,#5B52CC,#8B82E8)';
+    return '<div class="cab-widget" style="padding:18px 22px;cursor:pointer" onclick="cabOpenCase(\''+c.id+'\')">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">'+
+        '<div style="display:flex;align-items:center;gap:13px">'+
+          '<div style="width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>'+
+          '<div><div style="font-size:15px;font-weight:700;color:#1a1545">'+(c.typeName||'Услуга')+'</div>'+
+          '<div style="font-size:12px;color:#8b84b8;margin-top:2px">'+c.id+' · '+((c._stage&&c._stage.ru)||'В работе')+'</div></div>'+
+        '</div>'+badge+
+      '</div>'+
+      '<div class="cab-prog-bg" style="height:7px"><div class="cab-prog-fill" style="width:'+(c.progress||0)+'%;background:'+barColor+'"></div></div>'+
+    '</div>';
+  }).join('')+'</div>';
+}
+
+// ─── ОПЛАТЫ — рендер из реальных данных Kommo ───
+function cabFmtMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+function cabRenderPayments(){
+  var body=document.getElementById('cab-pay-body');if(!body)return;
+  var cases=CAB_CASES||[];
+  var allPays=[];
+  var totalPrice=0,totalPaid=0,totalRemain=0;
+  cases.forEach(function(c){
+    totalPrice+=c.price||0; totalPaid+=c.paidTotal||0; totalRemain+=c.remaining||0;
+    (c.payments||[]).forEach(function(p){ allPays.push({p:p,case:c}); });
+  });
+  allPays.sort(function(a,b){return (b.p.createdAt||0)-(a.p.createdAt||0);});
+
+  // Сводка сверху
+  var summary='';
+  if(totalPrice>0||totalPaid>0){
+    summary=
+    '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">'+
+      '<div style="flex:1;min-width:130px;background:#fff;border:1px solid #e8e4f5;border-radius:16px;padding:16px 18px">'+
+        '<div style="font-size:11px;color:#8b84b8;font-weight:600;letter-spacing:.5px;margin-bottom:6px">СУММА УСЛУГ</div>'+
+        '<div style="font-size:22px;font-weight:800;color:#1a1545">'+cabFmtMoney(totalPrice)+' zł</div>'+
+      '</div>'+
+      '<div style="flex:1;min-width:130px;background:#fff;border:1px solid rgba(22,163,74,.25);border-radius:16px;padding:16px 18px">'+
+        '<div style="font-size:11px;color:#16a34a;font-weight:600;letter-spacing:.5px;margin-bottom:6px">ОПЛАЧЕНО</div>'+
+        '<div style="font-size:22px;font-weight:800;color:#16a34a">'+cabFmtMoney(totalPaid)+' zł</div>'+
+      '</div>'+
+      (totalRemain>0?
+      '<div style="flex:1;min-width:130px;background:#fff;border:1px solid rgba(245,158,11,.3);border-radius:16px;padding:16px 18px">'+
+        '<div style="font-size:11px;color:#d97706;font-weight:600;letter-spacing:.5px;margin-bottom:6px">ОСТАЛОСЬ</div>'+
+        '<div style="font-size:22px;font-weight:800;color:#d97706">'+cabFmtMoney(totalRemain)+' zł</div>'+
+      '</div>':'')+
+    '</div>';
+  }
+
+  // Таблица платежей
+  var table='';
+  if(allPays.length){
+    table=
+    '<div class="cab-widget"><div class="cab-widget-title">История платежей</div>'+
+    '<table class="cab-tbl" style="margin-top:0"><thead><tr><th>Дата</th><th>Услуга</th><th>Сумма</th><th>Способ</th><th>Статус</th></tr></thead><tbody>'+
+    allPays.map(function(x){
+      var dt=x.p.dateText||cabFmtDate(x.p.createdAt)||'—';
+      var meth=x.p.method?String(x.p.method).replace(/</g,'&lt;'):'—';
+      return '<tr><td style="color:#6b63a8;font-size:12px">'+dt+'</td>'+
+        '<td>'+(x.case.typeName||'Услуга')+'</td>'+
+        '<td style="font-weight:700;color:#1a1545">'+cabFmtMoney(x.p.amount)+' zł</td>'+
+        '<td style="font-size:12px;color:#6b63a8">'+meth+'</td>'+
+        '<td><span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено</span></td></tr>';
+    }).join('')+
+    '</tbody></table></div>';
+  } else {
+    table=
+    '<div style="text-align:center;padding:46px 24px;color:#a09ac8;background:#fff;border:1px solid #e8e4f5;border-radius:16px">'+
+      '<div style="font-size:42px;margin-bottom:14px">💳</div>'+
+      '<div style="font-size:15px;font-weight:700;color:#1a1545;margin-bottom:8px">Платежей пока нет</div>'+
+      '<div style="font-size:13px;max-width:380px;margin:0 auto;line-height:1.5">Как только вы внесёте оплату, она появится здесь. По вопросам оплаты — напишите вашему менеджеру.</div>'+
+    '</div>';
+  }
+  body.innerHTML=summary+table;
+}
+
+// ─── ДЕДЛАЙНЫ — реальные сроки этапа (ETA) + что нужно от клиента ───
+function cabRenderDeadlines(){
+  var body=document.getElementById('cab-deadl-body');if(!body)return;
+  var cases=(CAB_CASES||[]).filter(function(c){return c.status!=='completed';});
+  if(!cases.length){
+    body.innerHTML=
+    '<div style="text-align:center;padding:46px 24px;color:#a09ac8;background:#fff;border:1px solid #e8e4f5;border-radius:16px">'+
+      '<div style="font-size:42px;margin-bottom:14px">📅</div>'+
+      '<div style="font-size:15px;font-weight:700;color:#1a1545;margin-bottom:8px">Активных сроков нет</div>'+
+      '<div style="font-size:13px;max-width:380px;margin:0 auto;line-height:1.5">Когда по вашему делу появятся назначения или сроки — мы покажем их здесь и напишем вам.</div>'+
+    '</div>';
+    return;
+  }
+  body.innerHTML='<div style="display:flex;flex-direction:column;gap:10px">'+cases.map(function(c){
+    var stageName=(c._stage&&c._stage.ru)||'В работе';
+    var eta=c.etaText?('Ориентировочный срок этапа: '+c.etaText):'Срок уточняется';
+    var action=c.clientAction;
+    var actionBlock=action?
+      '<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:13px;color:#92600c"><b>Нужно от вас:</b> '+String(action).replace(/</g,'&lt;')+'</div>':'';
+    return '<div style="background:#fff;border:1px solid rgba(91,82,204,.18);border-left:4px solid #5B52CC;border-radius:14px;padding:16px 20px">'+
+      '<div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">'+
+        '<div style="flex:1;min-width:200px">'+
+          '<div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#5B52CC;margin-bottom:5px">ТЕКУЩИЙ ЭТАП · '+c.id+'</div>'+
+          '<div style="font-size:15px;font-weight:700;color:#1a1545">'+stageName+'</div>'+
+          '<div style="font-size:12px;color:#6b63a8;margin-top:3px">'+(c.typeName||'')+' · '+eta+'</div>'+
+        '</div>'+
+        '<button class="cab-open-btn" style="margin-top:0;flex-shrink:0" onclick="cabOpenCase(\''+c.id+'\')">Подробнее →</button>'+
+      '</div>'+actionBlock+
+    '</div>';
+  }).join('')+'</div>';
+}
+
+// Бейджи в навигации — реальные числа вместо хардкода
+function cabUpdateNavBadges(){
+  var cases=CAB_CASES||[];
+  var msgCount=cases.reduce(function(s,c){return s+((c._updates||[]).length?1:0);},0);
+  var deadlCount=cases.filter(function(c){return c.status!=='completed';}).length;
+  document.querySelectorAll('.cab-nav-item').forEach(function(btn){
+    var label=btn.textContent||'';
+    var badge=btn.querySelector('.cab-nav-badge');
+    function setBadge(n,color){
+      if(!n){if(badge)badge.remove();return;}
+      if(!badge){badge=document.createElement('span');badge.className='cab-nav-badge';btn.appendChild(badge);}
+      badge.textContent=n; if(color)badge.style.background=color;
+    }
+    if(/Сообщени/.test(label))setBadge(msgCount,'');
+    else if(/Дедлайн/.test(label))setBadge(deadlCount,'#ef4444');
+  });
 }
 
 // Расширяем cabApplyData: синкнуть данные в CAB_CASES перед рендером
@@ -22615,17 +22757,17 @@ function cabLoadChat(){
       (stage.etaText?'<div style="margin-top:6px;font-size:12px;opacity:.9">⏰ Срок: '+stage.etaText+'</div>':'')+
     '</div>';
 
-  // Лента апдейтов как сообщения от менеджера
-  var updates=caseData._updates||[];
-  if(!updates.length){
+  // Двусторонняя лента: КЛИЕНТУ: — менеджер слева, ОТ КЛИЕНТА: — клиент справа
+  var chatArr=(caseData._chat&&caseData._chat.length)?caseData._chat
+    :(caseData._updates||[]).map(function(u){return{from:'manager',text:u.text,createdAt:u.createdAt};});
+  if(!chatArr.length){
     c.innerHTML+=
       '<div style="text-align:center;padding:50px 24px;color:#a09ac8">'+
         '<div style="font-size:38px;margin-bottom:12px">💬</div>'+
-        '<div style="font-size:14px;line-height:1.55;max-width:380px;margin:0 auto">Менеджер ещё не оставлял публичных сообщений по этому делу. Они будут появляться здесь по ходу работы. Если что — напишите в WhatsApp.</div>'+
+        '<div style="font-size:14px;line-height:1.55;max-width:380px;margin:0 auto">Напишите ваш вопрос ниже — менеджер ответит, и вся переписка по делу будет здесь.</div>'+
       '</div>';
   }else{
-    // Сортируем хронологически (старые сверху, новые снизу — как в мессенджере)
-    var sorted=updates.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
+    var sorted=chatArr.slice().sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
     var lastDay=null;
     sorted.forEach(function(u){
       var d=new Date(u.createdAt);
@@ -22637,31 +22779,44 @@ function cabLoadChat(){
       }
       var p=function(n){return(n<10?'0':'')+n;};
       var timeStr=p(d.getHours())+':'+p(d.getMinutes());
+      var mine=u.from==='client';
       var bubble=document.createElement('div');
-      bubble.className='cab-msg spec';
+      bubble.className='cab-msg'+(mine?' usr':' spec');
+      var body='<div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+        '<div class="cab-msg-meta">'+(mine?'Вы':'Менеджер')+' · '+timeStr+'</div>';
       bubble.innerHTML=
-        '<div class="cab-msg-av spec">LS</div>'+
-        '<div><div class="cab-msg-bbl">'+(u.text||'').replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
-        '<div class="cab-msg-meta">Менеджер · '+timeStr+'</div></div>';
+        '<div class="cab-msg-av '+(mine?'usr':'spec')+'">'+(mine?'Вы':'LS')+'</div>'+
+        '<div>'+body+'</div>';
       c.appendChild(bubble);
     });
   }
   c.scrollTop=c.scrollHeight;
 }
 
-function cabSend(){
+async function cabSend(){
   var inp=document.getElementById('cab-chat-in');
   var txt=inp?inp.value.trim():'';
   if(!txt){cabToast('Напишите сообщение','info');return;}
   var sel=document.getElementById('cab-chat-sel');
   var cid=sel?sel.value:(CAB_CASES[0]&&CAB_CASES[0].id);
   var caseData=CAB_CASES.find(function(c){return c.id===cid;});
-  // Открываем WhatsApp с предзаполненным сообщением — реальный канал общения с менеджером
-  var prefix=caseData?('По делу '+caseData.id+' ('+caseData.typeName+'):\n'):'';
-  var url='https://wa.me/48735248525?text='+encodeURIComponent(prefix+txt);
-  window.open(url,'_blank','noopener');
-  if(inp)inp.value='';
-  cabToast('Открываем WhatsApp с вашим сообщением','success');
+  var leadId=caseData?caseData._kommoLeadId:null;
+  if(inp){inp.disabled=true;}
+  // Оптимистично показываем своё сообщение сразу
+  if(caseData){caseData._chat=(caseData._chat||[]).concat([{from:'client',text:txt,createdAt:Date.now()}]);cabLoadChat();}
+  try{
+    var r=await fetch('/api/cabinet/me',{
+      method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({leadId:leadId,text:txt})
+    });
+    if(!r.ok)throw new Error();
+    if(inp)inp.value='';
+    cabToast('Отправлено менеджеру','success');
+  }catch(e){
+    cabToast('Не удалось отправить. Попробуйте ещё раз или напишите в WhatsApp.','error');
+  }finally{
+    if(inp){inp.disabled=false;inp.focus();}
+  }
 }
 
 function cabFilter(status,btn){
@@ -24255,6 +24410,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeTabMore
 function showTab(name){
 
   closeNavMenu();
+
+  // В кабинете прячем плавающие WhatsApp-кнопки (FAB / sticky bar) — иначе они
+  // висят поверх чата и клиент тапает по ним вместо отправки сообщения.
+  if(name==='cabinet')document.body.classList.add('cab-open');
+  else document.body.classList.remove('cab-open');
 
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
 
