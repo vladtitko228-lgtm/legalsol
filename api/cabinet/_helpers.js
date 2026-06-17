@@ -130,6 +130,12 @@ const CLIENT_NOTE_PREFIXES = [
 ];
 const CLIENT_NOTE_PREFIX = 'КЛИЕНТУ:'; // дефолтный (для UI и сообщений)
 
+// Платёжные заметки: менеджер (или TG-бот /paid) ставит префикс «ОПЛАТА:».
+// Формат тела (любой из): «1500 zł · Visa · 17.06.2026» / «1500 zl Visa» / «1500».
+// Клиент видит их в кабинете на странице «Оплаты» отдельно от текстовых апдейтов.
+const PAYMENT_NOTE_PREFIXES = ['ОПЛАТА:', 'Оплата:', 'оплата:', '💳'];
+const PAYMENT_NOTE_PREFIX = 'ОПЛАТА:';
+
 function decodeHtmlEntities(s) {
   if (!s) return '';
   return String(s)
@@ -156,6 +162,36 @@ function stripClientPrefix(text) {
     }
   }
   return t;
+}
+
+// === Платёжные заметки ===
+function isPaymentNote(text) {
+  if (!text) return false;
+  const t = decodeHtmlEntities(text).trim();
+  return PAYMENT_NOTE_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+
+// Разбор «ОПЛАТА: 1500 zł · Visa · 17.06.2026» → { amount, method, dateText, raw }
+// amount — число (zł), method — способ (если есть), dateText — дата как написана (если есть).
+function parsePaymentNote(text) {
+  if (!text) return null;
+  let t = decodeHtmlEntities(text).trim();
+  for (const p of PAYMENT_NOTE_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) { t = t.slice(p.length).trim(); break; }
+  }
+  // Платёжная инфа всегда на первой строке; после \n — служебный план рассрочки, его игнорим.
+  t = t.split('\n')[0].trim();
+  // Сумма — первое число (допускаем пробелы-разделители тысяч: «1 500»)
+  const amtMatch = t.replace(/(\d)[  ](?=\d{3}\b)/g, '$1').match(/(\d[\d.,]*)/);
+  const amount = amtMatch ? parseInt(amtMatch[1].replace(/[.,]/g, ''), 10) : null;
+  // Дата dd.mm.yyyy / dd.mm если есть
+  const dateMatch = t.match(/\b(\d{1,2}[.\/]\d{1,2}(?:[.\/]\d{2,4})?)\b/);
+  const dateText = dateMatch ? dateMatch[1] : '';
+  // Способ — слово вроде Visa/перевод/blik/наличные между разделителями
+  const methodMatch = t.match(/(?:·|\||-|,)\s*([A-Za-zА-Яа-я][A-Za-zА-Яа-я ]{1,18})/);
+  let method = methodMatch ? methodMatch[1].trim() : '';
+  if (/^\d/.test(method)) method = '';
+  return { amount: amount || 0, method, dateText, raw: t };
 }
 
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
@@ -404,6 +440,10 @@ module.exports = {
   CLIENT_NOTE_PREFIXES,
   isClientNote,
   stripClientPrefix,
+  PAYMENT_NOTE_PREFIX,
+  PAYMENT_NOTE_PREFIXES,
+  isPaymentNote,
+  parsePaymentNote,
   PASSWORD_FIELD_ID,
   PHONE_FIELD_ID,
   EMAIL_FIELD_ID,
