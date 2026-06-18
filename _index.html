@@ -20460,6 +20460,27 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-stat-wide{grid-column:span 2;}
 .stf-stat-n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
 .stf-stat-l{font-size:11px;color:#9c93b8;margin-top:5px;}
+/* Метрики (панель Даши) */
+.stf-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:18px;}
+.stf-metric{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid rgba(139,130,232,.18);border-radius:16px;padding:14px 16px;transition:transform .2s,border-color .2s;}
+.stf-metric:hover{transform:translateY(-2px);border-color:rgba(167,139,250,.4);}
+.stf-metric-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+.stf-metric-ico .x{font-style:normal;}
+.stf-metric-n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
+.stf-metric-l{font-size:11.5px;color:#9c93b8;margin-top:4px;}
+.stf-metric-money{grid-column:span 2;}
+.stf-metric-ring{grid-column:span 2;gap:14px;}
+.stf-metric-ring svg{flex-shrink:0;}
+@media(max-width:600px){.stf-metric-money,.stf-metric-ring{grid-column:span 1;}}
+/* Воронка по этапам */
+.stf-funnel-title{font-size:15px;font-weight:700;color:#fff;margin:6px 0 11px;}
+.stf-funnel{background:rgba(255,255,255,.03);border:1px solid rgba(139,130,232,.14);border-radius:16px;padding:14px 16px;margin-bottom:18px;display:flex;flex-direction:column;gap:9px;}
+.stf-fn-row{display:flex;align-items:center;gap:12px;}
+.stf-fn-lbl{width:150px;flex-shrink:0;font-size:12.5px;color:#c8c2e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stf-fn-bar{flex:1;height:10px;background:rgba(139,130,232,.12);border-radius:6px;overflow:hidden;}
+.stf-fn-fill{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:6px;transition:width .5s cubic-bezier(.16,1,.3,1);}
+.stf-fn-n{width:28px;text-align:right;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
+@media(max-width:600px){.stf-fn-lbl{width:100px;font-size:11px;}}
 /* Уведомления о новых сообщениях клиентов (панель Даши) */
 .stf-inbox-card{background:linear-gradient(135deg,rgba(91,82,204,.2),rgba(124,92,252,.08));border:1px solid rgba(139,130,232,.4);border-radius:16px;padding:14px 16px;margin-bottom:16px;}
 .stf-inbox-h{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#fff;margin-bottom:10px;}
@@ -22045,14 +22066,25 @@ async function cabStaffLoadData(){
 function cabStaffRenderDash(){
   var d=document.getElementById('stf-dash');if(!d||!STF_DATA)return;
   var s=STF_DATA.stats||{};
+  var total=s.total||0;
+  var adoption=total?Math.round((s.withAccess||0)/total*100):0;
+  // Кольцо охвата кабинетом (SVG): окружность r=26, длина 2πr≈163.4
+  var circ=163.4; var off=circ*(1-adoption/100);
   var stats=
-    '<div class="stf-stats">'+
-      '<div class="stf-stat"><div class="stf-stat-n">'+(s.active||0)+'</div><div class="stf-stat-l">в работе</div></div>'+
-      '<div class="stf-stat"><div class="stf-stat-n" style="color:#4ade80">'+(s.completed||0)+'</div><div class="stf-stat-l">завершено</div></div>'+
-      '<div class="stf-stat"><div class="stf-stat-n" style="color:#a78bfa">'+(s.withAccess||0)+'</div><div class="stf-stat-l">с доступом</div></div>'+
-      '<div class="stf-stat"><div class="stf-stat-n" style="color:#fbbf24">'+(s.noAccess||0)+'</div><div class="stf-stat-l">без доступа</div></div>'+
-      '<div class="stf-stat"><div class="stf-stat-n" style="color:#f87171">'+(s.stale48||0)+'</div><div class="stf-stat-l">висят 2+ дня</div></div>'+
-      '<div class="stf-stat stf-stat-wide"><div class="stf-stat-n" style="font-size:19px">'+cabStaffMoney(s.contractTotal||0)+' zł</div><div class="stf-stat-l">сумма контрактов</div></div>'+
+    '<div class="stf-metrics">'+
+      '<div class="stf-metric"><div class="stf-metric-ico" style="background:rgba(91,82,204,.18);color:#a78bfa"><i class="x">📂</i></div>'+
+        '<div><div class="stf-metric-n">'+(s.active||0)+'</div><div class="stf-metric-l">в работе</div></div></div>'+
+      '<div class="stf-metric"><div class="stf-metric-ico" style="background:rgba(34,197,94,.16);color:#4ade80"><i class="x">✓</i></div>'+
+        '<div><div class="stf-metric-n">'+(s.completed||0)+'</div><div class="stf-metric-l">завершено</div></div></div>'+
+      '<div class="stf-metric"><div class="stf-metric-ico" style="background:rgba(248,113,113,.16);color:#f87171"><i class="x">⏳</i></div>'+
+        '<div><div class="stf-metric-n">'+(s.stale48||0)+'</div><div class="stf-metric-l">висят 2+ дня</div></div></div>'+
+      '<div class="stf-metric stf-metric-money"><div class="stf-metric-ico" style="background:rgba(251,191,36,.16);color:#fbbf24"><i class="x">💰</i></div>'+
+        '<div><div class="stf-metric-n" style="font-size:20px">'+cabStaffMoney(s.contractTotal||0)+' zł</div><div class="stf-metric-l">сумма контрактов</div></div></div>'+
+      '<div class="stf-metric stf-metric-ring">'+
+        '<svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(139,130,232,.18)" stroke-width="6"/>'+
+        '<circle cx="32" cy="32" r="26" fill="none" stroke="#7c6fe8" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" transform="rotate(-90 32 32)"/>'+
+        '<text x="32" y="37" text-anchor="middle" fill="#fff" font-size="16" font-weight="800">'+adoption+'%</text></svg>'+
+        '<div><div class="stf-metric-l" style="font-weight:700;color:#fff">Охват кабинетом</div><div class="stf-metric-l">'+(s.withAccess||0)+' из '+total+' клиентов</div></div></div>'+
     '</div>';
   // ── Фокус дня: конкретные клиенты, требующие действия ──
   var clients=STF_DATA.clients||[];
@@ -22075,10 +22107,18 @@ function cabStaffRenderDash(){
   }
   var focusBlock=focusCards?'<div class="stf-focus-title">Фокус дня</div><div class="stf-focus-grid">'+focusCards+'</div>':'';
 
-  // Разбивка по этапам
-  var bs=STF_DATA.byStage||{};var stageChips='';
-  Object.keys(bs).forEach(function(k){stageChips+='<span class="stf-chip">'+cabEsc(k)+' · <b>'+bs[k]+'</b></span>';});
-  var stageRow=stageChips?'<div class="stf-stages">'+stageChips+'</div>':'';
+  // Воронка по этапам — визуальные бары
+  var bs=STF_DATA.byStage||{};
+  var stageArr=Object.keys(bs).map(function(k){return{name:k,n:bs[k]};}).sort(function(a,b){return b.n-a.n;});
+  var maxN=stageArr.reduce(function(m,x){return x.n>m?x.n:m;},1);
+  var stageRow=stageArr.length
+    ? '<div class="stf-funnel-title">Воронка по этапам</div><div class="stf-funnel">'+stageArr.map(function(x){
+        var w=Math.round(x.n/maxN*100);
+        return '<div class="stf-fn-row"><div class="stf-fn-lbl">'+cabEsc(x.name)+'</div>'+
+          '<div class="stf-fn-bar"><div class="stf-fn-fill" style="width:'+w+'%"></div></div>'+
+          '<div class="stf-fn-n">'+x.n+'</div></div>';
+      }).join('')+'</div>'
+    : '';
   // Фильтры + поиск
   function fbtn(key,lbl){return '<button class="stf-fbtn'+(STF_FILTER===key?' on':'')+'" onclick="cabStaffSetFilter(\''+key+'\')">'+lbl+'</button>';}
   var controls=
