@@ -14940,15 +14940,15 @@ body.sv-detail-open #tab-services .sv-sidebar{display:none!important;}
 /* v3.1: photo underlay — duotone, фирменный фиолет, текст всегда читаем */
 #tab-services .sv3-img{position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;overflow:hidden;}
 #tab-services .sv3-img img{width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) brightness(.72) contrast(1.08);opacity:.26;
+  filter:saturate(1.08) brightness(.95) contrast(1.03);opacity:.62;
   transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1);}
 #tab-services .sv3-img::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(168deg,rgba(91,82,204,.30) 0%,rgba(32,26,74,.55) 38%,rgba(15,12,40,.94) 78%,rgba(15,12,40,.99) 100%);}
-#tab-services .sv-item:hover .sv3-img img{opacity:.38;transform:scale(1.05);}
-#tab-services .sv-item.sv3-feat .sv3-img img{opacity:.32;}
+  background:linear-gradient(168deg,rgba(91,82,204,.10) 0%,rgba(32,26,74,.28) 42%,rgba(15,12,40,.82) 80%,rgba(15,12,40,.96) 100%);}
+#tab-services .sv-item:hover .sv3-img img{opacity:.82;transform:scale(1.06);}
+#tab-services .sv-item.sv3-feat .sv3-img img{opacity:.72;}
 #tab-services .sv-item-ico-wrap,#tab-services .sv-card-body,#tab-services .sv3-foot{position:relative;top:auto;left:auto;right:auto;bottom:auto;z-index:1;}
 #tab-services .sv-card-tag{z-index:2;}
-@media(max-width:960px){#tab-services .sv3-img img{opacity:.18;}}
+@media(max-width:960px){#tab-services .sv3-img img{opacity:.5;}}
 
 /* v2 leftovers — never render */
 #tab-services .sv-card-image,#tab-services .sv-speed-line,#tab-services .sv-glow-border,#tab-services .sv-ripple,#tab-services .sv-card-arrow{display:none!important;}
@@ -14979,7 +14979,7 @@ body.sv-detail-open #tab-services .s-desc{display:none!important;}
   box-shadow:0 8px 22px rgba(7,5,15,.45),inset 0 1px 0 rgba(255,255,255,.14);}
 #tab-services .svd-photo-strip-icon svg{width:22px;height:22px;}
 /* hero детали: фото глушим плотным брендовым градиентом — текст и статы дышат */
-#tab-services .svd-hero-v2 .svd-hero-img{opacity:.3!important;filter:grayscale(.55) brightness(.78) contrast(1.05);}
+#tab-services .svd-hero-v2 .svd-hero-img{opacity:.92!important;filter:saturate(1.06) brightness(.95) contrast(1.03);}
 #tab-services .svd-hero-v2 .svd-hero-gradient{background:linear-gradient(165deg,rgba(27,22,64,.55) 0%,rgba(15,12,40,.92) 62%,rgba(12,10,34,.99) 100%)!important;}
 /* карточки «что входит» → v3-плитки */
 #tab-services .svd-benefit-card{background:linear-gradient(160deg,rgba(32,26,74,.72),rgba(15,12,40,.88))!important;
