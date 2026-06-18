@@ -4021,6 +4021,38 @@ html.lang-switching * { transition: none !important; animation: none !important;
 .cab-boot-logo{width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:800 22px Inter,sans-serif;letter-spacing:.5px;box-shadow:0 12px 34px rgba(0,0,0,.18)}
 .cab-boot-spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.28);border-top-color:#fff;animation:cabBootSpin .8s linear infinite}
 @keyframes cabBootSpin{to{transform:rotate(360deg)}}
+/* ── Календарь дела ── */
+.cab-cal-card{background:#fff;border:1px solid #ECE9F7;border-radius:18px;padding:20px;margin-bottom:14px;box-shadow:0 6px 22px rgba(91,82,204,.06);}
+.cab-cal-case{font-size:11px;font-weight:700;letter-spacing:.5px;color:#8b84b8;text-transform:uppercase;margin-bottom:14px;}
+.cab-cal-bigs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+@media(max-width:560px){.cab-cal-bigs{grid-template-columns:1fr;}}
+.cab-cal-big{position:relative;display:flex;align-items:center;gap:12px;padding:15px 16px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 12%,#fff),color-mix(in srgb,var(--ac) 4%,#fff));border:1px solid color-mix(in srgb,var(--ac) 28%,#fff);}
+.cab-cal-big-ico{width:42px;height:42px;border-radius:12px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 6px 16px color-mix(in srgb,var(--ac) 40%,transparent);}
+.cab-cal-big-main{flex:1;min-width:0;}
+.cab-cal-big-lbl{font-size:12px;font-weight:600;color:#6b63a8;}
+.cab-cal-big-date{font-size:17px;font-weight:800;color:#1a1545;margin-top:2px;line-height:1.2;}
+.cab-cal-badge{position:absolute;top:10px;right:12px;font-size:9.5px;font-weight:800;letter-spacing:.3px;padding:3px 8px;border-radius:20px;text-transform:uppercase;}
+.cab-cal-badge.est{background:rgba(139,130,232,.16);color:#6D4DF6;}
+.cab-cal-badge.exact{background:rgba(34,197,94,.16);color:#16a34a;}
+.cab-cal-badge.done{background:rgba(120,120,140,.14);color:#6b6b86;}
+.cab-cal-tl{position:relative;padding-left:4px;}
+.cab-cal-tl-row{position:relative;display:flex;align-items:center;gap:12px;padding:9px 0;}
+.cab-cal-tl-row::before{content:'';position:absolute;left:8px;top:24px;bottom:-9px;width:2px;background:#ECE9F7;}
+.cab-cal-tl-row:last-child::before{display:none;}
+.cab-cal-dot{width:18px;height:18px;border-radius:50%;border:2px solid #d8d3ee;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;z-index:1;}
+.cab-cal-dot.done{background:#16a34a;border-color:#16a34a;}
+.cab-cal-dot.now{background:#6D4DF6;border-color:#6D4DF6;box-shadow:0 0 0 4px rgba(109,77,246,.18);animation:cabCalPulse 1.8s ease-out infinite;}
+@keyframes cabCalPulse{0%{box-shadow:0 0 0 0 rgba(109,77,246,.35)}70%{box-shadow:0 0 0 7px rgba(109,77,246,0)}100%{box-shadow:0 0 0 0 rgba(109,77,246,0)}}
+.cab-cal-tl-lbl{flex:1;font-size:13.5px;font-weight:600;color:#3a3470;}
+.cab-cal-tl-row.soon .cab-cal-tl-lbl{color:#a09ac8;font-weight:500;}
+.cab-cal-tl-row.now .cab-cal-tl-lbl{color:#1a1545;font-weight:700;}
+.cab-cal-tl-date{font-size:12px;font-weight:600;color:#8b84b8;background:#F4F3FB;border-radius:20px;padding:3px 10px;white-space:nowrap;}
+.cab-cal-tl-date.real{color:#16a34a;background:rgba(34,197,94,.1);}
+.cab-cal-lawyer{display:flex;align-items:center;gap:11px;margin-top:16px;padding:12px 14px;background:#F7F6FD;border:1px solid #ECE9F7;border-radius:12px;}
+.cab-cal-lawyer-ico{font-size:22px;flex-shrink:0;}
+.cab-cal-lawyer-lbl{font-size:11.5px;color:#8b84b8;font-weight:600;}
+.cab-cal-lawyer-date{font-size:14px;font-weight:700;color:#1a1545;margin-top:1px;}
+.cab-cal-note{font-size:11.5px;color:#a09ac8;line-height:1.5;margin-top:14px;padding-top:12px;border-top:1px dashed #ECE9F7;}
 #cab-content{background:#F4F3FB!important;}
 #cab-sidebar{border-right:1px solid #ECE9F7!important;box-shadow:none!important;}
 /* лого/аватары — градиент */
@@ -21893,11 +21925,11 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     <div class="cab-section" id="cab-p-deadlines">
 
-      <div class="cab-pg-title" data-ct="p_deadlines">Deadlines</div>
+      <div class="cab-pg-title" data-ct="cal_title">Case calendar</div>
 
-      <div class="cab-pg-sub" data-ct="p_deadlines_s">Current stage and estimated timelines for your cases</div>
+      <div class="cab-pg-sub" data-ct="cal_sub">Estimated and confirmed dates for your case</div>
 
-      <!-- Реальные сроки этапа из Kommo. Заполняется cabRenderDeadlines(). -->
+      <!-- Календарь дела: примерные/реальные даты, таймлайн, последняя работа юриста. cabRenderDeadlines(). -->
       <div id="cab-deadl-body"></div>
 
     </div>
@@ -22708,6 +22740,10 @@ function cabSyncDataToCases(){
       checks:checks,
       _kommoLeadId:ld.id,
       _stage:ld.stage,
+      _step:(ld.stage&&ld.stage.step)||0,
+      _lastActivity:ld.lastActivity||0,
+      _realDates:ld.realDates||{},
+      _createdMs:ld.createdAt||0,
       _nextTask:nextTask,
       _updates:ld.updates||ld.notes||[],
       _chat:ld.chat||[]
@@ -22864,6 +22900,24 @@ function cabRenderPayments(){
 }
 
 // ─── ДЕДЛАЙНЫ — реальные сроки этапа (ETA) + что нужно от клиента ───
+// Календарь дела: примерные даты (по этапу) → реальные, когда назначены; таймлайн; последняя работа юриста.
+function cabFmtCalDate(ms){
+  if(!ms)return'';
+  var d=new Date(ms);
+  var moEn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var moRu=['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+  var mo=(CABLANG==='ru'?moRu:moEn)[d.getMonth()];
+  return d.getDate()+' '+mo+' '+d.getFullYear();
+}
+function cabCalDaysAgo(ms){
+  if(!ms)return'';
+  var diff=Math.floor((Date.now()-ms)/86400000);
+  if(diff<=0)return cabT('cal_today');
+  if(diff===1)return cabT('cal_yest');
+  return diff+' '+cabT('cal_ago');
+}
+var CAB_DAYS_TO_BIO={1:35,2:28,3:18,4:5,5:0,6:0};
+var CAB_DAYS_TO_DEC={1:130,2:115,3:95,4:70,5:40,6:0};
 function cabRenderDeadlines(){
   var body=document.getElementById('cab-deadl-body');if(!body)return;
   var cases=(CAB_CASES||[]).filter(function(c){return c.status!=='completed';});
@@ -22876,23 +22930,54 @@ function cabRenderDeadlines(){
     '</div>';
     return;
   }
-  body.innerHTML='<div style="display:flex;flex-direction:column;gap:10px">'+cases.map(function(c){
-    var stageName=cabStageName(c._stage)||'—';
-    var eta=cabStageField(c._stage,'etaText')?(cabT('dl_eta')+' '+cabStageField(c._stage,'etaText')):cabT('dl_eta_soon');
-    var action=cabStageField(c._stage,'clientAction');
-    var actionBlock=action?
-      '<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:13px;color:#92600c"><b>'+cabT('dl_need')+'</b> '+String(action).replace(/</g,'&lt;')+'</div>':'';
-    return '<div style="background:#fff;border:1px solid rgba(91,82,204,.18);border-left:4px solid #5B52CC;border-radius:14px;padding:16px 20px">'+
-      '<div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">'+
-        '<div style="flex:1;min-width:200px">'+
-          '<div style="font-size:10px;font-weight:700;letter-spacing:.8px;color:#5B52CC;margin-bottom:5px">'+cabT('dl_stage').toUpperCase()+' · '+c.id+'</div>'+
-          '<div style="font-size:15px;font-weight:700;color:#1a1545">'+stageName+'</div>'+
-          '<div style="font-size:12px;color:#6b63a8;margin-top:3px">'+(c.typeName||'')+' · '+eta+'</div>'+
-        '</div>'+
-        '<button class="cab-open-btn" style="margin-top:0;flex-shrink:0" onclick="cabOpenCase(\''+c.id+'\')">'+cabT('dl_more')+' →</button>'+
-      '</div>'+actionBlock+
-    '</div>';
-  }).join('')+'</div>';
+  body.innerHTML=cases.map(cabCalCard).join('');
+}
+function cabCalCard(c){
+  var step=c._step||2; if(step<1)step=1; if(step>6)step=6;
+  var rd=c._realDates||{}, now=Date.now(), DAY=86400000;
+  // биометрия (отпечатки)
+  var bio = rd.biometrics ? {ms:rd.biometrics,real:true,done:step>=5||rd.biometrics<now}
+          : step>=5 ? {ms:null,real:false,done:true}
+          : {ms:now+(CAB_DAYS_TO_BIO[step]||14)*DAY,real:false,done:false};
+  // решение (дицизия)
+  var dec = rd.decision ? {ms:rd.decision,real:true,done:step>=6||rd.decision<now}
+          : step>=6 ? {ms:null,real:false,done:true}
+          : {ms:now+(CAB_DAYS_TO_DEC[step]||90)*DAY,real:false,done:false};
+  function bigCard(label,o,emoji,accent){
+    var badge,dateTxt;
+    if(o.done){ badge='<span class="cab-cal-badge done">✓ '+cabT('cal_done')+'</span>'; dateTxt=o.ms?cabFmtCalDate(o.ms):cabT('cal_done'); }
+    else if(o.real){ badge='<span class="cab-cal-badge exact">✓ '+cabT('cal_exact')+'</span>'; dateTxt=cabFmtCalDate(o.ms); }
+    else { badge='<span class="cab-cal-badge est">'+cabT('cal_est')+'</span>'; dateTxt='≈ '+cabFmtCalDate(o.ms); }
+    return '<div class="cab-cal-big" style="--ac:'+accent+'">'+
+      '<div class="cab-cal-big-ico">'+emoji+'</div>'+
+      '<div class="cab-cal-big-main"><div class="cab-cal-big-lbl">'+label+'</div>'+
+        '<div class="cab-cal-big-date">'+dateTxt+'</div></div>'+badge+'</div>';
+  }
+  var ms=[
+    {lbl:cabT('cal_started'),o:{ms:c._createdMs,real:true,done:true}},
+    {lbl:cabT('cal_docs'),o:{ms:null,real:false,done:step>=3},now:step===2},
+    {lbl:cabT('cal_bio'),o:bio,now:step===4},
+    {lbl:cabT('cal_review'),o:{ms:null,real:false,done:step>=6},now:step===5},
+    {lbl:cabT('cal_dec'),o:dec,now:step===6}
+  ];
+  var tl=ms.map(function(m){
+    var state=m.o.done?'done':(m.now?'now':'soon');
+    var dot=state==='done'?'<span class="cab-cal-dot done">✓</span>':(state==='now'?'<span class="cab-cal-dot now"></span>':'<span class="cab-cal-dot"></span>');
+    var dt='';
+    if(m.o.ms){ dt='<span class="cab-cal-tl-date'+(m.o.real?' real':'')+'">'+(m.o.real?'':'≈ ')+cabFmtCalDate(m.o.ms)+'</span>'; }
+    else if(state==='done'){ dt='<span class="cab-cal-tl-date">'+cabT('cal_done')+'</span>'; }
+    return '<div class="cab-cal-tl-row '+state+'">'+dot+'<div class="cab-cal-tl-lbl">'+m.lbl+'</div>'+dt+'</div>';
+  }).join('');
+  var la=c._lastActivity?'<div class="cab-cal-lawyer"><span class="cab-cal-lawyer-ico">🧑‍⚖️</span><div><div class="cab-cal-lawyer-lbl">'+cabT('cal_lawyer')+'</div><div class="cab-cal-lawyer-date">'+cabFmtCalDate(c._lastActivity)+' · '+cabCalDaysAgo(c._lastActivity)+'</div></div></div>':'';
+  return '<div class="cab-cal-card">'+
+    '<div class="cab-cal-case">'+(c.typeName||'')+' · '+c.id+'</div>'+
+    '<div class="cab-cal-bigs">'+
+      bigCard(cabT('cal_bio'),bio,'🖐️','#6D4DF6')+
+      bigCard(cabT('cal_dec'),dec,'⚖️','#FF5DA2')+
+    '</div>'+
+    '<div class="cab-cal-tl">'+tl+'</div>'+la+
+    '<div class="cab-cal-note">'+cabT('cal_note')+'</div>'+
+  '</div>';
 }
 
 // Бейджи в навигации — реальные числа вместо хардкода
@@ -22925,8 +23010,14 @@ var CABLANG = (function(){ try{ return localStorage.getItem('cabLang')||'en'; }c
 var CAB_T = {
   en:{
     nav_dashboard:'Home', nav_history:'My cases', nav_messages:'Messages', nav_myservices:'My services',
-    nav_payments:'Payments', nav_deadlines:'Deadlines', nav_catalog:'Order a service', nav_profile:'Profile',
+    nav_payments:'Payments', nav_deadlines:'Calendar', nav_catalog:'Order a service', nav_profile:'Profile',
     logout:'Sign out', client:'LegalSol client',
+    cal_title:'Case calendar', cal_sub:'Estimated and confirmed dates for your case',
+    cal_bio:'Biometrics (fingerprints)', cal_dec:'Decision', cal_est:'estimated', cal_exact:'confirmed',
+    cal_started:'Case started', cal_docs:'Documents submitted', cal_review:'Under review', cal_result:'Result issued',
+    cal_done:'done', cal_now:'in progress', cal_soon:'upcoming', cal_await:'awaiting',
+    cal_lawyer:'Lawyer last worked on your case', cal_ago:'days ago', cal_today:'today', cal_yest:'yesterday',
+    cal_note:'Estimated dates are based on your current stage and typical timelines. Once an exact date is set, it appears here automatically.',
     sb_services:'My services', sb_messages:'Messages', sb_topay:'To pay', sb_deadlines:'Active deadlines', sb_total:'Cases total',
     stat_active:'Active cases', stat_done:'Completed', stat_done_n:'services done', stat_stage:'Current stage', stat_total:'total',
     qa_update:'Request an update', qa_update_s:'Check case status', qa_pay:'Pay for service', qa_pay_s:'Online payment',
@@ -22952,8 +23043,14 @@ var CAB_T = {
   },
   ru:{
     nav_dashboard:'Главная', nav_history:'Мои дела', nav_messages:'Сообщения', nav_myservices:'Мои услуги',
-    nav_payments:'Оплаты', nav_deadlines:'Дедлайны', nav_catalog:'Заказать услугу', nav_profile:'Профиль',
+    nav_payments:'Оплаты', nav_deadlines:'Календарь', nav_catalog:'Заказать услугу', nav_profile:'Профиль',
     logout:'Выйти из кабинета', client:'Клиент LegalSol',
+    cal_title:'Календарь дела', cal_sub:'Примерные и точные даты по вашему делу',
+    cal_bio:'Биометрия (отпечатки)', cal_dec:'Решение (дицизия)', cal_est:'примерно', cal_exact:'точно',
+    cal_started:'Дело начато', cal_docs:'Документы поданы', cal_review:'Рассмотрение', cal_result:'Решение выдано',
+    cal_done:'пройдено', cal_now:'идёт сейчас', cal_soon:'ожидается', cal_await:'ожидается',
+    cal_lawyer:'Юрист последний раз работал над делом', cal_ago:'дн назад', cal_today:'сегодня', cal_yest:'вчера',
+    cal_note:'Примерные даты рассчитаны по вашему этапу и типичным срокам. Как только назначается точная дата — она появляется здесь автоматически.',
     sb_services:'Мои услуги', sb_messages:'Сообщения', sb_topay:'К оплате', sb_deadlines:'Активных сроков', sb_total:'Дел всего',
     stat_active:'Активных дел', stat_done:'Завершено', stat_done_n:'услуг готово', stat_stage:'Текущий этап', stat_total:'всего',
     qa_update:'Запросить апдейт', qa_update_s:'Узнать статус дела', qa_pay:'Оплатить услугу', qa_pay_s:'Онлайн-оплата',

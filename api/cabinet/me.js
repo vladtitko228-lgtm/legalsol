@@ -28,6 +28,36 @@ function looksLikePhoneOnly(name) {
   return /^[\s+()\-\d]+$/.test(String(name).trim());
 }
 
+// Парсим дату из текста заметки/задачи: dd.mm.yyyy | dd.mm.yy | dd/mm | dd-mm-yyyy.
+function parseDateToken(s) {
+  const m = String(s).match(/\b([0-3]?\d)[.\/-]([01]?\d)(?:[.\/-](\d{2,4}))?\b/);
+  if (!m) return null;
+  const d = +m[1], mo = +m[2] - 1; let y = m[3] ? +m[3] : new Date().getUTCFullYear();
+  if (d < 1 || d > 31 || mo < 0 || mo > 11) return null;
+  if (y < 100) y += 2000;
+  const ms = Date.UTC(y, mo, d, 9, 0, 0);
+  return isNaN(ms) ? null : ms;
+}
+
+// «Реальные» даты дела из заметок/задач (биометрия/отпечатки и решение/дицизия).
+// items: [{text, ts}] от новых к старым. Берём дату из самой свежей подходящей записи.
+// Возвращаем ТОЛЬКО даты (ms) — текст заметок клиенту не отдаём.
+function extractCaseDates(items) {
+  const res = { biometrics: null, decision: null };
+  // лат. транслит/польский тоже: otpeczatki/otpaczatki/otpechatki, odciski, biometria, wezwanie
+  const bioRe = /отпечат|биометр|biometr|odcisk|wezwani|fingerprint|otp\w*atk/i;
+  const decRe = /дициз|децизи|decyz|реш(ени|ение|ения)|decision|pozytyw|negatyw/i;
+  const sorted = items.slice().sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  for (const it of sorted) {
+    const t = it.text || ''; if (!t) continue;
+    const dt = parseDateToken(t); if (!dt) continue;
+    if (!res.biometrics && bioRe.test(t)) res.biometrics = dt;
+    if (!res.decision && decRe.test(t)) res.decision = dt;
+    if (res.biometrics && res.decision) break;
+  }
+  return res;
+}
+
 module.exports = async function handler(req, res) {
   // Ответ содержит ПДн (паспорт/гражданство/заметки) — запрещаем любое кэширование
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
@@ -94,6 +124,8 @@ module.exports = async function handler(req, res) {
         let updates = [];
         let payments = [];
         let chat = [];
+        let lastActivityMs = (lead.updated_at || 0) * 1000; // когда юрист последний раз трогал дело
+        const _dateTexts = [];                              // server-only: тексты для извлечения дат
         try {
           const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
           const all = (nRes?._embedded?.notes || []).map(n => ({
@@ -103,6 +135,7 @@ module.exports = async function handler(req, res) {
             type: n.note_type,
             author: n.created_by || null
           })).filter(n => n.text);
+          all.forEach(n => { _dateTexts.push({ text: n.text, ts: n.createdAt }); if (n.createdAt > lastActivityMs) lastActivityMs = n.createdAt; });
           // Только клиентские текстовые апдейты (префиксы >>>, 📢, [c], [К], [к], КЛИЕНТУ:).
           // Платёжные (ОПЛАТА:) и сообщения клиента (ОТ КЛИЕНТА:) исключаем.
           updates = all
@@ -133,12 +166,16 @@ module.exports = async function handler(req, res) {
         let tasks = [];
         try {
           const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`);
-          tasks = (tRes?._embedded?.tasks || []).map(t => ({
+          const rawTasks = tRes?._embedded?.tasks || [];
+          tasks = rawTasks.map(t => ({
             id: t.id,
             completeTill: t.complete_till * 1000,
             taskType: t.task_type_id
           })).sort((a, b) => a.completeTill - b.completeTill);
+          // текст задачи клиенту не отдаём, но используем для извлечения реальных дат
+          rawTasks.forEach(t => { if (t.text) _dateTexts.push({ text: t.text, ts: (t.created_at || 0) * 1000 }); });
         } catch (_) {}
+        const realDates = extractCaseDates(_dateTexts);
 
         const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '', whatWeDo: '', clientAction: null, etaText: null };
         const serviceType = getCfValue(lead, CF_SERVICE_TYPE) || stage.service || 'Услуга легализации';
@@ -173,7 +210,9 @@ module.exports = async function handler(req, res) {
           notes,        // совместимость — здесь только клиентские (с 📢)
           updates,      // тоже клиентские, более явное имя
           chat,         // двусторонний чат: {from:'client'|'manager', text, createdAt}
-          tasks
+          tasks,
+          lastActivity: lastActivityMs,   // когда юрист последний раз работал над делом
+          realDates                       // {biometrics, decision} — реальные даты (ms) или null
         });
       } catch (e) {
         console.error('lead fetch err:', e.message);
