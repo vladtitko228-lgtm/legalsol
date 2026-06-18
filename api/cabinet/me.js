@@ -6,6 +6,7 @@ const {
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
   CLIENT_MSG_PREFIX, isClientMsgNote, stripClientMsgPrefix,
+  chatAppend, chatRead,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
@@ -63,9 +64,8 @@ module.exports = async function handler(req, res) {
         }
       }
       if (!targetLead) return res.status(404).json({ error: 'no_lead' });
-      await kommo('POST', `/leads/${targetLead}/notes`, [
-        { note_type: 'common', params: { text: CLIENT_MSG_PREFIX + ' ' + text } }
-      ]);
+      // Переписку пишем в KV, а НЕ заметкой в Kommo — чтобы не мусорить в карточке.
+      await chatAppend(targetLead, 'client', text);
       return res.status(200).json({ ok: true });
     }
 
@@ -120,13 +120,17 @@ module.exports = async function handler(req, res) {
             .filter(p => p.amount > 0)
             .sort((a, b) => b.createdAt - a.createdAt);
 
-          // Двусторонний чат: КЛИЕНТУ: → менеджер, ОТ КЛИЕНТА: → клиент. По возрастанию времени.
-          chat = all
+          // Двусторонний чат. Новые сообщения живут в KV; старые (до миграции)
+          // могли остаться заметками в Kommo — подмешиваем их, чтобы история не
+          // пропала. Дубля нет: новые пишутся только в KV, старые только в Kommo.
+          const legacyChat = all
             .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
             .map(n => isClientMsgNote(n.text)
               ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-              : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
-            .sort((a, b) => a.createdAt - b.createdAt);
+              : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt });
+          let kvChat = [];
+          try { kvChat = await chatRead(lid); } catch (_) {}
+          chat = legacyChat.concat(kvChat).sort((a, b) => a.createdAt - b.createdAt);
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе
         const notes = updates;

@@ -6,6 +6,7 @@ const {
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
   isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote,
   isClientMsgNote, stripClientMsgPrefix,
+  chatAppend, chatRead, chatInboxSince, BOT_RELAY_SECRET,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
@@ -131,12 +132,14 @@ async function actionClient(req, res) {
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
-    // Двусторонний чат для Даши: ОТ КЛИЕНТА: (входящие) + КЛИЕНТУ: (её ответы)
-    chat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+    // Двусторонний чат для Даши: новые сообщения из KV + старые (до миграции) из Kommo.
+    const legacyChat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
       .map(n => isClientMsgNote(n.text)
         ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-        : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
-      .sort((a, b) => a.createdAt - b.createdAt);
+        : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt });
+    let kvChat = [];
+    try { kvChat = await chatRead(leadId); } catch (_) {}
+    chat = legacyChat.concat(kvChat).sort((a, b) => a.createdAt - b.createdAt);
   } catch (_) {}
   let tasks = [];
   try {
@@ -174,47 +177,52 @@ async function actionSetPassword(req, res) {
   return res.status(200).json({ ok: true, contactId: contact.id, name: contact.name || '', login: '+' + normalized, inOps, updated: already });
 }
 
-// ── action=inbox ── новые сообщения клиентов (для уведомлений в панели Даши)
-// Возвращает последние заметки «ОТ КЛИЕНТА:» за 24 часа: кто, что, когда.
+// ── action=inbox ── новые сообщения клиентов из KV.
+// Панель Даши зовёт без since → последние 24ч (схлопнуто до последнего на сделку).
+// Бот зовёт с ?since=<ts> → ВСЕ входящие новее ts (id = ts, для курсора).
 async function actionInbox(req, res) {
-  let notes = [];
-  try {
-    const r = await kommo('GET', `/leads/notes?filter[note_type]=common&order[updated_at]=desc&limit=50`);
-    notes = r?._embedded?.notes || [];
-  } catch (_) {}
-  const dayAgo = Date.now() / 1000 - 86400;
-  const items = [];
-  for (const n of notes) {
-    const text = (n.params?.text || '').trim();
-    if (!isClientMsgNote(text)) continue;
-    if ((n.created_at || 0) < dayAgo) continue;
-    items.push({ leadId: n.entity_id, noteId: n.id, text: stripClientMsgPrefix(text).slice(0, 200), createdAt: (n.created_at || 0) * 1000 });
-  }
-  // только последнее сообщение на сделку
+  const sinceQ = Number(req.query?.since || 0);
+  const since = sinceQ > 0 ? sinceQ : (Date.now() - 86400000);
+  let raw = [];
+  try { raw = await chatInboxSince(since); } catch (_) {}
+  const items = raw
+    .map(m => ({ leadId: String(m.leadId), noteId: m.ts, text: String(m.text || '').slice(0, 200), createdAt: m.ts }))
+    .sort((a, b) => a.createdAt - b.createdAt);
+  if (sinceQ > 0) return res.status(200).json({ items }); // бот: все новые, по возрастанию
+  // панель Даши: только последнее сообщение на сделку (свежие сверху)
   const seen = {}; const uniq = [];
-  for (const it of items) { if (seen[it.leadId]) continue; seen[it.leadId] = 1; uniq.push(it); }
+  for (const it of items.slice().reverse()) { if (seen[it.leadId]) continue; seen[it.leadId] = 1; uniq.push(it); }
   return res.status(200).json({ items: uniq });
 }
 
-// ── action=reply ── Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+// ── action=reply ── ответ клиенту в кабинет. Пишем в KV (не в карточку Kommo).
 async function actionReply(req, res) {
-  const { leadId, text } = await readJsonBody(req);
-  const lid = String(leadId || '').replace(/[^\d]/g, '');
-  const msg = String(text || '').trim().slice(0, 1500);
+  const body = await readJsonBody(req);
+  const lid = String(body.leadId || '').replace(/[^\d]/g, '');
+  const msg = String(body.text || '').trim().slice(0, 1500);
   if (!lid) return res.status(400).json({ error: 'leadId_required' });
   if (!msg) return res.status(400).json({ error: 'text_required' });
-  await kommo('POST', `/leads/${lid}/notes`, [
-    { note_type: 'common', params: { text: 'КЛИЕНТУ: ' + msg } }
-  ]);
+  await chatAppend(lid, 'manager', msg);
   return res.status(200).json({ ok: true });
 }
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   try {
-    const payload = verifyJwt(readCookie(req, 'cabinet_token'));
-    if (!payload || !payload.staff) return res.status(401).json({ error: 'unauthorized' });
     const action = String(req.query?.action || '');
+    // Авторизация: либо staff-сессия (Даша), либо машинный токен бота (Bearer) —
+    // боту нужны только inbox (читать новые) и reply (отправлять одобренный ответ).
+    const authH = String(req.headers['authorization'] || '');
+    const relayOk = !!BOT_RELAY_SECRET && authH === 'Bearer ' + BOT_RELAY_SECRET;
+    const payload = verifyJwt(readCookie(req, 'cabinet_token'));
+    const isStaff = !!(payload && payload.staff);
+    if (relayOk && !isStaff) {
+      // машинный доступ бота — только inbox / reply
+      if (req.method === 'GET' && action === 'inbox') return actionInbox(req, res);
+      if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
+      return res.status(403).json({ error: 'forbidden' });
+    }
+    if (!isStaff) return res.status(401).json({ error: 'unauthorized' });
     if (req.method === 'GET' && action === 'data') return actionData(req, res, payload);
     if (req.method === 'GET' && action === 'client') return actionClient(req, res);
     if (req.method === 'GET' && action === 'inbox') return actionInbox(req, res);
