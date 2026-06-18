@@ -174,6 +174,28 @@ async function actionSetPassword(req, res) {
   return res.status(200).json({ ok: true, contactId: contact.id, name: contact.name || '', login: '+' + normalized, inOps, updated: already });
 }
 
+// ── action=inbox ── новые сообщения клиентов (для уведомлений в панели Даши)
+// Возвращает последние заметки «ОТ КЛИЕНТА:» за 24 часа: кто, что, когда.
+async function actionInbox(req, res) {
+  let notes = [];
+  try {
+    const r = await kommo('GET', `/leads/notes?filter[note_type]=common&order[updated_at]=desc&limit=50`);
+    notes = r?._embedded?.notes || [];
+  } catch (_) {}
+  const dayAgo = Date.now() / 1000 - 86400;
+  const items = [];
+  for (const n of notes) {
+    const text = (n.params?.text || '').trim();
+    if (!isClientMsgNote(text)) continue;
+    if ((n.created_at || 0) < dayAgo) continue;
+    items.push({ leadId: n.entity_id, noteId: n.id, text: stripClientMsgPrefix(text).slice(0, 200), createdAt: (n.created_at || 0) * 1000 });
+  }
+  // только последнее сообщение на сделку
+  const seen = {}; const uniq = [];
+  for (const it of items) { if (seen[it.leadId]) continue; seen[it.leadId] = 1; uniq.push(it); }
+  return res.status(200).json({ items: uniq });
+}
+
 // ── action=reply ── Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
 async function actionReply(req, res) {
   const { leadId, text } = await readJsonBody(req);
@@ -195,6 +217,7 @@ module.exports = async function handler(req, res) {
     const action = String(req.query?.action || '');
     if (req.method === 'GET' && action === 'data') return actionData(req, res, payload);
     if (req.method === 'GET' && action === 'client') return actionClient(req, res);
+    if (req.method === 'GET' && action === 'inbox') return actionInbox(req, res);
     if (req.method === 'POST' && action === 'set-password') return actionSetPassword(req, res);
     if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
     return res.status(400).json({ error: 'bad_action' });

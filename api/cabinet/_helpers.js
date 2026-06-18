@@ -57,86 +57,106 @@ const STAGE_NAMES_OPS = {
   106716263: {
     ru: 'Заявка принята', en: 'Application received', pl: 'Wniosek przyjęty', step: 1, service: 'Карта побыту',
     whatWeDo: 'Менеджер изучает вашу ситуацию и подберёт оптимальный путь.',
+    whatWeDo_en: 'Your manager is reviewing your situation and choosing the best path.',
     clientAction: 'Возможно, попросим уточнить детали по WhatsApp.',
-    etaText: '1–2 рабочих дня'
+    clientAction_en: 'We may ask you to clarify some details via WhatsApp.',
+    etaText: '1–2 рабочих дня', etaText_en: '1–2 business days'
   },
   106716267: {
     ru: 'Документы отправлены', en: 'Documents sent', pl: 'Dokumenty wysłane', step: 2, service: 'Карта побыту',
     whatWeDo: 'Ваш пакет документов отправлен в воеводский офис почтой.',
-    clientAction: null,
-    etaText: 'Доставка 3–7 дней'
+    whatWeDo_en: 'Your document package has been mailed to the voivodeship office.',
+    clientAction: null, clientAction_en: null,
+    etaText: 'Доставка 3–7 дней', etaText_en: 'Delivery 3–7 days'
   },
   106716271: {
     ru: 'Подано в офис', en: 'Filed at office', pl: 'Złożone w urzędzie', step: 3, service: 'Карта побыту',
     whatWeDo: 'Документы зарегистрированы в воеводстве. Ждём первое решение или запрос дополнительных бумаг.',
-    clientAction: null,
-    etaText: '2–4 недели до первой реакции'
+    whatWeDo_en: 'Your documents are registered at the voivodeship. We are waiting for the first decision or a request for more papers.',
+    clientAction: null, clientAction_en: null,
+    etaText: '2–4 недели до первой реакции', etaText_en: '2–4 weeks until first response'
   },
   106716275: {
     ru: 'Ускоренное рассмотрение', en: 'Speed-up review', pl: 'Przyspieszone', step: 4, service: 'Карта побыту',
     whatWeDo: 'Юрист готовит дополнительные документы и работает с воеводством напрямую.',
-    clientAction: null,
-    etaText: '7–14 дней'
+    whatWeDo_en: 'Our lawyer is preparing additional documents and working with the voivodeship directly.',
+    clientAction: null, clientAction_en: null,
+    etaText: '7–14 дней', etaText_en: '7–14 days'
   },
   106716319: {
     ru: 'Дело у партнёра-юриста', en: 'With partner lawyer', pl: 'U prawnika-partnera', step: 4, service: 'Карта побыту',
     whatWeDo: 'Дело передано юристу-партнёру (стандартный путь для сложных случаев).',
-    clientAction: null,
-    etaText: '14–30 дней'
+    whatWeDo_en: 'Your case has been handed to a partner lawyer (the standard path for complex cases).',
+    clientAction: null, clientAction_en: null,
+    etaText: '14–30 дней', etaText_en: '14–30 days'
   },
   106716323: {
     ru: 'Ждём отпечатки пальцев', en: 'Awaiting fingerprints', pl: 'Czekamy na odciski', step: 5, service: 'Карта побыту',
     whatWeDo: 'Воеводство назначило вам биометрию. Дата и адрес — в апдейте от менеджера.',
+    whatWeDo_en: 'The voivodeship has scheduled your biometrics. The date and address are in the manager update.',
     clientAction: 'Прийти в указанный день с паспортом.',
-    etaText: '7–21 день после биометрии'
+    clientAction_en: 'Come on the scheduled day with your passport.',
+    etaText: '7–21 день после биометрии', etaText_en: '7–21 days after biometrics'
   },
   106716347: {
     ru: 'Финальная проверка', en: 'Final review', pl: 'Końcowa weryfikacja', step: 5, service: 'Карта побыту',
     whatWeDo: 'Наш юрист проверяет результат перед выдачей.',
-    clientAction: null,
-    etaText: '3–7 дней'
+    whatWeDo_en: 'Our lawyer is checking the result before issuance.',
+    clientAction: null, clientAction_en: null,
+    etaText: '3–7 дней', etaText_en: '3–7 days'
   },
   106716327: {
     ru: 'Подана апелляция', en: 'Appeal filed', pl: 'Złożono odwołanie', step: 4, service: 'Апелляция',
     whatWeDo: 'Апелляция на отказ подана. Решение пересматривает вышестоящая инстанция.',
-    clientAction: null,
-    etaText: '30–60 дней'
+    whatWeDo_en: 'The appeal against the refusal has been filed. A higher authority is reviewing the decision.',
+    clientAction: null, clientAction_en: null,
+    etaText: '30–60 дней', etaText_en: '30–60 days'
   },
   106716331: {
     ru: 'Защита от депортации', en: 'Deportation defence', pl: 'Obrona przed deportacją', step: 3, service: 'Защита от депортации',
     whatWeDo: 'Юрист готовит защиту вашего права остаться в Польше.',
+    whatWeDo_en: 'Our lawyer is preparing a defence of your right to stay in Poland.',
     clientAction: 'Менеджер может запросить дополнительные доказательства.',
-    etaText: 'Зависит от ситуации'
+    clientAction_en: 'The manager may request additional evidence.',
+    etaText: 'Зависит от ситуации', etaText_en: 'Depends on the case'
   },
   106716335: {
     ru: 'Международная защита', en: 'International protection', pl: 'Ochrona międzynarodowa', step: 3, service: 'Международная защита',
     whatWeDo: 'Ведём процесс международной защиты — собираем доказательства, готовим показания.',
+    whatWeDo_en: 'We are handling your international protection case — gathering evidence and preparing testimony.',
     clientAction: 'Возможны встречи и интервью.',
-    etaText: 'Несколько месяцев'
+    clientAction_en: 'Meetings and interviews may be required.',
+    etaText: 'Несколько месяцев', etaText_en: 'Several months'
   },
   106716339: {
     ru: 'Воссоединение семьи', en: 'Family reunification', pl: 'Łączenie rodzin', step: 3, service: 'Воссоединение семьи',
     whatWeDo: 'Готовим документы для воссоединения с членами семьи в Польше.',
+    whatWeDo_en: 'We are preparing documents to reunite you with your family members in Poland.',
     clientAction: 'Менеджер уточнит документы на родственников.',
-    etaText: '2–6 месяцев'
+    clientAction_en: 'The manager will clarify the documents needed for your relatives.',
+    etaText: '2–6 месяцев', etaText_en: '2–6 months'
   },
   106716343: {
     ru: 'Замена водительских прав', en: 'Driving licence exchange', pl: 'Wymiana prawa jazdy', step: 3, service: 'Замена прав',
     whatWeDo: 'Документы поданы в Urząd Komunikacji.',
-    clientAction: null,
-    etaText: '1–2 месяца'
+    whatWeDo_en: 'Your documents have been submitted to the Urząd Komunikacji.',
+    clientAction: null, clientAction_en: null,
+    etaText: '1–2 месяца', etaText_en: '1–2 months'
   },
   142: {
     ru: 'Готово ✓', en: 'Completed ✓', pl: 'Gotowe ✓', step: 6, service: '',
     whatWeDo: 'Услуга оказана. Поздравляем!',
+    whatWeDo_en: 'Your service is complete. Congratulations!',
     clientAction: 'Менеджер свяжется по выдаче результата.',
-    etaText: null
+    clientAction_en: 'The manager will contact you about collecting the result.',
+    etaText: null, etaText_en: null
   },
   143: {
     ru: 'Дело закрыто', en: 'Case closed', pl: 'Sprawa zamknięta', step: 6, service: '',
     whatWeDo: 'Дело закрыто. Если есть вопросы — пишите менеджеру.',
-    clientAction: null,
-    etaText: null
+    whatWeDo_en: 'The case is closed. If you have any questions, message your manager.',
+    clientAction: null, clientAction_en: null,
+    etaText: null, etaText_en: null
   }
 };
 const TOTAL_STEPS = 6;
