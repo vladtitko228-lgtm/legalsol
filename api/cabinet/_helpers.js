@@ -515,6 +515,34 @@ async function chatInboxClear(leadId) {
   await kvCmd('HDEL', CHAT_INBOX_TXT, id);
 }
 
+// ── СТАТУС-АПДЕЙТЫ дела в KV (лента «что нового по делу»). Раньше писались
+// заметками КЛИЕНТУ: в карточку Kommo и мусорили её — теперь живут здесь.
+// Kommo остаётся под внутреннюю кухню Даши (этапы/задачи/заметки).
+//   cabupd:<leadId> — LIST из JSON {text, ts}
+const UPD_KEY = id => `cabupd:${String(id).replace(/[^\d]/g, '')}`;
+
+async function updatesAppend(leadId, text) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  const t = String(text || '').trim().slice(0, 2000);
+  if (!id || !t) return null;
+  const ts = Date.now();
+  await kvCmd('RPUSH', UPD_KEY(id), JSON.stringify({ text: t, ts }));
+  await kvCmd('LTRIM', UPD_KEY(id), -200, -1);
+  return ts;
+}
+
+// Апдейты дела → [{text, createdAt}] по убыванию времени (свежие сверху).
+async function updatesRead(leadId) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  if (!id) return [];
+  const arr = await kvCmd('LRANGE', UPD_KEY(id), 0, -1);
+  if (!Array.isArray(arr)) return [];
+  return arr.map(s => { try { return JSON.parse(s); } catch (_) { return null; } })
+    .filter(Boolean)
+    .map(u => ({ id: u.ts, text: u.text, createdAt: u.ts }))
+    .sort((a, b) => b.createdAt - a.createdAt);
+}
+
 function clientIp(req) {
   // Левый токен XFF контролируется клиентом (Vercel дописывает реальный IP в
   // конец) — брать его значит позволить обходить rate-limit подделкой
@@ -553,6 +581,8 @@ module.exports = {
   chatRead,
   chatInboxSince,
   chatInboxClear,
+  updatesAppend,
+  updatesRead,
   clientIp,
   rateLimitBlocked,
   rateLimitFail,
