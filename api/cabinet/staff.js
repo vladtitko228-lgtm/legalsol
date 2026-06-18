@@ -12,10 +12,22 @@ const {
 function cleanLeadName(name) {
   if (!name) return '';
   return String(name)
-    .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '')
+    .replace(/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s+/, '')   // дата в начале
+    .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '')// дата в конце
     .replace(/^(Facebook|Instagram|TikTok)\s*№?\s*\d+/i, '')
     .replace(/^Lead\s*#\d+/i, '')
     .trim();
+}
+
+// Даша опознаёт клиента по дате-«номеру» в имени сделки (начало ИЛИ конец).
+// Возвращает её как dd.mm.yyyy (или как есть), либо '' если нет.
+function leadCode(name) {
+  if (!name) return '';
+  const m = String(name).match(/(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})/);
+  if (!m) return '';
+  const dd = ('0' + m[1]).slice(-2), mm = ('0' + m[2]).slice(-2);
+  let yy = m[3]; if (yy.length === 2) yy = '20' + yy;
+  return dd + '.' + mm + '.' + yy;
 }
 
 // Многие контакты LS хранят телефон в ИМЕНИ контакта, а не в поле телефона.
@@ -79,7 +91,7 @@ async function actionData(req, res, payload) {
     if (isDone) completed++; else active++;
     if (cm.hasAccess) withAccess++;
     contractTotal += price;
-    list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
+    list.push({ leadId: ld.id, code: leadCode(ld.name), name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
       stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
@@ -134,7 +146,7 @@ async function actionClient(req, res) {
   const price = lead.price || 0;
   const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
   return res.status(200).json({
-    leadId: lead.id, name: displayName, phone, hasAccess,
+    leadId: lead.id, code: leadCode(lead.name), name: displayName, phone, hasAccess,
     service: getCfValue(lead, CF_SERVICE_TYPE) || stage.service || '',
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
     price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates, chat

@@ -20488,6 +20488,7 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-row:hover{background:rgba(91,82,204,.12);border-color:rgba(139,130,232,.4);transform:translateY(-1px);}
 .stf-row-main{flex:1;min-width:0;}
 .stf-row-name{font-size:15px;font-weight:700;color:#fff;}
+.stf-code{display:inline-block;font-size:11px;font-weight:700;color:#c4b9ff;background:rgba(91,82,204,.22);border-radius:6px;padding:1px 7px;font-family:'SF Mono',ui-monospace,monospace;letter-spacing:.3px;vertical-align:1px;}
 .stf-row-meta{font-size:12px;color:#9c93b8;margin:2px 0 8px;}
 .stf-row-bar{height:5px;background:rgba(255,255,255,.08);border-radius:5px;overflow:hidden;max-width:240px;}
 .stf-row-fill{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:5px;}
@@ -22013,7 +22014,7 @@ function cabStaffRenderDash(){
   var noacc=clients.filter(function(c){return !c.hasAccess&&!c.isDone;}).slice(0,5);
   function focusRow(c,right,rcolor){
     return '<div class="stf-focus-row" onclick="cabStaffOpenClient('+c.leadId+')">'+
-      '<div class="stf-focus-main"><div class="stf-focus-name">'+cabEsc(c.name)+'</div>'+
+      '<div class="stf-focus-main"><div class="stf-focus-name">'+(c.code?cabEsc(c.code)+' · ':'')+cabEsc(c.name)+'</div>'+
       '<div class="stf-focus-sub">'+cabEsc(c.stage)+'</div></div>'+
       '<div class="stf-focus-tag" style="color:'+rcolor+'">'+right+'</div></div>';
   }
@@ -22063,7 +22064,7 @@ function cabStaffRenderList(){
     var pct=c.totalSteps?Math.round((c.step||0)/c.totalSteps*100):0;
     return '<div class="stf-row" onclick="cabStaffOpenClient('+c.leadId+')">'+
       '<div class="stf-row-main">'+
-        '<div class="stf-row-name">'+cabEsc(c.name)+'</div>'+
+        '<div class="stf-row-name">'+(c.code?'<span class="stf-code">'+cabEsc(c.code)+'</span> ':'')+cabEsc(c.name)+'</div>'+
         '<div class="stf-row-meta">'+(c.phone?cabEsc(c.phone):'без телефона')+(c.service?' · '+cabEsc(c.service):'')+'</div>'+
         '<div class="stf-row-bar"><div class="stf-row-fill" style="width:'+pct+'%"></div></div>'+
       '</div>'+
@@ -22100,7 +22101,7 @@ async function cabStaffOpenClient(leadId){
     m.innerHTML=
       '<div class="stf-m-head">'+
         '<div><div class="stf-m-name">'+cabEsc(c.name||'Клиент')+'</div>'+
-        '<div class="stf-m-sub">'+(c.phone?cabEsc(c.phone):'')+(c.service?' · '+cabEsc(c.service):'')+'</div></div>'+
+        '<div class="stf-m-sub">'+(c.code?'<span class="stf-code">'+cabEsc(c.code)+'</span> · ':'')+(c.phone?cabEsc(c.phone):'')+(c.service?' · '+cabEsc(c.service):'')+'</div></div>'+
         '<button class="stf-m-close" onclick="cabStaffCloseModal()">✕</button>'+
       '</div>'+
       '<div class="stf-m-stage">'+
