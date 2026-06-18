@@ -6,7 +6,7 @@ const {
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
   isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote,
   isClientMsgNote, stripClientMsgPrefix,
-  chatAppend, chatRead, chatInboxSince, BOT_RELAY_SECRET,
+  chatAppend, chatRead, chatInboxSince, updatesAppend, updatesRead, BOT_RELAY_SECRET,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
@@ -130,9 +130,9 @@ async function actionClient(req, res) {
   try {
     const nRes = await kommo('GET', `/leads/${leadId}/notes?limit=100`);
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
-    updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
-    // Чат Даши ↔ клиент — ТОЛЬКО из KV (в Kommo переписку не дублируем).
+    // Апдейты и чат — ТОЛЬКО из KV (в Kommo не дублируем; карточка Kommo для Даши).
+    try { updates = await updatesRead(leadId); } catch (_) { updates = []; }
     try { chat = await chatRead(leadId); } catch (_) { chat = []; }
   } catch (_) {}
   let tasks = [];
@@ -196,6 +196,17 @@ async function actionReply(req, res) {
   return res.status(200).json({ ok: true });
 }
 
+// ── action=update ── статус-апдейт дела (из бота /update) → лента кабинета (KV).
+async function actionUpdate(req, res) {
+  const body = await readJsonBody(req);
+  const lid = String(body.leadId || '').replace(/[^\d]/g, '');
+  const msg = String(body.text || '').trim().slice(0, 2000);
+  if (!lid) return res.status(400).json({ error: 'leadId_required' });
+  if (!msg) return res.status(400).json({ error: 'text_required' });
+  await updatesAppend(lid, msg);
+  return res.status(200).json({ ok: true });
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   try {
@@ -210,6 +221,7 @@ module.exports = async function handler(req, res) {
       // машинный доступ бота — только inbox / reply
       if (req.method === 'GET' && action === 'inbox') return actionInbox(req, res);
       if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
+      if (req.method === 'POST' && action === 'update') return actionUpdate(req, res);
       return res.status(403).json({ error: 'forbidden' });
     }
     if (!isStaff) return res.status(401).json({ error: 'unauthorized' });

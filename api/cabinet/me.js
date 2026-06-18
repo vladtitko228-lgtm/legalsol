@@ -6,7 +6,7 @@ const {
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
   CLIENT_MSG_PREFIX, isClientMsgNote, stripClientMsgPrefix,
-  chatAppend, chatRead,
+  chatAppend, chatRead, updatesRead,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
 } = require('./_helpers');
@@ -136,12 +136,9 @@ module.exports = async function handler(req, res) {
             author: n.created_by || null
           })).filter(n => n.text);
           all.forEach(n => { _dateTexts.push({ text: n.text, ts: n.createdAt }); if (n.createdAt > lastActivityMs) lastActivityMs = n.createdAt; });
-          // Только клиентские текстовые апдейты (префиксы >>>, 📢, [c], [К], [к], КЛИЕНТУ:).
-          // Платёжные (ОПЛАТА:) и сообщения клиента (ОТ КЛИЕНТА:) исключаем.
-          updates = all
-            .filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text))
-            .map(n => ({ ...n, text: stripClientPrefix(n.text) }))
-            .sort((a, b) => b.createdAt - a.createdAt);
+          // Статус-апдейты дела теперь в KV (cabupd:<lead>), а НЕ заметками в Kommo
+          // (чтобы не мусорить в карточке — она для Даши). Читаем из KV.
+          try { updates = await updatesRead(lid); } catch (_) { updates = []; }
 
           // Платежи — заметки с префиксом ОПЛАТА: (ставит TG-бот /paid или менеджер вручную)
           payments = all
