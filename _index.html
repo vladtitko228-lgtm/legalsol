@@ -21988,6 +21988,7 @@ async function cabBootstrapApp(){
   var resp=await fetch('/api/cabinet/me',{credentials:'same-origin'});
   if(!resp.ok){throw new Error('unauthorized');}
   window.cabData=await resp.json();
+  try{ localStorage.setItem('cabSession','1'); }catch(e){}
   // Сотрудник (Даша) → админ-панель вместо клиентского кабинета
   if(window.cabData&&window.cabData.role==='staff'){
     document.getElementById('cab-login-screen').style.display='none';
@@ -22341,6 +22342,7 @@ async function cabStaffReply(){
   }
 }
 function cabStaffLogout(){
+  try{ localStorage.removeItem('cabSession'); }catch(e){}
   if(window._stfInboxTimer){clearInterval(window._stfInboxTimer);window._stfInboxTimer=null;}
   fetch('/api/cabinet/logout',{method:'POST',credentials:'same-origin'}).finally(function(){
     var p=document.getElementById('cab-staff-panel');if(p)p.style.display='none';
@@ -22407,10 +22409,14 @@ function cabApplyData(){
   if(typeof window==='undefined')return;
   var run=function(){
     if(!document.getElementById('cab-login-screen'))return;
+    // СРАЗУ показываем вкладку кабинета, если в прошлый раз были в ней — убирает
+    // мелькание главной перед автологином (cookie проверяется асинхронно ниже).
+    try{ if(localStorage.getItem('cabSession')==='1' && typeof showTab==='function') showTab('cabinet'); }catch(e){}
     fetch('/api/cabinet/me',{credentials:'same-origin'}).then(function(r){
-      if(!r.ok)return;
+      if(!r.ok){ try{ localStorage.removeItem('cabSession'); }catch(e){} return; }
       return r.json().then(function(d){
         window.cabData=d;
+        try{ localStorage.setItem('cabSession','1'); }catch(e){}
         // ВАЖНО: активируем вкладку кабинета (иначе app скрыт под главной)
         if(typeof showTab==='function')showTab('cabinet');
         // Сотрудник (Даша) → её панель
@@ -22438,7 +22444,7 @@ function cabLogout(){
 
   var conf=document.createElement('div');conf.className='cab-confirm';
 
-  conf.innerHTML='<div class="cab-confirm-box"><div class="cab-confirm-title">Выйти из кабинета?</div><div class="cab-confirm-sub">Ваши данные сохранены. Вы сможете войти снова в любое время.</div><div class="cab-confirm-btns"><button style="flex:1;padding:11px;background:#f0eeff;border:1px solid #e8e4f5;border-radius:60px;color:#6b63a8;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove()">Отмена</button><button style="flex:1;padding:11px;background:linear-gradient(135deg,#ef4444,#f87171);border:none;border-radius:60px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove();fetch(\'/api/cabinet/logout\',{method:\'POST\',credentials:\'same-origin\'}).finally(function(){window.cabData=null;CAB_CASES=[];CAB_MSGS={};document.getElementById(\'cab-app\').style.display=\'none\';document.getElementById(\'cab-login-screen\').style.display=\'flex\';cabToast(\'Вы вышли из кабинета\',\'info\');});">Выйти</button></div></div>';
+  conf.innerHTML='<div class="cab-confirm-box"><div class="cab-confirm-title">Выйти из кабинета?</div><div class="cab-confirm-sub">Ваши данные сохранены. Вы сможете войти снова в любое время.</div><div class="cab-confirm-btns"><button style="flex:1;padding:11px;background:#f0eeff;border:1px solid #e8e4f5;border-radius:60px;color:#6b63a8;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove()">Отмена</button><button style="flex:1;padding:11px;background:linear-gradient(135deg,#ef4444,#f87171);border:none;border-radius:60px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif" onclick="this.closest(\'.cab-confirm\').remove();fetch(\'/api/cabinet/logout\',{method:\'POST\',credentials:\'same-origin\'}).finally(function(){try{localStorage.removeItem(\'cabSession\');}catch(e){}window.cabData=null;CAB_CASES=[];CAB_MSGS={};document.getElementById(\'cab-app\').style.display=\'none\';document.getElementById(\'cab-login-screen\').style.display=\'flex\';cabToast(\'Вы вышли из кабинета\',\'info\');});">Выйти</button></div></div>';
 
   document.body.appendChild(conf);
 
