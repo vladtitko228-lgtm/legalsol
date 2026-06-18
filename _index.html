@@ -4017,6 +4017,10 @@ html.lang-switching * { transition: none !important; animation: none !important;
 
 <style id="cab-vibrant">
 /* ═══ ЯРКИЙ МОДЕРН-РЕДИЗАЙН КАБИНЕТА (2026-06-17) ═══ */
+/* Boot-оверлей (перезагрузка кабинета) */
+.cab-boot-logo{width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font:800 22px Inter,sans-serif;letter-spacing:.5px;box-shadow:0 12px 34px rgba(0,0,0,.18)}
+.cab-boot-spin{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.28);border-top-color:#fff;animation:cabBootSpin .8s linear infinite}
+@keyframes cabBootSpin{to{transform:rotate(360deg)}}
 #cab-content{background:#F4F3FB!important;}
 #cab-sidebar{border-right:1px solid #ECE9F7!important;box-shadow:none!important;}
 /* лого/аватары — градиент */
@@ -21276,6 +21280,13 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
 <div id="cab-app" style="display:none">
 
+<!-- Boot-оверлей: показывается при перезагрузке, пока /me грузится в фоне.
+     Убирает мелькание главной/формы входа — клиент сразу видит «свой» кабинет. -->
+<div id="cab-boot-overlay" style="display:none;position:fixed;inset:0;z-index:70;background:linear-gradient(150deg,#6D4DF6,#9B6BFF 55%,#FF5DA2);align-items:center;justify-content:center;flex-direction:column;gap:20px">
+  <div class="cab-boot-logo">LS</div>
+  <div class="cab-boot-spin" aria-hidden="true"></div>
+  <div id="cab-boot-msg" style="color:rgba(255,255,255,.92);font:600 14px/1.4 Inter,sans-serif;text-align:center;padding:0 24px">Загружаем ваш кабинет…</div>
+</div>
 
 
   <!-- Sidebar -->
@@ -22458,38 +22469,74 @@ function cabApplyData(){
   });
 }
 
-// Автологин при загрузке: если cookie ещё валидно — сразу открываем кабинет
-// (активируем вкладку cabinet, чтобы не выкидывало на «Главную» при обновлении).
+// Автологин при загрузке. Главное правило: при наличии флага cabSession
+// (т.е. клиент УЖЕ входил) мы МГНОВЕННО показываем оболочку кабинета со
+// скелетоном, а /me грузим в фоне с ретраями. Флаг сбрасываем и возвращаем
+// форму входа ТОЛЬКО при реальном 401 — временные 500/таймауты Kommo
+// (а /me делает 20+ запросов в Kommo) больше НЕ выкидывают клиента из кабинета.
 (function(){
   if(typeof window==='undefined')return;
-  var run=function(){
-    if(!document.getElementById('cab-login-screen'))return;
-    // СРАЗУ показываем вкладку кабинета, если в прошлый раз были в ней — убирает
-    // мелькание главной перед автологином (cookie проверяется асинхронно ниже).
-    try{ if(localStorage.getItem('cabSession')==='1' && typeof showTab==='function') showTab('cabinet'); }catch(e){}
+  function el(id){return document.getElementById(id);}
+  function showBoot(){
+    var ls=el('cab-login-screen'); if(ls)ls.style.display='none';
+    var app=el('cab-app'); if(app)app.style.display='flex';
+    var bo=el('cab-boot-overlay'); if(bo)bo.style.display='flex';
+  }
+  function hideBoot(){ var bo=el('cab-boot-overlay'); if(bo)bo.style.display='none'; }
+  function toLogin(){
+    try{ localStorage.removeItem('cabSession'); }catch(e){}
+    hideBoot();
+    var app=el('cab-app'); if(app)app.style.display='none';
+    var ls=el('cab-login-screen'); if(ls)ls.style.display='flex';
+  }
+  function renderClient(d){
+    if(!d)return;
+    window.cabData=d;
+    try{ localStorage.setItem('cabSession','1'); }catch(e){}
+    if(typeof showTab==='function')showTab('cabinet');
+    // Сотрудник (Даша) → её панель
+    if(d.role==='staff'){
+      var ls=el('cab-login-screen'); if(ls)ls.style.display='none';
+      var app=el('cab-app'); if(app)app.style.display='none';
+      hideBoot();
+      if(typeof cabShowStaffPanel==='function')cabShowStaffPanel(d.name||'Сотрудник');
+      return;
+    }
+    // Клиент → кабинет
+    if(typeof cabApplyData==='function')cabApplyData();
+    var ls2=el('cab-login-screen'); if(ls2)ls2.style.display='none';
+    var app2=el('cab-app'); if(app2)app2.style.display='flex';
+    if(typeof cabRenderDash==='function')cabRenderDash();
+    if(typeof cabLoadChat==='function')cabLoadChat();
+    if(typeof cabRenderHistory==='function')cabRenderHistory();
+    if(typeof cabApplyLang==='function')cabApplyLang();
+    hideBoot();
+  }
+  function fetchMe(attempt, hadSession){
     fetch('/api/cabinet/me',{credentials:'same-origin'}).then(function(r){
-      if(!r.ok){ try{ localStorage.removeItem('cabSession'); }catch(e){} return; }
-      return r.json().then(function(d){
-        window.cabData=d;
-        try{ localStorage.setItem('cabSession','1'); }catch(e){}
-        // ВАЖНО: активируем вкладку кабинета (иначе app скрыт под главной)
-        if(typeof showTab==='function')showTab('cabinet');
-        // Сотрудник (Даша) → её панель
-        if(d&&d.role==='staff'){
-          document.getElementById('cab-login-screen').style.display='none';
-          if(typeof cabShowStaffPanel==='function')cabShowStaffPanel(d.name||'Сотрудник');
-          return;
-        }
-        // Клиент → кабинет
-        if(typeof cabApplyData==='function')cabApplyData();
-        document.getElementById('cab-login-screen').style.display='none';
-        document.getElementById('cab-app').style.display='flex';
-        if(typeof cabRenderDash==='function')cabRenderDash();
-        if(typeof cabLoadChat==='function')cabLoadChat();
-        if(typeof cabRenderHistory==='function')cabRenderHistory();
-        if(typeof cabApplyLang==='function')cabApplyLang();
-      });
-    }).catch(function(){});
+      if(r.status===401){ if(hadSession)toLogin(); else { try{localStorage.removeItem('cabSession');}catch(e){} } return; }
+      if(!r.ok){ throw new Error('http_'+r.status); }   // временная ошибка → ретрай ниже
+      return r.json().then(renderClient);
+    }).catch(function(){
+      if(hadSession && attempt<4){ setTimeout(function(){fetchMe(attempt+1,hadSession);}, 800*attempt); }
+      else if(hadSession){
+        // совсем не достучались — НЕ выкидываем, оставляем флаг, мягкая ошибка
+        var msg=el('cab-boot-msg');
+        if(msg)msg.innerHTML='Не получилось обновить данные. <a href="#" onclick="location.reload();return false;" style="color:#fff;text-decoration:underline">Попробовать ещё раз</a>';
+      }
+      // !hadSession — обычный посетитель главной, тихо игнорируем
+    });
+  }
+  var run=function(){
+    if(!el('cab-login-screen'))return;
+    var hadSession=false;
+    try{ hadSession=(localStorage.getItem('cabSession')==='1'); }catch(e){}
+    if(hadSession){
+      // вкладка кабинета + оболочка со скелетоном СРАЗУ — без мелькания главной/формы входа
+      if(typeof showTab==='function')showTab('cabinet');
+      showBoot();
+    }
+    fetchMe(1, hadSession);
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);
   else run();
