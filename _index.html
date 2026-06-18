@@ -20481,8 +20481,13 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-fn-fill{height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:6px;transition:width .5s cubic-bezier(.16,1,.3,1);}
 .stf-fn-n{width:28px;text-align:right;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}
 @media(max-width:600px){.stf-fn-lbl{width:100px;font-size:11px;}}
+/* Колокольчик уведомлений в шапке */
+.stf-bell{position:relative;background:rgba(255,255,255,.06);border:1px solid rgba(139,130,232,.3);border-radius:12px;width:42px;height:38px;font-size:18px;cursor:pointer;flex-shrink:0;transition:background .2s;}
+.stf-bell:hover{background:rgba(91,82,204,.25);}
+.stf-bell-badge{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;border-radius:10px;background:#ef4444;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #13103a;}
 /* Уведомления о новых сообщениях клиентов (панель Даши) */
-.stf-inbox-card{background:linear-gradient(135deg,rgba(91,82,204,.2),rgba(124,92,252,.08));border:1px solid rgba(139,130,232,.4);border-radius:16px;padding:14px 16px;margin-bottom:16px;}
+#stf-inbox{position:sticky;top:0;z-index:20;}
+.stf-inbox-card{background:linear-gradient(135deg,#2a2566,#1c1840);border:1px solid rgba(139,130,232,.5);border-radius:16px;padding:14px 16px;margin-bottom:16px;box-shadow:0 8px 28px rgba(0,0,0,.4);}
 .stf-inbox-h{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:#fff;margin-bottom:10px;}
 .stf-inbox-h .dot{width:9px;height:9px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:stfInboxPulse 1.8s ease-out infinite;}
 @keyframes stfInboxPulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.55);}70%{box-shadow:0 0 0 7px rgba(74,222,128,0);}100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}}
@@ -22015,6 +22020,7 @@ function cabShowStaffPanel(name){
       '<div class="stf-head">'+
         '<div class="stf-logo">LS</div>'+
         '<div><div class="stf-title">Рабочая панель</div><div class="stf-sub">'+cabEsc(name||'')+' · легализация</div></div>'+
+        '<button class="stf-bell" id="stf-bell" onclick="cabStaffScrollInbox()" title="Новые сообщения" aria-label="Уведомления">🔔<span class="stf-bell-badge" id="stf-bell-badge" style="display:none">0</span></button>'+
         '<button class="stf-newbtn" onclick="cabStaffOpenCreate()">+ Выдать доступ</button>'+
         '<button class="stf-logout" onclick="cabStaffLogout()">Выйти</button>'+
       '</div>'+
@@ -22023,22 +22029,46 @@ function cabShowStaffPanel(name){
     '</div>'+
   '</div>'+
   '<div class="stf-modal-bg" id="stf-modal-bg" onclick="cabStaffCloseModal(event)"><div class="stf-modal" id="stf-modal"></div></div>';
+  // спросим разрешение на уведомления рабочего стола (всплывают даже на другой вкладке)
+  try{ if(window.Notification && Notification.permission==='default') Notification.requestPermission(); }catch(e){}
+  window._stfSeenNotes=window._stfSeenNotes||{};
   cabStaffLoadData();
   cabStaffPollInbox();
   if(window._stfInboxTimer)clearInterval(window._stfInboxTimer);
-  window._stfInboxTimer=setInterval(cabStaffPollInbox,30000);
+  window._stfInboxTimer=setInterval(cabStaffPollInbox,20000);
 }
 
-// Опрос новых сообщений клиентов → баннер уведомлений в панели Даши
+function cabStaffScrollInbox(){ var b=document.getElementById('stf-inbox'); if(b&&b.scrollIntoView)b.scrollIntoView({behavior:'smooth',block:'start'}); }
+
+// Опрос новых сообщений клиентов → баннер + колокольчик + desktop-уведомление
 async function cabStaffPollInbox(){
   var box=document.getElementById('stf-inbox');if(!box)return;
   try{
     var r=await fetch('/api/cabinet/staff?action=inbox',{credentials:'same-origin'});
     if(!r.ok)return;
     var d=await r.json();var items=d.items||[];
+    // колокольчик
+    var badge=document.getElementById('stf-bell-badge');
+    if(badge){ if(items.length){badge.textContent=items.length;badge.style.display='';} else badge.style.display='none'; }
     if(!items.length){box.innerHTML='';return;}
-    // имя клиента — из загруженного списка по leadId
     var byLead={};(STF_DATA&&STF_DATA.clients||[]).forEach(function(c){byLead[c.leadId]=c;});
+    // desktop-уведомление для НОВЫХ (по noteId, которых не видели)
+    var seen=window._stfSeenNotes||{};var firstRun=!window._stfInboxInit;
+    items.forEach(function(it){
+      if(!seen[it.noteId]){
+        seen[it.noteId]=1;
+        if(!firstRun){ // не спамим при первом заходе
+          try{
+            if(window.Notification && Notification.permission==='granted'){
+              var c=byLead[it.leadId];var nm=c?c.name:('Сделка '+it.leadId);
+              var n=new Notification('Новое сообщение от клиента',{body:nm+': '+it.text,tag:'lead'+it.leadId});
+              n.onclick=function(){window.focus();cabStaffOpenClient(it.leadId);n.close();};
+            }
+          }catch(e){}
+        }
+      }
+    });
+    window._stfSeenNotes=seen;window._stfInboxInit=1;
     box.innerHTML='<div class="stf-inbox-card">'+
       '<div class="stf-inbox-h"><i class="dot"></i>Новые сообщения от клиентов · '+items.length+'</div>'+
       items.slice(0,6).map(function(it){
