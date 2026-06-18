@@ -14,6 +14,7 @@ const {
 function cleanLeadName(name) {
   if (!name) return '';
   let s = String(name)
+    .replace(/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s+/, '')    // дата в начале (внутр. номер)
     .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '') // дата в конце
     .replace(/^(Facebook|Instagram|TikTok)\s*№?\s*\d+/i, '')   // тех-имена из ads
     .replace(/^Lead\s*#\d+/i, '')
@@ -78,7 +79,8 @@ module.exports = async function handler(req, res) {
     // 2) Сделки контакта: тянем подробности → фильтруем по Pipeline 2 (Легализация)
     const allLeadIds = (cRes._embedded?.leads || []).map(l => l.id).slice(0, 20);
     const leads = [];
-    let displayName = cRes.name || '';
+    // Имя клиента: чистим внутренний дата-номер (13/05/2026 …) — клиент его видеть не должен
+    let displayName = cleanLeadName(cRes.name || '') || cRes.name || '';
 
     for (const lid of allLeadIds) {
       try {
