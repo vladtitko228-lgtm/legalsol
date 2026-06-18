@@ -132,14 +132,8 @@ async function actionClient(req, res) {
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
-    // Двусторонний чат для Даши: новые сообщения из KV + старые (до миграции) из Kommo.
-    const legacyChat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
-      .map(n => isClientMsgNote(n.text)
-        ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-        : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt });
-    let kvChat = [];
-    try { kvChat = await chatRead(leadId); } catch (_) {}
-    chat = legacyChat.concat(kvChat).sort((a, b) => a.createdAt - b.createdAt);
+    // Чат Даши ↔ клиент — ТОЛЬКО из KV (в Kommo переписку не дублируем).
+    try { chat = await chatRead(leadId); } catch (_) { chat = []; }
   } catch (_) {}
   let tasks = [];
   try {
@@ -177,22 +171,18 @@ async function actionSetPassword(req, res) {
   return res.status(200).json({ ok: true, contactId: contact.id, name: contact.name || '', login: '+' + normalized, inOps, updated: already });
 }
 
-// ── action=inbox ── новые сообщения клиентов из KV.
-// Панель Даши зовёт без since → последние 24ч (схлопнуто до последнего на сделку).
-// Бот зовёт с ?since=<ts> → ВСЕ входящие новее ts (id = ts, для курсора).
+// ── action=inbox ── клиенты, ЖДУЩИЕ ОТВЕТА (очередь cabchat:inbox в KV).
+// Лид уходит из очереди, как только менеджер ответил → колокольчик гаснет.
+// Панель Даши зовёт без since → все ждущие (свежие сверху).
+// Бот зовёт с ?since=<ts> → ждущие новее ts (id = ts, курсор), по возрастанию.
 async function actionInbox(req, res) {
   const sinceQ = Number(req.query?.since || 0);
-  const since = sinceQ > 0 ? sinceQ : (Date.now() - 86400000);
   let raw = [];
-  try { raw = await chatInboxSince(since); } catch (_) {}
+  try { raw = await chatInboxSince(sinceQ > 0 ? sinceQ : 0); } catch (_) {}
   const items = raw
     .map(m => ({ leadId: String(m.leadId), noteId: m.ts, text: String(m.text || '').slice(0, 200), createdAt: m.ts }))
-    .sort((a, b) => a.createdAt - b.createdAt);
-  if (sinceQ > 0) return res.status(200).json({ items }); // бот: все новые, по возрастанию
-  // панель Даши: только последнее сообщение на сделку (свежие сверху)
-  const seen = {}; const uniq = [];
-  for (const it of items.slice().reverse()) { if (seen[it.leadId]) continue; seen[it.leadId] = 1; uniq.push(it); }
-  return res.status(200).json({ items: uniq });
+    .sort((a, b) => sinceQ > 0 ? a.createdAt - b.createdAt : b.createdAt - a.createdAt);
+  return res.status(200).json({ items });
 }
 
 // ── action=reply ── ответ клиенту в кабинет. Пишем в KV (не в карточку Kommo).

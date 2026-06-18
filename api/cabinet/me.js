@@ -120,17 +120,10 @@ module.exports = async function handler(req, res) {
             .filter(p => p.amount > 0)
             .sort((a, b) => b.createdAt - a.createdAt);
 
-          // Двусторонний чат. Новые сообщения живут в KV; старые (до миграции)
-          // могли остаться заметками в Kommo — подмешиваем их, чтобы история не
-          // пропала. Дубля нет: новые пишутся только в KV, старые только в Kommo.
-          const legacyChat = all
-            .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
-            .map(n => isClientMsgNote(n.text)
-              ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-              : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt });
-          let kvChat = [];
-          try { kvChat = await chatRead(lid); } catch (_) {}
-          chat = legacyChat.concat(kvChat).sort((a, b) => a.createdAt - b.createdAt);
+          // Чат живёт ТОЛЬКО в KV (в Kommo переписку не дублируем). Старые тест-
+          // заметки ОТ КЛИЕНТА:/КЛИЕНТУ: в Kommo больше не подмешиваем — Kommo
+          // под «дело» (этапы/оплаты/статус-апдейты идут в updates ниже).
+          try { chat = await chatRead(lid); } catch (_) { chat = []; }
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе
         const notes = updates;

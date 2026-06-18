@@ -447,11 +447,15 @@ async function kvCmd(...cmd) {
 // ЧАТ КАБИНЕТА в Vercel KV (Upstash). Раньше переписка писалась заметками в
 // карточку Kommo и мусорила её — теперь живёт здесь. Kommo остаётся только под
 // «дело» (этапы, оплаты, статус-апдейты), переписку туда больше НЕ дублируем.
-//   cabchat:<leadId>  — LIST из JSON {from:'client'|'manager', text, ts}
-//   cabchat:inbox     — ZSET (score=ts) входящих от клиентов, для поллинга ботом/Дашей
+//   cabchat:<leadId>   — LIST из JSON {from:'client'|'manager', text, ts}
+//   cabchat:inbox      — ZSET «ждут ответа»: member=leadId, score=ts последнего
+//                        НЕОТВЕЧЕННОГО сообщения клиента. Ответ менеджера удаляет
+//                        лид отсюда → колокольчик у Даши гаснет.
+//   cabchat:inbox:txt  — HASH leadId→превью последнего сообщения (для баннера/бота)
 const BOT_RELAY_SECRET = process.env.BOT_RELAY_SECRET || '';
 const CHAT_KEY = id => `cabchat:${String(id).replace(/[^\d]/g, '')}`;
 const CHAT_INBOX = 'cabchat:inbox';
+const CHAT_INBOX_TXT = 'cabchat:inbox:txt';
 
 // Добавить сообщение в переписку сделки. from = 'client' | 'manager'.
 async function chatAppend(leadId, from, text) {
@@ -459,12 +463,18 @@ async function chatAppend(leadId, from, text) {
   const t = String(text || '').trim().slice(0, 2000);
   if (!id || !t) return null;
   const ts = Date.now();
-  const msg = JSON.stringify({ from: from === 'client' ? 'client' : 'manager', text: t, ts });
+  const role = from === 'client' ? 'client' : 'manager';
+  const msg = JSON.stringify({ from: role, text: t, ts });
   await kvCmd('RPUSH', CHAT_KEY(id), msg);
   await kvCmd('LTRIM', CHAT_KEY(id), -500, -1);           // храним последние 500 сообщений
-  if (from === 'client') {
-    await kvCmd('ZADD', CHAT_INBOX, ts, JSON.stringify({ leadId: id, text: t.slice(0, 500), ts }));
-    await kvCmd('ZREMRANGEBYRANK', CHAT_INBOX, 0, -201);  // очередь входящих — последние ~200
+  if (role === 'client') {
+    // клиент ждёт ответа → в очередь (по leadId; повторное сообщение обновит ts)
+    await kvCmd('ZADD', CHAT_INBOX, ts, id);
+    await kvCmd('HSET', CHAT_INBOX_TXT, id, t.slice(0, 300));
+  } else {
+    // менеджер ответил → клиент больше не ждёт → убираем из очереди (колокольчик гаснет)
+    await kvCmd('ZREM', CHAT_INBOX, id);
+    await kvCmd('HDEL', CHAT_INBOX_TXT, id);
   }
   return ts;
 }
@@ -480,12 +490,29 @@ async function chatRead(leadId) {
     .map(m => ({ from: m.from, text: m.text, createdAt: m.ts }));
 }
 
-// Входящие сообщения клиентов с ts > sinceTs → [{leadId, text, ts}]. Для inbox/бота.
+// Неотвеченные входящие с ts > sinceTs → [{leadId, text, ts}] по возрастанию ts.
 async function chatInboxSince(sinceTs) {
   const lo = (Number(sinceTs) || 0) + 1;
-  const arr = await kvCmd('ZRANGEBYSCORE', CHAT_INBOX, lo, '+inf');
-  if (!Array.isArray(arr)) return [];
-  return arr.map(s => { try { return JSON.parse(s); } catch (_) { return null; } }).filter(Boolean);
+  const arr = await kvCmd('ZRANGEBYSCORE', CHAT_INBOX, lo, '+inf', 'WITHSCORES');
+  if (!Array.isArray(arr) || !arr.length) return [];
+  const out = [];
+  for (let i = 0; i < arr.length; i += 2) {
+    let lead = String(arr[i]);
+    if (lead && lead[0] === '{') { try { const o = JSON.parse(lead); if (o && o.leadId) lead = String(o.leadId); } catch (_) {} } // совместимость со старым форматом
+    out.push({ leadId: lead, ts: Number(arr[i + 1]) });
+  }
+  let txts = [];
+  try { txts = await kvCmd('HMGET', CHAT_INBOX_TXT, ...out.map(o => o.leadId)); } catch (_) {}
+  out.forEach((o, i) => { o.text = (Array.isArray(txts) && txts[i]) || ''; });
+  return out;
+}
+
+// Снять «ждёт ответа» вручную (на случай если менеджер ответил иным путём).
+async function chatInboxClear(leadId) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  if (!id) return;
+  await kvCmd('ZREM', CHAT_INBOX, id);
+  await kvCmd('HDEL', CHAT_INBOX_TXT, id);
 }
 
 function clientIp(req) {
@@ -525,6 +552,7 @@ module.exports = {
   chatAppend,
   chatRead,
   chatInboxSince,
+  chatInboxClear,
   clientIp,
   rateLimitBlocked,
   rateLimitFail,

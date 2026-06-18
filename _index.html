@@ -20555,6 +20555,16 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-inbox-row:hover{opacity:.75;}
 .stf-inbox-name{font-size:13px;font-weight:600;color:#fff;}
 .stf-inbox-txt{font-size:12.5px;color:#c8c2e8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.stf-inbox-name{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.stf-inbox-reply{font-size:11px;font-weight:700;color:#a78bfa;background:rgba(139,130,232,.16);border:1px solid rgba(139,130,232,.4);border-radius:20px;padding:2px 10px;flex-shrink:0;}
+.stf-inbox-row:hover .stf-inbox-reply{background:rgba(139,130,232,.32);color:#fff;}
+/* колокольчик подсвечивается, когда кто-то ждёт ответа */
+.stf-bell.has-new{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.55);animation:stfBellRing 2.2s ease-in-out infinite;}
+@keyframes stfBellRing{0%,92%,100%{transform:rotate(0)}94%{transform:rotate(12deg)}96%{transform:rotate(-10deg)}98%{transform:rotate(6deg)}}
+/* кнопка «Отправить» в карточке клиента — понятнее, чем «→» */
+.stf-reply-send{flex-shrink:0;padding:0 18px;height:42px;border:none;border-radius:12px;background:linear-gradient(135deg,#6D4DF6,#9B6BFF);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;transition:filter .15s;}
+.stf-reply-send:hover{filter:brightness(1.08);}
+.stf-reply-send:disabled{opacity:.5;cursor:default;}
 /* Фокус дня (панель Даши) */
 .stf-focus-title{font-size:15px;font-weight:700;color:#fff;margin:4px 0 11px;}
 .stf-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
@@ -22107,19 +22117,28 @@ function cabShowStaffPanel(name){
 
 function cabStaffScrollInbox(){ var b=document.getElementById('stf-inbox'); if(b&&b.scrollIntoView)b.scrollIntoView({behavior:'smooth',block:'start'}); }
 
-// Опрос новых сообщений клиентов → баннер + колокольчик + desktop-уведомление
+// Колокольчик: показывает, сколько клиентов ЖДУТ ОТВЕТА. Когда Даша ответила —
+// лид уходит из очереди на бэке (ZREM) и счётчик гаснет.
+function cabStaffUpdateBell(n){
+  if(n==null)n=Object.keys(window._stfWaiting||{}).length;
+  var badge=document.getElementById('stf-bell-badge');
+  if(badge){ if(n>0){badge.textContent=n;badge.style.display='';} else badge.style.display='none'; }
+  var bell=document.getElementById('stf-bell');
+  if(bell){ if(n>0)bell.classList.add('has-new'); else bell.classList.remove('has-new'); }
+}
+
+// Опрос «кто ждёт ответа» → карточка вверху + колокольчик + desktop-уведомление
 async function cabStaffPollInbox(){
   var box=document.getElementById('stf-inbox');if(!box)return;
   try{
     var r=await fetch('/api/cabinet/staff?action=inbox',{credentials:'same-origin'});
     if(!r.ok)return;
     var d=await r.json();var items=d.items||[];
-    // колокольчик
-    var badge=document.getElementById('stf-bell-badge');
-    if(badge){ if(items.length){badge.textContent=items.length;badge.style.display='';} else badge.style.display='none'; }
+    window._stfWaiting={};items.forEach(function(it){window._stfWaiting[String(it.leadId)]=it;});
+    cabStaffUpdateBell(items.length);
     if(!items.length){box.innerHTML='';return;}
     var byLead={};(STF_DATA&&STF_DATA.clients||[]).forEach(function(c){byLead[c.leadId]=c;});
-    // desktop-уведомление для НОВЫХ (по noteId, которых не видели)
+    // desktop-уведомление для НОВЫХ (по noteId=ts, которых не видели)
     var seen=window._stfSeenNotes||{};var firstRun=!window._stfInboxInit;
     items.forEach(function(it){
       if(!seen[it.noteId]){
@@ -22128,7 +22147,7 @@ async function cabStaffPollInbox(){
           try{
             if(window.Notification && Notification.permission==='granted'){
               var c=byLead[it.leadId];var nm=c?c.name:('Сделка '+it.leadId);
-              var n=new Notification('Новое сообщение от клиента',{body:nm+': '+it.text,tag:'lead'+it.leadId});
+              var n=new Notification('Клиент ждёт ответа',{body:nm+': '+it.text,tag:'lead'+it.leadId});
               n.onclick=function(){window.focus();cabStaffOpenClient(it.leadId);n.close();};
             }
           }catch(e){}
@@ -22137,11 +22156,11 @@ async function cabStaffPollInbox(){
     });
     window._stfSeenNotes=seen;window._stfInboxInit=1;
     box.innerHTML='<div class="stf-inbox-card">'+
-      '<div class="stf-inbox-h"><i class="dot"></i>Новые сообщения от клиентов · '+items.length+'</div>'+
-      items.slice(0,6).map(function(it){
+      '<div class="stf-inbox-h"><i class="dot"></i>Ждут ответа · '+items.length+'</div>'+
+      items.slice(0,8).map(function(it){
         var c=byLead[it.leadId];var nm=c?((c.code?c.code+' · ':'')+c.name):('Сделка '+it.leadId);
         return '<div class="stf-inbox-row" onclick="cabStaffOpenClient('+it.leadId+')">'+
-          '<div class="stf-inbox-name">'+cabEsc(nm)+'</div>'+
+          '<div class="stf-inbox-name"><span>'+cabEsc(nm)+'</span><span class="stf-inbox-reply">Ответить →</span></div>'+
           '<div class="stf-inbox-txt">'+cabEsc(it.text)+'</div></div>';
       }).join('')+
     '</div>';
@@ -22297,8 +22316,8 @@ async function cabStaffOpenClient(leadId){
         '<div class="stf-m-box"><div class="stf-m-box-l">Остаток</div><div class="stf-m-box-v" style="color:#d97706">'+cabStaffMoney(c.remaining)+' zł</div></div>'+
       '</div>'+
       '<div class="stf-m-sec">Переписка с клиентом</div>'+chatHtml+
-      '<div class="stf-reply"><input class="stf-in" id="stf-reply-in" placeholder="Ответить клиенту в кабинет…" onkeydown="if(event.key===\'Enter\')cabStaffReply()"/>'+
-        '<button class="stf-gen" style="width:auto;padding:0 16px" onclick="cabStaffReply()">→</button></div>'+
+      '<div class="stf-reply"><input class="stf-in" id="stf-reply-in" placeholder="Напишите ответ клиенту…" onkeydown="if(event.key===\'Enter\')cabStaffReply()"/>'+
+        '<button class="stf-reply-send" id="stf-reply-send" onclick="cabStaffReply()">Отправить</button></div>'+
       '<div class="stf-m-sec">Платежи</div>'+paysHtml+
       '<div class="stf-m-sec">Задачи / дедлайны</div>'+tasksHtml+
       '<div class="stf-m-access">'+
@@ -22387,13 +22406,15 @@ function cabStaffCopy(login,pass){
   cabToast('Скопировано','success');
 }
 
-// Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+// Даша отвечает клиенту в кабинет (пишется в KV). После ответа клиент уходит
+// из очереди «ждут ответа» → колокольчик гаснет.
 async function cabStaffReply(){
   var inp=document.getElementById('stf-reply-in');
+  var btn=document.getElementById('stf-reply-send');
   var txt=inp?inp.value.trim():'';
   var leadId=window.STF_CUR_LEAD;
   if(!txt||!leadId)return;
-  if(inp)inp.disabled=true;
+  if(inp)inp.disabled=true; if(btn){btn.disabled=true;btn.textContent='Отправляю…';}
   try{
     var r=await fetch('/api/cabinet/staff?action=reply',{
       method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
@@ -22401,10 +22422,13 @@ async function cabStaffReply(){
     });
     if(!r.ok)throw new Error();
     cabToast('Ответ отправлен клиенту','success');
+    // сразу гасим колокольчик для этого клиента (бэк уже убрал его из очереди)
+    try{ if(window._stfWaiting)delete window._stfWaiting[String(leadId)]; cabStaffUpdateBell(); }catch(e){}
+    if(typeof cabStaffPollInbox==='function')cabStaffPollInbox(); // синхронизация с бэком
     cabStaffOpenClient(leadId); // перезагрузим карточку — ответ появится в переписке
   }catch(e){
     cabToast('Не удалось отправить','error');
-    if(inp)inp.disabled=false;
+    if(inp)inp.disabled=false; if(btn){btn.disabled=false;btn.textContent='Отправить';}
   }
 }
 function cabStaffLogout(){
