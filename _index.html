@@ -3032,7 +3032,7 @@ footer.ft-visible .ft-ci-anim{animation-play-state:running;}
 
 .mob-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
-#mob-nav{display:none;position:fixed;top:calc(env(safe-area-inset-top,0px) + 68px);left:0;right:0;bottom:0;z-index:998;background:rgba(12,10,35,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,130,232,.18);box-shadow:0 8px 32px rgba(0,0,0,.45);overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - env(safe-area-inset-top,0px) - 68px);padding-bottom:env(safe-area-inset-bottom,0px);}
+#mob-nav{display:none;position:fixed;top:calc(env(safe-area-inset-top,0px) + 68px);left:0;right:0;bottom:0;z-index:998;background:rgba(12,10,35,.99);border-bottom:1px solid rgba(139,130,232,.18);box-shadow:0 8px 32px rgba(0,0,0,.45);overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - env(safe-area-inset-top,0px) - 68px);padding-bottom:env(safe-area-inset-bottom,0px);}
 
 #mob-nav.open{display:block;animation:mobNavOpen .45s cubic-bezier(.22,1,.36,1) forwards;}
 
@@ -31321,6 +31321,9 @@ function toggleMobNav(){
     // Reset drawer scroll so the first item ("Home") is always visible at top
     nav.scrollTop=0;
 
+    // Lock background scroll while the drawer is open (no jitter / no page scroll behind)
+    document.documentElement.style.overflow='hidden';
+
   }
 
 }
@@ -31332,6 +31335,8 @@ function closeMobNav(){
   var btn=document.getElementById('mob-burger-btn');
 
   if(!nav)return;
+
+  document.documentElement.style.overflow='';
 
   nav.classList.remove('open');
 
