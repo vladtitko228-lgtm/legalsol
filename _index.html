@@ -4015,6 +4015,61 @@ html.lang-switching * { transition: none !important; animation: none !important;
 }
 </style>
 
+<style id="cab-vibrant">
+/* ═══ ЯРКИЙ МОДЕРН-РЕДИЗАЙН КАБИНЕТА (2026-06-17) ═══ */
+#cab-content{background:#F4F3FB!important;}
+#cab-sidebar{border-right:1px solid #ECE9F7!important;box-shadow:none!important;}
+/* лого/аватары — градиент */
+.cab-sb-photo,.cab-hero-av,.cab-prof-av,.cab-sb-name~*{}
+.cab-sb-photo{background:linear-gradient(135deg,#6D4DF6,#FF5DA2)!important;}
+/* навигация — яркий active-пилл со свечением */
+.cab-nav-item{border-radius:12px!important;font-weight:600!important;color:#5E5775!important;}
+.cab-nav-item:hover{background:#F6F3FF!important;}
+.cab-nav-item.active{background:linear-gradient(135deg,#6D4DF6,#9B6BFF)!important;color:#fff!important;box-shadow:0 8px 20px -6px rgba(109,77,246,.55)!important;}
+.cab-nav-item.active .cab-nav-ico svg{stroke:#fff!important;}
+.cab-nav-badge{background:#FF5DA2!important;}
+.cab-sb-bottom{border-top:1px solid #ECE9F7!important;}
+.cab-lang-b.on{background:linear-gradient(135deg,#6D4DF6,#9B6BFF)!important;}
+/* профиль-hero сверху — мягче, ярче */
+.cab-profile-hero{background:linear-gradient(120deg,#6D4DF6,#9B6BFF 55%,#FF5DA2)!important;border-radius:22px!important;box-shadow:0 18px 40px -18px rgba(109,77,246,.5)!important;}
+/* журней — градиентный hero + светлый body */
+.cab-jrn{padding:0!important;border:none!important;border-radius:24px!important;overflow:hidden!important;box-shadow:0 2px 4px rgba(22,18,31,.04),0 24px 50px -24px rgba(109,77,246,.3)!important;}
+.cab-jrn::before{display:none!important;}
+.cab-jrn-hero{background:linear-gradient(120deg,#6D4DF6,#9B6BFF 55%,#FF5DA2);padding:24px 26px;position:relative;overflow:hidden;}
+.cab-jrn-hero::after{content:'';position:absolute;top:-40px;right:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12);}
+.cab-jrn-top{position:relative;z-index:1;margin-bottom:0!important;}
+.cab-jrn-svc{color:rgba(255,255,255,.85)!important;}
+.cab-jrn-stage{color:#fff!important;}
+.cab-jrn-id{color:rgba(255,255,255,.8)!important;}
+.cab-jrn-eta{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 14px;}
+.cab-jrn-eta-lbl{color:rgba(255,255,255,.8)!important;}
+.cab-jrn-eta-val{color:#fff!important;}
+.cab-jrn-body{padding:22px 26px 24px;}
+.cab-jrn-step.done .cab-jrn-dot,.cab-jrn-now-ico{box-shadow:0 6px 14px -4px rgba(109,77,246,.55);}
+.cab-jrn-now{background:linear-gradient(120deg,#F4F0FF,#FBF1F8)!important;}
+.cab-jrn-action{background:linear-gradient(120deg,#FFF6E9,#FFF0F0)!important;}
+.cab-jrn-action-ico{background:linear-gradient(135deg,#FBA21C,#FF7A59)!important;box-shadow:0 6px 14px -4px rgba(251,162,28,.5);}
+.cab-jrn-cta .pri{background:linear-gradient(135deg,#6D4DF6,#9B6BFF)!important;box-shadow:0 10px 22px -8px rgba(109,77,246,.6)!important;}
+.cab-jrn-cta .sec{background:#F1EDFD!important;color:#6D4DF6!important;}
+/* статы дашборда — цветные градиентные карточки */
+.cab-stats{gap:12px!important;}
+.cab-stat{border-radius:18px!important;border:none!important;color:#fff!important;position:relative;overflow:hidden;padding:16px 18px!important;box-shadow:0 12px 26px -14px rgba(0,0,0,.3)!important;}
+.cab-stat::after{content:'';position:absolute;top:-20px;right:-15px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.14);}
+.cab-stat:nth-child(1){background:linear-gradient(135deg,#6D4DF6,#9B6BFF)!important;}
+.cab-stat:nth-child(2){background:linear-gradient(135deg,#10B981,#34D399)!important;}
+.cab-stat:nth-child(3){background:linear-gradient(135deg,#FB923C,#FBBF24)!important;}
+.cab-stat .cab-stat-ico{filter:brightness(0) invert(1);opacity:.9;}
+.cab-stat .cab-stat-lbl,.cab-stat .cab-stat-note{color:rgba(255,255,255,.9)!important;}
+.cab-stat .cab-stat-val{color:#fff!important;}
+.cab-stat .cab-stat-val[id="cab-stat-stage"]{color:#fff!important;}
+/* карточки дел + быстрые действия — мягкие тени */
+.cab-card,.cab-qa-btn,.cab-widget{border-radius:18px!important;border:1px solid #ECE9F7!important;box-shadow:0 1px 2px rgba(22,18,31,.04),0 14px 32px -18px rgba(109,77,246,.18)!important;}
+.cab-qa-btn:hover{border-color:#C9BEF9!important;transform:translateY(-2px);}
+/* кнопки внутри кабинета — градиент */
+.cab-btn-primary,.cab-open-btn,.cab-action-btn.primary,.cab-chat-send{background:linear-gradient(135deg,#6D4DF6,#9B6BFF)!important;border:none!important;}
+.cab-pg-title{letter-spacing:-.4px!important;}
+</style>
+
 <style id="cabinet-hide-fab">
 /* В открытом кабинете прячем плавающие WhatsApp-кнопки/бары — мешают чату и сбивают тап */
 body.cab-open #fab,
@@ -22934,18 +22989,22 @@ function cabRenderJourney(){
 
   box.innerHTML=
     '<div class="cab-jrn">'+
-      '<div class="cab-jrn-top">'+
-        '<div><div class="cab-jrn-svc">'+esc(c.typeName||cabT('chat_yourcase'))+'</div>'+
-          '<div class="cab-jrn-stage">'+esc(cabStageName(stage))+'</div>'+
-          '<div class="cab-jrn-id">'+esc(c.id)+' · '+cabT('jrn_step')+' '+curStep+' '+cabT('jrn_of')+' '+CAB_STEPS.length+'</div></div>'+
-        etaBlock+
+      '<div class="cab-jrn-hero">'+
+        '<div class="cab-jrn-top">'+
+          '<div><div class="cab-jrn-svc">'+esc(c.typeName||cabT('chat_yourcase'))+'</div>'+
+            '<div class="cab-jrn-stage">'+esc(cabStageName(stage))+'</div>'+
+            '<div class="cab-jrn-id">'+esc(c.id)+' · '+cabT('jrn_step')+' '+curStep+' '+cabT('jrn_of')+' '+CAB_STEPS.length+'</div></div>'+
+          etaBlock+
+        '</div>'+
       '</div>'+
-      '<div class="cab-jrn-steps">'+steps+'</div>'+
-      nowBlock+
-      actionBlock+
-      '<div class="cab-jrn-cta">'+
-        '<button class="pri" onclick="cabRequestUpdate(\''+c._kommoLeadId+'\')">'+cabT('jrn_req')+'</button>'+
-        '<button class="sec" onclick="cabOpenChat(\''+c.id+'\')">'+cabT('jrn_msg')+'</button>'+
+      '<div class="cab-jrn-body">'+
+        '<div class="cab-jrn-steps">'+steps+'</div>'+
+        nowBlock+
+        actionBlock+
+        '<div class="cab-jrn-cta">'+
+          '<button class="pri" onclick="cabRequestUpdate(\''+c._kommoLeadId+'\')">'+cabT('jrn_req')+'</button>'+
+          '<button class="sec" onclick="cabOpenChat(\''+c.id+'\')">'+cabT('jrn_msg')+'</button>'+
+        '</div>'+
       '</div>'+
     '</div>';
 }
