@@ -418,6 +418,17 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
 </style>
 
 <style>.status-input:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #fde047!important;outline-offset:2px!important;}</style>
+<style id="ls-mobile-perf">
+/* Mobile perf: срезаем GPU-слои (will-change) и отдаём нативный скролл на ≤760px;
+   бесконечные декоративные анимации глушит JS (__lsKillInfinite) точечно. */
+@media (max-width:760px){
+  *{will-change:auto!important;}
+  html{scroll-behavior:auto!important;}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}
+}
+</style>
 </head>
 <body>
 
@@ -1743,5 +1754,27 @@ document.addEventListener('click',function(e){
 <script>window.LS_CLARITY_TAG='tn4tw11pri';</script>
 <script src="/cookie-banner.js" defer></script>
 <script src="/quiz.js" defer></script>
+<script>
+/* Mobile perf: точечно глушим ТОЛЬКО бесконечные декоративные анимации на телефоне
+   (глоу/shadow-пульсы репейнтят каждый кадр на главном потоке → лаги скролла).
+   CSS не умеет селектить по iteration-count → JS. Финитные входные не трогаем.
+   setTimeout, а не requestIdleCallback (idle голодает под анимациями). */
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(max-width:760px)').matches)return;
+  function killInfinite(root){
+    var els=(root||document).getElementsByTagName('*');
+    for(var i=0;i<els.length;i++){
+      var el=els[i];
+      if(el.__lsk)continue;
+      var cs;try{cs=window.getComputedStyle(el);}catch(e){continue;}
+      var nm=cs.animationName, ic=cs.animationIterationCount;
+      if(nm&&nm!=='none'&&ic&&ic.indexOf('infinite')!==-1){ el.style.animation='none'; el.__lsk=1; }
+    }
+  }
+  function run(root){setTimeout(function(){try{killInfinite(root);}catch(e){}},250);}
+  window.__lsKillInfinite=function(root){ if(window.matchMedia('(max-width:760px)').matches)run(root); };
+  [120,700,2000].forEach(function(d){ setTimeout(function(){try{killInfinite(document);}catch(e){}},d); });
+})();
+</script>
 </body>
 </html>
