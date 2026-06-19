@@ -22122,6 +22122,8 @@ async function cabBootstrapApp(){
 var STF_DATA=null;       // последние данные панели
 var STF_SEARCH='';
 var STF_FILTER='all';    // all|active|noaccess|stale
+// Текст-напоминалка клиенту в WhatsApp (кабинет «молчит» — зовём клиента зайти).
+var CAB_WA_NUDGE=encodeURIComponent('Здравствуйте! По вашему делу есть обновление — посмотрите в личном кабинете: https://legalsol.pl (кнопка «Кабинет» вверху). Логин — ваш номер телефона.');
 
 function cabEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function cabStaffMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
@@ -22369,7 +22371,7 @@ async function cabStaffOpenClient(leadId){
           ?'<div class="stf-acc on" style="margin-bottom:10px">✓ Доступ в кабинет выдан</div>'
           :'<div class="stf-acc off" style="margin-bottom:10px">Доступа в кабинет ещё нет</div>')+
         '<button class="stf-btn" onclick="cabStaffOpenCreate(\''+cabEsc(c.phone||'')+'\')">'+(c.hasAccess?'Сменить пароль':'Выдать доступ')+'</button>'+
-        (waPhone?'<a class="stf-wa" style="margin-top:8px;display:flex" href="https://wa.me/'+waPhone+'" target="_blank" rel="noopener">Написать клиенту в WhatsApp</a>':'')+
+        (waPhone?'<a class="stf-wa" style="margin-top:8px;display:flex" href="https://wa.me/'+waPhone+'?text='+CAB_WA_NUDGE+'" target="_blank" rel="noopener">📲 Напомнить про кабинет в WhatsApp</a>':'')+
       '</div>';
   }catch(e){
     m.innerHTML='<div class="stf-err" style="margin:8px">Не удалось загрузить клиента. <button class="stf-m-close" onclick="cabStaffCloseModal()" style="position:static">Закрыть</button></div>';
@@ -22471,7 +22473,7 @@ async function cabStaffReply(){
       body:JSON.stringify({leadId:leadId,text:txt})
     });
     if(!r.ok)throw new Error();
-    cabToast('Ответ отправлен клиенту','success');
+    cabToast('Ответ отправлен. Напомните клиенту в WhatsApp 📲, чтобы зашёл','success');
     // сразу гасим колокольчик для этого клиента (бэк уже убрал его из очереди)
     try{ if(window._stfWaiting)delete window._stfWaiting[String(leadId)]; cabStaffUpdateBell(); }catch(e){}
     if(typeof cabStaffPollInbox==='function')cabStaffPollInbox(); // синхронизация с бэком
