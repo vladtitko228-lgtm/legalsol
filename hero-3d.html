@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Hero F — Real Warsaw 3D Map (Wolf Marszałkowska)</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,'SF Pro Display','Inter',sans-serif;}
+body{background:radial-gradient(ellipse at top right,#1A1740 0%,#0F0D22 60%);color:#fff;min-height:100vh;padding:60px 80px;overflow:hidden;}
+.label{display:inline-flex;align-items:center;gap:10px;background:rgba(124,92,252,0.15);border:1px solid rgba(139,130,232,0.3);border-radius:999px;padding:10px 18px;font-size:13px;color:#C8C1FF;margin-bottom:20px;}
+.label::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.hero{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center;min-height:540px;}
+h1{font-size:60px;font-weight:800;letter-spacing:-1.5px;line-height:1.02;margin-bottom:20px;}
+h1 em{font-style:italic;font-weight:400;color:#A78BFA;}
+.sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.5;max-width:480px;margin-bottom:30px;}
+.cta-btn{display:inline-flex;align-items:center;gap:14px;padding:20px 40px;background:linear-gradient(135deg,#7C5CFC 0%,#5B52CC 100%);color:#fff;border:none;border-radius:18px;font-size:16px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 40px rgba(124,92,252,0.5);}
+.below{display:flex;gap:14px;margin-top:18px;font-size:13px;color:rgba(255,255,255,0.55);}
+.below span b{color:#10b981;}
+
+.scene{position:relative;height:560px;border-radius:24px;overflow:hidden;background:#080620;box-shadow:0 32px 64px rgba(0,0,0,0.5),inset 0 0 0 1px rgba(139,130,232,0.18);}
+#map{position:absolute;inset:0;}
+
+.hud{position:absolute;inset:0;pointer-events:none;z-index:10;}
+.mini-info{position:absolute;top:18px;left:18px;display:flex;flex-direction:column;gap:8px;z-index:11;}
+.mini-info .row{background:rgba(15,13,34,0.78);border:1px solid rgba(139,130,232,0.25);backdrop-filter:blur(10px);border-radius:10px;padding:8px 13px;font-size:10.5px;color:#fff;font-family:'SF Mono',monospace;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.mini-info .row .k{color:#8B82CC;}
+.mini-info .row .v{color:#fff;font-weight:600;}
+.mini-info .row .v.em{color:#34D399;}
+
+.addr{position:absolute;background:rgba(15,13,34,0.94);border:1.5px solid #FBBF24;backdrop-filter:blur(12px);border-radius:14px;padding:12px 18px;box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 40px rgba(251,191,36,0.35);white-space:nowrap;z-index:15;transform:translate(-50%,calc(-100% - 22px));}
+.addr::after{content:'';position:absolute;left:50%;bottom:-7px;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(15,13,34,0.94);border-right:1.5px solid #FBBF24;border-bottom:1.5px solid #FBBF24;}
+.addr .lbl{font-size:9.5px;color:#FBBF24;font-family:'SF Mono',monospace;letter-spacing:1.5px;margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+.addr .lbl::before{content:'';width:6px;height:6px;border-radius:50%;background:#FBBF24;box-shadow:0 0 8px #FBBF24;}
+.addr .nm{font-size:14px;font-weight:700;color:#fff;}
+.addr .det{font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;}
+
+.right-stat{position:absolute;bottom:18px;right:18px;background:rgba(15,13,34,0.85);border:1px solid rgba(139,130,232,0.3);backdrop-filter:blur(10px);border-radius:14px;padding:12px 16px;z-index:11;}
+.right-stat .v{font-size:22px;font-weight:800;color:#34D399;}
+.right-stat .l{font-size:9.5px;color:#8B82CC;font-family:'SF Mono',monospace;letter-spacing:1.5px;margin-top:2px;}
+
+.ctrl{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(15,13,34,0.7);border:1px solid rgba(139,130,232,0.2);backdrop-filter:blur(8px);border-radius:999px;padding:7px 16px;font-size:10px;color:rgba(255,255,255,0.6);font-family:'SF Mono',monospace;letter-spacing:1.5px;z-index:11;}
+.ctrl span{color:#FBBF24;}
+
+.mapboxgl-ctrl-attrib{font-size:9px!important;opacity:0.3;}
+.mapboxgl-ctrl-bottom-right,.mapboxgl-ctrl-bottom-left{z-index:5;}
+.mapboxgl-ctrl-attrib-button{display:none!important;}
+.mapboxgl-ctrl-logo{opacity:0.4;}
+
+/* Тёмный popup в фирменном стиле */
+.mapboxgl-popup{z-index:14;}
+.mapboxgl-popup-content{
+  background:rgba(15,13,34,0.95)!important;
+  border:1.5px solid #FBBF24!important;
+  backdrop-filter:blur(12px);
+  border-radius:14px!important;
+  padding:12px 18px!important;
+  box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 40px rgba(251,191,36,0.35)!important;
+  color:#fff!important;
+}
+.mapboxgl-popup-tip{
+  border-top-color:#FBBF24!important;
+  border-bottom-color:#FBBF24!important;
+}
+.mapboxgl-popup-close-button{display:none!important;}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{border-top-color:#FBBF24!important;}
+
+/* Marker pulse */
+.pulse-pin{width:22px;height:22px;border-radius:50%;background:#FBBF24;box-shadow:0 0 0 3px #fff,0 0 28px rgba(251,191,36,0.9),0 4px 12px rgba(0,0,0,0.5);position:relative;cursor:pointer;}
+.pulse-pin::before,.pulse-pin::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid #FBBF24;animation:pulseRing 2.2s ease-out infinite;}
+.pulse-pin::after{animation-delay:1.1s;}
+@keyframes pulseRing{0%{transform:scale(0.6);opacity:0.9;}100%{transform:scale(2.8);opacity:0;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div>
+    <div class="label">Warsaw · Poland · Online nationwide</div>
+    <h1>Residence Permit<br/><em>professional & stress-free</em></h1>
+    <p class="sub">Your law office in the heart of Warsaw. Walk in to Wolf coworking, or work with us online — whichever fits your life.</p>
+    <button class="cta-btn">Check my chances for TRC →</button>
+    <div class="below">
+      <span>📍 <b>Marszałkowska 89</b></span>
+      <span>·</span>
+      <span>🚇 <b>Metro M1</b> Świętokrzyska</span>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div id="map"></div>
+    <div class="hud">
+      <div class="mini-info">
+        <div class="row"><span class="k">CITY</span> <span class="v">WARSAW</span></div>
+        <div class="row"><span class="k">DISTRICT</span> <span class="v">ŚRÓDMIEŚCIE</span></div>
+        <div class="row"><span class="k">CASES / YEAR</span> <span class="v em">342</span></div>
+      </div>
+      <div class="right-stat">
+        <div class="v">98%</div>
+        <div class="l">APPROVAL RATE</div>
+      </div>
+      <div class="ctrl">DRAG · <span>SCROLL TO ZOOM</span> · RIGHT-DRAG TO TILT</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+<script>
+// Public Mapbox demo token (for preview only — production будет свой)
+mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
+
+// Координаты Marszałkowska 89, Warsaw
+const OFFICE = [21.012191, 52.228065];
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/dark-v11',
+  center: OFFICE,
+  zoom: 14.2,         // стартуем выше — потом «влёт» к офису
+  pitch: 35,
+  bearing: -10,
+  antialias: true
+});
+window.map = map;
+
+map.on('error', (e) => { console.warn('MAP ERROR:', e && e.error && e.error.message); });
+
+map.on('load', () => {
+ try {
+  // Добавить 3D-здания (расширение mapbox-streets-v8)
+  const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(l => l.type === 'symbol' && l.layout?.['text-field'])?.id;
+
+  // Скрыть лишние POI-подписи Mapbox (отели, музеи и т.д.) — оставляем чистую карту
+  layers.forEach(l => {
+    if (l.type === 'symbol' && /poi|transit|airport|natural-point/i.test(l.id)) {
+      try { map.setLayoutProperty(l.id, 'visibility', 'none'); } catch (e) {}
+    }
+  });
+
+  map.addLayer({
+    id: '3d-buildings',
+    source: 'composite',
+    'source-layer': 'building',
+    filter: ['==', 'extrude', 'true'],
+    type: 'fill-extrusion',
+    minzoom: 14,
+    paint: {
+      'fill-extrusion-color': [
+        'interpolate', ['linear'], ['get', 'height'],
+        0,  '#2D2869',
+        15, '#3D3585',
+        40, '#5B52CC',
+        80, '#7C5CFC'
+      ],
+      // Усиливаем высоты ×1.4 для более выраженного 3D-каньона
+      'fill-extrusion-height': [
+        'interpolate', ['linear'], ['zoom'],
+        14, 0,
+        15, ['*', ['get', 'height'], 1.4]
+      ],
+      'fill-extrusion-base': [
+        'interpolate', ['linear'], ['zoom'],
+        14, 0,
+        15, ['get', 'min_height']
+      ],
+      'fill-extrusion-opacity': 0.96,
+      'fill-extrusion-vertical-gradient': true
+    }
+  }, labelLayerId);
+
+  // Подсветить здание Wolf Marszałkowska — найти полигон под точкой и подкрасить золотом
+  map.addSource('office-point', {
+    type: 'geojson',
+    data: { type: 'Feature', geometry: { type: 'Point', coordinates: OFFICE } }
+  });
+
+  // Тонкая золотая колонна-маяк (уже, выше, заметнее)
+  const offRingThin = circleAround(OFFICE, 11);
+  map.addSource('office-tower', {
+    type: 'geojson',
+    data: { type: 'Feature', geometry: { type: 'Polygon', coordinates: [offRingThin] } }
+  });
+  map.addLayer({
+    id: 'office-tower-3d',
+    type: 'fill-extrusion',
+    source: 'office-tower',
+    paint: {
+      'fill-extrusion-color': '#FBBF24',
+      'fill-extrusion-height': 120,
+      'fill-extrusion-base': 0,
+      'fill-extrusion-opacity': 0.55,
+      'fill-extrusion-vertical-gradient': true
+    }
+  });
+
+  // Корона-маяк на крыше
+  const offCrown = circleAround(OFFICE, 16);
+  map.addSource('office-crown', {
+    type: 'geojson',
+    data: { type: 'Feature', geometry: { type: 'Polygon', coordinates: [offCrown] } }
+  });
+  map.addLayer({
+    id: 'office-crown-3d',
+    type: 'fill-extrusion',
+    source: 'office-crown',
+    paint: {
+      'fill-extrusion-color': '#FFFFFF',
+      'fill-extrusion-height': 128,
+      'fill-extrusion-base': 118,
+      'fill-extrusion-opacity': 1
+    }
+  });
+
+  // HTML-маркер с пульсом + плавающая карточка адреса (кликабельная → Google Maps)
+  const pinEl = document.createElement('div');
+  pinEl.className = 'pulse-pin';
+  pinEl.style.cursor = 'pointer';
+  const GMAPS = 'https://www.google.com/maps/search/?api=1&query=' + OFFICE[1] + ',' + OFFICE[0];
+  const popup = new mapboxgl.Popup({
+    closeButton: false, closeOnClick: false, offset: 24, anchor: 'bottom'
+  }).setHTML(`
+    <div style="font-family:'SF Mono',monospace;font-size:9.5px;color:#FBBF24;letter-spacing:1.5px;margin-bottom:3px;">★ LEGALSOL OFFICE</div>
+    <div style="font-size:14px;font-weight:700;color:#fff;">Marszałkowska 89</div>
+    <div style="font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;margin-bottom:8px;">00-693 Warszawa · Śródmieście</div>
+    <a href="${GMAPS}" target="_blank" style="display:inline-block;background:#FBBF24;color:#1A0E00;font-size:10px;font-weight:700;text-decoration:none;padding:6px 12px;border-radius:8px;font-family:-apple-system,sans-serif;">Open in Google Maps →</a>
+  `);
+  pinEl.addEventListener('click', () => window.open(GMAPS, '_blank'));
+  new mapboxgl.Marker(pinEl).setLngLat(OFFICE).setPopup(popup).addTo(map).togglePopup();
+
+  // Кастом-стилизация popup под наш бренд
+  setTimeout(() => {
+    document.querySelectorAll('.mapboxgl-popup-content').forEach(el => {
+      el.style.cssText = 'background:rgba(15,13,34,0.94);border:1.5px solid #FBBF24;backdrop-filter:blur(12px);border-radius:14px;padding:12px 18px;box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 40px rgba(251,191,36,0.35);';
+    });
+    document.querySelectorAll('.mapboxgl-popup-tip').forEach(el => {
+      el.style.borderTopColor = '#FBBF24';
+    });
+  }, 200);
+
+  // 1) Камера-влёт к офису, потом 2) медленная авто-ротация
+  let rotating = false;
+  let bearing = -32;
+  map.flyTo({
+    center: OFFICE, zoom: 16.6, pitch: 64, bearing: -32,
+    duration: 3500, curve: 1.4, essential: true
+  });
+  map.once('moveend', () => { rotating = true; });
+  function autoRotate() {
+    if (rotating) {
+      bearing += 0.06;
+      map.setBearing(bearing);
+    }
+    requestAnimationFrame(autoRotate);
+  }
+  autoRotate();
+ } catch (err) {
+   console.warn('LOAD HANDLER ERROR:', err && err.message, err && err.stack);
+ }
+});
+
+function circleAround([lng, lat], meters) {
+  const pts = [];
+  const earthR = 6378137;
+  const d = meters / earthR;
+  const latRad = lat * Math.PI / 180;
+  for (let i = 0; i <= 24; i++) {
+    const bearing = (i / 24) * 2 * Math.PI;
+    const sinLat = Math.sin(latRad) * Math.cos(d) + Math.cos(latRad) * Math.sin(d) * Math.cos(bearing);
+    const newLat = Math.asin(sinLat);
+    const newLng = lng * Math.PI / 180 + Math.atan2(
+      Math.sin(bearing) * Math.sin(d) * Math.cos(latRad),
+      Math.cos(d) - Math.sin(latRad) * sinLat
+    );
+    pts.push([newLng * 180 / Math.PI, newLat * 180 / Math.PI]);
+  }
+  return pts;
+}
+</script>
+</body>
+</html>

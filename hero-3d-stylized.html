@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Hero E2 — Stylized Warsaw 3D (Wolf Marszałkowska)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,'SF Pro Display','Inter',sans-serif;}
+body{background:radial-gradient(ellipse at top right,#1A1740 0%,#0F0D22 60%);color:#fff;min-height:100vh;padding:60px 80px;overflow:hidden;}
+.label{display:inline-flex;align-items:center;gap:10px;background:rgba(124,92,252,0.15);border:1px solid rgba(139,130,232,0.3);border-radius:999px;padding:10px 18px;font-size:13px;color:#C8C1FF;margin-bottom:20px;}
+.label::before{content:'';width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.hero{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center;min-height:540px;}
+h1{font-size:60px;font-weight:800;letter-spacing:-1.5px;line-height:1.02;margin-bottom:20px;}
+h1 em{font-style:italic;font-weight:400;color:#A78BFA;}
+.sub{font-size:18px;color:rgba(255,255,255,0.7);line-height:1.5;max-width:480px;margin-bottom:30px;}
+.cta-btn{display:inline-flex;align-items:center;gap:14px;padding:20px 40px;background:linear-gradient(135deg,#7C5CFC 0%,#5B52CC 100%);color:#fff;border:none;border-radius:18px;font-size:16px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 16px 40px rgba(124,92,252,0.5);}
+.below{display:flex;gap:14px;margin-top:18px;font-size:13px;color:rgba(255,255,255,0.55);}
+.below span b{color:#10b981;}
+
+.scene{position:relative;height:560px;border-radius:24px;overflow:hidden;background:#080620;box-shadow:0 32px 64px rgba(0,0,0,0.5),inset 0 0 0 1px rgba(139,130,232,0.18);}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+
+.hud{position:absolute;inset:0;pointer-events:none;z-index:10;}
+.addr{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%);background:rgba(15,13,34,0.94);border:1.5px solid #FBBF24;backdrop-filter:blur(12px);border-radius:14px;padding:12px 18px;box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 40px rgba(251,191,36,0.35);white-space:nowrap;animation:float 4s ease-in-out infinite;}
+.addr::after{content:'';position:absolute;left:50%;bottom:-7px;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:rgba(15,13,34,0.94);border-right:1.5px solid #FBBF24;border-bottom:1.5px solid #FBBF24;}
+@keyframes float{0%,100%{transform:translate(-50%,-50%);}50%{transform:translate(-50%,calc(-50% - 6px));}}
+.addr .lbl{font-size:9.5px;color:#FBBF24;font-family:'SF Mono',monospace;letter-spacing:1.5px;margin-bottom:3px;display:flex;align-items:center;gap:5px;}
+.addr .lbl::before{content:'';width:6px;height:6px;border-radius:50%;background:#FBBF24;box-shadow:0 0 8px #FBBF24;}
+.addr .nm{font-size:14px;font-weight:700;color:#fff;}
+.addr .det{font-size:10.5px;color:rgba(255,255,255,0.55);margin-top:1px;}
+
+.mini-info{position:absolute;top:18px;left:18px;display:flex;flex-direction:column;gap:8px;z-index:11;}
+.mini-info .row{background:rgba(15,13,34,0.78);border:1px solid rgba(139,130,232,0.25);backdrop-filter:blur(10px);border-radius:10px;padding:8px 13px;font-size:10.5px;color:#fff;font-family:'SF Mono',monospace;letter-spacing:1px;display:flex;align-items:center;gap:8px;}
+.mini-info .row .k{color:#8B82CC;}
+.mini-info .row .v{color:#fff;font-weight:600;}
+.mini-info .row .v.em{color:#34D399;}
+
+.right-stat{position:absolute;bottom:18px;right:18px;background:rgba(15,13,34,0.85);border:1px solid rgba(139,130,232,0.3);backdrop-filter:blur(10px);border-radius:14px;padding:12px 16px;z-index:11;}
+.right-stat .v{font-size:22px;font-weight:800;color:#34D399;}
+.right-stat .l{font-size:9.5px;color:#8B82CC;font-family:'SF Mono',monospace;letter-spacing:1.5px;margin-top:2px;}
+
+.ctrl{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(15,13,34,0.7);border:1px solid rgba(139,130,232,0.2);backdrop-filter:blur(8px);border-radius:999px;padding:7px 16px;font-size:10px;color:rgba(255,255,255,0.6);font-family:'SF Mono',monospace;letter-spacing:1.5px;z-index:11;}
+.ctrl span{color:#FBBF24;}
+
+.street-label{position:absolute;font-size:9px;color:rgba(255,255,255,0.4);font-family:'SF Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;z-index:9;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div>
+    <div class="label">Warsaw · Poland · Online nationwide</div>
+    <h1>Residence Permit<br/><em>professional & stress-free</em></h1>
+    <p class="sub">Your law office in the heart of Warsaw. Walk in to Wolf coworking, or work with us online — whichever fits your life.</p>
+    <button class="cta-btn">Check my chances for TRC →</button>
+    <div class="below">
+      <span>📍 <b>Marszałkowska 89</b></span>
+      <span>·</span>
+      <span>🚇 <b>Metro M1</b> Świętokrzyska</span>
+    </div>
+  </div>
+
+  <div class="scene">
+    <canvas id="city"></canvas>
+    <div class="hud">
+      <div class="mini-info">
+        <div class="row"><span class="k">CITY</span> <span class="v">WARSAW</span></div>
+        <div class="row"><span class="k">DISTRICT</span> <span class="v">ŚRÓDMIEŚCIE</span></div>
+        <div class="row"><span class="k">CASES / YEAR</span> <span class="v em">342</span></div>
+      </div>
+      <div class="addr">
+        <div class="lbl">LEGALSOL OFFICE</div>
+        <div class="nm">Marszałkowska 89</div>
+        <div class="det">00-693 Warszawa · Śródmieście</div>
+      </div>
+      <div class="right-stat">
+        <div class="v">98%</div>
+        <div class="l">APPROVAL RATE</div>
+      </div>
+      <div class="ctrl">DRAG · <span>SCROLL TO ZOOM</span> · RIGHT-DRAG TO TILT</div>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.getElementById('city');
+const container = canvas.parentElement;
+const W = container.clientWidth;
+const H = container.clientHeight;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setSize(W, H);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x080620, 1);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0B0920, 0.005);
+
+const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 800);
+// Камера ВЫШЕ и ДАЛЬШЕ — обзорный вид городского квартала, наклон ~50°
+camera.position.set(55, 45, 80);
+camera.lookAt(0, 8, 0);
+
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, 6, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.minDistance = 50;
+controls.maxDistance = 180;
+controls.maxPolarAngle = Math.PI * 0.46;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.4;
+
+// Лунный свет
+const ambient = new THREE.AmbientLight(0x5A4FAB, 0.55);
+scene.add(ambient);
+
+const moon = new THREE.DirectionalLight(0xC8C1FF, 0.7);
+moon.position.set(-60, 100, -40);
+moon.castShadow = true;
+moon.shadow.mapSize.set(2048, 2048);
+moon.shadow.camera.near = 1;
+moon.shadow.camera.far = 250;
+moon.shadow.camera.left = -100;
+moon.shadow.camera.right = 100;
+moon.shadow.camera.top = 100;
+moon.shadow.camera.bottom = -100;
+scene.add(moon);
+
+// Прожектор на Wolf Marszałkowska
+const goldSpot = new THREE.SpotLight(0xFBBF24, 8, 70, Math.PI / 5, 0.5, 1.2);
+goldSpot.position.set(0, 50, 0);
+goldSpot.target.position.set(0, 0, 0);
+scene.add(goldSpot);
+scene.add(goldSpot.target);
+
+// ─ Земля + улицы ────────────────────────────────────────
+const groundSize = 400;
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(groundSize, groundSize),
+  new THREE.MeshStandardMaterial({ color: 0x0A0820, roughness: 0.95 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// Дорожная сетка — горизонтальные «улицы» (как реальная сетка Śródmieście)
+function street(x1, z1, x2, z2, width = 2.2, color = 0x3D3585) {
+  const dx = x2 - x1, dz = z2 - z1;
+  const len = Math.hypot(dx, dz);
+  const geo = new THREE.PlaneGeometry(width, len);
+  const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.85, emissive: 0x1F1B4D, emissiveIntensity: 0.5 });
+  const m = new THREE.Mesh(geo, mat);
+  m.rotation.x = -Math.PI / 2;
+  m.position.set((x1+x2)/2, 0.05, (z1+z2)/2);
+  m.rotation.z = -Math.atan2(dz, dx) + Math.PI / 2;
+  scene.add(m);
+}
+
+// Marszałkowska — главная улица (с севера на юг через центр)
+street(0, -200, 0, 200, 9, 0x5B52CC);
+// Świętokrzyska — крест на юг от Marszałkowska
+street(-200, -16, 200, -16, 7, 0x5B52CC);
+// Złota — параллельная
+street(-200, 18, 200, 18, 5, 0x4A3FB5);
+// Hoża
+street(-200, 42, 200, 42, 5, 0x4A3FB5);
+// Próżna
+street(-200, -38, 200, -38, 5, 0x4A3FB5);
+// Поперечные узкие
+street(-40, -200, -40, 200, 3, 0x3D3585);
+street(40, -200, 40, 200, 3, 0x3D3585);
+street(-80, -200, -80, 200, 2.5, 0x3D3585);
+street(80, -200, 80, 200, 2.5, 0x3D3585);
+
+// Сетка-тонкие линии для текстуры
+const gridHelper = new THREE.GridHelper(400, 80, 0x2D2869, 0x1F1B4D);
+gridHelper.material.opacity = 0.35;
+gridHelper.material.transparent = true;
+scene.add(gridHelper);
+
+// ─ Здания ───────────────────────────────────────────────
+function makeWindowTexture() {
+  const cvs = document.createElement('canvas');
+  cvs.width = 128; cvs.height = 256;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#1a1545'; ctx.fillRect(0, 0, 128, 256);
+  const cols = 5 + Math.floor(Math.random()*3), rows = 8 + Math.floor(Math.random()*5);
+  const cw = 128 / cols, rh = 256 / rows;
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      if (Math.random() > 0.42) {
+        const warm = Math.random() > 0.85;
+        const bri = warm ? 200 : 60 + Math.random() * 120;
+        const r = warm ? bri : bri * 0.75;
+        const g = warm ? bri*0.85 : bri * 0.7;
+        const b = warm ? bri*0.5 : bri;
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.fillRect(i*cw + 2, j*rh + 2, cw-4, rh-4);
+      }
+    }
+  }
+  const tex = new THREE.CanvasTexture(cvs);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  return tex;
+}
+
+function makeBuilding(x, z, w, d, h, options = {}) {
+  const base = new THREE.Color(0x3D3585);
+  const accent = new THREE.Color(0x5B52CC);
+  const color = options.color || base.clone().lerp(accent, Math.random() * 0.45);
+
+  const mat = new THREE.MeshStandardMaterial({
+    color,
+    roughness: 0.55,
+    metalness: 0.35,
+    emissive: 0xC8C1FF,
+    emissiveIntensity: options.windowGlow || (0.35 + Math.random() * 0.25),
+    emissiveMap: makeWindowTexture(),
+  });
+  const repeatS = Math.max(1, Math.round(w / 4));
+  const repeatT = Math.max(1, Math.round(h / 6));
+  mat.emissiveMap.repeat.set(repeatS, repeatT);
+
+  const geo = new THREE.BoxGeometry(w, h, d);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(x, h / 2, z);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  scene.add(mesh);
+
+  // Маленький "roof detail" — 30% шанс
+  if (Math.random() > 0.7) {
+    const rmat = new THREE.MeshStandardMaterial({ color: 0x2D2869, roughness: 0.7 });
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(w*0.4, 2, d*0.4), rmat);
+    roof.position.set(x + (Math.random()-0.5)*w*0.3, h + 1, z + (Math.random()-0.5)*d*0.3);
+    scene.add(roof);
+  }
+  return mesh;
+}
+
+// Расставляем здания по кварталам (между улицами Marszałkowska/Świętokrzyska/Złota/Hoża)
+// Кварталы: x от -200 до 200, шаг 40-80м между улицами. Каждый квартал заполняем 3-6 зданиями
+function placeBlock(x0, x1, z0, z1, count, hRange) {
+  const blockW = x1 - x0;
+  const blockD = z1 - z0;
+  for (let i = 0; i < count; i++) {
+    const w = 6 + Math.random() * 12;
+    const d = 6 + Math.random() * 12;
+    const h = hRange[0] + Math.random() * (hRange[1] - hRange[0]);
+    const x = x0 + 3 + Math.random() * (blockW - w - 6);
+    const z = z0 + 3 + Math.random() * (blockD - d - 6);
+    makeBuilding(x + w/2, z + d/2, w, d, h);
+  }
+}
+
+// Кварталы вокруг центра — север (выше z>0), юг (z<0), запад (x<0), восток (x>0)
+// Между Świętokrzyska (z=-16) и Złota (z=18) — центр (квартал офиса)
+placeBlock(-78, -42, -14, 16, 5, [18, 32]);  // запад от центра
+placeBlock(42, 78,   -14, 16, 5, [22, 40]);  // восток
+placeBlock(-78, -42, 20, 40,  4, [25, 45]);  // СЗ
+placeBlock(42, 78,   20, 40,  4, [22, 42]);  // СВ
+placeBlock(-78, -42, 44, 78,  5, [28, 50]);  // далеко СЗ
+placeBlock(42, 78,   44, 78,  5, [28, 48]);  // далеко СВ
+placeBlock(-78, -42, -36, -18, 4, [18, 30]); // ЮЗ
+placeBlock(42, 78,   -36, -18, 4, [22, 34]); // ЮВ
+placeBlock(-78, -42, -78, -40, 5, [20, 36]); // далёкий ЮЗ
+placeBlock(42, 78,   -78, -40, 5, [20, 38]); // далёкий ЮВ
+// Дальше от центра — крупные кварталы
+placeBlock(-150, -84, -78, 78,  10, [28, 65]);
+placeBlock(84, 150,  -78, 78,  10, [28, 65]);
+placeBlock(-78, 78,  82, 150,  10, [30, 70]);
+placeBlock(-78, 78,  -150, -82, 10, [25, 55]);
+placeBlock(-150, -84, -150, -82, 5, [20, 40]);
+placeBlock(84, 150,  -150, -82, 5, [20, 40]);
+placeBlock(-150, -84, 84, 150, 5, [25, 50]);
+placeBlock(84, 150,  84, 150,  5, [25, 50]);
+
+// Палац Культуры — стилизованный, дальше на запад
+function palaceOfCulture() {
+  const g = new THREE.Group();
+  const base = new THREE.Mesh(
+    new THREE.BoxGeometry(20, 40, 20),
+    new THREE.MeshStandardMaterial({ color: 0x6B5BEE, roughness: 0.4, emissive: 0xC8C1FF, emissiveIntensity: 0.3 })
+  );
+  base.position.y = 20;
+  g.add(base);
+  const mid = new THREE.Mesh(
+    new THREE.BoxGeometry(14, 30, 14),
+    new THREE.MeshStandardMaterial({ color: 0x7C5CFC, roughness: 0.4, emissive: 0xC8C1FF, emissiveIntensity: 0.3 })
+  );
+  mid.position.y = 55;
+  g.add(mid);
+  const top = new THREE.Mesh(
+    new THREE.BoxGeometry(8, 18, 8),
+    new THREE.MeshStandardMaterial({ color: 0xA78BFA, roughness: 0.4, emissive: 0xC8C1FF, emissiveIntensity: 0.4 })
+  );
+  top.position.y = 79;
+  g.add(top);
+  const spire = new THREE.Mesh(
+    new THREE.ConeGeometry(2, 22, 8),
+    new THREE.MeshStandardMaterial({ color: 0xC8C1FF, emissive: 0xC8C1FF, emissiveIntensity: 0.5 })
+  );
+  spire.position.y = 99;
+  g.add(spire);
+  // Антенна с красным маяком
+  const ant = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 8, 6), new THREE.MeshStandardMaterial({ color: 0x888 }));
+  ant.position.y = 114;
+  g.add(ant);
+  const red = new THREE.Mesh(new THREE.SphereGeometry(0.8, 12, 12), new THREE.MeshBasicMaterial({ color: 0xff3355 }));
+  red.position.y = 118;
+  g.add(red);
+  g.position.set(-110, 0, -8);
+  scene.add(g);
+  return red;
+}
+const palaceBlinker = palaceOfCulture();
+
+// ─ Наше здание — Marszałkowska 89 ─────────────────
+// На пересечении Marszałkowska × Złota (примерно (0, 18) в нашей сетке)
+const ourGroup = new THREE.Group();
+ourGroup.position.set(0, 0, 0);
+
+const ourBase = new THREE.Mesh(
+  new THREE.BoxGeometry(11, 36, 11),
+  new THREE.MeshStandardMaterial({
+    color: 0x6B5BEE,
+    roughness: 0.45,
+    metalness: 0.5,
+    emissive: 0xFBBF24,
+    emissiveIntensity: 0.2,
+  })
+);
+ourBase.position.y = 18;
+ourBase.castShadow = true;
+ourGroup.add(ourBase);
+
+// Окна на нашем здании — все теплые золотые
+const ourWindowTex = (() => {
+  const cvs = document.createElement('canvas');
+  cvs.width = 128; cvs.height = 256;
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#1a1545'; ctx.fillRect(0,0,128,256);
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 12; j++) {
+      if (Math.random() > 0.2) {
+        const bri = 200 + Math.random()*55;
+        ctx.fillStyle = `rgb(${bri}, ${bri*0.78}, ${bri*0.35})`;
+        ctx.fillRect(i*21+2, j*21+2, 17, 17);
+      }
+    }
+  }
+  const t = new THREE.CanvasTexture(cvs);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(2, 3);
+  return t;
+})();
+ourBase.material.emissiveMap = ourWindowTex;
+ourBase.material.needsUpdate = true;
+
+// Корона на крыше
+const crown = new THREE.Mesh(
+  new THREE.BoxGeometry(12, 1.8, 12),
+  new THREE.MeshStandardMaterial({ color: 0xFBBF24, emissive: 0xFBBF24, emissiveIntensity: 1.4, metalness: 0.4 })
+);
+crown.position.y = 36.9;
+ourGroup.add(crown);
+
+// Шпиль
+const spire = new THREE.Mesh(
+  new THREE.ConeGeometry(1.2, 6, 8),
+  new THREE.MeshStandardMaterial({ color: 0xFBBF24, emissive: 0xFBBF24, emissiveIntensity: 1.2 })
+);
+spire.position.y = 40.8;
+ourGroup.add(spire);
+
+// Маяк (мигает)
+const beacon = new THREE.Mesh(
+  new THREE.SphereGeometry(0.7, 16, 16),
+  new THREE.MeshBasicMaterial({ color: 0xFFFFFF })
+);
+beacon.position.y = 44.5;
+ourGroup.add(beacon);
+
+scene.add(ourGroup);
+
+// Свечение точкой у основания
+const ourGlow = new THREE.PointLight(0xFBBF24, 5, 50);
+ourGlow.position.set(0, 25, 0);
+scene.add(ourGlow);
+
+// ─ Облака-частицы ───────────────────────────────────────
+const cloudMat = new THREE.MeshBasicMaterial({ color: 0x7C5CFC, transparent: true, opacity: 0.06 });
+for (let i = 0; i < 12; i++) {
+  const c = new THREE.Mesh(new THREE.SphereGeometry(4, 12, 12), cloudMat);
+  c.position.set((Math.random()-0.5)*350, 50 + Math.random()*40, (Math.random()-0.5)*350);
+  c.scale.setScalar(2 + Math.random()*4);
+  scene.add(c);
+}
+
+// Звёзды
+const starGeo = new THREE.BufferGeometry();
+const starCount = 300;
+const positions = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount; i++) {
+  positions[i*3]   = (Math.random()-0.5) * 600;
+  positions[i*3+1] = 80 + Math.random() * 200;
+  positions[i*3+2] = (Math.random()-0.5) * 600;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xC8C1FF, size: 0.4, transparent: true, opacity: 0.7 });
+scene.add(new THREE.Points(starGeo, starMat));
+
+// Анимация
+let phase = 0, palacePhase = 0;
+function animate() {
+  phase += 0.05;
+  palacePhase += 0.03;
+  beacon.scale.setScalar(1 + Math.sin(phase) * 0.3);
+  // Маяк на Палаце Культуры мигает раз в секунду
+  palaceBlinker.material.opacity = (Math.sin(palacePhase) > 0.7) ? 1 : 0.1;
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  const w = container.clientWidth, h = container.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+});
+</script>
+</body>
+</html>
