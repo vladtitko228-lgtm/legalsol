@@ -4601,6 +4601,19 @@ window.PV_I18N_APPLY = function(lang){
   });
 };
 </script>
+<style id="ls-mobile-perf">
+/* Mobile perf: на телефоне срезаем GPU-слои (will-change) — 200+ слоёв
+   давят на память и вызывают джанк скролла. Бесконечные декоративные
+   анимации глушит JS (__lsKillInfinite) точечно по iteration-count. */
+@media (max-width:760px){
+  *{will-change:auto!important;}
+  /* плавный скролл на телефоне обычно даёт рывки — отдаём нативу */
+  html{scroll-behavior:auto!important;}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}
+}
+</style>
 </head>
 
 <body>
@@ -25132,6 +25145,10 @@ function showTab(name){
     el.style.animation='none'; void el.offsetWidth; el.style.animation='';
   });
 
+  // Mobile perf: вкладка могла принести новый контент с бесконечными декоративными
+  // анимациями (пульсы/глоу/спины) — глушим их на телефоне, чтобы не лагало.
+  if(tc&&typeof window.__lsKillInfinite==='function')window.__lsKillInfinite(tc);
+
   if(tb)tb.classList.add('active');
 
   // Highlight "More" trigger when current tab lives inside the secondary dropdown
@@ -33370,6 +33387,45 @@ document.addEventListener('DOMContentLoaded', function(){
     if(el && !el.hasAttribute('data-sv')){ el.setAttribute('data-sv', m[1]); io.observe(el); }
   });
 });
+</script>
+
+<script>
+/* ── Mobile perf: глушим бесконечные декоративные анимации ──────────────
+   На телефоне крутится ~125 infinite-анимаций (пульсы, глоу, спины, ken-burns).
+   Глоу/shadow-пульсы репейнтят каждый кадр на главном потоке → лаги скролла.
+   CSS не умеет селектить по iteration-count, поэтому точечно через JS:
+   убиваем ТОЛЬКО infinite (входные финитные анимации не трогаем).
+   Скан отложен в idle, чтобы не конкурировать с первой отрисовкой. */
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(max-width:760px)').matches)return;
+  function killInfinite(root){
+    var els=(root||document).getElementsByTagName('*');
+    for(var i=0;i<els.length;i++){
+      var el=els[i];
+      if(el.__lsk)continue;
+      var cs;try{cs=window.getComputedStyle(el);}catch(e){continue;}
+      var nm=cs.animationName, ic=cs.animationIterationCount;
+      if(nm&&nm!=='none'&&ic&&ic.indexOf('infinite')!==-1){
+        el.style.animation='none';
+        el.__lsk=1;
+      }
+    }
+  }
+  // НЕ requestIdleCallback: при куче крутящихся анимаций главный поток
+  // никогда не «простаивает» и idle-колбэк голодает даже с таймаутом.
+  // Обычный setTimeout надёжен во всех браузерах (вкл. iOS Safari).
+  function run(root){setTimeout(function(){try{killInfinite(root);}catch(e){}},250);}
+  // публичный хук — showTab дёргает после смены вкладки (новый контент)
+  window.__lsKillInfinite=function(root){
+    if(window.matchMedia('(max-width:760px)').matches)run(root);
+  };
+  // Несколько проходов: ловим и поздно-отрисованный декор (ленивый контент,
+  // ре-рендер языка). Помеченные __lsk пропускаются ДО getComputedStyle, так что
+  // повторы дёшевы. На тяжёлой загрузке один setTimeout может промахнуться.
+  [120,700,2000].forEach(function(d){
+    setTimeout(function(){try{killInfinite(document);}catch(e){}},d);
+  });
+})();
 </script>
 
 </body>
