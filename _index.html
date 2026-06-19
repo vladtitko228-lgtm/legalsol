@@ -25126,6 +25126,12 @@ function showTab(name){
 
   if(tc)tc.classList.add('active');
 
+  // Возврат на вкладку не должен оставлять верх пустым: переигрываем анимацию входа.
+  // (CSS opacity:0 + forwards-fill теряется в части браузеров, когда вкладка была display:none.)
+  if(tc)tc.querySelectorAll('.hero-enter-left,.hero-enter-right,.hero-enter-up,.hero-badge-enter').forEach(function(el){
+    el.style.animation='none'; void el.offsetWidth; el.style.animation='';
+  });
+
   if(tb)tb.classList.add('active');
 
   // Highlight "More" trigger when current tab lives inside the secondary dropdown
