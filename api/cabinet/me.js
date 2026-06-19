@@ -112,109 +112,65 @@ module.exports = async function handler(req, res) {
     // Имя клиента: чистим внутренний дата-номер (13/05/2026 …) — клиент его видеть не должен
     let displayName = cleanLeadName(cRes.name || '') || cRes.name || '';
 
-    for (const lid of allLeadIds) {
+    // ⚡ Параллельно: сделки тянем все сразу, а внутри каждой — заметки/задачи/чат/апдейты
+    // одним батчем (Promise.all). Было последовательно (~15 round-trip → 4с), стало ~3 уровня.
+    const leadResults = await Promise.all(allLeadIds.map(async (lid) => {
       try {
         const lead = await kommo('GET', `/leads/${lid}?with=contacts`);
-        if (!lead) continue;
+        if (!lead || lead.pipeline_id !== PIPELINE_OPS) return null; // кабинет — только Pipeline 2
 
-        // Кабинет — только для оплаченных клиентов (Pipeline 2)
-        if (lead.pipeline_id !== PIPELINE_OPS) continue;
+        const [nRes, tRes, chat, updates] = await Promise.all([
+          kommo('GET', `/leads/${lid}/notes?limit=100`).catch(() => null),
+          kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`).catch(() => null),
+          chatRead(lid).catch(() => []),       // KV
+          updatesRead(lid).catch(() => []),    // KV
+        ]);
 
-        // Тянем все заметки → выделяем клиентские (с префиксом 📢) и платёжные (ОПЛАТА:)
-        let updates = [];
-        let payments = [];
-        let chat = [];
-        let lastActivityMs = (lead.updated_at || 0) * 1000; // когда юрист последний раз трогал дело
-        const _dateTexts = [];                              // server-only: тексты для извлечения дат
-        try {
-          const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
-          const all = (nRes?._embedded?.notes || []).map(n => ({
-            id: n.id,
-            createdAt: (n.created_at || 0) * 1000,
-            text: (n.params?.text || '').trim(),
-            type: n.note_type,
-            author: n.created_by || null
-          })).filter(n => n.text);
-          all.forEach(n => { _dateTexts.push({ text: n.text, ts: n.createdAt }); if (n.createdAt > lastActivityMs) lastActivityMs = n.createdAt; });
-          // Статус-апдейты дела теперь в KV (cabupd:<lead>), а НЕ заметками в Kommo
-          // (чтобы не мусорить в карточке — она для Даши). Читаем из KV.
-          try { updates = await updatesRead(lid); } catch (_) { updates = []; }
+        let lastActivityMs = (lead.updated_at || 0) * 1000;
+        const _dateTexts = [];
+        const all = (nRes?._embedded?.notes || []).map(n => ({
+          id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim(), type: n.note_type, author: n.created_by || null
+        })).filter(n => n.text);
+        all.forEach(n => { _dateTexts.push({ text: n.text, ts: n.createdAt }); if (n.createdAt > lastActivityMs) lastActivityMs = n.createdAt; });
 
-          // Платежи — заметки с префиксом ОПЛАТА: (ставит TG-бот /paid или менеджер вручную)
-          payments = all
-            .filter(n => isPaymentNote(n.text))
-            .map(n => {
-              const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '', raw: '' };
-              return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText };
-            })
-            .filter(p => p.amount > 0)
-            .sort((a, b) => b.createdAt - a.createdAt);
+        const payments = all
+          .filter(n => isPaymentNote(n.text))
+          .map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '', raw: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; })
+          .filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
 
-          // Чат живёт ТОЛЬКО в KV (в Kommo переписку не дублируем). Старые тест-
-          // заметки ОТ КЛИЕНТА:/КЛИЕНТУ: в Kommo больше не подмешиваем — Kommo
-          // под «дело» (этапы/оплаты/статус-апдейты идут в updates ниже).
-          try { chat = await chatRead(lid); } catch (_) { chat = []; }
-        } catch (_) {}
-        // Для совместимости со старыми именами в JSON-ответе
-        const notes = updates;
+        const rawTasks = tRes?._embedded?.tasks || [];
+        const tasks = rawTasks.map(t => ({ id: t.id, completeTill: t.complete_till * 1000, taskType: t.task_type_id })).sort((a, b) => a.completeTill - b.completeTill);
+        rawTasks.forEach(t => { if (t.text) _dateTexts.push({ text: t.text, ts: (t.created_at || 0) * 1000 }); });
 
-        // Задачи (ближайшие активные). ТЕКСТ задач — внутренняя кухня («дожать по оплате»),
-        // клиенту НЕ отдаём; фронт использует только дату для дедлайнов.
-        let tasks = [];
-        try {
-          const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`);
-          const rawTasks = tRes?._embedded?.tasks || [];
-          tasks = rawTasks.map(t => ({
-            id: t.id,
-            completeTill: t.complete_till * 1000,
-            taskType: t.task_type_id
-          })).sort((a, b) => a.completeTill - b.completeTill);
-          // текст задачи клиенту не отдаём, но используем для извлечения реальных дат
-          rawTasks.forEach(t => { if (t.text) _dateTexts.push({ text: t.text, ts: (t.created_at || 0) * 1000 }); });
-        } catch (_) {}
         const realDates = extractCaseDates(_dateTexts);
-
         const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '', whatWeDo: '', clientAction: null, etaText: null };
         const serviceType = getCfValue(lead, CF_SERVICE_TYPE) || stage.service || 'Услуга легализации';
         const cleanName = cleanLeadName(lead.name);
-
-        // Если в контакте имя = «+48...», вытаскиваем из имени сделки
-        if (looksLikePhoneOnly(displayName) && cleanName && !looksLikePhoneOnly(cleanName)) {
-          displayName = cleanName;
-        }
-
         const price = lead.price || 0;
         const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
 
-        leads.push({
-          id: lead.id,
-          name: cleanName || lead.name || '',
-          serviceType,
-          price,
-          paidTotal,
-          remaining: price > paidTotal ? price - paidTotal : 0,
-          payments,
-          createdAt: lead.created_at * 1000,
-          updatedAt: lead.updated_at * 1000,
-          pipelineId: lead.pipeline_id,
-          statusId: lead.status_id,
-          stage,
-          // Срок/действие текущего этапа — для страницы «Дедлайны» (типовые, не внутренние задачи)
-          etaText: stage.etaText || '',
-          clientAction: stage.clientAction || '',
-          whatWeDo: stage.whatWeDo || '',
+        return {
+          id: lead.id, name: cleanName || lead.name || '', serviceType, price, paidTotal,
+          remaining: price > paidTotal ? price - paidTotal : 0, payments,
+          createdAt: lead.created_at * 1000, updatedAt: lead.updated_at * 1000,
+          pipelineId: lead.pipeline_id, statusId: lead.status_id, stage,
+          etaText: stage.etaText || '', clientAction: stage.clientAction || '', whatWeDo: stage.whatWeDo || '',
           totalSteps: TOTAL_STEPS,
-          notes,        // совместимость — здесь только клиентские (с 📢)
-          updates,      // тоже клиентские, более явное имя
-          chat,         // двусторонний чат: {from:'client'|'manager', text, createdAt}
-          tasks,
-          lastActivity: lastActivityMs,   // когда юрист последний раз работал над делом
-          realDates                       // {biometrics, decision} — реальные даты (ms) или null
-        });
-      } catch (e) {
-        console.error('lead fetch err:', e.message);
-      }
+          notes: updates,   // совместимость
+          updates, chat, tasks,
+          lastActivity: lastActivityMs, realDates,
+          _cleanName: cleanName,
+        };
+      } catch (e) { console.error('lead fetch err:', e.message); return null; }
+    }));
+
+    for (const l of leadResults) if (l) leads.push(l);
+    // Имя клиента: если в контакте имя = телефон, берём чистое имя из сделки
+    if (looksLikePhoneOnly(displayName)) {
+      const fromLead = leads.find(l => l._cleanName && !looksLikePhoneOnly(l._cleanName));
+      if (fromLead) displayName = fromLead._cleanName;
     }
+    leads.forEach(l => { delete l._cleanName; });
 
     return res.status(200).json({
       contact: {

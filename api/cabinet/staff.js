@@ -96,7 +96,13 @@ async function actionData(req, res, payload) {
     list.push({ leadId: ld.id, code: leadCode(ld.name), name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
       stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle });
   }
-  list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
+  // Сортировка по «номеру» клиента (дата-код dd.mm.yyyy из имени сделки) — по порядку,
+  // новые сверху. Завершённые — в конец. Без кода (нет даты) — тоже в конец.
+  const codeNum = c => { const m = String(c.code || '').match(/(\d{2})\.(\d{2})\.(\d{4})/); return m ? Number(m[3] + m[2] + m[1]) : 0; };
+  list.sort((a, b) => {
+    if (a.isDone !== b.isDone) return a.isDone ? 1 : -1;
+    return codeNum(b) - codeNum(a); // больше дата (новее) — выше; без кода (0) — вниз
+  });
   return res.status(200).json({
     name: payload.name || 'Сотрудник',
     stats: { total: list.length, active, completed, withAccess, noAccess: list.length - withAccess, contractTotal,
