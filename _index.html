@@ -4110,7 +4110,7 @@ html.lang-switching * { transition: none !important; animation: none !important;
 /* В открытом кабинете прячем плавающие WhatsApp-кнопки/бары — мешают чату и сбивают тап */
 body.cab-open #fab,
 body.cab-open #wa-fab,
-body.cab-open #m-cta-bar{display:none!important;}
+body.cab-open #m-cta-bar,body.cab-open #mobile-cta-bar,body.cab-open .preview-mobile-cta-bar,body.cab-open #lsq-fab{display:none!important;}
 </style>
 
 <style id="services-mobile-tap-fix">
@@ -20802,7 +20802,7 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 
 .cab-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5B52CC,#8B82E8);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
 
-.cab-nav{flex:1;padding:10px 10px;overflow-y:auto;}
+.cab-nav{flex:1;padding:10px 10px;overflow-y:auto;position:static;}/* перебиваем глобальный nav{position:fixed} */
 
 .cab-nav-item{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;cursor:pointer;color:#6b63a8;font-size:13px;font-weight:500;transition:all .2s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:'Inter',sans-serif;white-space:nowrap;}
 
@@ -21232,7 +21232,31 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
 @media(max-width:900px){
 
-  #cab-sidebar{display:none;}
+  /* На мобиле страница скроллится целиком, навигация — фикс. нижняя таб-панель */
+  #cab-app{height:auto;overflow:visible;flex-direction:column;}
+  #cab-content{height:auto;overflow:visible;padding-bottom:84px;}
+  /* Чат: высоту окна уменьшаем, чтобы поле ввода не пряталось под нижней панелью */
+  .cab-chat-wrap{height:calc(100dvh - 400px);min-height:280px;}
+  .cab-chat-bar{padding-bottom:6px;}
+
+  /* Сайдбар → нижняя таб-панель: показываем только навигацию */
+  #cab-sidebar{
+    display:flex;flex-direction:row;align-items:stretch;
+    position:fixed;left:0;right:0;bottom:0;top:auto;
+    width:100%;min-width:0;height:auto;
+    border-right:none;border-top:1px solid #ece9f8;border-radius:0;
+    box-shadow:0 -6px 22px rgba(91,82,204,.16);
+    z-index:60;overflow-x:auto;overflow-y:hidden;padding:0;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  #cab-sidebar .cab-sb-profile,#cab-sidebar .cab-sb-bottom{display:none;}
+  .cab-nav{flex-direction:row;flex-wrap:nowrap;gap:0;padding:5px 6px 6px;width:100%;overflow-x:auto;}
+  .cab-nav::-webkit-scrollbar{display:none;}
+  .cab-nav-item{flex-direction:column;align-items:center;justify-content:center;gap:3px;margin:0;padding:7px 8px;min-width:62px;font-size:9.5px;line-height:1.15;text-align:center;white-space:nowrap;border-radius:13px;box-shadow:none!important;}
+  .cab-nav-item .cab-nav-ico{width:auto;font-size:18px;}
+  .cab-nav-item.active{box-shadow:none!important;}
+  .cab-nav-badge{position:absolute;margin-top:-2px;}
 
   .cab-section{padding:20px 16px;}
 
@@ -22007,6 +22031,14 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         <button class="cab-btn-primary" style="max-width:190px;margin-top:6px" onclick="cabToast('Пароль изменён','success')">Сохранить пароль</button>
 
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:13px;color:#6b63a8;font-weight:600">Язык / Language:</span>
+        <div class="cab-lang-sw" style="margin:0">
+          <button class="cab-lang-b" data-lng="en" onclick="setCabLang('en')">EN</button>
+          <button class="cab-lang-b" data-lng="ru" onclick="setCabLang('ru')">RU</button>
+        </div>
       </div>
 
       <button onclick="cabLogout()" style="padding:11px 26px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.28);border-radius:60px;color:#f87171;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s" onmouseover="this.style.background='rgba(248,113,113,.18)'" onmouseout="this.style.background='rgba(248,113,113,.1)'">🚪 Выйти</button>
