@@ -531,6 +531,28 @@ async function updatesAppend(leadId, text) {
   return ts;
 }
 
+// ── ИИ-черновик ответа для панели Даши. Бот генерит черновик на сообщение
+// клиента (бесплатно, Max CLI) и кладёт сюда; панель Даши показывает подсказку.
+//   cabdraft:<leadId> — строка JSON {text, ts}, TTL 7 дней.
+const DRAFT_KEY = id => `cabdraft:${String(id).replace(/[^\d]/g, '')}`;
+async function draftSet(leadId, text) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  const t = String(text || '').trim().slice(0, 2000);
+  if (!id || !t) return;
+  await kvCmd('SET', DRAFT_KEY(id), JSON.stringify({ text: t, ts: Date.now() }), 'EX', 604800);
+}
+async function draftGet(leadId) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  if (!id) return null;
+  const v = await kvCmd('GET', DRAFT_KEY(id));
+  if (!v) return null;
+  try { return JSON.parse(v); } catch (_) { return null; }
+}
+async function draftClear(leadId) {
+  const id = String(leadId || '').replace(/[^\d]/g, '');
+  if (id) await kvCmd('DEL', DRAFT_KEY(id));
+}
+
 // Апдейты дела → [{text, createdAt}] по убыванию времени (свежие сверху).
 async function updatesRead(leadId) {
   const id = String(leadId || '').replace(/[^\d]/g, '');
@@ -583,6 +605,9 @@ module.exports = {
   chatInboxClear,
   updatesAppend,
   updatesRead,
+  draftSet,
+  draftGet,
+  draftClear,
   clientIp,
   rateLimitBlocked,
   rateLimitFail,

@@ -6,7 +6,8 @@ const {
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
   isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote,
   isClientMsgNote, stripClientMsgPrefix,
-  chatAppend, chatRead, chatInboxSince, updatesAppend, updatesRead, BOT_RELAY_SECRET,
+  chatAppend, chatRead, chatInboxSince, updatesAppend, updatesRead,
+  draftSet, draftGet, draftClear, BOT_RELAY_SECRET,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
@@ -142,11 +143,17 @@ async function actionClient(req, res) {
   } catch (_) {}
   const price = lead.price || 0;
   const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
+  let aiDraft = '';
+  // ИИ-черновик показываем, только если последнее слово в чате — за клиентом (ждёт ответа)
+  const lastMsg = chat.length ? chat[chat.length - 1] : null;
+  if (lastMsg && lastMsg.from === 'client') {
+    try { const d = await draftGet(leadId); if (d && d.text) aiDraft = d.text; } catch (_) {}
+  }
   return res.status(200).json({
     leadId: lead.id, code: leadCode(lead.name), name: displayName, phone, hasAccess,
     service: getCfValue(lead, CF_SERVICE_TYPE) || stage.service || '',
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
-    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates, chat
+    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates, chat, aiDraft
   });
 }
 
@@ -193,6 +200,17 @@ async function actionReply(req, res) {
   if (!lid) return res.status(400).json({ error: 'leadId_required' });
   if (!msg) return res.status(400).json({ error: 'text_required' });
   await chatAppend(lid, 'manager', msg);
+  try { await draftClear(lid); } catch (_) {} // ответили → ИИ-черновик больше не нужен
+  return res.status(200).json({ ok: true });
+}
+
+// ── action=draft ── бот кладёт ИИ-черновик ответа для панели Даши (KV).
+async function actionDraft(req, res) {
+  const body = await readJsonBody(req);
+  const lid = String(body.leadId || '').replace(/[^\d]/g, '');
+  const msg = String(body.text || '').trim().slice(0, 2000);
+  if (!lid || !msg) return res.status(400).json({ error: 'bad_request' });
+  await draftSet(lid, msg);
   return res.status(200).json({ ok: true });
 }
 
@@ -222,6 +240,7 @@ module.exports = async function handler(req, res) {
       if (req.method === 'GET' && action === 'inbox') return actionInbox(req, res);
       if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
       if (req.method === 'POST' && action === 'update') return actionUpdate(req, res);
+      if (req.method === 'POST' && action === 'draft') return actionDraft(req, res);
       return res.status(403).json({ error: 'forbidden' });
     }
     if (!isStaff) return res.status(401).json({ error: 'unauthorized' });

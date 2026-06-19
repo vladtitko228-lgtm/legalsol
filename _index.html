@@ -20599,6 +20599,12 @@ if(typeof JOBS!=='undefined' && !window._JOBS_EN_TITLES){
 .stf-reply-send{flex-shrink:0;padding:0 18px;height:42px;border:none;border-radius:12px;background:linear-gradient(135deg,#6D4DF6,#9B6BFF);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;transition:filter .15s;}
 .stf-reply-send:hover{filter:brightness(1.08);}
 .stf-reply-send:disabled{opacity:.5;cursor:default;}
+/* ИИ-подсказка ответа в карточке клиента */
+.stf-ai-sugg{margin:10px 0 4px;padding:12px 14px;border-radius:13px;background:linear-gradient(135deg,rgba(109,77,246,.14),rgba(255,93,162,.1));border:1px solid rgba(139,130,232,.4);}
+.stf-ai-sugg-h{font-size:11.5px;font-weight:800;letter-spacing:.3px;color:#a78bfa;margin-bottom:7px;text-transform:uppercase;}
+.stf-ai-sugg-txt{font-size:13px;line-height:1.5;color:#e8e4ff;white-space:pre-wrap;}
+.stf-ai-use{margin-top:10px;padding:7px 14px;border:none;border-radius:20px;background:linear-gradient(135deg,#6D4DF6,#9B6BFF);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;transition:filter .15s;}
+.stf-ai-use:hover{filter:brightness(1.1);}
 /* Фокус дня (панель Даши) */
 .stf-focus-title{font-size:15px;font-weight:700;color:#fff;margin:4px 0 11px;}
 .stf-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
@@ -22334,6 +22340,10 @@ async function cabStaffOpenClient(leadId){
       : '<div class="stf-dim">переписки пока нет</div>';
     var waPhone=(c.phone||'').replace(/[^\d]/g,'');
     window.STF_CUR_LEAD=c.leadId;
+    window.STF_CUR_DRAFT=c.aiDraft||'';
+    var aiBlock=c.aiDraft
+      ?'<div class="stf-ai-sugg"><div class="stf-ai-sugg-h">🤖 ИИ предлагает ответ</div><div class="stf-ai-sugg-txt">'+cabEsc(c.aiDraft)+'</div><button class="stf-ai-use" onclick="cabStaffUseDraft()">Вставить в ответ ↓</button></div>'
+      :'';
     m.innerHTML=
       '<div class="stf-m-head">'+
         '<div><div class="stf-m-name">'+cabEsc(c.name||'Клиент')+'</div>'+
@@ -22349,7 +22359,7 @@ async function cabStaffOpenClient(leadId){
         '<div class="stf-m-box"><div class="stf-m-box-l">Оплачено</div><div class="stf-m-box-v" style="color:#16a34a">'+cabStaffMoney(c.paidTotal)+' zł</div></div>'+
         '<div class="stf-m-box"><div class="stf-m-box-l">Остаток</div><div class="stf-m-box-v" style="color:#d97706">'+cabStaffMoney(c.remaining)+' zł</div></div>'+
       '</div>'+
-      '<div class="stf-m-sec">Переписка с клиентом</div>'+chatHtml+
+      '<div class="stf-m-sec">Переписка с клиентом</div>'+chatHtml+aiBlock+
       '<div class="stf-reply"><input class="stf-in" id="stf-reply-in" placeholder="Напишите ответ клиенту…" onkeydown="if(event.key===\'Enter\')cabStaffReply()"/>'+
         '<button class="stf-reply-send" id="stf-reply-send" onclick="cabStaffReply()">Отправить</button></div>'+
       '<div class="stf-m-sec">Платежи</div>'+paysHtml+
@@ -22438,6 +22448,12 @@ function cabStaffCopy(login,pass){
   var t='Логин: '+login+'\nПароль: '+pass;
   if(navigator.clipboard)navigator.clipboard.writeText(t);
   cabToast('Скопировано','success');
+}
+
+// Вставить ИИ-черновик в поле ответа (Даша редактирует и отправляет).
+function cabStaffUseDraft(){
+  var inp=document.getElementById('stf-reply-in');
+  if(inp&&window.STF_CUR_DRAFT){ inp.value=window.STF_CUR_DRAFT; inp.focus(); cabToast('Черновик вставлен — проверьте и отправьте','info'); }
 }
 
 // Даша отвечает клиенту в кабинет (пишется в KV). После ответа клиент уходит
