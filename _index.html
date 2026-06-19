@@ -23160,6 +23160,23 @@ function setCabLang(lng){
   try{ localStorage.setItem('cabLang',CABLANG); }catch(e){}
   cabApplyLang();
 }
+// Синхронизируем язык кабинета с ВЕРХНИМ переключателем языка сайта: клиент
+// жмёт EN/RU наверху → текст кабинета тоже меняется (кабинет знает EN и RU,
+// для остальных языков сайта показываем EN). Оборачиваем setLang ПОСЛЕ загрузки
+// всех скриптов (setLang объявлена в другом <script>, позже по файлу).
+(function(){
+  function wrap(){
+    if(typeof window==='undefined' || typeof window.setLang!=='function' || window._cabLangSynced)return;
+    window._cabLangSynced=1;
+    var _orig=window.setLang;
+    window.setLang=function(){
+      var r=_orig.apply(this,arguments);
+      try{ if(typeof setCabLang==='function' && typeof L!=='undefined') setCabLang(L==='ru'?'ru':'en'); }catch(e){}
+      return r;
+    };
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wrap); else wrap();
+})();
 function cabApplyLang(){
   // активная кнопка переключателя
   document.querySelectorAll('.cab-lang-b').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lng')===CABLANG);});
