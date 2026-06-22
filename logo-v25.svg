@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V25 · Squircle + soft sunrise + balance bar — optimistic/morning vibe -->
+  <defs>
+    <linearGradient id="v25sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="0.5" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle background with sunrise gradient -->
+  <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#v25sky)"/>
+
+  <!-- Big rising sun (half-circle from bottom) -->
+  <circle cx="40" cy="58" r="20" fill="#fff" opacity="0.95"/>
+
+  <!-- Sun rays as dots -->
+  <circle cx="40" cy="32" r="1.8" fill="#fff"/>
+  <circle cx="22" cy="42" r="1.8" fill="#fff"/>
+  <circle cx="58" cy="42" r="1.8" fill="#fff"/>
+  <circle cx="28" cy="34" r="1.4" fill="#fff" opacity="0.7"/>
+  <circle cx="52" cy="34" r="1.4" fill="#fff" opacity="0.7"/>
+
+  <!-- Soft balance bar across the sun -->
+  <g style="transform-origin:40px 58px;animation:v25sway 4s ease-in-out infinite;">
+    <rect x="22" y="56" width="36" height="5" rx="2.5" fill="#5B52CC"/>
+    <circle cx="28" cy="65" r="3.5" fill="#5B52CC"/>
+    <circle cx="52" cy="65" r="3.5" fill="#5B52CC"/>
+    <!-- pivot -->
+    <circle cx="40" cy="58.5" r="3" fill="#fde047" stroke="#5B52CC" stroke-width="1"/>
+  </g>
+
+  <style>
+    @keyframes v25sway { 0%,100%{transform:rotate(0)} 35%{transform:rotate(3deg)} 65%{transform:rotate(-3deg)} }
+  </style>
+</svg>

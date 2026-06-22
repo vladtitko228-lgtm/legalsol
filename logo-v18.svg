@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V18 · All-circles — geometric scales, only round shapes -->
+  <defs>
+    <linearGradient id="v18g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+    <linearGradient id="v18gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base circle (foundation) -->
+  <circle cx="40" cy="68" r="9" fill="url(#v18g)"/>
+
+  <!-- Stem (thick rounded) -->
+  <rect x="37" y="28" width="6" height="42" rx="3" fill="url(#v18g)"/>
+
+  <!-- Pivot circle (large) -->
+  <circle cx="40" cy="26" r="5" fill="url(#v18gold)"/>
+
+  <!-- Beam group -->
+  <g style="transform-origin:40px 26px;animation:v18sway 4s ease-in-out infinite;">
+    <!-- Beam as long pill -->
+    <rect x="10" y="23" width="60" height="6" rx="3" fill="url(#v18gold)"/>
+
+    <!-- Big left circle (pan) -->
+    <circle cx="16" cy="44" r="11" fill="url(#v18g)"/>
+    <!-- Connector dot -->
+    <circle cx="16" cy="33" r="2.5" fill="url(#v18gold)"/>
+
+    <!-- Big right circle (pan) -->
+    <circle cx="64" cy="44" r="11" fill="url(#v18g)"/>
+    <circle cx="64" cy="33" r="2.5" fill="url(#v18gold)"/>
+  </g>
+
+  <style>
+    @keyframes v18sway { 0%,100%{transform:rotate(0)} 35%{transform:rotate(3deg)} 65%{transform:rotate(-3deg)} }
+  </style>
+</svg>

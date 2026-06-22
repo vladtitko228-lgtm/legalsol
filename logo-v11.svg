@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V11 · Hourglass vs Approved card — weighing time vs result -->
+  <defs>
+    <linearGradient id="v11sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+    <linearGradient id="v11card2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10b981"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base -->
+  <rect x="28" y="68" width="24" height="4" rx="1" fill="#3D3585"/>
+  <rect x="32" y="64" width="16" height="4" rx="1" fill="#5B52CC"/>
+  <rect x="38" y="22" width="4" height="42" fill="#B8B2F5"/>
+  <circle cx="40" cy="22" r="3.5" fill="#fde047"/>
+
+  <g style="transform-origin:40px 24px;animation:v11tilt 4s ease-in-out infinite;">
+    <rect x="8" y="22" width="64" height="3" rx="1.5" fill="#fde047"/>
+
+    <!-- Left: hourglass (wait time) -->
+    <line x1="16" y1="25" x2="16" y2="32" stroke="#facc15" stroke-width="1.1"/>
+    <g style="transform-origin:16px 42px;">
+      <!-- Top frame -->
+      <rect x="9" y="32" width="14" height="1.5" rx="0.4" fill="#B8B2F5"/>
+      <!-- Bottom frame -->
+      <rect x="9" y="51" width="14" height="1.5" rx="0.4" fill="#B8B2F5"/>
+      <!-- Glass top triangle -->
+      <path d="M 11 33.5 L 21 33.5 L 16 42 Z" fill="none" stroke="#8B82E8" stroke-width="0.7"/>
+      <!-- Sand top (partial - draining) -->
+      <path d="M 12 34.5 L 20 34.5 L 16 41 Z" fill="url(#v11sand)" opacity="0.85"/>
+      <!-- Glass bottom triangle -->
+      <path d="M 16 42 L 21 50.5 L 11 50.5 Z" fill="none" stroke="#8B82E8" stroke-width="0.7"/>
+      <!-- Sand bottom (filled) -->
+      <path d="M 16 45 L 19.5 49.5 L 12.5 49.5 Z" fill="url(#v11sand)"/>
+      <!-- Falling sand grains -->
+      <circle cx="16" cy="42.5" r="0.5" fill="#fde047" style="animation:v11sand1 1.2s linear infinite;"/>
+      <circle cx="16" cy="43.5" r="0.4" fill="#fde047" style="animation:v11sand2 1.2s linear infinite .3s;"/>
+    </g>
+
+    <!-- Right: approved card with green check -->
+    <line x1="64" y1="25" x2="64" y2="32" stroke="#facc15" stroke-width="1.1"/>
+    <g style="transform-origin:64px 42px;">
+      <rect x="55" y="34" width="18" height="13" rx="1.4" fill="url(#v11card2)" stroke="#047857" stroke-width="0.4"/>
+      <!-- Big check -->
+      <path d="M 59 40.5 L 62.5 44 L 69 37.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <style>
+    @keyframes v11tilt { 0%,100% { transform: rotate(0deg); } 30% { transform: rotate(3deg); } 70% { transform: rotate(-1deg); } }
+    @keyframes v11sand1 { 0% { transform: translate(0, -2px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(0, 4px); opacity: 0; } }
+    @keyframes v11sand2 { 0% { transform: translate(0, -3px); opacity: 0; } 40% { opacity: 1; } 100% { transform: translate(0, 5px); opacity: 0; } }
+  </style>
+</svg>

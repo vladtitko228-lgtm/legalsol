@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V36 · Glassmorphism — frosted glass over gradient -->
+  <defs>
+    <linearGradient id="v36bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="0.5" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Vivid gradient base -->
+  <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#v36bg)"/>
+
+  <!-- Floating orbs behind glass -->
+  <circle cx="22" cy="22" r="18" fill="#f472b6" opacity="0.55"/>
+  <circle cx="58" cy="58" r="20" fill="#fde047" opacity="0.45"/>
+
+  <!-- Frosted glass overlay -->
+  <rect x="4" y="4" width="72" height="72" rx="22" fill="#fff" opacity="0.08"/>
+  <rect x="4" y="4" width="72" height="72" rx="22" fill="url(#v36bg)" opacity="0.25"/>
+
+  <!-- Glass surface highlight (top edge) -->
+  <path d="M 28 8 L 52 8 Q 60 8 62 14" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Minimal Libra glyph in white, semi-transparent -->
+  <g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.95">
+    <path d="M 24 32 L 56 32"/>
+    <path d="M 30 50 Q 30 32 40 32 Q 50 32 50 50"/>
+    <path d="M 24 58 L 56 58"/>
+  </g>
+
+  <!-- Subtle orbs animation -->
+  <style>
+    circle[opacity="0.55"], circle[opacity="0.45"] { transform-origin: 40px 40px; animation: v36drift 8s ease-in-out infinite; }
+    @keyframes v36drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(4px,-4px)} }
+  </style>
+</svg>

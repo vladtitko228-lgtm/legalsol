@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- V2 · Single fluted column + scales on top -->
+  <defs>
+    <linearGradient id="v2col" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B8B2F5"/>
+      <stop offset="1" stop-color="#5B52CC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Plinth (drops in from below) -->
+  <g style="transform-origin:40px 75px;animation:v2plinth .7s cubic-bezier(.34,1.56,.64,1) .1s both;">
+    <rect x="22" y="71" width="36" height="4" rx="1" fill="#5B52CC"/>
+    <rect x="25" y="67" width="30" height="4" rx="1" fill="url(#v2col)"/>
+  </g>
+
+  <!-- Column shaft (3 flutes) — staggered drop in -->
+  <rect x="32" y="32" width="4" height="35" fill="url(#v2col)"
+        style="transform-origin:34px 67px;animation:v2colIn .65s cubic-bezier(.34,1.56,.64,1) .2s both;"/>
+  <rect x="38" y="32" width="4" height="35" fill="url(#v2col)"
+        style="transform-origin:40px 67px;animation:v2colIn .65s cubic-bezier(.34,1.56,.64,1) .3s both;"/>
+  <rect x="44" y="32" width="4" height="35" fill="url(#v2col)"
+        style="transform-origin:46px 67px;animation:v2colIn .65s cubic-bezier(.34,1.56,.64,1) .4s both;"/>
+
+  <!-- Capital -->
+  <rect x="25" y="28" width="30" height="4" rx="1" fill="#8B82E8"
+        style="transform-origin:40px 30px;animation:v2colIn .55s cubic-bezier(.34,1.56,.64,1) .55s both;"/>
+
+  <!-- Balance scales group (tilts gently) -->
+  <g style="transform-origin:40px 18px;animation:v2beamIn .6s cubic-bezier(.34,1.56,.64,1) .7s both, v2tilt 5s ease-in-out 1.3s infinite;">
+    <!-- Beam -->
+    <rect x="8" y="17" width="64" height="2.5" rx="1.25" fill="#fde047"/>
+    <!-- Pivot post -->
+    <rect x="39" y="14" width="2" height="6" fill="#fde047"/>
+    <!-- Crown -->
+    <circle cx="40" cy="11" r="2.8" fill="#fde047" stroke="#facc15" stroke-width="0.5"/>
+
+    <!-- Chains -->
+    <line x1="14" y1="19.5" x2="14" y2="24" stroke="#facc15" stroke-width="1"/>
+    <line x1="66" y1="19.5" x2="66" y2="24" stroke="#facc15" stroke-width="1"/>
+
+    <!-- Left pan -->
+    <ellipse cx="14" cy="25" rx="6" ry="1.5" fill="#fde047"/>
+    <path d="M 8 25 Q 14 29 20 25" fill="none" stroke="#facc15" stroke-width="1.2"/>
+
+    <!-- Right pan -->
+    <ellipse cx="66" cy="25" rx="6" ry="1.5" fill="#fde047"/>
+    <path d="M 60 25 Q 66 29 72 25" fill="none" stroke="#facc15" stroke-width="1.2"/>
+  </g>
+
+  <style>
+    @keyframes v2colIn { from { transform: translateY(-30px) scaleY(.4); opacity:0; } to { transform: translateY(0) scaleY(1); opacity:1; } }
+    @keyframes v2plinth { from { transform: scaleX(.3); opacity:0; } to { transform: scaleX(1); opacity:1; } }
+    @keyframes v2beamIn { from { transform: rotate(-15deg) scale(.5); opacity:0; } to { transform: rotate(0deg) scale(1); opacity:1; } }
+    @keyframes v2tilt {
+      0%,100% { transform: rotate(0deg); }
+      30% { transform: rotate(2deg); }
+      70% { transform: rotate(-2deg); }
+    }
+  </style>
+</svg>
