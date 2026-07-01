@@ -327,6 +327,20 @@ function render(d){
     }
   }
 
+  // ===== УЧРЕДИТЕЛИ (глобально) =====
+  if(d.founders){
+    const f=d.founders;
+    html += secTitle('🤝','Учредители');
+    html += `<div class="grid g3">
+      ${kcard('Инвестиция Акима', zl(f.akimTotal), 'к возврату · нал '+zl(f.akimCash))}
+      ${kcard('Доля Влада', (f.dividends['Влад']||0)+'%', 'дивиденды')}
+      ${kcard('Доля Акима', (f.dividends['Аким']||0)+'%', 'дивиденды')}
+    </div>`;
+    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Инвестиция Акима — по статьям (вернуть соучредителю)</div>
+      <table><tbody>${f.akim.items.map(i=>`<tr><td>${i.label}${i.cash?' <span class="chip">нал</span>':''}</td><td class="n">${zl(i.amount)}</td></tr>`).join('')}
+      <tr><td style="font-weight:700">Итого к возврату</td><td class="n" style="font-weight:750;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>`;
+  }
+
   // ===== ЖДЁМ ОПЛАТ (дебиторка, глобально — не зависит от выбранного месяца) =====
   if(d.receivables && d.receivables.count){
     const rc=d.receivables, todayKey=d.curMonthKey, todayIso=(d.generatedAt||'').slice(0,10);
