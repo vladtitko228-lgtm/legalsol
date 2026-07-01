@@ -394,6 +394,8 @@ function sellerCard(s){
       ${cell('Средний чек', zl(s.avgCheck))}
       ${cell('Собрано 1-я', zl(s.fact))}
       ${cell('Ждём 2-я', zl(s.pay2))}
+      ${s.adSpend!=null?cell('Реклама (кабинет)', zl(s.adSpend)):''}
+      ${s.costPerClose!=null?cell('Стоимость закрытия', zl(s.costPerClose)):''}
     </div>
   </div>`;
 }
