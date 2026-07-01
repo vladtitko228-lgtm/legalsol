@@ -21152,7 +21152,23 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
     <div id="cab-form-login">
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Телефон</label><input class="cab-input" type="tel" id="cab-email" placeholder="+48 600 123 456" autocomplete="tel" onkeydown="if(event.key==='Enter')document.getElementById('cab-pass').focus()"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Телефон</label>
+        <div class="cab-phone-row" style="display:flex;gap:8px;align-items:stretch">
+          <div class="ls-cp" data-default="+48">
+            <button type="button" data-cp-trigger aria-haspopup="listbox" aria-expanded="false">
+              <span data-cp-flag>🇵🇱</span>
+              <span data-cp-code>+48</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div data-cp-menu role="listbox">
+              <input type="text" data-cp-search placeholder="Search country or code…" autocomplete="off"/>
+              <div data-cp-list></div>
+            </div>
+            <input type="hidden" data-cp-hidden id="cab-cc" value="+48"/>
+          </div>
+          <input class="cab-input" style="flex:1;min-width:0" type="tel" id="cab-email" placeholder="600 123 456" inputmode="numeric" autocomplete="tel-national" onkeydown="if(event.key==='Enter')document.getElementById('cab-pass').focus()"/>
+        </div>
+      </div>
 
       <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-1">Пароль</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
 
@@ -21909,9 +21925,13 @@ function cabShakeError(input){
 async function cabLogin(){
   var phoneEl=document.getElementById('cab-email');
   var passEl=document.getElementById('cab-pass');
-  var phone=phoneEl?phoneEl.value.trim():'';
+  var ccEl=document.getElementById('cab-cc');           // код страны из пикера (напр. +48)
+  var num=phoneEl?phoneEl.value.trim():'';
+  var cc=ccEl?ccEl.value.trim():'';
+  // если пользователь сам ввёл номер с '+' — не дублируем код страны
+  var phone=num.charAt(0)==='+'?num:(cc+' '+num).trim();
   var password=passEl?passEl.value:'';
-  if(!phone){cabShakeError(phoneEl);cabToast('Введите телефон','error');return;}
+  if(!num){cabShakeError(phoneEl);cabToast('Введите телефон','error');return;}
   if(!password){cabShakeError(passEl);cabToast('Введите пароль','error');return;}
 
   var btn=document.getElementById('cab-btn-login');
