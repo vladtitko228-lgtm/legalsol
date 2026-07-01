@@ -790,8 +790,11 @@ img{max-width:100%;height:auto;}
   .mob-quick{display:inline-flex !important;}
 }
 @media(max-width:380px){
-  .mob-quick{width:32px;height:32px;}
-  .mob-quick svg{width:16px;height:16px;}
+  /* padding:0 overrides the generic `button{padding:10px 14px}` (≤380px) that
+     otherwise squashes these fixed-size icon buttons and collapses the SVG to
+     a sliver ("dots") on 375px iPhones (SE, mini, X/XS/11...). */
+  .mob-quick{width:32px;height:32px;padding:0 !important;}
+  .mob-quick svg{width:16px;height:16px;flex-shrink:0;}
 }
 
 /* On mobile, when user taps the soc dots, surface nav-soc-row as a
