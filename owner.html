@@ -272,23 +272,28 @@ function render(d){
       ${hbars(pm.byService,x=>x.count,x=>x.service,()=>'var(--p)')}</div>`;
   }
 
-  // ===== РЕКЛАМА =====
-  html += secTitle('📣','Реклама · '+monthName(pm,d,'prev'));
+  // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
+  html += secTitle('📣','Реклама · '+monthName(pm,d,'prev')+' · zł');
   html += `<div class="grid g4">
-    ${kcard('Бюджет', nf(pm.budget), pm.activeDays+' активных дней')}
-    ${kcard('Лидов', nf(pm.leads),'заявок с рекламы')}
-    ${kcard('Цена лида (CPL)', nf(pm.cpl))}
-    ${kcard('Цена клика (CPC)', pm.cpc!=null?pm.cpc.toFixed(2):'—')}
+    ${kcard('Расход', zl(pm.budget), pm.activeDays+' активных дней')}
+    ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
+    ${kcard('Цена закрытия (CAC)', zl(pm.cac),'расход ÷ закрытия')}
+    ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
   </div>`;
   const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
+  const cabs = [{n:'Кабинет 1',v:Math.round(pm.k1||0)},{n:'Кабинет 2',v:Math.round(pm.k2||0)},
+                {n:'Кабинет 3',v:Math.round(pm.k3||0)},{n:'TikTok',v:Math.round(pm.tt||0)}].filter(x=>x.v);
   html += `<div class="grid g2" style="margin-top:14px">
-    <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (последние ${adLeads.length})</div>
+    <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (${adLeads.length})</div>
       ${adLeads.length?sparkline(adLeads,{color:'var(--gold)'}):'<div class="muted">нет данных</div>'}
-      <div class="hint">Охват ${nf(pm.reach)} · клики ${nf(pm.clicks)}</div></div>
-    <div class="card"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
-      ${splitBar(pm.adLead, pm.adIncoming)}
-      <div class="hint">Помечается в таблице закрытий (чат оплат). Пусто = сделка не отмечена как рекламная.</div></div>
-  </div>`;
+      <div class="hint">ROAS ${pm.roasCollected||'—'}× по собранному · ${pm.roasContracted||'—'}× по контрактам</div></div>
+    <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
+      ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
+      <div class="hint">Привязка кабинет→продавец уточняется.</div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
+    ${splitBar(pm.adLead, pm.adIncoming)}
+    <div class="hint">Метка из чата оплат (парсер в работе). Пусто = сделка ещё не отмечена.</div></div>`;
 
   // ===== ФИНАНСЫ (PnL) =====
   if(pnl){
@@ -332,7 +337,8 @@ function render(d){
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
 function monthName(block,d,which){
-  // подпись месяца для prevMonth из тренда
+  // подпись прошлого месяца (тот, что показываем в «Продажи/Реклама»)
+  if(d.prevMonthKey) return mLabel(d.prevMonthKey);
   const t = d.trend[d.trend.length-1]; return t?mLabel(t.month):'месяц';
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
