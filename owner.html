@@ -123,7 +123,9 @@
 
 <script>
 const $ = s => document.querySelector(s);
-const api = (p,o={}) => fetch('/api/owner/'+p,{credentials:'same-origin',...o});
+// Единый endpoint: /api/owner?action=login|me|logout|data (одна serverless-функция).
+const api = (action,o={}) => fetch('/api/owner?action='+action+'&_='+Date.now(),
+  {credentials:'same-origin',cache:'no-store',...o});
 
 // ---- formatting ----
 const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
@@ -162,7 +164,7 @@ $('#refreshBtn').addEventListener('click', ()=>loadData(true));
 async function loadData(force){
   $('#content').innerHTML = '<div class="center">Обновляю данные…</div>';
   try{
-    const r = await api('data'+(force?'?t='+Date.now():''));
+    const r = await api('data');
     if(r.status===401){ showLogin(); return; }
     const d = await r.json();
     if(d.empty){ $('#content').innerHTML='<div class="center">Данные ещё не загружены.<br>Запусти сборщик: <code>python3 owner-dashboard/build_dashboard.py --push</code></div>'; return; }

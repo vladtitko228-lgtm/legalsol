@@ -119,7 +119,7 @@
       ]
     },
     {
-      "source": "/api/owner/(.*)",
+      "source": "/api/owner(.*)",
       "headers": [
         {
           "key": "Cache-Control",
