@@ -193,14 +193,15 @@ function gauge(p){ // 0..100+
     <text x="52" y="49" text-anchor="middle" fill="var(--tx)" font-size="21" font-weight="750">${p}%</text>
     <text x="52" y="66" text-anchor="middle" fill="var(--tx-dd)" font-size="10">цели</text></svg>`;
 }
-function barsMonthly(trend,goal){
+function barsMonthly(trend,goal,curKey){
   const max=Math.max(goal,...trend.map(t=>t.closings));
   return `<div class="flex" style="align-items:flex-end;gap:16px;height:130px;padding-top:8px">`+
-    trend.map(t=>{const hh=(t.closings/max)*110;
-      return `<div style="flex:1;text-align:center">
-        <div class="muted" style="font-size:12px;margin-bottom:5px">${t.closings}</div>
-        <div style="height:${hh}px;background:linear-gradient(180deg,var(--p-l),var(--p));border-radius:7px 7px 3px 3px"></div>
-        <div class="muted" style="font-size:11px;margin-top:6px">${mLabel(t.month)}</div></div>`}).join('')
+    trend.map(t=>{const hh=(t.closings/max)*110; const cur=t.month===curKey;
+      const bg=cur?'repeating-linear-gradient(180deg,var(--p-l),var(--p-l) 4px,var(--p) 4px,var(--p) 8px)':'linear-gradient(180deg,var(--p-l),var(--p))';
+      return `<div style="flex:1;text-align:center;opacity:${cur?'.5':'1'}">
+        <div class="muted" style="font-size:12px;margin-bottom:5px">${t.closings}${cur?' ◷':''}</div>
+        <div style="height:${Math.max(2,hh)}px;background:${bg};border-radius:7px 7px 3px 3px"></div>
+        <div class="muted" style="font-size:11px;margin-top:6px">${mLabel(t.month)}${cur?' · идёт':''}</div></div>`}).join('')
     +`</div>`;
 }
 function hbars(items, valOf, labOf, colorOf){
@@ -251,7 +252,8 @@ function render(d){
   <div class="hint">${paceTxt}</div>`;
 
   // ===== ПРОДАЖИ =====
-  const growth = delta(pm.closings, (d.trend[d.trend.length-2]||{}).closings);
+  const _pi = d.trend.findIndex(t=>t.month===d.prevMonthKey);
+  const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
   html += secTitle('💰','Продажи · '+monthName(pm,d,'prev'));
   html += `<div class="grid g4">
     ${kcard('Закрытий', pm.closings, 'сделок за месяц', growth)}
@@ -261,7 +263,7 @@ function render(d){
   </div>`;
   html += `<div class="grid g2" style="margin-top:14px">
     <div class="card"><div class="lbl" style="margin-bottom:6px">Динамика закрытий по месяцам</div>
-      ${barsMonthly(d.trend, d.goal)}</div>
+      ${barsMonthly(d.trend, d.goal, d.curMonthKey)}</div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Продавцы (${monthName(pm,d,'prev')})</div>
       ${pm.bySeller.length?hbars(pm.bySeller,x=>x.closings,x=>x.name,()=>'var(--p-l)'):'<div class="muted">нет данных</div>'}
       <div class="hint">Контракты: ${pm.bySeller.map(s=>s.name+' — '+zl(s.contracted)).join(' · ')}</div>
