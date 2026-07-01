@@ -8,16 +8,22 @@
 <link rel="icon" href="/favicon.svg">
 <style>
   :root{
-    --bg:#14112e; --bg2:#1c1842; --card:#221d52; --card2:#2a2560;
-    --line:#39336f; --p:#5B52CC; --p-l:#8B82E8; --p-p:#B8B2F5;
-    --gold:#fde047; --em:#34d399; --red:#f87171; --amber:#fbbf24;
-    --tx:#EEEDF8; --tx-d:#B8B2F5; --tx-dd:#8f89c4;
-    --r:16px; --sh:0 8px 30px rgba(0,0,0,.35);
+    --bg:#0f0c24; --bg2:#181440; --card:rgba(40,34,92,.5); --card2:#2a2560;
+    --line:rgba(124,113,214,.22); --p:#6b61e0; --p-l:#8B82E8; --p-p:#B8B2F5;
+    --gold:#fde047; --em:#34d399; --red:#fb7185; --amber:#fbbf24; --cyan:#38bdf8;
+    --tx:#F2F1FB; --tx-d:#B8B2F5; --tx-dd:#8f89c4;
+    --r:18px; --sh:0 10px 34px rgba(0,0,0,.4);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#2a2560 0%,var(--bg) 55%);color:var(--tx);
-    min-height:100vh;-webkit-font-smoothing:antialiased}
+  body{margin:0;color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 520px at 10% -8%, rgba(107,97,224,.28), transparent 60%),
+      radial-gradient(760px 480px at 100% 2%, rgba(56,189,248,.10), transparent 55%),
+      var(--bg);
+    background-attachment:fixed}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  @keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   a{color:var(--p-l)}
   .wrap{max-width:1180px;margin:0 auto;padding:20px 18px 60px}
   .muted{color:var(--tx-dd)}
@@ -50,26 +56,43 @@
   .ghost:hover{color:var(--tx);border-color:var(--p-l)}
 
   /* ---- layout ---- */
-  .sec-title{display:flex;align-items:center;gap:9px;margin:30px 2px 12px;font-size:13px;
-    letter-spacing:.08em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
+  .sec-title{display:flex;align-items:center;gap:9px;margin:32px 2px 14px;font-size:12px;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
+  .sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
   .sec-title .ic{font-size:15px}
+  /* строка здоровья бизнеса */
+  .health{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px}
+  @media(max-width:760px){.health{grid-template-columns:repeat(2,1fr)}}
+  .sig{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:13px 15px;backdrop-filter:blur(12px);overflow:hidden;animation:cardIn .4s ease both}
+  .sig .sdot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 10px currentColor}
+  .sig .st{font-size:12px;color:var(--tx-dd)}
+  .sig .sv{font-size:19px;font-weight:750;margin-top:3px;font-variant-numeric:tabular-nums}
+  .sig .sglow{position:absolute;inset:0;opacity:.10;pointer-events:none}
   .grid{display:grid;gap:14px}
   .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
   .g2{grid-template-columns:repeat(2,1fr)}
   @media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
   @media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;
+    box-shadow:var(--sh);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    animation:cardIn .42s ease both;transition:border-color .18s ease}
+  .card:hover{border-color:rgba(139,130,232,.42)}
   .card.k{padding:16px 18px}
   .k .lbl{font-size:12px;color:var(--tx-dd);margin-bottom:7px;display:flex;justify-content:space-between}
-  .k .val{font-size:26px;font-weight:750;letter-spacing:-.02em}
+  .k .val{font-size:27px;font-weight:770;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
   .k .sub{font-size:12px;color:var(--tx-d);margin-top:5px}
   .chip{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--card2);color:var(--p-p)}
   .chip.up{background:rgba(52,211,153,.14);color:var(--em)}
   .chip.dn{background:rgba(248,113,113,.14);color:var(--red)}
 
   /* hero */
-  .hero{background:linear-gradient(135deg,#2a2560,#221d52);border:1px solid #4a4290}
-  .hero .val{font-size:34px}
+  .hero{background:linear-gradient(150deg,rgba(64,56,140,.55),rgba(34,29,82,.5));
+    border:1px solid rgba(139,130,232,.3);box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.05)}
+  .hero.glow-gold{box-shadow:var(--sh),0 0 46px rgba(253,224,71,.10),inset 0 0 0 1px rgba(253,224,71,.22)}
+  .hero.glow-red{box-shadow:var(--sh),0 0 46px rgba(251,113,133,.12),inset 0 0 0 1px rgba(251,113,133,.24)}
+  .hero.glow-em{box-shadow:var(--sh),0 0 46px rgba(52,211,153,.12),inset 0 0 0 1px rgba(52,211,153,.22)}
+  .hero .val{font-size:36px;font-weight:800;font-variant-numeric:tabular-nums}
   .gauge-wrap{display:flex;align-items:center;gap:18px}
   .bar-track{height:9px;border-radius:9px;background:var(--bg2);overflow:hidden;margin-top:10px}
   .bar-fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--p),var(--gold))}
@@ -246,13 +269,14 @@ function render(d){
            ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
          </select></div>` : '';
 
-  let html=monSel;
+  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) : '');
 
   // ===== ПРОГНОЗ (hero) — только для актуального (дефолтного) месяца =====
   if(CUR_KEY===d.defaultMonth){
   html += secTitle('🔮','Прогноз месяца');
+  const glow=fc.goalPct>=66?'glow-em':fc.goalPct>=33?'glow-gold':'glow-red';
   html += `<div class="grid g3">
-    <div class="card hero">
+    <div class="card hero ${glow}">
       <div class="lbl" style="color:var(--tx-d)">Закрытий к концу месяца</div>
       <div class="gauge-wrap" style="margin-top:6px">
         ${gauge(fc.goalPct)}
@@ -390,6 +414,21 @@ function render(d){
 }
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
+function renderHealth(d, pm, fc, pnl){
+  const C={g:'#34d399',y:'#fbbf24',r:'#fb7185'};
+  const rc=d.receivables||{};
+  const sigs=[
+    {t:'Темп к плану', v:(fc.goalPct||0)+'%', st:fc.goalPct>=80?'g':fc.goalPct>=50?'y':'r', note:fc.projClosings+' из '+fc.goal},
+    {t:'Прибыль (PnL)', v:zl(pnl&&pnl.profit), st:!pnl?'y':(pnl.profit>0?'g':(pnl.margin>-10?'y':'r')), note:pnl?'маржа '+pct(pnl.margin):'нет данных'},
+    {t:'Цена лида', v:zl(pm.cpl), st:pm.cpl==null?'y':(pm.cpl<40?'g':(pm.cpl<70?'y':'r')), note:nf(pm.leads)+' лидов'},
+    {t:'Ждём оплат', v:zl(rc.total), st:'y', note:(rc.count||0)+' сделок'},
+  ];
+  return `<div class="health">`+sigs.map(s=>`
+    <div class="sig"><div class="sglow" style="background:radial-gradient(120px 60px at 92% 0%,${C[s.st]},transparent)"></div>
+      <div class="st"><span class="sdot" style="color:${C[s.st]}"></span>${s.t}</div>
+      <div class="sv" style="color:${C[s.st]}">${s.v}</div>
+      <div class="st" style="margin-top:2px">${s.note}</div></div>`).join('')+`</div>`;
+}
 function sellerCard(s){
   const pp=s.planPct;
   const col=pp==null?'var(--p-l)':(pp>=80?'var(--em)':pp>=50?'var(--gold)':'var(--red)');
