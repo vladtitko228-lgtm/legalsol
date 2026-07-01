@@ -355,14 +355,21 @@ function render(d){
   if(d.founders){
     const f=d.founders;
     html += secTitle('🤝','Учредители');
+    const repPct = f.akimTotal? Math.round((f.akimRepaid||0)/f.akimTotal*100):0;
     html += `<div class="grid g3">
-      ${kcard('Инвестиция Акима', zl(f.akimTotal), 'к возврату · нал '+zl(f.akimCash))}
+      ${kcard('Долг Акиму (осталось)', zl(f.akimRemaining), f.akimRepaid?('погашено '+zl(f.akimRepaid)+' из '+zl(f.akimTotal)):('всего '+zl(f.akimTotal)+' · нал'))}
       ${kcard('Доля Влада', (f.dividends['Влад']||0)+'%', 'дивиденды')}
       ${kcard('Доля Акима', (f.dividends['Аким']||0)+'%', 'дивиденды')}
     </div>`;
-    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Инвестиция Акима — по статьям (вернуть соучредителю)</div>
+    html += `<div class="card" style="margin-top:14px">
+      <div class="lbl" style="margin-bottom:8px">Погашение долга Акиму</div>
+      <div class="bar-track" style="height:12px"><div class="bar-fill" style="width:${repPct}%;background:linear-gradient(90deg,var(--em),var(--gold))"></div></div>
+      <div class="hint">Погашено ${zl(f.akimRepaid)} из ${zl(f.akimTotal)} · осталось ${zl(f.akimRemaining)} (${repPct}%). ${f.akimRepaid?'':'Начинаем гасить с августа.'}</div>
+      ${(f.akim.repayments&&f.akim.repayments.length)?`<table style="margin-top:10px"><thead><tr><th>Дата</th><th class="n">Погашено</th></tr></thead><tbody>${f.akim.repayments.map(r=>`<tr><td>${r.date?dLabel(r.date):'—'}</td><td class="n pos">${zl(r.amount)}</td></tr>`).join('')}</tbody></table>`:''}
+    </div>`;
+    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Из чего долг — статьи (всё нал)</div>
       <table><tbody>${f.akim.items.map(i=>`<tr><td>${i.label}${i.cash?' <span class="chip">нал</span>':''}</td><td class="n">${zl(i.amount)}</td></tr>`).join('')}
-      <tr><td style="font-weight:700">Итого к возврату</td><td class="n" style="font-weight:750;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>`;
+      <tr><td style="font-weight:700">Итого</td><td class="n" style="font-weight:750;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>`;
   }
 
   // ===== ЖДЁМ ОПЛАТ (дебиторка, глобально — не зависит от выбранного месяца) =====
