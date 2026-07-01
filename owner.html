@@ -267,6 +267,7 @@ function delta(cur,prev){
 let CUR_KEY=null, DATA=null;   // выбранный месяц + последние данные (для перерисовки)
 function render(d){
   DATA=d;
+  if(d.role==='seller'){ renderSeller(d); return; }   // продавец → свой экран
   // выбранный месяц: сохраняем выбор пользователя, иначе месяц по умолчанию
   if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.prevMonthKey;
   const pm = (d.months && d.months[CUR_KEY]) || d.prevMonth;   // блок выбранного месяца
@@ -485,6 +486,54 @@ function render(d){
 
   $('#content').innerHTML = html;
   const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; render(DATA); };
+  animateNumbers();
+}
+
+// ---- экран продавца: только свои метрики + счёт команды + свои должники ----
+function renderSeller(d){
+  if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.curMonthKey;
+  const m = (d.months||{})[CUR_KEY] || {};
+  const me = m.me;
+  const h1=$('#app h1'); if(h1) h1.textContent='Кабинет продаж';
+  $('#genLabel').textContent = (d.name||'')+' · мои продажи · обновлено '+(d.generatedLabel||'');
+  const monSel = (d.monthOrder&&d.monthOrder.length)
+    ? `<div style="display:flex;align-items:center;gap:10px;margin:2px 2px 4px">
+         <span class="muted" style="font-size:12px">Месяц:</span>
+         <select id="monthSel" style="background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer">
+           ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
+         </select></div>` : '';
+  let html = monSel;
+  html += secTitle('🎯','Мои продажи · '+mLabel(CUR_KEY));
+  if(me){
+    const teamPct = m.goal? Math.round(m.closings/m.goal*100) : null;
+    html += `<div class="grid g4">
+      ${kcard('Мои закрытия', me.closings??'—', 'сделок за месяц')}
+      ${kcard('Собрано 1-е', zl(me.fact), me.plan?('план '+zl(me.plan)):'')}
+      ${kcard('% моего плана', me.planPct!=null?pct(me.planPct):'—','по деньгам')}
+      ${kcard('Средний чек', zl(me.avgCheck))}
+    </div>`;
+    html += `<div class="grid g2" style="margin-top:14px">
+      ${sellerCard(me)}
+      <div class="card"><div class="lbl" style="margin-bottom:8px">Команда к плану месяца</div>
+        <div class="bar-track" style="height:12px"><div class="bar-fill" style="width:${Math.min(100,teamPct||0)}%"></div></div>
+        <div class="hint">Команда: ${m.closings??'—'} из ${m.goal??'—'} закрытий${teamPct!=null?(' · '+teamPct+'%'):''}. Твой вклад: ${me.closings??0}.</div>
+      </div>
+    </div>`;
+  } else {
+    html += `<div class="card"><div class="muted">Нет данных за этот месяц.</div></div>`;
+  }
+  const rc = d.receivables||{};
+  if(rc.count){
+    const todayIso=(d.generatedAt||'').slice(0,10);
+    html += secTitle('⏳','Мои клиенты — ждём оплат');
+    html += `<div class="card"><div class="lbl" style="margin-bottom:8px">Всего ждём ${zl(rc.total)} · ${rc.count} клиентов</div>
+      <table><thead><tr><th>Клиент</th><th class="n">Ждём</th><th class="n">Дедлайн</th><th>Статус</th></tr></thead>
+      <tbody>${rc.items.map(i=>{const od=i.deadline&&i.deadline<todayIso;
+        return `<tr><td>${i.name}</td><td class="n">${zl(i.remain)}</td><td class="n ${od?'neg':''}">${i.deadline?dLabel(i.deadline):'—'}</td><td class="muted" style="font-size:12px">${i.status}</td></tr>`}).join('')}</tbody></table>
+      <div class="hint">Красный дедлайн = просрочен — дожми оплату.</div></div>`;
+  }
+  $('#content').innerHTML = html;
+  const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; renderSeller(DATA); };
   animateNumbers();
 }
 

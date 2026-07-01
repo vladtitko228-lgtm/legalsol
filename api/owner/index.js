@@ -23,16 +23,26 @@ async function doLogin(req, res) {
   if (await H.rateLimitBlocked(ip, norm)) {
     return res.status(429).json({ error: 'too_many_attempts', message: 'Слишком много попыток. Подождите 15 минут.' });
   }
-  // Холостой scrypt при промахе телефона — чтобы время ответа не выдавало номер владельца.
-  const phoneOk = O.isOwnerPhone(norm);
-  const pwOk = H.verifyPassword(password, phoneOk ? O.OWNER_HASH : DUMMY);
-  if (!phoneOk || !pwOk) {
+  // Роли: владелец (env) или продавец (SELLERS). Холостой scrypt при промахе —
+  // чтобы время ответа не выдавало, чей это номер.
+  const seller = O.SELLERS[norm];
+  let ok = false, jwtPayload = null;
+  if (O.isOwnerPhone(norm)) {
+    ok = H.verifyPassword(password, O.OWNER_HASH);
+    jwtPayload = { role: 'owner' };
+  } else if (seller) {
+    ok = H.verifyPassword(password, seller.hash);
+    jwtPayload = { role: 'seller', name: seller.name };
+  } else {
+    H.verifyPassword(password, DUMMY);
+  }
+  if (!ok) {
     await H.rateLimitFail(ip, norm);
     return res.status(401).json({ error: 'invalid_credentials' });
   }
   await H.rateLimitReset(ip, norm);
-  O.setOwnerCookie(res, H.signJwt({ role: 'owner' }));
-  return res.status(200).json({ ok: true });
+  O.setOwnerCookie(res, H.signJwt(jwtPayload));
+  return res.status(200).json({ ok: true, role: jwtPayload.role, name: jwtPayload.name || '' });
 }
 
 async function doIngest(req, res) {
@@ -47,13 +57,37 @@ async function doIngest(req, res) {
   return res.status(200).json({ ok: true, bytes: str.length });
 }
 
+// Урезанный вид для продавца: только его метрики + счёт команды. Финансы (PnL),
+// учредители, реклама целиком, общая дебиторка — НЕ отдаются с сервера вообще.
+function sellerView(d, name) {
+  const months = {};
+  for (const [k, m] of Object.entries(d.months || {})) {
+    const me = (m.bySeller || []).find(s => s.name === name) || null;
+    months[k] = { key: k, goal: m.goal, closings: m.closings, contracted: m.contracted, me };
+  }
+  const myItems = ((d.receivables || {}).items || []).filter(i => i.closer === name);
+  return {
+    role: 'seller', name,
+    generatedAt: d.generatedAt, generatedLabel: d.generatedLabel, goal: d.goal,
+    curMonthKey: d.curMonthKey, defaultMonth: d.defaultMonth, monthOrder: d.monthOrder,
+    trend: d.trend, months,
+    receivables: { count: myItems.length,
+                   total: Math.round(myItems.reduce((s, i) => s + (i.remain || 0), 0)),
+                   items: myItems.slice(0, 20) },
+  };
+}
+
 async function doData(req, res) {
-  if (!O.requireOwner(req)) return res.status(401).json({ error: 'unauthorized' });
+  const auth = O.requireAuth(req);
+  if (!auth) return res.status(401).json({ error: 'unauthorized' });
   const raw = await O.kv('GET', O.KV_KEY);
   res.setHeader('Cache-Control', 'no-store');
   if (!raw) return res.status(200).json({ empty: true });
-  try { return res.status(200).json(typeof raw === 'string' ? JSON.parse(raw) : raw); }
-  catch (_) { return res.status(200).json({ empty: true }); }
+  try {
+    const d = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    if (auth.role === 'seller') return res.status(200).json(sellerView(d, auth.name));
+    return res.status(200).json(d);
+  } catch (_) { return res.status(200).json({ empty: true }); }
 }
 
 module.exports = async function handler(req, res) {
@@ -66,9 +100,11 @@ module.exports = async function handler(req, res) {
       case 'logout':
         O.clearOwnerCookie(res);
         return res.status(200).json({ ok: true });
-      case 'me':
-        if (!O.requireOwner(req)) return res.status(401).json({ error: 'unauthorized' });
-        return res.status(200).json({ ok: true, role: 'owner' });
+      case 'me': {
+        const a = O.requireAuth(req);
+        if (!a) return res.status(401).json({ error: 'unauthorized' });
+        return res.status(200).json({ ok: true, role: a.role, name: a.name || '' });
+      }
       case 'ingest':
         if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'method_not_allowed' }); }
         return await doIngest(req, res);
