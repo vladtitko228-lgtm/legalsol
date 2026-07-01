@@ -347,7 +347,24 @@ function render(d){
       ${kcard('ROI', `<span class="${(pnl.roi||0)<0?'neg':'pos'}">${pct(pnl.roi)}</span>`, pnl.newCases!=null?('новые сделки '+zl(pnl.newCases)):'')}
     </div>`;
     if((pnl.profit||0)<0){
-      html += `<div class="hint neg">⚠ Прибыль отрицательная: расходы (реклама+зп+налоги) выше поступлений. Основная выручка ещё в дебиторке — контракты ${zl(pm.contracted)}, собрано ${zl(pm.collected)} (не собрано ~${zl(pm.contracted-pm.collected)}).</div>`;
+      html += `<div class="hint neg">⚠ Прибыль отрицательная: расходы выше поступлений. Основная выручка ещё в дебиторке — контракты ${zl(pm.contracted)}, собрано ${zl(pm.collected)} (не собрано ~${zl(pm.contracted-pm.collected)}).</div>`;
+    }
+    // разбивка расходов по статьям + связка с выручкой
+    if(pnl.expenseCats && Object.keys(pnl.expenseCats).length){
+      const cats=Object.entries(pnl.expenseCats).map(([k,v])=>({name:k,amount:v})).sort((a,b)=>b.amount-a.amount);
+      const totExp=cats.reduce((s,c)=>s+c.amount,0), income=pnl.income||0;
+      html += `<div class="grid g2" style="margin-top:14px">
+        <div class="card"><div class="lbl" style="margin-bottom:10px">Расходы по статьям</div>
+          ${cats.map(c=>`<div style="margin:9px 0">
+            <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
+              <span>${c.name}</span><span class="muted">${zl(c.amount)} · ${Math.round(c.amount/totExp*100)}%</span></div>
+            <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${c.amount/totExp*100}%;background:${expColor(c.name)}"></div></div></div>`).join('')}
+          <div class="hint">Каждая статья — % от расходов. Реклама ${Math.round((pnl.expenseCats['Реклама']||0)/income*100)}% от выручки.</div>
+        </div>
+        <div class="card"><div class="lbl" style="margin-bottom:10px">Выручка → расходы</div>
+          ${incomeVsExpense(income, totExp, cats)}
+        </div>
+      </div>`;
     }
   }
 
@@ -464,6 +481,18 @@ function monthName(block,d,which){
   return mLabel(CUR_KEY || d.prevMonthKey || d.curMonthKey);
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
+function expColor(n){ return n==='Реклама'?'var(--gold)':n==='Зарплаты'?'var(--cyan)':n==='Операционные'?'var(--p-l)':n==='Налоги'?'var(--red)':'var(--p)'; }
+function incomeVsExpense(income, totExp, cats){
+  const max=Math.max(income,totExp)||1;
+  const stack=cats.map(c=>`<div style="height:100%;width:${c.amount/max*100}%;background:${expColor(c.name)}"></div>`).join('');
+  const loss=totExp-income;
+  return `<div style="font-size:12px;color:var(--tx-d);margin-bottom:5px">Выручка · ${zl(income)}</div>
+    <div class="bar-track" style="height:22px;margin-top:0"><div style="height:100%;width:${income/max*100}%;background:var(--em);border-radius:9px"></div></div>
+    <div style="font-size:12px;color:var(--tx-d);margin:14px 0 5px">Расходы · ${zl(totExp)}</div>
+    <div class="bar-track" style="height:22px;margin-top:0;display:flex;gap:1px;overflow:hidden">${stack}</div>
+    <div class="lgd">${cats.map(c=>`<span><span class="dot" style="background:${expColor(c.name)}"></span>${c.name}</span>`).join('')}</div>
+    <div class="hint ${loss>0?'neg':'pos'}">${loss>0?('Расходы больше выручки на '+zl(loss)+' ('+Math.round(loss/income*100)+'%) — отсюда минус в прибыли.'):('Прибыль '+zl(income-totExp))}</div>`;
+}
 
 // --- Страны: авто-флаг + русское имя по названию из GA4 (англ.) ---
 // ISO2 → эмодзи флага (региональные индикаторы). Название нормализуем через карту ниже.
