@@ -60,6 +60,16 @@
     letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
   .sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
   .sec-title .ic{font-size:15px}
+  /* сворачиваемые секции (второстепенное — под спойлером) */
+  details.acc{margin:30px 2px 0}
+  details.acc summary{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--tx-dd);font-weight:700;cursor:pointer;list-style:none;user-select:none}
+  details.acc summary::-webkit-details-marker{display:none}
+  details.acc summary::before{content:"▸";color:var(--p-l);transition:transform .2s;font-size:13px}
+  details.acc[open] summary::before{transform:rotate(90deg)}
+  details.acc summary::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+  details.acc summary:hover{color:var(--tx-d)}
+  details.acc .accb{margin-top:14px}
   /* строка здоровья бизнеса */
   .health{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px}
   @media(max-width:760px){.health{grid-template-columns:repeat(2,1fr)}}
@@ -287,25 +297,26 @@ function render(d){
 
   let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) : '');
 
-  // ===== ПРОГНОЗ (hero) — только для актуального (дефолтного) месяца =====
-  if(CUR_KEY===d.defaultMonth){
-  html += secTitle('🔮','Прогноз месяца');
-  const glow=fc.goalPct>=66?'glow-em':fc.goalPct>=33?'glow-gold':'glow-red';
-  html += `<div class="grid g3">
-    <div class="card hero ${glow}">
-      <div class="lbl" style="color:var(--tx-d)">Закрытий к концу месяца</div>
-      <div class="gauge-wrap" style="margin-top:6px">
-        ${gauge(fc.goalPct)}
-        <div><div class="val">${fc.projClosings}</div>
-        <div class="sub">из цели ${fc.goal} · ${fc.goalPct}%</div></div>
-      </div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,fc.goalPct)}%"></div></div>
-    </div>
-    ${kcard('Прогноз выручки (контракты)', zl(fc.projContracted),'сумма подписанных сделок за месяц')}
-    ${kcard('Прогноз прибыли (PnL)', `<span class="${(fc.projProfit||0)<0?'neg':'pos'}">${zl(fc.projProfit)}</span>`, pnl?('маржа '+pct(pnl.margin)):'')}
-  </div>
-  <div class="hint">${paceTxt}</div>`;
-  }
+  // ===== 👑 ГЛАВНОЕ — король-метрики: PnL · Реклама · Конверсия · Цель =====
+  html += secTitle('👑','Главное · '+monthName(pm,d));
+  const profitGlow = pnl ? (pnl.profit>0?'glow-em':'glow-red') : '';
+  html += `<div class="grid g4">
+    <div class="card k hero ${profitGlow}"><div class="lbl">Прибыль (PnL)</div>
+      <div class="val"><span class="${pnl&&pnl.profit<0?'neg':'pos'}">${zl(pnl?pnl.profit:null)}</span></div>
+      <div class="sub">доход ${zl(pnl?pnl.income:null)} · расход ${zl(pnl?pnl.expenses:null)}</div></div>
+    <div class="card k hero glow-gold"><div class="lbl">Реклама</div>
+      <div class="val">${zl(pm.budget)}</div>
+      <div class="sub">CPL ${zl(pm.cpl)} · закрытие ${zl(pm.cac)}</div></div>
+    <div class="card k hero"><div class="lbl">Конверсия лид → сделка</div>
+      <div class="val">${pct(pm.lead2sale)}</div>
+      <div class="sub">${nf(pm.leads)} лидов → ${pm.closings} закрытий</div></div>
+    ${CUR_KEY===d.defaultMonth
+      ? `<div class="card k hero"><div class="lbl">Прогноз закрытий</div>
+          <div class="gauge-wrap" style="margin-top:2px">${gauge(fc.goalPct)}
+          <div><div class="val">${fc.projClosings}</div><div class="sub">цель ${fc.goal}</div></div></div></div>`
+      : kcard('План месяца', (pm.closings??'—')+' / '+(pm.goal??'—'), pm.goal?(Math.round((pm.closings||0)/pm.goal*100)+'% плана'):'план не задан')}
+  </div>`;
+  if(CUR_KEY===d.defaultMonth) html += `<div class="hint">${paceTxt}</div>`;
 
   // ===== ПРОДАЖИ =====
   const _pi = d.trend.findIndex(t=>t.month===CUR_KEY);
@@ -343,7 +354,7 @@ function render(d){
   }
 
   // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
-  html += secTitle('📣','Реклама · '+monthName(pm,d,'prev')+' · zł');
+  html += accO('📣','Реклама · '+monthName(pm,d)+' · подробно', false);
   html += `<div class="grid g4">
     ${kcard('Расход', zl(pm.budget), pm.activeDays+' активных дней')}
     ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
@@ -363,11 +374,12 @@ function render(d){
   </div>
   <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
     ${splitBar(pm.adLead, pm.adIncoming)}
-    <div class="hint">Метка из чата оплат (парсер в работе). Пусто = сделка ещё не отмечена.</div></div>`;
+    <div class="hint">Метка из чата оплат (тегируется ботом). Пусто = сделка ещё не отмечена.</div></div>`;
+  html += accC();
 
   // ===== ФИНАНСЫ (PnL) =====
   if(pnl){
-    html += secTitle('🧾','Финансы · PnL '+ (pnl.month||''));
+    html += accO('🧾','Финансы · PnL '+(pnl.month||'')+' · подробно', false);
     html += `<div class="grid g4">
       ${kcard('Доход', zl(pnl.income),'поступления за месяц')}
       ${kcard('Расход', zl(pnl.expenses))}
@@ -417,10 +429,12 @@ function render(d){
     }
   }
 
+  if(pnl) html += accC();
+
   // ===== УЧРЕДИТЕЛИ (глобально) =====
   if(d.founders){
     const f=d.founders;
-    html += secTitle('🤝','Учредители');
+    html += accO('🤝','Учредители · кредит Акима и доли', false);
     const repPct = f.akimTotal? Math.round((f.akimRepaid||0)/f.akimTotal*100):0;
     html += `<div class="grid g3">
       ${kcard('Долг Акиму (осталось)', zl(f.akimRemaining), f.akimRepaid?('погашено '+zl(f.akimRepaid)+' из '+zl(f.akimTotal)):('всего '+zl(f.akimTotal)+' · нал'))}
@@ -436,6 +450,7 @@ function render(d){
     html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Кредит Акима (заёмные, всё нал) — из чего состоит</div>
       <table><tbody>${f.akim.items.map(i=>`<tr><td>${i.label}${i.cash?' <span class="chip">нал</span>':''}</td><td class="n">${zl(i.amount)}</td></tr>`).join('')}
       <tr><td style="font-weight:700">Итого</td><td class="n" style="font-weight:750;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>`;
+    html += accC();
   }
 
   // ===== ЖДЁМ ОПЛАТ (дебиторка, глобально — не зависит от выбранного месяца) =====
@@ -463,7 +478,7 @@ function render(d){
   if(site){
     const per = site.period? (`${site.period.days} дней · до ${dLabel(site.period.end)}`):'';
     const staleDays = site.period? Math.round((new Date(d.generatedAt)-new Date(site.period.end))/864e5) : 0;
-    html += secTitle('🌐','Сайт · '+per+(staleDays>3?' ⚠':''));
+    html += accO('🌐','Сайт · '+per+(staleDays>3?' ⚠':''), false);
     if(staleDays>3) html += `<div class="hint" style="margin:-6px 2px 10px">⚠ Данные сайта устарели на ${staleDays} дн. — нужно прогнать analytics-agent.</div>`;
     html += `<div class="grid g4">
       ${kcard('Пользователи', nf(site.users), 'сессий '+nf(site.sessions))}
@@ -563,6 +578,9 @@ function animateNumbers(){
 }
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
+// сворачиваемая секция: accO(...)+контент+accC() — второстепенное по умолчанию свёрнуто
+function accO(ic,t,open){ return `<details class="acc"${open?' open':''}><summary><span class="ic">${ic}</span>${t}</summary><div class="accb">`; }
+function accC(){ return `</div></details>`; }
 function renderHealth(d, pm, fc, pnl){
   const C={g:'#34d399',y:'#fbbf24',r:'#fb7185'};
   const rc=d.receivables||{};
@@ -592,11 +610,11 @@ function sellerCard(s){
       <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,s.planPct||0)}%;background:${col}"></div></div>
       <div style="font-size:11px;color:var(--tx-dd);margin-top:4px">${zl(s.fact)} из ${zl(s.plan)}</div></div>`:''}
     <div class="grid g2" style="margin-top:14px;gap:12px">
+      ${cell('Лидов в работе', s.leadsTaken!=null? (nf(s.leadsTaken)+(s.closings&&s.leadsTaken?(' <span class="muted" style="font-size:12px">→ '+Math.round(s.closings/s.leadsTaken*100)+'%</span>'):'')) : '<span class="muted" style="font-size:12px">вкладку не ведёт ⚠</span>')}
       ${cell('Выручка (1+2)', zl(s.revenue))}
       ${cell('Средний чек', zl(s.avgCheck))}
       ${cell('Собрано 1-я', zl(s.fact))}
       ${cell('Ждём 2-я', zl(s.pay2))}
-      ${s.adSpend!=null?cell('Реклама (кабинет)', zl(s.adSpend)):''}
       ${s.costPerClose!=null?cell('Стоимость закрытия', zl(s.costPerClose)):''}
     </div>
     ${s.services&&s.services.length?`<div style="margin-top:14px">
