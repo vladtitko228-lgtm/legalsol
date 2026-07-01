@@ -370,7 +370,7 @@ function render(d){
       <div class="hint">ROAS ${pm.roasCollected||'—'}× по собранному · ${pm.roasContracted||'—'}× по контрактам</div></div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
       ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
-      <div class="hint">Кабинет 1 — Талыш · Кабинет 2 — Андриан · каб3 и TikTok — общие.</div></div>
+      <div class="hint">FB-кабинеты и TikTok — общий лидовый трафик (zł). Личные WhatsApp-кабинеты (входящие, $) — в карточках продавцов.</div></div>
   </div>
   <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
     ${splitBar(pm.adLead, pm.adIncoming)}
@@ -615,7 +615,8 @@ function sellerCard(s){
       ${cell('Средний чек', zl(s.avgCheck))}
       ${cell('Собрано 1-я', zl(s.fact))}
       ${cell('Ждём 2-я', zl(s.pay2))}
-      ${s.costPerClose!=null?cell('Стоимость закрытия', zl(s.costPerClose)):''}
+      ${s.wa?cell('WA-кабинет · входящие', '$'+nf(s.wa.spendUsd)+' <span class="muted" style="font-size:12px">· '+s.wa.leads+' лидов</span>'):''}
+      ${s.wa&&s.wa.cpl!=null?cell('CPL входящих (WA)', '$'+s.wa.cpl):''}
     </div>
     ${s.services&&s.services.length?`<div style="margin-top:14px">
       <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Что закрывает</div>
