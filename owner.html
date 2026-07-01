@@ -132,6 +132,7 @@ const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU').
 const zl = n => (n==null||isNaN(n))?'—':nf(n)+' zł';
 const pct = n => (n==null||isNaN(n))?'—':(Math.round(n*10)/10)+'%';
 const RUM = ['','янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const dLabel = iso => { const p=String(iso).split('-'); return p[2]+'.'+p[1]; };  // 2026-07-15 → 15.07
 const mLabel = ym => { const [y,m]=ym.split('-'); return RUM[+m]+' '+y.slice(2); };
 
 // ---- auth flow ----
@@ -324,6 +325,27 @@ function render(d){
     if((pnl.profit||0)<0){
       html += `<div class="hint neg">⚠ Прибыль отрицательная: расходы (реклама+зп+налоги) выше поступлений. Основная выручка ещё в дебиторке — контракты ${zl(pm.contracted)}, собрано ${zl(pm.collected)} (не собрано ~${zl(pm.contracted-pm.collected)}).</div>`;
     }
+  }
+
+  // ===== ЖДЁМ ОПЛАТ (дебиторка, глобально — не зависит от выбранного месяца) =====
+  if(d.receivables && d.receivables.count){
+    const rc=d.receivables, todayKey=d.curMonthKey, todayIso=(d.generatedAt||'').slice(0,10);
+    const monthCards = rc.byMonth.filter(m=>m.month!=='—').map(m=>{
+      const overdue = m.month < todayKey;
+      return kcard((overdue?'⚠ ':'')+mLabel(m.month), zl(m.sum), m.count+' сделок'+(overdue?' · просрочено':''));
+    });
+    const noDate = rc.byMonth.find(m=>m.month==='—');
+    html += secTitle('⏳','Ждём оплат · дебиторка (все открытые сделки)');
+    html += `<div class="grid g4">
+      ${kcard('Всего ждём', zl(rc.total), rc.count+' открытых сделок')}
+      ${monthCards.slice(0,2).join('')}
+      ${noDate?kcard('Без дедлайна', zl(noDate.sum), noDate.count+' — проставить дату'):''}
+    </div>`;
+    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Ближайшие оплаты</div>
+      <table><thead><tr><th>Клиент</th><th>Продавец</th><th class="n">Ждём</th><th class="n">Дедлайн</th><th>Статус</th></tr></thead>
+      <tbody>${rc.items.slice(0,15).map(i=>{const od=i.deadline&&i.deadline<todayIso;
+        return `<tr><td>${i.name}</td><td class="muted">${i.closer}</td><td class="n">${zl(i.remain)}</td><td class="n ${od?'neg':''}">${i.deadline?dLabel(i.deadline):'—'}</td><td class="muted" style="font-size:12px">${i.status}</td></tr>`}).join('')}</tbody></table>
+      <div class="hint">Ближайшие 15 из ${rc.count}. Красный дедлайн = просрочен. Собрать это → уйдёт в плюс.</div></div>`;
   }
 
   // ===== САЙТ =====
