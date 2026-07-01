@@ -102,6 +102,8 @@
   th{color:var(--tx-dd);font-weight:600;font-size:12px}
   td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
   tr:last-child td{border-bottom:0}
+  tbody tr{transition:background .12s}
+  tbody tr:hover{background:rgba(139,130,232,.07)}
   .rowbar{height:6px;border-radius:6px;background:var(--p);display:inline-block;vertical-align:middle;margin-left:8px}
   .flex{display:flex;align-items:center;gap:10px}
   .lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx-d);margin-top:10px}
@@ -202,14 +204,23 @@ async function loadData(force){
 }
 
 // ---- small chart helpers (inline SVG) ----
-function sparkline(pts, {w=560,h=70,color='var(--p-l)',fill=true}={}){
+let __sg=0;
+function sparkColor(c){ return c==='var(--gold)'?'#fde047':c==='var(--p-l)'?'#8B82E8':c==='var(--em)'?'#34d399':c==='var(--cyan)'?'#38bdf8':(c||'#8B82E8'); }
+function sparkline(pts, {w=560,h=92,color='var(--p-l)'}={}){
+  const col=sparkColor(color), id='sg'+(++__sg);
   const vals = pts.map(p=>p||0); const max=Math.max(1,...vals);
   const dx = w/(Math.max(1,vals.length-1));
-  const xy = vals.map((v,i)=>[i*dx, h-4-(v/max)*(h-12)]);
+  const xy = vals.map((v,i)=>[i*dx, h-6-(v/max)*(h-18)]);
   const line = xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
-  const area = fill ? `<path d="${line} L ${w} ${h} L 0 ${h} Z" fill="${color}" opacity=".13"/>` : '';
+  const peakI = vals.indexOf(Math.max(...vals));
+  const grid = [.25,.5,.75].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('');
   return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
-    ${area}<path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/></svg>`;
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${col}" stop-opacity=".33"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
+    ${grid}
+    <path d="${line} L ${w} ${h} L 0 ${h} Z" fill="url(#${id})"/>
+    <path d="${line}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="${xy[peakI][0].toFixed(1)}" cy="${xy[peakI][1].toFixed(1)}" r="3.5" fill="${col}" stroke="#0f0c24" stroke-width="2"/></svg>`;
 }
 function gauge(p){ // 0..100+
   const v=Math.max(0,Math.min(100,p)); const r=42,c=2*Math.PI*r, off=c*(1-v/100);
@@ -347,7 +358,7 @@ function render(d){
       <div class="hint">ROAS ${pm.roasCollected||'—'}× по собранному · ${pm.roasContracted||'—'}× по контрактам</div></div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
       ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
-      <div class="hint">Привязка кабинет→продавец уточняется.</div></div>
+      <div class="hint">Кабинет 1 — Талыш · Кабинет 2 — Андриан · каб3 и TikTok — общие.</div></div>
   </div>
   <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
     ${splitBar(pm.adLead, pm.adIncoming)}
@@ -449,8 +460,10 @@ function render(d){
 
   // ===== САЙТ =====
   if(site){
-    const per = site.period? (`${site.period.days} дней`):'';
-    html += secTitle('🌐','Сайт · '+per);
+    const per = site.period? (`${site.period.days} дней · до ${dLabel(site.period.end)}`):'';
+    const staleDays = site.period? Math.round((new Date(d.generatedAt)-new Date(site.period.end))/864e5) : 0;
+    html += secTitle('🌐','Сайт · '+per+(staleDays>3?' ⚠':''));
+    if(staleDays>3) html += `<div class="hint" style="margin:-6px 2px 10px">⚠ Данные сайта устарели на ${staleDays} дн. — нужно прогнать analytics-agent.</div>`;
     html += `<div class="grid g4">
       ${kcard('Пользователи', nf(site.users), 'сессий '+nf(site.sessions))}
       ${kcard('Просмотры', nf(site.views))}
@@ -472,6 +485,32 @@ function render(d){
 
   $('#content').innerHTML = html;
   const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; render(DATA); };
+  animateNumbers();
+}
+
+// плавный «набег» цифр (count-up) для KPI; в конце ставит точный исходный текст
+function animateNumbers(){
+  document.querySelectorAll('.k .val, .hero .val, .sig .sv').forEach(el=>{
+    if(el.dataset.anim) return; el.dataset.anim='1';
+    let t=el; while(t.children.length===1 && t.children[0].tagName==='SPAN') t=t.children[0];
+    const txt=t.textContent;
+    if(txt.includes('—')) return;
+    const m=txt.match(/-?\d[\d\s\u00a0]*(?:[.,]\d+)?/);
+    if(!m) return;
+    const numStr=m[0].replace(/[\s\u00a0]+$/,'');
+    const target=parseFloat(numStr.replace(/[\s\u00a0]/g,'').replace(',','.'));
+    if(isNaN(target)) return;
+    const prefix=txt.slice(0,m.index), suffix=txt.slice(m.index+numStr.length);
+    const dec=/[.,]\d/.test(numStr)?1:0;
+    const start=performance.now(), dur=700;
+    const fmt=v=>dec? v.toFixed(1).replace('.',',') : Math.round(v).toLocaleString('ru-RU');
+    (function tick(){
+      let p=Math.min(1,(performance.now()-start)/dur); p=1-Math.pow(1-p,3);
+      t.textContent = p<1 ? prefix+fmt(target*p)+suffix : txt;
+      if(p<1) requestAnimationFrame(tick);
+    })();
+    setTimeout(function(){ t.textContent=txt; }, dur+120);  // страховка: финал всегда точный
+  });
 }
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
