@@ -62,6 +62,10 @@
     {
       "source": "/housing",
       "destination": "/housing.html"
+    },
+    {
+      "source": "/owner",
+      "destination": "/owner.html"
     }
   ],
   "buildCommand": "cp _index.html api/_index.html",
@@ -107,6 +111,15 @@
     },
     {
       "source": "/api/cabinet/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        }
+      ]
+    },
+    {
+      "source": "/api/owner/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Legal Solutions — Кабинет владельца</title>
+<link rel="icon" href="/favicon.svg">
+<style>
+  :root{
+    --bg:#14112e; --bg2:#1c1842; --card:#221d52; --card2:#2a2560;
+    --line:#39336f; --p:#5B52CC; --p-l:#8B82E8; --p-p:#B8B2F5;
+    --gold:#fde047; --em:#34d399; --red:#f87171; --amber:#fbbf24;
+    --tx:#EEEDF8; --tx-d:#B8B2F5; --tx-dd:#8f89c4;
+    --r:16px; --sh:0 8px 30px rgba(0,0,0,.35);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#2a2560 0%,var(--bg) 55%);color:var(--tx);
+    min-height:100vh;-webkit-font-smoothing:antialiased}
+  a{color:var(--p-l)}
+  .wrap{max-width:1180px;margin:0 auto;padding:20px 18px 60px}
+  .muted{color:var(--tx-dd)}
+  .pos{color:var(--em)} .neg{color:var(--red)}
+
+  /* ---- login ---- */
+  #login{max-width:400px;margin:9vh auto;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh)}
+  #login h1{font-size:20px;margin:0 0 4px}
+  #login p{margin:0 0 22px;color:var(--tx-d);font-size:14px}
+  .fld{margin-bottom:14px}
+  .fld label{display:block;font-size:12px;color:var(--tx-d);margin-bottom:6px}
+  .fld input{width:100%;padding:12px 14px;border-radius:11px;border:1px solid var(--line);
+    background:var(--bg2);color:var(--tx);font-size:15px;outline:none}
+  .fld input:focus{border-color:var(--p-l)}
+  .btn{width:100%;padding:12px;border:0;border-radius:11px;background:var(--p);color:#fff;
+    font-size:15px;font-weight:600;cursor:pointer;transition:.15s}
+  .btn:hover{background:#6a61e0} .btn:disabled{opacity:.6;cursor:default}
+  #err{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
+
+  /* ---- header ---- */
+  header{display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p-l));
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
+  header h1{font-size:17px;margin:0;line-height:1.2}
+  header .sub{font-size:12px;color:var(--tx-dd)}
+  .spacer{flex:1}
+  .ghost{background:var(--card2);border:1px solid var(--line);color:var(--tx-d);padding:8px 14px;
+    border-radius:10px;font-size:13px;cursor:pointer}
+  .ghost:hover{color:var(--tx);border-color:var(--p-l)}
+
+  /* ---- layout ---- */
+  .sec-title{display:flex;align-items:center;gap:9px;margin:30px 2px 12px;font-size:13px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
+  .sec-title .ic{font-size:15px}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+  @media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+  .card.k{padding:16px 18px}
+  .k .lbl{font-size:12px;color:var(--tx-dd);margin-bottom:7px;display:flex;justify-content:space-between}
+  .k .val{font-size:26px;font-weight:750;letter-spacing:-.02em}
+  .k .sub{font-size:12px;color:var(--tx-d);margin-top:5px}
+  .chip{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--card2);color:var(--p-p)}
+  .chip.up{background:rgba(52,211,153,.14);color:var(--em)}
+  .chip.dn{background:rgba(248,113,113,.14);color:var(--red)}
+
+  /* hero */
+  .hero{background:linear-gradient(135deg,#2a2560,#221d52);border:1px solid #4a4290}
+  .hero .val{font-size:34px}
+  .gauge-wrap{display:flex;align-items:center;gap:18px}
+  .bar-track{height:9px;border-radius:9px;background:var(--bg2);overflow:hidden;margin-top:10px}
+  .bar-fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--p),var(--gold))}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+  th{color:var(--tx-dd);font-weight:600;font-size:12px}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .rowbar{height:6px;border-radius:6px;background:var(--p);display:inline-block;vertical-align:middle;margin-left:8px}
+  .flex{display:flex;align-items:center;gap:10px}
+  .lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx-d);margin-top:10px}
+  .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
+  .hint{font-size:12px;color:var(--tx-dd);margin-top:8px;line-height:1.5}
+  .hidden{display:none!important}
+  .center{text-align:center;color:var(--tx-dd);padding:40px}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="hidden">
+  <h1>Кабинет владельца</h1>
+  <p>Legal Solutions · вход по номеру телефона</p>
+  <form id="loginForm">
+    <div class="fld"><label>Номер телефона</label>
+      <input id="phone" type="tel" inputmode="tel" placeholder="+48 …" autocomplete="username" required></div>
+    <div class="fld"><label>Пароль</label>
+      <input id="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn" id="loginBtn" type="submit">Войти</button>
+    <div id="err"></div>
+  </form>
+</div>
+
+<!-- DASHBOARD -->
+<div id="app" class="wrap hidden">
+  <header>
+    <div class="logo">LS</div>
+    <div>
+      <h1>Кабинет владельца</h1>
+      <div class="sub" id="genLabel">—</div>
+    </div>
+    <div class="spacer"></div>
+    <button class="ghost" id="refreshBtn">Обновить</button>
+    <button class="ghost" id="logoutBtn">Выход</button>
+  </header>
+  <div id="content"></div>
+</div>
+
+<div id="boot" class="center wrap">Загрузка…</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const api = (p,o={}) => fetch('/api/owner/'+p,{credentials:'same-origin',...o});
+
+// ---- formatting ----
+const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
+const zl = n => (n==null||isNaN(n))?'—':nf(n)+' zł';
+const pct = n => (n==null||isNaN(n))?'—':(Math.round(n*10)/10)+'%';
+const RUM = ['','янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const mLabel = ym => { const [y,m]=ym.split('-'); return RUM[+m]+' '+y.slice(2); };
+
+// ---- auth flow ----
+async function boot(){
+  try{
+    const r = await api('me');
+    if(r.status===200){ showApp(); } else { showLogin(); }
+  }catch(_){ showLogin(); }
+}
+function showLogin(){ $('#boot').classList.add('hidden'); $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#phone').focus(); }
+function showApp(){ $('#boot').classList.add('hidden'); $('#login').classList.add('hidden'); $('#app').classList.remove('hidden'); loadData(); }
+
+$('#loginForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=$('#loginBtn'); btn.disabled=true; $('#err').textContent='';
+  try{
+    const r = await api('login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phone:$('#phone').value,password:$('#password').value})});
+    const j = await r.json().catch(()=>({}));
+    if(r.status===200){ showApp(); }
+    else if(r.status===429){ $('#err').textContent = j.message||'Слишком много попыток. Подождите.'; }
+    else { $('#err').textContent = 'Неверный номер или пароль'; }
+  }catch(_){ $('#err').textContent='Ошибка сети'; }
+  btn.disabled=false;
+});
+$('#logoutBtn').addEventListener('click', async ()=>{ await api('logout',{method:'POST'}); showLogin(); });
+$('#refreshBtn').addEventListener('click', ()=>loadData(true));
+
+// ---- data ----
+async function loadData(force){
+  $('#content').innerHTML = '<div class="center">Обновляю данные…</div>';
+  try{
+    const r = await api('data'+(force?'?t='+Date.now():''));
+    if(r.status===401){ showLogin(); return; }
+    const d = await r.json();
+    if(d.empty){ $('#content').innerHTML='<div class="center">Данные ещё не загружены.<br>Запусти сборщик: <code>python3 owner-dashboard/build_dashboard.py --push</code></div>'; return; }
+    render(d);
+  }catch(e){ $('#content').innerHTML='<div class="center neg">Ошибка загрузки данных</div>'; }
+}
+
+// ---- small chart helpers (inline SVG) ----
+function sparkline(pts, {w=560,h=70,color='var(--p-l)',fill=true}={}){
+  const vals = pts.map(p=>p||0); const max=Math.max(1,...vals);
+  const dx = w/(Math.max(1,vals.length-1));
+  const xy = vals.map((v,i)=>[i*dx, h-4-(v/max)*(h-12)]);
+  const line = xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area = fill ? `<path d="${line} L ${w} ${h} L 0 ${h} Z" fill="${color}" opacity=".13"/>` : '';
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
+    ${area}<path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/></svg>`;
+}
+function gauge(p){ // 0..100+
+  const v=Math.max(0,Math.min(100,p)); const r=42,c=2*Math.PI*r, off=c*(1-v/100);
+  const col = p>=100?'var(--em)':p>=66?'var(--gold)':p>=33?'var(--amber)':'var(--red)';
+  return `<svg width="104" height="104" viewBox="0 0 104 104">
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="9"/>
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round"
+      stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 52 52)"/>
+    <text x="52" y="49" text-anchor="middle" fill="var(--tx)" font-size="21" font-weight="750">${p}%</text>
+    <text x="52" y="66" text-anchor="middle" fill="var(--tx-dd)" font-size="10">цели</text></svg>`;
+}
+function barsMonthly(trend,goal){
+  const max=Math.max(goal,...trend.map(t=>t.closings));
+  return `<div class="flex" style="align-items:flex-end;gap:16px;height:130px;padding-top:8px">`+
+    trend.map(t=>{const hh=(t.closings/max)*110;
+      return `<div style="flex:1;text-align:center">
+        <div class="muted" style="font-size:12px;margin-bottom:5px">${t.closings}</div>
+        <div style="height:${hh}px;background:linear-gradient(180deg,var(--p-l),var(--p));border-radius:7px 7px 3px 3px"></div>
+        <div class="muted" style="font-size:11px;margin-top:6px">${mLabel(t.month)}</div></div>`}).join('')
+    +`</div>`;
+}
+function hbars(items, valOf, labOf, colorOf){
+  const max=Math.max(1,...items.map(valOf));
+  return items.map(it=>`<div style="margin:9px 0">
+    <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
+      <span>${labOf(it)}</span><span class="muted" style="font-variant-numeric:tabular-nums">${valOf(it)}</span></div>
+    <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${valOf(it)/max*100}%;background:${colorOf?colorOf(it):'var(--p)'}"></div></div>
+  </div>`).join('');
+}
+
+// ---- KPI card ----
+function kcard(lbl,val,sub,chip){
+  return `<div class="card k"><div class="lbl"><span>${lbl}</span>${chip||''}</div>
+    <div class="val">${val}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+}
+function delta(cur,prev){
+  if(!prev||prev===0) return '';
+  const g=Math.round((cur-prev)/prev*100);
+  return `<span class="chip ${g>=0?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`;
+}
+
+// ---- render ----
+function render(d){
+  const cm=d.currentMonth, pm=d.prevMonth, fc=d.forecast, pnl=d.pnl, site=d.site;
+  $('#genLabel').textContent = 'обновлено '+ (d.generatedLabel||'') + (d.goal?(' · цель '+d.goal+' закрытий/мес'):'');
+  const paceTxt = fc.paceNote==='mtd'
+    ? `Прогноз по темпу месяца (${fc.daysElapsed} из ${fc.daysInMonth} дней, уже закрыто ${fc.closingsMTD}).`
+    : `Текущий месяц только начался — прогноз построен по итогам прошлого месяца (${mLabel(fc.baseMonth)}).`;
+
+  let html='';
+
+  // ===== ПРОГНОЗ (hero) =====
+  html += secTitle('🔮','Прогноз месяца');
+  html += `<div class="grid g3">
+    <div class="card hero">
+      <div class="lbl" style="color:var(--tx-d)">Закрытий к концу месяца</div>
+      <div class="gauge-wrap" style="margin-top:6px">
+        ${gauge(fc.goalPct)}
+        <div><div class="val">${fc.projClosings}</div>
+        <div class="sub">из цели ${fc.goal} · ${fc.goalPct}%</div></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,fc.goalPct)}%"></div></div>
+    </div>
+    ${kcard('Прогноз выручки (контракты)', zl(fc.projContracted),'сумма подписанных сделок за месяц')}
+    ${kcard('Прогноз прибыли (PnL)', `<span class="${(fc.projProfit||0)<0?'neg':'pos'}">${zl(fc.projProfit)}</span>`, pnl?('маржа '+pct(pnl.margin)):'')}
+  </div>
+  <div class="hint">${paceTxt}</div>`;
+
+  // ===== ПРОДАЖИ =====
+  const growth = delta(pm.closings, (d.trend[d.trend.length-2]||{}).closings);
+  html += secTitle('💰','Продажи · '+monthName(pm,d,'prev'));
+  html += `<div class="grid g4">
+    ${kcard('Закрытий', pm.closings, 'сделок за месяц', growth)}
+    ${kcard('Контракты', zl(pm.contracted), 'сумма подписанных сделок')}
+    ${kcard('Собрано', zl(pm.collected), 'фактически поступило')}
+    ${kcard('Средний чек', zl(pm.avgDeal))}
+  </div>`;
+  html += `<div class="grid g2" style="margin-top:14px">
+    <div class="card"><div class="lbl" style="margin-bottom:6px">Динамика закрытий по месяцам</div>
+      ${barsMonthly(d.trend, d.goal)}</div>
+    <div class="card"><div class="lbl" style="margin-bottom:10px">Продавцы (${monthName(pm,d,'prev')})</div>
+      ${pm.bySeller.length?hbars(pm.bySeller,x=>x.closings,x=>x.name,()=>'var(--p-l)'):'<div class="muted">нет данных</div>'}
+      <div class="hint">Контракты: ${pm.bySeller.map(s=>s.name+' — '+zl(s.contracted)).join(' · ')}</div>
+    </div>
+  </div>`;
+  if(pm.byService && pm.byService.length){
+    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Услуги — что закрывают</div>
+      ${hbars(pm.byService,x=>x.count,x=>x.service,()=>'var(--p)')}</div>`;
+  }
+
+  // ===== РЕКЛАМА =====
+  html += secTitle('📣','Реклама · '+monthName(pm,d,'prev'));
+  html += `<div class="grid g4">
+    ${kcard('Бюджет', nf(pm.budget), pm.activeDays+' активных дней')}
+    ${kcard('Лидов', nf(pm.leads),'заявок с рекламы')}
+    ${kcard('Цена лида (CPL)', nf(pm.cpl))}
+    ${kcard('Цена клика (CPC)', pm.cpc!=null?pm.cpc.toFixed(2):'—')}
+  </div>`;
+  const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
+  html += `<div class="grid g2" style="margin-top:14px">
+    <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (последние ${adLeads.length})</div>
+      ${adLeads.length?sparkline(adLeads,{color:'var(--gold)'}):'<div class="muted">нет данных</div>'}
+      <div class="hint">Охват ${nf(pm.reach)} · клики ${nf(pm.clicks)}</div></div>
+    <div class="card"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
+      ${splitBar(pm.adLead, pm.adIncoming)}
+      <div class="hint">Помечается в таблице закрытий (чат оплат). Пусто = сделка не отмечена как рекламная.</div></div>
+  </div>`;
+
+  // ===== ФИНАНСЫ (PnL) =====
+  if(pnl){
+    html += secTitle('🧾','Финансы · PnL '+ (pnl.month||''));
+    html += `<div class="grid g4">
+      ${kcard('Доход', zl(pnl.income),'поступления за месяц')}
+      ${kcard('Расход', zl(pnl.expenses))}
+      ${kcard('Прибыль', `<span class="${(pnl.profit||0)<0?'neg':'pos'}">${zl(pnl.profit)}</span>`,'маржа '+pct(pnl.margin))}
+      ${kcard('ROI', `<span class="${(pnl.roi||0)<0?'neg':'pos'}">${pct(pnl.roi)}</span>`, pnl.newCases!=null?('новые сделки '+zl(pnl.newCases)):'')}
+    </div>`;
+    if((pnl.profit||0)<0){
+      html += `<div class="hint neg">⚠ Прибыль отрицательная: расходы (реклама+зп+налоги) выше поступлений. Основная выручка ещё в дебиторке — контракты ${zl(pm.contracted)}, собрано ${zl(pm.collected)} (не собрано ~${zl(pm.contracted-pm.collected)}).</div>`;
+    }
+  }
+
+  // ===== САЙТ =====
+  if(site){
+    const per = site.period? (`${site.period.days} дней`):'';
+    html += secTitle('🌐','Сайт · '+per);
+    html += `<div class="grid g4">
+      ${kcard('Пользователи', nf(site.users), 'сессий '+nf(site.sessions))}
+      ${kcard('Просмотры', nf(site.views))}
+      ${kcard('Клики WhatsApp', nf(site.wa),'звонки '+nf(site.phone))}
+      ${kcard('Конверсия', pct(site.conv),'отказы '+pct(site.bounce))}
+    </div>`;
+    const traf=(site.daily||[]).map(x=>x.users||0);
+    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">Трафик по дням</div>
+      ${traf.length?sparkline(traf,{color:'var(--p-l)'}):''}</div>`;
+    html += `<div class="grid g2" style="margin-top:14px">
+      <div class="card"><div class="lbl" style="margin-bottom:10px">Источники трафика</div>
+        ${hbars((site.sources||[]).slice(0,7),x=>x.sessions,x=>srcLabel(x),x=>x.paid?'var(--gold)':'var(--p-l)')}</div>
+      <div class="card"><div class="lbl" style="margin-bottom:10px">Страны</div>
+        <table><tbody>${(site.countries||[]).map(c=>`<tr><td>${c.country}${c.bot?' <span class="chip">бот</span>':''}</td><td class="n">${nf(c.users)}</td></tr>`).join('')}</tbody></table></div>
+    </div>`;
+  }
+
+  html += `<div class="hint" style="margin-top:26px;text-align:center">Источники: таблицы закрытий · реклама · PnL · GA4. Всего сделок в базе: ${d.closingsTotal||'—'}.</div>`;
+
+  $('#content').innerHTML = html;
+}
+
+function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
+function monthName(block,d,which){
+  // подпись месяца для prevMonth из тренда
+  const t = d.trend[d.trend.length-1]; return t?mLabel(t.month):'месяц';
+}
+function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
+function splitBar(lead,inc){
+  const tot=(lead||0)+(inc||0);
+  if(!tot) return '<div class="muted">нет отмеченных</div>';
+  const lp=lead/tot*100;
+  return `<div class="bar-track" style="height:22px;border-radius:8px;display:flex">
+    <div style="width:${lp}%;background:var(--p)"></div><div style="flex:1;background:var(--gold)"></div></div>
+    <div class="lgd"><span><span class="dot" style="background:var(--p)"></span>Лиды: ${lead}</span>
+    <span><span class="dot" style="background:var(--gold)"></span>Входящие: ${inc}</span></div>`;
+}
+
+boot();
+</script>
+</body>
+</html>
