@@ -5,6 +5,7 @@ const {
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
+  isPaymentPlanNote, parsePaymentPlanNote,
   CLIENT_MSG_PREFIX, isClientMsgNote, stripClientMsgPrefix,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
   CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
@@ -92,6 +93,7 @@ module.exports = async function handler(req, res) {
         let updates = [];
         let payments = [];
         let chat = [];
+        let plan = null;
         try {
           const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
           const all = (nRes?._embedded?.notes || []).map(n => ({
@@ -117,6 +119,12 @@ module.exports = async function handler(req, res) {
             })
             .filter(p => p.amount > 0)
             .sort((a, b) => b.createdAt - a.createdAt);
+
+          // План рассрочки — последняя заметка «ПЛАН ОПЛАТ» (пишет TG-бот, /plan)
+          const planNote = all
+            .filter(n => isPaymentPlanNote(n.text))
+            .sort((a, b) => b.createdAt - a.createdAt)[0];
+          if (planNote) plan = parsePaymentPlanNote(planNote.text);
 
           // Двусторонний чат: КЛИЕНТУ: → менеджер, ОТ КЛИЕНТА: → клиент. По возрастанию времени.
           chat = all
@@ -161,6 +169,7 @@ module.exports = async function handler(req, res) {
           paidTotal,
           remaining: price > paidTotal ? price - paidTotal : 0,
           payments,
+          plan,
           createdAt: lead.created_at * 1000,
           updatedAt: lead.updated_at * 1000,
           pipelineId: lead.pipeline_id,

@@ -234,6 +234,34 @@ function parsePaymentNote(text) {
   return { amount: amount || 0, method, dateText, raw: t };
 }
 
+// === План рассрочки ===
+// Заметку «ПЛАН ОПЛАТ» пишет TG-бот (cabinet-bot/payments.js → planNotePlain):
+//   ПЛАН ОПЛАТ · всего 4 000 PLN
+//   [оплачено 12.06.2026] 2 000
+//   [до 15.07.2026] 1 000
+// Числа с locale-разделителями тысяч (обычный пробел / NBSP / узкий NBSP от pl-PL).
+function isPaymentPlanNote(text) {
+  if (!text) return false;
+  return /^ПЛАН ОПЛАТ/i.test(decodeHtmlEntities(text).trim());
+}
+
+// → { total, installments: [{ amount, paid, dateText }] } либо null.
+function parsePaymentPlanNote(text) {
+  if (!isPaymentPlanNote(text)) return null;
+  const deSep = s => String(s).replace(/(\d)[   ](?=\d{3}\b)/g, '$1');
+  const lines = decodeHtmlEntities(text).trim().split('\n').map(s => s.trim()).filter(Boolean);
+  const mTotal = deSep(lines[0]).match(/всего\s+(\d[\d.,]*)/i);
+  const total = mTotal ? parseInt(mTotal[1].replace(/[.,]/g, ''), 10) : 0;
+  const installments = [];
+  for (const ln of lines.slice(1)) {
+    const m = deSep(ln).match(/^\[(оплачено|до)\s*([\d.\/]*)\]\s*(\d[\d.,]*)/i);
+    if (!m) continue;
+    const amount = parseInt(m[3].replace(/[.,]/g, ''), 10) || 0;
+    if (amount > 0) installments.push({ amount, paid: /оплачено/i.test(m[1]), dateText: m[2] || '' });
+  }
+  return installments.length ? { total, installments } : null;
+}
+
 // Старый STAGE_NAMES (Pipeline 1) оставлен только для совместимости — НЕ используется в /me
 const STAGE_NAMES = STAGE_NAMES_OPS;
 
@@ -484,6 +512,8 @@ module.exports = {
   PAYMENT_NOTE_PREFIXES,
   isPaymentNote,
   parsePaymentNote,
+  isPaymentPlanNote,
+  parsePaymentPlanNote,
   findStaffByPhone,
   CLIENT_MSG_PREFIX,
   isClientMsgNote,

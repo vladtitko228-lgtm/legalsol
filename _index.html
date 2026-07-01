@@ -22428,6 +22428,7 @@ function cabSyncDataToCases(){
       paidTotal:ld.paidTotal||0,
       remaining:(typeof ld.remaining==='number')?ld.remaining:Math.max(0,(ld.price||0)-(ld.paidTotal||0)),
       payments:ld.payments||[],
+      plan:ld.plan||null,
       etaText:ld.etaText||(ld.stage&&ld.stage.etaText)||'',
       clientAction:ld.clientAction||(ld.stage&&ld.stage.clientAction)||'',
       whatWeDo:ld.whatWeDo||(ld.stage&&ld.stage.whatWeDo)||'',
@@ -22520,6 +22521,28 @@ function cabRenderMyServices(){
 
 // ─── ОПЛАТЫ — рендер из реальных данных Kommo ───
 function cabFmtMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+// «15.07» / «15.07.2026» → Date (для подсветки просроченных взносов). Без года — текущий.
+function cabPayDueDate(t){
+  var m=String(t||'').match(/^(\d{1,2})[.\/](\d{1,2})(?:[.\/](\d{2,4}))?$/);
+  if(!m)return null;
+  var y=m[3]?(m[3].length===2?2000+ +m[3]:+m[3]):(new Date()).getFullYear();
+  return new Date(y, +m[2]-1, +m[1], 23, 59);
+}
+// Копирование реквизита с галочкой на кнопке.
+function cabCopyReq(text,btn){
+  function done(){ if(btn){var t=btn.textContent;btn.textContent='✓';setTimeout(function(){btn.textContent=t;},1200);} }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,done); }
+  else{ var i=document.createElement('textarea');i.value=text;document.body.appendChild(i);i.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(i);done(); }
+}
+// Реквизиты фирмы для оплат (LEGALSOL Sp. z o.o., mBank — актуальны с 07.2026).
+var CAB_PAY_REQ={
+  receiver:'LEGALSOL Sp. z o.o.',
+  address:'ul. Twarda 18, 00-105 Warszawa',
+  bank:'mBank S.A.',
+  pln:'40 1140 2004 0000 3602 8678 8482',
+  eur:'PL13 1140 2004 0000 3112 2773 0729',
+  swift:'BREXPLPWXXX'
+};
 function cabRenderPayments(){
   var body=document.getElementById('cab-pay-body');if(!body)return;
   var cases=CAB_CASES||[];
@@ -22552,6 +22575,58 @@ function cabRenderPayments(){
     '</div>';
   }
 
+  // График рассрочки — из заметки «ПЛАН ОПЛАТ» (c.plan из /me)
+  var planHtml='';
+  var now=new Date();
+  cases.forEach(function(c){
+    if(!c.plan||!c.plan.installments||!c.plan.installments.length)return;
+    var rows=c.plan.installments.map(function(i){
+      var chip,ico;
+      if(i.paid){ ico='✓'; chip='<span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено'+(i.dateText?' '+i.dateText:'')+'</span>'; }
+      else{
+        var due=cabPayDueDate(i.dateText);
+        var overdue=due&&due<now;
+        ico=overdue?'!':'•';
+        chip=overdue
+          ?'<span style="padding:3px 10px;background:rgba(239,68,68,.1);color:#dc2626;border-radius:20px;font-size:11px;font-weight:600">Просрочен · был до '+i.dateText+'</span>'
+          :'<span style="padding:3px 10px;background:rgba(245,158,11,.12);color:#d97706;border-radius:20px;font-size:11px;font-weight:600">До '+(i.dateText||'уточняется')+'</span>';
+      }
+      return '<div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0eeff">'+
+        '<span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;'+(i.paid?'background:rgba(22,163,74,.12);color:#16a34a':'background:#f0eeff;color:#8b84b8')+'">'+ico+'</span>'+
+        '<b style="font-size:15px;color:#1a1545;min-width:90px">'+cabFmtMoney(i.amount)+' zł</b>'+
+        '<span style="margin-left:auto">'+chip+'</span>'+
+      '</div>';
+    }).join('');
+    planHtml+='<div class="cab-widget"><div class="cab-widget-title">График рассрочки'+(cases.length>1?' — '+(c.typeName||'услуга'):'')+'</div>'+rows+'</div>';
+  });
+
+  // Как оплатить — реквизиты фирмы (показываем, пока есть остаток)
+  var reqHtml='';
+  if(totalRemain>0){
+    var cname=(window.cabData&&window.cabData.contact&&window.cabData.contact.name)||'';
+    var firstCase=cases.filter(function(c){return (c.remaining||0)>0;})[0]||cases[0]||{};
+    var title=(cname?cname+' · ':'')+'legalizacja LS'+(firstCase._kommoLeadId||'');
+    function reqRow(label,val,mono){
+      return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0eeff">'+
+        '<span style="font-size:11px;color:#8b84b8;font-weight:600;letter-spacing:.4px;min-width:110px;text-transform:uppercase">'+label+'</span>'+
+        '<span style="font-size:13px;color:#1a1545;font-weight:600;'+(mono?'font-family:ui-monospace,SF Mono,monospace;letter-spacing:.3px;':'')+'word-break:break-all">'+val+'</span>'+
+        '<button onclick="cabCopyReq(\''+val.replace(/'/g,'')+'\',this)" style="margin-left:auto;flex-shrink:0;padding:5px 12px;background:#f0eeff;border:1px solid #e8e4f5;border-radius:20px;color:#6b63a8;font-size:11px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">Копировать</button>'+
+      '</div>';
+    }
+    reqHtml=
+    '<div class="cab-widget"><div class="cab-widget-title">Как оплатить</div>'+
+      '<div style="font-size:12.5px;color:#6b63a8;line-height:1.55;margin-bottom:10px">Обычный банковский перевод (BLIK / приложение банка). После оплаты пришлите подтверждение менеджеру — отметим платёж в течение дня.</div>'+
+      reqRow('Получатель',CAB_PAY_REQ.receiver,false)+
+      reqRow('Счёт (PLN)',CAB_PAY_REQ.pln,true)+
+      reqRow('Tytuł przelewu',title,false)+
+      reqRow('Банк',CAB_PAY_REQ.bank+' · '+CAB_PAY_REQ.address,false)+
+      '<details style="margin-top:8px"><summary style="font-size:12px;color:#8b84b8;cursor:pointer;font-weight:600">Оплата из-за границы (EUR)</summary>'+
+        reqRow('IBAN (EUR)',CAB_PAY_REQ.eur,true)+
+        reqRow('SWIFT/BIC',CAB_PAY_REQ.swift,true)+
+      '</details>'+
+    '</div>';
+  }
+
   // Таблица платежей
   var table='';
   if(allPays.length){
@@ -22576,7 +22651,7 @@ function cabRenderPayments(){
       '<div style="font-size:13px;max-width:380px;margin:0 auto;line-height:1.5">Как только вы внесёте оплату, она появится здесь. По вопросам оплаты — напишите вашему менеджеру.</div>'+
     '</div>';
   }
-  body.innerHTML=summary+table;
+  body.innerHTML=summary+planHtml+reqHtml+table;
 }
 
 // ─── ДЕДЛАЙНЫ — реальные сроки этапа (ETA) + что нужно от клиента ───
