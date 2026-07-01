@@ -3,11 +3,17 @@
 const H = require('../cabinet/_helpers');
 
 // Владелец задаётся через env (не через Kommo — Влад не клиент воронки).
-// OWNER_PHONE — только цифры (норм. как в клиентском кабинете).
+// Телефон(ы): свой OWNER_PHONE ИЛИ переиспользуем уже настроенный CABINET_OWNER_PHONES
+// (список через запятую/пробел) — чтобы не плодить переменные. Все нормализуем.
+const OWNER_PHONES = new Set(
+  (process.env.OWNER_PHONE || process.env.CABINET_OWNER_PHONES || '')
+    .split(/[\s,;]+/).map(s => H.normalizePhone(s)).filter(Boolean)
+);
+function isOwnerPhone(norm) { return OWNER_PHONES.has(norm); }
 // OWNER_PASSWORD_HASH — формат scrypt$salt$hash (см. hashPassword в _helpers).
-const OWNER_PHONE = H.normalizePhone(process.env.OWNER_PHONE || '');
 const OWNER_HASH = process.env.OWNER_PASSWORD_HASH || '';
-const INGEST_TOKEN = process.env.OWNER_INGEST_TOKEN || '';
+// Токен ingest: свой OWNER_INGEST_TOKEN ИЛИ уже настроенный METRICS_INGEST_TOKEN.
+const INGEST_TOKEN = process.env.OWNER_INGEST_TOKEN || process.env.METRICS_INGEST_TOKEN || '';
 
 const KV_URL = process.env.KV_REST_API_URL;
 const KV_TOKEN = process.env.KV_REST_API_TOKEN;
@@ -41,6 +47,6 @@ function requireOwner(req) {
 }
 
 module.exports = {
-  H, kv, KV_KEY, OWNER_PHONE, OWNER_HASH, INGEST_TOKEN,
+  H, kv, KV_KEY, OWNER_PHONES, isOwnerPhone, OWNER_HASH, INGEST_TOKEN,
   setOwnerCookie, clearOwnerCookie, requireOwner, COOKIE,
 };

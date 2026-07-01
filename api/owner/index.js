@@ -15,7 +15,7 @@ function ingestTokenOk(got) {
 }
 
 async function doLogin(req, res) {
-  if (!O.OWNER_HASH || !O.OWNER_PHONE) return res.status(500).json({ error: 'owner_not_configured' });
+  if (!O.OWNER_HASH || O.OWNER_PHONES.size === 0) return res.status(500).json({ error: 'owner_not_configured' });
   const { phone, password } = await H.readJsonBody(req);
   if (!phone || !password) return res.status(400).json({ error: 'phone_and_password_required' });
   const norm = H.normalizePhone(phone);
@@ -24,7 +24,7 @@ async function doLogin(req, res) {
     return res.status(429).json({ error: 'too_many_attempts', message: 'Слишком много попыток. Подождите 15 минут.' });
   }
   // Холостой scrypt при промахе телефона — чтобы время ответа не выдавало номер владельца.
-  const phoneOk = norm === O.OWNER_PHONE;
+  const phoneOk = O.isOwnerPhone(norm);
   const pwOk = H.verifyPassword(password, phoneOk ? O.OWNER_HASH : DUMMY);
   if (!phoneOk || !pwOk) {
     await H.rateLimitFail(ip, norm);
