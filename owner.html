@@ -384,6 +384,25 @@ function render(d){
         </div>
       </div>`;
     }
+    // распределение прибыли (10 реинвест + 10 резерв + 80 дивиденды → Влад 64% / Аким 16%)
+    if(d.founders && d.founders.profitSplit && pnl.profit!=null){
+      const ps=d.founders.profitSplit, dv=d.founders.dividends||{Влад:80,Аким:20}, P=pnl.profit;
+      const parts=[
+        {n:'Фонд реинвестиции', pct:ps['Реинвестиция']||10, col:'#38bdf8'},
+        {n:'Резервный фонд', pct:ps['Резерв']||10, col:'#8B82E8'},
+        {n:'Влад', pct:Math.round((ps['Дивиденды']||80)*(dv['Влад']||80)/100), col:'#34d399'},
+        {n:'Аким', pct:Math.round((ps['Дивиденды']||80)*(dv['Аким']||20)/100), col:'#fde047'},
+      ];
+      html += secTitle('💸','Распределение прибыли');
+      if(P>0){
+        html += `<div class="grid g4">${parts.map(p=>kcard(p.n, zl(P*p.pct/100), p.pct+'% прибыли')).join('')}</div>
+          <div class="hint">Прибыль ${zl(P)} делится: 10% реинвестиции + 10% резерв + 80% дивиденды (Влад/Аким 80/20).</div>`;
+      } else {
+        html += `<div class="card"><div class="hint neg" style="margin-top:0">Прибыль в минусе (${zl(P)}) — распределять пока нечего. Правило заработает, как выйдешь в плюс:</div>
+          <div style="margin-top:12px">${parts.map(p=>`<div style="margin:8px 0"><div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${p.n}</span><span class="muted">${p.pct}%</span></div><div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${p.pct}%;background:${p.col}"></div></div></div>`).join('')}</div>
+          <div class="hint">Кредит Акима (44 800 zł) гасится отдельно — не из этого распределения.</div></div>`;
+      }
+    }
   }
 
   // ===== УЧРЕДИТЕЛИ (глобально) =====
