@@ -107,6 +107,10 @@
   .lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx-d);margin-top:10px}
   .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
   .hint{font-size:12px;color:var(--tx-dd);margin-top:8px;line-height:1.5}
+  .clickable{cursor:pointer} .clickable:hover{border-color:rgba(139,130,232,.5)}
+  .exp-donut{display:none;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);animation:cardIn .3s ease both}
+  .exp-card.open .exp-donut{display:block}
+  .exp-card .tap{transition:opacity .2s} .exp-card.open .tap{opacity:.4}
   .hidden{display:none!important}
   .center{text-align:center;color:var(--tx-dd);padding:40px}
 </style>
@@ -354,12 +358,14 @@ function render(d){
       const cats=Object.entries(pnl.expenseCats).map(([k,v])=>({name:k,amount:v})).sort((a,b)=>b.amount-a.amount);
       const totExp=cats.reduce((s,c)=>s+c.amount,0), income=pnl.income||0;
       html += `<div class="grid g2" style="margin-top:14px">
-        <div class="card"><div class="lbl" style="margin-bottom:10px">Расходы по статьям</div>
+        <div class="card exp-card clickable" onclick="this.classList.toggle('open')">
+          <div class="lbl" style="margin-bottom:10px">Расходы по статьям <span class="tap muted" style="font-size:11px">· нажми — график 📊</span></div>
           ${cats.map(c=>`<div style="margin:9px 0">
             <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
               <span>${c.name}</span><span class="muted">${zl(c.amount)} · ${Math.round(c.amount/totExp*100)}%</span></div>
             <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${c.amount/totExp*100}%;background:${expColor(c.name)}"></div></div></div>`).join('')}
           <div class="hint">Каждая статья — % от расходов. Реклама ${Math.round((pnl.expenseCats['Реклама']||0)/income*100)}% от выручки.</div>
+          <div class="exp-donut">${donutChart(cats, totExp)}</div>
         </div>
         <div class="card"><div class="lbl" style="margin-bottom:10px">Выручка → расходы</div>
           ${incomeVsExpense(income, totExp, cats)}
@@ -481,7 +487,21 @@ function monthName(block,d,which){
   return mLabel(CUR_KEY || d.prevMonthKey || d.curMonthKey);
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
-function expColor(n){ return n==='Реклама'?'var(--gold)':n==='Зарплаты'?'var(--cyan)':n==='Операционные'?'var(--p-l)':n==='Налоги'?'var(--red)':'var(--p)'; }
+function expColor(n){ return n==='Реклама'?'#fde047':n==='Зарплаты'?'#38bdf8':n==='Операционные'?'#8B82E8':n==='Налоги'?'#fb7185':'#6b61e0'; }
+function donutChart(cats, total){
+  const r=54, cx=70, cy=70, circ=2*Math.PI*r; let off=0;
+  const segs=cats.map(c=>{const len=(c.amount/total)*circ;
+    const seg=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${expColor(c.name)}" stroke-width="20" stroke-dasharray="${len.toFixed(1)} ${(circ-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    off+=len; return seg;}).join('');
+  return `<div class="flex" style="gap:22px;flex-wrap:wrap;align-items:center">
+    <svg width="140" height="140" viewBox="0 0 140 140" style="flex-shrink:0">${segs}
+      <text x="${cx}" y="${cy-1}" text-anchor="middle" fill="var(--tx)" font-size="15" font-weight="750" class="num">${nf(total)}</text>
+      <text x="${cx}" y="${cy+15}" text-anchor="middle" fill="var(--tx-dd)" font-size="10">zł расход</text></svg>
+    <div style="flex:1;min-width:150px">${cats.map(c=>`<div class="flex" style="justify-content:space-between;margin:7px 0;font-size:13px">
+      <span><span class="dot" style="background:${expColor(c.name)}"></span>${c.name}</span>
+      <span class="muted num">${zl(c.amount)} · ${Math.round(c.amount/total*100)}%</span></div>`).join('')}</div>
+  </div>`;
+}
 function incomeVsExpense(income, totExp, cats){
   const max=Math.max(income,totExp)||1;
   const stack=cats.map(c=>`<div style="height:100%;width:${c.amount/max*100}%;background:${expColor(c.name)}"></div>`).join('');
