@@ -153,6 +153,7 @@ $('#loginForm').addEventListener('submit', async e=>{
     const j = await r.json().catch(()=>({}));
     if(r.status===200){ showApp(); }
     else if(r.status===429){ $('#err').textContent = j.message||'Слишком много попыток. Подождите.'; }
+    else if(j.error==='owner_not_configured'){ $('#err').textContent = 'Кабинет ещё не настроен на сервере (нет OWNER_* на Vercel) — это не про пароль.'; }
     else { $('#err').textContent = 'Неверный номер или пароль'; }
   }catch(_){ $('#err').textContent='Ошибка сети'; }
   btn.disabled=false;
