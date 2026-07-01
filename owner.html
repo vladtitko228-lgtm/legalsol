@@ -272,7 +272,7 @@ function render(d){
   const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
   html += secTitle('💰','Продажи · '+monthName(pm,d,'prev'));
   html += `<div class="grid g4">
-    ${kcard('Закрытий', pm.closings, 'сделок за месяц', growth)}
+    ${kcard('Закрытий', pm.closings, pm.goal?('план '+pm.goal+' · '+Math.round(pm.closings/pm.goal*100)+'% плана'):'сделок за месяц', growth)}
     ${kcard('Контракты', zl(pm.contracted), 'сумма подписанных сделок')}
     ${kcard('Собрано', zl(pm.collected), 'фактически поступило')}
     ${kcard('Средний чек', zl(pm.avgDeal))}
