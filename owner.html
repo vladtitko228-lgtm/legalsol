@@ -480,6 +480,9 @@ function sellerCard(s){
       ${s.adSpend!=null?cell('Реклама (кабинет)', zl(s.adSpend)):''}
       ${s.costPerClose!=null?cell('Стоимость закрытия', zl(s.costPerClose)):''}
     </div>
+    ${s.services&&s.services.length?`<div style="margin-top:14px">
+      <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Что закрывает</div>
+      ${s.services.map(sv=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:3px 0"><span>${sv.service}</span><span class="chip">${sv.count}</span></div>`).join('')}</div>`:''}
   </div>`;
 }
 function monthName(block,d,which){
