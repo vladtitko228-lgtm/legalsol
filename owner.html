@@ -313,6 +313,18 @@ function render(d){
     html += secTitle('👥','По продавцам · '+monthName(pm,d));
     html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
   }
+  // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) =====
+  if(pm.quality && pm.quality.length){
+    const q=pm.quality, tot=pm.qualityTotal||q.reduce((s,x)=>s+x.count,0);
+    html += secTitle('🎯','Источники закрытий · '+monthName(pm,d));
+    html += `<div class="card">
+      ${q.map(x=>`<div style="margin:9px 0">
+        <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
+          <span>${srcLabelRu(x.source)}</span><span class="muted">${x.count} · ${Math.round(x.count/tot*100)}%${x.amount?' · '+zl(x.amount):''}</span></div>
+        <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${x.count/tot*100}%;background:${srcColor(x.source)}"></div></div></div>`).join('')}
+      <div class="hint">Из чата оплат (тегируется автоматически). За месяц отмечено ${tot}. Историю до подключения бота не достать — копится вперёд.</div>
+    </div>`;
+  }
   if(pm.byService && pm.byService.length){
     html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Услуги — что закрывают</div>
       ${hbars(pm.byService,x=>x.count,x=>x.service,()=>'var(--p)')}</div>`;
@@ -483,6 +495,8 @@ function sellerCard(s){
     ${s.services&&s.services.length?`<div style="margin-top:14px">
       <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Что закрывает</div>
       ${s.services.map(sv=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:3px 0"><span>${sv.service}</span><span class="chip">${sv.count}</span></div>`).join('')}</div>`:''}
+    ${s.sources?`<div style="margin-top:12px"><div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Источники (из чата)</div>
+      ${Object.entries(s.sources).map(([k,v])=>`<span class="chip" style="margin-right:6px">${srcLabelRu(k)} ${v}</span>`).join('')}</div>`:''}
   </div>`;
 }
 function monthName(block,d,which){
@@ -491,6 +505,8 @@ function monthName(block,d,which){
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
 function expColor(n){ return n==='Реклама'?'#fde047':n==='Зарплаты'?'#38bdf8':n==='Операционные'?'#8B82E8':n==='Налоги'?'#fb7185':'#6b61e0'; }
+function srcLabelRu(s){ return {'лид':'🎯 С рекламы (лид)','входящий':'💬 Входящие','суприм':'📇 Supremes (база)','сарафан':'🤝 Сарафан','груп':'👥 Групповое'}[s]||s; }
+function srcColor(s){ return {'лид':'#fde047','входящий':'#38bdf8','суприм':'#8B82E8','сарафан':'#34d399','груп':'#fbbf24'}[s]||'#6b61e0'; }
 function donutChart(cats, total){
   const r=54, cx=70, cy=70, circ=2*Math.PI*r; let off=0;
   const segs=cats.map(c=>{const len=(c.amount/total)*circ;
