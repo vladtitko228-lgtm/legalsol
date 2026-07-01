@@ -277,14 +277,14 @@ function render(d){
     ${kcard('Собрано', zl(pm.collected), 'фактически поступило')}
     ${kcard('Средний чек', zl(pm.avgDeal))}
   </div>`;
-  html += `<div class="grid g2" style="margin-top:14px">
-    <div class="card"><div class="lbl" style="margin-bottom:6px">Динамика закрытий по месяцам</div>
-      ${barsMonthly(d.trend, d.goal, d.curMonthKey)}</div>
-    <div class="card"><div class="lbl" style="margin-bottom:10px">Продавцы (${monthName(pm,d,'prev')})</div>
-      ${pm.bySeller.length?hbars(pm.bySeller,x=>x.closings,x=>x.name,()=>'var(--p-l)'):'<div class="muted">нет данных</div>'}
-      <div class="hint">Контракты: ${pm.bySeller.map(s=>s.name+' — '+zl(s.contracted)).join(' · ')}</div>
-    </div>
-  </div>`;
+  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">Динамика закрытий по месяцам</div>
+    ${barsMonthly(d.trend, d.goal, d.curMonthKey)}</div>`;
+
+  // ===== ПО ПРОДАВЦАМ =====
+  if(pm.bySeller && pm.bySeller.length){
+    html += secTitle('👥','По продавцам · '+monthName(pm,d));
+    html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
+  }
   if(pm.byService && pm.byService.length){
     html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Услуги — что закрывают</div>
       ${hbars(pm.byService,x=>x.count,x=>x.service,()=>'var(--p)')}</div>`;
@@ -376,6 +376,27 @@ function render(d){
 }
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
+function sellerCard(s){
+  const pp=s.planPct;
+  const col=pp==null?'var(--p-l)':(pp>=80?'var(--em)':pp>=50?'var(--gold)':'var(--red)');
+  const cell=(l,v)=>`<div><div style="font-size:11px;color:var(--tx-dd)">${l}</div><div style="font-weight:700;font-size:15px">${v}</div></div>`;
+  return `<div class="card">
+    <div class="flex" style="justify-content:space-between;align-items:center">
+      <div style="font-size:17px;font-weight:750">${s.name}</div>
+      <span class="chip">${s.closings} закрытий</span>
+    </div>
+    ${s.plan?`<div style="margin-top:12px">
+      <div class="flex" style="justify-content:space-between;font-size:12px;color:var(--tx-d)"><span>План / факт</span><span style="color:${col};font-weight:700">${pct(s.planPct)}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,s.planPct||0)}%;background:${col}"></div></div>
+      <div style="font-size:11px;color:var(--tx-dd);margin-top:4px">${zl(s.fact)} из ${zl(s.plan)}</div></div>`:''}
+    <div class="grid g2" style="margin-top:14px;gap:12px">
+      ${cell('Выручка (1+2)', zl(s.revenue))}
+      ${cell('Средний чек', zl(s.avgCheck))}
+      ${cell('Собрано 1-я', zl(s.fact))}
+      ${cell('Ждём 2-я', zl(s.pay2))}
+    </div>
+  </div>`;
+}
 function monthName(block,d,which){
   // подпись выбранного в переключателе месяца
   return mLabel(CUR_KEY || d.prevMonthKey || d.curMonthKey);
