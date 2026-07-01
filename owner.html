@@ -320,7 +320,7 @@ function render(d){
       <div class="card"><div class="lbl" style="margin-bottom:10px">Источники трафика</div>
         ${hbars((site.sources||[]).slice(0,7),x=>x.sessions,x=>srcLabel(x),x=>x.paid?'var(--gold)':'var(--p-l)')}</div>
       <div class="card"><div class="lbl" style="margin-bottom:10px">Страны</div>
-        <table><tbody>${(site.countries||[]).map(c=>`<tr><td>${c.country}${c.bot?' <span class="chip">бот</span>':''}</td><td class="n">${nf(c.users)}</td></tr>`).join('')}</tbody></table></div>
+        <table><tbody>${(site.countries||[]).map(c=>`<tr><td>${countryLabel(c.country)}${c.bot?' <span class="chip">бот</span>':''}</td><td class="n">${nf(c.users)}</td></tr>`).join('')}</tbody></table></div>
     </div>`;
   }
 
@@ -335,6 +335,41 @@ function monthName(block,d,which){
   const t = d.trend[d.trend.length-1]; return t?mLabel(t.month):'месяц';
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
+
+// --- Страны: авто-флаг + русское имя по названию из GA4 (англ.) ---
+// ISO2 → эмодзи флага (региональные индикаторы). Название нормализуем через карту ниже.
+function flagEmoji(iso){
+  if(!iso) return '🌐';
+  return iso.toUpperCase().replace(/[A-Z]/g, c => String.fromCodePoint(127397 + c.charCodeAt(0)));
+}
+// GA4 отдаёт страны по-английски. Карта: англ. имя → [ISO2, рус. имя].
+// Покрывает основную аудиторию LS; чего нет — показываем как есть с 🌐.
+const COUNTRY = {
+  'Poland':['PL','Польша'], 'Ukraine':['UA','Украина'], 'Belarus':['BY','Беларусь'],
+  'Russia':['RU','Россия'], 'Germany':['DE','Германия'], 'United States':['US','США'],
+  'United Kingdom':['GB','Великобритания'], 'France':['FR','Франция'], 'Italy':['IT','Италия'],
+  'Spain':['ES','Испания'], 'Netherlands':['NL','Нидерланды'], 'Czechia':['CZ','Чехия'],
+  'Lithuania':['LT','Литва'], 'Latvia':['LV','Латвия'], 'Georgia':['GE','Грузия'],
+  'Armenia':['AM','Армения'], 'Azerbaijan':['AZ','Азербайджан'], 'Kazakhstan':['KZ','Казахстан'],
+  'Uzbekistan':['UZ','Узбекистан'], 'Tajikistan':['TJ','Таджикистан'], 'Kyrgyzstan':['KG','Киргизия'],
+  'Turkey':['TR','Турция'], 'India':['IN','Индия'], 'Pakistan':['PK','Пакистан'],
+  'Bangladesh':['BD','Бангладеш'], 'Nepal':['NP','Непал'], 'Sri Lanka':['LK','Шри-Ланка'],
+  'Philippines':['PH','Филиппины'], 'Indonesia':['ID','Индонезия'], 'Vietnam':['VN','Вьетнам'],
+  'China':['CN','Китай'], 'Singapore':['SG','Сингапур'], 'Nigeria':['NG','Нигерия'],
+  'Egypt':['EG','Египет'], 'Morocco':['MA','Марокко'], 'Algeria':['DZ','Алжир'],
+  'Tunisia':['TN','Тунис'], 'Kenya':['KE','Кения'], 'Ghana':['GH','Гана'],
+  'Cameroon':['CM','Камерун'], 'Zimbabwe':['ZW','Зимбабве'], 'South Africa':['ZA','ЮАР'],
+  'Brazil':['BR','Бразилия'], 'Colombia':['CO','Колумбия'], 'Mexico':['MX','Мексика'],
+  'Iran':['IR','Иран'], 'Iraq':['IQ','Ирак'], 'Syria':['SY','Сирия'],
+  'Afghanistan':['AF','Афганистан'], 'United Arab Emirates':['AE','ОАЭ'], 'Saudi Arabia':['SA','Саудовская Аравия'],
+  '(not set)':['','Не определено']
+};
+function countryLabel(name){
+  const m = COUNTRY[name];
+  const iso = m ? m[0] : '';
+  const ru  = m ? m[1] : (name || '—');
+  return flagEmoji(iso) + ' ' + ru;
+}
 function splitBar(lead,inc){
   const tot=(lead||0)+(inc||0);
   if(!tot) return '<div class="muted">нет отмеченных</div>';
