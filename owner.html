@@ -225,16 +225,30 @@ function delta(cur,prev){
 }
 
 // ---- render ----
+let CUR_KEY=null, DATA=null;   // выбранный месяц + последние данные (для перерисовки)
 function render(d){
-  const cm=d.currentMonth, pm=d.prevMonth, fc=d.forecast, pnl=d.pnl, site=d.site;
+  DATA=d;
+  // выбранный месяц: сохраняем выбор пользователя, иначе месяц по умолчанию
+  if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.prevMonthKey;
+  const pm = (d.months && d.months[CUR_KEY]) || d.prevMonth;   // блок выбранного месяца
+  const fc=d.forecast, pnl=(pm && pm.pnl) || null, site=d.site;  // PnL строго выбранного месяца
   $('#genLabel').textContent = 'обновлено '+ (d.generatedLabel||'') + (d.goal?(' · цель '+d.goal+' закрытий/мес'):'');
   const paceTxt = fc.paceNote==='mtd'
     ? `Прогноз по темпу месяца (${fc.daysElapsed} из ${fc.daysInMonth} дней, уже закрыто ${fc.closingsMTD}).`
     : `Текущий месяц только начался — прогноз построен по итогам прошлого месяца (${mLabel(fc.baseMonth)}).`;
 
-  let html='';
+  // переключатель месяца (архив)
+  const monSel = (d.monthOrder&&d.monthOrder.length)
+    ? `<div style="display:flex;align-items:center;gap:10px;margin:2px 2px 4px">
+         <span class="muted" style="font-size:12px">Месяц:</span>
+         <select id="monthSel" style="background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer">
+           ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
+         </select></div>` : '';
 
-  // ===== ПРОГНОЗ (hero) =====
+  let html=monSel;
+
+  // ===== ПРОГНОЗ (hero) — только для актуального (дефолтного) месяца =====
+  if(CUR_KEY===d.defaultMonth){
   html += secTitle('🔮','Прогноз месяца');
   html += `<div class="grid g3">
     <div class="card hero">
@@ -250,9 +264,10 @@ function render(d){
     ${kcard('Прогноз прибыли (PnL)', `<span class="${(fc.projProfit||0)<0?'neg':'pos'}">${zl(fc.projProfit)}</span>`, pnl?('маржа '+pct(pnl.margin)):'')}
   </div>
   <div class="hint">${paceTxt}</div>`;
+  }
 
   // ===== ПРОДАЖИ =====
-  const _pi = d.trend.findIndex(t=>t.month===d.prevMonthKey);
+  const _pi = d.trend.findIndex(t=>t.month===CUR_KEY);
   const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
   html += secTitle('💰','Продажи · '+monthName(pm,d,'prev'));
   html += `<div class="grid g4">
@@ -335,13 +350,13 @@ function render(d){
   html += `<div class="hint" style="margin-top:26px;text-align:center">Источники: таблицы закрытий · реклама · PnL · GA4. Всего сделок в базе: ${d.closingsTotal||'—'}.</div>`;
 
   $('#content').innerHTML = html;
+  const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; render(DATA); };
 }
 
 function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
 function monthName(block,d,which){
-  // подпись прошлого месяца (тот, что показываем в «Продажи/Реклама»)
-  if(d.prevMonthKey) return mLabel(d.prevMonthKey);
-  const t = d.trend[d.trend.length-1]; return t?mLabel(t.month):'месяц';
+  // подпись выбранного в переключателе месяца
+  return mLabel(CUR_KEY || d.prevMonthKey || d.curMonthKey);
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
 
