@@ -418,6 +418,33 @@ function render(d){
     </div>`;
   }
 
+  // ===== ⏱ ТЕКУЩИЙ МЕСЯЦ (live-разворот, пока главная показывает завершённый) =====
+  if(CUR_KEY===d.defaultMonth && d.curMonthKey!==d.defaultMonth){
+    const cm=(d.months||{})[d.curMonthKey];
+    if(cm){
+      const donePct=cm.goal?Math.round((cm.closings||0)/cm.goal*100):null;
+      html += accO('⏱','Текущий месяц · '+mLabel(d.curMonthKey)+' · живой счёт', false);
+      html += `<div class="grid g4">
+        ${kcard('Закрытий', cm.closings||0, cm.goal?('план '+cm.goal+' · '+donePct+'%'):'сделок')}
+        ${kcard('Собрано', zl(cm.collected), (cm.pnl&&cm.pnl.income)?'по PnL':'по таблице клиентов')}
+        ${kcard('Лидов', nf(cm.leads), cm.cpl!=null?('CPL '+zl(cm.cpl)):'копится')}
+        ${kcard('Расход рекламы', zl(cm.budget), cm.activeDays?(cm.activeDays+' активных дней'):'')}
+      </div>`;
+      html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📆 По дням · ${mLabel(d.curMonthKey)}</div>
+        ${dailyChart(cm.deals, d.curMonthKey, cm.goal, d.curMonthKey, d.generatedAt)}
+        <div class="hint">Метка — сегодняшний день. Зелёная линия против пунктира плана.</div></div>`;
+      if(cm.quality&&cm.quality.length){
+        html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Источники месяца</div>
+          ${cm.quality.map(x=>`<span class="chip" style="margin-right:6px">${srcLabelRu(x.source)} ${x.count}</span>`).join('')}</div>`;
+      }
+      if(cm.deals&&cm.deals.length){
+        html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Сделки · ${cm.deals.length}</div>${dealsTable(cm.deals)}</div>`;
+      }
+      html += `<button class="ghost" style="margin-top:12px" onclick="CUR_KEY='${d.curMonthKey}';render(DATA);window.scrollTo(0,0)">Открыть ${mLabel(d.curMonthKey)} полным экраном →</button>`;
+      html += accC();
+    }
+  }
+
   // ===== ПРОДАЖИ =====
   const _pi = d.trend.findIndex(t=>t.month===CUR_KEY);
   const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
