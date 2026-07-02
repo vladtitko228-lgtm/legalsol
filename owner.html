@@ -370,7 +370,7 @@ function render(d){
   // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
   html += accO('📣','Реклама · '+monthName(pm,d)+' · подробно', false);
   html += `<div class="grid g4">
-    ${kcard('Расход', zl(pm.budget), pm.activeDays+' активных дней')}
+    ${kcard('Расход', zl(pm.budget), pm.budgetTracked?('факт-списания банка · FB '+zl(pm.fbActual)+' + TT '+zl(pm.ttActual)+' · трекинг: '+zl(pm.budgetTracked)):(pm.activeDays+' активных дней'))}
     ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
     ${kcard('Цена закрытия (CAC)', zl(pm.cac),'расход ÷ закрытия')}
     ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
