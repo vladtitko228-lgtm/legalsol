@@ -60,16 +60,19 @@
     letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
   .sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
   .sec-title .ic{font-size:15px}
-  /* сворачиваемые секции (второстепенное — под спойлером) */
-  details.acc{margin:30px 2px 0}
-  details.acc summary{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.09em;
-    text-transform:uppercase;color:var(--tx-dd);font-weight:700;cursor:pointer;list-style:none;user-select:none}
+  /* сворачиваемые секции — явные карточки-кнопки */
+  details.acc{margin:16px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    backdrop-filter:blur(14px);overflow:hidden;transition:border-color .18s}
+  details.acc:hover{border-color:rgba(139,130,232,.5)}
+  details.acc summary{display:flex;align-items:center;gap:10px;padding:16px 18px;font-size:13.5px;
+    color:var(--tx-d);font-weight:700;cursor:pointer;list-style:none;user-select:none}
   details.acc summary::-webkit-details-marker{display:none}
-  details.acc summary::before{content:"▸";color:var(--p-l);transition:transform .2s;font-size:13px}
-  details.acc[open] summary::before{transform:rotate(90deg)}
-  details.acc summary::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-  details.acc summary:hover{color:var(--tx-d)}
-  details.acc .accb{margin-top:14px}
+  details.acc summary::after{content:"развернуть ▾";margin-left:auto;font-size:11.5px;font-weight:600;
+    color:var(--p-l);background:rgba(139,130,232,.12);padding:5px 12px;border-radius:16px;white-space:nowrap}
+  details.acc[open] summary::after{content:"свернуть ▴";background:rgba(139,130,232,.22)}
+  details.acc summary:hover{color:var(--tx)}
+  details.acc .accb{padding:2px 16px 16px}
+  details.acc .accb .card{background:rgba(24,20,64,.45)}
   /* вкладки разделов */
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
   .tab{background:var(--card2);border:1px solid var(--line);color:var(--tx-d);padding:8px 16px;
@@ -392,10 +395,7 @@ function render(d){
            ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
          </select></div>` : '';
 
-  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) + renderAlerts(buildAlerts(d,pm,pnl)) : '');
-  html += tabsNav();
-  html += twO('main');
-
+  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) : '');
   // ===== 👑 ГЛАВНОЕ — король-метрики: PnL · Реклама · Конверсия · Цель =====
   html += secTitle('👑','Главное · '+monthName(pm,d));
   const profitGlow = pnl ? (pnl.profit>0?'glow-em':'glow-red') : '';
@@ -408,13 +408,13 @@ function render(d){
     const good=goodUp?g>=0:g<0;
     return ` <span class="chip ${good?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`; };
   html += `<div class="grid g4">
-    <div class="card k hero ${profitGlow}"><div class="lbl">Прибыль (PnL)${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}</div>
+    <div class="card k hero clickable ${profitGlow}" onclick="setTab('fin')"><div class="lbl">Прибыль (PnL)${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val"><span class="${pnl&&pnl.profit<0?'neg':'pos'}">${zl(pnl?pnl.profit:null)}</span></div>
       <div class="sub">доход ${zl(pnl?pnl.income:null)} · расход ${zl(pnl?pnl.expenses:null)}</div></div>
-    <div class="card k hero glow-gold"><div class="lbl">Выручка${kd(pm.collected,prevM.collected,true)}</div>
+    <div class="card k hero glow-gold clickable" onclick="setTab('sales')"><div class="lbl">Выручка${kd(pm.collected,prevM.collected,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val">${zl(pm.collected)}</div>
       <div class="sub">собрано · контракты ${zl(pm.contracted)} · маржа ${pnl?pct(pnl.margin):'—'}</div></div>
-    <div class="card k hero"><div class="lbl">Стоимость закрытия${kd(pm.cacTraffic,prevM.cacTraffic,false)}</div>
+    <div class="card k hero clickable" onclick="setTab('ads')"><div class="lbl">Стоимость закрытия${kd(pm.cacTraffic,prevM.cacTraffic,false)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val">${zl(pm.cacTraffic||pm.cac)}</div>
       <div class="sub">${pm.cacTraffic?'по трафику · окупается ×'+(pm.roasTrafficP1||'—')+' 1-й оплатой':'расход ÷ закрытия'}</div></div>
     ${CUR_KEY===d.defaultMonth
@@ -424,6 +424,10 @@ function render(d){
       : kcard('План месяца', (pm.closings??'—')+' / '+(pm.goal??'—'), pm.goal?(Math.round((pm.closings||0)/pm.goal*100)+'% плана'):'план не задан')}
   </div>`;
   if(CUR_KEY===d.defaultMonth) html += `<div class="hint">${paceTxt}</div>`;
+
+  if(CUR_KEY===d.defaultMonth) html += renderAlerts(buildAlerts(d,pm,pnl));
+  html += tabsNav();
+  html += twO('main');
 
   // ===== 🤖 МОЙ ПРОГНОЗ (по темпу продавцов) =====
   if(CUR_KEY===d.defaultMonth && d.forecastAI){
@@ -818,8 +822,9 @@ function renderHealth(d, pm, fc, pnl){
     {t:'Цена лида', v:zl(pm.cpl), st:pm.cpl==null?'y':(pm.cpl<40?'g':(pm.cpl<70?'y':'r')), note:nf(pm.leads)+' лидов'},
     {t:'Ждём оплат', v:zl(rc.total), st:'y', note:(rc.count||0)+' сделок'},
   ];
-  return `<div class="health">`+sigs.map(s=>`
-    <div class="sig"><div class="sglow" style="background:radial-gradient(120px 60px at 92% 0%,${C[s.st]},transparent)"></div>
+  const go=['','fin','ads','main'];
+  return `<div class="health">`+sigs.map((s,i)=>`
+    <div class="sig clickable" ${go[i]?`onclick="setTab('${go[i]}')"`:''}><div class="sglow" style="background:radial-gradient(120px 60px at 92% 0%,${C[s.st]},transparent)"></div>
       <div class="st"><span class="sdot" style="color:${C[s.st]}"></span>${s.t}</div>
       <div class="sv" style="color:${C[s.st]}">${s.v}</div>
       <div class="st" style="margin-top:2px">${s.note}</div></div>`).join('')+`</div>`;
