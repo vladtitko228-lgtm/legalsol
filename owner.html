@@ -306,10 +306,10 @@ function render(d){
       <div class="sub">доход ${zl(pnl?pnl.income:null)} · расход ${zl(pnl?pnl.expenses:null)}</div></div>
     <div class="card k hero glow-gold"><div class="lbl">Реклама</div>
       <div class="val">${zl(pm.budget)}</div>
-      <div class="sub">CPL ${zl(pm.cpl)} · закрытие ${zl(pm.cac)}</div></div>
+      <div class="sub">CPL ${zl(pm.cpl)} · закрытие ${zl(pm.cacTraffic||pm.cac)}${pm.cacTraffic?' (трафик)':''}</div></div>
     <div class="card k hero"><div class="lbl">Конверсия лид → сделка</div>
-      <div class="val">${pct(pm.lead2sale)}</div>
-      <div class="sub">${nf(pm.leads)} лидов → ${pm.closings} закрытий</div></div>
+      <div class="val">${pct(pm.convTraffic!=null?pm.convTraffic:pm.lead2sale)}</div>
+      <div class="sub">${nf(pm.leads)} лидов → ${pm.trafficClosings!=null?pm.trafficClosings+' с трафика (всего '+pm.closings+')':pm.closings+' закрытий'}</div></div>
     ${CUR_KEY===d.defaultMonth
       ? `<div class="card k hero"><div class="lbl">Прогноз закрытий</div>
           <div class="gauge-wrap" style="margin-top:2px">${gauge(fc.goalPct)}
@@ -383,7 +383,7 @@ function render(d){
   html += `<div class="grid g4">
     ${kcard('Расход', zl(pm.budget), pm.budgetTracked?('факт-списания банка · FB '+zl(pm.fbActual)+' + TT '+zl(pm.ttActual)+' · трекинг: '+zl(pm.budgetTracked)):(pm.activeDays+' активных дней'))}
     ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
-    ${kcard('Цена закрытия (CAC)', zl(pm.cac), pm.roasFirstPay?('окупается ×'+pm.roasFirstPay+' первой оплатой · ×'+pm.roasContracted+' контрактом'):'расход ÷ закрытия')}
+    ${kcard('Цена закрытия (трафик)', zl(pm.cacTraffic||pm.cac), pm.roasTrafficP1?('окупается ×'+pm.roasTrafficP1+' первой оплатой · ×'+pm.roasTrafficContract+' контрактом'):'расход ÷ трафиковые закрытия')}
     ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
   </div>`;
   const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
@@ -392,7 +392,8 @@ function render(d){
   html += `<div class="grid g2" style="margin-top:14px">
     <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (${adLeads.length})</div>
       ${adLeads.length?sparkline(adLeads,{color:'var(--gold)'}):'<div class="muted">нет данных</div>'}
-      <div class="hint">Окупаемость расхода: ×${pm.roasFirstPay||'—'} по факту 1-х оплат (${zl(pm.firstPaySum)}, ср. ${zl(pm.avgFirstPay)}) · ×${pm.roasContracted||'—'} по контрактам (${zl(pm.contracted)} — что должны заплатить)</div></div>
+      <div class="hint">Трафик (FB+TikTok+входящие): ${pm.trafficClosings!=null?pm.trafficClosings+' закрытий':'—'} · окупаемость ×${pm.roasTrafficP1||'—'} по 1-м оплатам (${zl(pm.trafficFirstPay)}) · ×${pm.roasTrafficContract||'—'} по контрактам (${zl(pm.trafficContracted)}).
+      Органика вне трафика: 📇 суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · 🤝 сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
       ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
       <div class="hint">FB-кабинеты и TikTok — общий лидовый трафик (zł). Личные WhatsApp-кабинеты (входящие, $) — в карточках продавцов.</div></div>
