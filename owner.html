@@ -383,7 +383,7 @@ function render(d){
   html += `<div class="grid g4">
     ${kcard('Расход', zl(pm.budget), pm.budgetTracked?('факт-списания банка · FB '+zl(pm.fbActual)+' + TT '+zl(pm.ttActual)+' · трекинг: '+zl(pm.budgetTracked)):(pm.activeDays+' активных дней'))}
     ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
-    ${kcard('Цена закрытия (CAC)', zl(pm.cac),'расход ÷ закрытия')}
+    ${kcard('Цена закрытия (CAC)', zl(pm.cac), pm.roasFirstPay?('окупается ×'+pm.roasFirstPay+' первой оплатой · ×'+pm.roasContracted+' контрактом'):'расход ÷ закрытия')}
     ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
   </div>`;
   const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
@@ -392,7 +392,7 @@ function render(d){
   html += `<div class="grid g2" style="margin-top:14px">
     <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (${adLeads.length})</div>
       ${adLeads.length?sparkline(adLeads,{color:'var(--gold)'}):'<div class="muted">нет данных</div>'}
-      <div class="hint">ROAS ${pm.roasCollected||'—'}× по собранному · ${pm.roasContracted||'—'}× по контрактам</div></div>
+      <div class="hint">Окупаемость расхода: ×${pm.roasFirstPay||'—'} по факту 1-х оплат (${zl(pm.firstPaySum)}, ср. ${zl(pm.avgFirstPay)}) · ×${pm.roasContracted||'—'} по контрактам (${zl(pm.contracted)} — что должны заплатить)</div></div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
       ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
       <div class="hint">FB-кабинеты и TikTok — общий лидовый трафик (zł). Личные WhatsApp-кабинеты (входящие, $) — в карточках продавцов.</div></div>
