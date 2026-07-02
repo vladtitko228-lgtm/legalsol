@@ -395,7 +395,7 @@ function render(d){
            ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
          </select></div>` : '';
 
-  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) : '');
+  let html=monSel;
   // ===== 👑 ГЛАВНОЕ — король-метрики: PnL · Реклама · Конверсия · Цель =====
   html += secTitle('👑','Главное · '+monthName(pm,d));
   const profitGlow = pnl ? (pnl.profit>0?'glow-em':'glow-red') : '';
@@ -408,17 +408,17 @@ function render(d){
     const good=goodUp?g>=0:g<0;
     return ` <span class="chip ${good?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`; };
   html += `<div class="grid g4">
-    <div class="card k hero clickable ${profitGlow}" onclick="setTab('fin')"><div class="lbl">Прибыль (PnL)${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
+    <div class="card k hero clickable ${profitGlow}" onclick="setTab('fin')"><div class="lbl">${pnl&&pnl.profit<0?'Убыток месяца':'Прибыль месяца'}${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val"><span class="${pnl&&pnl.profit<0?'neg':'pos'}">${zl(pnl?pnl.profit:null)}</span></div>
-      <div class="sub">доход ${zl(pnl?pnl.income:null)} · расход ${zl(pnl?pnl.expenses:null)}</div></div>
-    <div class="card k hero glow-gold clickable" onclick="setTab('sales')"><div class="lbl">Выручка${kd(pm.collected,prevM.collected,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
+      <div class="sub">пришло ${zl(pnl?pnl.income:null)} − потратили ${zl(pnl?pnl.expenses:null)}</div></div>
+    <div class="card k hero glow-gold clickable" onclick="setTab('sales')"><div class="lbl">Деньги пришли${kd(pm.collected,prevM.collected,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val">${zl(pm.collected)}</div>
-      <div class="sub">собрано · контракты ${zl(pm.contracted)} · маржа ${pnl?pct(pnl.margin):'—'}</div></div>
-    <div class="card k hero clickable" onclick="setTab('ads')"><div class="lbl">Стоимость закрытия${kd(pm.cacTraffic,prevM.cacTraffic,false)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
+      <div class="sub">+ подписано договоров на ${zl(pm.contracted)}</div></div>
+    <div class="card k hero clickable" onclick="setTab('ads')"><div class="lbl">1 клиент с рекламы стоит${kd(pm.cacTraffic,prevM.cacTraffic,false)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
       <div class="val">${zl(pm.cacTraffic||pm.cac)}</div>
-      <div class="sub">${pm.cacTraffic?'по трафику · окупается ×'+(pm.roasTrafficP1||'—')+' 1-й оплатой':'расход ÷ закрытия'}</div></div>
+      <div class="sub">а платит сразу ~${zl(pm.avgFirstPay)} → реклама ${(pm.roasTrafficP1||0)>=1?'окупается':'пока не окупается'} (×${pm.roasTrafficP1||'—'})</div></div>
     ${CUR_KEY===d.defaultMonth
-      ? `<div class="card k hero"><div class="lbl">Прогноз закрытий</div>
+      ? `<div class="card k hero"><div class="lbl">Будет закрытий к концу месяца</div>
           <div class="gauge-wrap" style="margin-top:2px">${gauge(fc.goalPct)}
           <div><div class="val">${fc.projClosings}</div><div class="sub">цель ${fc.goal}</div></div></div></div>`
       : kcard('План месяца', (pm.closings??'—')+' / '+(pm.goal??'—'), pm.goal?(Math.round((pm.closings||0)/pm.goal*100)+'% плана'):'план не задан')}
@@ -487,12 +487,12 @@ function render(d){
 
   // ===== ПО ПРОДАВЦАМ =====
   if(pm.bySeller && pm.bySeller.length){
-    html += secTitle('👥','По продавцам · '+monthName(pm,d));
+    html += secTitle('👥','По продавцам · '+monthName(pm,d),'личные результаты Талыша и Адриана: план, деньги, лиды, конверсия');
     html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
     html += sellersFunnel(pm.bySeller);
   }
   // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) — виден всегда =====
-  html += secTitle('🎯','Источники закрытий · '+monthName(pm,d));
+  html += secTitle('🎯','Источники закрытий · '+monthName(pm,d),'откуда пришли купившие клиенты — тегируется автоматически из чата оплат');
   if(pm.quality && pm.quality.length){
     const q=pm.quality, tot=pm.qualityTotal||q.reduce((s,x)=>s+x.count,0);
     html += `<div class="card">
@@ -524,10 +524,10 @@ function render(d){
 
   html += twC() + twO('ads');
   // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
-  html += secTitle('📣','Анализ рекламы · '+monthName(pm,d));
+  html += secTitle('📣','Анализ рекламы · '+monthName(pm,d),'что дал каждый вложенный в рекламу злотый');
   html += `<div class="grid g4">
     ${kcard('Расход', zl(pm.budget), pm.budgetTracked?('факт-списания банка · FB '+zl(pm.fbActual)+' + TT '+zl(pm.ttActual)+' · трекинг: '+zl(pm.budgetTracked)):(pm.activeDays+' активных дней'))}
-    ${kcard('Лидов', nf(pm.leads),'CPL '+zl(pm.cpl))}
+    ${kcard('Заявок с рекламы (лидов)', nf(pm.leads),'1 лид обошёлся в '+zl(pm.cpl))}
     ${kcard('Цена закрытия (трафик)', zl(pm.cacTraffic||pm.cac), pm.roasTrafficP1?('окупается ×'+pm.roasTrafficP1+' первой оплатой · ×'+pm.roasTrafficContract+' контрактом'):'расход ÷ трафиковые закрытия')}
     ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
   </div>`;
@@ -590,7 +590,7 @@ function render(d){
         {n:'Влад', pct:Math.round((ps['Дивиденды']||80)*(dv['Влад']||80)/100), col:'#34d399'},
         {n:'Аким', pct:Math.round((ps['Дивиденды']||80)*(dv['Аким']||20)/100), col:'#fde047'},
       ];
-      html += secTitle('💸','Распределение прибыли');
+      html += secTitle('💸','Распределение прибыли','как делим прибыль, когда она есть: фонды → доли');
       if(P>0){
         html += `<div class="grid g4">${parts.map(p=>kcard(p.n, zl(P*p.pct/100), p.pct+'% прибыли')).join('')}</div>
           <div class="hint">Прибыль ${zl(P)} делится: 10% реинвестиции + 10% резерв + 80% дивиденды (Влад/Аким 80/20).</div>`;
@@ -635,7 +635,7 @@ function render(d){
       return kcard((overdue?'⚠ ':'')+mLabel(m.month), zl(m.sum), m.count+' сделок'+(overdue?' · просрочено':''));
     });
     const noDate = rc.byMonth.find(m=>m.month==='—');
-    html += secTitle('⏳','Ждём оплат · дебиторка (все открытые сделки)');
+    html += secTitle('⏳','Ждём оплат','кто и когда должен доплатить — это твои будущие деньги');
     html += `<div class="grid g4">
       ${kcard('Всего ждём', zl(rc.total), rc.count+' открытых сделок')}
       ${monthCards.slice(0,2).join('')}
@@ -652,7 +652,7 @@ function render(d){
   // ===== 👩‍💼 КЛИЕНТЫ В ПРОИЗВОДСТВЕ (Kommo, Даша) =====
   if(d.ops){
     const o=d.ops;
-    html += secTitle('👩‍💼','Клиенты в производстве · Kommo');
+    html += secTitle('👩‍💼','Клиенты в производстве','что происходит с клиентами после оплаты — зона Даши');
     html += `<div class="grid g4">
       ${kcard('Дел в работе', o.total, 'воронка «Легализация»')}
       ${kcard('Застряло >7 дней', `<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`, o.stale.length?('топ: '+o.stale[0].days+' дн. без движения'):'')}
@@ -778,7 +778,7 @@ function animateNumbers(){
   });
 }
 
-function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`; }
+function secTitle(ic,t,desc){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`+(desc?`<div class="hint" style="margin:-8px 2px 12px">${desc}</div>`:''); }
 // сворачиваемая секция: accO(...)+контент+accC() — второстепенное по умолчанию свёрнуто
 function accO(ic,t,open){ return `<details class="acc"${open?' open':''}><summary><span class="ic">${ic}</span>${t}</summary><div class="accb">`; }
 function accC(){ return `</div></details>`; }
