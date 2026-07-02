@@ -70,6 +70,17 @@
   details.acc summary::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
   details.acc summary:hover{color:var(--tx-d)}
   details.acc .accb{margin-top:14px}
+  /* лента важного */
+  .alerts{display:flex;flex-direction:column;gap:8px;margin:4px 0 18px}
+  .alert{display:flex;gap:12px;align-items:flex-start;padding:12px 15px;border-radius:13px;
+    background:var(--card);border:1px solid var(--line);border-left-width:4px;backdrop-filter:blur(10px);
+    animation:cardIn .4s ease both}
+  .alert.red{border-left-color:var(--red);background:linear-gradient(90deg,rgba(251,113,133,.10),var(--card) 45%)}
+  .alert.yellow{border-left-color:var(--amber);background:linear-gradient(90deg,rgba(251,191,36,.09),var(--card) 45%)}
+  .alert.green{border-left-color:var(--em);background:linear-gradient(90deg,rgba(52,211,153,.09),var(--card) 45%)}
+  .alert .aico{font-size:17px;line-height:1.3;flex-shrink:0}
+  .alert .at{font-size:13.5px;font-weight:650;line-height:1.45}
+  .alert .ad{font-size:12px;color:var(--tx-dd);margin-top:2px;line-height:1.5}
   /* строка здоровья бизнеса */
   .health{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px}
   @media(max-width:760px){.health{grid-template-columns:repeat(2,1fr)}}
@@ -295,19 +306,27 @@ function render(d){
            ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
          </select></div>` : '';
 
-  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) : '');
+  let html=monSel + (CUR_KEY===d.defaultMonth ? renderHealth(d,pm,fc,pnl) + renderAlerts(buildAlerts(d,pm,pnl)) : '');
 
   // ===== 👑 ГЛАВНОЕ — король-метрики: PnL · Реклама · Конверсия · Цель =====
   html += secTitle('👑','Главное · '+monthName(pm,d));
   const profitGlow = pnl ? (pnl.profit>0?'glow-em':'glow-red') : '';
+  // прошлый месяц для сравнения (чипы ▲/▼)
+  const _py=+CUR_KEY.slice(0,4), _pmn=+CUR_KEY.slice(5,7);
+  const _prevKey=(_pmn>1?`${_py}-${String(_pmn-1).padStart(2,'0')}`:`${_py-1}-12`);
+  const prevM=(d.months||{})[_prevKey]||{};
+  const kd=(cur,prev,goodUp)=>{ if(cur==null||prev==null||!prev) return '';
+    const g=Math.round((cur-prev)/Math.abs(prev)*100); if(!isFinite(g)) return '';
+    const good=goodUp?g>=0:g<0;
+    return ` <span class="chip ${good?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`; };
   html += `<div class="grid g4">
-    <div class="card k hero ${profitGlow}"><div class="lbl">Прибыль (PnL)</div>
+    <div class="card k hero ${profitGlow}"><div class="lbl">Прибыль (PnL)${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}</div>
       <div class="val"><span class="${pnl&&pnl.profit<0?'neg':'pos'}">${zl(pnl?pnl.profit:null)}</span></div>
       <div class="sub">доход ${zl(pnl?pnl.income:null)} · расход ${zl(pnl?pnl.expenses:null)}</div></div>
     <div class="card k hero glow-gold"><div class="lbl">Реклама</div>
       <div class="val">${zl(pm.budget)}</div>
       <div class="sub">CPL ${zl(pm.cpl)} · закрытие ${zl(pm.cacTraffic||pm.cac)}${pm.cacTraffic?' (трафик)':''}</div></div>
-    <div class="card k hero"><div class="lbl">Конверсия лид → сделка</div>
+    <div class="card k hero"><div class="lbl">Конверсия лид → сделка${kd(pm.convTraffic,prevM.convTraffic,true)}</div>
       <div class="val">${pct(pm.convTraffic!=null?pm.convTraffic:pm.lead2sale)}</div>
       <div class="sub">${nf(pm.leads)} лидов → ${pm.trafficClosings!=null?pm.trafficClosings+' с трафика (всего '+pm.closings+')':pm.closings+' закрытий'}</div></div>
     ${CUR_KEY===d.defaultMonth
@@ -612,6 +631,36 @@ function secTitle(ic,t){ return `<div class="sec-title"><span class="ic">${ic}</
 // сворачиваемая секция: accO(...)+контент+accC() — второстепенное по умолчанию свёрнуто
 function accO(ic,t,open){ return `<details class="acc"${open?' open':''}><summary><span class="ic">${ic}</span>${t}</summary><div class="accb">`; }
 function accC(){ return `</div></details>`; }
+function buildAlerts(d, pm, pnl){
+  const a=[], rc=d.receivables||{}, today=(d.generatedAt||'').slice(0,10);
+  const overdue=(rc.items||[]).filter(i=>i.deadline&&i.deadline<today);
+  const oSum=overdue.reduce((s,i)=>s+(i.remain||0),0);
+  if(overdue.length) a.push({sev:'red',ico:'⏰',t:`Просрочено ${zl(oSum)} — ${overdue.length} клиент(ов) не доплатили в срок. Дожать.`,
+    d:overdue.slice(0,4).map(i=>i.name+' · '+zl(i.remain)+' · был срок '+dLabel(i.deadline)).join('  ·  ')+(overdue.length>4?' …':'')});
+  if(pnl&&pnl.profit<0) a.push({sev:'red',ico:'📉',t:`Прибыль ${zl(pnl.profit)} — расходы выше собранного.`,
+    d:`В дебиторке ${zl(rc.total)} — собрать её = выйти в плюс.`});
+  const noDl=(rc.byMonth||[]).find(m=>m.month==='—');
+  if(noDl&&noDl.sum>5000) a.push({sev:'yellow',ico:'📅',t:`${zl(noDl.sum)} дебиторки без дедлайна (${noDl.count} сделок).`,
+    d:'Проставь даты 2-х оплат в «клиентах» — прогноз денег станет точным.'});
+  if(pm.roasTrafficP1!=null&&pm.roasTrafficP1<1.2) a.push({sev:'yellow',ico:'📣',t:`Трафик окупается ×${pm.roasTrafficP1} первой оплатой — впритык.`,
+    d:`Закрытие с трафика стоит ${zl(pm.cacTraffic)}; прибыль трафика приходит со 2-х оплат (потенциал ×${pm.roasTrafficContract}).`});
+  (pm.bySeller||[]).forEach(s=>{
+    if(s.wa&&s.wa.spendUsd>50&&s.wa.leads<5) a.push({sev:'yellow',ico:'⚠️',t:`${s.name}: WA-кабинет потратил $${nf(s.wa.spendUsd)}, а заявок внесено ${s.wa.leads}.`,
+      d:'Либо не вносит заявки в таблицу, либо кабинет сливает — спросить.'});
+    if(s.plan&&s.planPct!=null&&s.planPct<60) a.push({sev:'yellow',ico:'🎯',t:`${s.name}: ${pct(s.planPct)} личного плана (${zl(s.fact)} из ${zl(s.plan)}).`,d:null});
+    if(s.leadsTaken&&s.closings&&s.closings/s.leadsTaken>=0.4) a.push({sev:'green',ico:'🔥',t:`${s.name}: конверсия ${Math.round(s.closings/s.leadsTaken*100)}% из взятых лидов — очень сильно.`,d:null});
+  });
+  const gi=d.trend.findIndex(x=>x.month===CUR_KEY);
+  if(gi>0&&d.trend[gi-1].closings){const g=Math.round((d.trend[gi].closings-d.trend[gi-1].closings)/d.trend[gi-1].closings*100);
+    if(g>=30) a.push({sev:'green',ico:'🚀',t:`Закрытия выросли на ${g}% к прошлому месяцу (${d.trend[gi-1].closings} → ${d.trend[gi].closings}).`,d:null});}
+  const order={red:0,yellow:1,green:2};
+  return a.sort((x,y)=>order[x.sev]-order[y.sev]).slice(0,7);
+}
+function renderAlerts(list){
+  if(!list.length) return '';
+  return `<div class="sec-title"><span class="ic">⚡</span>Важное сейчас</div><div class="alerts">`+
+    list.map(x=>`<div class="alert ${x.sev}"><div class="aico">${x.ico}</div><div><div class="at">${x.t}</div>${x.d?`<div class="ad">${x.d}</div>`:''}</div></div>`).join('')+`</div>`;
+}
 function renderHealth(d, pm, fc, pnl){
   const C={g:'#34d399',y:'#fbbf24',r:'#fb7185'};
   const rc=d.receivables||{};
