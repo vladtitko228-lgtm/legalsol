@@ -318,6 +318,17 @@ function render(d){
   </div>`;
   if(CUR_KEY===d.defaultMonth) html += `<div class="hint">${paceTxt}</div>`;
 
+  // ===== 🤖 МОЙ ПРОГНОЗ (по темпу продавцов) =====
+  if(CUR_KEY===d.defaultMonth && d.forecastAI){
+    const fa=d.forecastAI;
+    html += `<div class="card" style="margin-top:14px">
+      <div class="lbl" style="margin-bottom:8px">🤖 Прогноз от ИИ · по темпу ребят</div>
+      <div style="font-size:13.5px;line-height:1.65">${fa.text}</div>
+      <div class="lgd" style="margin-top:12px">${fa.bySeller.map(x=>`<span><span class="dot" style="background:var(--p-l)"></span>${x.name}: сейчас ${x.now} → прогноз ~${x.proj}</span>`).join('')}
+        <span><span class="dot" style="background:var(--gold)"></span>Команда: ~${fa.teamProj} из ${fa.goal}</span></div>
+    </div>`;
+  }
+
   // ===== ПРОДАЖИ =====
   const _pi = d.trend.findIndex(t=>t.month===CUR_KEY);
   const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
@@ -395,7 +406,7 @@ function render(d){
   if(pnl){
     html += accO('🧾','Финансы · PnL '+(pnl.month||'')+' · подробно', false);
     html += `<div class="grid g4">
-      ${kcard('Доход', zl(pnl.income),'поступления за месяц')}
+      ${kcard('Доход', zl(pnl.income), pnl.firmIncome!=null?('🏦 фирма '+zl(pnl.firmIncome)+' · 💵 нал '+zl(pnl.cashIncome||0)):'поступления за месяц')}
       ${kcard('Расход', zl(pnl.expenses))}
       ${kcard('Прибыль', `<span class="${(pnl.profit||0)<0?'neg':'pos'}">${zl(pnl.profit)}</span>`,'маржа '+pct(pnl.margin))}
       ${kcard('ROI', `<span class="${(pnl.roi||0)<0?'neg':'pos'}">${pct(pnl.roi)}</span>`, pnl.newCases!=null?('новые сделки '+zl(pnl.newCases)):'')}
