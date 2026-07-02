@@ -63,7 +63,8 @@ function sellerView(d, name) {
   const months = {};
   for (const [k, m] of Object.entries(d.months || {})) {
     const me = (m.bySeller || []).find(s => s.name === name) || null;
-    months[k] = { key: k, goal: m.goal, closings: m.closings, contracted: m.contracted, me };
+    const deals = (m.deals || []).filter(x => x.closer === name);
+    months[k] = { key: k, goal: m.goal, closings: m.closings, contracted: m.contracted, me, deals };
   }
   const myItems = ((d.receivables || {}).items || []).filter(i => i.closer === name);
   return {
