@@ -336,16 +336,22 @@ function render(d){
     html += secTitle('👥','По продавцам · '+monthName(pm,d));
     html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
   }
-  // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) =====
+  // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) — виден всегда =====
+  html += secTitle('🎯','Источники закрытий · '+monthName(pm,d));
   if(pm.quality && pm.quality.length){
     const q=pm.quality, tot=pm.qualityTotal||q.reduce((s,x)=>s+x.count,0);
-    html += secTitle('🎯','Источники закрытий · '+monthName(pm,d));
     html += `<div class="card">
       ${q.map(x=>`<div style="margin:9px 0">
         <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
           <span>${srcLabelRu(x.source)}</span><span class="muted">${x.count} · ${Math.round(x.count/tot*100)}%${x.amount?' · '+zl(x.amount):''}</span></div>
         <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${x.count/tot*100}%;background:${srcColor(x.source)}"></div></div></div>`).join('')}
-      <div class="hint">Из чата оплат (тегируется автоматически). За месяц отмечено ${tot}. Историю до подключения бота не достать — копится вперёд.</div>
+      <div class="hint">Из чата оплат (бот тегирует каждую оплату). За месяц отмечено ${tot}.</div>
+    </div>`;
+  } else {
+    html += `<div class="card">
+      <div style="font-size:13.5px;line-height:1.6">Здесь будет разбивка: ${['лид','входящий','суприм','сарафан','груп'].map(s=>`<span class="chip" style="margin-right:6px">${srcLabelRu(s)}</span>`).join('')}</div>
+      <div class="hint">Бот читает чат «Oплаты LegalSol» и тегирует каждую оплату автоматически — <b>с июля</b> разбивка наполняется сама (первая уже поймана).
+      За <b>июнь</b> историю чата бот достать не может (лимит Telegram ~24ч) — нужен разовый экспорт: Telegram Desktop → чат оплат → ⋮ → Export chat history → JSON → скинуть Владу/мне.</div>
     </div>`;
   }
   if(pm.byService && pm.byService.length){
