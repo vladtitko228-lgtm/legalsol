@@ -243,6 +243,50 @@ function sparkline(pts, {w=560,h=92,color='var(--p-l)'}={}){
     <path d="${line}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round"/>
     <circle cx="${xy[peakI][0].toFixed(1)}" cy="${xy[peakI][1].toFixed(1)}" r="3.5" fill="${col}" stroke="#0f0c24" stroke-width="2"/></svg>`;
 }
+// комбо-график: бары = расход/день, линия = лиды/день (зависимость)
+function comboChart(days,{w=560,h=130}={}){
+  if(!days||!days.length) return '<div class="muted">нет данных</div>';
+  const sp=days.map(d=>d.spend||0), ld=days.map(d=>d.leads||0);
+  const ms=Math.max(1,...sp), ml=Math.max(1,...ld), bw=w/days.length;
+  const bars=sp.map((v,i)=>`<rect x="${(i*bw+1).toFixed(1)}" y="${(h-16-(v/ms)*(h-40)).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${((v/ms)*(h-40)).toFixed(1)}" rx="2" fill="#6b61e0" opacity=".5"/>`).join('');
+  const xy=ld.map((v,i)=>[(i*bw+bw/2), h-16-(v/ml)*(h-40)]);
+  const line=xy.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' ');
+  const peak=ld.indexOf(Math.max(...ld));
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
+    ${[.33,.66].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
+    ${bars}
+    <path d="${line}" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="${xy[peak][0].toFixed(1)}" cy="${xy[peak][1].toFixed(1)}" r="3.5" fill="#fde047" stroke="#0f0c24" stroke-width="2"/></svg>
+  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, zł/день</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
+}
+// воронка трафика месяца
+function trafficFunnel(pm){
+  if(pm.trafficClosings==null) return '<div class="muted">появится после тегов из чата</div>';
+  const convP=pm.leads?Math.round(pm.trafficClosings/pm.leads*1000)/10:0;
+  return `
+    <div class="bar-track" style="height:30px;border-radius:9px"><div style="height:100%;width:100%;background:linear-gradient(90deg,#8B82E8,#6b61e0);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:650">Лиды с рекламы<span class="num">${nf(pm.leads)}</span></div></div>
+    <div style="font-size:11px;color:var(--tx-dd);padding:3px 0 3px 12px">↓ конверсия <b style="color:var(--tx-d)">${convP}%</b></div>
+    <div class="bar-track" style="height:30px;border-radius:9px;margin-top:0"><div style="height:100%;width:${Math.max(14,convP*4)}%;background:linear-gradient(90deg,#fbbf24,#fde047);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:700;color:#0d0a1f;white-space:nowrap">Закрытия<span class="num">${pm.trafficClosings}</span></div></div>
+    <div class="grid g2" style="margin-top:14px;gap:10px">
+      <div><div style="font-size:11px;color:var(--tx-dd)">Принесли 1-ми оплатами</div><div class="num" style="font-weight:750;font-size:16px;color:var(--em)">${zl(pm.trafficFirstPay)} <span class="muted" style="font-size:11px">×${pm.roasTrafficP1||'—'}</span></div></div>
+      <div><div style="font-size:11px;color:var(--tx-dd)">Контракты (потенциал)</div><div class="num" style="font-weight:750;font-size:16px;color:var(--gold)">${zl(pm.trafficContracted)} <span class="muted" style="font-size:11px">×${pm.roasTrafficContract||'—'}</span></div></div>
+    </div>`;
+}
+// конверсии продавцов: взял в работу → закрыл
+function sellersFunnel(sellers){
+  const list=(sellers||[]).filter(s=>s.leadsTaken);
+  if(!list.length) return '';
+  return `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:12px">Конверсии продавцов · взял в работу → закрыл</div>
+    <div class="grid g2">`+list.map(s=>{
+      const conv=s.closings&&s.leadsTaken?Math.round(s.closings/s.leadsTaken*100):0;
+      const col=conv>=40?'#34d399':conv>=20?'#fbbf24':'#fb7185';
+      return `<div>
+        <div class="flex" style="justify-content:space-between;margin-bottom:8px"><b style="font-size:14px">${s.name}</b><span class="num" style="color:${col};font-weight:770;font-size:17px">${conv}%</span></div>
+        <div class="bar-track" style="height:26px;border-radius:8px;margin-top:0"><div style="height:100%;width:100%;background:rgba(139,130,232,.30);border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px">взял в работу<span class="num">${nf(s.leadsTaken)}</span></div></div>
+        <div class="bar-track" style="height:26px;border-radius:8px;margin-top:4px"><div style="height:100%;width:${Math.max(9,conv)}%;background:${col};border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px;color:#0d0a1f;font-weight:700;white-space:nowrap">закрыл<span class="num">${s.closings}</span></div></div>
+      </div>`}).join('')+`</div>
+    <div class="hint">Ширина нижней полосы = личная конверсия. Зелёный ≥40% · жёлтый ≥20% · красный ниже.</div></div>`;
+}
 function gauge(p){ // 0..100+
   const v=Math.max(0,Math.min(100,p)); const r=42,c=2*Math.PI*r, off=c*(1-v/100);
   const col = p>=100?'var(--em)':p>=66?'var(--gold)':p>=33?'var(--amber)':'var(--red)';
@@ -365,6 +409,7 @@ function render(d){
   if(pm.bySeller && pm.bySeller.length){
     html += secTitle('👥','По продавцам · '+monthName(pm,d));
     html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
+    html += sellersFunnel(pm.bySeller);
   }
   // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) — виден всегда =====
   html += secTitle('🎯','Источники закрытий · '+monthName(pm,d));
@@ -409,10 +454,9 @@ function render(d){
   const cabs = [{n:'Кабинет 1',v:Math.round(pm.k1||0)},{n:'Кабинет 2',v:Math.round(pm.k2||0)},
                 {n:'Кабинет 3',v:Math.round(pm.k3||0)},{n:'TikTok',v:Math.round(pm.tt||0)}].filter(x=>x.v);
   html += `<div class="grid g2" style="margin-top:14px">
-    <div class="card"><div class="lbl" style="margin-bottom:6px">Лиды по дням (${adLeads.length})</div>
-      ${adLeads.length?sparkline(adLeads,{color:'var(--gold)'}):'<div class="muted">нет данных</div>'}
-      <div class="hint">Трафик (FB+TikTok+входящие): ${pm.trafficClosings!=null?pm.trafficClosings+' закрытий':'—'} · окупаемость ×${pm.roasTrafficP1||'—'} по 1-м оплатам (${zl(pm.trafficFirstPay)}) · ×${pm.roasTrafficContract||'—'} по контрактам (${zl(pm.trafficContracted)}).
-      Органика вне трафика: 📇 суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · 🤝 сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>
+    <div class="card"><div class="lbl" style="margin-bottom:6px">Зависимость: расход → лиды (по дням)</div>
+      ${comboChart(d.adDaily||[])}
+      <div class="hint">Органика вне трафика: 📇 суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · 🤝 сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>
     <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
       ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
       <div class="hint">FB-кабинеты и TikTok — общий лидовый трафик (zł).</div>
@@ -420,9 +464,9 @@ function render(d){
         <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">💬 Входящие — WhatsApp-кабинеты ($, вручную)</div>
         ${(pm.bySeller||[]).filter(s=>s.wa).map(s=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:4px 0"><span>${s.name}</span><span class="muted num">$${nf(s.wa.spendUsd)} → ${s.wa.leads} заявок${s.wa.cpl!=null?' · CPL $'+s.wa.cpl:''}</span></div>`).join('')}</div>`:''}</div>
   </div>
-  <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Закрытия с рекламы: лид vs входящий</div>
-    ${splitBar(pm.adLead, pm.adIncoming)}
-    <div class="hint">Метка из чата оплат (тегируется ботом). Пусто = сделка ещё не отмечена.</div></div>`;
+  <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Воронка трафика · ${monthName(pm,d)}</div>
+    ${trafficFunnel(pm)}
+  </div>`;
 
   // ===== ФИНАНСЫ (PnL) =====
   if(pnl){
