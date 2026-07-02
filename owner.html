@@ -259,6 +259,32 @@ function comboChart(days,{w=560,h=130}={}){
     <circle cx="${xy[peak][0].toFixed(1)}" cy="${xy[peak][1].toFixed(1)}" r="3.5" fill="#fde047" stroke="#0f0c24" stroke-width="2"/></svg>
   <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, zł/день</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
 }
+// закрытия по дням месяца: бары/день + накопительная линия + пунктир плана
+function dailyChart(deals, key, goal, curKey, genAt){
+  const y=+key.slice(0,4), m=+key.slice(5,7);
+  const dim=new Date(y, m, 0).getDate();
+  const perDay=Array(dim).fill(0);
+  (deals||[]).forEach(x=>{ if((x.date||'').slice(0,7)===key){ const dd=+x.date.slice(8,10); if(dd>=1&&dd<=dim) perDay[dd-1]++; }});
+  let s=0; const cum=perDay.map(v=>(s+=v));
+  const total=s, w=560, h=150, bw=w/dim;
+  const maxBar=Math.max(1,...perDay), maxCum=Math.max(goal||1, total, 1);
+  const bars=perDay.map((v,i)=>v?`<rect x="${(i*bw+1).toFixed(1)}" y="${(h-20-(v/maxBar)*(h*0.42)).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${((v/maxBar)*(h*0.42)).toFixed(1)}" rx="2" fill="#6b61e0" opacity=".65"/>`:'').join('');
+  const cxy=cum.map((v,i)=>[(i*bw+bw/2), h-20-(v/maxCum)*(h-40)]);
+  const cline=cxy.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' ');
+  const plan=goal?`<line x1="${(bw/2).toFixed(1)}" y1="${(h-20).toFixed(1)}" x2="${(dim*bw-bw/2).toFixed(1)}" y2="${(h-20-(goal/maxCum)*(h-40)).toFixed(1)}" stroke="#fde047" stroke-width="1.6" stroke-dasharray="5 4" opacity=".85"/>`:'';
+  let todayMark='';
+  if(key===curKey && genAt){ const td=+String(genAt).slice(8,10);
+    if(td>=1&&td<=dim) todayMark=`<line x1="${(td*bw-bw/2).toFixed(1)}" y1="8" x2="${(td*bw-bw/2).toFixed(1)}" y2="${h-20}" stroke="rgba(255,255,255,.25)" stroke-width="1" stroke-dasharray="2 3"/>`; }
+  const ticks=[];
+  for(let dd=5; dd<=dim; dd+=5) ticks.push(`<text x="${(dd*bw-bw/2).toFixed(1)}" y="${h-6}" text-anchor="middle" fill="#8f89c4" font-size="9">${dd}</text>`);
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
+    ${[.3,.6].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
+    ${plan}${bars}${todayMark}
+    <path d="${cline}" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linejoin="round"/>
+    ${cxy.length?`<circle cx="${cxy[cxy.length-1][0].toFixed(1)}" cy="${cxy[cxy.length-1][1].toFixed(1)}" r="3.5" fill="#34d399" stroke="#0f0c24" stroke-width="2"/>`:''}
+    ${ticks.join('')}</svg>
+  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Закрытий в день</span><span><span class="dot" style="background:#34d399"></span>Накопительно: ${total}</span>${goal?`<span><span class="dot" style="background:#fde047"></span>Темп плана (${goal})</span>`:''}</div>`;
+}
 // воронка трафика месяца
 function trafficFunnel(pm){
   if(pm.trafficClosings==null) return '<div class="muted">появится после тегов из чата</div>';
@@ -402,8 +428,12 @@ function render(d){
     ${kcard('Собрано', zl(pm.collected), 'фактически поступило')}
     ${kcard('Средний чек', zl(pm.avgDeal))}
   </div>`;
-  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">Динамика закрытий по месяцам</div>
-    ${barsMonthly(d.trend, d.goal, d.curMonthKey)}</div>`;
+  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📆 По дням · ${monthName(pm,d)}</div>
+    ${dailyChart(pm.deals, CUR_KEY, pm.goal, d.curMonthKey, d.generatedAt)}
+    <div class="hint">Пунктир — равномерный темп к плану${pm.goal?' ('+pm.goal+' закрытий)':''}. Зелёная линия выше пунктира = опережаем, ниже = отстаём.</div></div>`;
+  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📈 Вся история · закрытия по месяцам</div>
+    ${barsMonthly(d.trend, d.goal, d.curMonthKey)}
+    <div class="hint">Всего в базе: ${d.closingsTotal||'—'} сделок. График растёт с каждым месяцем.</div></div>`;
 
   // ===== ПО ПРОДАВЦАМ =====
   if(pm.bySeller && pm.bySeller.length){
