@@ -360,7 +360,7 @@ function render(d){
     </div>`;
   } else {
     html += `<div class="card">
-      <div style="font-size:13.5px;line-height:1.6">Здесь будет разбивка: ${['лид','входящий','суприм','сарафан','груп'].map(s=>`<span class="chip" style="margin-right:6px">${srcLabelRu(s)}</span>`).join('')}</div>
+      <div style="font-size:13.5px;line-height:1.6">Здесь будет разбивка: ${['лид','тикток','входящий','суприм','сарафан','груп'].map(s=>`<span class="chip" style="margin-right:6px">${srcLabelRu(s)}</span>`).join('')}</div>
       <div class="hint">Бот читает чат «Oплаты LegalSol» и тегирует каждую оплату автоматически — <b>с июля</b> разбивка наполняется сама (первая уже поймана).
       За <b>июнь</b> историю чата бот достать не может (лимит Telegram ~24ч) — нужен разовый экспорт: Telegram Desktop → чат оплат → ⋮ → Export chat history → JSON → скинуть Владу/мне.</div>
     </div>`;
@@ -661,7 +661,7 @@ function monthName(block,d,which){
 }
 function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
 function expColor(n){ return n==='Реклама'?'#fde047':n==='Зарплаты'?'#38bdf8':n==='Операционные'?'#8B82E8':n==='Налоги'?'#fb7185':'#6b61e0'; }
-function srcLabelRu(s){ return {'лид':'🎯 С рекламы (лид)','входящий':'💬 Входящие','суприм':'📇 Supremes (база)','сарафан':'🤝 Сарафан','груп':'👥 Групповое'}[s]||s; }
+function srcLabelRu(s){ return {'лид':'🎯 С рекламы (FB)','тикток':'🎵 TikTok','входящий':'💬 Входящие','суприм':'📇 Supremes (база)','сарафан':'🤝 Сарафан','груп':'👥 Групповое'}[s]||s; }
 function dealsTable(deals){
   return `<div style="overflow-x:auto"><table><thead><tr>
     <th>Дата</th><th>Клиент</th><th>Услуга</th><th>Продавец</th><th class="n">Цена</th><th class="n">Оплачено</th><th>Статус</th></tr></thead>
@@ -670,7 +670,7 @@ function dealsTable(deals){
       <td class="n num">${zl(x.full)}</td><td class="n num ${open?'':'pos'}">${zl(x.paid)}</td>
       <td style="font-size:11.5px" class="${open?'muted':'pos'}">${x.status||'—'}</td></tr>`}).join('')}</tbody></table></div>`;
 }
-function srcColor(s){ return {'лид':'#fde047','входящий':'#38bdf8','суприм':'#8B82E8','сарафан':'#34d399','груп':'#fbbf24'}[s]||'#6b61e0'; }
+function srcColor(s){ return {'лид':'#fde047','тикток':'#fb7185','входящий':'#38bdf8','суприм':'#8B82E8','сарафан':'#34d399','груп':'#fbbf24'}[s]||'#6b61e0'; }
 function donutChart(cats, total){
   const r=54, cx=70, cy=70, circ=2*Math.PI*r; let off=0;
   const segs=cats.map(c=>{const len=(c.amount/total)*circ;
