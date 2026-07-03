@@ -849,6 +849,7 @@ function sellerCard(s){
       ${cell('Ждём 2-я', zl(s.pay2))}
       ${s.wa?cell('WA-кабинет · входящие', '$'+nf(s.wa.spendUsd)+' <span class="muted" style="font-size:12px">· '+s.wa.leads+' лидов</span>'):''}
       ${s.wa&&s.wa.cpl!=null?cell('CPL входящих (WA)', '$'+s.wa.cpl):''}
+      ${s.wa&&s.wa.leads&&s.sources&&s.sources['входящий']?cell('Конверсия WA-входящих', Math.round(s.sources['входящий']/s.wa.leads*100)+'% <span class="muted" style="font-size:11px">('+s.sources['входящий']+' из '+s.wa.leads+' заявок)</span>'):''}
     </div>
     ${s.services&&s.services.length?`<div style="margin-top:14px">
       <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Что закрывает</div>
