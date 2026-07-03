@@ -382,7 +382,7 @@ function render(d){
   if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.prevMonthKey;
   const pm = (d.months && d.months[CUR_KEY]) || d.prevMonth;   // блок выбранного месяца
   const fc=d.forecast, pnl=(pm && pm.pnl) || null, site=d.site;  // PnL строго выбранного месяца
-  $('#genLabel').textContent = 'обновлено '+ (d.generatedLabel||'') + (d.goal?(' · цель '+d.goal+' закрытий/мес'):'');
+  $('#genLabel').textContent = 'данные обновлены '+ (d.generatedLabel||'') + ' в '+String(d.generatedAt||'').slice(11,16) + ' · авто каждые 2 часа' + (d.goal?(' · цель '+d.goal+'/мес'):'');
   const paceTxt = fc.paceNote==='mtd'
     ? `Прогноз по темпу месяца (${fc.daysElapsed} из ${fc.daysInMonth} дней, уже закрыто ${fc.closingsMTD}).`
     : `Текущий месяц только начался — прогноз построен по итогам прошлого месяца (${mLabel(fc.baseMonth)}).`;
@@ -706,7 +706,7 @@ function renderSeller(d){
   const m = (d.months||{})[CUR_KEY] || {};
   const me = m.me;
   const h1=$('#app h1'); if(h1) h1.textContent='Кабинет продаж';
-  $('#genLabel').textContent = (d.name||'')+' · мои продажи · обновлено '+(d.generatedLabel||'');
+  $('#genLabel').textContent = (d.name||'')+' · мои продажи · обновлено '+(d.generatedLabel||'')+' в '+String(d.generatedAt||'').slice(11,16);
   const monSel = (d.monthOrder&&d.monthOrder.length)
     ? `<div style="display:flex;align-items:center;gap:10px;margin:2px 2px 4px">
          <span class="muted" style="font-size:12px">Месяц:</span>
