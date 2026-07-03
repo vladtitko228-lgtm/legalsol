@@ -22521,6 +22521,168 @@ function cabRenderMyServices(){
 
 // ─── ОПЛАТЫ — рендер из реальных данных Kommo ───
 function cabFmtMoney(n){return String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');}
+/* ─── EN-слой кабинета ───────────────────────────────────────────────
+   Кабинет свёрстан по-русски, а база клиентов интернациональная. Когда язык
+   сайта ≠ ru, словарь RU→EN + шаблонные правила применяются к текстовым узлам
+   кабинета (#cab-app + #cab-login-screen). Fail-safe: нет перевода — остаётся
+   русский. Панель Даши (#cab-staff-panel, вне cab-app) не трогаем.
+   Свободный текст менеджера (чат/апдейты) не переводим — хартбиты и ответы
+   ИИ уже генерятся на языке клиента. */
+var CAB_EN={
+  // навигация / общие
+  'Главная':'Home','Мои дела':'My cases','МОИ ДЕЛА':'MY CASES','Мои услуги':'My services',
+  'Сообщения':'Messages','Оплаты':'Payments','Дедлайны':'Deadlines','Профиль':'Profile',
+  'ВСЕ УСЛУГИ':'ALL SERVICES','БЫСТРЫЕ ДЕЙСТВИЯ':'QUICK ACTIONS','Личный кабинет':'Client portal',
+  'Выйти':'Log out','🚪 Выйти':'🚪 Log out','Выйти из кабинета':'Log out','Выйти из кабинета?':'Log out?',
+  'Отмена':'Cancel','Закрыть':'Close','Понятно':'Got it','Повторить':'Retry','Сохранить':'Save',
+  'Назад к делам':'Back to cases','Загружаю…':'Loading…','Не удалось загрузить данные.':'Could not load your data.',
+  'Ошибка сети. Попробуйте ещё раз.':'Network error. Please try again.',
+  'Вы вышли из кабинета':'You have logged out',
+  'Ваши данные сохранены. Вы сможете войти снова в любое время.':'Your data is saved. You can log in again anytime.',
+  'Добро пожаловать! 👋':'Welcome! 👋',
+  // вход
+  'Логин:':'Login:','Пароль:':'Password:','Телефон':'Phone','Введите пароль':'Enter your password',
+  'Неверный телефон или пароль':'Wrong phone or password',
+  'Менеджер ещё не задал вам пароль. Напишите в WhatsApp.':'Your manager has not set your password yet. Message us on WhatsApp.',
+  // дашборд / дела
+  'Активных дел':'Active cases','Завершено услуг':'Services completed','Вы с нами':'With us since',
+  'Дело открыто':'Case opened','Текущий этап':'Current stage','Обновление':'Update','В работе':'In progress',
+  'В работе сейчас':'In progress now','Готово':'Done','Завершено':'Completed','Ожидает':'Pending','Все':'All',
+  'Все заявки и их статусы':'All your applications and their statuses',
+  'Ваши услуги в работе и завершённые':'Your services — active and completed',
+  'Запросить апдейт':'Request an update','Узнать статус дела':'Check case status',
+  'Написать в WhatsApp':'Message on WhatsApp','Написать юристу':'Message your lawyer',
+  '💬 Написать специалисту':'💬 Message your specialist','📅 Записаться на визит':'📅 Book a visit',
+  'Записаться на визит':'Book a visit','К нам в офис':'Visit our office',
+  'Услуг пока нет':'No services yet',
+  'Здесь появятся ваши услуги, когда менеджер откроет дело.':'Your services will appear here once your manager opens a case.',
+  // чеклист этапов
+  'Заявка получена':'Application received','Менеджер связался':'Manager contacted you','Консультация':'Consultation',
+  'Готовим документы':'Preparing documents','Документы поданы':'Documents submitted',
+  // этапы (названия из Kommo)
+  'Заявка принята':'Application received','Документы отправлены':'Documents sent','Подано в офис':'Filed at the office',
+  'Ускоренное рассмотрение':'Expedited review','Дело у партнёра-юриста':'With our partner lawyer',
+  'Ждём отпечатки пальцев':'Awaiting fingerprints','Финальная проверка':'Final review','Подана апелляция':'Appeal filed',
+  'Защита от депортации':'Deportation defence','Международная защита':'International protection',
+  'Воссоединение семьи':'Family reunification','Замена водительских прав':'Driving licence exchange',
+  // этапы: что делаем / что от клиента / сроки (тексты из api/cabinet/_helpers.js)
+  'Менеджер изучает вашу ситуацию и подберёт оптимальный путь.':'Your manager is reviewing your situation to choose the best path.',
+  'Ваш пакет документов отправлен в воеводский офис почтой.':'Your document package has been mailed to the voivodeship office.',
+  'Документы зарегистрированы в воеводстве. Ждём первое решение или запрос дополнительных бумаг.':'Documents are registered at the voivodeship. Awaiting the first decision or a request for additional papers.',
+  'Юрист готовит дополнительные документы и работает с воеводством напрямую.':'Our lawyer is preparing additional documents and working with the voivodeship directly.',
+  'Дело передано юристу-партнёру (стандартный путь для сложных случаев).':'Your case is with our partner lawyer (a standard path for complex cases).',
+  'Воеводство назначило вам биометрию. Дата и адрес — в апдейте от менеджера.':'The voivodeship has scheduled your biometrics. Date and address are in your manager’s update.',
+  'Наш юрист проверяет результат перед выдачей.':'Our lawyer is verifying the result before delivery.',
+  'Апелляция на отказ подана. Решение пересматривает вышестоящая инстанция.':'The appeal has been filed. A higher authority is reviewing the decision.',
+  'Юрист готовит защиту вашего права остаться в Польше.':'Our lawyer is preparing the defence of your right to stay in Poland.',
+  'Ведём процесс международной защиты — собираем доказательства, готовим показания.':'We are running your international protection case — gathering evidence and preparing statements.',
+  'Готовим документы для воссоединения с членами семьи в Польше.':'Preparing documents for reunification with your family in Poland.',
+  'Документы поданы в Urząd Komunikacji.':'Documents filed with Urząd Komunikacji.',
+  'Возможно, попросим уточнить детали по WhatsApp.':'We may ask you to clarify details on WhatsApp.',
+  'Прийти в указанный день с паспортом.':'Come on the scheduled day with your passport.',
+  'Менеджер может запросить дополнительные доказательства.':'Your manager may request additional evidence.',
+  'Возможны встречи и интервью.':'Meetings and interviews may be required.',
+  'Менеджер уточнит документы на родственников.':'Your manager will confirm the documents for your family members.',
+  '1–2 рабочих дня':'1–2 business days','Доставка 3–7 дней':'Delivery 3–7 days',
+  '2–4 недели до первой реакции':'2–4 weeks until first response','7–14 дней':'7–14 days','14–30 дней':'14–30 days',
+  '7–21 день после биометрии':'7–21 days after biometrics','3–7 дней':'3–7 days','30–60 дней':'30–60 days',
+  'Зависит от ситуации':'Depends on the situation','Несколько месяцев':'Several months','2–6 месяцев':'2–6 months',
+  // оплаты
+  'СУММА УСЛУГ':'TOTAL','ОПЛАЧЕНО':'PAID','ОСТАЛОСЬ':'REMAINING','Остаток':'Remaining',
+  'График рассрочки':'Payment schedule','Как оплатить':'How to pay','История платежей':'Payment history',
+  'Сумма услуг, оплаченное и история платежей':'Your total, what is paid and payment history',
+  'Копировать':'Copy','Скопировать':'Copy','Получатель':'Recipient','Счёт (PLN)':'Account (PLN)','Банк':'Bank',
+  'Оплата из-за границы (EUR)':'Paying from abroad (EUR)',
+  'Обычный банковский перевод (BLIK / приложение банка). После оплаты пришлите подтверждение менеджеру — отметим платёж в течение дня.':'Regular bank transfer (BLIK / your banking app). After paying, send the confirmation to your manager — we will mark it within a day.',
+  '💳 Оплатить онлайн':'💳 Pay online','Открываю…':'Opening…','💳 Оплатить услугу':'💳 Pay for service','Оплатить услугу':'Pay for service',
+  'Онлайн-оплата скоро будет доступна — пока оплатите переводом по реквизитам ниже':'Online payment is coming soon — for now please pay by transfer using the details below',
+  'Не получилось открыть оплату — напишите менеджеру или оплатите переводом':'Could not open the payment — message your manager or pay by transfer',
+  'Ошибка сети — попробуйте ещё раз':'Network error — please try again',
+  'Платежей пока нет':'No payments yet',
+  'Как только вы внесёте оплату, она появится здесь. По вопросам оплаты — напишите вашему менеджеру.':'Once you make a payment it will appear here. For payment questions, message your manager.',
+  'Дата':'Date','Услуга':'Service','Сумма':'Amount','Способ':'Method','Статус':'Status','Оплачено':'Paid',
+  'До уточняется':'Due date TBC','всего':'total',
+  // дедлайны
+  'Дедлайны и сроки':'Deadlines & timelines',
+  'Текущий этап и ориентировочные сроки по вашим делам':'Current stage and estimated timelines for your cases',
+  'Задачи / дедлайны':'Tasks / deadlines','активных задач нет':'no active tasks',
+  // чат
+  'Чат с вашим специалистом':'Chat with your specialist','Онлайн-чат':'Online chat','переписки пока нет':'no messages yet',
+  // профиль
+  'Личные данные':'Personal details','Личные данные аккаунта':'Your account details','Имя':'Name',
+  'Гражданство':'Citizenship','Безопасность':'Security','Текущий пароль':'Current password','Новый пароль':'New password',
+  'Сохранить пароль':'Save password','Пароль изменён':'Password changed','Данные сохранены ✓':'Saved ✓',
+  'Пароль — минимум 6 символов.':'Password — at least 6 characters.',
+  // услуги-каталог
+  'Карта побыту (ВНЖ)':'Karta pobytu (TRC)','ПМЖ (постоянный побыт)':'Permanent residence','Гражданство Польши':'Polish citizenship',
+  'Апелляция (odwołanie)':'Appeal (odwołanie)','PESEL для иностранца':'PESEL for a foreigner','Регистрация компании':'Company registration',
+  'Бухгалтерия и налоги':'Accounting & taxes','Blue Card (ЕС)':'Blue Card (EU)','полное сопровождение':'full support',
+  'Заказать услугу':'Order a service','Заказать →':'Order →','Узнать подробнее →':'Learn more →',
+  'РЕКОМЕНДУЕМ ДЛЯ ВАС':'RECOMMENDED FOR YOU','Выберите услугу и добавьте к вашему делу':'Pick a service to add to your case',
+  'Менеджер свяжется для оформления заказа':'Your manager will contact you to arrange it',
+  'Нажмите «Заказать» — менеджер свяжется в течение часа':'Tap “Order” — your manager will reach out within an hour',
+  '/ услуга':'/ service','/ месяц':'/ month'
+};
+var CAB_EN_RX=[
+  [/^До (.+)$/,'Due $1'],
+  [/^Оплачено (.+)$/,'Paid $1'],
+  [/^Просрочен · был до (.+)$/,'Overdue · was due $1'],
+  [/^Срок: (.+)$/,'Timeline: $1'],
+  [/^шаг (\d+) из (\d+)$/i,'step $1 of $2'],
+  [/^Шаг (\d+) из (\d+)$/,'Step $1 of $2'],
+  [/^клиент с (.+)$/,'client since $1'],
+  [/^от (\d[\d\s]*\s*PLN)$/,'from $1']
+];
+function cabLangIsEn(){ return (document.documentElement.lang||'en').slice(0,2)!=='ru'; }
+function cabTr(t){
+  var k=String(t==null?'':t).trim(); if(!k) return null;
+  if(Object.prototype.hasOwnProperty.call(CAB_EN,k)) return t.replace(k,CAB_EN[k]);
+  for(var i=0;i<CAB_EN_RX.length;i++){
+    var m=k.match(CAB_EN_RX[i][0]);
+    if(m) return t.replace(k,CAB_EN_RX[i][1].replace(/\$(\d)/g,function(_,n){return m[+n]||'';}));
+  }
+  return null;
+}
+var _cabTrBusy=false;
+function cabApplyLang(){
+  if(!cabLangIsEn()||_cabTrBusy) return;
+  _cabTrBusy=true;
+  try{
+    ['cab-app','cab-login-screen'].forEach(function(id){
+      var root=document.getElementById(id); if(!root) return;
+      var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,batch=[];
+      while((n=w.nextNode())){
+        var p=n.parentElement;
+        if(!p||p.tagName==='SCRIPT'||p.tagName==='STYLE') continue;
+        var tr=cabTr(n.nodeValue);
+        if(tr!==null&&tr!==n.nodeValue) batch.push([n,tr]);
+      }
+      batch.forEach(function(b){ b[0].nodeValue=b[1]; });
+      var attrs=['placeholder','aria-label','title'];
+      root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(function(el){
+        attrs.forEach(function(a){
+          var v=el.getAttribute(a); if(!v) return;
+          var tr=cabTr(v); if(tr!==null&&tr!==v) el.setAttribute(a,tr);
+        });
+      });
+    });
+  } finally { _cabTrBusy=false; }
+}
+// Автоприменение: перерисовки кабинета (childList) + смена языка сайта (lang на <html>).
+(function(){
+  function hookCabLang(){
+    var t=null;
+    function later(){ clearTimeout(t); t=setTimeout(cabApplyLang,80); }
+    ['cab-app','cab-login-screen'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el&&window.MutationObserver) new MutationObserver(function(){ if(!_cabTrBusy) later(); }).observe(el,{childList:true,subtree:true});
+    });
+    try{ new MutationObserver(later).observe(document.documentElement,{attributes:true,attributeFilter:['lang']}); }catch(e){}
+    cabApplyLang();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',hookCabLang); else hookCabLang();
+})();
+
 // «15.07» / «15.07.2026» → Date (для подсветки просроченных взносов). Без года — текущий.
 function cabPayDueDate(t){
   var m=String(t||'').match(/^(\d{1,2})[.\/](\d{1,2})(?:[.\/](\d{2,4}))?$/);
