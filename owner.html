@@ -256,7 +256,7 @@ function sparkline(pts, {w=560,h=92,color='var(--p-l)'}={}){
 // комбо-график: бары = расход/день, линия = лиды/день (зависимость)
 function comboChart(days,{w=560,h=130}={}){
   if(!days||!days.length) return '<div class="muted">нет данных</div>';
-  const sp=days.map(d=>d.spend||0), ld=days.map(d=>d.leads||0);
+  const sp=days.map(d=>d.spendUsd||0), ld=days.map(d=>d.leads||0);
   const ms=Math.max(1,...sp), ml=Math.max(1,...ld), bw=w/days.length;
   const bars=sp.map((v,i)=>`<rect x="${(i*bw+1).toFixed(1)}" y="${(h-16-(v/ms)*(h-40)).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${((v/ms)*(h-40)).toFixed(1)}" rx="2" fill="#6b61e0" opacity=".5"/>`).join('');
   const xy=ld.map((v,i)=>[(i*bw+bw/2), h-16-(v/ml)*(h-40)]);
@@ -267,7 +267,7 @@ function comboChart(days,{w=560,h=130}={}){
     ${bars}
     <path d="${line}" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linejoin="round"/>
     <circle cx="${xy[peak][0].toFixed(1)}" cy="${xy[peak][1].toFixed(1)}" r="3.5" fill="#fde047" stroke="#0f0c24" stroke-width="2"/></svg>
-  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, zł/день</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
+  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, $/день (трекинг)</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
 }
 // закрытия по дням месяца: бары/день + накопительная линия + пунктир плана
 function dailyChart(deals, key, goal, curKey, genAt){
@@ -526,21 +526,20 @@ function render(d){
   // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
   html += secTitle('📣','Анализ рекламы · '+monthName(pm,d),'что дал каждый вложенный в рекламу злотый');
   html += `<div class="grid g4">
-    ${kcard('Расход', zl(pm.budget), pm.budgetTracked?('факт-списания банка · FB '+zl(pm.fbActual)+' + TT '+zl(pm.ttActual)+' · трекинг: '+zl(pm.budgetTracked)):(pm.activeDays+' активных дней'))}
+    ${pm.budget?kcard('Расход (списания банка)', zl(pm.budget), 'FB '+zl(pm.fbActual)+' + TikTok '+zl(pm.ttActual)+' · трекинг $'+nf(pm.spendUsdTracked)):kcard('Расход · трекинг', '$'+nf(pm.spendUsdTracked), 'точные zł-метрики — после списаний банка')}
     ${kcard('Заявок с рекламы (лидов)', nf(pm.leads),'1 лид обошёлся в '+zl(pm.cpl))}
     ${kcard('Цена закрытия (трафик)', zl(pm.cacTraffic||pm.cac), pm.roasTrafficP1?('окупается ×'+pm.roasTrafficP1+' первой оплатой · ×'+pm.roasTrafficContract+' контрактом'):'расход ÷ трафиковые закрытия')}
-    ${kcard('Конверсия', pct(pm.lead2sale),'лид → сделка')}
+    ${kcard('Из 100 лидов покупают', (pm.convTraffic!=null?Math.round(pm.convTraffic):'—')+' чел.', pm.trafficClosings!=null?(pm.trafficClosings+' закрытий с трафика из '+nf(pm.leads)+' лидов'):'появится с тегами из чата')}
   </div>`;
   const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
-  const cabs = [{n:'Кабинет 1',v:Math.round(pm.k1||0)},{n:'Кабинет 2',v:Math.round(pm.k2||0)},
-                {n:'Кабинет 3',v:Math.round(pm.k3||0)},{n:'TikTok',v:Math.round(pm.tt||0)}].filter(x=>x.v);
   html += `<div class="grid g2" style="margin-top:14px">
     <div class="card"><div class="lbl" style="margin-bottom:6px">Зависимость: расход → лиды (по дням)</div>
       ${comboChart(d.adDaily||[])}
       <div class="hint">Органика вне трафика: 📇 суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · 🤝 сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>
-    <div class="card"><div class="lbl" style="margin-bottom:10px">Расход по кабинетам (zł)</div>
-      ${cabs.length?hbars(cabs, x=>x.v, x=>x.n, ()=>'var(--gold)'):'<div class="muted">нет данных</div>'}
-      <div class="hint">FB-кабинеты и TikTok — общий лидовый трафик (zł).</div>
+    <div class="card"><div class="lbl" style="margin-bottom:10px">Каналы трафика · заявки и расход ($)</div>
+      ${pm.channels?Object.entries(pm.channels).map(([n,c])=>`<div style="margin:9px 0">
+        <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${n}</span><span class="muted num">${c.leads} заявок · $${nf(c.usd)}${c.leads?' · CPL $'+(Math.round(c.usd/c.leads*10)/10):''}</span></div>
+        <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${Math.max(6,c.leads/Math.max(1,...Object.values(pm.channels).map(x=>x.leads))*100)}%;background:${n.includes('Whats')?'#38bdf8':'#fde047'}"></div></div></div>`).join(''):'<div class="muted">нет данных</div>'}
       ${(pm.bySeller||[]).some(s=>s.wa)?`<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
         <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">💬 Входящие — WhatsApp-кабинеты ($, вручную)</div>
         ${(pm.bySeller||[]).filter(s=>s.wa).map(s=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:4px 0"><span>${s.name}</span><span class="muted num">$${nf(s.wa.spendUsd)} → ${s.wa.leads} заявок${s.wa.cpl!=null?' · CPL $'+s.wa.cpl:''}</span></div>`).join('')}</div>`:''}</div>
