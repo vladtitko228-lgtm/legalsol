@@ -74,7 +74,9 @@
   details.acc .accb{padding:2px 16px 16px}
   details.acc .accb .card{background:rgba(24,20,64,.45)}
   /* вкладки разделов */
-  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px;position:sticky;top:0;z-index:60;
+    padding:10px 4px;background:linear-gradient(180deg,rgba(15,12,36,.94),rgba(15,12,36,.82));
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:0 0 14px 14px}
   .tab{background:var(--card2);border:1px solid var(--line);color:var(--tx-d);padding:8px 16px;
     border-radius:11px;font-size:13px;font-weight:650;cursor:pointer;transition:.15s}
   .tab:hover{color:var(--tx);border-color:var(--p-l)}
@@ -141,6 +143,30 @@
   .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
   .hint{font-size:12px;color:var(--tx-dd);margin-top:8px;line-height:1.5}
   .clickable{cursor:pointer} .clickable:hover{border-color:rgba(139,130,232,.5)}
+  /* ---- телефон ---- */
+  @media(max-width:640px){
+    .wrap{padding:12px 10px 44px}
+    header{gap:10px;margin-bottom:12px}
+    header h1{font-size:15px}
+    header .sub{font-size:10.5px}
+    .ghost{padding:7px 10px;font-size:12px}
+    .tab{padding:7px 11px;font-size:12px}
+    .hero .val{font-size:23px}
+    .k .val{font-size:19px}
+    .k .lbl{font-size:10.5px}
+    .k .sub{font-size:10.5px}
+    .card{padding:13px;border-radius:14px}
+    .grid{gap:10px}
+    .sec-title{margin:20px 2px 10px;font-size:11px}
+    details.acc summary{padding:12px 13px;font-size:12px}
+    details.acc summary::after{font-size:10px;padding:4px 9px}
+    .alert{padding:10px 12px}
+    .alert .at{font-size:12.5px} .alert .ad{font-size:11px}
+    table{font-size:11.5px} td,th{padding:6px 5px}
+    .gauge-wrap{gap:10px}
+    .gauge-wrap svg{width:88px;height:88px}
+    .card>table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+  }
   .exp-donut{display:none;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);animation:cardIn .3s ease both}
   .exp-card.open .exp-donut{display:block}
   .exp-card .tap{transition:opacity .2s} .exp-card.open .tap{opacity:.4}
@@ -303,7 +329,7 @@ function trafficFunnel(pm){
     <div class="bar-track" style="height:30px;border-radius:9px"><div style="height:100%;width:100%;background:linear-gradient(90deg,#8B82E8,#6b61e0);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:650">Лиды с рекламы<span class="num">${nf(pm.leads)}</span></div></div>
     <div style="font-size:11px;color:var(--tx-dd);padding:3px 0 3px 12px">↓ конверсия <b style="color:var(--tx-d)">${convP}%</b></div>
     <div class="bar-track" style="height:30px;border-radius:9px;margin-top:0"><div style="height:100%;width:${Math.max(14,convP*4)}%;background:linear-gradient(90deg,#fbbf24,#fde047);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:700;color:#0d0a1f;white-space:nowrap">Закрытия<span class="num">${pm.trafficClosings}</span></div></div>
-    <div class="grid g2" style="margin-top:14px;gap:10px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);margin-top:14px;gap:10px">
       <div><div style="font-size:11px;color:var(--tx-dd)">Принесли 1-ми оплатами</div><div class="num" style="font-weight:750;font-size:16px;color:var(--em)">${zl(pm.trafficFirstPay)} <span class="muted" style="font-size:11px">×${pm.roasTrafficP1||'—'}</span></div></div>
       <div><div style="font-size:11px;color:var(--tx-dd)">Контракты (потенциал)</div><div class="num" style="font-weight:750;font-size:16px;color:var(--gold)">${zl(pm.trafficContracted)} <span class="muted" style="font-size:11px">×${pm.roasTrafficContract||'—'}</span></div></div>
     </div>`;
@@ -841,7 +867,7 @@ function sellerCard(s){
       <div class="flex" style="justify-content:space-between;font-size:12px;color:var(--tx-d)"><span>План / факт</span><span style="color:${col};font-weight:700">${pct(s.planPct)}</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,s.planPct||0)}%;background:${col}"></div></div>
       <div style="font-size:11px;color:var(--tx-dd);margin-top:4px">${zl(s.fact)} из ${zl(s.plan)}</div></div>`:''}
-    <div class="grid g2" style="margin-top:14px;gap:12px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);margin-top:14px;gap:12px">
       ${cell('Лидов в работе', s.leadsTaken!=null? (nf(s.leadsTaken)+(s.closings&&s.leadsTaken?(' <span class="muted" style="font-size:12px">→ '+Math.round(s.closings/s.leadsTaken*100)+'%</span>'):'')) : '<span class="muted" style="font-size:12px">вкладку не ведёт ⚠</span>')}
       ${cell('Выручка (1+2)', zl(s.revenue))}
       ${cell('Средний чек', zl(s.avgCheck))}
