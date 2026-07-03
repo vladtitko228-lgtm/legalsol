@@ -162,7 +162,8 @@
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
   circle.garc{animation:gaugeIn 1.15s cubic-bezier(.22,1,.36,1) both}
   @keyframes gaugeIn{from{stroke-dashoffset:var(--full)}}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* при системном «уменьшении движения» глушим только пульс, остальное оставляем — владелец просил анимации */
+  @media (prefers-reduced-motion:reduce){ .alert.red .aico{animation:none} }
   /* ---- телефон ---- */
   @media(max-width:640px){
     .wrap{padding:12px 10px 44px}

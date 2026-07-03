@@ -119,6 +119,12 @@
       ]
     },
     {
+      "source": "/owner",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
+      ]
+    },
+    {
       "source": "/api/owner(.*)",
       "headers": [
         {
