@@ -418,7 +418,8 @@ const TABS=[['main','🏠 Главная'],['sales','💰 Продажи'],['ads
 function setTab(id){ TAB=id;
   document.querySelectorAll('.tabwrap').forEach(e=>e.classList.toggle('on', e.dataset.tw===id));
   document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on', e.dataset.tb===id));
-  window.scrollTo({top:0}); }
+  window.scrollTo({top:0});
+  if(typeof armAnimations==='function') armAnimations(); }
 function tabsNav(){ return `<div class="tabs">`+TABS.map(([id,l])=>`<button class="tab ${TAB===id?'on':''}" data-tb="${id}" onclick="setTab('${id}')">${l}</button>`).join('')+`</div>`; }
 function twO(id){ return `<div class="tabwrap ${TAB===id?'on':''}" data-tw="${id}">`; }
 function twC(){ return `</div>`; }
@@ -744,6 +745,7 @@ function render(d){
   $('#content').innerHTML = html;
   const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; render(DATA); };
   animateNumbers();
+  armAnimations();
 }
 
 // ---- экран продавца: только свои метрики + счёт команды + свои должники ----
@@ -797,6 +799,28 @@ function renderSeller(d){
   $('#content').innerHTML = html;
   const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; renderSeller(DATA); };
   animateNumbers();
+  armAnimations();
+}
+
+// анимации стартуют, когда блок доезжает до экрана (reveal-on-scroll)
+function armAnimations(){
+  const targets=[...document.querySelectorAll('#content .card, #content .alert, #content .bar-track>div, #content svg path.draw, #content circle.garc')];
+  targets.forEach(el=>{ el.style.animationPlayState='paused'; });
+  const check=()=>{
+    for(let i=targets.length-1;i>=0;i--){
+      const el=targets[i], r=el.getBoundingClientRect();
+      const vh=Math.max(innerHeight||0, document.documentElement.clientHeight||0, 600);
+      if(r.bottom>0 && r.top < vh*0.96 && (r.width||r.height)){
+        el.style.animationPlayState='running';
+        targets.splice(i,1);
+      }
+    }
+  };
+  if(window.__animScroll) removeEventListener('scroll', window.__animScroll);
+  let tick=false;
+  window.__animScroll=()=>{ if(!tick){ tick=true; requestAnimationFrame(()=>{ check(); tick=false; }); } };
+  addEventListener('scroll', window.__animScroll, {passive:true});
+  check();   // видимое сразу оживает
 }
 
 // плавный «набег» цифр (count-up) для KPI; в конце ставит точный исходный текст
