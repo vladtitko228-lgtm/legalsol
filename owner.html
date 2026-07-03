@@ -143,6 +143,26 @@
   .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
   .hint{font-size:12px;color:var(--tx-dd);margin-top:8px;line-height:1.5}
   .clickable{cursor:pointer} .clickable:hover{border-color:rgba(139,130,232,.5)}
+  /* ---- анимации ---- */
+  .card{transition:border-color .18s ease, transform .22s ease}
+  .card:hover{transform:translateY(-2px)}
+  .grid>.card:nth-child(2){animation-delay:.07s}
+  .grid>.card:nth-child(3){animation-delay:.14s}
+  .grid>.card:nth-child(4){animation-delay:.21s}
+  .alerts>.alert:nth-child(2){animation-delay:.08s}
+  .alerts>.alert:nth-child(3){animation-delay:.16s}
+  .alerts>.alert:nth-child(4){animation-delay:.24s}
+  .alerts>.alert:nth-child(n+5){animation-delay:.32s}
+  .tabwrap.on{animation:cardIn .35s ease both}
+  .bar-track>div{animation:barIn .9s cubic-bezier(.22,1,.36,1) both;transform-origin:left}
+  @keyframes barIn{from{transform:scaleX(0)}}
+  svg path.draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.5s ease-out forwards .15s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .alert.red .aico{animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  circle.garc{animation:gaugeIn 1.15s cubic-bezier(.22,1,.36,1) both}
+  @keyframes gaugeIn{from{stroke-dashoffset:var(--full)}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   /* ---- телефон ---- */
   @media(max-width:640px){
     .wrap{padding:12px 10px 44px}
@@ -276,7 +296,7 @@ function sparkline(pts, {w=560,h=92,color='var(--p-l)'}={}){
       <stop offset="0" stop-color="${col}" stop-opacity=".33"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
     ${grid}
     <path d="${line} L ${w} ${h} L 0 ${h} Z" fill="url(#${id})"/>
-    <path d="${line}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path class="draw" d="${line}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round"/>
     <circle cx="${xy[peakI][0].toFixed(1)}" cy="${xy[peakI][1].toFixed(1)}" r="3.5" fill="${col}" stroke="#0f0c24" stroke-width="2"/></svg>`;
 }
 // комбо-график: бары = расход/день, линия = лиды/день (зависимость)
@@ -291,7 +311,7 @@ function comboChart(days,{w=560,h=130}={}){
   return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
     ${[.33,.66].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
     ${bars}
-    <path d="${line}" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linejoin="round"/>
+    <path class="draw" d="${line}" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linejoin="round"/>
     <circle cx="${xy[peak][0].toFixed(1)}" cy="${xy[peak][1].toFixed(1)}" r="3.5" fill="#fde047" stroke="#0f0c24" stroke-width="2"/></svg>
   <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, $/день (трекинг)</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
 }
@@ -316,7 +336,7 @@ function dailyChart(deals, key, goal, curKey, genAt){
   return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
     ${[.3,.6].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
     ${plan}${bars}${todayMark}
-    <path d="${cline}" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linejoin="round"/>
+    <path class="draw" d="${cline}" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linejoin="round"/>
     ${cxy.length?`<circle cx="${cxy[cxy.length-1][0].toFixed(1)}" cy="${cxy[cxy.length-1][1].toFixed(1)}" r="3.5" fill="#34d399" stroke="#0f0c24" stroke-width="2"/>`:''}
     ${ticks.join('')}</svg>
   <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Закрытий в день</span><span><span class="dot" style="background:#34d399"></span>Накопительно: ${total}</span>${goal?`<span><span class="dot" style="background:#fde047"></span>Темп плана (${goal})</span>`:''}</div>`;
@@ -354,7 +374,7 @@ function gauge(p){ // 0..100+
   const col = p>=100?'var(--em)':p>=66?'var(--gold)':p>=33?'var(--amber)':'var(--red)';
   return `<svg width="104" height="104" viewBox="0 0 104 104">
     <circle cx="52" cy="52" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="9"/>
-    <circle cx="52" cy="52" r="${r}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round"
+    <circle class="garc" style="--full:${c}" cx="52" cy="52" r="${r}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round"
       stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 52 52)"/>
     <text x="52" y="49" text-anchor="middle" fill="var(--tx)" font-size="21" font-weight="750">${p}%</text>
     <text x="52" y="66" text-anchor="middle" fill="var(--tx-dd)" font-size="10">цели</text></svg>`;
