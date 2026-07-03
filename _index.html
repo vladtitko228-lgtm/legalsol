@@ -22534,6 +22534,21 @@ function cabCopyReq(text,btn){
   if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,done); }
   else{ var i=document.createElement('textarea');i.value=text;document.body.appendChild(i);i.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(i);done(); }
 }
+// Онлайн-оплата взноса: сервер сам считает сумму (следующий неоплаченный взнос)
+// и отдаёт ссылку Stripe Checkout (BLIK/карта). Сумме с фронта не доверяем.
+function cabPayOnline(leadId,btn){
+  var was=btn.textContent; btn.disabled=true; btn.textContent='Открываю…';
+  fetch('/api/stripe?action=checkout',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:leadId})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d&&d.url){ location.href=d.url; return; }
+      cabToast(d&&d.error==='stripe_not_configured'
+        ? 'Онлайн-оплата скоро будет доступна — пока оплатите переводом по реквизитам ниже'
+        : 'Не получилось открыть оплату — напишите менеджеру или оплатите переводом','info');
+      btn.disabled=false; btn.textContent=was;
+    })
+    .catch(function(){ cabToast('Ошибка сети — попробуйте ещё раз','info'); btn.disabled=false; btn.textContent=was; });
+}
 // Реквизиты фирмы для оплат (LEGALSOL Sp. z o.o., mBank — актуальны с 07.2026).
 var CAB_PAY_REQ={
   receiver:'LEGALSOL Sp. z o.o.',
@@ -22580,7 +22595,9 @@ function cabRenderPayments(){
   var now=new Date();
   cases.forEach(function(c){
     if(!c.plan||!c.plan.installments||!c.plan.installments.length)return;
-    var rows=c.plan.installments.map(function(i){
+    var firstUnpaid=-1;
+    c.plan.installments.some(function(i,idx){ if(!i.paid){firstUnpaid=idx;return true;} return false; });
+    var rows=c.plan.installments.map(function(i,idx){
       var chip,ico;
       if(i.paid){ ico='✓'; chip='<span style="padding:3px 10px;background:rgba(22,163,74,.1);color:#16a34a;border-radius:20px;font-size:11px;font-weight:600">Оплачено'+(i.dateText?' '+i.dateText:'')+'</span>'; }
       else{
@@ -22591,10 +22608,14 @@ function cabRenderPayments(){
           ?'<span style="padding:3px 10px;background:rgba(239,68,68,.1);color:#dc2626;border-radius:20px;font-size:11px;font-weight:600">Просрочен · был до '+i.dateText+'</span>'
           :'<span style="padding:3px 10px;background:rgba(245,158,11,.12);color:#d97706;border-radius:20px;font-size:11px;font-weight:600">До '+(i.dateText||'уточняется')+'</span>';
       }
-      return '<div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0eeff">'+
+      // Кнопка онлайн-оплаты — только на ближайшем неоплаченном взносе
+      var payBtn=(idx===firstUnpaid&&c._kommoLeadId)
+        ?'<button onclick="cabPayOnline(\''+c._kommoLeadId+'\',this)" style="padding:6px 14px;background:linear-gradient(135deg,#5B52CC,#8B82E8);border:none;border-radius:20px;color:#fff;font-size:11.5px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;box-shadow:0 3px 10px rgba(91,82,204,.35)">💳 Оплатить онлайн</button>'
+        :'';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0eeff;flex-wrap:wrap">'+
         '<span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;'+(i.paid?'background:rgba(22,163,74,.12);color:#16a34a':'background:#f0eeff;color:#8b84b8')+'">'+ico+'</span>'+
         '<b style="font-size:15px;color:#1a1545;min-width:90px">'+cabFmtMoney(i.amount)+' zł</b>'+
-        '<span style="margin-left:auto">'+chip+'</span>'+
+        '<span style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'+payBtn+chip+'</span>'+
       '</div>';
     }).join('');
     planHtml+='<div class="cab-widget"><div class="cab-widget-title">График рассрочки'+(cases.length>1?' — '+(c.typeName||'услуга'):'')+'</div>'+rows+'</div>';
