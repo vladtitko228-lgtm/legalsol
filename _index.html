@@ -21236,7 +21236,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Мои услуги</span>
 
-          <span class="cab-sb-row-val blue">4</span>
+          <span class="cab-sb-row-val blue" id="cab-sb-v-active">—</span>
 
         </div>
 
@@ -21244,9 +21244,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <div class="cab-sb-row-ico" style="background:rgba(239,68,68,.1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
 
-          <span class="cab-sb-row-label">Непрочитанных</span>
+          <span class="cab-sb-row-label">Сообщений</span>
 
-          <span class="cab-sb-row-val red">2</span>
+          <span class="cab-sb-row-val red" id="cab-sb-v-msgs">—</span>
 
         </div>
 
@@ -21256,7 +21256,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">К оплате</span>
 
-          <span class="cab-sb-row-val amber">1</span>
+          <span class="cab-sb-row-val amber" id="cab-sb-v-pay">—</span>
 
         </div>
 
@@ -21266,7 +21266,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Активных сроков</span>
 
-          <span class="cab-sb-row-val red">3</span>
+          <span class="cab-sb-row-val red" id="cab-sb-v-ddl">—</span>
 
         </div>
 
@@ -21276,7 +21276,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <span class="cab-sb-row-label">Дел всего</span>
 
-          <span class="cab-sb-row-val green">4</span>
+          <span class="cab-sb-row-val green" id="cab-sb-v-total">—</span>
 
         </div>
 
@@ -21342,9 +21342,9 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
           <div class="cab-hero-meta">
 
-            <span>📧 user@example.com</span>
+            <span id="cab-hero-email">📧 —</span>
 
-            <span>📱 +48 *** *** ***</span>
+            <span id="cab-hero-phone">📱 —</span>
 
             <span>Клиент LegalSol</span>
 
@@ -22263,6 +22263,11 @@ function cabApplyData(){
   // Hero блок (Dashboard вверху)
   var heroAv=document.querySelector('.cab-hero-av');if(heroAv)heroAv.textContent=initials;
   var heroName=document.querySelector('.cab-hero-name');if(heroName)heroName.textContent=fullName;
+  // Реальные контакты клиента (раньше висели плейсхолдеры user@example.com)
+  var heroEm=document.getElementById('cab-hero-email');
+  if(heroEm){ if(c.email){heroEm.textContent='📧 '+c.email;} else {heroEm.style.display='none';} }
+  var heroPh=document.getElementById('cab-hero-phone');
+  if(heroPh){ if(c.phone){heroPh.textContent='📱 '+c.phone;} else {heroPh.style.display='none';} }
 
   // Страница «Профиль»
   var profAv=document.querySelector('.cab-prof-av');if(profAv)profAv.textContent=initials;
@@ -22476,14 +22481,34 @@ function cabUpdateDashStats(){
   set('cab-stat-active',active.length);
   set('cab-stat-active-note','из '+cases.length+' всего');
   set('cab-stat-done',done.length);
-  // Текущий этап — берём первое активное дело
+  // Текущий этап — берём первое активное дело. В подписи — шаг и типичный срок
+  // (главные вопросы клиента: «где я?» и «сколько ждать?»), не внутренний номер.
   var cur=active[0]||cases[0];
   if(cur){
     set('cab-stat-stage',(cur._stage&&cur._stage.ru)||'В работе');
-    set('cab-stat-stage-note',cur.id);
+    var noteEl=document.getElementById('cab-stat-stage-note');
+    if(noteEl){
+      noteEl.textContent='';
+      if(cur._stage&&cur._stage.step){
+        var s1=document.createElement('span');s1.textContent='шаг '+cur._stage.step+' из 6';noteEl.appendChild(s1);
+      }
+      if(cur.etaText){
+        if(noteEl.childNodes.length)noteEl.appendChild(document.createTextNode(' · '));
+        var s2=document.createElement('span');s2.textContent=cur.etaText;noteEl.appendChild(s2);
+      }
+      if(!noteEl.childNodes.length)noteEl.textContent=cur.id;
+    }
   } else {
     set('cab-stat-stage','—'); set('cab-stat-stage-note','');
   }
+  // Сайдбар: реальные числа вместо статичного макета (4/2/1/3/4 у всех клиентов)
+  try{
+    set('cab-sb-v-active',active.length);
+    set('cab-sb-v-total',cases.length);
+    set('cab-sb-v-msgs',cases.reduce(function(s,c){return s+((c._chat&&c._chat.length)||0);},0));
+    set('cab-sb-v-pay',cases.filter(function(c){return (c.remaining||0)>0;}).length);
+    set('cab-sb-v-ddl',cases.reduce(function(s,c){return s+((c.plan&&c.plan.installments)?c.plan.installments.filter(function(i){return !i.paid;}).length:0);},0));
+  }catch(e){}
 }
 
 // ─── МОИ УСЛУГИ — реальные дела клиента ───
@@ -22621,7 +22646,15 @@ var CAB_EN={
   'РЕКОМЕНДУЕМ ДЛЯ ВАС':'RECOMMENDED FOR YOU','Выберите услугу и добавьте к вашему делу':'Pick a service to add to your case',
   'Менеджер свяжется для оформления заказа':'Your manager will contact you to arrange it',
   'Нажмите «Заказать» — менеджер свяжется в течение часа':'Tap “Order” — your manager will reach out within an hour',
-  '/ услуга':'/ service','/ месяц':'/ month'
+  '/ услуга':'/ service','/ месяц':'/ month',
+  // дашборд: сайдбар/статы/карточки дел
+  'Клиент LegalSol':'LegalSol client','Сообщений':'Messages','К оплате':'To pay',
+  'Активных сроков':'Active deadlines','Дел всего':'Total cases','услуг готово':'services done',
+  'Прогресс':'Progress','Детали':'Details','Переписка →':'Chat →','Активных дел':'Active cases',
+  // бейджи статусов и кнопки с эмодзи-префиксом (один текстовый узел)
+  '🔄 В работе':'🔄 In progress','⏳ Ожидает':'⏳ Pending','📄 Нужны документы':'📄 Documents needed',
+  '✅ Завершено':'✅ Completed','💬 Переписка →':'💬 Chat →','Онлайн-оплата':'Online payment',
+  'Карта побыту':'Karta pobytu (TRC)'
 };
 var CAB_EN_RX=[
   [/^До (.+)$/,'Due $1'],
@@ -22631,7 +22664,9 @@ var CAB_EN_RX=[
   [/^шаг (\d+) из (\d+)$/i,'step $1 of $2'],
   [/^Шаг (\d+) из (\d+)$/,'Step $1 of $2'],
   [/^клиент с (.+)$/,'client since $1'],
-  [/^от (\d[\d\s]*\s*PLN)$/,'from $1']
+  [/^от (\d[\d\s]*\s*PLN)$/,'from $1'],
+  [/^из (\d+) всего$/,'of $1 total'],
+  [/^Обновлено: (.+)$/,'Updated: $1']
 ];
 function cabLangIsEn(){ return (document.documentElement.lang||'en').slice(0,2)!=='ru'; }
 function cabTr(t){
