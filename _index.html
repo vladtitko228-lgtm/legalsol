@@ -21078,7 +21078,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
   #cab-sidebar{display:none;}
 
-  .cab-section{padding:20px 16px;}
+  .cab-section{padding:20px 16px calc(86px + env(safe-area-inset-bottom,0px));}
 
   .cab-stats{grid-template-columns:1fr 1fr;}
 
@@ -21092,7 +21092,23 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
   .cab-hero-actions{justify-content:center;}
 
+  /* Нижняя навигация кабинета: сайдбар на мобиле скрыт — без неё клиент
+     не мог открыть Оплаты/Чат/Профиль и вернуться на главную.
+     !important: базовый display:none объявлен ниже по файлу. */
+  #cab-mnav{display:flex !important;}
+
+  /* Липкая WhatsApp-панель сайта внутри кабинета перекрывала бы навигацию */
+  #tab-cabinet.active ~ #m-cta-bar{display:none !important;}
+
 }
+
+/* Мобильная нижняя навигация кабинета (показывается только ≤900px) */
+#cab-mnav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:100001;background:rgba(255,255,255,.98);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid #e8e4f5;box-shadow:0 -6px 24px rgba(91,82,204,.10);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+.cab-mnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 2px;cursor:pointer;color:#8b84b8;font-family:Inter,sans-serif;-webkit-tap-highlight-color:transparent;}
+.cab-mnav-btn .ic{font-size:19px;line-height:1;}
+.cab-mnav-btn .lb{font-size:10px;font-weight:600;letter-spacing:.2px;}
+.cab-mnav-btn.active{color:#5B52CC;}
+.cab-mnav-btn.active .ic{transform:scale(1.12);}
 
 </style>
 
@@ -22324,6 +22340,36 @@ function cabSwitchTab(tab,el){
 
 }
 
+// Мобильная нижняя навигация кабинета: сайдбар на ≤900px скрыт, поэтому
+// клиент с телефона получает 5 вкладок внизу (как в банковских приложениях).
+// Создаётся один раз; CSS показывает её только на мобиле.
+(function(){
+  function buildMnav(){
+    if(document.getElementById('cab-mnav'))return;
+    var app=document.getElementById('cab-app');if(!app)return;
+    var items=[
+      {page:'dashboard',idx:0,ic:'🏠',lb:'Главная'},
+      {page:'history',idx:1,ic:'📁',lb:'Дела'},
+      {page:'messages',idx:2,ic:'💬',lb:'Чат'},
+      {page:'payments',idx:4,ic:'💳',lb:'Оплаты'},
+      {page:'profile',idx:7,ic:'👤',lb:'Профиль'}
+    ];
+    var bar=document.createElement('div');
+    bar.id='cab-mnav';
+    items.forEach(function(it){
+      var b=document.createElement('button');
+      b.className='cab-mnav-btn'+(it.page==='dashboard'?' active':'');
+      b.setAttribute('data-page',it.page);
+      b.innerHTML='<span class="ic">'+it.ic+'</span><span class="lb">'+it.lb+'</span>';
+      b.onclick=function(){cabPage(it.page,document.querySelectorAll('.cab-nav-item')[it.idx]);};
+      bar.appendChild(b);
+    });
+    app.appendChild(bar);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',buildMnav);
+  else buildMnav();
+})();
+
 function cabPage(name,btn){
 
   // Remove previously injected back buttons
@@ -22341,8 +22387,14 @@ function cabPage(name,btn){
   document.querySelectorAll('.cab-nav-item').forEach(function(b){b.classList.remove('active');});
 
   if(btn)btn.classList.add('active');
-
   else{var map={dashboard:0,history:1,messages:2,myservices:3,payments:4,deadlines:5,'services-catalog':6,profile:7};var items=document.querySelectorAll('.cab-nav-item');if(map[name]!==undefined&&items[map[name]])items[map[name]].classList.add('active');}
+
+  // Мобильная нижняя навигация: подсветить текущую вкладку
+  try{
+    document.querySelectorAll('#cab-mnav .cab-mnav-btn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-page')===name);
+    });
+  }catch(e){}
 
   // Inject back button on every section except dashboard and detail (detail has its own)
 
@@ -22544,7 +22596,7 @@ function cabUpdateDashStats(){
         nowEl.innerHTML=
         '<div style="background:linear-gradient(135deg,#ffffff,#f3f0ff);border:1.5px solid rgba(91,82,204,.28);border-radius:18px;padding:20px 22px;margin-bottom:20px;box-shadow:0 8px 28px rgba(91,82,204,.10)">'+
           '<div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#7c74d8;margin-bottom:9px"><span>СЕЙЧАС ПО ВАШЕМУ ДЕЛУ</span></div>'+
-          '<div style="font-size:19px;font-weight:800;color:#1a1545;line-height:1.25">'+(cur.typeName||'Услуга')+' — <span>'+((st.ru)||'В работе')+'</span></div>'+
+          '<div style="font-size:19px;font-weight:800;color:#1a1545;line-height:1.25"><span>'+(cur.typeName||'Услуга')+'</span> — <span>'+((st.ru)||'В работе')+'</span></div>'+
           '<div style="display:flex;align-items:center;gap:10px;margin-top:10px">'+
             '<div style="flex:1;height:8px;background:#e9e5f8;border-radius:6px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:6px"></div></div>'+
             '<span style="font-size:12px;font-weight:700;color:#6b63a8;white-space:nowrap"><span>шаг '+(st.step||1)+' из 6</span></span>'+
@@ -22707,7 +22759,9 @@ var CAB_EN={
   'СЕЙЧАС ПО ВАШЕМУ ДЕЛУ':'YOUR CASE RIGHT NOW','Что мы делаем:':'What we are doing:',
   'Что нужно от вас:':'What we need from you:','Ничего — мы работаем, вы можете отдыхать':'Nothing — we are on it, you can relax',
   'Обычный срок этапа:':'Typical time at this stage:','Ближайший платёж:':'Next payment:','Оплатить':'Pay',
-  'Написать в WhatsApp':'Message on WhatsApp','Быстрый ответ':'Fast reply'
+  'Написать в WhatsApp':'Message on WhatsApp','Быстрый ответ':'Fast reply',
+  // мобильная нижняя навигация
+  'Дела':'Cases','Чат':'Chat'
 };
 var CAB_EN_RX=[
   [/^До (.+)$/,'Due $1'],
