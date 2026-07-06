@@ -21354,15 +21354,19 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         <div class="cab-hero-actions">
 
-          <button class="cab-action-btn primary" onclick="cabToast('Открываем форму записи...','info');setTimeout(function(){openModal();},400)">📅 Записаться на визит</button>
+          <a class="cab-action-btn primary" href="https://wa.me/48731145937" target="_blank" rel="noopener" style="text-decoration:none">💬 WhatsApp</a>
 
-          <button class="cab-action-btn" onclick="cabToast('Раздел оплаты откроется после подтверждения менеджера','info')">💳 Оплатить услугу</button>
+          <button class="cab-action-btn" onclick="cabPage('payments',document.querySelectorAll('.cab-nav-item')[4])">💳 Оплатить услугу</button>
 
           <button class="cab-action-btn" onclick="cabPage('messages',document.querySelectorAll('.cab-nav-item')[2])">💬 Написать специалисту</button>
 
         </div>
 
       </div>
+
+      <!-- «Сейчас по вашему делу» — главный блок: этап, что делаем, что нужно
+           от клиента, срок, ближайший платёж. Заполняет cabUpdateDashStats(). -->
+      <div id="cab-now"></div>
 
       <!-- Stats -->
 
@@ -21392,7 +21396,7 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         </div>
 
-        <div class="cab-qa-btn" onclick="cabToast('Счёт будет выставлен менеджером','info')">
+        <div class="cab-qa-btn" onclick="cabPage('payments',document.querySelectorAll('.cab-nav-item')[4])">
 
           <div class="cab-qa-ico">💳</div>
 
@@ -21402,13 +21406,13 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
         </div>
 
-        <div class="cab-qa-btn" onclick="cabToast('Открываем календарь записи...','info');setTimeout(openModal,400)">
+        <div class="cab-qa-btn" onclick="window.open('https://wa.me/48731145937','_blank')">
 
-          <div class="cab-qa-ico">📅</div>
+          <div class="cab-qa-ico">💬</div>
 
-          <div class="cab-qa-label">Записаться на визит</div>
+          <div class="cab-qa-label">Написать в WhatsApp</div>
 
-          <div class="cab-qa-sub">К нам в офис</div>
+          <div class="cab-qa-sub">Быстрый ответ</div>
 
         </div>
 
@@ -22509,6 +22513,50 @@ function cabUpdateDashStats(){
     set('cab-sb-v-pay',cases.filter(function(c){return (c.remaining||0)>0;}).length);
     set('cab-sb-v-ddl',cases.reduce(function(s,c){return s+((c.plan&&c.plan.installments)?c.plan.installments.filter(function(i){return !i.paid;}).length:0);},0));
   }catch(e){}
+  // «Сейчас по вашему делу» — клиент получает ответы на «что происходит / что
+  // мне делать / сколько ждать» без единого клика.
+  try{
+    var nowEl=document.getElementById('cab-now');
+    if(nowEl){
+      if(!cur){ nowEl.innerHTML=''; }
+      else{
+        var st=cur._stage||{};
+        var pct=Math.round(((st.step||1)/6)*100);
+        function row(ico,label,value,valStyle){
+          return '<div style="display:flex;gap:10px;margin-top:11px;font-size:13.5px;line-height:1.5;align-items:flex-start">'+
+            '<span style="flex-shrink:0">'+ico+'</span>'+
+            '<div><b style="color:#1a1545"><span>'+label+'</span></b> <span style="'+(valStyle||'color:#4a4470')+'">'+value+'</span></div>'+
+          '</div>';
+        }
+        var actionHtml=cur.clientAction
+          ? row('👤','Что нужно от вас:','<span style="background:rgba(245,158,11,.14);color:#b45309;padding:2px 8px;border-radius:8px;font-weight:600">'+cur.clientAction+'</span>')
+          : row('✅','Что нужно от вас:','<span>Ничего — мы работаем, вы можете отдыхать</span>');
+        var payHtml='';
+        var nextI=(cur.plan&&cur.plan.installments||[]).filter(function(i){return !i.paid;})[0];
+        if(nextI){
+          payHtml='<div style="display:flex;gap:10px;margin-top:13px;padding:11px 14px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.28);border-radius:12px;font-size:13.5px;align-items:center;flex-wrap:wrap">'+
+            '<span>💳</span><b style="color:#1a1545"><span>Ближайший платёж:</span></b>'+
+            '<span style="font-weight:800;color:#1a1545">'+cabFmtMoney(nextI.amount)+' zł</span>'+
+            (nextI.dateText?'<span style="color:#b45309">до '+nextI.dateText+'</span>':'')+
+            '<button onclick="cabPage(\'payments\',document.querySelectorAll(\'.cab-nav-item\')[4])" style="margin-left:auto;padding:7px 16px;background:linear-gradient(135deg,#5B52CC,#8B82E8);border:none;border-radius:20px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif"><span>Оплатить</span></button>'+
+          '</div>';
+        }
+        nowEl.innerHTML=
+        '<div style="background:linear-gradient(135deg,#ffffff,#f3f0ff);border:1.5px solid rgba(91,82,204,.28);border-radius:18px;padding:20px 22px;margin-bottom:20px;box-shadow:0 8px 28px rgba(91,82,204,.10)">'+
+          '<div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#7c74d8;margin-bottom:9px"><span>СЕЙЧАС ПО ВАШЕМУ ДЕЛУ</span></div>'+
+          '<div style="font-size:19px;font-weight:800;color:#1a1545;line-height:1.25">'+(cur.typeName||'Услуга')+' — <span>'+((st.ru)||'В работе')+'</span></div>'+
+          '<div style="display:flex;align-items:center;gap:10px;margin-top:10px">'+
+            '<div style="flex:1;height:8px;background:#e9e5f8;border-radius:6px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:6px"></div></div>'+
+            '<span style="font-size:12px;font-weight:700;color:#6b63a8;white-space:nowrap"><span>шаг '+(st.step||1)+' из 6</span></span>'+
+          '</div>'+
+          (cur.whatWeDo?row('🔧','Что мы делаем:','<span>'+cur.whatWeDo+'</span>'):'')+
+          actionHtml+
+          (cur.etaText?row('⏱','Обычный срок этапа:','<span>'+cur.etaText+'</span>'):'')+
+          payHtml+
+        '</div>';
+      }
+    }
+  }catch(e){}
 }
 
 // ─── МОИ УСЛУГИ — реальные дела клиента ───
@@ -22654,7 +22702,12 @@ var CAB_EN={
   // бейджи статусов и кнопки с эмодзи-префиксом (один текстовый узел)
   '🔄 В работе':'🔄 In progress','⏳ Ожидает':'⏳ Pending','📄 Нужны документы':'📄 Documents needed',
   '✅ Завершено':'✅ Completed','💬 Переписка →':'💬 Chat →','Онлайн-оплата':'Online payment',
-  'Карта побыту':'Karta pobytu (TRC)'
+  'Карта побыту':'Karta pobytu (TRC)',
+  // блок «Сейчас по вашему делу»
+  'СЕЙЧАС ПО ВАШЕМУ ДЕЛУ':'YOUR CASE RIGHT NOW','Что мы делаем:':'What we are doing:',
+  'Что нужно от вас:':'What we need from you:','Ничего — мы работаем, вы можете отдыхать':'Nothing — we are on it, you can relax',
+  'Обычный срок этапа:':'Typical time at this stage:','Ближайший платёж:':'Next payment:','Оплатить':'Pay',
+  'Написать в WhatsApp':'Message on WhatsApp','Быстрый ответ':'Fast reply'
 };
 var CAB_EN_RX=[
   [/^До (.+)$/,'Due $1'],
@@ -22666,7 +22719,8 @@ var CAB_EN_RX=[
   [/^клиент с (.+)$/,'client since $1'],
   [/^от (\d[\d\s]*\s*PLN)$/,'from $1'],
   [/^из (\d+) всего$/,'of $1 total'],
-  [/^Обновлено: (.+)$/,'Updated: $1']
+  [/^Обновлено: (.+)$/,'Updated: $1'],
+  [/^до (\d[\d.\/]*)$/,'due $1']
 ];
 function cabLangIsEn(){ return (document.documentElement.lang||'en').slice(0,2)!=='ru'; }
 function cabTr(t){
