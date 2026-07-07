@@ -9,7 +9,7 @@
      нет, поэтому прячем контент до применения языка (setLang в _doInit снимет класс;
      setTimeout-страховка — на случай ошибки JS, чтобы страница не осталась пустой). -->
 <style>html.lng-init body>:not(#preloader){visibility:hidden!important}</style>
-<script>document.documentElement.classList.add("lng-init");setTimeout(function(){document.documentElement.classList.remove("lng-init")},4e3);</script>
+<script>(function(){var q=(location.search.match(/[?&]lang=([a-z]{2})\b/)||[])[1];var s=null;try{s=localStorage.getItem("ls-lang")}catch(e){}var l=q||s||"en";if(l!=="en"){document.documentElement.classList.add("lng-init");setTimeout(function(){document.documentElement.classList.remove("lng-init")},4e3);}})();</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f)})(window,document,"script","dataLayer","GTM-NVH4HK34");</script>
@@ -309,9 +309,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="pre-brand-name">LegalSol</div>
 
-  <div class="pre-brand-sub" id="pre-sub">ЛЕГАЛИЗАЦИЯ В ПОЛЬШЕ</div>
+  <div class="pre-brand-sub" id="pre-sub">LEGALISATION IN POLAND</div>
 
-  <div class="pre-kp-label" id="pre-label">Загружаем</div>
+  <div class="pre-kp-label" id="pre-label">LOADING YOUR DOCUMENTS</div>
 
   <div class="pre-pct-num" id="pre-pct">0%</div>
 
@@ -341,11 +341,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="pre-steps-labels">
 
-    <span id="psl1">Консультация</span><span id="psl2">Документы</span><span id="psl3">Подача</span><span id="psl4">Карта Побыту</span>
+    <span id="psl1">Consultation</span><span id="psl2">Documents</span><span id="psl3">Submission</span><span id="psl4">Residence Card</span>
 
   </div>
 
-  <div class="pre-lbl">ЗАГРУЖАЕМ</div>
+  <div class="pre-lbl">LOADING</div>
 
 </div>
 
@@ -358,8 +358,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="ei-icon" aria-hidden="true">
       <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#ecc870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
     </div>
-    <h3 class="ei-title" id="ei-title">Wait — don\'t leave yet!</h3>
-    <p class="ei-body" id="ei-body">Get a <strong>free consultation</strong> right now. We\'ll review your situation in 15 minutes — at no cost.</p>
+    <h3 class="ei-title" id="ei-title">Wait — don't leave yet!</h3>
+    <p class="ei-body" id="ei-body">Get a <strong>free consultation</strong> right now. We will review your situation in 15 minutes — at no cost.</p>
     <div class="ei-actions">
       <button class="ei-btn ei-btn-primary" id="ei-btn-primary" onclick="hideExitIntent();openModal();">
         <span id="ei-btn-primary-text">Get free consultation</span>
@@ -403,17 +403,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div id="toast">
 
-  <div class="tt"><div class="tt-t" id="toast-title">📋 Бесплатная консультация</div><button class="tt-x" onclick="hideToast()" aria-label="Закрыть">✕</button></div>
+  <div class="tt"><div class="tt-t" id="toast-title">📋 Free Consultation</div><button class="tt-x" onclick="hideToast()" aria-label="Закрыть">✕</button></div>
 
-  <div class="tt-b" id="toast-body">Узнайте бесплатно, какой документ вам нужен и как быстро его получить.</div>
+  <div class="tt-b" id="toast-body">Find out for free what document you need and how to get it.</div>
 
-  <button class="tt-c" id="toast-cta" onclick="openModal()">Записаться →</button>
+  <button class="tt-c" id="toast-cta" onclick="openModal()">Book →</button>
 
 </div>
 
 
 
-<a id="fab" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20consultation" target="_blank" rel="noopener" data-lead-service="general" data-lead-source="floating_fab"><span class="fab-dot"></span><span id="fab-text">Бесплатная консультация</span></a>
+<a id="fab" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20consultation" target="_blank" rel="noopener" data-lead-service="general" data-lead-source="floating_fab"><span class="fab-dot"></span><span id="fab-text">Free Consultation</span></a>
 
 <!-- Social FABs -->
 
@@ -522,9 +522,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div style="font-size:28px;margin-bottom:12px;">📋</div>
 
-    <div class="modal-title" id="modal-title">Запишитесь на консультацию</div>
+    <div class="modal-title" id="modal-title">Book a Consultation</div>
 
-    <div class="modal-desc" id="modal-desc">Бесплатно — разберём вашу ситуацию и скажем что делать дальше.</div>
+    <div class="modal-desc" id="modal-desc">Free — we'll explain exactly what you need to do.</div>
 
     <input class="modal-in" placeholder="Ваше имя" id="m-name"/>
 
@@ -575,15 +575,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="trust-badge"><span class="tb-icon">⭐</span><span class="tb-text" id="tb-4">3000+ clients</span></div>
     </div>
 
-    <button class="modal-btn" id="modal-btn" onclick="submitModal()">Записаться — ответим за 15 минут →</button>
+    <button class="modal-btn" id="modal-btn" onclick="submitModal()">Book — reply within 15 min →</button>
 
     <!-- Live countdown — добавляет urgency -->
     <div class="modal-countdown" id="modal-countdown">
       <span class="mc-dot"></span>
-      <span id="mc-text">We\'ll reply by <strong id="mc-time">--:--</strong> · <span id="mc-rest">live now</span></span>
+      <span id="mc-text">We'll reply by</span>
     </div>
 
-    <div class="modal-fine" id="modal-fine">Без спама · Конфиденциально · Не передаём данные</div>
+    <div class="modal-fine" id="modal-fine">No spam · Confidential</div>
 
   </div>
 
@@ -608,7 +608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="bf-sep">·</span>
       <a href="/business" class="bf bf-biz" id="bf-biz">B2B</a>
       <span class="bf-sep">·</span>
-      <a href="/housing" class="bf bf-house" id="bf-house">Недвижка</a>
+      <a href="/housing" class="bf bf-house" id="bf-house">Housing</a>
     </div>
   </div>
 
@@ -616,23 +616,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <button class="nav-menu-toggle" id="navMenuToggle" onclick="toggleNavMenu()" aria-label="Menu">
       <span class="nm-bars"><span></span><span></span><span></span></span>
-      <span id="navMenuLabel">Меню</span>
+      <span id="navMenuLabel">Menu</span>
       <svg class="nm-chevron" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3.5 3.5L2 11"/><path d="M7 4l3.5 3.5L7 11"/></svg>
     </button>
 
     <div class="tab-nav" id="tabNav">
 
-      <button class="tab-btn active" id="tbtn-home" onclick="showTab('home')">Главная</button>
+      <button class="tab-btn active" id="tbtn-home" onclick="showTab('home')">Home</button>
 
-      <button class="tab-btn" id="tbtn-services" onclick="showTab('services')">Наши услуги</button>
+      <button class="tab-btn" id="tbtn-services" onclick="showTab('services')">Services</button>
 
-      <button class="tab-btn" id="tbtn-jobs" onclick="showTab('jobs')">Работа</button>
+      <button class="tab-btn" id="tbtn-jobs" onclick="showTab('jobs')">Work</button>
 
-      <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Блог</button>
+      <button class="tab-btn" id="tbtn-blog" onclick="showTab('blog')">Blog</button>
 
-      <button class="tab-btn" id="tbtn-reviews" onclick="showTab('reviews')" style="display:none;"><span id="tbtn-reviews-text">Отзывы</span></button>
+      <button class="tab-btn" id="tbtn-reviews" onclick="showTab('reviews')" style="display:none;"><span id="tbtn-reviews-text">Reviews</span></button>
 
-      <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">ИИ</button>
+      <button class="tab-btn" id="tbtn-ai" onclick="showTab('ai')">AI</button>
 
       <!-- B2B back in primary nav — short, branded cyan accent, keeps the conversion path for B2B leads visible -->
       <a class="tab-btn tab-btn-b2b" href="/business" id="tbtn-business-top">B2B</a>
@@ -640,7 +640,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Secondary items grouped under "More" to reduce nav clutter (Polish School / Refer / Status) -->
       <div class="tab-more-wrap" id="tabMoreWrap">
         <button class="tab-btn tab-more-btn" id="tab-more-btn" onclick="toggleTabMore(event)" aria-haspopup="true" aria-expanded="false">
-          <span id="tab-more-label">Ещё</span>
+          <span id="tab-more-label">More</span>
           <svg class="tab-more-chev" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="tab-more-panel" id="tab-more-panel" role="menu">
@@ -650,7 +650,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="tmr-ico">📘</span><span class="tmr-lbl" id="tbtn-guide-text">Karta Pobytu guide</span>
           </a>
           <button class="tab-more-row" id="tbtn-status-row" onclick="showTab('status');closeTabMore()" role="menuitem">
-            <span class="tmr-ico">✓</span><span class="tmr-lbl" id="tbtn-status">Проверить статус</span>
+            <span class="tmr-ico">✓</span><span class="tmr-lbl" id="tbtn-status">Check Status</span>
           </button>
           <a class="tab-more-row" href="/polish" id="tbtn-polish-row" role="menuitem">
             <span class="tmr-ico tmr-ico-pl">🇵🇱</span><span class="tmr-lbl" id="tbtn-polish-text">Polish School</span>
@@ -659,7 +659,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="tmr-ico tmr-ico-or">🏠</span><span class="tmr-lbl" id="tbtn-housing-text" style="color:#FF8A2B">Housing</span>
           </a>
           <button class="tab-more-row" id="tbtn-referral-row" onclick="showTab('referral');closeTabMore()" role="menuitem">
-            <span class="tmr-ico tmr-ico-gold">🎁</span><span class="tmr-lbl" id="tbtn-referral">Приведи друга</span>
+            <span class="tmr-ico tmr-ico-gold">🎁</span><span class="tmr-lbl" id="tbtn-referral">Refer a Friend</span>
           </button>
         </div>
       </div>
@@ -801,7 +801,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
 
-    <button class="btn-cta nav-cab-btn" onclick="showTab('cabinet')" id="nav-cabinet-btn">👤 Кабинет</button>
+    <button class="btn-cta nav-cab-btn" onclick="showTab('cabinet')" id="nav-cabinet-btn">👤 Cabinet</button>
 
     <!-- Compact mobile-only triggers: globe + social — added 2026-06-09
          so users can pick a language or open socials WITHOUT opening the burger drawer. -->
@@ -842,7 +842,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></span>
 
-    <span id="mnbtn-home">Главная</span>
+    <span id="mnbtn-home">Home</span>
 
   </button>
 
@@ -850,7 +850,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico">👤</span>
 
-    <span id="mnbtn-cabinet">Кабинет</span>
+    <span id="mnbtn-cabinet">Cabinet</span>
 
   </button>
 
@@ -858,7 +858,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></span>
 
-    <span id="mnbtn-services">Наши услуги</span>
+    <span id="mnbtn-services">Our Services</span>
 
   </button>
 
@@ -866,7 +866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span>
 
-    <span id="mnbtn-jobs">Работа</span>
+    <span id="mnbtn-jobs">Jobs</span>
 
   </button>
 
@@ -874,7 +874,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg></span>
 
-    <span id="mnbtn-blog">Блог</span>
+    <span id="mnbtn-blog">Blog</span>
 
   </button>
 
@@ -882,7 +882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico" style="color:#fde047;">★</span>
 
-    <span id="mnbtn-reviews">Отзывы и истории</span>
+    <span id="mnbtn-reviews">Reviews & stories</span>
 
   </button>
 
@@ -890,7 +890,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="8.5" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10" r="1.5" fill="currentColor" stroke="none"/><path d="M9 7h6"/></svg></span>
 
-    <span id="mnbtn-ai">ИИ</span>
+    <span id="mnbtn-ai">AI</span>
 
   </button>
 
@@ -898,7 +898,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><polyline points="9,11 11,13 14,10"/></svg></span>
 
-    <span id="mnbtn-status">Проверить статус</span>
+    <span id="mnbtn-status">Check Status</span>
 
   </button>
 
@@ -914,7 +914,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico" style="color:#5eead4;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 12h2m2 0h2M9 16h2m2 0h2"/></svg></span>
 
-    <span id="mnbtn-business">B2B · Для бизнеса</span>
+    <span id="mnbtn-business">B2B · For business</span>
 
   </a>
 
@@ -922,7 +922,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico" style="color:#34d399;">🇵🇱</span>
 
-    <span id="mnbtn-polish">Польская школа</span>
+    <span id="mnbtn-polish">Polish School</span>
 
   </a>
 
@@ -930,7 +930,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <span class="mnav-ico" style="color:#fde047;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="20,12 20,22 4,22 4,12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
 
-    <span id="mnbtn-referral">Приведи друга</span>
+    <span id="mnbtn-referral">Refer a Friend</span>
 
   </button>
 
@@ -987,13 +987,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div style="position:relative;z-index:2;" class="hero-enter-left">
 
-    <div class="hero-badge hero-badge-enter"><span class="badge-dot"></span><span id="hero-badge">Варшава · Польша · Онлайн по всей стране</span></div>
+    <div class="hero-badge hero-badge-enter"><span class="badge-dot"></span><span id="hero-badge">Warsaw · Poland · Online nationwide</span></div>
 
-    <h1 id="hero-h1">Карта побыту<br><em>профессионально и без стресса</em></h1>
+    <h1 id="hero-h1">Residence Permit<br><em>professional, stress-free</em></h1>
 
-    <p class="hero-desc" id="hero-desc">Берём на себя всё — от консультации до документа в руках.</p>
+    <p class="hero-desc" id="hero-desc">We handle everything — from consultation to document in hand.</p>
 
-    <a class="hero-mega-cta" href="#calc-section" id="hero-mega-cta" onclick="event.preventDefault();document.getElementById('calc-section').scrollIntoView({behavior:'smooth',block:'start'});">УЗНАТЬ ШАНСЫ НА КАРТУ ПОБЫТА →</a>
+    <a class="hero-mega-cta" href="#calc-section" id="hero-mega-cta" onclick="event.preventDefault();document.getElementById('calc-section').scrollIntoView({behavior:'smooth',block:'start'});">CHECK MY CHANCES FOR TRC →</a>
 
     <!-- Mobile-only instant WhatsApp CTA (быстрый контакт для рекламного трафика) -->
     <a class="hero-wa-cta" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20узнать%20про%20карту%20побыту" target="_blank" rel="noopener" id="hero-wa-cta" data-lead-service="karta_pobytu" data-lead-source="hero_wa_cta">
@@ -1013,17 +1013,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-btns">
 
-      <a href="#" onclick="event.preventDefault();showTab('services')" id="hero-btn2" style="font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;letter-spacing:.3px;">Все услуги →</a>
+      <a href="#" onclick="event.preventDefault();showTab('services')" id="hero-btn2" style="font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;letter-spacing:.3px;">All services →</a>
 
     </div>
 
     <div class="hero-stats">
 
-      <div class="stat"><div class="stat-num">3 000+</div><div class="stat-lbl" id="proof1">успешных дел</div></div>
+      <div class="stat"><div class="stat-num">3 000+</div><div class="stat-lbl" id="proof1">successful cases</div></div>
 
-      <div class="stat"><div class="stat-num">98%</div><div class="stat-lbl" id="proof2">одобрений</div></div>
+      <div class="stat"><div class="stat-num">98%</div><div class="stat-lbl" id="proof2">approval rate</div></div>
 
-      <div class="stat"><div class="stat-num" id="proof3-num">5 лет</div><div class="stat-lbl" id="proof3">на рынке</div></div>
+      <div class="stat"><div class="stat-num" id="proof3-num">5 years</div><div class="stat-lbl" id="proof3">on the market</div></div>
 
     </div>
 
@@ -1047,31 +1047,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       🎴  Get your karta pobytu  →
     </a>
 
-    <div class="card-hint" id="hero-hint" style="display:none;"></div>
+    <div class="card-hint" id="hero-hint" style="display:none;">Hover — card reacts</div>
 
     <div class="hero-tags">
 
-      <div class="hero-tag" id="htag1">✓ Официально</div>
+      <div class="hero-tag" id="htag1">✓ Official</div>
 
-      <div class="hero-tag" id="htag2">✓ Без очередей</div>
+      <div class="hero-tag" id="htag2">✓ No queues</div>
 
-      <div class="hero-tag" id="htag3">✓ 98% одобрений</div>
+      <div class="hero-tag" id="htag3">✓ 98% approval</div>
 
     </div>
 
-    <a class="hero-card-cta" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20legal%20analysis" target="_blank" rel="noopener" id="hero-card-cta" data-lead-service="karta_pobytu" data-lead-source="hero_card_cta">Правовой анализ — бесплатно →</a>
+    <a class="hero-card-cta" href="https://wa.me/48735248525?text=Hello!%20I%27d%20like%20a%20free%20legal%20analysis" target="_blank" rel="noopener" id="hero-card-cta" data-lead-service="karta_pobytu" data-lead-source="hero_card_cta">Legal analysis — free →</a>
 
-    <button class="hero-ref-btn" onclick="showTab('referral')" onmouseenter="spawnCoins(this,'💰')" id="hero-ref-btn" style="display:none;">
-
-      <span class="hero-ref-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
-
-      <span id="hero-ref-txt">Приводи друзей — зарабатывай</span>
-
-    </button>
+    <button class="hero-ref-btn" onclick="showTab('referral')" onmouseenter="spawnCoins(this,'💰')" id="hero-ref-btn" style="display:none;">🎁 Refer friends — earn money</button>
 
   </div>
 
-  <div class="scroll-hint"><span id="scroll-hint">ЛИСТАЙТЕ</span><div class="scroll-arr"></div></div>
+  <div class="scroll-hint"><span id="scroll-hint">SCROLL</span><div class="scroll-arr"></div></div>
 
 </section>
 
@@ -1279,31 +1273,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" id="about-tag">О нас</div>
+    <div class="s-tag reveal" id="about-tag">About Us</div>
 
-    <h2 class="s-title reveal" id="about-title">С удобством и <em>без лишнего стресса</em></h2>
+    <h2 class="s-title reveal" id="about-title">Premium service, <em>zero stress</em></h2>
 
     <div class="about-grid">
 
       <div class="about-left reveal">
 
-        <p class="about-p" id="about-p1">Легализация в Польше — наша специализация. 5 лет, 3 000+ кейсов, 98% одобрений.</p>
+        <p class="about-p" id="about-p1">Polish legalisation is our speciality. 5 years, 3,000+ cases, 98% approvals.</p>
 
-        <p class="about-p" id="about-p2">Мы — ваш <strong>персональный партнёр</strong> в Польше. Говорим о документах просто и решаем всё быстро.</p>
+        <p class="about-p" id="about-p2">We are your <strong>personal partner</strong> in Poland. Clear advice, fast results.</p>
 
         <div class="about-stats" style="display:none;">
 
-          <div class="astat"><div class="astat-n">3000+</div><div class="astat-l" id="asl1">успешных кейсов</div></div>
+          <div class="astat"><div class="astat-n">3000+</div><div class="astat-l" id="asl1">successful cases</div></div>
 
-          <div class="astat"><div class="astat-n">5+</div><div class="astat-l" id="asl2">лет работы</div></div>
+          <div class="astat"><div class="astat-n">5+</div><div class="astat-l" id="asl2">years</div></div>
 
-          <div class="astat"><div class="astat-n">98%</div><div class="astat-l" id="asl3">одобрений</div></div>
+          <div class="astat"><div class="astat-n">98%</div><div class="astat-l" id="asl3">approval rate</div></div>
 
         </div>
 
         <div style="margin-top:22px;">
 
-          <button class="btn-gold" onclick="openModal()" id="about-btn">Получить консультацию →</button>
+          <button class="btn-gold" onclick="openModal()" id="about-btn">Get a Consultation →</button>
 
         </div>
 
@@ -1311,13 +1305,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="why-grid">
 
-        <div class="why-item reveal"><div class="why-ico">📞</div><div><div class="why-t" id="wt1">Один звонок</div><div class="why-d" id="wd1">Большинству клиентов хватает одного разговора, чтобы принять решение.</div></div></div>
+        <div class="why-item reveal"><div class="why-ico">📞</div><div><div class="why-t" id="wt1">One call</div><div class="why-d" id="wd1">Most clients decide after one conversation.</div></div></div>
 
-        <div class="why-item reveal"><div class="why-ico">🎯</div><div><div class="why-t" id="wt2">Индивидуальный подход</div><div class="why-d" id="wd2">Разделение оплаты на несколько платежей для вашего комфорта.</div></div></div>
+        <div class="why-item reveal"><div class="why-ico">🎯</div><div><div class="why-t" id="wt2">Individual approach</div><div class="why-d" id="wd2">Flexible payment — in instalments if needed.</div></div></div>
 
-        <div class="why-item reveal"><div class="why-ico">📊</div><div><div class="why-t" id="wt3">Прозрачный контроль</div><div class="why-d" id="wd3">Работаем через CRM. Лёгкий контроль статуса вашего дела.</div></div></div>
+        <div class="why-item reveal"><div class="why-ico">📊</div><div><div class="why-t" id="wt3">Transparent tracking</div><div class="why-d" id="wd3">CRM-powered — check your case status anytime.</div></div></div>
 
-        <div class="why-item reveal"><div class="why-ico">⚡</div><div><div class="why-t" id="wt4">Экономия времени</div><div class="why-d" id="wd4">Вы занимаетесь жизнью — мы занимаемся вашими документами.</div></div></div>
+        <div class="why-item reveal"><div class="why-ico">⚡</div><div><div class="why-t" id="wt4">Time savings</div><div class="why-d" id="wd4">You focus on life — we handle the paperwork.</div></div></div>
 
       </div>
 
@@ -1338,9 +1332,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" style="justify-content:center;" id="steps-tag">Формула</div>
+    <div class="s-tag reveal" style="justify-content:center;" id="steps-tag">Process</div>
 
-    <h2 class="s-title reveal" style="text-align:center;" id="steps-title">Как мы <em>добиваемся</em> результата</h2>
+    <h2 class="s-title reveal" style="text-align:center;" id="steps-title">How we <em>deliver results</em></h2>
 
     <div class="hw-grid">
 
@@ -1350,11 +1344,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="hw-ico">💬</div>
 
-        <div class="hw-title" id="st1">Бесплатная консультация</div>
+        <div class="hw-title" id="st1">Free Consultation</div>
 
-        <div class="hw-desc" id="sd1">Рассказываете ситуацию — оцениваем шансы, выбираем путь и объясняем что нужно.</div>
+        <div class="hw-desc" id="sd1">Tell us your situation — we assess your chances, choose the right path and explain what's needed.</div>
 
-        <div class="hw-chips"><span class="hw-chip">WhatsApp</span><span class="hw-chip">Telegram</span><span class="hw-chip" id="tc1">Звонок</span></div>
+        <div class="hw-chips"><span class="hw-chip">WhatsApp</span><span class="hw-chip">Telegram</span><span class="hw-chip" id="tc1">Call</span></div>
 
       </div>
 
@@ -1364,11 +1358,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="hw-ico">📄</div>
 
-        <div class="hw-title" id="st2">Пакет документов</div>
+        <div class="hw-title" id="st2">Document Package</div>
 
-        <div class="hw-desc" id="sd2">Составляем полный список, помогаем собрать и проверяем каждый документ до подачи.</div>
+        <div class="hw-desc" id="sd2">We compile the full list, help collect and verify every document before submission.</div>
 
-        <div class="hw-chips"><span class="hw-chip" id="tc2">Чеклист</span><span class="hw-chip" id="tc3">Переводы</span><span class="hw-chip" id="tc4">Проверка</span></div>
+        <div class="hw-chips"><span class="hw-chip" id="tc2">Checklist</span><span class="hw-chip" id="tc3">Translations</span><span class="hw-chip" id="tc4">Verification</span></div>
 
       </div>
 
@@ -1378,11 +1372,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="hw-ico">🏛️</div>
 
-        <div class="hw-title" id="st3">Подача в уженд</div>
+        <div class="hw-title" id="st3">Submission to Office</div>
 
-        <div class="hw-desc" id="sd3">Записываем и сопровождаем в воеводское управление. Без очередей и стресса.</div>
+        <div class="hw-desc" id="sd3">We book and accompany you to the voivodeship office. No queues, no stress.</div>
 
-        <div class="hw-chips"><span class="hw-chip" id="tc5">Запись</span><span class="hw-chip" id="tc6">Сопровождение</span></div>
+        <div class="hw-chips"><span class="hw-chip" id="tc5">Booking</span><span class="hw-chip" id="tc6">Accompaniment</span></div>
 
       </div>
 
@@ -1392,11 +1386,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="hw-ico">🪪</div>
 
-        <div class="hw-title" id="st4">Карта побыту в руках</div>
+        <div class="hw-title" id="st4">Residence Permit in Hand</div>
 
-        <div class="hw-desc" id="sd4">Получаете документ. Остаёмся на связи — всегда есть куда обратиться с вопросом.</div>
+        <div class="hw-desc" id="sd4">You get your document. We stay in touch — always available for future questions.</div>
 
-        <div class="hw-chips"><span class="hw-chip" id="tc7">98% одобрений</span><span class="hw-chip" id="tc8">С первого раза</span></div>
+        <div class="hw-chips"><span class="hw-chip" id="tc7">98% approval</span><span class="hw-chip" id="tc8">First attempt</span></div>
 
       </div>
 
@@ -1478,15 +1472,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="extras-bg" aria-hidden="true"></div>
   <div class="extras-grid-pattern" aria-hidden="true"></div>
   <div class="s-inner extras-inner">
-    <div class="s-tag reveal" id="extras-tag" style="justify-content:center;">Дополнительно</div>
-    <h2 class="s-title reveal" id="extras-title" style="text-align:center;">Не только <em>легализация</em></h2>
-    <p class="extras-desc reveal" id="extras-desc">Три отдельных направления — для бизнеса, изучающих польский и тех, кто готов делиться нашим контактом.</p>
+    <div class="s-tag reveal" id="extras-tag" style="justify-content:center;">Also</div>
+    <h2 class="s-title reveal" id="extras-title" style="text-align:center;">More than <em>legalization</em></h2>
+    <p class="extras-desc reveal" id="extras-desc">Three separate paths — for businesses, those learning Polish, and people ready to share our contact.</p>
 
     <div class="extras-grid">
 
       <!-- ════════ B2B card ════════ -->
       <a href="/business" class="extras-card extras-cy reveal" id="ex-card-b2b" aria-label="B2B">
-        <span class="ex-corner-badge" id="ex-badge-b2b">Подробнее →</span>
+        <span class="ex-corner-badge" id="ex-badge-b2b">Learn more →</span>
         <div class="ex-glow" aria-hidden="true"></div>
         <div class="ex-pattern" aria-hidden="true"></div>
         <div class="ex-topbar">
@@ -1502,17 +1496,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18M3 9v10a2 2 0 002 2h14a2 2 0 002-2V9M3 9l2-5h14l2 5M9 13v4M15 13v4"/></svg>
             </div>
           </div>
-          <div class="ex-hero-stat" id="ex-b2b-stat">от 1500 zł</div>
-          <div class="ex-hero-sub" id="ex-b2b-stat-sub">регистрация компании</div>
-          <h3 class="ex-h3" id="ex-b2b-h">Для бизнеса</h3>
-          <p class="ex-p" id="ex-b2b-p">Регистрация Sp. z o.o., открытие счёта, бухгалтерия, отдельный лендинг с калькулятором.</p>
+          <div class="ex-hero-stat" id="ex-b2b-stat">from 1500 zł</div>
+          <div class="ex-hero-sub" id="ex-b2b-stat-sub">company registration</div>
+          <h3 class="ex-h3" id="ex-b2b-h">For business</h3>
+          <p class="ex-p" id="ex-b2b-p">Sp. z o.o. registration, bank account, accounting, dedicated landing with calculator.</p>
           <div class="ex-features">
-            <span class="ex-f" id="ex-b2b-f1">📊 Калькулятор</span>
+            <span class="ex-f" id="ex-b2b-f1">📊 Calculator</span>
             <span class="ex-f" id="ex-b2b-f2">🏢 Sp. z o.o.</span>
-            <span class="ex-f" id="ex-b2b-f3">💼 Бухгалтерия</span>
+            <span class="ex-f" id="ex-b2b-f3">💼 Accounting</span>
           </div>
           <div class="ex-cta-btn">
-            <span id="ex-b2b-cta">Открыть B2B-страницу</span>
+            <span id="ex-b2b-cta">Go to B2B</span>
             <svg class="ex-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
           </div>
         </div>
@@ -1520,7 +1514,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- ════════ Polish School card ════════ -->
       <a href="/polish" class="extras-card extras-em reveal" id="ex-card-polish" aria-label="Polish School">
-        <span class="ex-corner-badge" id="ex-badge-polish">Подробнее →</span>
+        <span class="ex-corner-badge" id="ex-badge-polish">Learn more →</span>
         <div class="ex-glow" aria-hidden="true"></div>
         <div class="ex-pattern" aria-hidden="true"></div>
         <div class="ex-topbar">
@@ -1537,16 +1531,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
           </div>
           <div class="ex-hero-stat" id="ex-polish-stat">A1→C1</div>
-          <div class="ex-hero-sub" id="ex-polish-stat-sub">все уровни · 12 недель</div>
-          <h3 class="ex-h3" id="ex-polish-h">Польская школа</h3>
-          <p class="ex-p" id="ex-polish-p">Курсы польского с носителями. Группы по уровню от A1 до C1. Идёт набор на новый поток.</p>
+          <div class="ex-hero-sub" id="ex-polish-stat-sub">all levels · 12 weeks</div>
+          <h3 class="ex-h3" id="ex-polish-h">Polish School</h3>
+          <p class="ex-p" id="ex-polish-p">Polish courses with native speakers. Level groups A1 to C1. New intake open now.</p>
           <div class="ex-features">
-            <span class="ex-f" id="ex-polish-f1">👨‍🏫 Носители</span>
+            <span class="ex-f" id="ex-polish-f1">👨‍🏫 Native</span>
             <span class="ex-f" id="ex-polish-f2">📚 A1–C1</span>
-            <span class="ex-f" id="ex-polish-f3">🎓 Сертификат</span>
+            <span class="ex-f" id="ex-polish-f3">🎓 Certificate</span>
           </div>
           <div class="ex-cta-btn">
-            <span id="ex-polish-cta">Узнать о школе</span>
+            <span id="ex-polish-cta">To the school</span>
             <svg class="ex-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
           </div>
         </div>
@@ -1554,7 +1548,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- ════════ Referral card ════════ -->
       <a class="extras-card extras-gold reveal" id="ex-card-ref" onclick="event.preventDefault();showTab('referral');document.getElementById('tab-referral').scrollIntoView({behavior:'smooth'});" href="#referral" aria-label="Refer a Friend">
-        <span class="ex-corner-badge" id="ex-badge-ref">Подробнее →</span>
+        <span class="ex-corner-badge" id="ex-badge-ref">Learn more →</span>
         <div class="ex-glow" aria-hidden="true"></div>
         <div class="ex-pattern" aria-hidden="true"></div>
         <div class="ex-topbar">
@@ -1570,17 +1564,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
             </div>
           </div>
-          <div class="ex-hero-stat" id="ex-ref-stat">до 500 zł</div>
-          <div class="ex-hero-sub" id="ex-ref-stat-sub">за каждого клиента · без лимита</div>
-          <h3 class="ex-h3" id="ex-ref-h">Приведи друга</h3>
-          <p class="ex-p" id="ex-ref-p">Делишься нашим контактом — получаешь до 500 zł за каждого клиента. Без лимита по количеству.</p>
+          <div class="ex-hero-stat" id="ex-ref-stat">up to 500 zł</div>
+          <div class="ex-hero-sub" id="ex-ref-stat-sub">per client · no cap</div>
+          <h3 class="ex-h3" id="ex-ref-h">Refer a friend</h3>
+          <p class="ex-p" id="ex-ref-p">Share our contact — earn up to 500 PLN per client. No cap on referrals.</p>
           <div class="ex-features">
-            <span class="ex-f" id="ex-ref-f1">💸 500 zł / лид</span>
-            <span class="ex-f" id="ex-ref-f2">∞ Без лимита</span>
-            <span class="ex-f" id="ex-ref-f3">⚡ Выплата 24ч</span>
+            <span class="ex-f" id="ex-ref-f1">💸 500 PLN / lead</span>
+            <span class="ex-f" id="ex-ref-f2">∞ No limit</span>
+            <span class="ex-f" id="ex-ref-f3">⚡ Payout 24h</span>
           </div>
           <div class="ex-cta-btn">
-            <span id="ex-ref-cta">Перейти к программе</span>
+            <span id="ex-ref-cta">Go to program</span>
             <svg class="ex-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
           </div>
         </div>
@@ -1650,15 +1644,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hlead-inner">
 
     <div class="hlead-left">
-      <div class="hlead-badge"><span class="hlead-badge-dot"></span><span id="hlead-badge">Без квиза · 30 секунд</span></div>
-      <h2 class="hlead-title" id="hlead-title">Не хотите ждать?<br><em>Оставьте заявку — перезвоним за 15 минут</em></h2>
-      <p class="hlead-desc" id="hlead-desc">Бесплатная консультация. Разберём вашу ситуацию и скажем что делать дальше.</p>
+      <div class="hlead-badge"><span class="hlead-badge-dot"></span><span id="hlead-badge">No quiz · 30 seconds</span></div>
+      <h2 class="hlead-title" id="hlead-title">Don't want to wait?<br><em>Leave a request — we'll call you back in 15 minutes</em></h2>
+      <p class="hlead-desc" id="hlead-desc">Free consultation. We'll review your situation and tell you what to do next.</p>
 
       <div class="hlead-trust">
-        <div class="hlead-tb"><span class="hlead-tb-ic">🛡️</span><span id="hlead-tb1">98% одобрений</span></div>
-        <div class="hlead-tb"><span class="hlead-tb-ic">💬</span><span id="hlead-tb2">Ответ за 15 мин</span></div>
-        <div class="hlead-tb"><span class="hlead-tb-ic">⭐</span><span id="hlead-tb3">3000+ клиентов</span></div>
-        <div class="hlead-tb"><span class="hlead-tb-ic">🔒</span><span id="hlead-tb4">Без спама</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">🛡️</span><span id="hlead-tb1">98% approval</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">💬</span><span id="hlead-tb2">Reply in 15 min</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">⭐</span><span id="hlead-tb3">3000+ clients</span></div>
+        <div class="hlead-tb"><span class="hlead-tb-ic">🔒</span><span id="hlead-tb4">No spam</span></div>
       </div>
     </div>
 
@@ -1685,7 +1679,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Service picker (custom dark dropdown) -->
         <div class="hlead-svc" id="hlead-svc">
           <button type="button" class="hlead-svc-trigger" id="hlead-svc-trigger" onclick="hleadSvcToggle(event)" aria-haspopup="listbox" aria-expanded="false">
-            <span class="hlead-svc-text" id="hlead-svc-text">Не знаю — нужна консультация</span>
+            <span class="hlead-svc-text" id="hlead-svc-text">I don't know — I need a consultation</span>
             <svg class="hlead-svc-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="hlead-svc-menu" id="hlead-svc-menu" role="listbox">
@@ -1706,10 +1700,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <button type="submit" class="hlead-btn" id="hlead-btn">
-          <span id="hlead-btn-text">Оставить заявку — ответим за 15 минут →</span>
+          <span id="hlead-btn-text">Submit request — we'll reply in 15 min →</span>
         </button>
 
-        <div class="hlead-fine" id="hlead-fine">Без спама · Конфиденциально · Не передаём данные третьим лицам</div>
+        <div class="hlead-fine" id="hlead-fine">No spam · Confidential · We don't share your data</div>
       </form>
     </div>
 
@@ -1743,7 +1737,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="cc-test-signal-dot"></div>
 
-        <span id="cc-test-signal-txt">Тест на Карту побыту — пройдите за 60 секунд</span>
+        <span id="cc-test-signal-txt">Residence Permit Test — complete in 60 seconds</span>
 
         <span class="cc-test-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
 
@@ -1751,11 +1745,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     </div>
 
-    <div style="display:inline-block;font-size:11px;letter-spacing:4px;color:var(--p400);background:rgba(91,82,204,.1);border:1px solid rgba(91,82,204,.25);border-radius:60px;padding:6px 18px;margin-bottom:18px;" id="cc-badge">ЗАЙМЁТ 1 МИНУТУ · БЕСПЛАТНО</div>
+    <div style="display:inline-block;font-size:11px;letter-spacing:4px;color:var(--p400);background:rgba(91,82,204,.1);border:1px solid rgba(91,82,204,.25);border-radius:60px;padding:6px 18px;margin-bottom:18px;" id="cc-badge">⚡ TAKES 30 SECONDS · FREE</div>
 
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;" id="cc-heading">Узнайте ваши шансы<br>на <em style="font-style:italic;color:var(--p300)">Карту Побыту</em></h2>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;" id="cc-heading">Are your documents ready<br>for a <em style="font-style:italic;color:var(--gold2);">Residence Permit?</em></h2>
 
-    <p style="color:var(--txt2);font-size:15px;max-width:560px;margin:0 auto 26px;line-height:1.7;" id="cc-subdesc">5 вопросов — получите персональный список документов и оценку готовности</p>
+    <p style="color:var(--txt2);font-size:15px;max-width:560px;margin:0 auto 26px;line-height:1.7;" id="cc-subdesc">Choose your basis — check the documents you already have. We'll show your chances and what's missing.</p>
 
     <!-- Kamil helper-bar -->
     <div class="calc-helper-pv">
@@ -1796,9 +1790,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="cs1" class="cc-panel">
 
-      <div class="cc-step-lbl" id="cc-step1-lbl">ШАГ 1 из 5 — ВАШЕ ГРАЖДАНСТВО</div>
+      <div class="cc-step-lbl" id="cc-step1-lbl">STEP 1 OF 5 — CHOOSE YOUR BASIS</div>
 
-      <p id="cc-country-lbl" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">Выберите страну вашего гражданства</p>
+      <p id="cc-country-lbl" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">Select your country of citizenship</p>
 
 
 
@@ -1808,7 +1802,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="cc-picker-flag" id="cc-picker-flag"><canvas id="cc-globe-canvas" width="40" height="40" style="display:block;"></canvas></span>
 
-        <span id="cc-picker-label">Выберите вашу страну...</span>
+        <span id="cc-picker-label">Select your country...</span>
 
         <svg class="cc-picker-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>
 
@@ -1818,17 +1812,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div style="margin-top:28px;">
 
-        <div id="cc-specialist-lbl" style="font-size:12px;color:var(--txt3);margin-bottom:14px;">Хотите сразу к специалисту?</div>
+        <div id="cc-specialist-lbl" style="font-size:12px;color:var(--txt3);margin-bottom:14px;">Want to speak with a specialist right away?</div>
 
         <button class="cc-chances-btn" onclick="openModal()" id="cc-chances-btn">
 
           <span class="cc-chances-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 7l5 5-5 5"/></svg></span>
 
-          <span id="cc-chances-txt">Бесплатная консультация →</span>
+          <span id="cc-chances-txt">Check my chances for a Residence Permit →</span>
 
         </button>
 
-        <div id="cc-fine-lbl" style="font-size:11px;color:var(--txt3);margin-top:10px;">Бесплатно · Ответ за 15 минут · Без обязательств</div>
+        <div id="cc-fine-lbl" style="font-size:11px;color:var(--txt3);margin-top:10px;">Free · Reply within 15 minutes · No obligations</div>
 
       </div>
 
@@ -1844,7 +1838,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="cp-header">
 
-          <div class="cp-title" id="cp-modal-title">Выберите страну гражданства</div>
+          <div class="cp-title" id="cp-modal-title">Select country of citizenship</div>
 
           <button class="cp-close" onclick="closeCountryPicker()" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
 
@@ -1870,9 +1864,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="cs2" class="cc-panel" style="display:none;">
 
-      <div class="cc-step-lbl" id="cc-step2-lbl">ШАГ 2 из 5 — ТЕКУЩИЕ ДОКУМЕНТЫ</div>
+      <div class="cc-step-lbl" id="cc-step2-lbl">STEP 2 OF 5 — CURRENT DOCUMENTS</div>
 
-      <p id="cc-s2-q" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">Какой документ у вас сейчас есть для пребывания в Польше?</p>
+      <p id="cc-s2-q" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">What document do you currently have for staying in Poland?</p>
 
       <div class="cc-opt-grid">
 
@@ -1880,9 +1874,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n1">Виза Шенген (C)</div>
+          <div class="cc-opt-name" id="cc-s2-n1">Schengen Visa (C)</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s1">Краткосрочная, до 90 дней</div>
+          <div class="cc-opt-sub" id="cc-s2-s1">Short-stay, up to 90 days</div>
 
         </button>
 
@@ -1890,9 +1884,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h2M13 15h4"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n2">Виза Д (национальная)</div>
+          <div class="cc-opt-name" id="cc-s2-n2">National Visa (D)</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s2">Praca / Pobyt / Nauka</div>
+          <div class="cc-opt-sub" id="cc-s2-s2">Work / Stay / Study</div>
 
         </button>
 
@@ -1900,9 +1894,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 12h10M7 8h6M7 16h8"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n3">Стикер / штамп в паспорте</div>
+          <div class="cc-opt-name" id="cc-s2-n3">Residence sticker / stamp</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s3">Naklejka pobytowa</div>
+          <div class="cc-opt-sub" id="cc-s2-s3">Residence sticker (Naklejka)</div>
 
         </button>
 
@@ -1910,9 +1904,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="8" cy="12" r="3"/><path d="M14 9h4M14 12h4M14 15h2"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n4">Предыдущая Карта побыту</div>
+          <div class="cc-opt-name" id="cc-s2-n4">Previous Residence Card</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s4">Истекла или истекает</div>
+          <div class="cc-opt-sub" id="cc-s2-s4">Expired or expiring soon</div>
 
         </button>
 
@@ -1920,9 +1914,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l7 4v6c0 4.4-3 8.4-7 9.6C8 20.4 5 16.4 5 12V6l7-4z"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n5">Временная защита</div>
+          <div class="cc-opt-name" id="cc-s2-n5">Temporary Protection</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s5">Ochrona tymczasowa (UKR)</div>
+          <div class="cc-opt-sub" id="cc-s2-s5">Temporary protection (UKR)</div>
 
         </button>
 
@@ -1930,15 +1924,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-s2-n6">Только загранпаспорт</div>
+          <div class="cc-opt-name" id="cc-s2-n6">Foreign passport only</div>
 
-          <div class="cc-opt-sub" id="cc-s2-s6">Нет польских документов</div>
+          <div class="cc-opt-sub" id="cc-s2-s6">No Polish documents</div>
 
         </button>
 
       </div>
 
-      <button class="cc-back-btn-sm" onclick="cGoBack(1)" id="cc-back-btn">← Назад</button>
+      <button class="cc-back-btn-sm" onclick="cGoBack(1)" id="cc-back-btn">← Back</button>
 
     </div>
 
@@ -1948,9 +1942,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="cs3" class="cc-panel" style="display:none;">
 
-      <div class="cc-step-lbl" id="cc-step3-lbl">ШАГ 3 из 5 — ВАША СИТУАЦИЯ</div>
+      <div class="cc-step-lbl" id="cc-step3-lbl">STEP 3 OF 5 — YOUR SITUATION</div>
 
-      <p id="cc-s3-q" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">На каком основании планируете получить Карту побыту?</p>
+      <p id="cc-s3-q" style="font-size:14px;color:var(--txt2);margin-bottom:28px;">On what basis do you plan to get the Residence Card?</p>
 
       <div class="cc-opt-grid cc-opt-grid-4">
 
@@ -1958,9 +1952,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-opt-work-3">Работаю официально</div>
+          <div class="cc-opt-name" id="cc-opt-work-3">Official Employment</div>
 
-          <div class="cc-opt-sub" id="cc-s3-s1">Umowa o pracę / zlecenie</div>
+          <div class="cc-opt-sub" id="cc-s3-s1">Employment / work contract</div>
 
         </button>
 
@@ -1968,9 +1962,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-opt-biz-3">Своё дело</div>
+          <div class="cc-opt-name" id="cc-opt-biz-3">Own Business</div>
 
-          <div class="cc-opt-sub" id="cc-s3-s2">JDG / Spółka z o.o.</div>
+          <div class="cc-opt-sub" id="cc-s3-s2">JDG / Sp. z o.o.</div>
 
         </button>
 
@@ -1978,9 +1972,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-opt-family-3">Семья</div>
+          <div class="cc-opt-name" id="cc-opt-family-3">Family</div>
 
-          <div class="cc-opt-sub" id="cc-s3-s3">Супруг(а) / ребёнок гражданина ЕС</div>
+          <div class="cc-opt-sub" id="cc-s3-s3">Spouse / child of EU citizen</div>
 
         </button>
 
@@ -1988,9 +1982,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="cc-opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
 
-          <div class="cc-opt-name" id="cc-opt-student-3">Студент</div>
+          <div class="cc-opt-name" id="cc-opt-student-3">Student</div>
 
-          <div class="cc-opt-sub" id="cc-s3-s4">Дневное отделение польского вуза</div>
+          <div class="cc-opt-sub" id="cc-s3-s4">Full-time Polish university</div>
 
         </button>
 
@@ -2008,7 +2002,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:10px;">
 
-        <div class="cc-step-lbl" style="margin-bottom:0;" id="cc-step4-lbl">ШАГ 4 из 5 — ОТМЕТЬТЕ ИМЕЮЩИЕСЯ ДОКУМЕНТЫ</div>
+        <div class="cc-step-lbl" style="margin-bottom:0;" id="cc-step4-lbl">STEP 4 OF 5 — CHECK YOUR DOCUMENTS</div>
 
       </div>
 
@@ -2020,7 +2014,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
 
-            <span id="cc-req-lbl">ОБЯЗАТЕЛЬНЫЙ ПАКЕТ (для всех)</span>
+            <span id="cc-req-lbl">REQUIRED PACKAGE (for everyone)</span>
 
           </div>
 
@@ -2034,7 +2028,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M13 2v7h7"/></svg>
 
-            <span id="cc-lbl">ВАРИАНТ А: ПО РАБОТЕ</span>
+            <span id="cc-lbl">OPTION A: WORK-BASED</span>
 
           </div>
 
@@ -2044,11 +2038,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       </div>
 
-      <div style="text-align:center;margin-bottom:18px;font-size:13px;color:var(--txt2);line-height:1.6;" id="cc-hint">Отмечайте только документы, которые у вас <strong style="color:rgba(255,255,255,.55);">уже есть на руках</strong>. Квитанция и заявление оформляются в день подачи — их не считаем.</div>
+      <div style="text-align:center;margin-bottom:18px;font-size:13px;color:var(--txt2);line-height:1.6;" id="cc-hint">Check only documents you <strong style="color:rgba(255,255,255,.55);">already have</strong>. The receipt and application are prepared on submission day — don't count them.</div>
 
       <div style="text-align:center;">
 
-        <button onclick="cResult()" class="btn-gold" style="font-size:15px;padding:16px 40px;" id="cc-submit-btn">Проверить готовность →</button>
+        <button onclick="cResult()" class="btn-gold" style="font-size:15px;padding:16px 40px;" id="cc-submit-btn">Check readiness →</button>
 
       </div>
 
@@ -2091,13 +2085,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="guar-shield">🛡️</div>
 
-    <div id="guar-tag" style="font-size:11px;letter-spacing:4px;color:#4ade80;margin-bottom:12px;position:relative;z-index:1;">ГАРАНТИЯ</div>
+    <div id="guar-tag" style="font-size:11px;letter-spacing:4px;color:#4ade80;margin-bottom:12px;position:relative;z-index:1;">GUARANTEE</div>
 
-    <h2 id="guar-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,36px);font-weight:900;margin-bottom:16px;position:relative;z-index:1;"><span class="guar-pct">98%</span> одобрений — <em style="color:#4ade80">или апелляция за наш счёт</em></h2>
+    <h2 id="guar-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,36px);font-weight:900;margin-bottom:16px;position:relative;z-index:1;">98% approvals — <em style="color:#4ade80">or appeal at our cost</em></h2>
 
-    <p id="guar-p" style="color:var(--txt2);font-size:15px;line-height:1.8;margin-bottom:28px;position:relative;z-index:1;" class="guar-desc">За 5 лет работы мы добились одобрения в 98% случаев. Если ваше дело получит отказ — мы подаём апелляцию бесплатно. А если мы видим, что шансов нет — честно скажем на бесплатной консультации, ДО начала работы.</p>
+    <p id="guar-p" style="color:var(--txt2);font-size:15px;line-height:1.8;margin-bottom:28px;position:relative;z-index:1;" class="guar-desc">Over 5 years we've achieved approval in 98% of cases. If your case is rejected — we file the appeal for free. And if we see no chance — we'll tell you honestly at the free consultation, BEFORE we start.</p>
 
-    <button id="guar-btn" class="cta-btn guar-cta" onclick="openModal()" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#0f172a;border:none;padding:14px 32px;border-radius:60px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;position:relative;z-index:1;">Записаться на бесплатный анализ →</button>
+    <button id="guar-btn" class="cta-btn guar-cta" onclick="openModal()" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#0f172a;border:none;padding:14px 32px;border-radius:60px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;position:relative;z-index:1;">Book a free analysis →</button>
 
   </div>
 
@@ -2121,13 +2115,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="vs-tag-line"></div>
 
-        <div id="vs-tag" style="font-size:11px;letter-spacing:4px;color:var(--p400);font-weight:600;">СРАВНИТЕ</div>
+        <div id="vs-tag" style="font-size:11px;letter-spacing:4px;color:var(--p400);font-weight:600;">COMPARE</div>
 
         <div class="vs-tag-line r"></div>
 
       </div>
 
-      <h2 id="vs-h2" style="font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:900;margin-top:8px;">Самостоятельно <span style="color:var(--txt3);">vs</span> <em style="color:var(--p300);">с LegalSol</em></h2>
+      <h2 id="vs-h2" style="font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:900;margin-top:8px;">On your own <span style="color:var(--txt3);">vs</span> <em style="color:var(--p300);">with LegalSol</em></h2>
 
     </div>
 
@@ -2137,17 +2131,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="vs-col vs-col-bad">
 
-        <div id="vs-bad-label" class="vs-col-label">САМОСТОЯТЕЛЬНО</div>
+        <div id="vs-bad-label" class="vs-col-label">ON YOUR OWN</div>
 
-        <div class="vs-row" data-delay="0"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-1" class="vs-text">Сами ищете список документов</div></div>
+        <div class="vs-row" data-delay="0"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-1" class="vs-text">You search for document lists yourself</div></div>
 
-        <div class="vs-row" data-delay="100"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-2" class="vs-text">Часами в очереди в уженде</div></div>
+        <div class="vs-row" data-delay="100"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-2" class="vs-text">Hours in queues at the office</div></div>
 
-        <div class="vs-row" data-delay="200"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-3" class="vs-text">Ошибка = отказ, начинай сначала</div></div>
+        <div class="vs-row" data-delay="200"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-3" class="vs-text">One mistake = rejection, start over</div></div>
 
-        <div class="vs-row" data-delay="300"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-4" class="vs-text">Ждёте 6–12 мес. без информации</div></div>
+        <div class="vs-row" data-delay="300"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-4" class="vs-text">Wait 6–12 months with no updates</div></div>
 
-        <div class="vs-row" data-delay="400"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-5" class="vs-text">Отказ — за свой счёт</div></div>
+        <div class="vs-row" data-delay="400"><div class="vs-ico vs-ico-bad">✕</div><div id="vs-bad-5" class="vs-text">Rejection — at your own expense</div></div>
 
       </div>
 
@@ -2167,17 +2161,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="vs-col vs-col-good">
 
-        <div id="vs-good-label" class="vs-col-label">С LEGALSOL</div>
+        <div id="vs-good-label" class="vs-col-label">WITH LEGALSOL</div>
 
-        <div class="vs-row" data-delay="50"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-1" class="vs-text">Полный чек-лист под ваш случай</div></div>
+        <div class="vs-row" data-delay="50"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-1" class="vs-text">Full checklist tailored to your case</div></div>
 
-        <div class="vs-row" data-delay="150"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-2" class="vs-text">Записываем без очередей</div></div>
+        <div class="vs-row" data-delay="150"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-2" class="vs-text">We book appointments — no queues</div></div>
 
-        <div class="vs-row" data-delay="250"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-3" class="vs-text">ИИ проверяет до подачи</div></div>
+        <div class="vs-row" data-delay="250"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-3" class="vs-text">AI checks everything before filing</div></div>
 
-        <div class="vs-row" data-delay="350"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-4" class="vs-text">Трекинг 24/7 в кабинете</div></div>
+        <div class="vs-row" data-delay="350"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-4" class="vs-text">24/7 tracking in your dashboard</div></div>
 
-        <div class="vs-row" data-delay="450"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-5" class="vs-text">Отказ → апелляция за наш счёт</div></div>
+        <div class="vs-row" data-delay="450"><div class="vs-ico vs-ico-good">✓</div><div id="vs-good-5" class="vs-text">Rejection → free appeal on us</div></div>
 
       </div>
 
@@ -2185,7 +2179,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="vs-cta-row reveal">
 
-      <button id="vs-btn" class="btn-gold" onclick="openModal()" style="font-size:15px;padding:14px 36px;">Выбрать спокойный путь →</button>
+      <button id="vs-btn" class="btn-gold" onclick="openModal()" style="font-size:15px;padding:14px 36px;">Choose the stress-free path →</button>
 
     </div>
 
@@ -2223,9 +2217,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="s-tag reveal" style="justify-content:center;" id="faq-tag">FAQ</div>
 
-    <h2 class="s-title reveal" style="text-align:center;" id="faq-title">Частые <em>вопросы</em></h2>
+    <h2 class="s-title reveal" style="text-align:center;" id="faq-title">Frequently <em>asked questions</em></h2>
 
-    <p class="s-desc reveal" style="text-align:center;margin-bottom:48px;" id="faq-desc">Отвечаем на самые популярные вопросы о легализации в Польше.</p>
+    <p class="s-desc reveal" style="text-align:center;margin-bottom:48px;" id="faq-desc">Answers to the most common questions about legalisation in Poland.</p>
 
 
 
@@ -2233,13 +2227,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq1">Сколько ждать решения по карте побыту?</span>
+        <span id="fq1">How long does the residence permit decision take?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa1">В зависимости от воеводства — от 3 до 12 месяцев. Мазовецкое воеводство (Варшава) обычно рассматривает заявления 4–8 месяцев. Всё это время вы имеете право легально находиться в Польше — штамп в паспорте даёт такое право с момента подачи документов до получения решения.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa1">Depending on the voivodeship — 3 to 12 months. Masovian (Warsaw) typically takes 4–8 months. During this time, you may legally stay in Poland with the submission stamp.</div></div>
 
     </div>
 
@@ -2249,13 +2243,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq2">Можно ли выезжать за границу во время ожидания?</span>
+        <span id="fq2">Can I travel abroad while waiting?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa2">Да, но с ограничениями. Со штампом о подаче вы можете выезжать в страны Шенгена и возвращаться в Польшу. При поездке в третьи страны необходимо иметь действующую визу или другое основание. Важно: не превышайте сроки отсутствия, прописанные в вашем типе разрешения.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa2">Yes, with limitations. With the submission stamp you can travel within Schengen and return to Poland. For third countries, a valid visa or other basis is required.</div></div>
 
     </div>
 
@@ -2265,13 +2259,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq3">Что делать, если я сменил работу в процессе рассмотрения?</span>
+        <span id="fq3">What if I change jobs during the process?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa3">О смене работодателя необходимо уведомить воеводское управление. В некоторых случаях смена работы требует подачи нового заявления — это зависит от типа разрешения. Лучше проконсультироваться с нами до смены, чтобы не потерять статус ожидающего.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa3">You must notify the voivodeship office about the employer change. In some cases a new application is required. Consult us before switching.</div></div>
 
     </div>
 
@@ -2281,13 +2275,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq4">Могу ли я перевезти семью по своей карте побыту?</span>
+        <span id="fq4">Can I bring my family on my residence permit?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa4">Да, воссоединение семьи возможно. Супруг(а) и несовершеннолетние дети могут подать заявление на карту побыту по основанию «воссоединение с семьёй». Для этого у вас должен быть действующий побыт и стабильный доход. Мы поможем подготовить полный пакет документов для всей семьи.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa4">Yes. A spouse and minor children can apply for a permit based on family reunification. You need a valid permit and stable income.</div></div>
 
     </div>
 
@@ -2297,13 +2291,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq5">Сколько стоят услуги LegalSol?</span>
+        <span id="fq5">How much do LegalSol services cost?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa5">Стоимость зависит от типа и сложности дела. Первичная консультация — бесплатно. После неё мы называем точную цену без скрытых платежей. Возможна оплата частями. Позвоните или напишите в WhatsApp по номеру +48 735 248 525 — обсудим вашу ситуацию.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa5">Depends on complexity. Initial consultation is free. Transparent pricing, no hidden fees. Instalment payments available. +48 735 248 525.</div></div>
 
     </div>
 
@@ -2313,13 +2307,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq6">Какие документы нужны для подачи на карту побыту?</span>
+        <span id="fq6">What documents are needed to apply for a residence permit?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa6">Базовый пакет: загранпаспорт, фото, подтверждение проживания (договор аренды), подтверждение занятости или учёбы, медицинская страховка, документы о доходах. Точный список зависит от основания — мы готовим индивидуальный чеклист для каждого клиента и проверяем каждый документ перед подачей.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa6">The basic package: passport, photo, proof of accommodation, proof of employment or study, health insurance, income documents. The exact list depends on your case — we prepare a personal checklist for each client.</div></div>
 
     </div>
 
@@ -2329,13 +2323,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq7">Что такое PESEL и нужен ли он мне?</span>
+        <span id="fq7">What is PESEL and do I need it?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa7">PESEL — это польский идентификационный номер, аналог ИНН. Он необходим для открытия счёта в банке, трудоустройства, медицинского обслуживания и многих государственных услуг. Иностранцы, проживающие в Польше более 30 дней, имеют право его получить. Мы помогаем оформить PESEL в рамках комплексного сопровождения.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa7">PESEL is the Polish national identification number, similar to a tax ID. You need it to open a bank account, get employed, and access medical services. Foreigners staying more than 30 days are entitled to one. We help obtain PESEL as part of our full support package.</div></div>
 
     </div>
 
@@ -2345,13 +2339,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq8">Могу ли я работать во время ожидания карты побыту?</span>
+        <span id="fq8">Can I work while waiting for my residence permit?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa8">Да, если у вас есть действующее разрешение на работу или ваш тип побыту предусматривает право на труд. Со штампом о подаче документов вы сохраняете прежние права до получения решения. Если разрешения ещё нет — мы поможем оформить его параллельно с картой побыту.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa8">Yes, if you have a valid work permit or your permit type allows employment. With the submission stamp you retain your previous rights until a decision is made. If you have no work permit yet — we can arrange one in parallel.</div></div>
 
     </div>
 
@@ -2361,13 +2355,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq9">Что будет, если моя виза истечёт в процессе рассмотрения?</span>
+        <span id="fq9">What if my visa expires during the process?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa9">Если вы подали заявление на карту побыту до истечения визы, штамп в паспорте автоматически продлевает право на пребывание в Польше до получения решения. Это называется «легальное пребывание на основании ожидания». Главное — не выезжать без консультации с нами, чтобы случайно не прервать этот статус.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa9">If you applied before your visa expired, the submission stamp automatically extends your right to stay until a decision is issued. The key is not to travel outside Poland without consulting us first, so as not to interrupt this status.</div></div>
 
     </div>
 
@@ -2377,13 +2371,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <button class="faq-q" onclick="toggleFaq(this)">
 
-        <span id="fq10">Как проходит бесплатная консультация?</span>
+        <span id="fq10">How does the free consultation work?</span>
 
         <span class="faq-chevron">▾</span>
 
       </button>
 
-      <div class="faq-a"><div class="faq-a-inner" id="fa10">Консультация занимает 20–30 минут — по телефону, WhatsApp или в офисе. Мы выясняем вашу ситуацию, определяем подходящее основание для легализации, оцениваем шансы и называем точную стоимость. Никаких обязательств — решение за вами. Записаться можно через форму на сайте или написав нам напрямую.</div></div>
+      <div class="faq-a"><div class="faq-a-inner" id="fa10">20–30 minutes by phone, WhatsApp, or in the office. We assess your situation, identify the right legalisation basis, evaluate your chances, and give you a clear price. No obligations — the decision is yours.</div></div>
 
     </div>
 
@@ -2397,13 +2391,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="mid-cta">
 
-  <div class="s-tag reveal" style="justify-content:center;" id="mcta-tag">Начать сейчас</div>
+  <div class="s-tag reveal" style="justify-content:center;" id="mcta-tag">Get started</div>
 
-  <h3 class="reveal" id="mcta-title">Живите в Польше <em>официально</em></h3>
+  <h3 class="reveal" id="mcta-title">Live in Poland <em>officially</em></h3>
 
-  <p class="reveal" id="mcta-desc">Бесплатный правовой анализ · Ответим за 15 минут · +48 735 248 525</p>
+  <p class="reveal" id="mcta-desc">Free legal analysis · Reply in 15 min · +48 735 248 525</p>
 
-  <button class="btn-gold reveal" onclick="openModal()" id="mcta-btn">Получить правовой анализ →</button>
+  <button class="btn-gold reveal" onclick="openModal()" id="mcta-btn">Book a Consultation →</button>
 
 </div>
 
@@ -2411,15 +2405,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section id="cta">
 
-  <div class="s-tag reveal" style="justify-content:center;" id="cta-tag">Контакты</div>
+  <div class="s-tag reveal" style="justify-content:center;" id="cta-tag">Contact</div>
 
-  <h2 class="cta-title reveal" id="cta-title">Начните легализацию<br><em>сегодня</em></h2>
+  <h2 class="cta-title reveal" id="cta-title">Start your legalisation<br><em>today</em></h2>
 
-  <p class="cta-desc reveal" id="cta-desc">Первая консультация бесплатно. Оставьте номер — ответим за 15 минут.</p>
+  <p class="cta-desc reveal" id="cta-desc">First consultation is free. Leave your number — reply in 15 minutes.</p>
 
-  <div class="cta-form reveal"><input class="cta-in" placeholder="WhatsApp или телефон" id="cta-in"/><button class="cta-go" onclick="submitFooterForm()" id="cta-btn">Записаться →</button></div>
+  <div class="cta-form reveal"><input class="cta-in" placeholder="WhatsApp или телефон" id="cta-in"/><button class="cta-go" onclick="submitFooterForm()" id="cta-btn">Book →</button></div>
 
-  <div class="cta-fine reveal" id="cta-fine">Без спама · Конфиденциально · Не передаём данные</div>
+  <div class="cta-fine reveal" id="cta-fine">No spam · Confidential</div>
 
 </section>
 
@@ -3531,11 +3525,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" id="blog-tag">Блог</div>
+    <div class="s-tag reveal" id="blog-tag">Blog</div>
 
-    <h2 class="s-title reveal" id="blog-title">Полезно для <em>иностранцев</em></h2>
+    <h2 class="s-title reveal" id="blog-title">Useful for <em>foreigners</em></h2>
 
-    <p class="s-desc reveal" id="blog-desc">Статьи о жизни в Польше, налогах, легализации — на понятном языке.</p>
+    <p class="s-desc reveal" id="blog-desc">Articles about life in Poland, taxes, legalisation — in plain language.</p>
 
     <!-- BLOG_CARDS_START — /api/index.js replaces this block at request time with the
          6 latest articles from Notion (for SEO: fresh internal links in raw HTML).
@@ -3544,17 +3538,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <a class="blog-card reveal" href="/blog/karta-pobytu-guide" style="text-decoration:none;display:block;color:inherit">
 
-        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=280&fit=crop&q=75" alt="Карта побыту" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat1">ВИД НА ЖИТЕЛЬСТВО</div></div>
+        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=280&fit=crop&q=75" alt="Карта побыту" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat1">RESIDENCE PERMIT</div></div>
 
-        <div class="blog-body"><div class="blog-date">09.04.2026</div><div class="blog-t" id="blog-t1">Как получить Карту Побыту: пошаговый гид 2026</div><div class="blog-e" id="blog-e1">Разбираем весь процесс от записи в уженд до получения карты.</div><span class="blog-read" id="blog-r1">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">09.04.2026</div><div class="blog-t" id="blog-t1">How to Get a Residence Permit: Step-by-Step Guide 2026</div><div class="blog-e" id="blog-e1">We break down the whole process from booking at the office to receiving your card.</div><span class="blog-read" id="blog-r1">Read →</span></div>
 
       </a>
 
       <a class="blog-card reveal" href="/blog/taxes-poland-foreigner" style="text-decoration:none;display:block;color:inherit">
 
-        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=280&fit=crop&q=75" alt="Налоги" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat2">НАЛОГИ</div></div>
+        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=280&fit=crop&q=75" alt="Налоги" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat2">TAXES</div></div>
 
-        <div class="blog-body"><div class="blog-date">02.04.2026</div><div class="blog-t" id="blog-t2">Налоги для иностранцев в Польше: что нужно знать</div><div class="blog-e" id="blog-e2">PIT, ZUS, umowa o pracę vs B2B — объясняем просто.</div><span class="blog-read" id="blog-r2">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">02.04.2026</div><div class="blog-t" id="blog-t2">Taxes for Foreigners in Poland: What You Need to Know</div><div class="blog-e" id="blog-e2">PIT, ZUS, umowa o pracę vs B2B — explained simply.</div><span class="blog-read" id="blog-r2">Read →</span></div>
 
       </a>
 
@@ -3562,7 +3556,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=280&fit=crop&q=75" alt="PESEL" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat3">PESEL</div></div>
 
-        <div class="blog-body"><div class="blog-date">28.03.2026</div><div class="blog-t" id="blog-t3">PESEL для иностранца: зачем нужен и как получить</div><div class="blog-e" id="blog-e3">Без PESEL невозможно открыть счёт или устроиться официально.</div><span class="blog-read" id="blog-r3">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">28.03.2026</div><div class="blog-t" id="blog-t3">PESEL for Foreigners: Why You Need It and How to Get It</div><div class="blog-e" id="blog-e3">Without PESEL you cannot open a bank account or be officially employed.</div><span class="blog-read" id="blog-r3">Read →</span></div>
 
       </a>
 
@@ -3570,23 +3564,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=280&fit=crop&q=75" alt="Profil Zaufany" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat4">PROFIL ZAUFANY</div></div>
 
-        <div class="blog-body"><div class="blog-date">20.03.2026</div><div class="blog-t" id="blog-t4">Profil Zaufany: что это и зачем иностранцу</div><div class="blog-e" id="blog-e4">Как оформить и какие государственные услуги получить онлайн.</div><span class="blog-read" id="blog-r4">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">20.03.2026</div><div class="blog-t" id="blog-t4">Profil Zaufany: What It Is and Why Foreigners Need It</div><div class="blog-e" id="blog-e4">How to set it up and which government services you can access online.</div><span class="blog-read" id="blog-r4">Read →</span></div>
 
       </a>
 
       <a class="blog-card reveal" href="/blog/karta-pobytu-denied-appeal" style="text-decoration:none;display:block;color:inherit">
 
-        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=280&fit=crop&q=75" alt="Апелляции" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat5">АПЕЛЛЯЦИИ</div></div>
+        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=280&fit=crop&q=75" alt="Апелляции" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat5">APPEALS</div></div>
 
-        <div class="blog-body"><div class="blog-date">14.03.2026</div><div class="blog-t" id="blog-t5">Что делать если отказали в виде на жительство</div><div class="blog-e" id="blog-e5">Отказ — не конец. Разбираем как подать апелляцию и выиграть.</div><span class="blog-read" id="blog-r5">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">14.03.2026</div><div class="blog-t" id="blog-t5">What to Do If Your Residence Permit Was Denied</div><div class="blog-e" id="blog-e5">A rejection is not the end. We explain how to file an appeal and win.</div><span class="blog-read" id="blog-r5">Read →</span></div>
 
       </a>
 
       <a class="blog-card reveal" href="/blog/open-jdg-poland" style="text-decoration:none;display:block;color:inherit">
 
-        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1551135049-8a33b5883817?w=600&h=280&fit=crop&q=75" alt="Бизнес" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat6">БИЗНЕС</div></div>
+        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="https://images.unsplash.com/photo-1551135049-8a33b5883817?w=600&h=280&fit=crop&q=75" alt="Бизнес" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.75;"/><div class="blog-cat" id="blog-cat6">BUSINESS</div></div>
 
-        <div class="blog-body"><div class="blog-date">07.03.2026</div><div class="blog-t" id="blog-t6">Как открыть ИП в Польше: JDG vs Sp. z o.o.</div><div class="blog-e" id="blog-e6">Плюсы, минусы, налоги и где лучше начинать бизнес в Польше.</div><span class="blog-read" id="blog-r6">Читать →</span></div>
+        <div class="blog-body"><div class="blog-date">07.03.2026</div><div class="blog-t" id="blog-t6">How to Open a Business in Poland: JDG vs Sp. z o.o.</div><div class="blog-e" id="blog-e6">Pros, cons, taxes and where to start your business in Poland.</div><span class="blog-read" id="blog-r6">Read →</span></div>
 
       </a>
 
@@ -3756,25 +3750,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="aij-hud aij-hud-1">
 
-    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#4ade80;"></span><span id="aij-hud1-txt">Паспорт — ✓ ДЕЙСТВИТЕЛЕН</span></div>
+    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#4ade80;"></span><span id="aij-hud1-txt">Passport — ✓ VALID</span></div>
 
   </div>
 
   <div class="aij-hud aij-hud-2">
 
-    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#f59e0b;"></span><span id="aij-hud2-txt">Фото 35×45мм — обновить</span></div>
+    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#f59e0b;"></span><span id="aij-hud2-txt">Photo 35×45mm — update</span></div>
 
   </div>
 
   <div class="aij-hud aij-hud-3">
 
-    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#4ade80;"></span><span id="aij-hud3-txt">Umowa o pracę — ✓ ОК</span></div>
+    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#4ade80;"></span><span id="aij-hud3-txt">Umowa o pracę — ✓ OK</span></div>
 
   </div>
 
   <div class="aij-hud aij-hud-4">
 
-    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#a78bfa;"></span><span id="aij-hud4-txt">Шанс одобрения: <strong>93%</strong></span></div>
+    <div class="aij-hud-card"><span class="aij-hud-dot" style="background:#a78bfa;"></span><span id="aij-hud4-txt">Approval chance: <strong>93%</strong></span></div>
 
   </div>
 
@@ -3784,33 +3778,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="aij-hero-inner">
 
-    <div class="aij-live" id="aij-live-txt"><div class="aij-live-dot"></div>ИИ АКТИВЕН · 24/7</div>
+    <div class="aij-live" id="aij-live-txt">AI ACTIVE · 24/7</div>
 
     <div class="aij-h1-wrap">
 
-      <h2 class="aij-h1" id="aij-h1" data-text="Будущее легализации: Карта Побыту с гарантией ИИ-контроля">Будущее легализации:<br><em>Карта Побыту с гарантией ИИ-контроля</em></h2>
+      <h2 class="aij-h1" id="aij-h1" data-text="Будущее легализации: Карта Побыту с гарантией ИИ-контроля">The Future of Legalisation:<br><em>Residence Permit with AI-Control Guarantee</em></h2>
 
     </div>
 
-    <p class="aij-sub" id="aij-sub">Первая в Польше система умной проверки документов. Исключаем человеческий фактор и ускоряем подачу на 25%.</p>
+    <p class="aij-sub" id="aij-sub">Poland's first smart document verification system. Eliminating human error and speeding up submission by 25%.</p>
 
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
 
-      <button class="btn-gold" id="aij-how-btn" onclick="document.querySelector('.aij-timeline').scrollIntoView({behavior:'smooth'})" style="font-size:15px;padding:14px 32px;">Как это работает ↓</button>
+      <button class="btn-gold" id="aij-how-btn" onclick="document.querySelector('.aij-timeline').scrollIntoView({behavior:'smooth'})" style="font-size:15px;padding:14px 32px;">How it works ↓</button>
 
-      <button class="btn-ghost" id="aij-consult-btn" onclick="openModal()">Бесплатная консультация</button>
+      <button class="btn-ghost" id="aij-consult-btn" onclick="openModal()">Free Consultation</button>
 
     </div>
 
     <div class="aij-stats-row">
 
-      <div class="aij-stat"><div class="aij-stat-n" id="aij-n1">0</div><div class="aij-stat-l" id="aij-sl1">ДЕЛ ОБРАБОТАНО</div></div>
+      <div class="aij-stat"><div class="aij-stat-n" id="aij-n1">0</div><div class="aij-stat-l" id="aij-sl1">CASES PROCESSED</div></div>
 
-      <div class="aij-stat"><div class="aij-stat-n" id="aij-n2">0%</div><div class="aij-stat-l" id="aij-sl2">ОДОБРЕНИЙ</div></div>
+      <div class="aij-stat"><div class="aij-stat-n" id="aij-n2">0%</div><div class="aij-stat-l" id="aij-sl2">APPROVAL RATE</div></div>
 
-      <div class="aij-stat"><div class="aij-stat-n" id="aij-n3">−0%</div><div class="aij-stat-l" id="aij-sl3">ОШИБОК ПОСЛЕ ИИ</div></div>
+      <div class="aij-stat"><div class="aij-stat-n" id="aij-n3">−0%</div><div class="aij-stat-l" id="aij-sl3">ERRORS AFTER AI</div></div>
 
-      <div class="aij-stat"><div class="aij-stat-n">0</div><div class="aij-stat-l" id="aij-sl4">ПРОПУЩЕННЫХ СРОКОВ</div></div>
+      <div class="aij-stat"><div class="aij-stat-n">0</div><div class="aij-stat-l" id="aij-sl4">MISSED DEADLINES</div></div>
 
     </div>
 
@@ -3826,11 +3820,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner" style="text-align:center;">
 
-    <div class="s-tag reveal" id="aij-tl-tag" style="justify-content:center;">Процесс</div>
+    <div class="s-tag reveal" id="aij-tl-tag" style="justify-content:center;">Process</div>
 
-    <h2 class="s-title reveal" id="aij-tl-title">ИИ с вами от <em>А до Я</em></h2>
+    <h2 class="s-title reveal" id="aij-tl-title">AI with you from <em>A to Z</em></h2>
 
-    <p class="s-desc reveal" id="aij-tl-desc" style="max-width:520px;margin:0 auto;">Каждый этап легализации — под контролем. Ни один документ, срок или задача не пропадёт.</p>
+    <p class="s-desc reveal" id="aij-tl-desc" style="max-width:520px;margin:0 auto;">Every stage of legalisation is under control. Not a single document, deadline or task will be lost.</p>
 
   </div>
 
@@ -3848,7 +3842,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">💬</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn1">ШАГ 01</div><div class="aij-tl-title" id="aij-st1">Вы обращаетесь</div><div class="aij-tl-desc" id="aij-sd1">Пишете в WhatsApp. ИИ автоматически создаёт профиль клиента — гражданство, цель, сроки, предыдущие дела.</div><span class="aij-tl-tag" id="aij-stag1">Автопрофиль</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn1">STEP 01</div><div class="aij-tl-title" id="aij-st1">You reach out</div><div class="aij-tl-desc" id="aij-sd1">You message us on WhatsApp. AI automatically creates a client profile — citizenship, goal, timeline, previous cases.</div><span class="aij-tl-tag" id="aij-stag1">Auto-profile</span></div>
 
       </div>
 
@@ -3858,7 +3852,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">📋</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn2">ШАГ 02</div><div class="aij-tl-title" id="aij-st2">Чек-лист под ваш случай</div><div class="aij-tl-desc" id="aij-sd2">ИИ анализирует 3 000+ прецедентов и формирует персональный список документов. Без лишнего, без пропусков.</div><span class="aij-tl-tag" id="aij-stag2">3 000+ кейсов</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn2">STEP 02</div><div class="aij-tl-title" id="aij-st2">Checklist for your case</div><div class="aij-tl-desc" id="aij-sd2">AI analyses 3,000+ precedents and generates a personalised document list. Nothing missing, nothing unnecessary.</div><span class="aij-tl-tag" id="aij-stag2">3,000+ cases</span></div>
 
       </div>
 
@@ -3868,7 +3862,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">🔍</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn3">ШАГ 03</div><div class="aij-tl-title" id="aij-st3">Проверка за &lt;2 секунды</div><div class="aij-tl-desc" id="aij-sd3">Вы загружаете документы. ИИ мгновенно проверяет даты истечения, подписи, переводы, апостили. Ошибки — до подачи, не после.</div><span class="aij-tl-tag" id="aij-stag3">−25% ошибок</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn3">STEP 03</div><div class="aij-tl-title" id="aij-st3">Verification in &lt;2 seconds</div><div class="aij-tl-desc" id="aij-sd3">You upload documents. AI instantly checks expiry dates, signatures, translations, apostilles. Errors caught before submission, not after.</div><span class="aij-tl-tag" id="aij-stag3">−25% errors</span></div>
 
       </div>
 
@@ -3878,7 +3872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">🏛️</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn4">ШАГ 04</div><div class="aij-tl-title" id="aij-st4">Запись без очереди</div><div class="aij-tl-desc" id="aij-sd4">ИИ мониторит доступные слоты в ужондах по всей Польше и уведомляет специалиста при появлении ближайшей записи.</div><span class="aij-tl-tag" id="aij-stag4">Мониторинг 24/7</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn4">STEP 04</div><div class="aij-tl-title" id="aij-st4">Appointment without queues</div><div class="aij-tl-desc" id="aij-sd4">AI monitors available slots at offices across Poland and notifies the specialist when the earliest slot appears.</div><span class="aij-tl-tag" id="aij-stag4">Monitoring 24/7</span></div>
 
       </div>
 
@@ -3888,7 +3882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">✅</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn5">ШАГ 05</div><div class="aij-tl-title" id="aij-st5">Подача документов</div><div class="aij-tl-desc" id="aij-sd5">Специалист идёт в ужонд с полным пакетом, который прошёл двойную проверку — юрист + ИИ. Вероятность отказа из-за ошибки = минимум.</div><span class="aij-tl-tag" id="aij-stag5">Двойная проверка</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn5">STEP 05</div><div class="aij-tl-title" id="aij-st5">Document submission</div><div class="aij-tl-desc" id="aij-sd5">The specialist goes to the office with a complete package that passed double verification — lawyer + AI. Rejection risk due to error = minimum.</div><span class="aij-tl-tag" id="aij-stag5">Double verification</span></div>
 
       </div>
 
@@ -3898,7 +3892,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">🔔</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn6">ШАГ 06</div><div class="aij-tl-title" id="aij-st6">Ожидание — под контролем</div><div class="aij-tl-desc" id="aij-sd6">ИИ шлёт напоминания за 90, 60 и 30 дней до истечения документов. Трекинг в личном кабинете в реальном времени.</div><span class="aij-tl-tag" id="aij-stag6">Напоминания 90/60/30</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn6">STEP 06</div><div class="aij-tl-title" id="aij-st6">Waiting — under control</div><div class="aij-tl-desc" id="aij-sd6">AI sends reminders 90, 60 and 30 days before documents expire. Real-time tracking in your personal cabinet.</div><span class="aij-tl-tag" id="aij-stag6">Reminders 90/60/30</span></div>
 
       </div>
 
@@ -3908,7 +3902,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-tl-node">🪪</div>
 
-        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn7">ШАГ 07</div><div class="aij-tl-title" id="aij-st7">Карта побыту у вас</div><div class="aij-tl-desc" id="aij-sd7">Получаете документ. ИИ автоматически обновляет ваш профиль, ставит напоминание на продление и предлагает следующий шаг — ПМЖ, гражданство, Blue Card.</div><span class="aij-tl-tag" id="aij-stag7">Следующий шаг</span></div>
+        <div class="aij-tl-card"><div class="aij-tl-step" id="aij-sn7">STEP 07</div><div class="aij-tl-title" id="aij-st7">Residence card is yours</div><div class="aij-tl-desc" id="aij-sd7">You receive the document. AI automatically updates your profile, sets a renewal reminder and suggests the next step — permanent residence, citizenship, Blue Card.</div><span class="aij-tl-tag" id="aij-stag7">Next step</span></div>
 
       </div>
 
@@ -3980,7 +3974,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="aij-jp-chain-wrap">
 
-        <div class="aij-jp-sec-lbl" id="aij-chain-lbl">ЦЕПОЧКА ОБРАБОТКИ</div>
+        <div class="aij-jp-sec-lbl" id="aij-chain-lbl">PROCESSING CHAIN</div>
 
         <div class="aij-jp-chain">
 
@@ -3988,7 +3982,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="aij-jp-cnode-ico ok">📄</div>
 
-            <div class="aij-jp-cnode-lbl" id="aij-cn-passport">Паспорт</div>
+            <div class="aij-jp-cnode-lbl" id="aij-cn-passport">Passport</div>
 
           </div>
 
@@ -4018,7 +4012,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="aij-jp-cnode-ico scanning">📸</div>
 
-            <div class="aij-jp-cnode-lbl" id="aij-cn-photo">Фото</div>
+            <div class="aij-jp-cnode-lbl" id="aij-cn-photo">Photo</div>
 
           </div>
 
@@ -4028,7 +4022,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="aij-jp-cnode-ico">🏛️</div>
 
-            <div class="aij-jp-cnode-lbl" id="aij-cn-submit">Подача</div>
+            <div class="aij-jp-cnode-lbl" id="aij-cn-submit">Submission</div>
 
           </div>
 
@@ -4042,15 +4036,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="aij-jp-status">
 
-        <div class="aij-jp-sec-lbl" id="aij-status-lbl">СТАТУС ДОКУМЕНТОВ</div>
+        <div class="aij-jp-sec-lbl" id="aij-status-lbl">DOCUMENT STATUS</div>
 
         <div class="aij-jp-srow ok">
 
           <div class="aij-jp-sdot ok"></div>
 
-          <div class="aij-jp-sname" id="aij-sn-passport">Загранпаспорт</div>
+          <div class="aij-jp-sname" id="aij-sn-passport">International passport</div>
 
-          <div class="aij-jp-stag ok" id="aij-stag-ok1">✓ ВЕРИФИЦИРОВАН</div>
+          <div class="aij-jp-stag ok" id="aij-stag-ok1">✓ VERIFIED</div>
 
         </div>
 
@@ -4060,7 +4054,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-jp-sname">Umowa o pracę</div>
 
-          <div class="aij-jp-stag ok" id="aij-stag-ok2">✓ ВЕРИФИЦИРОВАН</div>
+          <div class="aij-jp-stag ok" id="aij-stag-ok2">✓ VERIFIED</div>
 
         </div>
 
@@ -4070,7 +4064,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-jp-sname">ZUS RCA</div>
 
-          <div class="aij-jp-stag ok" id="aij-stag-ok3">✓ ВЕРИФИЦИРОВАН</div>
+          <div class="aij-jp-stag ok" id="aij-stag-ok3">✓ VERIFIED</div>
 
         </div>
 
@@ -4078,19 +4072,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-jp-sdot scanning"></div>
 
-          <div class="aij-jp-sname" id="aij-sn-photo">Фото 3.5×4.5</div>
+          <div class="aij-jp-sname" id="aij-sn-photo">Photo 3.5×4.5</div>
 
-          <div class="aij-jp-stag scanning" id="aij-stag-scan">⟳ СКАНИРОВАНИЕ</div>
-
-        </div>
-
-        <div class="aij-jp-srow pending">
-
-          <div class="aij-jp-sdot pending"></div>
-
-          <div class="aij-jp-sname" id="aij-sn-insurance">Страховой полис</div>
-
-          <div class="aij-jp-stag pending" id="aij-stag-pend1">— ОЖИДАНИЕ</div>
+          <div class="aij-jp-stag scanning" id="aij-stag-scan">⟳ SCANNING</div>
 
         </div>
 
@@ -4098,9 +4082,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-jp-sdot pending"></div>
 
-          <div class="aij-jp-sname" id="aij-sn-rental">Договор аренды</div>
+          <div class="aij-jp-sname" id="aij-sn-insurance">Insurance policy</div>
 
-          <div class="aij-jp-stag pending" id="aij-stag-pend2">— ОЖИДАНИЕ</div>
+          <div class="aij-jp-stag pending" id="aij-stag-pend1">— PENDING</div>
+
+        </div>
+
+        <div class="aij-jp-srow pending">
+
+          <div class="aij-jp-sdot pending"></div>
+
+          <div class="aij-jp-sname" id="aij-sn-rental">Rental agreement</div>
+
+          <div class="aij-jp-stag pending" id="aij-stag-pend2">— PENDING</div>
 
         </div>
 
@@ -4114,7 +4108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-jp-prog-head">
 
-          <div class="aij-jp-prog-lbl" id="aij-prog-lbl">ВЕРОЯТНОСТЬ ОДОБРЕНИЯ</div>
+          <div class="aij-jp-prog-lbl" id="aij-prog-lbl">APPROVAL PROBABILITY</div>
 
           <div class="aij-jp-prog-val" id="jp-pct-val">87%</div>
 
@@ -4142,17 +4136,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <span class="adm-badge">● LIVE</span>
 
-        <span class="adm-title" id="adm-title">СБОРКА ПАКЕТА → КАРТА ПОБЫТУ</span>
+        <span class="adm-title" id="adm-title">DOCUMENT PACK → RESIDENCE CARD</span>
 
       </div>
 
       <div class="adm-counter">
 
-        <div class="adm-cstat"><div class="adm-cn">6</div><div class="adm-cl" id="adm-cl1">ДОКУМЕНТОВ</div></div>
+        <div class="adm-cstat"><div class="adm-cn">6</div><div class="adm-cl" id="adm-cl1">DOCUMENTS</div></div>
 
-        <div class="adm-cstat"><div class="adm-cn">98%</div><div class="adm-cl" id="adm-cl2">ОДОБРЕНИЙ</div></div>
+        <div class="adm-cstat"><div class="adm-cn">98%</div><div class="adm-cl" id="adm-cl2">APPROVALS</div></div>
 
-        <div class="adm-cstat"><div class="adm-cn" id="adm-cn3">−2мес</div><div class="adm-cl" id="adm-cl3">БЫСТРЕЕ</div></div>
+        <div class="adm-cstat"><div class="adm-cn" id="adm-cn3">−2 mo</div><div class="adm-cl" id="adm-cl3">FASTER</div></div>
 
       </div>
 
@@ -4202,7 +4196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-cert-label">AI · VERIFIED</div>
 
-          <div class="aij-cert-title" id="aij-cert-title">Сертификат качества</div>
+          <div class="aij-cert-title" id="aij-cert-title">Quality Certificate</div>
 
         </div>
 
@@ -4220,7 +4214,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-cert-num" data-target="400" id="cert-n1">0</div>
 
-          <div class="aij-cert-desc" id="cert-d1">заявок прошло<br>через AI-анализ</div>
+          <div class="aij-cert-desc" id="cert-d1">applications processed<br>through AI analysis</div>
 
         </div>
 
@@ -4230,7 +4224,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-cert-num" id="cert-n2"><span data-target="73" id="cert-n2s">0</span></div>
 
-          <div class="aij-cert-desc" id="cert-d2">уже получили<br>положительное решение</div>
+          <div class="aij-cert-desc" id="cert-d2">already received<br>positive decision</div>
 
         </div>
 
@@ -4240,7 +4234,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-cert-num" id="cert-n3">98<span style="font-size:14px;color:var(--p300)">%</span></div>
 
-          <div class="aij-cert-desc" id="cert-d3">точность проверки<br>документов</div>
+          <div class="aij-cert-desc" id="cert-d3">document verification<br>accuracy</div>
 
         </div>
 
@@ -4258,7 +4252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-cert-live-dot"></div>
 
-          <span id="aij-cert-live">Система работает в реальном времени</span>
+          <span id="aij-cert-live">System running in real time</span>
 
         </div>
 
@@ -4292,11 +4286,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="aij-pipe-hd reveal">
 
-      <div class="aij-pipe-tag" id="aij-pipe-tag">Как работает</div>
+      <div class="aij-pipe-tag" id="aij-pipe-tag">How it works</div>
 
-      <h2 class="aij-pipe-title" id="aij-pipe-title">ИИ как нервная система —<br><em>каждый сигнал, каждый документ</em></h2>
+      <h2 class="aij-pipe-title" id="aij-pipe-title">AI as the nervous system —<br><em>every signal, every document</em></h2>
 
-      <p class="aij-pipe-desc" id="aij-pipe-desc">Принял → проверил → напомнил → передал → подал. Ни одного потерянного документа с момента запуска.</p>
+      <p class="aij-pipe-desc" id="aij-pipe-desc">Received → verified → reminded → transferred → submitted. Not a single lost document since launch.</p>
 
     </div>
 
@@ -4314,13 +4308,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico">📨</div>
 
-          <div class="aij-flow-label" id="apf-l1">ВХОДЯЩИЙ ЗАПРОС</div>
+          <div class="aij-flow-label" id="apf-l1">INCOMING REQUEST</div>
 
-          <div class="aij-flow-title" id="apf-t1">Клиент пишет в WhatsApp</div>
+          <div class="aij-flow-title" id="apf-t1">Client messages on WhatsApp</div>
 
-          <div class="aij-flow-desc" id="apf-d1">ИИ создаёт профиль за 3 секунды: гражданство, цель, история дел. Специалист уже видит полный контекст ещё до первого звонка.</div>
+          <div class="aij-flow-desc" id="apf-d1">AI creates a profile in 3 seconds: citizenship, goal, case history. The specialist already sees full context before the first call.</div>
 
-          <span class="aij-flow-stat purple" id="apf-s1">⚡ 3 сек. → профиль создан</span>
+          <span class="aij-flow-stat purple" id="apf-s1">⚡ 3 sec. → profile created</span>
 
         </div>
 
@@ -4360,13 +4354,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico">📋</div>
 
-          <div class="aij-flow-label" id="apf-l2">ФОРМИРОВАНИЕ ПАКЕТА</div>
+          <div class="aij-flow-label" id="apf-l2">PACKAGE FORMATION</div>
 
-          <div class="aij-flow-title" id="apf-t2">Чек-лист из 3 000+ кейсов</div>
+          <div class="aij-flow-title" id="apf-t2">Checklist from 3,000+ cases</div>
 
-          <div class="aij-flow-desc" id="apf-d2">ИИ подбирает документы под конкретное воеводство и основание. Никаких лишних бумаг — только то, что реально нужно именно вам.</div>
+          <div class="aij-flow-desc" id="apf-d2">AI selects documents for the specific voivodeship and basis. No unnecessary papers — only what is genuinely needed for your situation.</div>
 
-          <span class="aij-flow-stat purple" id="apf-s2">📊 3000+ прецедентов в базе</span>
+          <span class="aij-flow-stat purple" id="apf-s2">📊 3,000+ cases in database</span>
 
         </div>
 
@@ -4382,13 +4376,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico">🔍</div>
 
-          <div class="aij-flow-label" id="apf-l3">ВЕРИФИКАЦИЯ</div>
+          <div class="aij-flow-label" id="apf-l3">VERIFICATION</div>
 
-          <div class="aij-flow-title" id="apf-t3">Проверка каждого документа</div>
+          <div class="aij-flow-title" id="apf-t3">Every document checked</div>
 
-          <div class="aij-flow-desc" id="apf-d3">Сроки действия, подписи, апостили, качество переводов — ИИ сканирует пакет за &lt;2 секунды. Ошибка обнаружена до ужонда, а не после отказа.</div>
+          <div class="aij-flow-desc" id="apf-d3">Expiry dates, signatures, apostilles, translation quality — AI scans the package in &lt;2 seconds. Error found before the office, not after rejection.</div>
 
-          <span class="aij-flow-stat amber" id="apf-s3">🛡️ −25% ошибок при подаче</span>
+          <span class="aij-flow-stat amber" id="apf-s3">🛡️ −25% submission errors</span>
 
         </div>
 
@@ -4428,13 +4422,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico">🔔</div>
 
-          <div class="aij-flow-label" id="apf-l4">ДЕДЛАЙН-КОНТРОЛЬ</div>
+          <div class="aij-flow-label" id="apf-l4">DEADLINE CONTROL</div>
 
-          <div class="aij-flow-title" id="apf-t4">Напомнил. Передал. Запинговал.</div>
+          <div class="aij-flow-title" id="apf-t4">Reminded. Escalated. Pinged.</div>
 
-          <div class="aij-flow-desc" id="apf-d4">За 90, 60, 30 дней — WhatsApp-пинг клиенту и специалисту. Если задача не взята в работу вовремя — автоэскалация. Ни одного пропущенного срока с&nbsp;запуска.</div>
+          <div class="aij-flow-desc" id="apf-d4">90, 60, 30 days — WhatsApp ping to client and specialist. If a task is not picked up in time — auto-escalation. Zero missed deadlines since launch.</div>
 
-          <span class="aij-flow-stat green" id="apf-s4">✅ 0 просроченных дел</span>
+          <span class="aij-flow-stat green" id="apf-s4">✅ 0 missed deadlines</span>
 
         </div>
 
@@ -4450,13 +4444,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico">🏛️</div>
 
-          <div class="aij-flow-label" id="apf-l5">ПОДАЧА</div>
+          <div class="aij-flow-label" id="apf-l5">SUBMISSION</div>
 
-          <div class="aij-flow-title" id="apf-t5">Пакет прошёл — подаём</div>
+          <div class="aij-flow-title" id="apf-t5">Package cleared — submitting</div>
 
-          <div class="aij-flow-desc" id="apf-d5">Специалист идёт в ужонд только с пакетом, прошедшим двойную проверку. Благодаря своевременному пингу и ИИ-высылке подачи ускорились на <strong style="color:var(--p300)">+19%</strong>.</div>
+          <div class="aij-flow-desc" id="apf-d5">The specialist goes to the office only with a double-verified package. Thanks to timely pinging and AI dispatch, submissions are <strong style="color:var(--p300)">+19% faster</strong>.</div>
 
-          <span class="aij-flow-stat purple" id="apf-s5">🚀 +19% скорость подачи</span>
+          <span class="aij-flow-stat purple" id="apf-s5">🚀 +19% faster submissions</span>
 
         </div>
 
@@ -4496,13 +4490,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <div class="aij-flow-ico" style="background:rgba(74,222,128,.14);border-color:rgba(74,222,128,.3);">🪪</div>
 
-          <div class="aij-flow-label green" id="apf-l6">РЕЗУЛЬТАТ</div>
+          <div class="aij-flow-label green" id="apf-l6">RESULT</div>
 
-          <div class="aij-flow-title" id="apf-t6">Решение приходит быстрее</div>
+          <div class="aij-flow-title" id="apf-t6">Decision arrives faster</div>
 
-          <div class="aij-flow-desc" id="apf-d6">За счёт своевременной подачи и ИИ-сопровождения решение воеводского управления поступает на <strong style="color:#4ade80">1.5–2 месяца раньше</strong> среднего по рынку.</div>
+          <div class="aij-flow-desc" id="apf-d6">Due to timely submission and AI accompaniment, the voivodeship decision arrives <strong style="color:#4ade80">1.5–2 months earlier</strong> than the market average.</div>
 
-          <span class="aij-flow-stat green" id="apf-s6">⏱️ −1.5–2 мес. ожидания</span>
+          <span class="aij-flow-stat green" id="apf-s6">⏱️ −1.5–2 months saved</span>
 
         </div>
 
@@ -4524,7 +4518,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-pres-num" id="apres-n1">0</div>
 
-        <div class="aij-pres-label" id="apres-l1">потерянных документов с&nbsp;момента запуска ИИ</div>
+        <div class="aij-pres-label" id="apres-l1">documents lost since AI launch</div>
 
       </div>
 
@@ -4534,7 +4528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-pres-num" id="apres-n2">+19%</div>
 
-        <div class="aij-pres-label" id="apres-l2">ускорение подачи за счёт своевременного пинга и автовысылки</div>
+        <div class="aij-pres-label" id="apres-l2">faster submission thanks to timely pinging and auto-dispatch</div>
 
       </div>
 
@@ -4542,9 +4536,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-pres-ico">⏱️</div>
 
-        <div class="aij-pres-num" id="apres-n3">−2мес</div>
+        <div class="aij-pres-num" id="apres-n3">−2 mo</div>
 
-        <div class="aij-pres-label" id="apres-l3">решение воеводства поступает раньше среднего по рынку</div>
+        <div class="aij-pres-label" id="apres-l3">voivodeship decision arrives ahead of market average</div>
 
       </div>
 
@@ -4568,9 +4562,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" id="aij-impact-tag" style="justify-content:center;">Результаты</div>
+    <div class="s-tag reveal" id="aij-impact-tag" style="justify-content:center;">Results</div>
 
-    <h2 class="s-title reveal" id="aij-impact-title" style="text-align:center;">Что изменилось<br>после <em>внедрения ИИ</em></h2>
+    <h2 class="s-title reveal" id="aij-impact-title" style="text-align:center;">What changed<br>after <em>AI implementation</em></h2>
 
     <div class="aij-impact-grid">
 
@@ -4578,7 +4572,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-icard-n">−25%</div>
 
-        <div class="aij-icard-l" id="aij-ic-l1">ошибок в документах после внедрения ИИ-проверки</div>
+        <div class="aij-icard-l" id="aij-ic-l1">fewer document errors after AI verification implementation</div>
 
       </div>
 
@@ -4586,7 +4580,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-icard-n">98%</div>
 
-        <div class="aij-icard-l" id="aij-ic-l2">одобрений — лучший показатель среди компаний легализации</div>
+        <div class="aij-icard-l" id="aij-ic-l2">approval rate — best among legalisation companies</div>
 
       </div>
 
@@ -4594,7 +4588,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-icard-n">0</div>
 
-        <div class="aij-icard-l" id="aij-ic-l3">пропущенных сроков с запуска системы</div>
+        <div class="aij-icard-l" id="aij-ic-l3">missed deadlines since system launch</div>
 
       </div>
 
@@ -4602,7 +4596,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-icard-n">&lt;2с</div>
 
-        <div class="aij-icard-l" id="aij-ic-l4">полная проверка пакета документов — быстрее любого специалиста</div>
+        <div class="aij-icard-l" id="aij-ic-l4">full document package check — faster than any specialist</div>
 
       </div>
 
@@ -4620,41 +4614,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" id="aij-ba-tag" style="justify-content:center;">До и после</div>
+    <div class="s-tag reveal" id="aij-ba-tag" style="justify-content:center;">Before & After</div>
 
-    <h2 class="s-title reveal" id="aij-ba-title" style="text-align:center;">С ИИ <em>vs</em> без ИИ</h2>
+    <h2 class="s-title reveal" id="aij-ba-title" style="text-align:center;">With AI <em>vs</em> without AI</h2>
 
     <div class="aij-ba-grid">
 
       <div class="aij-ba-col aij-ba-before">
 
-        <div class="aij-ba-label" id="aij-ba-before-lbl" style="color:var(--txt3);">БЕЗ ИИ — КАК БЫЛО РАНЬШЕ</div>
+        <div class="aij-ba-label" id="aij-ba-before-lbl" style="color:var(--txt3);">WITHOUT AI — HOW IT USED TO BE</div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb1" style="color:var(--txt2);">Ошибки в документах замечались только в ужонде — возврат и повтор</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb1" style="color:var(--txt2);">Document errors noticed only at the office — return and repeat</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb2" style="color:var(--txt2);">Клиент узнавал о просроченном документе случайно</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb2" style="color:var(--txt2);">Client found out about an expired document by accident</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb3" style="color:var(--txt2);">Специалист вручную составлял чек-лист по памяти</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb3" style="color:var(--txt2);">Specialist manually compiled a checklist from memory</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb4" style="color:var(--txt2);">Нет трекинга — клиент в неведении месяцами</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb4" style="color:var(--txt2);">No tracking — client left in the dark for months</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb5" style="color:var(--txt2);">Задачи зависали без контроля сроков</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-x"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M8 8l8 8M16 8l-8 8" class="ba-cross"/></svg></div><div id="aij-bb5" style="color:var(--txt2);">Tasks stalled with no deadline control</div></div>
 
       </div>
 
       <div class="aij-ba-col aij-ba-after">
 
-        <div class="aij-ba-label" id="aij-ba-after-lbl" style="color:var(--p300);">С ИИ — КАК ЕСТЬ СЕЙЧАС</div>
+        <div class="aij-ba-label" id="aij-ba-after-lbl" style="color:var(--p300);">WITH AI — HOW IT IS NOW</div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab1">Проверка за &lt;2 секунды — ошибки до подачи, не после</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab1">Verification in &lt;2 seconds — errors caught before submission</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab2">Уведомления за 90/60/30 дней — клиент всегда готов</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab2">Notifications at 90/60/30 days — client always prepared</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab3">Персональный чек-лист из 3 000+ кейсов за секунду</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab3">Personal checklist from 3,000+ cases in seconds</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab4">Кабинет 24/7 — статус дела в реальном времени</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab4">Cabinet 24/7 — case status in real time</div></div>
 
-        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab5">Автопинг специалиста — ни одна задача не зависнет</div></div>
+        <div class="aij-ba-row aij-ba-item"><div class="aij-ba-ico ba-ok"><svg class="ba-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" class="ba-circle"/><path d="M7 12.5l3.5 3.5 6.5-7" class="ba-check"/></svg></div><div id="aij-ab5">Auto-ping to specialist — no task will stall</div></div>
 
       </div>
 
@@ -4672,9 +4666,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="s-inner">
 
-    <div class="s-tag reveal" id="ai-tag" style="justify-content:center;">Возможности</div>
+    <div class="s-tag reveal" id="ai-tag" style="justify-content:center;">Features</div>
 
-    <h2 class="s-title reveal" id="ai-title" style="text-align:center;">Что именно <em>делает ИИ</em></h2>
+    <h2 class="s-title reveal" id="ai-title" style="text-align:center;">What exactly <em>AI does</em></h2>
 
     <div class="aij-feats-grid">
 
@@ -4682,9 +4676,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">🧠</div>
 
-        <div class="aij-feat-title" id="ai-f1t">Анализ документов</div>
+        <div class="aij-feat-title" id="ai-f1t">Document analysis</div>
 
-        <div class="aij-feat-desc" id="ai-f1d">Срок действия, подпись, печать, перевод — автоматически по каждому документу пакета.</div>
+        <div class="aij-feat-desc" id="ai-f1d">Expiry, signature, stamp, translation — automatically for every document in the package.</div>
 
         <div class="aij-feat-badge">−25% ошибок</div>
 
@@ -4694,9 +4688,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">📅</div>
 
-        <div class="aij-feat-title" id="ai-f2t">Контроль дедлайнов</div>
+        <div class="aij-feat-title" id="ai-f2t">Deadline control</div>
 
-        <div class="aij-feat-desc" id="ai-f2d">Напоминания за 90, 60 и 30 дней. Никакой просрочки — ни у клиента, ни у специалиста.</div>
+        <div class="aij-feat-desc" id="ai-f2d">Reminders at 90, 60 and 30 days. No missed deadlines — for the client or the specialist.</div>
 
       </div>
 
@@ -4704,9 +4698,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">📊</div>
 
-        <div class="aij-feat-title" id="ai-f3t">3 000+ прецедентов</div>
+        <div class="aij-feat-title" id="ai-f3t">3,000+ precedents</div>
 
-        <div class="aij-feat-desc" id="ai-f3d">ИИ знает, какой пакет сработал в вашем воеводстве — и выдаёт оптимальную стратегию подачи.</div>
+        <div class="aij-feat-desc" id="ai-f3d">AI knows which package worked in your voivodeship — and delivers the optimal submission strategy.</div>
 
       </div>
 
@@ -4714,9 +4708,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">🔔</div>
 
-        <div class="aij-feat-title" id="ai-f4t">Автопинг специалиста</div>
+        <div class="aij-feat-title" id="ai-f4t">Auto-ping specialist</div>
 
-        <div class="aij-feat-desc" id="ai-f4d">Задача не взята в работу вовремя? ИИ автоматически напоминает. Никакого ручного контроля.</div>
+        <div class="aij-feat-desc" id="ai-f4d">Task not picked up in time? AI reminds automatically. No manual follow-up needed.</div>
 
       </div>
 
@@ -4724,9 +4718,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">💬</div>
 
-        <div class="aij-feat-title" id="ai-f5t">WhatsApp уведомления</div>
+        <div class="aij-feat-title" id="ai-f5t">WhatsApp notifications</div>
 
-        <div class="aij-feat-desc" id="ai-f5d">Статус дела, дедлайны, одобрения — прямо в мессенджер, без необходимости входить в кабинет.</div>
+        <div class="aij-feat-desc" id="ai-f5d">Case status, deadlines, approvals — straight to messenger, no need to log into the cabinet.</div>
 
       </div>
 
@@ -4734,9 +4728,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="aij-feat-ico">📈</div>
 
-        <div class="aij-feat-title" id="ai-f6t">+18% к одобрению</div>
+        <div class="aij-feat-title" id="ai-f6t">+18% to approval</div>
 
-        <div class="aij-feat-desc" id="ai-f6d">Клиенты с полным ИИ-сопровождением одобряются на 18% чаще, чем при стандартном оформлении.</div>
+        <div class="aij-feat-desc" id="ai-f6d">Clients with full AI accompaniment are approved 18% more often than with standard processing.</div>
 
         <div class="aij-feat-badge" style="background:rgba(74,222,128,.12);color:#4ade80;border-color:rgba(74,222,128,.25);">Доказано</div>
 
@@ -4762,17 +4756,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div style="position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(139,130,232,.15),transparent 70%);pointer-events:none;"></div>
 
-      <div class="aij-live" id="aij-cta-live" style="margin:0 auto 24px;"><div class="aij-live-dot"></div>ИИ готов к работе</div>
+      <div class="aij-live" id="aij-cta-live" style="margin:0 auto 24px;">AI ready to work</div>
 
-      <h2 id="aij-cta-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;margin-bottom:16px;position:relative;">Хотите узнать ваши шансы<br><em style="color:var(--p300)">прямо сейчас?</em></h2>
+      <h2 id="aij-cta-h2" style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;margin-bottom:16px;position:relative;">Want to know your chances<br><em style="color:var(--p300)">right now?</em></h2>
 
-      <p id="aij-cta-desc" style="font-size:16px;color:var(--txt2);max-width:480px;margin:0 auto 40px;line-height:1.7;position:relative;">Пройдите бесплатный анализ документов. ИИ проверит ваш пакет и скажет, чего не хватает для подачи.</p>
+      <p id="aij-cta-desc" style="font-size:16px;color:var(--txt2);max-width:480px;margin:0 auto 40px;line-height:1.7;position:relative;">Run a free document analysis. AI will check your package and tell you what is missing for submission.</p>
 
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;">
 
-        <button class="btn-gold" id="aij-cta-btn" onclick="showTab('home');setTimeout(function(){document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})},300)" style="font-size:15px;padding:14px 32px;">Проверить мои документы →</button>
+        <button class="btn-gold" id="aij-cta-btn" onclick="showTab('home');setTimeout(function(){document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})},300)" style="font-size:15px;padding:14px 32px;">Check my documents →</button>
 
-        <button class="btn-ghost" id="aij-cta-consult" onclick="openModal()">Бесплатная консультация</button>
+        <button class="btn-ghost" id="aij-cta-consult" onclick="openModal()">Free Consultation</button>
 
       </div>
 
@@ -4804,17 +4798,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="status-card-ico">🔍</div>
 
-        <div class="status-card-title" id="status-title">Проверить статус дела</div>
+        <div class="status-card-title" id="status-title">Check Case Status</div>
 
-        <div class="status-card-desc" id="status-desc">Введите номер дела, полученный от нашего менеджера, чтобы отследить прогресс вашей заявки.</div>
+        <div class="status-card-desc" id="status-desc">Enter your case number received from our manager to track your application progress.</div>
 
         <input class="status-input" type="text" id="status-case-input" placeholder="LS-2026-XXXXX" maxlength="20"/>
 
-        <button class="status-btn" id="status-btn" onclick="checkStatus()">Отследить заявку →</button>
+        <button class="status-btn" id="status-btn" onclick="checkStatus()">Track My Case →</button>
 
         <div class="status-result" id="status-result"></div>
 
-        <div class="status-note" id="status-note">Номер дела выдаётся после первичной консультации. Если у вас его ещё нет — <a href="https://wa.me/48735248525" target="_blank" style="color:var(--p400);text-decoration:underline;">свяжитесь с нами</a>.</div>
+        <div class="status-note" id="status-note">Case number is issued after the initial consultation.</div>
 
       </div>
 
@@ -4892,7 +4886,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="cab-form-login">
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Телефон</label>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-email-1">Phone</label>
         <div class="cab-phone-row" style="display:flex;gap:8px;align-items:stretch">
           <div class="ls-cp" data-default="+48" style="flex:0 0 104px">
 
@@ -4911,24 +4905,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-1">Пароль</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-1">Password</label><input class="cab-input" type="password" id="cab-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')cabLogin()"/></div>
 
-      <button class="cab-btn-primary" id="cab-btn-login" onclick="cabLogin()">Войти →</button>
+      <button class="cab-btn-primary" id="cab-btn-login" onclick="cabLogin()">Log in →</button>
 
-      <div class="cab-login-hint" id="cab-login-hint">Забыли пароль? <span onclick="cabToast('Напишите в WhatsApp — менеджер пришлёт новый','info')">Восстановить</span></div>
+      <div class="cab-login-hint" id="cab-login-hint">Forgot password? <span onclick="cabToast('Recovery link sent','info')">Recover</span></div>
 
     </div>
 
     <!-- Registration form temporarily disabled per request 2026-05-27 — login only.
     <div id="cab-form-register" style="display:none">
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-name-1">Имя</label><input class="cab-input" type="text" placeholder="Иван Петров"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-name-1">Name</label><input class="cab-input" type="text" placeholder="Иван Петров"/></div>
 
       <div class="cab-field"><label class="cab-label" id="cab-lbl-email-2">Email</label><input class="cab-input" type="email" placeholder="your@email.com"/></div>
 
-      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-2">Пароль</label><input class="cab-input" type="password" placeholder="••••••••"/></div>
+      <div class="cab-field"><label class="cab-label" id="cab-lbl-pass-2">Password</label><input class="cab-input" type="password" placeholder="••••••••"/></div>
 
-      <button class="cab-btn-primary" id="cab-btn-register" onclick="cabLogin()">Создать аккаунт →</button>
+      <button class="cab-btn-primary" id="cab-btn-register" onclick="cabLogin()">Create account →</button>
 
     </div>
     -->
@@ -5634,13 +5628,13 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 <div class="ref-hero ls-duo-host">
 <div class="ls-duo-bg" aria-hidden="true"><img src="/assets/trc/client8.jpg" alt="" loading="lazy" decoding="async" style="object-position:center 22%;"></div>
 
-  <div class="ref-badge" id="ref-badge-lbl">🎁 РЕФЕРАЛЬНАЯ ПРОГРАММА</div>
+  <div class="ref-badge" id="ref-badge-lbl">🎁 REFERRAL PROGRAM</div>
 
-  <h2 class="ref-title" id="ref-h1">Приводи друзей —<br><em>зарабатывай с нами</em></h2>
+  <h2 class="ref-title" id="ref-h1">Refer friends —<br><em>earn with us</em></h2>
 
-  <p class="ref-sub" id="ref-sub-txt">Вы уже в Польше и знаете, как мы работаем. Поделитесь с теми, кому нужна легализация — и зарабатывайте без ограничений за каждого приведённого клиента.</p>
+  <p class="ref-sub" id="ref-sub-txt">You're already in Poland and know how we work. Share us with those who need legalisation — and earn unlimited commissions for every client you bring.</p>
 
-  <button class="btn-gold" id="ref-cta-btn" onclick="document.getElementById('ref-form-section').scrollIntoView({behavior:'smooth'})" style="font-size:15px;padding:14px 36px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 24px rgba(245,158,11,.35);">Начать участие →</button>
+  <button class="btn-gold" id="ref-cta-btn" onclick="document.getElementById('ref-form-section').scrollIntoView({behavior:'smooth'})" style="font-size:15px;padding:14px 36px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 24px rgba(245,158,11,.35);">Join the program →</button>
 
 </div>
 
@@ -5654,21 +5648,21 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <div class="ref-tier-icon">💵</div>
 
-    <div class="ref-friends" id="ref-friends-1">1 друг</div>
+    <div class="ref-friends" id="ref-friends-1">1 friend</div>
 
     <div class="ref-payout">300</div>
 
-    <div class="ref-currency" id="ref-currency-1">PLN наличными</div>
+    <div class="ref-currency" id="ref-currency-1">PLN cash</div>
 
     <div class="ref-divider"></div>
 
     <div class="ref-perks">
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-1">Или <strong style="color:#fde047;">400 PLN скидкой</strong> на любую услугу</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-1">Or <strong style="color:#fde047;">400 PLN discount</strong> on any service</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-2">Выплата после первого платежа клиента</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-2">Paid out after client's first payment</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-3">Переводом или наличными</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p1-3">Bank transfer or cash</span></div>
 
     </div>
 
@@ -5678,21 +5672,21 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <div class="ref-tier-icon">💴</div>
 
-    <div class="ref-friends" id="ref-friends-2">3 друга</div>
+    <div class="ref-friends" id="ref-friends-2">3 friends</div>
 
     <div class="ref-payout">1 000</div>
 
-    <div class="ref-currency" id="ref-currency-2">PLN наличными</div>
+    <div class="ref-currency" id="ref-currency-2">PLN cash</div>
 
     <div class="ref-divider"></div>
 
     <div class="ref-perks">
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-1">Бонус сверх базовых 300 × 3</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-1">Bonus on top of 300 × 3 base</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-2">Итого ~1 900 PLN суммарно</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-2">Total ~1,900 PLN combined</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-3">VIP-связь с менеджером</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p2-3">VIP manager contact</span></div>
 
     </div>
 
@@ -5700,25 +5694,25 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
   <div class="ref-tier featured reveal" onmouseenter="spawnCoins(this,'🪙')">
 
-    <div class="ref-featured-badge" id="ref-featured-badge">🔥 ХИТ</div>
+    <div class="ref-featured-badge" id="ref-featured-badge">🔥 TOP</div>
 
     <div class="ref-tier-icon">🏆</div>
 
-    <div class="ref-friends" id="ref-friends-3">5 друзей</div>
+    <div class="ref-friends" id="ref-friends-3">5 friends</div>
 
     <div class="ref-payout">2 000</div>
 
-    <div class="ref-currency" id="ref-currency-3">PLN наличными</div>
+    <div class="ref-currency" id="ref-currency-3">PLN cash</div>
 
     <div class="ref-divider"></div>
 
     <div class="ref-perks">
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-1">Приоритет в обработке ваших дел</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-1">Priority processing of your cases</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-2">Скидка 10% на следующую услугу</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-2">10% discount on next service</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-3">Ускоренное сопровождение</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p3-3">Expedited support</span></div>
 
     </div>
 
@@ -5728,23 +5722,23 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <div class="ref-tier-icon">🚀</div>
 
-    <div class="ref-friends" id="ref-friends-4">10+ друзей</div>
+    <div class="ref-friends" id="ref-friends-4">10+ friends</div>
 
     <div class="ref-payout" style="font-size:46px;">∞</div>
 
-    <div class="ref-currency" id="ref-currency-4">без ограничений</div>
+    <div class="ref-currency" id="ref-currency-4">unlimited</div>
 
     <div class="ref-divider"></div>
 
     <div class="ref-perks">
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-1">Персональный менеджер</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-1">Personal manager</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-2">Бесплатный процесс для вас</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-2">Free process for you</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-3">Приоритет 24/7</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-3">Priority 24/7</span></div>
 
-      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-4">Партнёрский статус</span></div>
+      <div class="ref-perk"><div class="ref-perk-dot"></div><span id="ref-p4-4">Partner status</span></div>
 
     </div>
 
@@ -5760,9 +5754,9 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
   <div style="text-align:center;">
 
-    <div class="s-tag reveal" style="justify-content:center;" id="ref-how-tag">Как это работает</div>
+    <div class="s-tag reveal" style="justify-content:center;" id="ref-how-tag">How it works</div>
 
-    <h2 class="s-title reveal" style="text-align:center;" id="ref-how-title">Три простых <em>шага</em></h2>
+    <h2 class="s-title reveal" style="text-align:center;" id="ref-how-title">Three simple <em>steps</em></h2>
 
   </div>
 
@@ -5774,9 +5768,9 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       <div class="ref-how-num">1</div>
 
-      <div class="ref-how-title" id="ref-how-t1">Поделитесь ссылкой</div>
+      <div class="ref-how-title" id="ref-how-t1">Share the link</div>
 
-      <div class="ref-how-desc" id="ref-how-d1">Напишите в WhatsApp другу, у которого есть вопросы с легализацией. Упомяните нас или отправьте контакт нашего специалиста.</div>
+      <div class="ref-how-desc" id="ref-how-d1">Message a friend on WhatsApp who has legalisation questions. Mention us or send our specialist's contact.</div>
 
     </div>
 
@@ -5786,9 +5780,9 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       <div class="ref-how-num">2</div>
 
-      <div class="ref-how-title" id="ref-how-t2">Друг начинает процесс</div>
+      <div class="ref-how-title" id="ref-how-t2">Friend starts the process</div>
 
-      <div class="ref-how-desc" id="ref-how-d2">Ваш друг обращается к нам и упоминает ваше имя. Мы фиксируем реферала и открываем дело.</div>
+      <div class="ref-how-desc" id="ref-how-d2">Your friend contacts us and mentions your name. We record the referral and open a case.</div>
 
     </div>
 
@@ -5798,9 +5792,9 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       <div class="ref-how-num">3</div>
 
-      <div class="ref-how-title" id="ref-how-t3">Вы получаете деньги</div>
+      <div class="ref-how-title" id="ref-how-t3">You get paid</div>
 
-      <div class="ref-how-desc" id="ref-how-d3">После первого платежа клиента — выплачиваем вам наличными или переводом. Без задержек и бюрократии.</div>
+      <div class="ref-how-desc" id="ref-how-d3">After the client's first payment — we pay you in cash or by transfer. No delays, no bureaucracy.</div>
 
     </div>
 
@@ -5819,21 +5813,21 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <div class="ref-record-left">
 
-      <div class="ref-record-label" id="ref-record-label">💰 РЕКОРДНАЯ ВЫПЛАТА НАШЕМУ КЛИЕНТУ</div>
+      <div class="ref-record-label" id="ref-record-label">💰 RECORD PAYOUT TO OUR CLIENT</div>
 
       <div class="ref-record-amount" id="ref-record-num">34 500</div>
 
-      <div class="ref-record-currency" id="ref-record-currency">злотых наличными · за 11 привлечённых клиентов</div>
+      <div class="ref-record-currency" id="ref-record-currency">PLN in cash · for 11 referred clients</div>
 
     </div>
 
     <div class="ref-record-right">
 
-      <div class="ref-record-quote" id="ref-record-quote">«Просто рассказывал знакомым — получил больше, чем за месяц работы»</div>
+      <div class="ref-record-quote" id="ref-record-quote">"Just told my friends — earned more than a month's salary"</div>
 
-      <div class="ref-record-author" id="ref-record-author">— Олег К., Варшава, 2025</div>
+      <div class="ref-record-author" id="ref-record-author">— Oleg K., Warsaw, 2025</div>
 
-      <button class="btn-gold" id="ref-record-btn" onclick="document.getElementById('ref-form-section').scrollIntoView({behavior:'smooth'})" style="margin-top:18px;font-size:14px;padding:13px 30px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 24px rgba(245,158,11,.35);">Вы тоже можете — зарегистрироваться →</button>
+      <button class="btn-gold" id="ref-record-btn" onclick="document.getElementById('ref-form-section').scrollIntoView({behavior:'smooth'})" style="margin-top:18px;font-size:14px;padding:13px 30px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 24px rgba(245,158,11,.35);">You can too — sign up →</button>
 
     </div>
 
@@ -5849,41 +5843,41 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
   <div class="ref-faq-inner">
 
-    <div class="s-tag reveal" style="justify-content:center;" id="ref-faq-tag">Вопросы</div>
+    <div class="s-tag reveal" style="justify-content:center;" id="ref-faq-tag">Questions</div>
 
-    <h2 class="s-title reveal" style="text-align:center;" id="ref-faq-title">Частые <em>вопросы</em></h2>
+    <h2 class="s-title reveal" style="text-align:center;" id="ref-faq-title">Frequently <em>asked questions</em></h2>
 
     <div style="margin-top:32px;">
 
       <div class="faq-item reveal">
 
-        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq1">Когда именно я получу выплату?</span><span class="faq-chevron">▾</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq1">Exactly when will I receive my payout?</span><span class="faq-chevron">▾</span></button>
 
-        <div class="faq-a"><div class="faq-a-inner" id="ref-fa1">Выплата производится после того, как ваш друг оплатил первый платёж по своему делу. Обычно это в течение 1–3 рабочих дней после оплаты.</div></div>
-
-      </div>
-
-      <div class="faq-item reveal">
-
-        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq2">Как считаются друзья — суммарно или за квартал?</span><span class="faq-chevron">▾</span></button>
-
-        <div class="faq-a"><div class="faq-a-inner" id="ref-fa2">Суммарно — с момента регистрации в программе. Каждый приведённый клиент учитывается накопительно. Чем больше — тем выше уровень и бонусы.</div></div>
+        <div class="faq-a"><div class="faq-a-inner" id="ref-fa1">The payout is made after your friend pays their first invoice. Usually within 1–3 business days after payment.</div></div>
 
       </div>
 
       <div class="faq-item reveal">
 
-        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq3">Нужно ли самому быть клиентом LegalSol?</span><span class="faq-chevron">▾</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq2">Are friends counted cumulatively or per quarter?</span><span class="faq-chevron">▾</span></button>
 
-        <div class="faq-a"><div class="faq-a-inner" id="ref-fa3">Да — программа для текущих и бывших клиентов компании. Если вы ещё не наш клиент, начните с бесплатной консультации, а потом подключитесь к реферальной программе.</div></div>
+        <div class="faq-a"><div class="faq-a-inner" id="ref-fa2">Cumulatively — from the moment you join the programme. Each referred client counts toward your total. The more you refer, the higher your tier and bonuses.</div></div>
 
       </div>
 
       <div class="faq-item reveal">
 
-        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq4">Можно ли получить деньги, если друг сам нашёл вас?</span><span class="faq-chevron">▾</span></button>
+        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq3">Do I need to be a LegalSol client myself?</span><span class="faq-chevron">▾</span></button>
 
-        <div class="faq-a"><div class="faq-a-inner" id="ref-fa4">Да — достаточно, чтобы друг при обращении назвал ваше имя или телефон. Мы проверяем вручную и подтверждаем реферала.</div></div>
+        <div class="faq-a"><div class="faq-a-inner" id="ref-fa3">Yes — the programme is for current and former clients. If you're not yet a client, start with a free consultation and then join the referral programme.</div></div>
+
+      </div>
+
+      <div class="faq-item reveal">
+
+        <button class="faq-q" onclick="toggleFaq(this)"><span id="ref-fq4">Can I get paid if the friend found us themselves?</span><span class="faq-chevron">▾</span></button>
+
+        <div class="faq-a"><div class="faq-a-inner" id="ref-fa4">Yes — it's enough for your friend to mention your name or phone number when they contact us. We verify manually and confirm the referral.</div></div>
 
       </div>
 
@@ -5899,21 +5893,21 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
 <div class="ref-cta" id="ref-form-section">
 
-  <div class="s-tag reveal" id="ref-form-tag" style="justify-content:center;background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.2);color:#fde047;">Участвовать</div>
+  <div class="s-tag reveal" id="ref-form-tag" style="justify-content:center;background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.2);color:#fde047;">Join</div>
 
-  <h2 class="s-title reveal" id="ref-form-title" style="text-align:center;">Зарегистрируйтесь<br><em>в программе</em></h2>
+  <h2 class="s-title reveal" id="ref-form-title" style="text-align:center;">Register<br><em>for the programme</em></h2>
 
-  <p class="s-desc reveal" id="ref-form-desc" style="text-align:center;max-width:480px;margin:0 auto 36px;">Оставьте контакт — мы свяжемся, подтвердим участие и объясним как начать приводить друзей прямо сейчас.</p>
+  <p class="s-desc reveal" id="ref-form-desc" style="text-align:center;max-width:480px;margin:0 auto 36px;">Leave your contact — we'll get in touch, confirm your participation and explain how to start referring friends right away.</p>
 
   <div style="max-width:420px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal">
 
     <input id="ref-phone" type="tel" placeholder="Ваш WhatsApp / телефон" style="flex:1;min-width:200px;padding:14px 20px;border-radius:60px;border:1.5px solid rgba(139,130,232,.3);background:rgba(30,27,75,.7);color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;" onfocus="this.style.borderColor='#f59e0b'" onblur="this.style.borderColor='rgba(139,130,232,.3)'"/>
 
-    <button id="ref-submit-btn" onclick="refSubmit()" style="padding:14px 28px;border-radius:60px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;box-shadow:0 6px 20px rgba(245,158,11,.3);">Вступить →</button>
+    <button id="ref-submit-btn" onclick="refSubmit()" style="padding:14px 28px;border-radius:60px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;box-shadow:0 6px 20px rgba(245,158,11,.3);">Join →</button>
 
   </div>
 
-  <div id="ref-form-fine" style="font-size:12px;color:var(--txt3);margin-top:14px;" class="reveal">Без обязательств · Ответим за 15 минут</div>
+  <div id="ref-form-fine" style="font-size:12px;color:var(--txt3);margin-top:14px;" class="reveal">No obligations · Reply within 15 minutes</div>
 
 </div>
 
@@ -5998,45 +5992,45 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><svg width="28" height="26" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg><div><div class="ft-brand-name">LEGALSOL</div><div class="ft-brand-sub">LEGALIZATION SERVICES</div></div></div>
 
-      <div class="ft-brand-desc" id="ft-desc">Юридическое сопровождение в Польше. ВНЖ, PESEL, регистрация компании, бухгалтерия. Варшава и вся Польша.</div>
+      <div class="ft-brand-desc" id="ft-desc">Legal services in Poland. Residence permits, PESEL, company registration, accounting.</div>
 
     </div>
 
     <div>
 
-      <div class="ft-col-title" id="ft-svc-title">УСЛУГИ</div>
+      <div class="ft-col-title" id="ft-svc-title">SERVICES</div>
 
-      <a class="ft-link" id="ftl1" onclick="showTab('services')">Вид на жительство</a>
+      <a class="ft-link" id="ftl1" onclick="showTab('services')">Residence Permit</a>
 
-      <a class="ft-link" id="ftl2" onclick="showTab('services')">Апелляции</a>
+      <a class="ft-link" id="ftl2" onclick="showTab('services')">Appeals</a>
 
-      <a class="ft-link" id="ftl3" onclick="showTab('services')">Регистрация компании</a>
+      <a class="ft-link" id="ftl3" onclick="showTab('services')">Company Registration</a>
 
-      <a class="ft-link" id="ftl4" onclick="showTab('services')">Бухгалтерия</a>
+      <a class="ft-link" id="ftl4" onclick="showTab('services')">Accounting</a>
 
-      <a class="ft-link" id="ftl5" onclick="showTab('services')">PESEL / Профиль</a>
+      <a class="ft-link" id="ftl5" onclick="showTab('services')">PESEL / Profile</a>
 
     </div>
 
     <div>
 
-      <div class="ft-col-title" id="ft-nav-title">НАВИГАЦИЯ</div>
+      <div class="ft-col-title" id="ft-nav-title">NAVIGATION</div>
 
-      <a class="ft-link" id="ftn1" onclick="showTab('home')">Главная</a>
+      <a class="ft-link" id="ftn1" onclick="showTab('home')">Home</a>
 
-      <a class="ft-link" id="ftn2" onclick="showTab('jobs')">Работа в Польше</a>
+      <a class="ft-link" id="ftn2" onclick="showTab('jobs')">Work in Poland</a>
 
-      <a class="ft-link" id="ftn3" onclick="showTab('blog')">Блог</a>
+      <a class="ft-link" id="ftn3" onclick="showTab('blog')">Blog</a>
 
       <a class="ft-link" href="/guide" id="ftn-guide">Karta Pobytu guide</a>
 
-      <a class="ft-link" id="ftn4" onclick="openModal()">Консультация</a>
+      <a class="ft-link" id="ftn4" onclick="openModal()">Consultation</a>
 
     </div>
 
     <div>
 
-      <div class="ft-col-title" id="ft-contact-title">КОНТАКТЫ</div>
+      <div class="ft-col-title" id="ft-contact-title">CONTACTS</div>
 
       <div class="ft-ci" style="display:none">
 
@@ -6100,21 +6094,7 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       </div>
 
-      <div class="ft-ci ft-ci-anim" id="ft-city" style="animation-delay:.15s">
-
-        <span class="ft-ico">
-
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" fill="currentColor"/>
-
-          </svg>
-
-        </span>
-
-        Варшава, Польша
-
-      </div>
+      <div class="ft-ci ft-ci-anim" id="ft-city" style="animation-delay:.15s">📍 ul. Sienna 75, 00-833 Warszawa</div>
 
       <div class="ft-ci ft-ci-anim" style="animation-delay:.25s">
 
@@ -6132,7 +6112,7 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
       </div>
 
-      <div id="ft-hours" style="margin-top:12px;font-size:11px;color:var(--txt3);">ПН–ПТ: 10:00 – 18:00</div>
+      <div id="ft-hours" style="margin-top:12px;font-size:11px;color:var(--txt3);">MON–FRI: 10:00 – 18:00</div>
 
     </div>
 
@@ -6144,7 +6124,7 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <div class="trust-bar-inner">
 
-      <span class="trust-bar-lbl" id="ft-trust-lbl">Среди наших клиентов</span>
+      <span class="trust-bar-lbl" id="ft-trust-lbl">We work with</span>
 
       <div class="trust-marquee-wrap">
 
@@ -6494,7 +6474,7 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
   <div class="ft-bottom">
 
-    <div class="ft-copy" id="ft-copy">© 2026 LegalSol. Все права защищены.</div>
+    <div class="ft-copy" id="ft-copy">© 2026 LegalSol. All rights reserved.</div>
 
     <div style="display:flex;align-items:center;gap:16px;font-size:12px;color:var(--txt3);flex-wrap:wrap;">
 
@@ -6524,9 +6504,9 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
   <div class="mcta-inner">
 
-    <button class="mcta-wa" id="mcta-wa-btn" onclick="window.open('https://wa.me/48735248525','_blank')">💬 Написать в WhatsApp</button>
+    <button class="mcta-wa" id="mcta-wa-btn" onclick="window.open('https://wa.me/48735248525','_blank')">💬 Message on WhatsApp</button>
 
-    <a class="mcta-call" id="mcta-call-btn" href="tel:+48735248525" style="display:none">📞 Позвонить</a>
+    <a class="mcta-call" id="mcta-call-btn" href="tel:+48735248525" style="display:none">📞 Call us</a>
 
   </div>
 
@@ -6576,7 +6556,7 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
 
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 10L2 5h10L7 10z" fill="currentColor"/></svg>
 
-    <span id="mob-svc-bar-collapse">свернуть</span>
+    <span id="mob-svc-bar-collapse">collapse</span>
 
   </div>
 
@@ -6609,12 +6589,12 @@ function cabTr(t){var k=String(t==null?"":t).trim();if(!k)return null;if(Object.
   <div class="ls-cb-content">
     <div class="ls-cb-pill">
       <span class="ls-cb-pill-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 11.4c-.4 0-.8-.1-1.1-.3-1.1-.6-1.5-2-.9-3.1.2-.3.4-.6.6-.8-1.6-1.2-3.5-1.9-5.5-2-.4 1.1-1.5 1.9-2.7 1.9-1.5 0-2.7-1.1-2.9-2.6-1 .3-2 .8-2.9 1.4-1 .7-1.7 1.6-2.3 2.6.4.2.7.5 1 .8.7 1 .5 2.4-.5 3.1-.6.4-1.4.5-2.1.2 0 .2 0 .5 0 .7 0 5.5 4.5 10 10 10s10-4.5 10-10c0-.8-.1-1.4-.3-2.1l-.4.2zM7 14c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm3 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm5-3c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm.5-5.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/></svg></span>
-      <span id="ls-cb-title">Политика использования файлов cookie</span>
+      <span id="ls-cb-title">Cookie usage policy</span>
     </div>
-    <p class="ls-cb-text" id="ls-cb-desc">Мы используем cookie, чтобы сайт работал стабильно, запоминал ваши предпочтения и помогал нам улучшать пользовательский опыт без лишнего шума.</p>
-    <button class="ls-cb-link" id="ls-cb-policy"><span>Открыть политику cookie</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    <p class="ls-cb-text" id="ls-cb-desc">We use cookies to keep the site stable, remember your preferences, and help us improve the user experience without unnecessary noise.</p>
+    <button class="ls-cb-link" id="ls-cb-policy"><span>Open cookie policy</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
   </div>
-  <button class="ls-cb-btn" id="ls-cb-accept">Принять</button>
+  <button class="ls-cb-btn" id="ls-cb-accept">Accept</button>
 </div>
 
 <script>(function(){var STORAGE_KEY="ls_cookie_v1";try{if(sessionStorage.getItem("ls_cb_closed")){var _e=document.getElementById("ls-cb");if(_e)_e.remove();return}}catch(e){}var L={ru:{title:"Политика использования файлов cookie",desc:"Мы используем cookie, чтобы сайт работал стабильно, запоминал ваши предпочтения и помогал нам улучшать пользовательский опыт без лишнего шума.",policy:"Открыть политику cookie",accept:"Принять"},en:{title:"Cookie usage policy",desc:"We use cookies to keep the site stable, remember your preferences, and help us improve the user experience without unnecessary noise.",policy:"Open cookie policy",accept:"Accept"},pl:{title:"Polityka plików cookie",desc:"Używamy plików cookie, aby strona działała stabilnie, zapamiętywała Twoje preferencje i pomagała nam ulepszać doświadczenie użytkownika.",policy:"Otwórz politykę cookie",accept:"Akceptuj"},uk:{title:"Політика файлів cookie",desc:"Ми використовуємо cookie, щоб сайт працював стабільно, запам'ятовував ваші уподобання й допомагав нам покращувати користувацький досвід.",policy:"Відкрити політику cookie",accept:"Прийняти"},es:{title:"Política de cookies",desc:"Usamos cookies para que el sitio funcione de forma estable, recuerde sus preferencias y nos ayude a mejorar la experiencia del usuario.",policy:"Abrir política de cookies",accept:"Aceptar"},tr:{title:"Çerez kullanım politikası",desc:"Sitenin stabil çalışması, tercihlerinizi hatırlaması ve kullanıcı deneyimini iyileştirmemiz için çerezler kullanıyoruz.",policy:"Çerez politikasını aç",accept:"Kabul et"},az:{title:"Çərəz istifadə siyasəti",desc:"Saytın sabit işləməsi, tərcihlərinizi yadda saxlaması və istifadəçi təcrübəsini yaxşılaşdırmaq üçün çərəzlərdən istifadə edirik.",policy:"Çərəz siyasətini aç",accept:"Qəbul et"},hi:{title:"कुकी उपयोग नीति",desc:"हम कुकीज़ का उपयोग करते हैं ताकि साइट स्थिर रूप से काम करे, आपकी प्राथमिकताएँ याद रखे और उपयोगकर्ता अनुभव को बेहतर बनाने में मदद करे।",policy:"कुकी नीति खोलें",accept:"स्वीकार करें"}};function _cbApply(newLang){var L2=(newLang==="ua"?"uk":newLang||"en").toLowerCase().slice(0,2);var tt=L[L2]||L.en;var tEl=document.getElementById("ls-cb-title");var dEl=document.getElementById("ls-cb-desc");var pEl=document.querySelector("#ls-cb-policy span");var aEl=document.getElementById("ls-cb-accept");if(tEl)tEl.textContent=tt.title;if(dEl)dEl.textContent=tt.desc;if(pEl)pEl.textContent=tt.policy;if(aEl)aEl.textContent=tt.accept}window._cbApply=_cbApply;var lang=(document.documentElement.lang||"ru").toLowerCase().slice(0,2);if(lang==="ua")lang="uk";var t=L[lang]||L.en;if(localStorage.getItem(STORAGE_KEY))return;var el=document.getElementById("ls-cb");if(!el)return;document.getElementById("ls-cb-title").textContent=t.title;document.getElementById("ls-cb-desc").textContent=t.desc;document.querySelector("#ls-cb-policy span").textContent=t.policy;document.getElementById("ls-cb-accept").textContent=t.accept;function _cbHook(){var orig=window.setLang;if(typeof orig==="function"&&!orig.__cbWrapped){var wrap=function(){var r=orig.apply(this,arguments);try{_cbApply(arguments[0])}catch(e){}return r};wrap.__cbWrapped=true;window.setLang=wrap}var cur=document.documentElement.lang||"ru";setTimeout(function(){_cbApply(cur)},100)}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",_cbHook)}else{setTimeout(_cbHook,50)}document.body.classList.add("ls-cb-active");function _lsCbHideLib(){var sel=["#cc-main > .cm","#cm",".cm-wrapper","div.cm","#cc-main .cm__title"];sel.forEach(function(s){document.querySelectorAll(s).forEach(function(el){el.style.setProperty("display","none","important")})});var ccMain=document.getElementById("cc-main");if(ccMain){var pm=ccMain.querySelector(".pm,.pm-wrapper,#pm,.cm--preferences");if(!pm||pm.offsetParent===null){ccMain.style.setProperty("display","none","important")}}}_lsCbHideLib();try{var _lsCbObs=new MutationObserver(function(){_lsCbHideLib()});_lsCbObs.observe(document.documentElement||document.body,{childList:true,subtree:true});setTimeout(function(){if(_lsCbObs)_lsCbObs.disconnect()},8e3)}catch(e){}setTimeout(function(){el.classList.add("ls-cb-show")},400);var _cbClose=document.getElementById("ls-cb-close");if(_cbClose)_cbClose.addEventListener("click",function(){try{sessionStorage.setItem("ls_cb_closed","1")}catch(e){}el.classList.add("ls-cb-hide");document.body.classList.remove("ls-cb-active");setTimeout(function(){el.remove()},400)});document.getElementById("ls-cb-accept").addEventListener("click",function(){localStorage.setItem(STORAGE_KEY,JSON.stringify({accepted:true,ts:Date.now(),v:1}));el.classList.add("ls-cb-hide");document.body.classList.remove("ls-cb-active");setTimeout(function(){try{if(typeof CookieConsent!=="undefined"&&CookieConsent.acceptCategory){CookieConsent.acceptCategory("all")}}catch(e){}el.remove()},400)});document.getElementById("ls-cb-policy").addEventListener("click",function(){try{if(typeof CookieConsent!=="undefined"&&CookieConsent.showPreferences){CookieConsent.showPreferences();return}}catch(e){}window.location.href="/privacy#cookies"})})();</script>
