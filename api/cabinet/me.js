@@ -159,7 +159,13 @@ module.exports = async function handler(req, res) {
         }
 
         const price = lead.price || 0;
-        const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
+        // Оплачено = максимум из заметок «ОПЛАТА:» и оплаченных взносов плана
+        // (у клиентов из sheet-синка фактов оплат в заметках нет — только план).
+        const paidFromNotes = payments.reduce((s, p) => s + (p.amount || 0), 0);
+        const paidFromPlan = plan
+          ? plan.installments.filter(i => i.paid).reduce((s, i) => s + (i.amount || 0), 0)
+          : 0;
+        const paidTotal = Math.max(paidFromNotes, paidFromPlan);
 
         leads.push({
           id: lead.id,
