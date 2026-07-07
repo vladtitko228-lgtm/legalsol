@@ -28,7 +28,7 @@ KEEP_MARKS = [
     ("lng-init", "location.search"),   # ранний гейт
     ("__gtmGo",),                      # GTM-деферер
     ("function _lsGtag",),
-    ('rootMargin:"500px"',),
+    ('rootMargin:"900px"',),
     ("__earlyClickQ",),                # наш шим
 ]
 
@@ -52,17 +52,6 @@ for m in re.finditer(r'<script([^>]*)>(.*?)</script>', h, re.S):
 
 for s, e, body in reversed(extracted):
     h = h[:s] + h[e:]
-
-if not extracted:
-    import glob
-    cur = sorted(glob.glob(os.path.join(ROOT, 'assets', 'app-*.js')))
-    if cur:
-        tagname = os.path.basename(cur[0])
-        if f'/assets/{tagname}' not in h:
-            h = h.replace('</head>', f'<script defer src="/assets/{tagname}"></script></head>', 1)
-        open(P, 'w', encoding='utf-8').write(h)
-        print(f'нечего извлекать; ссылка на {tagname} сохранена')
-        raise SystemExit(0)
 
 js = '\n'.join(
     'try{' + b.strip().rstrip(';') + ';}catch(e){console.error("[app.js] block ' + str(i) + ':",(e&&e.stack)||e)}'
