@@ -514,6 +514,7 @@ module.exports = {
   parsePaymentNote,
   isPaymentPlanNote,
   parsePaymentPlanNote,
+  kvCmd,
   findStaffByPhone,
   CLIENT_MSG_PREFIX,
   isClientMsgNote,

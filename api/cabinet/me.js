@@ -8,7 +8,8 @@ const {
   isPaymentPlanNote, parsePaymentPlanNote,
   CLIENT_MSG_PREFIX, isClientMsgNote, stripClientMsgPrefix,
   PHONE_FIELD_ID, EMAIL_FIELD_ID,
-  CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE
+  CF_GRAZHDANSTVO, CF_PASSPORT, CF_DOB, CF_SERVICE_TYPE,
+  kvCmd
 } = require('./_helpers');
 
 // Чистит имя сделки от служебных суффиксов: «Mohammad Habibur Rahman 08/05/2026» → «Mohammad Habibur Rahman»
@@ -45,6 +46,32 @@ module.exports = async function handler(req, res) {
     }
     if (!payload.cid) return res.status(401).json({ error: 'unauthorized' });
 
+    // ── GET ?chat=<leadId>: лёгкий поллинг чата (1–2 запроса Kommo вместо каскада).
+    // Владение сделкой проверяем по KV-кэшу списка сделок клиента (TTL 10 мин).
+    if (req.method === 'GET' && req.query && req.query.chat) {
+      const lid = String(req.query.chat).replace(/[^\d]/g, '');
+      if (!lid) return res.status(400).json({ error: 'bad_lead' });
+      let own = null;
+      try { const c0 = await kvCmd('GET', 'cab:own:' + payload.cid); if (c0) own = JSON.parse(c0); } catch (_) {}
+      if (!own) {
+        const cR = await kommo('GET', `/contacts/${payload.cid}?with=leads`);
+        own = (cR?._embedded?.leads || []).map(l => String(l.id));
+        try { await kvCmd('SET', 'cab:own:' + payload.cid, JSON.stringify(own), 'EX', 600); } catch (_) {}
+      }
+      if (own.indexOf(lid) < 0) return res.status(403).json({ error: 'forbidden' });
+      const nR = await kommo('GET', `/leads/${lid}/notes?limit=100`);
+      const allN = (nR?._embedded?.notes || [])
+        .map(n => ({ createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() }))
+        .filter(n => n.text);
+      const chat = allN
+        .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+        .map(n => isClientMsgNote(n.text)
+          ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
+          : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+        .sort((a, b) => a.createdAt - b.createdAt);
+      return res.status(200).json({ chat });
+    }
+
     // ── POST: клиент пишет сообщение менеджеру → заметка «ОТ КЛИЕНТА:» в его сделку ──
     if (req.method === 'POST') {
       const body = await readJsonBody(req);
@@ -66,8 +93,16 @@ module.exports = async function handler(req, res) {
       await kommo('POST', `/leads/${targetLead}/notes`, [
         { note_type: 'common', params: { text: CLIENT_MSG_PREFIX + ' ' + text } }
       ]);
+      try { await kvCmd('DEL', 'cab:me:' + payload.cid); } catch (_) {}
       return res.status(200).json({ ok: true });
     }
+
+    // KV-кэш ответа /me (25с): срезает каскад из десятков Kommo-запросов при
+    // повторных заходах/обновлениях. Инвалидация — при POST-сообщении клиента.
+    try {
+      const cached = await kvCmd('GET', 'cab:me:' + payload.cid);
+      if (cached) { res.setHeader('X-Cab-Cache', 'hit'); return res.status(200).json(JSON.parse(cached)); }
+    } catch (_) {}
 
     // 1) Контакт
     const cRes = await kommo('GET', `/contacts/${payload.cid}?with=leads`);
@@ -81,9 +116,28 @@ module.exports = async function handler(req, res) {
     const leads = [];
     let displayName = cRes.name || '';
 
+    // Префетч параллельными чанками (по 5 — щадим rate-limit Kommo ~7 rps):
+    // раньше 1+N+2M запросов шли строго последовательно → 1–3+ сек на /me.
+    const leadMap = {}, notesMap = {}, tasksMap = {};
+    for (let ci = 0; ci < allLeadIds.length; ci += 5) {
+      await Promise.all(allLeadIds.slice(ci, ci + 5).map(async lid => {
+        try { leadMap[lid] = await kommo('GET', `/leads/${lid}?with=contacts`); } catch (_) { leadMap[lid] = null; }
+      }));
+    }
+    const opsIds = allLeadIds.filter(lid => leadMap[lid] && leadMap[lid].pipeline_id === PIPELINE_OPS);
+    for (let ci = 0; ci < opsIds.length; ci += 5) {
+      await Promise.all(opsIds.slice(ci, ci + 5).map(async lid => {
+        const [nR, tR] = await Promise.all([
+          kommo('GET', `/leads/${lid}/notes?limit=100`).catch(() => null),
+          kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`).catch(() => null)
+        ]);
+        notesMap[lid] = nR; tasksMap[lid] = tR;
+      }));
+    }
+
     for (const lid of allLeadIds) {
       try {
-        const lead = await kommo('GET', `/leads/${lid}?with=contacts`);
+        const lead = leadMap[lid];
         if (!lead) continue;
 
         // Кабинет — только для оплаченных клиентов (Pipeline 2)
@@ -95,7 +149,7 @@ module.exports = async function handler(req, res) {
         let chat = [];
         let plan = null;
         try {
-          const nRes = await kommo('GET', `/leads/${lid}/notes?limit=100`);
+          const nRes = notesMap[lid];
           const all = (nRes?._embedded?.notes || []).map(n => ({
             id: n.id,
             createdAt: (n.created_at || 0) * 1000,
@@ -141,7 +195,7 @@ module.exports = async function handler(req, res) {
         // клиенту НЕ отдаём; фронт использует только дату для дедлайнов.
         let tasks = [];
         try {
-          const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`);
+          const tRes = tasksMap[lid];
           tasks = (tRes?._embedded?.tasks || []).map(t => ({
             id: t.id,
             completeTill: t.complete_till * 1000,
@@ -196,7 +250,7 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    return res.status(200).json({
+    const out = {
       contact: {
         id: cRes.id,
         name: displayName,
@@ -208,7 +262,9 @@ module.exports = async function handler(req, res) {
       },
       leads,
       hasActiveCases: leads.length > 0
-    });
+    };
+    try { await kvCmd('SET', 'cab:me:' + payload.cid, JSON.stringify(out), 'EX', 25); } catch (_) {}
+    return res.status(200).json(out);
   } catch (e) {
     console.error('me err:', e.message);
     return res.status(500).json({ error: 'server_error' });
