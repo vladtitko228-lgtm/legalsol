@@ -21102,6 +21102,46 @@ nav.cab-nav-dark .lang-b.active{color:#fff !important;background:rgba(91,82,204,
 
 }
 
+/* ── «Сейчас по вашему делу» v2: путь дела + прогноз + шанс (анимировано) ── */
+@keyframes cabNowIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes cabNodePulse{0%,100%{box-shadow:0 0 0 0 rgba(91,82,204,.45);}50%{box-shadow:0 0 0 9px rgba(91,82,204,0);}}
+.cab-now-card{background:linear-gradient(135deg,#ffffff,#f3f0ff);border:1.5px solid rgba(91,82,204,.28);border-radius:18px;padding:20px 22px;margin-bottom:20px;box-shadow:0 8px 28px rgba(91,82,204,.10);animation:cabNowIn .5s ease both;}
+.cab-now-row{animation:cabNowIn .5s ease both;}
+.cab-now-row:nth-of-type(2){animation-delay:.08s;}.cab-now-row:nth-of-type(3){animation-delay:.16s;}
+/* путь дела: 6 узлов + заливающаяся линия */
+.cab-jn{position:relative;margin:22px 4px 6px;}
+.cab-jn-track{position:absolute;top:11px;left:11px;right:11px;height:4px;background:#e9e5f8;border-radius:4px;}
+.cab-jn-fill{position:absolute;top:11px;left:11px;height:4px;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:4px;width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
+.cab-jn-nodes{position:relative;display:flex;justify-content:space-between;}
+.cab-jn-node{display:flex;flex-direction:column;align-items:center;gap:6px;width:52px;}
+.cab-jn-dot{width:22px;height:22px;border-radius:50%;background:#fff;border:2.5px solid #d9d3f2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#a09ac8;transition:all .4s ease;}
+.cab-jn-node.done .cab-jn-dot{background:linear-gradient(135deg,#5B52CC,#8B82E8);border-color:transparent;color:#fff;}
+.cab-jn-node.cur .cab-jn-dot{background:#fff;border-color:#5B52CC;color:#5B52CC;animation:cabNodePulse 2s ease infinite;}
+.cab-jn-lbl{font-size:9.5px;font-weight:700;color:#a09ac8;text-align:center;line-height:1.15;letter-spacing:.1px;}
+.cab-jn-node.done .cab-jn-lbl,.cab-jn-node.cur .cab-jn-lbl{color:#5B52CC;}
+/* мини-карточки: срок / прогноз / шанс */
+.cab-now-minis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.cab-now-mini{background:#fff;border:1px solid #ece8fb;border-radius:14px;padding:12px 12px 11px;text-align:center;animation:cabNowIn .5s ease both;}
+.cab-now-mini:nth-child(2){animation-delay:.1s;}.cab-now-mini:nth-child(3){animation-delay:.2s;}
+.cab-now-mini .t{font-size:9.5px;font-weight:800;letter-spacing:.8px;color:#8b84b8;text-transform:uppercase;margin-bottom:5px;}
+.cab-now-mini .v{font-size:14.5px;font-weight:800;color:#1a1545;line-height:1.2;}
+.cab-now-mini .v.accent{color:#5B52CC;}
+.cab-now-mini .s{font-size:10px;color:#a09ac8;margin-top:3px;line-height:1.3;}
+@media(max-width:520px){
+  .cab-now-minis{grid-template-columns:1fr;}
+  .cab-now-mini{display:flex;align-items:baseline;gap:10px;text-align:left;padding:10px 14px;}
+  .cab-now-mini .t{margin:0;flex-shrink:0;}
+  .cab-now-mini .v{font-size:13.5px;}
+  .cab-now-mini .s{margin:0 0 0 auto;text-align:right;}
+  .cab-jn-lbl{font-size:8.5px;}
+  .cab-jn-node{width:44px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .cab-now-card,.cab-now-row,.cab-now-mini{animation:none;}
+  .cab-jn-fill{transition:none;}
+  .cab-jn-node.cur .cab-jn-dot{animation:none;}
+}
+
 /* Мобильная нижняя навигация кабинета (показывается только ≤900px) */
 #cab-mnav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:100001;background:rgba(255,255,255,.98);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid #e8e4f5;box-shadow:0 -6px 24px rgba(91,82,204,.10);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
 .cab-mnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 2px;cursor:pointer;color:#8b84b8;font-family:Inter,sans-serif;-webkit-tap-highlight-color:transparent;}
@@ -22593,19 +22633,67 @@ function cabUpdateDashStats(){
             '<button onclick="cabPage(\'payments\',document.querySelectorAll(\'.cab-nav-item\')[4])" style="margin-left:auto;padding:7px 16px;background:linear-gradient(135deg,#5B52CC,#8B82E8);border:none;border-radius:20px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif"><span>Оплатить</span></button>'+
           '</div>';
         }
+        // ── v2: путь дела (6 узлов), прогноз решения, шанс одобрения ──
+        var step=Math.min(6,Math.max(1,st.step||1));
+        var en=(document.documentElement.lang||'en').slice(0,2)!=='ru';
+        var JN=en?['Start','Documents','Filing','Review','Biometrics','Decision']
+                 :['Заявка','Документы','Подача','Проверка','Биометрия','Решение'];
+        var nodes='';
+        for(var i=0;i<6;i++){
+          var cls=(i+1)<step?'done':((i+1)===step?'cur':'');
+          nodes+='<div class="cab-jn-node '+cls+'"><div class="cab-jn-dot">'+((i+1)<step?'✓':(i+1))+'</div><div class="cab-jn-lbl">'+JN[i]+'</div></div>';
+        }
+        var fillPct=Math.round(((step-1)/5)*100);
+        // Прогноз: типичные недели на завершение шагов 1..5 (низ/верх). Честно
+        // ориентировочно — реальный срок зависит от ужонда; дисклеймер ниже.
+        var WEEKS=[[0.3,1],[0.5,1.5],[2,5],[4,10],[2,5]];
+        var lo=0,hi=0;
+        for(var k=step-1;k<5;k++){lo+=WEEKS[k][0];hi+=WEEKS[k][1];}
+        function fmtMonth(w){
+          var d=new Date(Date.now()+w*7*86400000);
+          return d.toLocaleDateString(en?'en-GB':'ru-RU',{month:'long',year:'numeric'}).replace(' г.','');
+        }
+        var forecast=step>=6?(en?'ready 🎉':'готово 🎉')
+          :(fmtMonth(lo)===fmtMonth(hi)?fmtMonth(lo):fmtMonth(lo)+' – '+fmtMonth(hi));
+        var minis=
+        '<div class="cab-now-minis">'+
+          '<div class="cab-now-mini"><div class="t">'+(en?'This stage':'Этот этап')+'</div><div class="v">'+(cur.etaText||(en?'in progress':'в работе'))+'</div><div class="s">'+(en?'typical time':'обычный срок')+'</div></div>'+
+          '<div class="cab-now-mini"><div class="t">'+(en?'Decision forecast':'Прогноз решения')+'</div><div class="v accent">'+forecast+'</div><div class="s">'+(en?'estimate, depends on the office':'ориентировочно, зависит от ужонда')+'</div></div>'+
+          '<div class="cab-now-mini"><div class="t">'+(en?'Approval chance':'Шанс одобрения')+'</div><div class="v accent"><span class="cab-chance" data-target="98.1">0</span>%</div><div class="s">'+(en?'LegalSol average approval rate':'средний % одобрений LegalSol')+'</div></div>'+
+        '</div>';
         nowEl.innerHTML=
-        '<div style="background:linear-gradient(135deg,#ffffff,#f3f0ff);border:1.5px solid rgba(91,82,204,.28);border-radius:18px;padding:20px 22px;margin-bottom:20px;box-shadow:0 8px 28px rgba(91,82,204,.10)">'+
-          '<div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#7c74d8;margin-bottom:9px"><span>СЕЙЧАС ПО ВАШЕМУ ДЕЛУ</span></div>'+
+        '<div class="cab-now-card">'+
+          '<div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#7c74d8;margin-bottom:9px"><span>'+(en?'YOUR CASE RIGHT NOW':'СЕЙЧАС ПО ВАШЕМУ ДЕЛУ')+'</span></div>'+
           '<div style="font-size:19px;font-weight:800;color:#1a1545;line-height:1.25"><span>'+(cur.typeName||'Услуга')+'</span> — <span>'+((st.ru)||'В работе')+'</span></div>'+
-          '<div style="display:flex;align-items:center;gap:10px;margin-top:10px">'+
-            '<div style="flex:1;height:8px;background:#e9e5f8;border-radius:6px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,#5B52CC,#8B82E8);border-radius:6px"></div></div>'+
-            '<span style="font-size:12px;font-weight:700;color:#6b63a8;white-space:nowrap"><span>шаг '+(st.step||1)+' из 6</span></span>'+
+          '<div class="cab-jn">'+
+            '<div class="cab-jn-track"></div><div class="cab-jn-fill" data-fill="'+fillPct+'"></div>'+
+            '<div class="cab-jn-nodes">'+nodes+'</div>'+
           '</div>'+
+          minis+
+          '<div class="cab-now-row">'+
           (cur.whatWeDo?row('🔧','Что мы делаем:','<span>'+cur.whatWeDo+'</span>'):'')+
           actionHtml+
-          (cur.etaText?row('⏱','Обычный срок этапа:','<span>'+cur.etaText+'</span>'):'')+
+          '</div>'+
           payHtml+
         '</div>';
+        // Анимации: заливка пути + счётчик шанса (после вставки в DOM)
+        requestAnimationFrame(function(){
+          var f=nowEl.querySelector('.cab-jn-fill');
+          if(f)requestAnimationFrame(function(){f.style.width=f.getAttribute('data-fill')+'%';});
+          var ch=nowEl.querySelector('.cab-chance');
+          if(ch){
+            var target=parseFloat(ch.getAttribute('data-target'))||98.1;
+            var t0=null;
+            function tick(ts){
+              if(!t0)t0=ts;
+              var p=Math.min(1,(ts-t0)/1100);
+              var eased=1-Math.pow(1-p,3);
+              ch.textContent=(target*eased).toFixed(1);
+              if(p<1)requestAnimationFrame(tick); else ch.textContent=target.toFixed(1);
+            }
+            requestAnimationFrame(tick);
+          }
+        });
       }
     }
   }catch(e){}
