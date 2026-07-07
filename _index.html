@@ -22884,7 +22884,18 @@ var CAB_EN={
   'Дела':'Cases','Чат':'Chat',
   // деталь дела (виджет «Ваше дело»)
   'Ваше дело':'Your case','Менеджер ведёт ваше дело.':'Your manager is handling your case.',
-  'Международная защита':'International protection','Срок':'Timeline'
+  'Международная защита':'International protection','Срок':'Timeline',
+  // тосты (переводятся в cabToast на входе)
+  'Введите телефон':'Enter your phone number',
+  'Запрос отправлен — ответ придёт в «Сообщения»':'Request sent — the reply will appear in Messages',
+  'Менеджер свяжется для консультации по гражданству':'Your manager will contact you about citizenship',
+  'Нажмите для загрузки фото':'Tap to upload a photo',
+  'Напишите в WhatsApp — менеджер пришлёт новый':'Message us on WhatsApp — your manager will send you a new one',
+  'Напишите сообщение':'Type a message',
+  'Не удалось отправить. Попробуйте ещё раз.':'Could not send. Please try again.',
+  'Нет активного дела':'No active case',
+  'Отправлено':'Sent','Скопировано':'Copied',
+  'Ссылка восстановления отправлена':'Recovery link sent'
 };
 var CAB_EN_RX=[
   [/^До (.+)$/,'Due $1'],
@@ -23547,6 +23558,10 @@ function cabRenderHistory(){
 }
 
 function cabToast(msg,type){
+
+  // Тосты рендерятся вне #cab-app (DOM-переводчик их не видит) —
+  // переводим сообщение на входе, если язык клиента не русский.
+  try{ if(typeof cabLangIsEn==='function'&&cabLangIsEn()&&typeof cabTr==='function'){ var _tr=cabTr(msg); if(_tr!==null)msg=_tr; } }catch(e){}
 
   var c=document.getElementById('cab-toast');if(!c)return;
 
