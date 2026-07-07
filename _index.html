@@ -22881,7 +22881,10 @@ var CAB_EN={
   'Обычный срок этапа:':'Typical time at this stage:','Ближайший платёж:':'Next payment:','Оплатить':'Pay',
   'Написать в WhatsApp':'Message on WhatsApp','Быстрый ответ':'Fast reply',
   // мобильная нижняя навигация
-  'Дела':'Cases','Чат':'Chat'
+  'Дела':'Cases','Чат':'Chat',
+  // деталь дела (виджет «Ваше дело»)
+  'Ваше дело':'Your case','Менеджер ведёт ваше дело.':'Your manager is handling your case.',
+  'Международная защита':'International protection','Срок':'Timeline'
 };
 var CAB_EN_RX=[
   [/^До (.+)$/,'Due $1'],
@@ -22902,8 +22905,17 @@ function cabTr(t){
   if(Object.prototype.hasOwnProperty.call(CAB_EN,k)) return t.replace(k,CAB_EN[k]);
   for(var i=0;i<CAB_EN_RX.length;i++){
     var m=k.match(CAB_EN_RX[i][0]);
-    if(m) return t.replace(k,CAB_EN_RX[i][1].replace(/\$(\d)/g,function(_,n){return m[+n]||'';}));
+    if(m) return t.replace(k,CAB_EN_RX[i][1].replace(/\$(\d)/g,function(_,n){
+      // хвосты шаблонов («Срок: Несколько месяцев») тоже пробуем перевести
+      var g=m[+n]||'';
+      if(/[А-Яа-яЁё]/.test(g)){ var tg=cabTr(g); if(tg!==null) return tg; }
+      return g;
+    }));
   }
+  // Эмодзи/значок приклеен к тексту одним узлом («🛠 Ведём процесс…») —
+  // отделяем префикс и переводим хвост.
+  var p=k.match(/^([^A-Za-zА-Яа-яЁё0-9]{1,6}\s*)([А-Яа-яЁё].*)$/);
+  if(p){ var tail=cabTr(p[2]); if(tail!==null) return t.replace(k,p[1]+tail); }
   return null;
 }
 var _cabTrBusy=false;
