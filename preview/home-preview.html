@@ -31970,7 +31970,7 @@ function openCookieSettings(){if(typeof CookieConsent!=='undefined')CookieConsen
   if(typeof mapboxgl === 'undefined') return;
   // Container removed from DOM — skip silently
   if(!document.getElementById('hero-map')) return;
-  mapboxgl.accessToken = 'pk.eyJ1IjoicXdlcnR5MjI4IiwiYSI6ImNtcGNocGhnNjAxamMycXIxejR5NGh2aDQifQ.gi2ckDpIuK3wfFfsIXc9qg';
+  mapboxgl.accessToken = '' /* revoked 2026-07 — internal preview, not prod */;
   var OFFICE = [20.994474, 52.230356];
   var map = new mapboxgl.Map({
     container: 'hero-map',
