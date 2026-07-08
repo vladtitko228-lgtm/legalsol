@@ -69,7 +69,11 @@ module.exports = async function handler(req, res) {
           ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
           : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
         .sort((a, b) => a.createdAt - b.createdAt);
-      return res.status(200).json({ chat });
+      const updates = allN
+        .filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text))
+        .map(n => ({ ...n, text: stripClientPrefix(n.text) }))
+        .sort((a, b) => b.createdAt - a.createdAt);
+      return res.status(200).json({ chat, updates });
     }
 
     // ── POST: клиент пишет сообщение менеджеру → заметка «ОТ КЛИЕНТА:» в его сделку ──
