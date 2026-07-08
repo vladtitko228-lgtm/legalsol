@@ -250,6 +250,9 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    // Stripe включён только если на сервере заданы оба ключа — фронт по флагу показывает «Оплатить онлайн»
+    const stripeEnabled = !!(process.env.STRIPE_SECRET_KEY && process.env.STRIPE_WEBHOOK_SECRET);
+
     const out = {
       contact: {
         id: cRes.id,
@@ -261,7 +264,8 @@ module.exports = async function handler(req, res) {
         birthDate: getCfValue(cRes, CF_DOB)
       },
       leads,
-      hasActiveCases: leads.length > 0
+      hasActiveCases: leads.length > 0,
+      stripeEnabled
     };
     try { await kvCmd('SET', 'cab:me:' + payload.cid, JSON.stringify(out), 'EX', 25); } catch (_) {}
     return res.status(200).json(out);
