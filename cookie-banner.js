@@ -38,6 +38,9 @@
   + '.ls-cb-btn { padding: 16px 38px; border: none; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; flex-shrink: 0; background: linear-gradient(135deg, #5B52CC 0%, #7C5CFC 100%); color: #fff; box-shadow: 0 8px 20px rgba(91,82,204,0.45); font-family: inherit; }'
   + '.ls-cb-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(91,82,204,0.6); }'
   + '.ls-cb-btn:active { transform: translateY(0); }'
+  + '.ls-cb-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }'
+  + '.ls-cb-btn-2 { background: rgba(139,130,232,0.12); border: 1px solid rgba(139,130,232,0.35); box-shadow: none; color: rgba(255,255,255,0.9); }'
+  + '.ls-cb-btn-2:hover { background: rgba(139,130,232,0.22); box-shadow: none; }'
   + '.ls-cb-stage { width: 240px; height: 170px; border-radius: 20px; background: radial-gradient(circle at 30% 30%, rgba(124,92,252,0.2), transparent 60%), linear-gradient(135deg, rgba(20,16,55,0.8) 0%, rgba(45,40,105,0.4) 100%); border: 1px solid rgba(139,130,232,0.18); position: relative; overflow: hidden; flex-shrink: 0; }'
   + '.ls-cb-karta { position: absolute; width: 130px; height: 84px; border-radius: 9px; left: 28px; top: 32px; background: linear-gradient(135deg, #3D3585 0%, #5B52CC 60%, #7C5CFC 100%); box-shadow: 0 12px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.3); border: 1px solid rgba(139,130,232,0.4); padding: 8px 9px; transform: rotate(-6deg); animation: lsCbKarta 4s ease-in-out infinite; z-index: 2; }'
   + '@keyframes lsCbKarta { 0%, 100% { transform: rotate(-6deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-4px); } }'
@@ -72,7 +75,7 @@
   + '.ls-cb-p2 { left: 45%; animation-delay: 1.5s; }'
   + '.ls-cb-p3 { left: 75%; animation-delay: 3s; background: rgba(255,107,53,0.5); box-shadow: 0 0 8px rgba(255,107,53,0.6); }'
   + '.ls-cb-p4 { left: 90%; animation-delay: 4.5s; }'
-  + '@media (max-width: 800px) { #ls-cb { grid-template-columns: 1fr; padding: 18px; gap: 18px; bottom: 12px; width: calc(100vw - 24px); } .ls-cb-stage { width: 100%; height: 130px; } .ls-cb-btn { width: 100%; padding: 14px; } .ls-cb-text { font-size: 13px; } }'
+  + '@media (max-width: 800px) { #ls-cb { grid-template-columns: 1fr; padding: 18px; gap: 18px; bottom: 12px; width: calc(100vw - 24px); } .ls-cb-stage { width: 100%; height: 130px; } .ls-cb-actions { width: 100%; } .ls-cb-btn { flex: 1; width: auto; padding: 14px; } .ls-cb-text { font-size: 13px; } }'
   + '@media (max-width: 640px) { #ls-cb { padding: 14px 14px 12px; gap: 10px; max-height: 36vh; overflow: auto; } .ls-cb-stage { display: none; } .ls-cb-pill { font-size: 14px; padding: 8px 14px; } .ls-cb-text { font-size: 12px; line-height: 1.5; } .ls-cb-btn { padding: 12px; font-size: 14px; } }'
   + '#ls-cb-close { position: absolute; top: 10px; right: 12px; width: 30px; height: 30px; border-radius: 999px; border: 1px solid rgba(139,130,232,.35); background: rgba(139,130,232,.12); color: rgba(255,255,255,.75); font-size: 15px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }'
   + '#ls-cb-close:hover { background: rgba(91,82,204,.3); color: #fff; }'
@@ -81,14 +84,14 @@
 
   // Translations
   var L = {
-    ru: { title: 'Политика использования файлов cookie', desc: 'Мы используем cookie, чтобы сайт работал стабильно, запоминал ваши предпочтения и помогал нам улучшать пользовательский опыт без лишнего шума.', policy: 'Открыть политику cookie', accept: 'Принять' },
-    en: { title: 'Cookie usage policy', desc: 'We use cookies to keep the site stable, remember your preferences, and help us improve the user experience without unnecessary noise.', policy: 'Open cookie policy', accept: 'Accept' },
-    pl: { title: 'Polityka plików cookie', desc: 'Używamy plików cookie, aby strona działała stabilnie, zapamiętywała Twoje preferencje i pomagała nam ulepszać doświadczenie użytkownika.', policy: 'Otwórz politykę cookie', accept: 'Akceptuj' },
-    uk: { title: 'Політика файлів cookie', desc: 'Ми використовуємо cookie, щоб сайт працював стабільно, запам\'ятовував ваші уподобання й допомагав нам покращувати користувацький досвід.', policy: 'Відкрити політику cookie', accept: 'Прийняти' },
-    es: { title: 'Política de cookies', desc: 'Usamos cookies para que el sitio funcione de forma estable, recuerde sus preferencias y nos ayude a mejorar la experiencia del usuario.', policy: 'Abrir política de cookies', accept: 'Aceptar' },
-    tr: { title: 'Çerez kullanım politikası', desc: 'Sitenin stabil çalışması, tercihlerinizi hatırlaması ve kullanıcı deneyimini iyileştirmemiz için çerezler kullanıyoruz.', policy: 'Çerez politikasını aç', accept: 'Kabul et' },
-    az: { title: 'Çərəz istifadə siyasəti', desc: 'Saytın sabit işləməsi, tərcihlərinizi yadda saxlaması və istifadəçi təcrübəsini yaxşılaşdırmaq üçün çərəzlərdən istifadə edirik.', policy: 'Çərəz siyasətini aç', accept: 'Qəbul et' },
-    hi: { title: 'कुकी उपयोग नीति', desc: 'हम कुकीज़ का उपयोग करते हैं ताकि साइट स्थिर रूप से काम करे, आपकी प्राथमिकताएँ याद रखे और उपयोगकर्ता अनुभव को बेहतर बनाने में मदद करे।', policy: 'कुकी नीति खोलें', accept: 'स्वीकार करें' }
+    ru: { title: 'Политика использования файлов cookie', desc: 'Мы используем cookie, чтобы сайт работал стабильно, запоминал ваши предпочтения и помогал нам улучшать пользовательский опыт без лишнего шума.', policy: 'Открыть политику cookie', accept: 'Принять', reject: 'Отклонить' },
+    en: { title: 'Cookie usage policy', desc: 'We use cookies to keep the site stable, remember your preferences, and help us improve the user experience without unnecessary noise.', policy: 'Open cookie policy', accept: 'Accept', reject: 'Reject' },
+    pl: { title: 'Polityka plików cookie', desc: 'Używamy plików cookie, aby strona działała stabilnie, zapamiętywała Twoje preferencje i pomagała nam ulepszać doświadczenie użytkownika.', policy: 'Otwórz politykę cookie', accept: 'Akceptuj', reject: 'Odrzuć' },
+    uk: { title: 'Політика файлів cookie', desc: 'Ми використовуємо cookie, щоб сайт працював стабільно, запам\'ятовував ваші уподобання й допомагав нам покращувати користувацький досвід.', policy: 'Відкрити політику cookie', accept: 'Прийняти', reject: 'Відхилити' },
+    es: { title: 'Política de cookies', desc: 'Usamos cookies para que el sitio funcione de forma estable, recuerde sus preferencias y nos ayude a mejorar la experiencia del usuario.', policy: 'Abrir política de cookies', accept: 'Aceptar', reject: 'Rechazar' },
+    tr: { title: 'Çerez kullanım politikası', desc: 'Sitenin stabil çalışması, tercihlerinizi hatırlaması ve kullanıcı deneyimini iyileştirmemiz için çerezler kullanıyoruz.', policy: 'Çerez politikasını aç', accept: 'Kabul et', reject: 'Reddet' },
+    az: { title: 'Çərəz istifadə siyasəti', desc: 'Saytın sabit işləməsi, tərcihlərinizi yadda saxlaması və istifadəçi təcrübəsini yaxşılaşdırmaq üçün çərəzlərdən istifadə edirik.', policy: 'Çərəz siyasətini aç', accept: 'Qəbul et', reject: 'İmtina et' },
+    hi: { title: 'कुकी उपयोग नीति', desc: 'हम कुकीज़ का उपयोग करते हैं ताकि साइट स्थिर रूप से काम करे, आपकी प्राथमिकताएँ याद रखे और उपयोगकर्ता अनुभव को बेहतर बनाने में मदद करे।', policy: 'कुकी नीति खोलें', accept: 'स्वीकार करें', reject: 'अस्वीकार करें' }
   };
   var lang = (document.documentElement.lang || 'ru').toLowerCase().slice(0,2);
   if (lang === 'ua') lang = 'uk';
@@ -120,7 +123,10 @@
     + '<p class="ls-cb-text" id="ls-cb-desc">' + t.desc + '</p>'
     + '<button class="ls-cb-link" id="ls-cb-policy"><span>' + t.policy + '</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>'
     + '</div>'
+    + '<div class="ls-cb-actions">'
+    + '<button class="ls-cb-btn ls-cb-btn-2" id="ls-cb-reject">' + t.reject + '</button>'
     + '<button class="ls-cb-btn" id="ls-cb-accept">' + t.accept + '</button>'
+    + '</div>'
     + '</div>';
 
   function mount(){
@@ -140,6 +146,14 @@
       try { if (typeof loadClarity === 'function') loadClarity(); } catch(e){}
       // Сообщить гейтам этой же вкладки (Pixel/Clarity на лендингах) — storage-событие в своей вкладке не стреляет
       try { window.dispatchEvent(new CustomEvent('ls-consent')); } catch(e){}
+      setTimeout(function(){ el.remove(); }, 400);
+    });
+    var rejectBtn = document.getElementById('ls-cb-reject');
+    if (rejectBtn) rejectBtn.addEventListener('click', function(){
+      // Отказ фиксируется наравне с принятием — Clarity/Pixel НЕ грузятся.
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ accepted: false, ts: Date.now(), v: 1 })); } catch(e){}
+      el.classList.add('ls-cb-hide');
+      document.body.classList.remove('ls-cb-active');
       setTimeout(function(){ el.remove(); }, 400);
     });
     document.getElementById('ls-cb-policy').addEventListener('click', function(){
@@ -217,8 +231,12 @@ function loadClarity(){
 /* Глобально доступная функция — открыть настройки/политику */
 function openCookieSettings(){ window.location.href = '/privacy#cookies'; }
 
-/* Если пользователь уже принял — сразу загрузить Clarity */
+/* Если пользователь уже ПРИНЯЛ (а не отклонил) — сразу загрузить Clarity */
 try {
   var _saved = localStorage.getItem('ls_cookie_v1');
-  if (_saved) loadClarity();
+  if (_saved) {
+    var _ok = true;
+    try { _ok = JSON.parse(_saved).accepted !== false; } catch(e){ _ok = true; }
+    if (_ok) loadClarity();
+  }
 } catch(e){}
