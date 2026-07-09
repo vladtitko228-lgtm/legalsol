@@ -6633,7 +6633,55 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <script>(function(){function hy(el){if(el.hasAttribute("data-src")){el.src=el.getAttribute("data-src");el.removeAttribute("data-src")}if(el.hasAttribute("data-bg")){el.style.backgroundImage="url('"+el.getAttribute("data-bg")+"')";el.style.backgroundSize=el.style.backgroundSize||"cover";el.style.backgroundPosition=el.style.backgroundPosition||"center";el.removeAttribute("data-bg")}}function all(){document.querySelectorAll("[data-src],[data-bg]").forEach(hy)}if(!("IntersectionObserver" in window)){window.addEventListener("load",all);return}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){hy(e.target);io.unobserve(e.target)}})},{rootMargin:"350px"});function arm(){document.querySelectorAll("[data-src],[data-bg]").forEach(function(el){io.observe(el)})}if(document.readyState!=="loading")arm();else document.addEventListener("DOMContentLoaded",arm);window.addEventListener("load",function(){setTimeout(all,12000)})})();</script><script>window.cabRecover=function(){window.open("https://wa.me/48731145937?text="+encodeURIComponent("Hi! I forgot my client cabinet password — please reset it. / Забыл пароль от кабинета, сбросьте пожалуйста."),"_blank")};window.cabOrder=function(el){var c=el&&el.closest?el.closest(".cab-svc-card"):null;var n=c?c.querySelector(".cab-svc-name"):null;var t="Hi! I want to order a service from my cabinet: "+(n?n.textContent.trim():"")+" / Хочу заказать услугу: "+(n?n.textContent.trim():"");window.open("https://wa.me/48731145937?text="+encodeURIComponent(t),"_blank")};window.cabOrderCitizen=function(){window.open("https://wa.me/48731145937?text="+encodeURIComponent("Hi! I want a citizenship consultation (from my cabinet). / Хочу консультацию по гражданству."),"_blank")};</script><style id="mw-hidden-home">/* Чек-лист готовности убран с главной — много текста на телефоне (квиз .lsq-fab остаётся) */
-.preview-mw{display:none!important}</style></body>
+.preview-mw{display:none!important}</style>
+
+<style id="hero-conv-preview">/* PREVIEW hero conversion quick-wins — reversible; remove #hero-conv-preview + its script to restore */
+.hero-wa-cta{display:inline-flex!important;order:-2!important;width:100%!important;max-width:100%!important;justify-content:center!important;font-size:17px!important;font-weight:800!important;padding:17px 22px!important;border-radius:16px!important;box-shadow:0 12px 34px -8px rgba(37,211,102,.55)!important}
+.hero-mega-cta.hcp-demote{order:-1!important;background:transparent!important;background-color:transparent!important;border:1.5px solid rgba(255,255,255,.30)!important;color:rgba(255,255,255,.82)!important;box-shadow:none!important;font-size:15px!important;font-weight:600!important;padding:13px 20px!important}
+.hcp-guar{display:flex;gap:9px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:14px;font-weight:600;color:#3ad089;margin:10px auto 16px;text-align:center;line-height:1.4;max-width:34ch}
+.hcp-guar b{color:#eafff4}
+.hcp-trust{font-size:12.5px;color:rgba(255,255,255,.62);text-align:center;margin:9px auto 0;line-height:1.5;max-width:36ch}
+</style>
+<script id="hero-conv-preview-js">(function(){
+  var WA_EN='Hi! I want to stay in Poland legally — please help with my case.';
+  function apply(){
+    try{
+      var hero=document.getElementById('hero')||document;
+      // 1. WhatsApp CTA: localize prefill (was Russian), promote, move before calc button
+      var was=hero.querySelectorAll('.hero-wa-cta');
+      was.forEach(function(a){
+        var href=a.getAttribute('href')||'';
+        var base=href.match(/^(https?:\/\/wa\.me\/\d+)/);
+        if(base){ a.setAttribute('href', base[1]+'?text='+encodeURIComponent(WA_EN)); }
+        // move WhatsApp above the calculator button in the same row
+        var mega=a.parentNode&&a.parentNode.querySelector('.hero-mega-cta');
+        if(mega&&mega.parentNode===a.parentNode&&mega.previousElementSibling!==a){ a.parentNode.insertBefore(a,mega); }
+        if(mega) mega.classList.add('hcp-demote');
+      });
+      // 2. H1 → fear-based (en only, to not break other langs in preview)
+      var h1=document.getElementById('hero-h1');
+      var lng=(document.documentElement.lang||'en').slice(0,2);
+      if(h1 && lng==='en'){ h1.innerHTML='Stay in Poland <em>legally.</em><br>We get you your residence card.'; }
+      // 3. guarantee line right under H1
+      if(h1 && !document.querySelector('.hcp-guar')){
+        var g=document.createElement('div'); g.className='hcp-guar';
+        g.innerHTML='<b>98% approved</b> · if refused, we appeal for <b>free</b>';
+        h1.parentNode.insertBefore(g, h1.nextSibling);
+      }
+      // 4. trust micro-line under the (now first) WhatsApp CTA
+      var firstWa=hero.querySelector('.hero-wa-cta');
+      if(firstWa && !document.querySelector('.hcp-trust')){
+        var t=document.createElement('div'); t.className='hcp-trust';
+        t.innerHTML='Free · we reply on WhatsApp in ~15 min · write in your language';
+        (firstWa.parentNode).insertBefore(t, firstWa.nextSibling);
+      }
+    }catch(e){}
+  }
+  if(document.readyState!=='loading')apply(); else document.addEventListener('DOMContentLoaded',apply);
+  setTimeout(apply,500); setTimeout(apply,1400); setTimeout(apply,2600);
+})();</script>
+
+</body>
 
 </html>
 
