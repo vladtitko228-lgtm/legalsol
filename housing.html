@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;900&display=swap"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;900&display=swap" media="print" onload="this.media='all'"/><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;900&display=swap"/></noscript>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Housing in Warsaw — an add-on service by legalsol"/>
 <meta property="og:description" content="We handle your Polish residence — and your home in Warsaw too. One firm, your language, guaranteed."/>
@@ -576,7 +576,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <button class="chip active" data-v="ASAP" type="button">ASAP</button><button class="chip" data-v="This month" type="button">This month</button><button class="chip" data-v="Next month" type="button">Next month</button><button class="chip" data-v="In 2-3 months" type="button">2–3 months</button><button class="chip" data-v="Flexible" type="button">Flexible</button>
         </div></div>
         <div class="calc-field"><div class="range-row"><span class="calc-label" id="ca-l-budget" style="margin:0;">Monthly budget</span><span class="range-val"><span id="ca-budget-val">3000</span> zł</span></div>
-          <input type="range" id="ca-budget" min="1000" max="12000" step="100" value="3000"/></div>
+          <input type="range" id="ca-budget" aria-label="Monthly budget (PLN)" min="1000" max="12000" step="100" value="3000"/></div>
       </div>
       <div class="calc-res">
         <div class="cr-row"><span id="ca-r1">Monthly rent (your budget)</span><span class="v"><span id="ca-out-rent">3000</span> zł</span></div>
