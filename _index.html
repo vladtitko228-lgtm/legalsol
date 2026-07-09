@@ -6633,7 +6633,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <script>(function(){function hy(el){if(el.hasAttribute("data-src")){el.src=el.getAttribute("data-src");el.removeAttribute("data-src")}if(el.hasAttribute("data-bg")){el.style.backgroundImage="url('"+el.getAttribute("data-bg")+"')";el.style.backgroundSize=el.style.backgroundSize||"cover";el.style.backgroundPosition=el.style.backgroundPosition||"center";el.removeAttribute("data-bg")}}function all(){document.querySelectorAll("[data-src],[data-bg]").forEach(hy)}if(!("IntersectionObserver" in window)){window.addEventListener("load",all);return}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){hy(e.target);io.unobserve(e.target)}})},{rootMargin:"350px"});function arm(){document.querySelectorAll("[data-src],[data-bg]").forEach(function(el){io.observe(el)})}if(document.readyState!=="loading")arm();else document.addEventListener("DOMContentLoaded",arm);window.addEventListener("load",function(){setTimeout(all,12000)})})();</script><script>window.cabRecover=function(){window.open("https://wa.me/48731145937?text="+encodeURIComponent("Hi! I forgot my client cabinet password — please reset it. / Забыл пароль от кабинета, сбросьте пожалуйста."),"_blank")};window.cabOrder=function(el){var c=el&&el.closest?el.closest(".cab-svc-card"):null;var n=c?c.querySelector(".cab-svc-name"):null;var t="Hi! I want to order a service from my cabinet: "+(n?n.textContent.trim():"")+" / Хочу заказать услугу: "+(n?n.textContent.trim():"");window.open("https://wa.me/48731145937?text="+encodeURIComponent(t),"_blank")};window.cabOrderCitizen=function(){window.open("https://wa.me/48731145937?text="+encodeURIComponent("Hi! I want a citizenship consultation (from my cabinet). / Хочу консультацию по гражданству."),"_blank")};</script><style id="mw-hidden-home">/* Чек-лист готовности убран с главной — много текста на телефоне (квиз .lsq-fab остаётся) */
-.preview-mw{display:none!important}</style></body>
+.preview-mw{display:none!important}</style>
+<style id="home-v2-preview">/* PREVIEW home v2 — declutter + hero conversion + cookie fix. Reversible: remove #home-v2-preview + script. */
+#tab-home .preview-mw,#tab-home .preview-mapa-hex,#tab-home .geo-strip-pv,#tab-home .aih-pv-sec,#tab-home .extras-section,#tab-home .thm-sec,#tab-home .section:has(#about-tag),#tab-home .section:has(#steps-tag){display:none!important}
+.hero-wa-cta{display:inline-flex!important;order:-2!important;width:100%!important;max-width:100%!important;justify-content:center!important;font-size:17px!important;font-weight:800!important;padding:17px 22px!important;border-radius:16px!important;box-shadow:0 12px 34px -8px rgba(37,211,102,.55)!important}
+.hero-mega-cta.hcp-demote{order:-1!important;background:transparent!important;background-color:transparent!important;border:1.5px solid rgba(255,255,255,.30)!important;color:rgba(255,255,255,.82)!important;box-shadow:none!important;font-size:15px!important;font-weight:600!important;padding:13px 20px!important}
+.hcp-guar{display:flex;gap:9px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:14px;font-weight:600;color:#3ad089;margin:10px auto 16px;text-align:center;line-height:1.4;max-width:36ch}
+.hcp-guar b{color:#eafff4}
+.hcp-trust{font-size:12.5px;color:rgba(255,255,255,.62);text-align:center;margin:9px auto 0;line-height:1.5;max-width:36ch}
+</style>
+<script id="home-v2-preview-js">(function(){
+  var TR={"en":{"h1":"Stay in Poland <em>legally.</em><br>We get you your residence card.","guar":"<b>98% approved</b> · if refused, we appeal for <b>free</b>","trust":"Free · we reply on WhatsApp in ~15 min · write in your language","wa":"Hi! I want to stay in Poland legally — please help with my case."},"ru":{"h1":"Останьтесь в Польше <em>легально.</em><br>Поможем получить карту побыту.","guar":"<b>98% одобрений</b> · если откажут — подаём апелляцию <b>бесплатно</b>","trust":"Бесплатно · отвечаем в WhatsApp за ~15 мин · пишите на своём языке","wa":"Здравствуйте! Хочу легально остаться в Польше — помогите, пожалуйста, с моим делом."},"pl":{"h1":"Zostań w Polsce <em>legalnie.</em><br>Załatwimy Ci kartę pobytu.","guar":"<b>98% pozytywnych decyzji</b> · w razie odmowy odwołujemy się <b>za darmo</b>","trust":"Bezpłatnie · odpowiadamy na WhatsApp w ~15 min · pisz w swoim języku","wa":"Cześć! Chcę zostać w Polsce legalnie — pomóżcie mi proszę z moją sprawą."},"uk":{"h1":"Залишайтеся в Польщі <em>легально.</em><br>Ми оформимо вам карту побиту.","guar":"<b>98% схвалень</b> · у разі відмови оскаржимо <b>безкоштовно</b>","trust":"Безкоштовно · відповідаємо у WhatsApp за ~15 хв · пишіть своєю мовою","wa":"Вітаю! Хочу легально залишитися в Польщі — допоможіть, будь ласка, з моєю справою."},"es":{"h1":"Quédate en Polonia <em>legalmente.</em><br>Conseguimos tu tarjeta de residencia.","guar":"<b>98% aprobados</b> · si te rechazan, apelamos <b>gratis</b>","trust":"Gratis · te respondemos por WhatsApp en ~15 min · escríbenos en tu idioma","wa":"¡Hola! Quiero quedarme en Polonia legalmente — por favor, ayúdenme con mi caso."},"tr":{"h1":"Polonya'da <em>yasal</em> kalın.<br>Oturum kartınızı biz alıyoruz.","guar":"<b>%98 onay</b> · ret gelirse itirazı <b>ücretsiz</b> yaparız","trust":"Ücretsiz · WhatsApp'ta ~15 dk içinde yanıt · kendi dilinizde yazın","wa":"Merhaba! Polonya'da yasal olarak kalmak istiyorum — lütfen dosyamda yardımcı olun."},"az":{"h1":"Polşada <em>legal</em> qalın.<br>Sizə yaşayış kartını çıxarırıq.","guar":"<b>98% təsdiq</b> · imtina olsa, apellyasiyanı <b>pulsuz</b> veririk","trust":"Pulsuz · WhatsApp-da təxminən 15 dəq-də cavab veririk · öz dilinizdə yazın","wa":"Salam! Polşada legal qalmaq istəyirəm — işimə kömək edin, xahiş edirəm."},"hi":{"h1":"पोलैंड में <em>कानूनी रूप से</em> रहें।<br>हम आपको आपका रेज़िडेंस कार्ड (karta pobytu) दिलाते हैं।","guar":"<b>98% स्वीकृत</b> · अगर मना हुआ, तो हम <b>मुफ़्त</b> में अपील करते हैं","trust":"मुफ़्त · हम WhatsApp पर ~15 मिनट में जवाब देते हैं · अपनी भाषा में लिखें","wa":"नमस्ते! मैं पोलैंड में कानूनी रूप से रहना चाहता हूँ — कृपया मेरे केस में मदद करें।"}};
+  function L(){return (document.documentElement.lang||'en').slice(0,2);}
+  function t(k){var d=TR[L()]||TR.en;return d[k]||TR.en[k];}
+  function applyHero(){
+    try{
+      var hero=document.getElementById('hero')||document;
+      var was=hero.querySelectorAll('.hero-wa-cta');
+      was.forEach(function(a){
+        var href=a.getAttribute('href')||'';var base=href.match(/^(https?:\/\/wa\.me\/\d+)/);
+        if(base){a.setAttribute('href', base[1]+'?text='+encodeURIComponent(t('wa')));}
+        var mega=a.parentNode&&a.parentNode.querySelector('.hero-mega-cta');
+        if(mega&&mega.parentNode===a.parentNode&&mega.previousElementSibling!==a){a.parentNode.insertBefore(a,mega);}
+        if(mega)mega.classList.add('hcp-demote');
+      });
+      var h1=document.getElementById('hero-h1'); if(h1){h1.innerHTML=t('h1');}
+      if(h1&&!document.querySelector('.hcp-guar')){var g=document.createElement('div');g.className='hcp-guar';g.innerHTML=t('guar');h1.parentNode.insertBefore(g,h1.nextSibling);}
+      else if(document.querySelector('.hcp-guar')){document.querySelector('.hcp-guar').innerHTML=t('guar');}
+      var fw=hero.querySelector('.hero-wa-cta');
+      if(fw&&!document.querySelector('.hcp-trust')){var tr=document.createElement('div');tr.className='hcp-trust';tr.innerHTML=t('trust');fw.parentNode.insertBefore(tr,fw.nextSibling);}
+      else if(document.querySelector('.hcp-trust')){document.querySelector('.hcp-trust').innerHTML=t('trust');}
+    }catch(e){}
+  }
+  function cookieFix(){
+    try{
+      var cb=document.getElementById('ls-cb'),bar=document.getElementById('m-cta-bar');
+      if(!bar)return;
+      var cs=cb?getComputedStyle(cb):null;
+      var shown=cb&&cs.display!=='none'&&cs.visibility!=='hidden'&&cs.opacity!=='0'&&cb.getBoundingClientRect().height>10&&cb.getBoundingClientRect().bottom>window.innerHeight-30;
+      if(shown){var h=cb.getBoundingClientRect().height;bar.style.setProperty('bottom',(Math.round(h)+18)+'px','important');bar.style.setProperty('z-index','99999','important');}
+      else{bar.style.removeProperty('bottom');}
+    }catch(e){}
+  }
+  function tick(){applyHero();cookieFix();}
+  if(document.readyState!=='loading')tick();else document.addEventListener('DOMContentLoaded',tick);
+  [400,1200,2400,4000].forEach(function(ms){setTimeout(tick,ms);});
+  document.addEventListener('click',function(){setTimeout(cookieFix,250);},true);
+  try{new MutationObserver(cookieFix).observe(document.body,{attributes:true,attributeFilter:['class']});}catch(e){}
+  window.addEventListener('resize',cookieFix);
+})();</script>
+</body>
 
 </html>
 
