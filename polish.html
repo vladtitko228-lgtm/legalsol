@@ -14,7 +14,7 @@
 <link rel="alternate" hreflang="x-default" href="https://www.legalsol.pl/polish"/>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" media="print" onload="this.media='all'"/><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap"/></noscript>
 
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Polish for Foreigners · LegalSol Polish School"/>
@@ -1188,7 +1188,7 @@ footer{position:relative;z-index:1;padding:50px 5vw 30px;text-align:center;borde
     <form class="cta-form" onsubmit="event.preventDefault();submitPolish();" novalidate>
       <input id="pl-name" placeholder="Ваше имя" data-i18n-ph="cta.name" autocomplete="name" required/>
       <input id="pl-phone" type="tel" placeholder="+48 600 123 456 (WhatsApp)" data-i18n-ph="cta.phone" autocomplete="tel" required/>
-      <select id="pl-goal">
+      <select id="pl-goal" aria-label="Learning goal">
         <option value="" data-i18n="goal.placeholder">Цель обучения...</option>
         <option value="B1 для karta pobytu" data-i18n="goal.b1">B1 — Karta Pobytu</option>
         <option value="B2 для гражданства" data-i18n="goal.b2">B2 — Гражданство</option>
