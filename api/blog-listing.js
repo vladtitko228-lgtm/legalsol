@@ -588,14 +588,21 @@ module.exports = async function handler(req, res) {
       res.setHeader("CDN-Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
       res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=60, stale-while-revalidate=600");
       const limit = Math.min(50, parseInt(req.query.limit, 10) || 12);
-      const slim = filtered.slice(0, limit).map(a => ({
-        title: a.title,
-        slug: a.slug,
-        category: a.category,
-        seoDescription: a.seoDescription,
-        coverImage: a.coverImage,
-        publishedDate: a.publishedDate,
-      }));
+      const slim = filtered.slice(0, limit).map(a => {
+        // Expiring Notion S3 cover URLs → permanent category fallback (same rule as the HTML card),
+        // so JSON consumers (homepage blog strip) never render a broken image.
+        const cover = (!a.coverImage || a.coverImage.includes('s3.amazonaws.com') || a.coverImage.includes('prod-files-secure') || a.coverImage.includes('secure.notion-static'))
+          ? getFallback(a.category)
+          : a.coverImage;
+        return {
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          seoDescription: a.seoDescription,
+          coverImage: cover,
+          publishedDate: a.publishedDate,
+        };
+      });
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       res.status(200).send(JSON.stringify({ articles: slim, lang: wantLang }));
       return;

@@ -123,10 +123,11 @@ function formatDateEn(iso) {
 
 function renderCard(a) {
   const cover = pickCover(a.cover, a.category);
+  const fallback = CAT_IMAGES[(a.category || "").toUpperCase()] || CAT_IMAGES.DEFAULT;
   const cat = (a.category || "").toUpperCase();
   return `      <a class="blog-card reveal" href="/blog/${escapeHtml(a.slug)}" style="text-decoration:none;display:block;color:inherit">
 
-        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="${escapeHtml(cover)}" alt="${escapeHtml(a.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.78;"/><div class="blog-cat">${escapeHtml(cat)}</div></div>
+        <div class="blog-thumb" style="overflow:hidden;background:#1a1638;"><img src="${escapeHtml(cover)}" alt="${escapeHtml(a.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;opacity:.78;" onerror="this.src='${fallback}';this.onerror=null;"/><div class="blog-cat">${escapeHtml(cat)}</div></div>
 
         <div class="blog-body"><div class="blog-date">${escapeHtml(formatDateEn(a.publishedDate))}</div><div class="blog-t">${escapeHtml(a.title)}</div><div class="blog-e">${escapeHtml(a.description || "")}</div><span class="blog-read">Read →</span></div>
 
