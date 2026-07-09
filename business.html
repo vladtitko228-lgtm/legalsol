@@ -2585,6 +2585,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }).catch(function(){});
     } catch(_) {}
 
+    // 1b. GA4 conversion attribution (this form opens WhatsApp via window.open, not an
+    //     <a href=wa.me> click, so the delegated whatsapp_click→lead_submit tracker below
+    //     never fires for it — push lead_submit here so the B2B form is counted in GA4/Ads).
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'lead_submit',
+        lead_source: 'b2b_form',
+        lead_service: 'b2b',
+        lead_lang: leadPayload.lang,
+        lead_page: '/business'
+      });
+    } catch(_) {}
+
     // 2. Confetti celebration!
     fireConfetti();
 

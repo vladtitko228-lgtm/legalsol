@@ -204,16 +204,27 @@
     return R;
   }
 
-  function waText(){var t=T(),L=[t.wa.intro];QSDEF.forEach(function(d){if(ans[d.id])L.push('• '+t.wa.lbl[d.id]+': '+labelOf(d.id));});if(ans.name)L.push('• '+t.wa.name+': '+ans.name);L.push('',t.wa.tail);return L.join('\n');}
+  function waText(){var t=T(),L=[t.wa.intro];QSDEF.forEach(function(d){if(ans[d.id])L.push('• '+t.wa.lbl[d.id]+': '+labelOf(d.id));});if(ans.name)L.push('• '+t.wa.name+': '+ans.name);if(ans.phone)L.push('• '+t.phone+': '+ans.phone);L.push('',t.wa.tail);return L.join('\n');}
   function waHref(){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(waText());}
 
   function utmObj(){try{var p=new URLSearchParams(location.search),o={};p.forEach(function(v,k){if(k.indexOf('utm_')===0)o[k]=v;});return o;}catch(e){return{};}}
   function leadSent(){return !!ans.__sent;}
-  function postLead(){
-    if(leadSent())return; ans.__sent=true;
+  function buildLeadPayload(){
     var R=analyze();
     var msg=waText()+'\n\n— Recommended: '+R.svc+' ('+R.time+')';
-    var payload={name:ans.name||'',phone:ans.phone||'',service:'Quiz: '+(T().opt.goal[ans.goal]||ans.goal||'general'),message:msg,source:'quiz_popup',page:location.pathname,lang:document.documentElement.lang||'en',utm:utmObj(),ref:document.referrer||''};
+    return {name:ans.name||'',phone:ans.phone||'',service:'Quiz: '+(T().opt.goal[ans.goal]||ans.goal||'general'),message:msg,source:'quiz_popup',page:location.pathname,lang:document.documentElement.lang||'en',utm:utmObj(),ref:document.referrer||''};
+  }
+  /* CRM-only persist for the "straight to WhatsApp" shortcut: the analytics lead_submit
+     is already fired by the site-wide wa.me click handler in _index.html, so re-firing it
+     here would double-count the conversion. This only saves the lead to Sheet/Telegram. */
+  function persistLead(){
+    if(leadSent())return; ans.__sent=true;
+    var payload=buildLeadPayload();
+    try{fetch(LEAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});}catch(e){}
+  }
+  function postLead(){
+    if(leadSent())return; ans.__sent=true;
+    var payload=buildLeadPayload();
     if(typeof window._sendLead==='function'){try{window._sendLead(payload);return;}catch(e){}}
     try{fetch(LEAD_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});}catch(e){}
     try{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'lead_submit',lead_source:'quiz_popup',lead_service:payload.service,lead_lang:payload.lang,lead_page:payload.page});}catch(e){}
@@ -278,8 +289,10 @@
       bodyEl.scrollTop=0;
       var upd=function(){var w=document.getElementById('lsq-wa-pre');if(w)w.href=waHref();};
       document.getElementById('lsq-name').addEventListener('input',function(){ans.name=this.value.trim();upd();});
-      document.getElementById('lsq-phone').addEventListener('input',function(){ans.phone=this.value.trim();});
+      document.getElementById('lsq-phone').addEventListener('input',function(){ans.phone=this.value.trim();upd();});
       upd();
+      var wapre=document.getElementById('lsq-wa-pre');
+      if(wapre)wapre.addEventListener('click',function(){ans.name=(document.getElementById('lsq-name').value||'').trim();ans.phone=(document.getElementById('lsq-phone').value||'').trim();this.href=waHref();persistLead();});
       document.getElementById('lsq-submit').addEventListener('click',function(){ans.name=(document.getElementById('lsq-name').value||'').trim();ans.phone=(document.getElementById('lsq-phone').value||'').trim();postLead();step++;render();});
       document.getElementById('lsq-back').addEventListener('click',function(){step--;render();});
     } else {
