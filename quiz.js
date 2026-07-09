@@ -6,7 +6,7 @@
 (function(){
   if(window.__lsQuizInit) return; window.__lsQuizInit=true;
 
-  var WA='48735248525';
+  var WA='48883959550';
   var LEAD_URL='https://script.google.com/macros/s/AKfycbyZG4vGv31lRp15e7shZKESBZijliKIv5OKPi5zs9A4wSxouNU0osVFT6FQHt4SXPgrYQ/exec';
 
   /* ---- icons (inline SVG, feather-style; no icon font on site) ---- */
