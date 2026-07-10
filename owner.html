@@ -240,6 +240,16 @@ circle.garc{animation:gauge 1s cubic-bezier(.34,1.3,.64,1) both;animation-play-s
 @keyframes gauge{from{stroke-dashoffset:var(--full)}}
 .panel-t{font-size:12px;color:var(--t3);font-weight:500;margin:10px 0 -6px}
 
+/* ---------- сравнение по месяцам ---------- */
+.cmp{display:grid;gap:0 14px;align-items:end}
+.cmp-h{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);padding-bottom:8px}
+.cmp-l{font-size:12.5px;color:var(--t2);padding:10px 0 11px;white-space:nowrap;border-top:1px solid var(--hair)}
+.cmp-c{padding:10px 0 11px;border-top:1px solid var(--hair);min-width:0}
+.cmp-c b{font-size:14px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cmp-d{font-size:10.5px;font-weight:600;margin-left:5px;white-space:nowrap}
+.cmp-bar{height:4px;border-radius:2px;background:rgba(139,135,168,.14);margin-top:6px;overflow:hidden}
+.cmp-bar>div{height:100%;border-radius:2px}
+
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(12px);transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
 .rv.in{opacity:1;transform:none}
@@ -725,6 +735,47 @@ function renderAlerts(list){
   return html+`</div>`;
 }
 
+// ---- сравнение по месяцам: общая картина «как движемся» ----
+function monthsCompare(d){
+  const keys=(d.monthOrder||[]).slice().reverse();   // хронологически: май → июнь → июль
+  if(keys.length<2) return '';
+  const ms=keys.map(k=>(d.months||{})[k]||{});
+  const rows=[
+    {l:'Закрытий', v:m=>m.closings??null, f:v=>String(Math.round(v))},
+    {l:'Договоров на', v:m=>m.contracted??null, f:zl},
+    {l:'Собрано', v:m=>m.collected??null, f:zl, gold:1},
+    {l:'Прибыль', v:m=>m.pnl?m.pnl.profit:null, f:v=>(v>=0?'+':'−')+nf(Math.abs(v))+' zł', signed:1},
+    {l:'Средний чек', v:m=>m.avgDeal??null, f:zl},
+    {l:'Заявок с рекламы', v:m=>m.leads??null, f:nf},
+    {l:'Клиент с рекламы стоит', v:m=>(m.cacTraffic||m.cac)??null, f:zl, invert:1},
+  ];
+  let h=`<div class="cmp" style="grid-template-columns:minmax(126px,1.3fr) repeat(${keys.length},minmax(96px,1fr))">`;
+  h+=`<div></div>`+keys.map(k=>`<div class="cmp-h">${mLabel(k)}${k===d.curMonthKey?' <span style="font-weight:500;text-transform:none">· идёт</span>':''}</div>`).join('');
+  for(const r of rows){
+    const vals=ms.map(m=>r.v(m));
+    const max=Math.max(1,...vals.map(v=>Math.abs(v||0)));
+    h+=`<div class="cmp-l">${r.l}</div>`;
+    vals.forEach((v,i)=>{
+      let chip='';
+      const prev=i>0?vals[i-1]:null;
+      if(v!=null&&prev!=null&&prev!==0&&keys[i]!==d.curMonthKey){
+        const g=Math.round((v-prev)/Math.abs(prev)*100);
+        if(isFinite(g)&&g!==0){ const good=r.invert?g<0:g>0;
+          chip=`<span class="cmp-d" style="color:${good?'var(--good)':'var(--bad)'}">${g>0?'▲':'▼'}${Math.abs(g)}%</span>`; }
+      }
+      const cls='num'+(r.gold&&v!=null?' goldnum':'');
+      const st=r.signed&&v!=null?` style="color:${v>=0?'var(--good)':'var(--bad)'}"`:'';
+      const barCol=r.signed&&v!=null?(v>=0?'var(--good)':'var(--bad)'):(keys[i]===d.curMonthKey?'var(--acc)':'var(--neut)');
+      h+=`<div class="cmp-c"><b class="${cls}"${st}>${v==null?'—':r.f(v)}</b>${chip}
+        <div class="cmp-bar"><div style="width:${v==null?0:(Math.abs(v)/max*100).toFixed(1)}%;background:${barCol}"></div></div></div>`;
+    });
+  }
+  h+=`</div>`;
+  return sec('📊 Как движемся · месяц к месяцу')+
+    `<div class="card rv" style="margin-top:12px;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="min-width:${126+keys.length*110}px">${h}</div>
+    <div class="sec-note" style="margin-top:10px">Полоса — доля от лучшего месяца по строке. Стрелки — к прошлому месяцу.${keys.includes(d.curMonthKey)?' '+mFull(d.curMonthKey)+' ещё идёт — его цифры дорастут.':''}</div></div>`;
+}
+
 // ---- лента топ-метрик: живой пульс (всегда текущий месяц) ----
 function topStrip(d){
   const lm=(d.months||{})[d.curMonthKey]||{}, pnl=lm.pnl||null, fa=d.forecastAI||{}, fc=d.forecast||{};
@@ -896,6 +947,7 @@ function render(d){
         ${(fa.bySellerMoney||[]).map(x=>`<span class="chip">${esc(x.name)}: ${nf(x.now)} → ~${nf(x.proj)} zł</span>`).join('')}
         ${fa.revenueProj?`<span class="chip gold">выручка месяца: ~${nf(fa.revenueProj)} zł</span>`:''}</div></div>`;
   }
+  html+=monthsCompare(d);
   // live-разворот текущего месяца, когда смотрим архив
   if(CUR_KEY!==d.curMonthKey){
     const cm=(d.months||{})[d.curMonthKey];
