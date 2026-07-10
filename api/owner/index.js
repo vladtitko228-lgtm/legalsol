@@ -64,14 +64,14 @@ function sellerView(d, name) {
   for (const [k, m] of Object.entries(d.months || {})) {
     const me = (m.bySeller || []).find(s => s.name === name) || null;
     const deals = (m.deals || []).filter(x => x.closer === name);
-    months[k] = { key: k, goal: m.goal, closings: m.closings, contracted: m.contracted, me, deals };
+    months[k] = { key: k, goal: m.goal, closings: m.closings, me, deals };
   }
   const myItems = ((d.receivables || {}).items || []).filter(i => i.closer === name);
   return {
     role: 'seller', name,
     generatedAt: d.generatedAt, generatedLabel: d.generatedLabel, goal: d.goal,
     curMonthKey: d.curMonthKey, defaultMonth: d.defaultMonth, monthOrder: d.monthOrder,
-    trend: d.trend, months,
+    trend: (d.trend || []).map(t => ({ month: t.month, closings: t.closings })), months,
     receivables: { count: myItems.length,
                    total: Math.round(myItems.reduce((s, i) => s + (i.remain || 0), 0)),
                    items: myItems.slice(0, 20) },

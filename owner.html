@@ -2,229 +2,344 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Legal Solutions — Кабинет владельца</title>
+<meta name="theme-color" content="#0A0918">
+<title>LEGALSOL — Кабинет владельца</title>
 <link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap">
 <style>
-  :root{
-    --bg:#0f0c24; --bg2:#181440; --card:rgba(40,34,92,.5); --card2:#2a2560;
-    --line:rgba(124,113,214,.22); --p:#6b61e0; --p-l:#8B82E8; --p-p:#B8B2F5;
-    --gold:#fde047; --em:#34d399; --red:#fb7185; --amber:#fbbf24; --cyan:#38bdf8;
-    --tx:#F2F1FB; --tx-d:#B8B2F5; --tx-dd:#8f89c4;
-    --r:18px; --sh:0 10px 34px rgba(0,0,0,.4);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;
-    background:
-      radial-gradient(900px 520px at 10% -8%, rgba(107,97,224,.28), transparent 60%),
-      radial-gradient(760px 480px at 100% 2%, rgba(56,189,248,.10), transparent 55%),
-      var(--bg);
-    background-attachment:fixed}
-  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-  @keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  a{color:var(--p-l)}
-  .wrap{max-width:1180px;margin:0 auto;padding:20px 18px 60px}
-  .muted{color:var(--tx-dd)}
-  .pos{color:var(--em)} .neg{color:var(--red)}
+/* ============ Executive Dark — чернильный терминал ============ */
+:root{
+  --bg:#0A0918; --srf:#131126; --srf2:#1A1832; --srf3:#221F3E;
+  --hair:rgba(255,255,255,.07); --div:rgba(255,255,255,.12);
+  --t1:#F4F2FF; --t2:#A9A5C9; --t3:#8984B2;
+  --acc:#7C72F2; --acc-dim:#6B61E0; --acc-soft:rgba(124,114,242,.15);
+  --gold:#FDE047; --gold2:#EAB308;
+  --good:#3ECF8E; --warn:#FF9E58; --bad:#FF6B6B;
+  --good-bg:rgba(62,207,142,.10); --warn-bg:rgba(255,158,88,.10); --bad-bg:rgba(255,107,107,.10);
+  --good-glow:rgba(62,207,142,.14); --warn-glow:rgba(255,158,88,.14); --bad-glow:rgba(255,107,107,.14);
+  --s1:#7C72F2; --s2:#3987E5; --cum:#C4B5FD; --neut:#8B87A8;
+  --grid:rgba(255,255,255,.06); --axis:rgba(255,255,255,.24);
+  --r:16px;
+}
+*{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--t1);min-height:100vh;
+  font-family:'Golos Text',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;font-size:14px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 560px at 8% -6%, rgba(107,97,224,.07), transparent 60%)}
+a{color:var(--acc)}
+.wrap{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:0 24px 64px}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.mut{color:var(--t3)} .t2{color:var(--t2)}
+.hidden{display:none!important}
+.center{text-align:center;color:var(--t3);padding:48px 12px}
 
-  /* ---- login ---- */
-  #login{max-width:400px;margin:9vh auto;background:var(--card);border:1px solid var(--line);
-    border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh)}
-  #login h1{font-size:20px;margin:0 0 4px}
-  #login p{margin:0 0 22px;color:var(--tx-d);font-size:14px}
-  .fld{margin-bottom:14px}
-  .fld label{display:block;font-size:12px;color:var(--tx-d);margin-bottom:6px}
-  .fld input{width:100%;padding:12px 14px;border-radius:11px;border:1px solid var(--line);
-    background:var(--bg2);color:var(--tx);font-size:15px;outline:none}
-  .fld input:focus{border-color:var(--p-l)}
-  .btn{width:100%;padding:12px;border:0;border-radius:11px;background:var(--p);color:#fff;
-    font-size:15px;font-weight:600;cursor:pointer;transition:.15s}
-  .btn:hover{background:#6a61e0} .btn:disabled{opacity:.6;cursor:default}
-  #err{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
+/* ---------- шапка ---------- */
+header{position:sticky;top:0;z-index:70;display:flex;align-items:center;gap:14px;height:56px;
+  margin:0 -24px;padding:0 24px;background:rgba(10,9,24,.82);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+.brand{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:600;letter-spacing:.12em;color:var(--t1)}
+.brand small{display:block;font-family:'Golos Text';font-size:10.5px;font-weight:500;letter-spacing:.06em;color:var(--t3);text-transform:uppercase}
+.spacer{flex:1}
+#genLabel{font-size:12px;color:var(--t3)}
+.ghost{background:none;border:1px solid var(--hair);color:var(--t2);width:40px;height:40px;border-radius:12px;
+  font-size:16px;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center}
+.ghost:hover{color:var(--t1);border-color:var(--acc)}
+.ghost.spin svg{animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
 
-  /* ---- header ---- */
-  header{display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
-  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p-l));
-    display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
-  header h1{font-size:17px;margin:0;line-height:1.2}
-  header .sub{font-size:12px;color:var(--tx-dd)}
-  .spacer{flex:1}
-  .ghost{background:var(--card2);border:1px solid var(--line);color:var(--tx-d);padding:8px 14px;
-    border-radius:10px;font-size:13px;cursor:pointer}
-  .ghost:hover{color:var(--tx);border-color:var(--p-l)}
+/* ---------- месяцы ---------- */
+.months{display:flex;gap:8px;align-items:stretch;margin:16px 0 4px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.months::-webkit-scrollbar{display:none}
+.mpill{flex-shrink:0;border:1px solid transparent;background:none;border-radius:12px;padding:7px 14px 6px;cursor:pointer;
+  text-align:center;transition:.15s;color:var(--t3)}
+.mpill b{display:block;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:inherit}
+.mpill span{display:block;font-size:11px;font-weight:600;margin-top:3px}
+.mpill.on{background:var(--srf2);border-color:var(--hair);color:var(--t1)}
+.mpill:hover{color:var(--t1)}
 
-  /* ---- layout ---- */
-  .sec-title{display:flex;align-items:center;gap:9px;margin:32px 2px 14px;font-size:12px;
-    letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dd);font-weight:700}
-  .sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-  .sec-title .ic{font-size:15px}
-  /* сворачиваемые секции — явные карточки-кнопки */
-  details.acc{margin:16px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-    backdrop-filter:blur(14px);overflow:hidden;transition:border-color .18s}
-  details.acc:hover{border-color:rgba(139,130,232,.5)}
-  details.acc summary{display:flex;align-items:center;gap:10px;padding:16px 18px;font-size:13.5px;
-    color:var(--tx-d);font-weight:700;cursor:pointer;list-style:none;user-select:none}
-  details.acc summary::-webkit-details-marker{display:none}
-  details.acc summary::after{content:"развернуть ▾";margin-left:auto;font-size:11.5px;font-weight:600;
-    color:var(--p-l);background:rgba(139,130,232,.12);padding:5px 12px;border-radius:16px;white-space:nowrap}
-  details.acc[open] summary::after{content:"свернуть ▴";background:rgba(139,130,232,.22)}
-  details.acc summary:hover{color:var(--tx)}
-  details.acc .accb{padding:2px 16px 16px}
-  details.acc .accb .card{background:rgba(24,20,64,.45)}
-  /* вкладки разделов */
-  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px;position:sticky;top:0;z-index:60;
-    padding:10px 4px;background:linear-gradient(180deg,rgba(15,12,36,.94),rgba(15,12,36,.82));
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:0 0 14px 14px}
-  .tab{background:var(--card2);border:1px solid var(--line);color:var(--tx-d);padding:8px 16px;
-    border-radius:11px;font-size:13px;font-weight:650;cursor:pointer;transition:.15s}
-  .tab:hover{color:var(--tx);border-color:var(--p-l)}
-  .tab.on{background:var(--p);color:#fff;border-color:var(--p)}
-  .tabwrap{display:none}.tabwrap.on{display:block}
-  /* лента важного */
-  .alerts{display:flex;flex-direction:column;gap:8px;margin:4px 0 18px}
-  .alert{display:flex;gap:12px;align-items:flex-start;padding:12px 15px;border-radius:13px;
-    background:var(--card);border:1px solid var(--line);border-left-width:4px;backdrop-filter:blur(10px);
-    animation:cardIn .4s ease both}
-  .alert.red{border-left-color:var(--red);background:linear-gradient(90deg,rgba(251,113,133,.10),var(--card) 45%)}
-  .alert.yellow{border-left-color:var(--amber);background:linear-gradient(90deg,rgba(251,191,36,.09),var(--card) 45%)}
-  .alert.green{border-left-color:var(--em);background:linear-gradient(90deg,rgba(52,211,153,.09),var(--card) 45%)}
-  .alert .aico{font-size:17px;line-height:1.3;flex-shrink:0}
-  .alert .at{font-size:13.5px;font-weight:650;line-height:1.45}
-  .alert .ad{font-size:12px;color:var(--tx-dd);margin-top:2px;line-height:1.5}
-  /* строка здоровья бизнеса */
-  .health{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:8px}
-  @media(max-width:760px){.health{grid-template-columns:repeat(2,1fr)}}
-  .sig{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:13px 15px;backdrop-filter:blur(12px);overflow:hidden;animation:cardIn .4s ease both}
-  .sig .sdot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:7px;box-shadow:0 0 10px currentColor}
-  .sig .st{font-size:12px;color:var(--tx-dd)}
-  .sig .sv{font-size:19px;font-weight:750;margin-top:3px;font-variant-numeric:tabular-nums}
-  .sig .sglow{position:absolute;inset:0;opacity:.10;pointer-events:none}
-  .grid{display:grid;gap:14px}
-  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  @media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
-  @media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;
-    box-shadow:var(--sh);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    animation:cardIn .42s ease both;transition:border-color .18s ease}
-  .card:hover{border-color:rgba(139,130,232,.42)}
-  .card.k{padding:16px 18px}
-  .k .lbl{font-size:12px;color:var(--tx-dd);margin-bottom:7px;display:flex;justify-content:space-between}
-  .k .val{font-size:27px;font-weight:770;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .k .sub{font-size:12px;color:var(--tx-d);margin-top:5px}
-  .chip{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--card2);color:var(--p-p)}
-  .chip.up{background:rgba(52,211,153,.14);color:var(--em)}
-  .chip.dn{background:rgba(248,113,113,.14);color:var(--red)}
+/* ---------- вкладки ---------- */
+.tabs{position:sticky;top:56px;z-index:60;display:flex;gap:2px;margin:14px 0 4px;padding:4px;
+  background:var(--srf);border:1px solid var(--hair);border-radius:14px}
+.tab{flex:1;background:none;border:0;border-radius:10px;padding:9px 8px;font-family:inherit;font-size:13px;
+  font-weight:600;color:var(--t3);cursor:pointer;transition:.18s;white-space:nowrap}
+.tab.on{background:var(--srf3);color:var(--t1)}
+.tab:hover{color:var(--t1)}
+.tabwrap{display:none} .tabwrap.on{display:block;animation:fadeUp .2s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* мобильный нижний таб-бар */
+#tabbar{display:none}
 
-  /* hero */
-  .hero{background:linear-gradient(150deg,rgba(64,56,140,.55),rgba(34,29,82,.5));
-    border:1px solid rgba(139,130,232,.3);box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.05)}
-  .hero.glow-gold{box-shadow:var(--sh),0 0 46px rgba(253,224,71,.10),inset 0 0 0 1px rgba(253,224,71,.22)}
-  .hero.glow-red{box-shadow:var(--sh),0 0 46px rgba(251,113,133,.12),inset 0 0 0 1px rgba(251,113,133,.24)}
-  .hero.glow-em{box-shadow:var(--sh),0 0 46px rgba(52,211,153,.12),inset 0 0 0 1px rgba(52,211,153,.22)}
-  .hero .val{font-size:36px;font-weight:800;font-variant-numeric:tabular-nums}
-  .gauge-wrap{display:flex;align-items:center;gap:18px}
-  .bar-track{height:9px;border-radius:9px;background:var(--bg2);overflow:hidden;margin-top:10px}
-  .bar-fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--p),var(--gold))}
+/* ---------- карточки ---------- */
+.card{position:relative;background:var(--srf);border:1px solid var(--hair);border-radius:var(--r);
+  padding:20px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:rgba(124,114,242,.35)}
+.grid{display:grid;gap:16px;margin-top:16px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+.sec{display:flex;align-items:baseline;gap:10px;margin:30px 2px 0;font-size:13px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.sec::after{content:"";flex:1;height:1px;background:var(--hair);align-self:center}
+.sec-note{font-size:12.5px;color:var(--t3);margin:6px 2px 0;line-height:1.5}
 
-  table{width:100%;border-collapse:collapse;font-size:13.5px}
-  td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
-  th{color:var(--tx-dd);font-weight:600;font-size:12px}
-  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-  tr:last-child td{border-bottom:0}
-  tbody tr{transition:background .12s}
-  tbody tr:hover{background:rgba(139,130,232,.07)}
-  .rowbar{height:6px;border-radius:6px;background:var(--p);display:inline-block;vertical-align:middle;margin-left:8px}
-  .flex{display:flex;align-items:center;gap:10px}
-  .lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx-d);margin-top:10px}
-  .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:middle}
-  .hint{font-size:12px;color:var(--tx-dd);margin-top:8px;line-height:1.5}
-  .clickable{cursor:pointer} .clickable:hover{border-color:rgba(139,130,232,.5)}
-  /* ---- анимации ---- */
-  .card{transition:border-color .18s ease, transform .22s ease}
-  .card:hover{transform:translateY(-2px)}
-  .grid>.card:nth-child(2){animation-delay:.07s}
-  .grid>.card:nth-child(3){animation-delay:.14s}
-  .grid>.card:nth-child(4){animation-delay:.21s}
-  .alerts>.alert:nth-child(2){animation-delay:.08s}
-  .alerts>.alert:nth-child(3){animation-delay:.16s}
-  .alerts>.alert:nth-child(4){animation-delay:.24s}
-  .alerts>.alert:nth-child(n+5){animation-delay:.32s}
-  .tabwrap.on{animation:cardIn .35s ease both}
-  .bar-track>div{animation:barIn .9s cubic-bezier(.22,1,.36,1) both;transform-origin:left}
-  @keyframes barIn{from{transform:scaleX(0)}}
-  svg path.draw{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.5s ease-out forwards .15s}
-  @keyframes draw{to{stroke-dashoffset:0}}
-  .alert.red .aico{animation:pulse 2s ease-in-out infinite}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-  circle.garc{animation:gaugeIn 1.15s cubic-bezier(.22,1,.36,1) both}
-  @keyframes gaugeIn{from{stroke-dashoffset:var(--full)}}
-  /* при системном «уменьшении движения» глушим только пульс, остальное оставляем — владелец просил анимации */
-  @media (prefers-reduced-motion:reduce){ .alert.red .aico{animation:none} }
-  /* ---- телефон ---- */
-  @media(max-width:640px){
-    .wrap{padding:12px 10px 44px}
-    header{gap:10px;margin-bottom:12px}
-    header h1{font-size:15px}
-    header .sub{font-size:10.5px}
-    .ghost{padding:7px 10px;font-size:12px}
-    .tab{padding:7px 11px;font-size:12px}
-    .hero .val{font-size:23px}
-    .k .val{font-size:19px}
-    .k .lbl{font-size:10.5px}
-    .k .sub{font-size:10.5px}
-    .card{padding:13px;border-radius:14px}
-    .grid{gap:10px}
-    .sec-title{margin:20px 2px 10px;font-size:11px}
-    details.acc summary{padding:12px 13px;font-size:12px}
-    details.acc summary::after{font-size:10px;padding:4px 9px}
-    .alert{padding:10px 12px}
-    .alert .at{font-size:12.5px} .alert .ad{font-size:11px}
-    table{font-size:11.5px} td,th{padding:6px 5px}
-    .gauge-wrap{gap:10px}
-    .gauge-wrap svg{width:88px;height:88px}
-    .card>table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
-  }
-  .exp-donut{display:none;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);animation:cardIn .3s ease both}
-  .exp-card.open .exp-donut{display:block}
-  .exp-card .tap{transition:opacity .2s} .exp-card.open .tap{opacity:.4}
-  .hidden{display:none!important}
-  .center{text-align:center;color:var(--tx-dd);padding:40px}
+/* ---------- hero + тайлы ---------- */
+.heroCard{position:relative;overflow:visible;padding:24px}
+.heroCard[onclick]{cursor:pointer}
+.heroCard[onclick]:active{transform:scale(.995)}
+.aura{position:absolute;left:-12%;top:-42%;width:124%;height:190%;border-radius:50%;
+  filter:blur(60px);pointer-events:none;z-index:-1;animation:breathe 12s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.62}50%{transform:scale(1.06);opacity:1}}
+.hlbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.hnum{font-size:56px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin-top:8px}
+.hnum .zl{font-size:.5em;font-weight:500;color:var(--t2);margin-left:4px}
+.hphrase{font-size:14px;color:var(--t2);margin-top:10px;line-height:1.55;max-width:640px}
+.hside{position:absolute;right:24px;top:22px;text-align:right}
+.tile{min-height:108px;display:flex;flex-direction:column;gap:7px}
+.tile[onclick]{cursor:pointer}
+.tile[onclick]:active{transform:scale(.99)}
+.tile .lbl{font-size:12px;font-weight:500;color:var(--t3);display:flex;justify-content:space-between;gap:8px}
+.tile .lbl .chev{color:var(--t3);font-size:11px}
+.tile .kv{font-size:32px;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.tile .kv .zl{font-size:.55em;font-weight:500;color:var(--t2);margin-left:3px}
+.tile .sub{font-size:12px;color:var(--t2);line-height:1.45;margin-top:auto}
+.goldnum{background:linear-gradient(135deg,var(--gold),#F0B90B);-webkit-background-clip:text;background-clip:text;color:transparent}
+.shimmer{background:linear-gradient(110deg,var(--gold) 20%,#fffbe0 40%,var(--gold2) 60%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 1.2s ease-out 1}
+@keyframes shim{from{background-position:180% 0}to{background-position:-40% 0}}
+.chip{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 9px;border-radius:11px;
+  font-size:12px;font-weight:600;background:var(--srf3);color:var(--t2);white-space:nowrap}
+.chip.up{background:var(--good-bg);color:var(--good)}
+.chip.dn{background:var(--bad-bg);color:var(--bad)}
+.chip.w{background:var(--warn-bg);color:var(--warn)}
+.chip.g{background:var(--good-bg);color:var(--good)}
+.chip.b{background:var(--bad-bg);color:var(--bad)}
+.chip.gold{background:rgba(253,224,71,.10);color:var(--gold)}
+
+/* ---------- алерты ---------- */
+.alerts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.alert{position:relative;display:flex;gap:12px;align-items:flex-start;padding:13px 16px 13px 18px;
+  background:var(--srf);border:1px solid var(--hair);border-radius:13px}
+.alert::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--t3)}
+.alert.red::before{background:var(--bad);box-shadow:0 0 12px var(--bad-glow)}
+.alert.yellow::before{background:var(--warn);box-shadow:0 0 12px var(--warn-glow)}
+.alert.green::before{background:var(--good);box-shadow:0 0 12px var(--good-glow)}
+.alert.red::before{animation:alertBreath 2.4s ease-in-out infinite}
+@keyframes alertBreath{0%,100%{box-shadow:0 0 8px var(--bad-glow)}50%{box-shadow:0 0 20px rgba(255,107,107,.34)}}
+.alert .at{font-size:14px;font-weight:600;line-height:1.45}
+.alert .ad{font-size:13px;color:var(--t2);margin-top:3px;line-height:1.5}
+.alert .abtn{margin-left:auto;flex-shrink:0;background:none;border:1px solid var(--hair);color:var(--t2);
+  padding:6px 12px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.alert .abtn:hover{border-color:var(--acc);color:var(--t1)}
+.morebtn{background:none;border:1px dashed var(--hair);color:var(--t3);border-radius:12px;padding:9px;
+  font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px;width:100%}
+.morebtn:hover{color:var(--t1)}
+
+/* ---------- прогноз ИИ ---------- */
+.aiCard{border-top:1px solid transparent;background:
+  linear-gradient(var(--srf),var(--srf)) padding-box,
+  linear-gradient(90deg,var(--acc),transparent 60%) border-box}
+.aiCard .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ---------- бары/метры ---------- */
+.meter{height:10px;border-radius:5px;background:var(--acc-soft);overflow:hidden}
+.meter>div{height:100%;border-radius:5px;background:var(--acc);transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both;animation-play-state:paused}
+@keyframes growX{from{transform:scaleX(0)}}
+.hrow{margin:10px 0}
+.hrow .hl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;gap:8px}
+.hrow .hl b{font-weight:600}
+.hrow .hl .v{color:var(--t2);font-variant-numeric:tabular-nums}
+.hrow .meter{height:8px}
+
+/* ---------- воронка конверсии ---------- */
+.funnel .fstep{display:grid;grid-template-columns:112px 1fr;gap:10px;align-items:center;margin-top:8px}
+.funnel .fstep:first-child{margin-top:0}
+.funnel .flbl{font-size:12px;color:var(--t2);text-align:right;line-height:1.3}
+.funnel .fbarw{position:relative;height:28px}
+.funnel .fbar{height:100%;border-radius:0 4px 4px 0;display:flex;align-items:center;justify-content:flex-end;
+  padding:0 8px;min-width:34px;transform-origin:left;animation:growX .7s cubic-bezier(.22,1,.36,1) both;animation-play-state:paused}
+.funnel .fbar b{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:#0A0918}
+.funnel .ftrans{grid-column:2;font-size:12px;font-weight:600;color:var(--t3);padding:2px 0 2px 8px}
+.funnel .ftrans .chip{height:20px}
+.funnel .ffinal{margin-top:14px;font-size:14px;font-weight:600}
+.funnel .fnote{font-size:12.5px;color:var(--t3);margin-top:6px;line-height:1.5}
+
+/* ---------- карточка продавца ---------- */
+.shead{display:flex;align-items:center;gap:12px}
+.ava{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7C72F2,#3987E5);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;flex-shrink:0}
+.sname{font-size:16px;font-weight:600}
+.smoney{margin-left:auto;font-size:20px;font-weight:700}
+.seller .sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.seller .sg .l{font-size:11px;color:var(--t3)}
+.seller .sg .v{font-size:15px;font-weight:600;margin-top:2px}
+.seller .schips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+
+/* ---------- таблицы ---------- */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);
+  text-align:left;padding:8px 8px;border-bottom:1px solid var(--div)}
+td{padding:11px 8px;border-bottom:1px solid var(--hair);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr{transition:background .12s}
+tbody tr:hover{background:var(--srf2)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- аккордеон ---------- */
+details.acc{margin-top:16px;background:var(--srf);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden}
+details.acc:hover{border-color:rgba(124,114,242,.35)}
+details.acc summary{display:flex;align-items:center;gap:10px;padding:15px 18px;font-size:14px;font-weight:600;
+  color:var(--t2);cursor:pointer;list-style:none;user-select:none;min-height:48px}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary .arr{transition:transform .25s;color:var(--t3);font-size:12px}
+details.acc[open] summary .arr{transform:rotate(90deg)}
+details.acc summary .badge{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--acc);
+  background:var(--acc-soft);padding:5px 12px;border-radius:16px;white-space:nowrap}
+details.acc .accb{padding:2px 18px 18px}
+details.acc .accb .card{background:var(--srf2)}
+
+/* ---------- графики ---------- */
+.chbox{position:relative;margin-top:12px;max-width:780px}
+.chbox svg{display:block;width:100%}
+.chx{position:absolute;top:0;bottom:0;width:1px;background:var(--axis);opacity:0;pointer-events:none}
+.chtip{position:absolute;z-index:5;opacity:0;pointer-events:none;background:var(--srf3);
+  border:1px solid var(--hair);border-radius:10px;padding:8px 11px;font-size:12px;min-width:110px;transition:opacity .1s}
+.chtip .tt-x{font-weight:600;color:var(--t1);margin-bottom:4px}
+.chtip .tt-row{display:flex;align-items:center;gap:6px;margin-top:3px;color:var(--t2)}
+.chtip .tt-row b{color:var(--t1);font-variant-numeric:tabular-nums}
+.chtip .tt-key{width:10px;height:3px;border-radius:2px;flex-shrink:0}
+.xticks{display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-top:5px;max-width:780px}
+.lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--t2);margin-top:10px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.dash{width:14px;height:2px;display:inline-block;margin-right:5px;vertical-align:3px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.4) 0 4px,transparent 4px 7px)}
+.chbox rect.gr{transform-box:fill-box;transform-origin:bottom;animation:growY .6s cubic-bezier(.22,1,.36,1) both;animation-play-state:paused}
+@keyframes growY{from{transform:scaleY(0)}}
+.chbox path.draw{stroke-dasharray:1500;stroke-dashoffset:1500;animation:draw .9s ease-out .15s both;animation-play-state:paused}
+@keyframes draw{to{stroke-dashoffset:0}}
+circle.garc{animation:gauge 1s cubic-bezier(.34,1.3,.64,1) both;animation-play-state:paused}
+@keyframes gauge{from{stroke-dashoffset:var(--full)}}
+.panel-t{font-size:12px;color:var(--t3);font-weight:500;margin:10px 0 -6px}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(12px);transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+.rv.in .meter>div,.rv.in .fbar,.rv.in rect.gr,.rv.in path.draw,.rv.in circle.garc{animation-play-state:running}
+
+/* ---------- логин ---------- */
+#login{position:relative;z-index:1;max-width:360px;margin:14vh auto 0;background:var(--srf);
+  border:1px solid var(--hair);border-radius:20px;padding:32px 28px}
+#login .lb{font-family:'Unbounded',sans-serif;font-size:22px;font-weight:600;letter-spacing:.1em}
+#login .ls{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin:6px 0 24px}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:12px;color:var(--t3);margin-bottom:6px}
+.fld input{width:100%;height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--hair);
+  background:var(--srf2);color:var(--t1);font-size:15px;font-family:inherit;outline:none;transition:.15s}
+.fld input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(124,114,242,.2)}
+.btn{width:100%;height:48px;border:0;border-radius:12px;background:var(--acc);color:#0A0918;
+  font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--acc-dim);color:#fff} .btn:disabled{opacity:.6;cursor:default}
+#err{color:var(--bad);font-size:13px;margin-top:12px;min-height:18px}
+#loginAura{position:fixed;inset:-30%;z-index:0;pointer-events:none;
+  background:radial-gradient(560px 480px at 30% 30%, rgba(107,97,224,.14), transparent 60%);
+  animation:drift 60s linear infinite}
+@keyframes drift{0%{transform:translate(0,0)}25%{transform:translate(6%,4%)}50%{transform:translate(2%,8%)}75%{transform:translate(-5%,3%)}100%{transform:translate(0,0)}}
+
+/* ---------- архивная полоса ---------- */
+.archbar{position:sticky;top:104px;z-index:50;display:flex;align-items:center;gap:10px;margin-top:10px;
+  background:var(--srf2);border:1px solid rgba(255,158,88,.25);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--t2)}
+.archbar button{margin-left:auto;background:none;border:0;color:var(--acc);font-weight:600;font-size:13px;cursor:pointer;font-family:inherit}
+
+/* ---------- телефон ---------- */
+@media(max-width:640px){
+  .wrap{padding:0 14px calc(84px + env(safe-area-inset-bottom))}
+  header{margin:0 -14px;padding:0 14px;height:48px}
+  #genLabel{display:none}
+  .hnum{font-size:44px}
+  .tile .kv{font-size:28px}
+  .card{padding:16px;border-radius:14px}
+  .grid{gap:12px}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .heroCard{padding:18px}
+  .hside{position:static;text-align:left;margin-top:12px}
+  .sec{margin-top:24px}
+  .tabs{display:none}
+  #tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:80;height:calc(60px + env(safe-area-inset-bottom));
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(10,9,24,.85);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--hair)}
+  #tabbar button{flex:1;background:none;border:0;font-family:inherit;color:var(--t3);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:500;padding:2px 0}
+  #tabbar button .ico{font-size:19px;line-height:1.35;padding:1px 14px;border-radius:14px}
+  #tabbar button.on{color:var(--acc)}
+  #tabbar button.on .ico{background:var(--acc-soft)}
+  .archbar{top:54px}
+  .ghost{width:44px;height:44px}
+  .alert .abtn{padding:12px 14px}
+  .morebtn{padding:13px 9px}
+  .archbar button{padding:12px 10px;margin:-12px -10px -12px auto}
+  .funnel .fstep{grid-template-columns:96px 1fr}
+  .funnel .flbl{font-size:11px}
+  th,td{padding:9px 6px}
+  table{font-size:12px}
+  .fcar{display:grid;grid-auto-flow:column;grid-auto-columns:88%;gap:12px;overflow-x:auto;
+    scroll-snap-type:x mandatory;padding-bottom:6px;margin-top:16px}
+  .fcar>.card{scroll-snap-align:center}
+  /* таблицы-стеки */
+  table.stack thead{display:none}
+  table.stack, table.stack tbody{display:block}
+  table.stack tr{display:block;background:var(--srf2);border:1px solid var(--hair);border-radius:12px;
+    padding:10px 12px;margin-top:8px}
+  table.stack td{display:flex;justify-content:space-between;gap:10px;border:0;padding:3px 0;text-align:left}
+  table.stack td.n{text-align:right}
+  table.stack td::before{content:attr(data-l);color:var(--t3);font-size:11.5px;flex-shrink:0}
+  table.stack td:first-child{font-weight:600}
+}
+@media(min-width:641px){
+  .fcar{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="login" class="hidden">
-  <h1>Кабинет владельца</h1>
-  <p>Legal Solutions · вход по номеру телефона</p>
-  <form id="loginForm">
-    <div class="fld"><label>Номер телефона</label>
-      <input id="phone" type="tel" inputmode="tel" placeholder="+48 …" autocomplete="username" required></div>
-    <div class="fld"><label>Пароль</label>
-      <input id="password" type="password" autocomplete="current-password" required></div>
-    <button class="btn" id="loginBtn" type="submit">Войти</button>
-    <div id="err"></div>
-  </form>
+<div id="loginWrap" class="hidden">
+  <div id="loginAura"></div>
+  <div id="login">
+    <div class="lb">LEGALSOL</div>
+    <div class="ls">Кабинет владельца</div>
+    <form id="loginForm">
+      <div class="fld"><label>Номер телефона</label>
+        <input id="phone" type="tel" inputmode="tel" placeholder="+48 ___ ___ ___" autocomplete="username" required></div>
+      <div class="fld"><label>Пароль</label>
+        <input id="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn" id="loginBtn" type="submit">Войти</button>
+      <div id="err"></div>
+    </form>
+  </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- APP -->
 <div id="app" class="wrap hidden">
   <header>
-    <div class="logo">LS</div>
-    <div>
-      <h1>Кабинет владельца</h1>
-      <div class="sub" id="genLabel">—</div>
-    </div>
+    <div class="brand">LEGALSOL<small id="roleLabel">кабинет владельца</small></div>
     <div class="spacer"></div>
-    <button class="ghost" id="refreshBtn">Обновить</button>
-    <button class="ghost" id="logoutBtn">Выход</button>
+    <div id="genLabel">—</div>
+    <button class="ghost" id="refreshBtn" title="Обновить"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+    <button class="ghost" id="logoutBtn" title="Выход"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button>
   </header>
   <div id="content"></div>
 </div>
+<nav id="tabbar" class="hidden"></nav>
 
 <div id="boot" class="center wrap">Загрузка…</div>
 
@@ -234,24 +349,48 @@ const $ = s => document.querySelector(s);
 const api = (action,o={}) => fetch('/api/owner?action='+action+'&_='+Date.now(),
   {credentials:'same-origin',cache:'no-store',...o});
 
-// ---- formatting ----
-const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
+// ---- безопасность: всё из таблиц/Kommo — только через esc() ----
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// ---- форматирование ----
+const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU');
 const zl = n => (n==null||isNaN(n))?'—':nf(n)+' zł';
-const pct = n => (n==null||isNaN(n))?'—':(Math.round(n*10)/10)+'%';
-const RUM = ['','янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
-const dLabel = iso => { const p=String(iso).split('-'); return p[2]+'.'+p[1]; };  // 2026-07-15 → 15.07
-const mLabel = ym => { const [y,m]=ym.split('-'); return RUM[+m]+' '+y.slice(2); };
-
-// ---- auth flow ----
-async function boot(){
-  try{
-    const r = await api('me');
-    if(r.status===200){ showApp(); } else { showLogin(); }
-  }catch(_){ showLogin(); }
+const zlh = n => (n==null||isNaN(n))?'—':nf(n)+'<span class="zl">zł</span>';   // для hero/KPI
+const pct = n => (n==null||isNaN(n))?'—':(Math.round(n*10)/10).toLocaleString('ru-RU')+'%';
+const RUM = ['','янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const RUMF = ['','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const dLabel = iso => { const p=String(iso).split('-'); return p[2]+'.'+p[1]; };
+const mLabel = ym => { const [y,m]=String(ym).split('-'); return RUM[+m]+' '+String(y).slice(2); };
+const mFull  = ym => RUMF[+String(ym).split('-')[1]];
+function agoLabel(iso){
+  if(!iso) return '';
+  const mins = Math.max(0, Math.round((Date.now()-new Date(iso))/60000));
+  if(mins<60) return 'обновлено '+mins+' мин назад';
+  const h = Math.round(mins/60);
+  return 'обновлено '+(h<24? h+' ч назад' : 'в '+String(iso).slice(11,16));
 }
-function showLogin(){ $('#boot').classList.add('hidden'); $('#app').classList.add('hidden'); $('#login').classList.remove('hidden'); $('#phone').focus(); }
-function showApp(){ $('#boot').classList.add('hidden'); $('#login').classList.add('hidden'); $('#app').classList.remove('hidden'); loadData(); }
 
+// ---- источники: фиксированные цвета (палитра проверена валидатором) ----
+const SRC = {
+  'лид':      {l:'🎯 С рекламы (FB)', c:'#3987E5'},
+  'тикток':   {l:'🎵 TikTok',         c:'#DB6590'},
+  'входящий': {l:'💬 Входящие',       c:'#199E70'},
+  'суприм':   {l:'📇 Supremes (база)',c:'#9085E9'},
+  'сарафан':  {l:'🤝 Сарафан',        c:'#C98500'},
+  'груп':     {l:'👥 Групповое',      c:'#DE6435'},
+};
+const srcL = s => (SRC[s]||{}).l || esc(s);
+const srcC = s => (SRC[s]||{}).c || '#8B87A8';
+const EXPC = {'Реклама':'#3987E5','Зарплаты':'#9085E9','Операционные':'#199E70','Налоги':'#D55181'};
+const expC = n => EXPC[n]||'#8B87A8';
+
+// ---- auth ----
+async function boot(){
+  try{ const r = await api('me'); r.status===200 ? showApp() : showLogin(); }
+  catch(_){ showLogin(); }
+}
+function showLogin(){ $('#boot').classList.add('hidden'); $('#app').classList.add('hidden'); $('#tabbar').classList.add('hidden'); $('#loginWrap').classList.remove('hidden'); $('#phone').focus(); }
+function showApp(){ $('#boot').classList.add('hidden'); $('#loginWrap').classList.add('hidden'); $('#app').classList.remove('hidden'); loadData(); }
 $('#loginForm').addEventListener('submit', async e=>{
   e.preventDefault();
   const btn=$('#loginBtn'); btn.disabled=true; $('#err').textContent='';
@@ -267,10 +406,9 @@ $('#loginForm').addEventListener('submit', async e=>{
   btn.disabled=false;
 });
 $('#logoutBtn').addEventListener('click', async ()=>{ await api('logout',{method:'POST'}); showLogin(); });
-$('#refreshBtn').addEventListener('click', ()=>loadData(true));
+$('#refreshBtn').addEventListener('click', async ()=>{ $('#refreshBtn').classList.add('spin'); await loadData(); $('#refreshBtn').classList.remove('spin'); });
 
-// ---- data ----
-async function loadData(force){
+async function loadData(){
   $('#content').innerHTML = '<div class="center">Обновляю данные…</div>';
   try{
     const r = await api('data');
@@ -281,740 +419,822 @@ async function loadData(force){
   }catch(e){ $('#content').innerHTML='<div class="center neg">Ошибка загрузки данных</div>'; }
 }
 
-// ---- small chart helpers (inline SVG) ----
-let __sg=0;
-function sparkColor(c){ return c==='var(--gold)'?'#fde047':c==='var(--p-l)'?'#8B82E8':c==='var(--em)'?'#34d399':c==='var(--cyan)'?'#38bdf8':(c||'#8B82E8'); }
-function sparkline(pts, {w=560,h=92,color='var(--p-l)'}={}){
-  const col=sparkColor(color), id='sg'+(++__sg);
-  const vals = pts.map(p=>p||0); const max=Math.max(1,...vals);
-  const dx = w/(Math.max(1,vals.length-1));
-  const xy = vals.map((v,i)=>[i*dx, h-6-(v/max)*(h-18)]);
-  const line = xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
-  const peakI = vals.indexOf(Math.max(...vals));
-  const grid = [.25,.5,.75].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('');
-  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="${col}" stop-opacity=".33"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient></defs>
-    ${grid}
-    <path d="${line} L ${w} ${h} L 0 ${h} Z" fill="url(#${id})"/>
-    <path class="draw" d="${line}" fill="none" stroke="${col}" stroke-width="2.4" stroke-linejoin="round"/>
-    <circle cx="${xy[peakI][0].toFixed(1)}" cy="${xy[peakI][1].toFixed(1)}" r="3.5" fill="${col}" stroke="#0f0c24" stroke-width="2"/></svg>`;
+// ============ ГРАФИКИ ============
+const CHARTS = {};
+let __chid = 0;
+function chartBox(inner, meta, ticksHtml){
+  const id='ch'+(++__chid); CHARTS[id]=meta;
+  return `<div class="chbox" id="${id}">${inner}<div class="chx"></div><div class="chtip"></div></div>`+(ticksHtml||'');
 }
-// комбо-график: бары = расход/день, линия = лиды/день (зависимость)
-function comboChart(days,{w=560,h=130}={}){
-  if(!days||!days.length) return '<div class="muted">нет данных</div>';
-  const sp=days.map(d=>d.spendUsd||0), ld=days.map(d=>d.leads||0);
-  const ms=Math.max(1,...sp), ml=Math.max(1,...ld), bw=w/days.length;
-  const bars=sp.map((v,i)=>`<rect x="${(i*bw+1).toFixed(1)}" y="${(h-16-(v/ms)*(h-40)).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${((v/ms)*(h-40)).toFixed(1)}" rx="2" fill="#6b61e0" opacity=".5"/>`).join('');
-  const xy=ld.map((v,i)=>[(i*bw+bw/2), h-16-(v/ml)*(h-40)]);
-  const line=xy.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' ');
-  const peak=ld.indexOf(Math.max(...ld));
-  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
-    ${[.33,.66].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
-    ${bars}
-    <path class="draw" d="${line}" fill="none" stroke="#fde047" stroke-width="2.4" stroke-linejoin="round"/>
-    <circle cx="${xy[peak][0].toFixed(1)}" cy="${xy[peak][1].toFixed(1)}" r="3.5" fill="#fde047" stroke="#0f0c24" stroke-width="2"/></svg>
-  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Расход, $/день (трекинг)</span><span><span class="dot" style="background:#fde047"></span>Лиды/день</span><span class="muted">пик: ${Math.max(...ld)} лидов</span></div>`;
+function bindCharts(){
+  for(const [id,meta] of Object.entries(CHARTS)){
+    const box=document.getElementById(id);
+    if(!box||box.dataset.bound) continue;
+    box.dataset.bound='1';
+    const hair=box.querySelector('.chx'), tip=box.querySelector('.chtip');
+    const move=ev=>{
+      const r=box.getBoundingClientRect();
+      const cxp=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+      const n=meta.xs.length; if(!n) return;
+      const i=Math.max(0,Math.min(n-1,Math.round(cxp/r.width*(n-1))));
+      const cx=(n===1)?r.width/2:(i/(n-1))*r.width;
+      hair.style.left=cx+'px'; hair.style.opacity=.7;
+      tip.replaceChildren();
+      const t0=document.createElement('div'); t0.className='tt-x'; t0.textContent=meta.xs[i]; tip.appendChild(t0);
+      for(const row of meta.rows(i)){
+        const line=document.createElement('div'); line.className='tt-row';
+        const key=document.createElement('span'); key.className='tt-key'; key.style.background=row.sw;
+        const val=document.createElement('b'); val.textContent=row.v;
+        const lab=document.createElement('span'); lab.textContent=row.k;
+        line.append(key,val,lab); tip.appendChild(line);
+      }
+      tip.style.opacity=1;
+      const tw=tip.offsetWidth;
+      tip.style.left=Math.max(4,Math.min(box.clientWidth-tw-4,cx+14))+'px';
+      tip.style.top='4px';
+    };
+    box.addEventListener('pointermove',move);
+    box.addEventListener('pointerdown',move);
+    box.addEventListener('pointerleave',()=>{hair.style.opacity=0;tip.style.opacity=0;});
+  }
 }
-// закрытия по дням месяца: бары/день + накопительная линия + пунктир плана
-function dailyChart(deals, key, goal, curKey, genAt){
+const gridLines=(w,h,fr)=>fr.map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="var(--grid)" stroke-width="1"/>`).join('');
+function barTop(x,y,w,h,r=3){ if(h<=0)return''; r=Math.min(r,w/2,h);
+  return `M${x.toFixed(1)} ${(y+h).toFixed(1)} v${(-(h-r)).toFixed(1)} q0 ${-r} ${r} ${-r} h${(w-2*r).toFixed(1)} q${r} 0 ${r} ${r} v${(h-r).toFixed(1)} z`; }
+
+// закрытия по дням: бары + накопительная линия + план-референс + метка «сегодня»
+function dailyChart(deals,key,goal,curKey,genAt){
   const y=+key.slice(0,4), m=+key.slice(5,7);
-  const dim=new Date(y, m, 0).getDate();
+  const dim=new Date(y,m,0).getDate();
   const perDay=Array(dim).fill(0);
   (deals||[]).forEach(x=>{ if((x.date||'').slice(0,7)===key){ const dd=+x.date.slice(8,10); if(dd>=1&&dd<=dim) perDay[dd-1]++; }});
-  let s=0; const cum=perDay.map(v=>(s+=v));
-  const total=s, w=560, h=150, bw=w/dim;
-  const maxBar=Math.max(1,...perDay), maxCum=Math.max(goal||1, total, 1);
-  const bars=perDay.map((v,i)=>v?`<rect x="${(i*bw+1).toFixed(1)}" y="${(h-20-(v/maxBar)*(h*0.42)).toFixed(1)}" width="${Math.max(1,bw-2).toFixed(1)}" height="${((v/maxBar)*(h*0.42)).toFixed(1)}" rx="2" fill="#6b61e0" opacity=".65"/>`:'').join('');
-  const cxy=cum.map((v,i)=>[(i*bw+bw/2), h-20-(v/maxCum)*(h-40)]);
-  const cline=cxy.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' ');
-  const plan=goal?`<line x1="${(bw/2).toFixed(1)}" y1="${(h-20).toFixed(1)}" x2="${(dim*bw-bw/2).toFixed(1)}" y2="${(h-20-(goal/maxCum)*(h-40)).toFixed(1)}" stroke="#fde047" stroke-width="1.6" stroke-dasharray="5 4" opacity=".85"/>`:'';
-  let todayMark='';
-  if(key===curKey && genAt){ const td=+String(genAt).slice(8,10);
-    if(td>=1&&td<=dim) todayMark=`<line x1="${(td*bw-bw/2).toFixed(1)}" y1="8" x2="${(td*bw-bw/2).toFixed(1)}" y2="${h-20}" stroke="rgba(255,255,255,.25)" stroke-width="1" stroke-dasharray="2 3"/>`; }
-  const ticks=[];
-  for(let dd=5; dd<=dim; dd+=5) ticks.push(`<text x="${(dd*bw-bw/2).toFixed(1)}" y="${h-6}" text-anchor="middle" fill="#8f89c4" font-size="9">${dd}</text>`);
-  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
-    ${[.3,.6].map(g=>`<line x1="0" x2="${w}" y1="${(h*g).toFixed(1)}" y2="${(h*g).toFixed(1)}" stroke="rgba(255,255,255,.05)"/>`).join('')}
-    ${plan}${bars}${todayMark}
-    <path class="draw" d="${cline}" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linejoin="round"/>
-    ${cxy.length?`<circle cx="${cxy[cxy.length-1][0].toFixed(1)}" cy="${cxy[cxy.length-1][1].toFixed(1)}" r="3.5" fill="#34d399" stroke="#0f0c24" stroke-width="2"/>`:''}
-    ${ticks.join('')}</svg>
-  <div class="lgd"><span><span class="dot" style="background:#6b61e0"></span>Закрытий в день</span><span><span class="dot" style="background:#34d399"></span>Накопительно: ${total}</span>${goal?`<span><span class="dot" style="background:#fde047"></span>Темп плана (${goal})</span>`:''}</div>`;
+  let s=0; const cum=perDay.map(v=>s+=v);
+  const total=s, w=620, h=150, bw=w/dim;
+  const lastD=(key===curKey&&genAt)?Math.min(dim,Math.max(1,+String(genAt).slice(8,10))):dim;
+  const maxBar=Math.max(1,...perDay), maxCum=Math.max(goal||1,total,1);
+  const bars=perDay.map((v,i)=>v?`<path class="gr" style="animation-delay:${(i*22)}ms" d="${barTop(i*bw+2,(h-18-(v/maxBar)*(h*0.4)),Math.max(2,bw-4),(v/maxBar)*(h*0.4),3)}" fill="var(--s1)"/>`:'').join('');
+  const cxy=cum.slice(0,lastD).map((v,i)=>[(i*bw+bw/2),h-18-(v/maxCum)*(h-38)]);
+  const cline=cxy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const plan=goal?`<line x1="${(bw/2).toFixed(1)}" y1="${h-18}" x2="${(dim*bw-bw/2).toFixed(1)}" y2="${(h-18-(goal/maxCum)*(h-38)).toFixed(1)}" stroke="rgba(255,255,255,.38)" stroke-width="1.6" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>`:'';
+  let today='';
+  if(key===curKey&&genAt){ const td=+String(genAt).slice(8,10);
+    if(td>=1&&td<=dim) today=`<line x1="${(td*bw-bw/2).toFixed(1)}" y1="6" x2="${(td*bw-bw/2).toFixed(1)}" y2="${h-18}" stroke="var(--axis)" stroke-width="1"/>`; }
+  const svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:150px">
+    ${gridLines(w,h,[.3,.6])}${plan}${bars}${today}
+    <path class="draw" d="${cline}" fill="none" stroke="var(--cum)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${cxy.length?`<path d="M${cxy[cxy.length-1][0].toFixed(1)} ${cxy[cxy.length-1][1].toFixed(1)} h0" stroke="var(--srf)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M${cxy[cxy.length-1][0].toFixed(1)} ${cxy[cxy.length-1][1].toFixed(1)} h0" stroke="var(--cum)" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`:''}</svg>`;
+  const ticks=[1];
+  for(let dd=5;dd<=dim;dd+=5) ticks.push(dd);
+  const ticksHtml=`<div class="xticks" style="position:relative;height:14px;display:block">${ticks.map(tk=>`<span style="position:absolute;left:${(((tk-0.5)/dim)*100).toFixed(2)}%;transform:translateX(-50%)">${tk}</span>`).join('')}</div>
+  <div class="lgd"><span><span class="dot" style="background:var(--s1)"></span>Закрытий в день</span>
+    <span><span class="dot" style="background:var(--cum)"></span>Всего с начала: <b class="num" style="color:var(--t1)">${total}</b></span>
+    ${goal?`<span><span class="dash"></span>Темп к цели ${goal}</span>`:''}</div>`;
+  const xs=Array.from({length:dim},(_,i)=>(i+1)+' '+mLabel(key).split(' ')[0]);
+  return chartBox(svg,{xs,rows:i=>i<lastD?[{k:'закрытий',v:String(perDay[i]),sw:'var(--s1)'},{k:'всего',v:String(cum[i]),sw:'var(--cum)'}]:[{k:'день ещё не наступил',v:'—',sw:'var(--neut)'}]},ticksHtml);
 }
-// воронка трафика месяца
-function trafficFunnel(pm){
-  if(pm.trafficClosings==null) return '<div class="muted">появится после тегов из чата</div>';
-  const convP=pm.leads?Math.round(pm.trafficClosings/pm.leads*1000)/10:0;
-  return `
-    <div class="bar-track" style="height:30px;border-radius:9px"><div style="height:100%;width:100%;background:linear-gradient(90deg,#8B82E8,#6b61e0);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:650">Лиды с рекламы<span class="num">${nf(pm.leads)}</span></div></div>
-    <div style="font-size:11px;color:var(--tx-dd);padding:3px 0 3px 12px">↓ конверсия <b style="color:var(--tx-d)">${convP}%</b></div>
-    <div class="bar-track" style="height:30px;border-radius:9px;margin-top:0"><div style="height:100%;width:${Math.max(14,convP*4)}%;background:linear-gradient(90deg,#fbbf24,#fde047);border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12.5px;font-weight:700;color:#0d0a1f;white-space:nowrap">Закрытия<span class="num">${pm.trafficClosings}</span></div></div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);margin-top:14px;gap:10px">
-      <div><div style="font-size:11px;color:var(--tx-dd)">Принесли 1-ми оплатами</div><div class="num" style="font-weight:750;font-size:16px;color:var(--em)">${zl(pm.trafficFirstPay)} <span class="muted" style="font-size:11px">×${pm.roasTrafficP1||'—'}</span></div></div>
-      <div><div style="font-size:11px;color:var(--tx-dd)">Контракты (потенциал)</div><div class="num" style="font-weight:750;font-size:16px;color:var(--gold)">${zl(pm.trafficContracted)} <span class="muted" style="font-size:11px">×${pm.roasTrafficContract||'—'}</span></div></div>
-    </div>`;
+
+// расход→лиды: ДВЕ панели с общим X (никакого dual-axis)
+function adPair(days){
+  if(!days||!days.length) return '<div class="mut" style="margin-top:10px">нет данных</div>';
+  const sp=days.map(d=>d.spendUsd||0), ld=days.map(d=>d.leads||0);
+  const w=620,h1=86,h2=70,gap=14,H=h1+h2+gap,bw=w/days.length;
+  const ms=Math.max(1,...sp),ml=Math.max(1,...ld);
+  const bars=sp.map((v,i)=>v?`<path class="gr" style="animation-delay:${i*18}ms" d="${barTop(i*bw+1.5,(h1-4-(v/ms)*(h1-16)),Math.max(2,bw-3),(v/ms)*(h1-16),3)}" fill="var(--s1)"/>`:'').join('');
+  const xy=ld.map((v,i)=>[(i*bw+bw/2),(h1+gap)+(h2-6-(v/ml)*(h2-16))]);
+  const line=xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area=line+` L ${xy[xy.length-1][0].toFixed(1)} ${H} L ${xy[0][0].toFixed(1)} ${H} Z`;
+  const svg=`<svg viewBox="0 0 ${w} ${H}" preserveAspectRatio="none" style="height:${H+12}px">
+    ${gridLines(w,h1,[.45])}${bars}
+    <line x1="0" x2="${w}" y1="${h1+gap/2}" y2="${h1+gap/2}" stroke="var(--grid)"/>
+    <path d="${area}" fill="rgba(57,135,229,.09)"/>
+    <path class="draw" d="${line}" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M${xy[xy.length-1][0].toFixed(1)} ${xy[xy.length-1][1].toFixed(1)} h0" stroke="var(--srf)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M${xy[xy.length-1][0].toFixed(1)} ${xy[xy.length-1][1].toFixed(1)} h0" stroke="var(--s2)" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
+  const xs=days.map(d=>dLabel(d.date));
+  const tickIdx=[0,Math.floor(xs.length/2),xs.length-1];
+  const ticksHtml=`<div class="xticks" style="position:relative;height:14px;display:block">${tickIdx.map(ii=>`<span style="position:absolute;left:${(((ii+0.5)/xs.length)*100).toFixed(2)}%;transform:translateX(-50%)">${xs[ii]}</span>`).join('')}</div>
+    <div class="lgd"><span><span class="dot" style="background:var(--s1)"></span>Потратили, $/день</span>
+    <span><span class="dot" style="background:var(--s2)"></span>Пришло лидов</span></div>`;
+  return `<div class="panel-t">Потратили, $ в день · трекинг</div>`+
+    chartBox(svg,{xs,rows:i=>[{k:'расход',v:'$'+nf(sp[i]),sw:'var(--s1)'},{k:'лидов',v:String(ld[i]),sw:'var(--s2)'}]},ticksHtml);
 }
-// конверсии продавцов: взял в работу → закрыл
-function sellersFunnel(sellers){
-  const list=(sellers||[]).filter(s=>s.leadsTaken);
-  if(!list.length) return '';
-  return `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:12px">Конверсии продавцов · взял в работу → закрыл</div>
-    <div class="grid g2">`+list.map(s=>{
-      const conv=s.closings&&s.leadsTaken?Math.round(s.closings/s.leadsTaken*100):0;
-      const col=conv>=40?'#34d399':conv>=20?'#fbbf24':'#fb7185';
-      return `<div>
-        <div class="flex" style="justify-content:space-between;margin-bottom:8px"><b style="font-size:14px">${s.name}</b><span class="num" style="color:${col};font-weight:770;font-size:17px">${conv}%</span></div>
-        <div class="bar-track" style="height:26px;border-radius:8px;margin-top:0"><div style="height:100%;width:100%;background:rgba(139,130,232,.30);border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px">взял в работу<span class="num">${nf(s.leadsTaken)}</span></div></div>
-        <div class="bar-track" style="height:26px;border-radius:8px;margin-top:4px"><div style="height:100%;width:${Math.max(9,conv)}%;background:${col};border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px;color:#0d0a1f;font-weight:700;white-space:nowrap">закрыл<span class="num">${s.closings}</span></div></div>
-      </div>`}).join('')+`</div>
-    <div class="hint">Ширина нижней полосы = личная конверсия. Зелёный ≥40% · жёлтый ≥20% · красный ниже.</div></div>`;
+
+// история по месяцам — горизонтальные бары (emphasis: выбранный = акцент)
+function historyBars(trend,curKey,selKey){
+  const max=Math.max(1,...trend.map(t=>t.closings));
+  return trend.map(t=>{
+    const cur=t.month===curKey, sel=t.month===selKey;
+    const col=sel?'var(--acc)':'var(--neut)';
+    return `<div class="hrow">
+      <div class="hl"><b>${mLabel(t.month)}${cur?' <span class="mut" style="font-weight:500">· идёт</span>':''}</b>
+        <span class="v">${t.closings} закрытий · ${zl(t.contracted)}</span></div>
+      <div class="meter" style="background:rgba(139,135,168,.14)"><div style="width:${Math.max(2,t.closings/max*100)}%;background:${col};${cur?'opacity:.65':''}"></div></div>
+    </div>`;}).join('');
 }
-function gauge(p){ // 0..100+
-  const v=Math.max(0,Math.min(100,p)); const r=42,c=2*Math.PI*r, off=c*(1-v/100);
-  const col = p>=100?'var(--em)':p>=66?'var(--gold)':p>=33?'var(--amber)':'var(--red)';
-  return `<svg width="104" height="104" viewBox="0 0 104 104">
-    <circle cx="52" cy="52" r="${r}" fill="none" stroke="var(--bg2)" stroke-width="9"/>
-    <circle class="garc" style="--full:${c}" cx="52" cy="52" r="${r}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round"
-      stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 52 52)"/>
-    <text x="52" y="49" text-anchor="middle" fill="var(--tx)" font-size="21" font-weight="750">${p}%</text>
-    <text x="52" y="66" text-anchor="middle" fill="var(--tx-dd)" font-size="10">цели</text></svg>`;
-}
-function barsMonthly(trend,goal,curKey){
-  const max=Math.max(goal,...trend.map(t=>t.closings));
-  return `<div class="flex" style="align-items:flex-end;gap:16px;height:130px;padding-top:8px">`+
-    trend.map(t=>{const hh=(t.closings/max)*110; const cur=t.month===curKey;
-      const bg=cur?'repeating-linear-gradient(180deg,var(--p-l),var(--p-l) 4px,var(--p) 4px,var(--p) 8px)':'linear-gradient(180deg,var(--p-l),var(--p))';
-      return `<div style="flex:1;text-align:center;opacity:${cur?'.5':'1'}">
-        <div class="muted" style="font-size:12px;margin-bottom:5px">${t.closings}${cur?' ◷':''}</div>
-        <div style="height:${Math.max(2,hh)}px;background:${bg};border-radius:7px 7px 3px 3px"></div>
-        <div class="muted" style="font-size:11px;margin-top:6px">${mLabel(t.month)}${cur?' · идёт':''}</div></div>`}).join('')
-    +`</div>`;
-}
-function hbars(items, valOf, labOf, colorOf){
+// список-бары (услуги, стадии, источники)
+function hbarList(items,valOf,labOf,colOf){
   const max=Math.max(1,...items.map(valOf));
-  return items.map(it=>`<div style="margin:9px 0">
-    <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
-      <span>${labOf(it)}</span><span class="muted" style="font-variant-numeric:tabular-nums">${valOf(it)}</span></div>
-    <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${valOf(it)/max*100}%;background:${colorOf?colorOf(it):'var(--p)'}"></div></div>
-  </div>`).join('');
+  return items.map(it=>`<div class="hrow">
+    <div class="hl"><span>${labOf(it)}</span><span class="v">${valOf(it)}</span></div>
+    <div class="meter" style="height:7px;background:rgba(139,135,168,.13)"><div style="width:${valOf(it)/max*100}%;background:${colOf?colOf(it):'var(--s1)'}"></div></div></div>`).join('');
 }
-
-// ---- KPI card ----
-function kcard(lbl,val,sub,chip){
-  return `<div class="card k"><div class="lbl"><span>${lbl}</span>${chip||''}</div>
-    <div class="val">${val}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+// спарклайн
+function spark(vals,{w=140,h=44,color='var(--s1)'}={}){
+  const max=Math.max(1,...vals), dx=w/Math.max(1,vals.length-1);
+  const xy=vals.map((v,i)=>[i*dx,h-4-(v/max)*(h-10)]);
+  const line=xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  return `<svg viewBox="0 0 ${w} ${h}" style="width:${w}px;height:${h}px" preserveAspectRatio="none">
+    <path d="${line} L ${w} ${h} L 0 ${h} Z" fill="rgba(124,114,242,.08)"/>
+    <path class="draw" d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${xy[xy.length-1][0].toFixed(1)}" cy="${xy[xy.length-1][1].toFixed(1)}" r="3.5" fill="var(--acc)" stroke="var(--srf)" stroke-width="2"/></svg>`;
 }
-function delta(cur,prev){
-  if(!prev||prev===0) return '';
-  const g=Math.round((cur-prev)/prev*100);
-  return `<span class="chip ${g>=0?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`;
+// большой спарклайн (сайт)
+function sparkBig(vals){
+  const w=620,h=110,max=Math.max(1,...vals),dx=w/Math.max(1,vals.length-1);
+  const xy=vals.map((v,i)=>[i*dx,h-8-(v/max)*(h-20)]);
+  const line=xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:110px">${gridLines(w,h,[.35,.7])}
+    <path d="${line} L ${w} ${h} L 0 ${h} Z" fill="rgba(124,114,242,.08)"/>
+    <path class="draw" d="${line}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M${xy[xy.length-1][0].toFixed(1)} ${xy[xy.length-1][1].toFixed(1)} h0" stroke="var(--srf)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M${xy[xy.length-1][0].toFixed(1)} ${xy[xy.length-1][1].toFixed(1)} h0" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>`;
+  return {svg,xy};
 }
-
-// ---- render ----
-let CUR_KEY=null, DATA=null;   // выбранный месяц + последние данные (для перерисовки)
-let TAB='main';                // активная вкладка раздела
-const TABS=[['main','🏠 Главная'],['sales','💰 Продажи'],['ads','📣 Реклама'],['fin','🧾 Финансы'],['clients','👩‍💼 Клиенты']];
-function setTab(id){ TAB=id;
-  document.querySelectorAll('.tabwrap').forEach(e=>e.classList.toggle('on', e.dataset.tw===id));
-  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on', e.dataset.tb===id));
-  window.scrollTo({top:0});
-  if(typeof armAnimations==='function') armAnimations(); }
-function tabsNav(){ return `<div class="tabs">`+TABS.map(([id,l])=>`<button class="tab ${TAB===id?'on':''}" data-tb="${id}" onclick="setTab('${id}')">${l}</button>`).join('')+`</div>`; }
-function twO(id){ return `<div class="tabwrap ${TAB===id?'on':''}" data-tw="${id}">`; }
-function twC(){ return `</div>`; }
-function render(d){
-  DATA=d;
-  if(d.role==='seller'){ renderSeller(d); return; }   // продавец → свой экран
-  // выбранный месяц: сохраняем выбор пользователя, иначе месяц по умолчанию
-  if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.prevMonthKey;
-  const pm = (d.months && d.months[CUR_KEY]) || d.prevMonth;   // блок выбранного месяца
-  const fc=d.forecast, pnl=(pm && pm.pnl) || null, site=d.site;  // PnL строго выбранного месяца
-  $('#genLabel').textContent = 'данные обновлены '+ (d.generatedLabel||'') + ' в '+String(d.generatedAt||'').slice(11,16) + ' · авто каждые 2 часа' + (d.goal?(' · цель '+d.goal+'/мес'):'');
-  const paceTxt = fc.paceNote==='mtd'
-    ? `Прогноз по темпу месяца (${fc.daysElapsed} из ${fc.daysInMonth} дней, уже закрыто ${fc.closingsMTD}).`
-    : `Текущий месяц только начался — прогноз построен по итогам прошлого месяца (${mLabel(fc.baseMonth)}).`;
-
-  // переключатель месяца (архив)
-  const monSel = (d.monthOrder&&d.monthOrder.length)
-    ? `<div style="display:flex;align-items:center;gap:10px;margin:2px 2px 4px">
-         <span class="muted" style="font-size:12px">Месяц:</span>
-         <select id="monthSel" style="background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer">
-           ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
-         </select></div>` : '';
-
-  let html=monSel;
-  // ===== 👑 ГЛАВНОЕ — король-метрики: PnL · Реклама · Конверсия · Цель =====
-  html += secTitle('👑','Главное · '+monthName(pm,d));
-  const profitGlow = pnl ? (pnl.profit>0?'glow-em':'glow-red') : '';
-  // прошлый месяц для сравнения (чипы ▲/▼)
-  const _py=+CUR_KEY.slice(0,4), _pmn=+CUR_KEY.slice(5,7);
-  const _prevKey=(_pmn>1?`${_py}-${String(_pmn-1).padStart(2,'0')}`:`${_py-1}-12`);
-  const prevM=(d.months||{})[_prevKey]||{};
-  const kd=(cur,prev,goodUp)=>{ if(cur==null||prev==null||!prev) return '';
-    const g=Math.round((cur-prev)/Math.abs(prev)*100); if(!isFinite(g)) return '';
-    const good=goodUp?g>=0:g<0;
-    return ` <span class="chip ${good?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`; };
-  html += `<div class="grid g4">
-    <div class="card k hero clickable ${profitGlow}" onclick="setTab('fin')"><div class="lbl">${pnl&&pnl.profit<0?'Убыток месяца':'Прибыль месяца'}${kd(pnl&&pnl.profit,prevM.pnl&&prevM.pnl.profit,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
-      <div class="val"><span class="${pnl&&pnl.profit<0?'neg':'pos'}">${zl(pnl?pnl.profit:null)}</span></div>
-      <div class="sub">пришло ${zl(pnl?pnl.income:null)} − потратили ${zl(pnl?pnl.expenses:null)}</div></div>
-    <div class="card k hero glow-gold clickable" onclick="setTab('sales')"><div class="lbl">Деньги пришли${kd(pm.collected,prevM.collected,true)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
-      <div class="val">${zl(pm.collected)}</div>
-      <div class="sub">+ подписано договоров на ${zl(pm.contracted)}</div></div>
-    <div class="card k hero clickable" onclick="setTab('ads')"><div class="lbl">1 клиент с рекламы стоит${kd(pm.cacTraffic,prevM.cacTraffic,false)}<span class="muted" style="font-size:10.5px">детали ⌄</span></div>
-      <div class="val">${zl(pm.cacTraffic||pm.cac)}</div>
-      <div class="sub">а платит сразу ~${zl(pm.avgFirstPay)} → реклама ${(pm.roasTrafficP1||0)>=1?'окупается':'пока не окупается'} (×${pm.roasTrafficP1||'—'})</div></div>
-    ${CUR_KEY===d.defaultMonth
-      ? `<div class="card k hero"><div class="lbl">Будет закрытий к концу месяца</div>
-          <div class="gauge-wrap" style="margin-top:2px">${gauge(fc.goalPct)}
-          <div><div class="val">${fc.projClosings}</div><div class="sub">цель ${fc.goal}</div></div></div></div>`
-      : kcard('План месяца', (pm.closings??'—')+' / '+(pm.goal??'—'), pm.goal?(Math.round((pm.closings||0)/pm.goal*100)+'% плана'):'план не задан')}
+// полукруглый гейдж прогноза + ромб «куда идём по темпу»
+function gaugeSemi(now,goal,proj){
+  const R=58,cx=76,cy=72,arc=Math.PI*R;
+  const donePct=goal?Math.min(1,now/goal):0;
+  const projPct=goal?Math.min(1,(proj||0)/goal):0;
+  const ang=Math.PI*(1-projPct);
+  const dx=cx+R*Math.cos(ang), dy=cy-R*Math.sin(ang);
+  return `<svg width="152" height="84" viewBox="0 0 152 84">
+    <path d="M ${cx-R} ${cy} A ${R} ${R} 0 0 1 ${cx+R} ${cy}" fill="none" stroke="rgba(124,114,242,.16)" stroke-width="12" stroke-linecap="round"/>
+    <circle class="garc" style="--full:${arc.toFixed(1)}" cx="0" cy="0" r="${R}" fill="none" stroke="var(--acc)" stroke-width="12" stroke-linecap="round"
+      stroke-dasharray="${(arc*donePct).toFixed(1)} ${(arc*2).toFixed(1)}" stroke-dashoffset="0"
+      transform="translate(${cx},${cy}) rotate(180)" pathLength="${(arc*2).toFixed(1)}"/>
+    ${proj?`<rect x="-4.5" y="-4.5" width="9" height="9" transform="translate(${dx.toFixed(1)},${dy.toFixed(1)}) rotate(45)" fill="var(--t1)" stroke="var(--srf)" stroke-width="1.5"/>`:''}
+    <text x="${cx}" y="${cy-14}" text-anchor="middle" fill="var(--t1)" font-size="26" font-weight="700" font-family="Golos Text">${now}</text>
+    <text x="${cx}" y="${cy+2}" text-anchor="middle" fill="var(--t3)" font-size="11" font-family="Golos Text">из ${goal||'—'}</text>
+  </svg>`;
+}
+// донат расходов (зазоры 2px поверхностью, sequential-оттенки по фикс-карте)
+function donut(cats,total){
+  const R=68,cx=90,cy=90,circ=2*Math.PI*R,gapPx=2.5;
+  let off=0;
+  const segs=cats.map(c=>{
+    const len=Math.max(0,(c.amount/total)*circ-gapPx);
+    const seg=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${expC(c.name)}" stroke-width="22"
+      stroke-dasharray="${len.toFixed(1)} ${(circ-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    off+=len+gapPx; return seg;}).join('');
+  return `<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;margin-top:8px">
+    <svg width="180" height="180" viewBox="0 0 180 180" style="flex-shrink:0">${segs}
+      <text x="${cx}" y="${cy-2}" text-anchor="middle" fill="var(--t1)" font-size="21" font-weight="700" font-family="Golos Text">${nf(total)}</text>
+      <text x="${cx}" y="${cy+16}" text-anchor="middle" fill="var(--t3)" font-size="10.5" font-family="Golos Text">zł расходов</text></svg>
+    <div style="flex:1;min-width:170px">${cats.map(c=>`<div style="display:flex;justify-content:space-between;gap:10px;margin:8px 0;font-size:13px">
+      <span><span class="dot" style="background:${expC(c.name)}"></span>${esc(c.name)}</span>
+      <span class="t2 num">${zl(c.amount)} · ${Math.round(c.amount/total*100)}%</span></div>`).join('')}</div>
   </div>`;
-  if(CUR_KEY===d.defaultMonth) html += `<div class="hint">${paceTxt}</div>`;
-
-  if(CUR_KEY===d.defaultMonth) html += renderAlerts(buildAlerts(d,pm,pnl));
-  html += tabsNav();
-  html += twO('main');
-
-  // ===== 🤖 МОЙ ПРОГНОЗ (по темпу продавцов) =====
-  if(CUR_KEY===d.defaultMonth && d.forecastAI){
-    const fa=d.forecastAI;
-    html += `<div class="card" style="margin-top:14px">
-      <div class="lbl" style="margin-bottom:8px">🤖 Прогноз от ИИ · по темпу ребят</div>
-      <div style="font-size:13.5px;line-height:1.65">${fa.text}</div>
-      <div class="lgd" style="margin-top:12px">${fa.bySeller.map(x=>`<span><span class="dot" style="background:var(--p-l)"></span>${x.name}: сейчас ${x.now} → прогноз ~${x.proj}</span>`).join('')}
-        <span><span class="dot" style="background:var(--gold)"></span>Команда: ~${fa.teamProj} из ${fa.goal}</span></div>
-    </div>`;
-  }
-
-  // ===== ⏱ ТЕКУЩИЙ МЕСЯЦ (live-разворот, пока главная показывает завершённый) =====
-  if(CUR_KEY===d.defaultMonth && d.curMonthKey!==d.defaultMonth){
-    const cm=(d.months||{})[d.curMonthKey];
-    if(cm){
-      const donePct=cm.goal?Math.round((cm.closings||0)/cm.goal*100):null;
-      html += accO('⏱','Текущий месяц · '+mLabel(d.curMonthKey)+' · живой счёт', false);
-      html += `<div class="grid g4">
-        ${kcard('Закрытий', cm.closings||0, cm.goal?('план '+cm.goal+' · '+donePct+'%'):'сделок')}
-        ${kcard('Собрано', zl(cm.collected), (cm.pnl&&cm.pnl.income)?'по PnL':'по таблице клиентов')}
-        ${kcard('Лидов', nf(cm.leads), cm.cpl!=null?('CPL '+zl(cm.cpl)):'копится')}
-        ${kcard('Расход рекламы', zl(cm.budget), cm.activeDays?(cm.activeDays+' активных дней'):'')}
-      </div>`;
-      html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📆 По дням · ${mLabel(d.curMonthKey)}</div>
-        ${dailyChart(cm.deals, d.curMonthKey, cm.goal, d.curMonthKey, d.generatedAt)}
-        <div class="hint">Метка — сегодняшний день. Зелёная линия против пунктира плана.</div></div>`;
-      if(cm.quality&&cm.quality.length){
-        html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Источники месяца</div>
-          ${cm.quality.map(x=>`<span class="chip" style="margin-right:6px">${srcLabelRu(x.source)} ${x.count}</span>`).join('')}</div>`;
-      }
-      if(cm.deals&&cm.deals.length){
-        html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Сделки · ${cm.deals.length}</div>${dealsTable(cm.deals)}</div>`;
-      }
-      html += `<button class="ghost" style="margin-top:12px" onclick="CUR_KEY='${d.curMonthKey}';render(DATA);window.scrollTo(0,0)">Открыть ${mLabel(d.curMonthKey)} полным экраном →</button>`;
-      html += accC();
-    }
-  }
-
-  // ===== ПРОДАЖИ =====
-  const _pi = d.trend.findIndex(t=>t.month===CUR_KEY);
-  const growth = _pi>0 ? delta(d.trend[_pi].closings, d.trend[_pi-1].closings) : '';
-  html += secTitle('💰','Продажи · '+monthName(pm,d,'prev'));
-  html += `<div class="grid g4">
-    ${kcard('Закрытий', pm.closings, pm.goal?('план '+pm.goal+' · '+Math.round(pm.closings/pm.goal*100)+'% плана'):'сделок за месяц', growth)}
-    ${kcard('Контракты', zl(pm.contracted), 'сумма подписанных сделок')}
-    ${kcard('Собрано', zl(pm.collected), 'фактически поступило')}
-    ${kcard('Средний чек', zl(pm.avgDeal))}
-  </div>`;
-  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📆 По дням · ${monthName(pm,d)}</div>
-    ${dailyChart(pm.deals, CUR_KEY, pm.goal, d.curMonthKey, d.generatedAt)}
-    <div class="hint">Пунктир — равномерный темп к плану${pm.goal?' ('+pm.goal+' закрытий)':''}. Зелёная линия выше пунктира = опережаем, ниже = отстаём.</div></div>`;
-  html += twC() + twO('sales');
-  html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">📈 Вся история · закрытия по месяцам</div>
-    ${barsMonthly(d.trend, d.goal, d.curMonthKey)}
-    <div class="hint">Всего в базе: ${d.closingsTotal||'—'} сделок. График растёт с каждым месяцем.</div></div>`;
-
-  // ===== ПО ПРОДАВЦАМ =====
-  if(pm.bySeller && pm.bySeller.length){
-    html += secTitle('👥','По продавцам · '+monthName(pm,d),'личные результаты Талыша и Адриана: план, деньги, лиды, конверсия');
-    html += `<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
-    html += sellersFunnel(pm.bySeller);
-  }
-  // ===== ИСТОЧНИКИ ЗАКРЫТИЙ (качество, из чата оплат) — виден всегда =====
-  html += secTitle('🎯','Источники закрытий · '+monthName(pm,d),'откуда пришли купившие клиенты — тегируется автоматически из чата оплат');
-  if(pm.quality && pm.quality.length){
-    const q=pm.quality, tot=pm.qualityTotal||q.reduce((s,x)=>s+x.count,0);
-    html += `<div class="card">
-      ${q.map(x=>`<div style="margin:9px 0">
-        <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
-          <span>${srcLabelRu(x.source)}</span><span class="muted">${x.count} · ${Math.round(x.count/tot*100)}%${x.amount?' · '+zl(x.amount):''}</span></div>
-        <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${x.count/tot*100}%;background:${srcColor(x.source)}"></div></div></div>`).join('')}
-      <div class="hint">Из чата оплат (бот тегирует каждую оплату). За месяц отмечено ${tot}.</div>
-    </div>`;
-  } else {
-    html += `<div class="card">
-      <div style="font-size:13.5px;line-height:1.6">Здесь будет разбивка: ${['лид','тикток','входящий','суприм','сарафан','груп'].map(s=>`<span class="chip" style="margin-right:6px">${srcLabelRu(s)}</span>`).join('')}</div>
-      <div class="hint">Бот читает чат «Oплаты LegalSol» и тегирует каждую оплату автоматически — <b>с июля</b> разбивка наполняется сама (первая уже поймана).
-      За <b>июнь</b> историю чата бот достать не может (лимит Telegram ~24ч) — нужен разовый экспорт: Telegram Desktop → чат оплат → ⋮ → Export chat history → JSON → скинуть Владу/мне.</div>
-    </div>`;
-  }
-
-  // ===== СПИСОК ЗАКРЫТИЙ =====
-  if(pm.deals && pm.deals.length){
-    html += accO('📋','Закрытия · '+monthName(pm,d)+' · '+pm.deals.length+' сделок', true);
-    html += `<div class="card">${dealsTable(pm.deals)}
-      <div class="hint">Цена — полная стоимость сделки; «оплачено» — 1-я + 2-я оплаты по таблице клиентов.</div></div>`;
-    html += accC();
-  }
-  if(pm.byService && pm.byService.length){
-    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Услуги — что закрывают</div>
-      ${hbars(pm.byService,x=>x.count,x=>x.service,()=>'var(--p)')}</div>`;
-  }
-
-  html += twC() + twO('ads');
-  // ===== РЕКЛАМА (источник: «Бюджет LegalSol», zł) =====
-  html += secTitle('📣','Анализ рекламы · '+monthName(pm,d),'что дал каждый вложенный в рекламу злотый');
-  html += `<div class="grid g4">
-    ${pm.budget?kcard('Расход (списания банка)', zl(pm.budget), 'FB '+zl(pm.fbActual)+' + TikTok '+zl(pm.ttActual)+' · трекинг $'+nf(pm.spendUsdTracked)):kcard('Расход · трекинг', '$'+nf(pm.spendUsdTracked), 'точные zł-метрики — после списаний банка')}
-    ${kcard('Заявок с рекламы (лидов)', nf(pm.leads),'1 лид обошёлся в '+zl(pm.cpl))}
-    ${kcard('Цена закрытия (трафик)', zl(pm.cacTraffic||pm.cac), pm.roasTrafficP1?('окупается ×'+pm.roasTrafficP1+' первой оплатой · ×'+pm.roasTrafficContract+' контрактом'):'расход ÷ трафиковые закрытия')}
-    ${kcard('Из 100 лидов покупают', (pm.convTraffic!=null?Math.round(pm.convTraffic):'—')+' чел.', pm.trafficClosings!=null?(pm.trafficClosings+' закрытий с трафика из '+nf(pm.leads)+' лидов'):'появится с тегами из чата')}
-  </div>`;
-  const adLeads = (d.adDaily||[]).map(x=>x.leads||0);
-  html += `<div class="grid g2" style="margin-top:14px">
-    <div class="card"><div class="lbl" style="margin-bottom:6px">Зависимость: расход → лиды (по дням)</div>
-      ${comboChart(d.adDaily||[])}
-      <div class="hint">Органика вне трафика: 📇 суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · 🤝 сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>
-    <div class="card"><div class="lbl" style="margin-bottom:10px">Каналы трафика · заявки и расход ($)</div>
-      ${pm.channels?Object.entries(pm.channels).map(([n,c])=>`<div style="margin:9px 0">
-        <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${n}</span><span class="muted num">${c.leads} заявок · $${nf(c.usd)}${c.leads?' · CPL $'+(Math.round(c.usd/c.leads*10)/10):''}</span></div>
-        <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${Math.max(6,c.leads/Math.max(1,...Object.values(pm.channels).map(x=>x.leads))*100)}%;background:${n.includes('Whats')?'#38bdf8':'#fde047'}"></div></div></div>`).join(''):'<div class="muted">нет данных</div>'}
-      ${(pm.bySeller||[]).some(s=>s.wa)?`<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
-        <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">💬 Входящие — WhatsApp-кабинеты ($, вручную)</div>
-        ${(pm.bySeller||[]).filter(s=>s.wa).map(s=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:4px 0"><span>${s.name}</span><span class="muted num">$${nf(s.wa.spendUsd)} → ${s.wa.leads} заявок${s.wa.cpl!=null?' · CPL $'+s.wa.cpl:''}</span></div>`).join('')}</div>`:''}</div>
-  </div>
-  <div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:10px">Воронка трафика · ${monthName(pm,d)}</div>
-    ${trafficFunnel(pm)}
-  </div>`;
-
-  html += twC() + twO('fin');
-  // ===== ФИНАНСЫ (PnL) =====
-  if(pnl){
-    html += accO('🧾','Финансы · PnL '+(pnl.month||'')+' · подробно', false);
-    html += `<div class="grid g4">
-      ${kcard('Доход', zl(pnl.income), pnl.firmIncome!=null?('🏦 фирма '+zl(pnl.firmIncome)+' · 💵 нал '+zl(pnl.cashIncome||0)):'поступления за месяц')}
-      ${kcard('Расход', zl(pnl.expenses))}
-      ${kcard('Прибыль', `<span class="${(pnl.profit||0)<0?'neg':'pos'}">${zl(pnl.profit)}</span>`,'маржа '+pct(pnl.margin))}
-      ${kcard('ROI', `<span class="${(pnl.roi||0)<0?'neg':'pos'}">${pct(pnl.roi)}</span>`, pnl.newCases!=null?('новые сделки '+zl(pnl.newCases)):'')}
-    </div>`;
-    if((pnl.profit||0)<0){
-      html += `<div class="hint neg">⚠ Прибыль отрицательная: расходы выше поступлений. Основная выручка ещё в дебиторке — контракты ${zl(pm.contracted)}, собрано ${zl(pm.collected)} (не собрано ~${zl(pm.contracted-pm.collected)}).</div>`;
-    }
-    // разбивка расходов по статьям + связка с выручкой
-    if(pnl.expenseCats && Object.keys(pnl.expenseCats).length){
-      const cats=Object.entries(pnl.expenseCats).map(([k,v])=>({name:k,amount:v})).sort((a,b)=>b.amount-a.amount);
-      const totExp=cats.reduce((s,c)=>s+c.amount,0), income=pnl.income||0;
-      html += `<div class="grid g2" style="margin-top:14px">
-        <div class="card exp-card clickable" onclick="this.classList.toggle('open')">
-          <div class="lbl" style="margin-bottom:10px">Расходы по статьям <span class="tap muted" style="font-size:11px">· нажми — график 📊</span></div>
-          ${cats.map(c=>`<div style="margin:9px 0">
-            <div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px">
-              <span>${c.name}</span><span class="muted">${zl(c.amount)} · ${Math.round(c.amount/totExp*100)}%</span></div>
-            <div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${c.amount/totExp*100}%;background:${expColor(c.name)}"></div></div></div>`).join('')}
-          <div class="hint">Каждая статья — % от расходов. Реклама ${Math.round((pnl.expenseCats['Реклама']||0)/income*100)}% от выручки.</div>
-          <div class="exp-donut">${donutChart(cats, totExp)}</div>
-        </div>
-        <div class="card"><div class="lbl" style="margin-bottom:10px">Выручка → расходы</div>
-          ${incomeVsExpense(income, totExp, cats)}
-        </div>
-      </div>`;
-    }
-    // распределение прибыли (10 реинвест + 10 резерв + 80 дивиденды → Влад 64% / Аким 16%)
-    if(d.founders && d.founders.profitSplit && pnl.profit!=null){
-      const ps=d.founders.profitSplit, dv=d.founders.dividends||{Влад:80,Аким:20}, P=pnl.profit;
-      const parts=[
-        {n:'Фонд реинвестиции', pct:ps['Реинвестиция']||10, col:'#38bdf8'},
-        {n:'Резервный фонд', pct:ps['Резерв']||10, col:'#8B82E8'},
-        {n:'Влад', pct:Math.round((ps['Дивиденды']||80)*(dv['Влад']||80)/100), col:'#34d399'},
-        {n:'Аким', pct:Math.round((ps['Дивиденды']||80)*(dv['Аким']||20)/100), col:'#fde047'},
-      ];
-      html += secTitle('💸','Распределение прибыли','как делим прибыль, когда она есть: фонды → доли');
-      if(P>0){
-        html += `<div class="grid g4">${parts.map(p=>kcard(p.n, zl(P*p.pct/100), p.pct+'% прибыли')).join('')}</div>
-          <div class="hint">Прибыль ${zl(P)} делится: 10% реинвестиции + 10% резерв + 80% дивиденды (Влад/Аким 80/20).</div>`;
-      } else {
-        html += `<div class="card"><div class="hint neg" style="margin-top:0">Прибыль в минусе (${zl(P)}) — распределять пока нечего. Правило заработает, как выйдешь в плюс:</div>
-          <div style="margin-top:12px">${parts.map(p=>`<div style="margin:8px 0"><div class="flex" style="justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${p.n}</span><span class="muted">${p.pct}%</span></div><div class="bar-track" style="margin-top:0"><div class="bar-fill" style="width:${p.pct}%;background:${p.col}"></div></div></div>`).join('')}</div>
-          <div class="hint">Кредит Акима (44 800 zł) гасится отдельно — не из этого распределения.</div></div>`;
-      }
-    }
-  }
-
-  if(pnl) html += accC();
-
-  // ===== УЧРЕДИТЕЛИ (глобально) =====
-  if(d.founders){
-    const f=d.founders;
-    html += accO('🤝','Учредители · кредит Акима и доли', false);
-    const repPct = f.akimTotal? Math.round((f.akimRepaid||0)/f.akimTotal*100):0;
-    html += `<div class="grid g3">
-      ${kcard('Долг Акиму (осталось)', zl(f.akimRemaining), f.akimRepaid?('погашено '+zl(f.akimRepaid)+' из '+zl(f.akimTotal)):('всего '+zl(f.akimTotal)+' · нал'))}
-      ${kcard('Доля Влада', (f.dividends['Влад']||0)+'%', 'дивиденды')}
-      ${kcard('Доля Акима', (f.dividends['Аким']||0)+'%', 'дивиденды')}
-    </div>`;
-    html += `<div class="card" style="margin-top:14px">
-      <div class="lbl" style="margin-bottom:8px">Погашение долга Акиму</div>
-      <div class="bar-track" style="height:12px"><div class="bar-fill" style="width:${repPct}%;background:linear-gradient(90deg,var(--em),var(--gold))"></div></div>
-      <div class="hint">Погашено ${zl(f.akimRepaid)} из ${zl(f.akimTotal)} · осталось ${zl(f.akimRemaining)} (${repPct}%). ${f.akimRepaid?'':'Начинаем гасить с августа.'}</div>
-      ${(f.akim.repayments&&f.akim.repayments.length)?`<table style="margin-top:10px"><thead><tr><th>Дата</th><th class="n">Погашено</th></tr></thead><tbody>${f.akim.repayments.map(r=>`<tr><td>${r.date?dLabel(r.date):'—'}</td><td class="n pos">${zl(r.amount)}</td></tr>`).join('')}</tbody></table>`:''}
-    </div>`;
-    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Кредит Акима (заёмные, всё нал) — из чего состоит</div>
-      <table><tbody>${f.akim.items.map(i=>`<tr><td>${i.label}${i.cash?' <span class="chip">нал</span>':''}</td><td class="n">${zl(i.amount)}</td></tr>`).join('')}
-      <tr><td style="font-weight:700">Итого</td><td class="n" style="font-weight:750;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>`;
-    html += accC();
-  }
-
-  html += twC() + twO('main');
-  // ===== ЖДЁМ ОПЛАТ (дебиторка, глобально — не зависит от выбранного месяца) =====
-  if(d.receivables && d.receivables.count){
-    const rc=d.receivables, todayKey=d.curMonthKey, todayIso=(d.generatedAt||'').slice(0,10);
-    const monthCards = rc.byMonth.filter(m=>m.month!=='—').map(m=>{
-      const overdue = m.month < todayKey;
-      return kcard((overdue?'⚠ ':'')+mLabel(m.month), zl(m.sum), m.count+' сделок'+(overdue?' · просрочено':''));
-    });
-    const noDate = rc.byMonth.find(m=>m.month==='—');
-    html += secTitle('⏳','Ждём оплат','кто и когда должен доплатить — это твои будущие деньги');
-    html += `<div class="grid g4">
-      ${kcard('Всего ждём', zl(rc.total), rc.count+' открытых сделок')}
-      ${monthCards.slice(0,2).join('')}
-      ${noDate?kcard('Без дедлайна', zl(noDate.sum), noDate.count+' — проставить дату'):''}
-    </div>`;
-    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:8px">Ближайшие оплаты</div>
-      <table><thead><tr><th>Клиент</th><th>Продавец</th><th class="n">Ждём</th><th class="n">Дедлайн</th><th>Статус</th></tr></thead>
-      <tbody>${rc.items.slice(0,15).map(i=>{const od=i.deadline&&i.deadline<todayIso;
-        return `<tr><td>${i.name}</td><td class="muted">${i.closer}</td><td class="n">${zl(i.remain)}</td><td class="n ${od?'neg':''}">${i.deadline?dLabel(i.deadline):'—'}</td><td class="muted" style="font-size:12px">${i.status}</td></tr>`}).join('')}</tbody></table>
-      <div class="hint">Ближайшие 15 из ${rc.count}. Красный дедлайн = просрочен. Собрать это → уйдёт в плюс.</div></div>`;
-  }
-
-  html += twC() + twO('clients');
-  // ===== 👩‍💼 КЛИЕНТЫ В ПРОИЗВОДСТВЕ (Kommo, Даша) =====
-  if(d.ops){
-    const o=d.ops;
-    html += secTitle('👩‍💼','Клиенты в производстве','что происходит с клиентами после оплаты — зона Даши');
-    html += `<div class="grid g4">
-      ${kcard('Дел в работе', o.total, 'воронка «Легализация»')}
-      ${kcard('Застряло >7 дней', `<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`, o.stale.length?('топ: '+o.stale[0].days+' дн. без движения'):'')}
-      ${kcard('Активность · 30 дн', (o.notes30.capped?'250+':o.notes30.total), 'заметок по делам')}
-      ${kcard('Писем клиентам', o.notes30.emails, 'за 30 дней')}
-    </div>`;
-    html += `<div class="grid g2" style="margin-top:14px">
-      <div class="card"><div class="lbl" style="margin-bottom:10px">По стадиям</div>
-        ${hbars(o.byStage, x=>x.count, x=>x.stage, ()=>'var(--cyan)')}</div>
-      <div class="card"><div class="lbl" style="margin-bottom:8px">Застоявшиеся дела · без движения</div>
-        <table><thead><tr><th>Клиент</th><th>Стадия</th><th class="n">Дней</th></tr></thead>
-        <tbody>${o.stale.map(x=>`<tr><td>${x.name}</td><td class="muted" style="font-size:12px">${x.stage}</td><td class="n ${x.days>14?'neg':''}">${x.days}</td></tr>`).join('')||'<tr><td colspan=3 class="muted">все дела в движении 👍</td></tr>'}</tbody></table>
-        <div class="hint">Дней с последнего изменения сделки в Kommo. Красное >14 дней — глянуть с Дашей.</div></div>
-    </div>`;
-  }
-
-  // ===== САЙТ =====
-  if(site){
-    const per = site.period? (`${site.period.days} дней · до ${dLabel(site.period.end)}`):'';
-    const staleDays = site.period? Math.round((new Date(d.generatedAt)-new Date(site.period.end))/864e5) : 0;
-    html += accO('🌐','Сайт · '+per+(staleDays>3?' ⚠':''), false);
-    if(staleDays>3) html += `<div class="hint" style="margin:-6px 2px 10px">⚠ Данные сайта устарели на ${staleDays} дн. — нужно прогнать analytics-agent.</div>`;
-    html += `<div class="grid g4">
-      ${kcard('Пользователи', nf(site.users), 'сессий '+nf(site.sessions))}
-      ${kcard('Просмотры', nf(site.views))}
-      ${kcard('Клики WhatsApp', nf(site.wa),'звонки '+nf(site.phone))}
-      ${kcard('Конверсия', pct(site.conv),'отказы '+pct(site.bounce))}
-    </div>`;
-    const traf=(site.daily||[]).map(x=>x.users||0);
-    html += `<div class="card" style="margin-top:14px"><div class="lbl" style="margin-bottom:6px">Трафик по дням</div>
-      ${traf.length?sparkline(traf,{color:'var(--p-l)'}):''}</div>`;
-    html += `<div class="grid g2" style="margin-top:14px">
-      <div class="card"><div class="lbl" style="margin-bottom:10px">Источники трафика</div>
-        ${hbars((site.sources||[]).slice(0,7),x=>x.sessions,x=>srcLabel(x),x=>x.paid?'var(--gold)':'var(--p-l)')}</div>
-      <div class="card"><div class="lbl" style="margin-bottom:10px">Страны</div>
-        <table><tbody>${(site.countries||[]).map(c=>`<tr><td>${countryLabel(c.country)}${c.bot?' <span class="chip">бот</span>':''}</td><td class="n">${nf(c.users)}</td></tr>`).join('')}</tbody></table></div>
-    </div>`;
-  }
-
-  html += `<div class="hint" style="margin-top:26px;text-align:center">Источники: таблицы закрытий · реклама · PnL · GA4. Всего сделок в базе: ${d.closingsTotal||'—'}.</div>`;
-
-  html += twC();
-  $('#content').innerHTML = html;
-  const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; render(DATA); };
-  animateNumbers();
-  armAnimations();
 }
-
-// ---- экран продавца: только свои метрики + счёт команды + свои должники ----
-function renderSeller(d){
-  if(!CUR_KEY || !(d.months && d.months[CUR_KEY])) CUR_KEY = d.defaultMonth || d.curMonthKey;
-  const m = (d.months||{})[CUR_KEY] || {};
-  const me = m.me;
-  const h1=$('#app h1'); if(h1) h1.textContent='Кабинет продаж';
-  $('#genLabel').textContent = (d.name||'')+' · мои продажи · обновлено '+(d.generatedLabel||'')+' в '+String(d.generatedAt||'').slice(11,16);
-  const monSel = (d.monthOrder&&d.monthOrder.length)
-    ? `<div style="display:flex;align-items:center;gap:10px;margin:2px 2px 4px">
-         <span class="muted" style="font-size:12px">Месяц:</span>
-         <select id="monthSel" style="background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer">
-           ${d.monthOrder.map(k=>`<option value="${k}" ${k===CUR_KEY?'selected':''}>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</option>`).join('')}
-         </select></div>` : '';
-  let html = monSel;
-  html += secTitle('🎯','Мои продажи · '+mLabel(CUR_KEY));
-  if(me){
-    const teamPct = m.goal? Math.round(m.closings/m.goal*100) : null;
-    html += `<div class="grid g4">
-      ${kcard('Мои закрытия', me.closings??'—', 'сделок за месяц')}
-      ${kcard('Собрано 1-е', zl(me.fact), me.plan?('план '+zl(me.plan)):'')}
-      ${kcard('% моего плана', me.planPct!=null?pct(me.planPct):'—','по деньгам')}
-      ${kcard('Средний чек', zl(me.avgCheck))}
-    </div>`;
-    html += `<div class="grid g2" style="margin-top:14px">
-      ${sellerCard(me)}
-      <div class="card"><div class="lbl" style="margin-bottom:8px">Команда к плану месяца</div>
-        <div class="bar-track" style="height:12px"><div class="bar-fill" style="width:${Math.min(100,teamPct||0)}%"></div></div>
-        <div class="hint">Команда: ${m.closings??'—'} из ${m.goal??'—'} закрытий${teamPct!=null?(' · '+teamPct+'%'):''}. Твой вклад: ${me.closings??0}.</div>
-      </div>
-    </div>`;
-  } else {
-    html += `<div class="card"><div class="muted">Нет данных за этот месяц.</div></div>`;
-  }
-  if(m.deals && m.deals.length){
-    html += accO('📋','Мои закрытия · '+mLabel(CUR_KEY)+' · '+m.deals.length, true);
-    html += `<div class="card">${dealsTable(m.deals)}</div>`;
-    html += accC();
-  }
-  const rc = d.receivables||{};
-  if(rc.count){
-    const todayIso=(d.generatedAt||'').slice(0,10);
-    html += secTitle('⏳','Мои клиенты — ждём оплат');
-    html += `<div class="card"><div class="lbl" style="margin-bottom:8px">Всего ждём ${zl(rc.total)} · ${rc.count} клиентов</div>
-      <table><thead><tr><th>Клиент</th><th class="n">Ждём</th><th class="n">Дедлайн</th><th>Статус</th></tr></thead>
-      <tbody>${rc.items.map(i=>{const od=i.deadline&&i.deadline<todayIso;
-        return `<tr><td>${i.name}</td><td class="n">${zl(i.remain)}</td><td class="n ${od?'neg':''}">${i.deadline?dLabel(i.deadline):'—'}</td><td class="muted" style="font-size:12px">${i.status}</td></tr>`}).join('')}</tbody></table>
-      <div class="hint">Красный дедлайн = просрочен — дожми оплату.</div></div>`;
-  }
-  $('#content').innerHTML = html;
-  const ms=$('#monthSel'); if(ms) ms.onchange=e=>{ CUR_KEY=e.target.value; renderSeller(DATA); };
-  animateNumbers();
-  armAnimations();
-}
-
-// анимации стартуют, когда блок доезжает до экрана (reveal-on-scroll)
-function armAnimations(){
-  const targets=[...document.querySelectorAll('#content .card, #content .alert, #content .bar-track>div, #content svg path.draw, #content circle.garc')];
-  targets.forEach(el=>{ el.style.animationPlayState='paused'; });
-  const check=()=>{
-    for(let i=targets.length-1;i>=0;i--){
-      const el=targets[i], r=el.getBoundingClientRect();
-      const vh=Math.max(innerHeight||0, document.documentElement.clientHeight||0, 600);
-      if(r.bottom>0 && r.top < vh*0.96 && (r.width||r.height)){
-        el.style.animationPlayState='running';
-        targets.splice(i,1);
-      }
+// воронка конверсии (ординальная шкала, общий maxRef у всех продавцов месяца)
+const FUN_COLS=['#B7B0F9','#8F85F0','#7A71E3'];
+function stepFunnel(steps,maxRef,finalLine,noteLine){
+  const max=Math.max(1,maxRef||0,...steps.map(s=>s.v||0));
+  let html='<div class="funnel">';
+  steps.forEach((s,i)=>{
+    if(i>0){
+      const prev=steps[i-1].v||0, tr=prev?Math.round((s.v||0)/prev*100):null;
+      html+=`<div class="fstep" style="margin-top:2px"><div></div><div class="ftrans">${tr!=null?`<span class="chip ${s.weak?'w':''}">↓ ${tr}%</span>`:''}</div></div>`;
     }
-  };
-  if(window.__animScroll) removeEventListener('scroll', window.__animScroll);
-  let tick=false;
-  window.__animScroll=()=>{ if(!tick){ tick=true; requestAnimationFrame(()=>{ check(); tick=false; }); } };
-  addEventListener('scroll', window.__animScroll, {passive:true});
-  check();   // видимое сразу оживает
-}
-
-// плавный «набег» цифр (count-up) для KPI; в конце ставит точный исходный текст
-function animateNumbers(){
-  document.querySelectorAll('.k .val, .hero .val, .sig .sv').forEach(el=>{
-    if(el.dataset.anim) return; el.dataset.anim='1';
-    let t=el; while(t.children.length===1 && t.children[0].tagName==='SPAN') t=t.children[0];
-    const txt=t.textContent;
-    if(txt.includes('—')) return;
-    const m=txt.match(/-?\d[\d\s\u00a0]*(?:[.,]\d+)?/);
-    if(!m) return;
-    const numStr=m[0].replace(/[\s\u00a0]+$/,'');
-    const target=parseFloat(numStr.replace(/[\s\u00a0]/g,'').replace(',','.'));
-    if(isNaN(target)) return;
-    const prefix=txt.slice(0,m.index), suffix=txt.slice(m.index+numStr.length);
-    const dec=/[.,]\d/.test(numStr)?1:0;
-    const start=performance.now(), dur=700;
-    const fmt=v=>dec? v.toFixed(1).replace('.',',') : Math.round(v).toLocaleString('ru-RU');
-    (function tick(){
-      let p=Math.min(1,(performance.now()-start)/dur); p=1-Math.pow(1-p,3);
-      t.textContent = p<1 ? prefix+fmt(target*p)+suffix : txt;
-      if(p<1) requestAnimationFrame(tick);
-    })();
-    setTimeout(function(){ t.textContent=txt; }, dur+120);  // страховка: финал всегда точный
+    const wPct=Math.max(6,(s.v||0)/max*100);
+    html+=`<div class="fstep"><div class="flbl">${s.l}</div>
+      <div class="fbarw"><div class="fbar" style="width:${wPct}%;background:${FUN_COLS[Math.min(i,FUN_COLS.length-1)]};animation-delay:${i*120}ms"><b>${nf(s.v)}</b></div></div></div>`;
   });
+  if(finalLine) html+=`<div class="ffinal">${finalLine}</div>`;
+  if(noteLine) html+=`<div class="fnote">${noteLine}</div>`;
+  return html+'</div>';
 }
 
-function secTitle(ic,t,desc){ return `<div class="sec-title"><span class="ic">${ic}</span>${t}</div>`+(desc?`<div class="hint" style="margin:-8px 2px 12px">${desc}</div>`:''); }
-// сворачиваемая секция: accO(...)+контент+accC() — второстепенное по умолчанию свёрнуто
-function accO(ic,t,open){ return `<details class="acc"${open?' open':''}><summary><span class="ic">${ic}</span>${t}</summary><div class="accb">`; }
-function accC(){ return `</div></details>`; }
-function buildAlerts(d, pm, pnl){
+// ---- KPI-тайл ----
+function tile(lbl,val,sub,{chip='',go='',cls=''}={}){
+  return `<div class="card tile rv ${cls}" ${go?`onclick="setTab('${go}')"`:''}>
+    <div class="lbl"><span>${lbl}</span>${go?'<span class="chev">▸</span>':''}</div>
+    <div class="kv">${val}</div>
+    ${(sub||chip)?`<div class="sub">${chip?chip+' ':''}${sub||''}</div>`:''}</div>`;
+}
+function kd(cur,prev,goodUp){
+  if(cur==null||prev==null||!prev) return '';
+  const g=Math.round((cur-prev)/Math.abs(prev)*100);
+  if(!isFinite(g)) return '';
+  const good=goodUp?g>=0:g<0;
+  return `<span class="chip ${good?'up':'dn'}">${g>=0?'▲':'▼'} ${Math.abs(g)}%</span>`;
+}
+
+// ============ RENDER ============
+let CUR_KEY=null, DATA=null, TAB='main';
+const TABS=[['main','🏠','Главная'],['sales','💰','Продажи'],['ads','📣','Реклама'],['fin','🧾','Финансы'],['clients','👩‍💼','Клиенты']];
+function setTab(id){ TAB=id;
+  document.querySelectorAll('.tabwrap').forEach(e=>e.classList.toggle('on',e.dataset.tw===id));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on',e.dataset.tb===id));
+  document.querySelectorAll('#tabbar button').forEach(e=>e.classList.toggle('on',e.dataset.tb===id));
+  window.scrollTo({top:0});
+  requestAnimationFrame(armAnimations);
+}
+function tabsNav(){ return `<div class="tabs">`+TABS.map(([id,ic,l])=>`<button class="tab ${TAB===id?'on':''}" data-tb="${id}" onclick="setTab('${id}')">${ic} ${l}</button>`).join('')+`</div>`; }
+function tabbarFill(){
+  const bar=$('#tabbar');
+  bar.innerHTML=TABS.map(([id,ic,l])=>`<button data-tb="${id}" class="${TAB===id?'on':''}" onclick="setTab('${id}')"><span class="ico">${ic}</span>${l}</button>`).join('');
+  bar.classList.remove('hidden');
+}
+const twO=id=>`<div class="tabwrap ${TAB===id?'on':''}" data-tw="${id}">`;
+const twC=()=>`</div>`;
+const sec=(t,note)=>`<div class="sec">${t}</div>`+(note?`<div class="sec-note">${note}</div>`:'');
+
+// живая фраза дня — hero прибыли
+function profitPhrase(pnl,prevPnl,key,rc){
+  if(!pnl||pnl.profit==null) return 'PnL этого месяца ещё пустой — цифры появятся с первыми записями.';
+  const P=pnl.profit, prev=prevPnl&&prevPnl.profit;
+  if(P>=0&&prev!=null&&prev<0) return `${mFull(key)} вышел в плюс. Месяц назад тут было <b class="neg">${zl(prev)}</b>.`;
+  if(P>=0&&prev!=null&&prev>=0) return P>=prev?`Прибыль растёт: ${zl(prev)} → <b class="pos">${zl(P)}</b>.`:`Прибыль просела: было ${zl(prev)}, стало ${zl(P)}.`;
+  if(P>=0) return `Пришло ${zl(pnl.income)}, потратили ${zl(pnl.expenses)} — работаем в плюс.`;
+  const debt=rc&&rc.total?` В дебиторке ${zl(rc.total)} — собрать её значит выйти в плюс.`:'';
+  return `Расходы выше собранного на ${zl(-P)}.${debt}`;
+}
+
+// «золотой вход»: что пришло с прошлого визита
+function goldEntry(pm,key){
+  try{
+    const raw=localStorage.getItem('ownerSeen');
+    const seen=raw?JSON.parse(raw):null;
+    if(DATA&&key===DATA.curMonthKey) localStorage.setItem('ownerSeen',JSON.stringify({key,collected:pm.collected||0,closings:pm.closings||0}));
+    if(seen&&seen.key===key){
+      const dz=(pm.collected||0)-(seen.collected||0), dc=(pm.closings||0)-(seen.closings||0);
+      if(dz>0||dc>0) return `<span class="chip gold" style="margin-top:8px">с прошлого визита: ${dz>0?'+'+nf(dz)+' zł':''}${dz>0&&dc>0?' · ':''}${dc>0?'+'+dc+' закрыт.':''}</span>`;
+    }
+  }catch(_){}
+  return '';
+}
+
+// ---- алерты ----
+function buildAlerts(d,pm,pnl){
   const a=[], rc=d.receivables||{}, today=(d.generatedAt||'').slice(0,10);
   const overdue=(rc.items||[]).filter(i=>i.deadline&&i.deadline<today);
   const oSum=overdue.reduce((s,i)=>s+(i.remain||0),0);
-  if(overdue.length) a.push({sev:'red',ico:'⏰',t:`Просрочено ${zl(oSum)} — ${overdue.length} клиент(ов) не доплатили в срок. Дожать.`,
-    d:overdue.slice(0,4).map(i=>i.name+' · '+zl(i.remain)+' · был срок '+dLabel(i.deadline)).join('  ·  ')+(overdue.length>4?' …':'')});
-  if(pnl&&pnl.profit<0) a.push({sev:'red',ico:'📉',t:`Прибыль ${zl(pnl.profit)} — расходы выше собранного.`,
-    d:`В дебиторке ${zl(rc.total)} — собрать её = выйти в плюс.`});
+  if(overdue.length) a.push({sev:'red',t:`Просрочено ${zl(oSum)} — ${overdue.length} клиент(ов) не доплатили в срок`,
+    d:overdue.slice(0,4).map(i=>esc(i.name)+' · '+zl(i.remain)+' · срок был '+dLabel(i.deadline)).join('  ·  ')+(overdue.length>4?' …':''),go:'main',btn:'К должникам'});
+  if(pnl&&pnl.profit<0) a.push({sev:'red',t:`Месяц в минусе: ${zl(pnl.profit)}`,
+    d:`Расходы выше собранного. В дебиторке ${zl(rc.total)} — собрать её значит выйти в плюс.`,go:'fin',btn:'Финансы'});
   const noDl=(rc.byMonth||[]).find(m=>m.month==='—');
-  if(noDl&&noDl.sum>5000) a.push({sev:'yellow',ico:'📅',t:`${zl(noDl.sum)} дебиторки без дедлайна (${noDl.count} сделок).`,
-    d:'Проставь даты 2-х оплат в «клиентах» — прогноз денег станет точным.'});
-  if(pm.roasTrafficP1!=null&&pm.roasTrafficP1<1.2) a.push({sev:'yellow',ico:'📣',t:`Трафик окупается ×${pm.roasTrafficP1} первой оплатой — впритык.`,
-    d:`Закрытие с трафика стоит ${zl(pm.cacTraffic)}; прибыль трафика приходит со 2-х оплат (потенциал ×${pm.roasTrafficContract}).`});
+  if(noDl&&noDl.sum>5000) a.push({sev:'yellow',t:`${zl(noDl.sum)} дебиторки без дат оплат (${noDl.count} сделок)`,
+    d:'Проставь сроки 2-х оплат в таблице клиентов — прогноз денег станет точным.'});
+  if(pm.roasTrafficP1!=null&&pm.roasTrafficP1<1.2) a.push({sev:'yellow',t:`Реклама окупается ×${pm.roasTrafficP1} первой оплатой — впритык`,
+    d:`Закрытие с трафика стоит ${zl(pm.cacTraffic)}; прибыль догоняется вторыми оплатами (потенциал ×${pm.roasTrafficContract||'—'}).`,go:'ads',btn:'Реклама'});
   (pm.bySeller||[]).forEach(s=>{
-    if(s.wa&&s.wa.spendUsd>50&&s.wa.leads<5) a.push({sev:'yellow',ico:'⚠️',t:`${s.name}: WA-кабинет потратил $${nf(s.wa.spendUsd)}, а заявок внесено ${s.wa.leads}.`,
+    if(s.wa&&s.wa.spendUsd>50&&s.wa.leads<5) a.push({sev:'yellow',t:`${esc(s.name)}: WA-кабинет потратил $${nf(s.wa.spendUsd)}, а заявок внесено ${s.wa.leads}`,
       d:'Либо не вносит заявки в таблицу, либо кабинет сливает — спросить.'});
-    if(s.plan&&s.planPct!=null&&s.planPct<60) a.push({sev:'yellow',ico:'🎯',t:`${s.name}: ${pct(s.planPct)} личного плана (${zl(s.fact)} из ${zl(s.plan)}).`,d:null});
-    if(s.leadsTaken&&s.closings&&s.closings/s.leadsTaken>=0.4) a.push({sev:'green',ico:'🔥',t:`${s.name}: конверсия ${Math.round(s.closings/s.leadsTaken*100)}% из взятых лидов — очень сильно.`,d:null});
+    if(s.plan&&s.planPct!=null&&s.planPct<60) a.push({sev:'yellow',t:`${esc(s.name)}: ${pct(s.planPct)} личного плана`,
+      d:`Собрано ${zl(s.fact)} из ${zl(s.plan)}.`,go:'sales',btn:'Продажи'});
+    if(s.convKommo!=null&&s.convKommo>=15&&s.closings>=3) a.push({sev:'green',t:`${esc(s.name)}: конверсия ${pct(s.convKommo)} из целевых лидов — сильно`,
+      d:`Закрыл ${s.closings} при ${s.kommo?s.kommo.target:'—'} целевых лидах месяца.`});
   });
-  const gi=d.trend.findIndex(x=>x.month===CUR_KEY);
+  const gi=(d.trend||[]).findIndex(x=>x.month===CUR_KEY);
   if(gi>0&&d.trend[gi-1].closings){const g=Math.round((d.trend[gi].closings-d.trend[gi-1].closings)/d.trend[gi-1].closings*100);
-    if(g>=30) a.push({sev:'green',ico:'🚀',t:`Закрытия выросли на ${g}% к прошлому месяцу (${d.trend[gi-1].closings} → ${d.trend[gi].closings}).`,d:null});}
-  if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',ico:'🐌',t:`${d.ops.staleCount} дел в производстве без движения >7 дней (топ ${d.ops.stale[0]?d.ops.stale[0].days:''} дн.).`,d:'Вкладка «Клиенты» → список. Глянуть с Дашей.'});
+    if(g>=30) a.push({sev:'green',t:`Закрытия выросли на ${g}% к прошлому месяцу`,d:`${d.trend[gi-1].closings} → ${d.trend[gi].closings}.`});}
+  if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
+    d:`Дольше всех — ${d.ops.stale[0]?d.ops.stale[0].days+' дн.':''} Глянуть с Дашей.`,go:'clients',btn:'Клиенты'});
   const order={red:0,yellow:1,green:2};
   return a.sort((x,y)=>order[x.sev]-order[y.sev]).slice(0,7);
 }
 function renderAlerts(list){
   if(!list.length) return '';
-  return `<div class="sec-title"><span class="ic">⚡</span>Важное сейчас</div><div class="alerts">`+
-    list.map(x=>`<div class="alert ${x.sev}"><div class="aico">${x.ico}</div><div><div class="at">${x.t}</div>${x.d?`<div class="ad">${x.d}</div>`:''}</div></div>`).join('')+`</div>`;
-}
-function renderHealth(d, pm, fc, pnl){
-  const C={g:'#34d399',y:'#fbbf24',r:'#fb7185'};
-  const rc=d.receivables||{};
-  const sigs=[
-    {t:'Темп к плану', v:(fc.goalPct||0)+'%', st:fc.goalPct>=80?'g':fc.goalPct>=50?'y':'r', note:fc.projClosings+' из '+fc.goal},
-    {t:'Прибыль (PnL)', v:zl(pnl&&pnl.profit), st:!pnl?'y':(pnl.profit>0?'g':(pnl.margin>-10?'y':'r')), note:pnl?'маржа '+pct(pnl.margin):'нет данных'},
-    {t:'Цена лида', v:zl(pm.cpl), st:pm.cpl==null?'y':(pm.cpl<40?'g':(pm.cpl<70?'y':'r')), note:nf(pm.leads)+' лидов'},
-    {t:'Ждём оплат', v:zl(rc.total), st:'y', note:(rc.count||0)+' сделок'},
-  ];
-  const go=['','fin','ads','main'];
-  return `<div class="health">`+sigs.map((s,i)=>`
-    <div class="sig clickable" ${go[i]?`onclick="setTab('${go[i]}')"`:''}><div class="sglow" style="background:radial-gradient(120px 60px at 92% 0%,${C[s.st]},transparent)"></div>
-      <div class="st"><span class="sdot" style="color:${C[s.st]}"></span>${s.t}</div>
-      <div class="sv" style="color:${C[s.st]}">${s.v}</div>
-      <div class="st" style="margin-top:2px">${s.note}</div></div>`).join('')+`</div>`;
-}
-function sellerCard(s){
-  const pp=s.planPct;
-  const col=pp==null?'var(--p-l)':(pp>=80?'var(--em)':pp>=50?'var(--gold)':'var(--red)');
-  const cell=(l,v)=>`<div><div style="font-size:11px;color:var(--tx-dd)">${l}</div><div style="font-weight:700;font-size:15px">${v}</div></div>`;
-  return `<div class="card">
-    <div class="flex" style="justify-content:space-between;align-items:center">
-      <div style="font-size:17px;font-weight:750">${s.name}</div>
-      <span class="chip">${s.closings} закрытий</span>
-    </div>
-    ${s.plan?`<div style="margin-top:12px">
-      <div class="flex" style="justify-content:space-between;font-size:12px;color:var(--tx-d)"><span>План / факт</span><span style="color:${col};font-weight:700">${pct(s.planPct)}</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,s.planPct||0)}%;background:${col}"></div></div>
-      <div style="font-size:11px;color:var(--tx-dd);margin-top:4px">${zl(s.fact)} из ${zl(s.plan)}</div></div>`:''}
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);margin-top:14px;gap:12px">
-      ${cell('Лидов в работе', s.leadsTaken!=null? (nf(s.leadsTaken)+(s.closings&&s.leadsTaken?(' <span class="muted" style="font-size:12px">→ '+Math.round(s.closings/s.leadsTaken*100)+'%</span>'):'')) : '<span class="muted" style="font-size:12px">вкладку не ведёт ⚠</span>')}
-      ${cell('Выручка (1+2)', zl(s.revenue))}
-      ${cell('Средний чек', zl(s.avgCheck))}
-      ${cell('Собрано 1-я', zl(s.fact))}
-      ${cell('Ждём 2-я', zl(s.pay2))}
-      ${s.wa?cell('WA-кабинет · входящие', '$'+nf(s.wa.spendUsd)+' <span class="muted" style="font-size:12px">· '+s.wa.leads+' лидов</span>'):''}
-      ${s.wa&&s.wa.cpl!=null?cell('CPL входящих (WA)', '$'+s.wa.cpl):''}
-      ${s.wa&&s.wa.leads&&s.sources&&s.sources['входящий']?cell('Конверсия WA-входящих', Math.round(s.sources['входящий']/s.wa.leads*100)+'% <span class="muted" style="font-size:11px">('+s.sources['входящий']+' из '+s.wa.leads+' заявок)</span>'):''}
-    </div>
-    ${s.services&&s.services.length?`<div style="margin-top:14px">
-      <div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Что закрывает</div>
-      ${s.services.map(sv=>`<div class="flex" style="justify-content:space-between;font-size:12.5px;margin:3px 0"><span>${sv.service}</span><span class="chip">${sv.count}</span></div>`).join('')}</div>`:''}
-    ${s.sources?`<div style="margin-top:12px"><div style="font-size:11px;color:var(--tx-dd);margin-bottom:6px">Источники (из чата)</div>
-      ${Object.entries(s.sources).map(([k,v])=>`<span class="chip" style="margin-right:6px">${srcLabelRu(k)} ${v}</span>`).join('')}</div>`:''}
-  </div>`;
-}
-function monthName(block,d,which){
-  // подпись выбранного в переключателе месяца
-  return mLabel(CUR_KEY || d.prevMonthKey || d.curMonthKey);
-}
-function srcLabel(x){ return (x.source||x.channel||'—') + (x.paid?' · платный':''); }
-function expColor(n){ return n==='Реклама'?'#fde047':n==='Зарплаты'?'#38bdf8':n==='Операционные'?'#8B82E8':n==='Налоги'?'#fb7185':'#6b61e0'; }
-function srcLabelRu(s){ return {'лид':'🎯 С рекламы (FB)','тикток':'🎵 TikTok','входящий':'💬 Входящие','суприм':'📇 Supremes (база)','сарафан':'🤝 Сарафан','груп':'👥 Групповое'}[s]||s; }
-function dealsTable(deals){
-  return `<div style="overflow-x:auto"><table><thead><tr>
-    <th>Дата</th><th>Клиент</th><th>Услуга</th><th>Продавец</th><th class="n">Цена</th><th class="n">Оплачено</th><th>Статус</th></tr></thead>
-    <tbody>${deals.map(x=>{const open=(x.full||0)-(x.paid||0)>0;
-      return `<tr><td class="muted num">${dLabel(x.date)}</td><td>${x.name}</td><td class="muted" style="font-size:12px">${x.service||'—'}</td><td class="muted">${x.closer}</td>
-      <td class="n num">${zl(x.full)}</td><td class="n num ${open?'':'pos'}">${zl(x.paid)}</td>
-      <td style="font-size:11.5px" class="${open?'muted':'pos'}">${x.status||'—'}</td></tr>`}).join('')}</tbody></table></div>`;
-}
-function srcColor(s){ return {'лид':'#fde047','тикток':'#fb7185','входящий':'#38bdf8','суприм':'#8B82E8','сарафан':'#34d399','груп':'#fbbf24'}[s]||'#6b61e0'; }
-function donutChart(cats, total){
-  const r=54, cx=70, cy=70, circ=2*Math.PI*r; let off=0;
-  const segs=cats.map(c=>{const len=(c.amount/total)*circ;
-    const seg=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${expColor(c.name)}" stroke-width="20" stroke-dasharray="${len.toFixed(1)} ${(circ-len).toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 ${cx} ${cy})"/>`;
-    off+=len; return seg;}).join('');
-  return `<div class="flex" style="gap:22px;flex-wrap:wrap;align-items:center">
-    <svg width="140" height="140" viewBox="0 0 140 140" style="flex-shrink:0">${segs}
-      <text x="${cx}" y="${cy-1}" text-anchor="middle" fill="var(--tx)" font-size="15" font-weight="750" class="num">${nf(total)}</text>
-      <text x="${cx}" y="${cy+15}" text-anchor="middle" fill="var(--tx-dd)" font-size="10">zł расход</text></svg>
-    <div style="flex:1;min-width:150px">${cats.map(c=>`<div class="flex" style="justify-content:space-between;margin:7px 0;font-size:13px">
-      <span><span class="dot" style="background:${expColor(c.name)}"></span>${c.name}</span>
-      <span class="muted num">${zl(c.amount)} · ${Math.round(c.amount/total*100)}%</span></div>`).join('')}</div>
-  </div>`;
-}
-function incomeVsExpense(income, totExp, cats){
-  const max=Math.max(income,totExp)||1;
-  const stack=cats.map(c=>`<div style="height:100%;width:${c.amount/max*100}%;background:${expColor(c.name)}"></div>`).join('');
-  const loss=totExp-income;
-  return `<div style="font-size:12px;color:var(--tx-d);margin-bottom:5px">Выручка · ${zl(income)}</div>
-    <div class="bar-track" style="height:22px;margin-top:0"><div style="height:100%;width:${income/max*100}%;background:var(--em);border-radius:9px"></div></div>
-    <div style="font-size:12px;color:var(--tx-d);margin:14px 0 5px">Расходы · ${zl(totExp)}</div>
-    <div class="bar-track" style="height:22px;margin-top:0;display:flex;gap:1px;overflow:hidden">${stack}</div>
-    <div class="lgd">${cats.map(c=>`<span><span class="dot" style="background:${expColor(c.name)}"></span>${c.name}</span>`).join('')}</div>
-    <div class="hint ${loss>0?'neg':'pos'}">${loss>0?('Расходы больше выручки на '+zl(loss)+' ('+Math.round(loss/income*100)+'%) — отсюда минус в прибыли.'):('Прибыль '+zl(income-totExp))}</div>`;
+  const row=x=>`<div class="alert ${x.sev} rv"><div style="flex:1"><div class="at">${x.t}</div>${x.d?`<div class="ad">${x.d}</div>`:''}</div>
+    ${x.go?`<button class="abtn" onclick="setTab('${x.go}')">${x.btn||'Открыть'}</button>`:''}</div>`;
+  let html=sec('⚡ Важное сейчас')+`<div class="alerts">`+list.slice(0,3).map(row).join('');
+  if(list.length>3) html+=`<div id="moreAlerts" class="hidden">`+list.slice(3).map(row).join('')+`</div>
+    <button class="morebtn" onclick="this.classList.add('hidden');document.getElementById('moreAlerts').classList.remove('hidden');armAnimations()">Ещё ${list.length-3} ↓</button>`;
+  return html+`</div>`;
 }
 
-// --- Страны: авто-флаг + русское имя по названию из GA4 (англ.) ---
-// ISO2 → эмодзи флага (региональные индикаторы). Название нормализуем через карту ниже.
-function flagEmoji(iso){
-  if(!iso) return '🌐';
-  return iso.toUpperCase().replace(/[A-Z]/g, c => String.fromCodePoint(127397 + c.charCodeAt(0)));
+// ---- переключатель месяцев с микро-итогами ----
+function monthPills(d){
+  if(!d.monthOrder||!d.monthOrder.length) return '';
+  return `<div class="months">`+d.monthOrder.map(k=>{
+    const m=d.months[k]||{}, p=m.pnl&&m.pnl.profit;
+    const micro=(p!=null)?`<span class="${p<0?'neg':'pos'}">${p>=0?'+':''}${nf(p)}</span>`:`<span class="mut">${m.closings||0} закр.</span>`;
+    return `<button class="mpill ${k===CUR_KEY?'on':''}" onclick="CUR_KEY='${k}';render(DATA);window.scrollTo(0,0)">
+      <b>${mLabel(k)}${k===d.curMonthKey?' · идёт':''}</b>${micro}</button>`;}).join('')+`</div>`;
 }
-// GA4 отдаёт страны по-английски. Карта: англ. имя → [ISO2, рус. имя].
-// Покрывает основную аудиторию LS; чего нет — показываем как есть с 🌐.
-const COUNTRY = {
-  'Poland':['PL','Польша'], 'Ukraine':['UA','Украина'], 'Belarus':['BY','Беларусь'],
-  'Russia':['RU','Россия'], 'Germany':['DE','Германия'], 'United States':['US','США'],
-  'United Kingdom':['GB','Великобритания'], 'France':['FR','Франция'], 'Italy':['IT','Италия'],
-  'Spain':['ES','Испания'], 'Netherlands':['NL','Нидерланды'], 'Czechia':['CZ','Чехия'],
-  'Lithuania':['LT','Литва'], 'Latvia':['LV','Латвия'], 'Georgia':['GE','Грузия'],
-  'Armenia':['AM','Армения'], 'Azerbaijan':['AZ','Азербайджан'], 'Kazakhstan':['KZ','Казахстан'],
-  'Uzbekistan':['UZ','Узбекистан'], 'Tajikistan':['TJ','Таджикистан'], 'Kyrgyzstan':['KG','Киргизия'],
-  'Turkey':['TR','Турция'], 'India':['IN','Индия'], 'Pakistan':['PK','Пакистан'],
-  'Bangladesh':['BD','Бангладеш'], 'Nepal':['NP','Непал'], 'Sri Lanka':['LK','Шри-Ланка'],
-  'Philippines':['PH','Филиппины'], 'Indonesia':['ID','Индонезия'], 'Vietnam':['VN','Вьетнам'],
-  'China':['CN','Китай'], 'Singapore':['SG','Сингапур'], 'Nigeria':['NG','Нигерия'],
-  'Egypt':['EG','Египет'], 'Morocco':['MA','Марокко'], 'Algeria':['DZ','Алжир'],
-  'Tunisia':['TN','Тунис'], 'Kenya':['KE','Кения'], 'Ghana':['GH','Гана'],
-  'Cameroon':['CM','Камерун'], 'Zimbabwe':['ZW','Зимбабве'], 'South Africa':['ZA','ЮАР'],
-  'Brazil':['BR','Бразилия'], 'Colombia':['CO','Колумбия'], 'Mexico':['MX','Мексика'],
-  'Iran':['IR','Иран'], 'Iraq':['IQ','Ирак'], 'Syria':['SY','Сирия'],
-  'Afghanistan':['AF','Афганистан'], 'United Arab Emirates':['AE','ОАЭ'], 'Saudi Arabia':['SA','Саудовская Аравия'],
+
+// ---- таблицы ----
+function dealsTable(deals){
+  return `<div class="tblwrap"><table class="stack"><thead><tr>
+    <th>Клиент</th><th>Дата</th><th>Услуга</th><th>Продавец</th><th class="n">Цена</th><th class="n">Оплачено</th><th>Статус</th></tr></thead>
+    <tbody>${deals.map(x=>{const open=(x.full||0)-(x.paid||0)>0;
+      return `<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="дата" class="t2 num">${dLabel(x.date)}</td>
+      <td data-l="услуга" class="t2">${esc(x.service||'—')}</td><td data-l="продавец" class="t2">${esc(x.closer)}</td>
+      <td data-l="цена" class="n num">${zl(x.full)}</td><td data-l="оплачено" class="n num ${open?'':'pos'}">${zl(x.paid)}</td>
+      <td data-l="статус" class="${open?'t2':'pos'}" style="font-size:12px">${esc(x.status||'—')}</td></tr>`}).join('')}</tbody></table></div>`;
+}
+function receivablesTable(items,todayIso,limit){
+  return `<div class="tblwrap"><table class="stack"><thead><tr><th>Клиент</th><th>Продавец</th><th class="n">Ждём</th><th class="n">Срок</th><th>Статус</th></tr></thead>
+    <tbody>${items.slice(0,limit||15).map(i=>{const od=i.deadline&&i.deadline<todayIso;
+      return `<tr><td data-l="клиент">${esc(i.name)}</td><td data-l="продавец" class="t2">${esc(i.closer||'')}</td>
+      <td data-l="ждём" class="n num">${zl(i.remain)}</td>
+      <td data-l="срок" class="n">${od?`<span class="chip b">${dLabel(i.deadline)}</span>`:`<span class="num t2">${i.deadline?dLabel(i.deadline):'—'}</span>`}</td>
+      <td data-l="статус" class="t2" style="font-size:12px">${esc(i.status||'')}</td></tr>`}).join('')}</tbody></table></div>`;
+}
+
+// ---- карточка продавца ----
+function sellerCard(s){
+  const pp=s.planPct;
+  const col=pp==null?'var(--acc)':(pp>=80?'var(--good)':pp>=50?'var(--warn)':'var(--bad)');
+  const ini=esc((s.name||'?')[0]);
+  const conv=s.convKommo;
+  const cell=(l,v)=>`<div class="sg"><div class="l">${l}</div><div class="v">${v}</div></div>`;
+  return `<div class="card seller rv">
+    <div class="shead"><div class="ava">${ini}</div><div class="sname">${esc(s.name)}</div>
+      <div class="smoney goldnum">${zlh(s.fact)}</div></div>
+    ${s.plan?`<div style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:6px">
+        <span>план ${zl(s.plan)}</span><b style="color:${col}">${pct(s.planPct)}</b></div>
+      <div class="meter"><div style="width:${Math.min(100,s.planPct||0)}%;background:${col}"></div></div></div>`:''}
+    <div class="sgrid">
+      ${cell('Закрытий',`${s.closings??0} <span class="mut" style="font-size:12px">на ${zl(s.contracted)}</span>`)}
+      ${cell('Конверсия из лидов', conv!=null?`<b>${pct(conv)}</b> <span class="mut" style="font-size:11.5px">закрыл ${s.closings} из ${s.kommo.target} целевых</span>`:'<span class="mut" style="font-size:12px">нет данных Kommo</span>')}
+      ${cell('Средний чек',zl(s.avgCheck))}
+      ${cell('Ждём 2-х оплат',zl(s.pay2))}
+      ${cell('Взял в работу (его табличка)', s.leadsTaken!=null?(nf(s.leadsTaken)+(s.closings&&s.leadsTaken?' <span class="mut" style="font-size:11.5px">→ '+Math.round(s.closings/s.leadsTaken*100)+'%</span>':'')):'<span class="mut" style="font-size:12px">вкладку не ведёт ⚠</span>')}
+      ${s.wa?cell('WA-кабинет','$'+nf(s.wa.spendUsd)+` <span class="mut" style="font-size:11.5px">· ${s.wa.leads} заявок${s.wa.cpl!=null?' · $'+s.wa.cpl+'/заявка':''}</span>`):''}
+      ${s.wa&&s.wa.leads&&s.sources&&s.sources['входящий']?cell('Конверсия WA-входящих',Math.round(s.sources['входящий']/s.wa.leads*100)+'% <span class="mut" style="font-size:11.5px">'+s.sources['входящий']+' из '+s.wa.leads+'</span>'):''}
+    </div>
+    ${s.services&&s.services.length?`<div class="schips">${s.services.map(sv=>`<span class="chip">${esc(sv.service)} · ${sv.count}</span>`).join('')}</div>`:''}
+    ${s.sources?`<div class="schips">${Object.entries(s.sources).map(([k,v])=>`<span class="chip" style="color:${srcC(k)};background:${srcC(k)}1f">${srcL(k)} ${v}</span>`).join('')}</div>`:''}
+  </div>`;
+}
+// воронки конверсии продавцов (общая шкала ширин!)
+function sellersConversion(pm){
+  const list=(pm.bySeller||[]).filter(s=>s.kommo);
+  if(!list.length) return '';
+  const maxRef=Math.max(...list.map(s=>s.kommo.got||0));
+  const cards=list.map(s=>{
+    const k=s.kommo;
+    const steps=[
+      {l:'Лидов упало',v:k.got},
+      {l:'Целевые <span style="opacity:.7">(без мусора)</span>',v:k.target},
+      {l:'Закрыл',v:s.closings},
+    ];
+    const tr1=k.got?Math.round(k.target/k.got*100):null;
+    const tr2=k.target?Math.round(s.closings/k.target*100):null;
+    if(tr1!=null&&tr2!=null){ if(tr2<=tr1) steps[2].weak=true; else steps[1].weak=true; }
+    const fin=`лид → клиент: <span style="color:var(--acc)">${pct(s.convKommo)}</span>`;
+    const worst=(tr1!=null&&tr2!=null)?(tr2<=tr1?'Больше всего теряем между целевыми и закрытием.':'Больше всего отсеивается на этапе мусора/нецелевых.'):'';
+    return `<div class="card rv"><div class="shead" style="margin-bottom:14px"><div class="ava">${esc((s.name||'?')[0])}</div><div class="sname">${esc(s.name)}</div></div>
+      ${stepFunnel(steps,maxRef,fin,worst)}</div>`;
+  }).join('');
+  return sec('Конверсии продавцов · '+mLabel(pm.key||CUR_KEY),'воронка из Kommo: сколько лидов упало на продавца, сколько из них целевых и сколько он превратил в клиентов. Ширины обоих — в одной шкале, сравнивай глазами.')+
+    `<div class="fcar">${cards}</div>`;
+}
+
+// ============ ЭКРАН ВЛАДЕЛЬЦА ============
+function render(d){
+  DATA=d;
+  if(d.role==='seller'){ renderSeller(d); return; }
+  if(!CUR_KEY||!(d.months&&d.months[CUR_KEY])) CUR_KEY=d.defaultMonth||d.prevMonthKey;
+  const pm=(d.months&&d.months[CUR_KEY])||d.prevMonth||{};
+  const fc=d.forecast||{}, pnl=pm.pnl||null, site=d.site, rc=d.receivables||{};
+  $('#genLabel').textContent = agoLabel(d.generatedAt)+' · авто каждые 2 ч';
+  $('#roleLabel').textContent='кабинет владельца';
+  tabbarFill();
+
+  const _y=+CUR_KEY.slice(0,4), _m=+CUR_KEY.slice(5,7);
+  const prevKey=_m>1?`${_y}-${String(_m-1).padStart(2,'0')}`:`${_y-1}-12`;
+  const prevM=(d.months||{})[prevKey]||{};
+  const isLive=CUR_KEY===d.curMonthKey;
+  // на идущем месяце сравнение с ЦЕЛЫМ прошлым месяцем врёт («▼73%» в середине месяца) — чипы только в архиве
+  const kdA=(cur,prev,goodUp)=>isLive?'':kd(cur,prev,goodUp);
+
+  let html=monthPills(d);
+  if(!isLive) html+=`<div class="archbar">📁 Ты смотришь архив: <b>${mFull(CUR_KEY)}</b>
+    <button onclick="CUR_KEY='${d.curMonthKey}';render(DATA);window.scrollTo(0,0)">Вернуться в ${mLabel(d.curMonthKey)} →</button></div>`;
+
+  // ===== HERO: прибыль месяца с живой аурой =====
+  const P=pnl?pnl.profit:null;
+  const auraCol=P==null?'transparent':(P>=0?'rgba(62,207,142,.13)':'rgba(255,107,107,.13)');
+  const heroCol=P==null?'':(P>=0?'pos':'neg');
+  const spDeals=(pm.deals||[]);
+  const dim=new Date(_y,_m,0).getDate();
+  const perDay=Array(dim).fill(0);
+  spDeals.forEach(x=>{const dd=+String(x.date).slice(8,10);if(dd>=1&&dd<=dim)perDay[dd-1]+=(x.paid||0);});
+  let acc_=0; const cumPay=perDay.map(v=>acc_+=v);
+  html+=`<div class="card heroCard rv" style="margin-top:14px" onclick="setTab('fin')">
+    <div class="aura" style="background:radial-gradient(closest-side,${auraCol},transparent)"></div>
+    <div class="hlbl">${P!=null&&P<0?'Убыток':'Прибыль'} · ${mFull(CUR_KEY)} ${kdA(P,prevM.pnl&&prevM.pnl.profit,true)}</div>
+    <div class="hnum ${heroCol}">${P==null?'—':(P>=0?'+':'−')+nf(Math.abs(P))+'<span class="zl">zł</span>'}</div>
+    <div class="hphrase">${profitPhrase(pnl,prevM.pnl,CUR_KEY,rc)}</div>
+    <div class="hside">${cumPay.some(v=>v>0)?spark(cumPay)+`<div class="mut" style="font-size:11px;margin-top:2px">оплаты копятся по дням</div>`:''}</div>
+  </div>`;
+
+  // ===== король-тайлы =====
+  const cac=pm.cacTraffic||pm.cac;
+  const roasOk=(pm.roasTrafficP1||0)>=1;
+  const projChip=fc.goalPct!=null?`<span class="chip ${fc.goalPct>=100?'g':fc.goalPct>=60?'w':'b'}">${fc.paceNote==='mtd'?'темп':'база'} → ~${fc.projClosings??'—'}${fc.goalPct>=100?' — цель будет':fc.goalPct>=60?' — поднажать':' — мало'}</span>`:'';
+  html+=`<div class="grid g3">
+    ${tile('Деньги пришли '+kdA(pm.collected,prevM.collected,true),
+      `<span class="goldnum shimmer">${zlh(pm.collected)}</span>`,
+      `+ договоров на ${zl(pm.contracted)}${goldEntry(pm,CUR_KEY)}`,{go:'sales'})}
+    ${tile('1 клиент с рекламы стоит '+kdA(cac,prevM.cacTraffic||prevM.cac,false),
+      zlh(cac),
+      cac!=null?`платит сразу ~${zl(pm.avgFirstPay)} → реклама ${roasOk?'окупается':'пока не окупается'} (×${pm.roasTrafficP1??'—'})`:'появится после списаний банка и тегов чата',{go:'ads'})}
+    ${isLive
+      ? `<div class="card tile rv" onclick="setTab('sales')"><div class="lbl"><span>Закрытий к концу месяца</span><span class="chev">▸</span></div>
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">${gaugeSemi(pm.closings||0,pm.goal||d.goal,fc.projClosings)}
+          <div>${projChip}<div class="mut" style="font-size:11.5px;margin-top:6px">${fc.paceNote==='mtd'?`◆ — куда придём при текущем темпе<br>(${fc.daysElapsed} из ${fc.daysInMonth} дн., закрыто ${fc.closingsMTD})`:`◆ — месяц только начался,<br>прогноз по итогам ${mLabel(fc.baseMonth)}`}</div></div></div></div>`
+      : tile('План месяца',(pm.closings??'—')+' <span class="zl">из '+(pm.goal??'—')+'</span>',pm.goal?Math.round((pm.closings||0)/pm.goal*100)+'% плана выполнено':'план не был задан')}
+  </div>`;
+
+  if(CUR_KEY===d.defaultMonth) html+=renderAlerts(buildAlerts(d,pm,pnl));
+
+  html+=tabsNav();
+
+  // ================= ГЛАВНАЯ =================
+  html+=twO('main');
+  if(CUR_KEY===d.defaultMonth&&d.forecastAI){
+    const fa=d.forecastAI;
+    html+=`<div class="card aiCard rv" style="margin-top:16px">
+      <div class="hlbl" style="font-size:12px">🤖 Прогноз от ИИ · по темпу ребят</div>
+      <div style="font-size:14px;line-height:1.6;margin-top:8px" class="t2">${fa.text}</div>
+      <div class="chips">${(fa.bySeller||[]).map(x=>`<span class="chip">${esc(x.name)}: ${x.now} → ~${x.proj}</span>`).join('')}
+        <span class="chip" style="color:var(--gold)">команда: ~${fa.teamProj} из ${fa.goal}</span></div></div>`;
+  }
+  // live-разворот текущего месяца, когда смотрим архив
+  if(CUR_KEY!==d.curMonthKey){
+    const cm=(d.months||{})[d.curMonthKey];
+    if(cm){
+      html+=`<details class="acc"><summary><span class="arr">▶</span>⏱ Живой счёт · ${mFull(d.curMonthKey)} идёт сейчас<span class="badge">открыть</span></summary><div class="accb">`;
+      html+=`<div class="grid g4" style="margin-top:12px">
+        ${tile('Закрытий',String(cm.closings||0),cm.goal?('план '+cm.goal+' · выполнено '+Math.round((cm.closings||0)/cm.goal*100)+'%'):'')}
+        ${tile('Собрано',zlh(cm.collected),'')}
+        ${tile('Лидов',nf(cm.leads),cm.cpl!=null?('лид стоит '+zl(cm.cpl)):'')}
+        ${tile('Прибыль',cm.pnl?((cm.pnl.profit>=0?'+':'−')+nf(Math.abs(cm.pnl.profit))+'<span class="zl">zł</span>'):'—','')}
+      </div>
+      ${dailyChart(cm.deals||[],d.curMonthKey,cm.goal,d.curMonthKey,d.generatedAt)}
+      ${(cm.quality&&cm.quality.length)?'<div class="schips" style="margin-top:12px">'+cm.quality.map(x=>`<span class="chip" style="color:${srcC(x.source)};background:${srcC(x.source)}1f">${srcL(x.source)} ${x.count}</span>`).join('')+'</div>':''}
+      ${(cm.deals&&cm.deals.length)?dealsTable(cm.deals):''}
+      <button class="morebtn" onclick="CUR_KEY='${d.curMonthKey}';render(DATA);window.scrollTo(0,0)">Открыть ${mLabel(d.curMonthKey)} полностью →</button>`;
+      html+=`</div></details>`;
+    }
+  }
+  // дебиторка
+  if(rc.count){
+    const todayIso=(d.generatedAt||'').slice(0,10);
+    const monthCards=(rc.byMonth||[]).filter(m=>m.month!=='—').slice(0,2);
+    const noDate=(rc.byMonth||[]).find(m=>m.month==='—');
+    html+=sec('⏳ Ждём оплат','кто и когда должен доплатить — это будущие деньги');
+    html+=`<div class="grid g4">
+      ${tile('Всего ждём',zlh(rc.total),rc.count+' открытых сделок')}
+      ${monthCards.map(m=>{const od=m.month<d.curMonthKey;
+        return tile((od?'⚠ ':'')+mLabel(m.month),zlh(m.sum),m.count+' сделок'+(od?' · просрочено':''));}).join('')}
+      ${noDate?tile('Без даты',zlh(noDate.sum),noDate.count+' сделок — проставить сроки'):''}
+    </div>`;
+    html+=`<div class="card rv" style="margin-top:16px">${receivablesTable(rc.items,todayIso,15)}
+      <div class="sec-note" style="margin-top:10px">Ближайшие 15 из ${rc.count}. Красный срок — просрочен: дожать в первую очередь.</div></div>`;
+  }
+  html+=twC();
+
+  // ================= ПРОДАЖИ =================
+  html+=twO('sales');
+  const _pi=(d.trend||[]).findIndex(t=>t.month===CUR_KEY);
+  const growth=_pi>0?kdA(d.trend[_pi].closings,d.trend[_pi-1].closings,true):'';
+  html+=`<div class="grid g4" style="margin-top:16px">
+    ${tile('Закрытий '+growth,String(pm.closings??'—'),pm.goal?('план '+pm.goal+' · выполнено '+Math.round((pm.closings||0)/pm.goal*100)+'%'):'сделок за месяц')}
+    ${tile('Договоров на',zlh(pm.contracted),'полная стоимость сделок')}
+    ${tile('Собрано',`<span class="goldnum">${zlh(pm.collected)}</span>`,'реально пришло денег')}
+    ${tile('Средний чек',zlh(pm.avgDeal),'')}
+  </div>`;
+  html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Закрытия по дням · ${mFull(CUR_KEY)}</b>
+    ${dailyChart(pm.deals,CUR_KEY,pm.goal,d.curMonthKey,d.generatedAt)}
+    <div class="sec-note" style="margin-top:8px">Светлая линия — сколько всего закрыто с начала месяца. Пунктир — темп, при котором цель ${pm.goal||'—'} была бы выполнена день в день.</div></div>`;
+  html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Вся история по месяцам</b>
+    <div style="margin-top:10px">${historyBars(d.trend||[],d.curMonthKey,CUR_KEY)}</div>
+    <div class="sec-note">Всего сделок в базе: ${d.closingsTotal||'—'}.</div></div>`;
+  if(pm.bySeller&&pm.bySeller.length){
+    html+=sec('👥 По продавцам · '+mLabel(CUR_KEY),'план и деньги каждого; золотое число — собрано первыми оплатами');
+    html+=`<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
+    html+=sellersConversion(pm);
+  }
+  html+=sec('🎯 Источники закрытий · '+mLabel(CUR_KEY),'откуда пришли купившие — бот тегирует каждую оплату в чате');
+  if(pm.quality&&pm.quality.length){
+    const tot=pm.qualityTotal||pm.quality.reduce((s,x)=>s+x.count,0);
+    html+=`<div class="card rv">${hbarList(pm.quality,x=>x.count,x=>srcL(x.source)+' <span class="mut">· '+Math.round(x.count/tot*100)+'%'+(x.amount?' · '+zl(x.amount):'')+'</span>',x=>srcC(x.source))}
+      <div class="sec-note" style="margin-top:8px">За месяц отмечено ${tot}. Суприм и сарафан — органика, в расчёт окупаемости рекламы не входят.</div></div>`;
+  } else {
+    html+=`<div class="card rv"><div class="t2" style="line-height:1.6">Разбивка появится, как только бот отметит первые оплаты месяца: ${Object.keys(SRC).map(s=>`<span class="chip" style="color:${srcC(s)};background:${srcC(s)}1f;margin:2px 4px 2px 0">${srcL(s)}</span>`).join('')}</div></div>`;
+  }
+  if(pm.byService&&pm.byService.length){
+    html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Что покупают</b>
+      <div style="margin-top:6px">${hbarList(pm.byService,x=>x.count,x=>esc(x.service),()=>'var(--s1)')}</div></div>`;
+  }
+  if(pm.deals&&pm.deals.length){
+    html+=`<details class="acc"><summary><span class="arr">▶</span>📋 Все сделки месяца<span class="badge">${pm.deals.length}</span></summary><div class="accb">
+      ${dealsTable(pm.deals)}
+      <div class="sec-note" style="margin-top:10px">«Цена» — полная стоимость сделки, «оплачено» — 1-я + 2-я оплаты.</div></div></details>`;
+  }
+  html+=twC();
+
+  // ================= РЕКЛАМА =================
+  html+=twO('ads');
+  html+=`<div class="grid g4" style="margin-top:16px">
+    ${pm.budget?tile('Потратили на рекламу',zlh(pm.budget),'FB '+zl(pm.fbActual)+' + TikTok '+zl(pm.ttActual)+' · по списаниям банка')
+               :tile('Потратили · трекинг','$'+nf(pm.spendUsdTracked),'точные zł — после списаний банка в конце месяца')}
+    ${tile('Заявок пришло',nf(pm.leads),pm.cpl!=null?('1 заявка стоила '+zl(pm.cpl)):'цена заявки — после списаний')}
+    ${tile('Клиент с рекламы стоит',zlh(pm.cacTraffic||pm.cac),pm.roasTrafficP1?((pm.roasTrafficP1>=1?'окупается':'пока не окупается')+' ×'+pm.roasTrafficP1+' сразу и ×'+pm.roasTrafficContract+' по договорам'):'')}
+    ${tile('Из 100 заявок покупают',(pm.convTraffic!=null?Math.round(pm.convTraffic):'—')+'<span class="zl">чел.</span>',pm.trafficClosings!=null?(pm.trafficClosings+' закрытий с трафика из '+nf(pm.leads)+' заявок'):'')}
+  </div>`;
+  html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Расход и заявки день за днём</b>
+    ${adPair((d.adDaily||[]).filter(x=>(x.date||'').startsWith(CUR_KEY)).slice(-24))}
+    <div class="sec-note" style="margin-top:8px">Панели связаны: веди пальцем — увидишь оба числа одного дня. Органика сверх этого: суприм ${pm.suprimPct!=null?pm.suprimPct+'%':'—'} · сарафан ${pm.sarafanPct!=null?pm.sarafanPct+'%':'—'} всех закрытий.</div></div>`;
+  html+=`<div class="grid g2">
+    <div class="card rv"><b style="font-size:15px">Каналы заявок</b>
+      <div style="margin-top:6px">${pm.channels?hbarList(Object.entries(pm.channels),([n,c])=>c.leads,([n,c])=>esc(n)+` <span class="mut">· $${nf(c.usd)}${c.leads?' · $'+(Math.round(c.usd/c.leads*10)/10)+'/заявка':''}</span>`,([n])=>n.includes('Whats')?'#199E70':'var(--s2)'):'<div class="mut">нет данных</div>'}</div>
+      ${(pm.bySeller||[]).some(s=>s.wa)?`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)">
+        <div class="mut" style="font-size:12px;margin-bottom:8px">💬 WhatsApp-кабинеты продавцов (входящие)</div>
+        ${(pm.bySeller||[]).filter(s=>s.wa).map(s=>`<div style="display:flex;justify-content:space-between;font-size:13px;margin:6px 0"><span>${esc(s.name)}</span><span class="t2 num">$${nf(s.wa.spendUsd)} → ${s.wa.leads} заявок${s.wa.cpl!=null?' · $'+s.wa.cpl:''}</span></div>`).join('')}</div>`:''}</div>
+    <div class="card rv"><b style="font-size:15px">Воронка трафика · ${mLabel(CUR_KEY)}</b>
+      <div style="margin-top:12px">${pm.trafficClosings!=null?stepFunnel(
+        [{l:'Заявки с рекламы',v:pm.leads},{l:'Стали клиентами',v:pm.trafficClosings}],pm.leads,
+        `конверсия: <span style="color:var(--acc)">${pm.leads?Math.round(pm.trafficClosings/pm.leads*1000)/10:0}%</span>`,
+        `Принесли сразу ${zl(pm.trafficFirstPay)} (×${pm.roasTrafficP1||'—'}) · по договорам ${zl(pm.trafficContracted)} (×${pm.roasTrafficContract||'—'})`)
+        :'<div class="mut">появится после тегов из чата оплат</div>'}</div></div>
+  </div>`;
+  html+=twC();
+
+  // ================= ФИНАНСЫ =================
+  html+=twO('fin');
+  if(pnl){
+    html+=`<div class="grid g4" style="margin-top:16px">
+      ${tile('Пришло денег',`<span class="goldnum">${zlh(pnl.income)}</span>`,pnl.firmIncome!=null?('🏦 на фирму '+zl(pnl.firmIncome)+' · 💵 налом '+zl(pnl.cashIncome||0)):'')}
+      ${tile('Потратили',zlh(pnl.expenses),'')}
+      ${tile('Осталось',`<span class="${(pnl.profit||0)<0?'neg':'pos'}">${(pnl.profit>=0?'+':'−')+nf(Math.abs(pnl.profit))}<span class="zl">zł</span></span>`,'маржа '+pct(pnl.margin))}
+      ${tile('Отдача на расходы',`<span class="${(pnl.roi||0)<0?'neg':'pos'}">${pct(pnl.roi)}</span>`,pnl.newCases!=null?('новые сделки принесли '+zl(pnl.newCases)):'')}
+    </div>`;
+    if((pnl.profit||0)<0) html+=`<div class="sec-note" style="color:var(--warn)">⚠ Месяц в минусе: расходы выше собранного. Договоров подписано на ${zl(pm.contracted)}, собрано ${zl(pm.collected)} — не собрано ~${zl((pm.contracted||0)-(pm.collected||0))}.</div>`;
+    if(pnl.expenseCats&&Object.keys(pnl.expenseCats).length){
+      const cats=Object.entries(pnl.expenseCats).map(([k,v])=>({name:k,amount:v})).sort((a,b)=>b.amount-a.amount);
+      const catSum=cats.reduce((s,c)=>s+c.amount,0);
+      // всё, что потрачено, но не разнесено по статьям — честный серый ломтик
+      if((pnl.expenses||0)-catSum>1) cats.push({name:'Не разнесено',amount:Math.round(pnl.expenses-catSum)});
+      const totExp=Math.max(pnl.expenses||0,catSum), income=pnl.income||0;
+      html+=`<div class="grid g2">
+        <div class="card rv"><b style="font-size:15px">Куда ушли деньги</b>${donut(cats,totExp)}
+          <div class="sec-note">Реклама — ${income?Math.round((pnl.expenseCats['Реклама']||0)/income*100):'—'}% от выручки месяца.</div></div>
+        <div class="card rv"><b style="font-size:15px">Выручка против расходов</b>
+          <div style="margin-top:14px">
+            <div class="hl" style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--t2);margin-bottom:5px"><span>Пришло</span><b class="num" style="color:var(--t1)">${zl(income)}</b></div>
+            <div class="meter" style="height:20px;border-radius:7px;background:rgba(62,207,142,.12)"><div style="width:${Math.min(100,income/Math.max(income,totExp,1)*100)}%;background:var(--good);border-radius:7px"></div></div>
+            <div class="hl" style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--t2);margin:16px 0 5px"><span>Потратили</span><b class="num" style="color:var(--t1)">${zl(totExp)}</b></div>
+            <div class="meter" style="height:20px;border-radius:7px;display:flex;gap:2px;background:none;overflow:hidden">${cats.map(c=>`<div style="height:100%;width:${c.amount/Math.max(income,totExp,1)*100}%;background:${expC(c.name)};border-radius:3px"></div>`).join('')}</div>
+            <div class="lgd">${cats.map(c=>`<span><span class="dot" style="background:${expC(c.name)}"></span>${esc(c.name)}</span>`).join('')}</div>
+            <div class="sec-note ${totExp>income?'':''}" style="margin-top:12px;${totExp>income?'color:var(--warn)':''}">${totExp>income?('Расходы больше выручки на '+zl(totExp-income)+' — отсюда минус.'):('В плюсе на '+zl(income-totExp)+'.')}</div>
+          </div></div>
+      </div>`;
+    }
+    if(d.founders&&d.founders.profitSplit&&pnl.profit!=null){
+      const ps=d.founders.profitSplit, dv=d.founders.dividends||{Влад:80,Аким:20}, PP=pnl.profit;
+      const parts=[
+        {n:'Фонд реинвестиций',p:ps['Реинвестиция']||10,c:'#3987E5'},
+        {n:'Резервный фонд',p:ps['Резерв']||10,c:'#9085E9'},
+        {n:'Влад',p:Math.round((ps['Дивиденды']||80)*(dv['Влад']||80)/100),c:'#199E70'},
+        {n:'Аким',p:Math.round((ps['Дивиденды']||80)*(dv['Аким']||20)/100),c:'#C98500'},
+      ];
+      html+=sec('💸 Распределение прибыли','правило: 10% реинвест + 10% резерв + остаток Влад/Аким 80/20');
+      if(PP>0){
+        html+=`<div class="grid g4">${parts.map(p=>tile(p.n,zlh(PP*p.p/100),p.p+'% прибыли')).join('')}</div>`;
+      } else {
+        html+=`<div class="card rv"><div class="sec-note" style="margin-top:0;color:var(--warn)">Прибыль в минусе (${zl(PP)}) — делить пока нечего. Правило включится с первым плюсом:</div>
+          <div style="margin-top:12px">${hbarList(parts,p=>p.p,p=>p.n,p=>p.c)}</div></div>`;
+      }
+    }
+  } else {
+    html+=`<div class="card rv" style="margin-top:16px"><div class="mut">PnL за ${mFull(CUR_KEY)} ещё не заполнен.</div></div>`;
+  }
+  if(d.founders){
+    const f=d.founders;
+    const repPct=f.akimTotal?Math.round((f.akimRepaid||0)/f.akimTotal*100):0;
+    html+=`<details class="acc"><summary><span class="arr">▶</span>🤝 Учредители · кредит Акима<span class="badge">осталось ${zl(f.akimRemaining)}</span></summary><div class="accb">
+      <div class="grid g3" style="margin-top:12px">
+        ${tile('Долг Акиму',zlh(f.akimRemaining),f.akimRepaid?('погашено '+zl(f.akimRepaid)+' из '+zl(f.akimTotal)):('всего '+zl(f.akimTotal)+' · гасим с августа'))}
+        ${tile('Доля Влада',(f.dividends['Влад']||0)+'<span class="zl">%</span>','от дивидендной части')}
+        ${tile('Доля Акима',(f.dividends['Аким']||0)+'<span class="zl">%</span>','от дивидендной части')}
+      </div>
+      <div class="card rv" style="margin-top:14px"><b style="font-size:14px">Погашение</b>
+        <div class="meter" style="height:12px;margin-top:10px"><div style="width:${repPct}%;background:linear-gradient(90deg,var(--good),var(--gold))"></div></div>
+        <div class="sec-note">Погашено ${zl(f.akimRepaid)} из ${zl(f.akimTotal)} (${repPct}%).</div>
+        ${(f.akim.repayments&&f.akim.repayments.length)?`<table style="margin-top:10px"><thead><tr><th>Дата</th><th class="n">Сумма</th></tr></thead><tbody>${f.akim.repayments.map(r=>`<tr><td>${r.date?dLabel(r.date):'—'}</td><td class="n pos num">${zl(r.amount)}</td></tr>`).join('')}</tbody></table>`:''}
+      </div>
+      <div class="card rv" style="margin-top:14px"><b style="font-size:14px">Из чего состоит кредит (всё нал)</b>
+        <table style="margin-top:8px"><tbody>${f.akim.items.map(i=>`<tr><td>${esc(i.label)}</td><td class="n num">${zl(i.amount)}</td></tr>`).join('')}
+        <tr><td style="font-weight:600">Итого</td><td class="n num" style="font-weight:700;color:var(--gold)">${zl(f.akimTotal)}</td></tr></tbody></table></div>
+    </div></details>`;
+  }
+  html+=twC();
+
+  // ================= КЛИЕНТЫ =================
+  html+=twO('clients');
+  if(d.ops){
+    const o=d.ops;
+    html+=`<div class="grid g4" style="margin-top:16px">
+      ${tile('Дел в работе',String(o.total),'воронка «Легализация» · зона Даши')}
+      ${tile('Застряло >7 дней',`<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`,o.stale&&o.stale.length?('дольше всех — '+o.stale[0].days+' дн.'):'')}
+      ${tile('Активность · 30 дн',String(o.notes30?(o.notes30.capped?'250+':o.notes30.total):'—'),'заметок по делам')}
+      ${tile('Писем клиентам',String(o.notes30?o.notes30.emails:'—'),'за 30 дней')}
+    </div>`;
+    html+=`<div class="grid g2">
+      <div class="card rv"><b style="font-size:15px">По стадиям</b>
+        <div style="margin-top:6px">${hbarList(o.byStage||[],x=>x.count,x=>esc(x.stage),()=>'var(--s2)')}</div></div>
+      <div class="card rv"><b style="font-size:15px">Стоят без движения</b>
+        <div class="tblwrap" style="margin-top:8px"><table><thead><tr><th>Клиент</th><th>Стадия</th><th class="n">Дней</th></tr></thead>
+        <tbody>${(o.stale||[]).map(x=>`<tr><td>${esc(x.name)}</td><td class="t2" style="font-size:12px">${esc(x.stage)}</td><td class="n num ${x.days>14?'neg':''}">${x.days}</td></tr>`).join('')||'<tr><td colspan=3 class="mut">все дела в движении 👍</td></tr>'}</tbody></table></div>
+        <div class="sec-note">Красное — больше 14 дней: глянуть с Дашей.</div></div>
+    </div>`;
+  }
+  if(site){
+    const per=site.period?`${site.period.days} дней · до ${dLabel(site.period.end)}`:'';
+    const staleDays=site.period?Math.round((new Date(d.generatedAt)-new Date(site.period.end))/864e5):0;
+    html+=`<details class="acc"><summary><span class="arr">▶</span>🌐 Сайт · ${per}${staleDays>3?' ⚠':''}<span class="badge">открыть</span></summary><div class="accb">`;
+    if(staleDays>3) html+=`<div class="sec-note" style="color:var(--warn)">⚠ Данные сайта устарели на ${staleDays} дн. — прогнать analytics-agent.</div>`;
+    html+=`<div class="grid g4" style="margin-top:12px">
+      ${tile('Пользователи',nf(site.users),'сессий '+nf(site.sessions))}
+      ${tile('Просмотры',nf(site.views),'')}
+      ${tile('Клики WhatsApp',nf(site.wa),'звонков '+nf(site.phone))}
+      ${tile('Конверсия',pct(site.conv),'отказы '+pct(site.bounce))}
+    </div>`;
+    const traf=(site.daily||[]).map(x=>x.users||0);
+    if(traf.length){
+      const sb=sparkBig(traf);
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Трафик по дням</b>
+        ${chartBox(sb.svg,{xs:(site.daily||[]).map(x=>dLabel(x.date||'')),rows:i=>[{k:'пользователей',v:nf(traf[i]),sw:'var(--s1)'}]})}</div>`;
+    }
+    html+=`<div class="grid g2">
+      <div class="card rv"><b style="font-size:15px">Источники</b>
+        <div style="margin-top:6px">${hbarList((site.sources||[]).slice(0,7),x=>x.sessions,x=>esc((x.source||x.channel||'—'))+(x.paid?' <span class="chip gold" style="height:18px;font-size:10.5px">платный</span>':''),x=>x.paid?'#C98500':'var(--s1)')}</div></div>
+      <div class="card rv"><b style="font-size:15px">Страны</b>
+        <table style="margin-top:8px"><tbody>${(site.countries||[]).map(c=>`<tr><td>${countryLabel(c.country)}${c.bot?' <span class="chip" style="height:18px;font-size:10.5px">бот</span>':''}</td><td class="n num">${nf(c.users)}</td></tr>`).join('')}</tbody></table></div>
+    </div>`;
+    html+=`</div></details>`;
+  }
+  html+=twC();
+
+  html+=`<div class="center" style="padding:34px 12px 10px;font-size:12px">Источники: таблица закрытий · Аналитика · PnL · Kommo · чат оплат · GA4 · Сделок в базе: ${d.closingsTotal||'—'}</div>`;
+
+  $('#content').innerHTML=html;
+  bindCharts();
+  animateNumbers();
+  armAnimations();
+}
+
+// ============ ЭКРАН ПРОДАВЦА ============
+function renderSeller(d){
+  if(!CUR_KEY||!(d.months&&d.months[CUR_KEY])) CUR_KEY=d.defaultMonth||d.curMonthKey;
+  const m=(d.months||{})[CUR_KEY]||{}, me=m.me;
+  $('#roleLabel').textContent='кабинет продаж';
+  $('#genLabel').textContent=(d.name||'')+' · '+agoLabel(d.generatedAt);
+  $('#tabbar').classList.add('hidden');
+  let html=monthPills(d);
+  if(me){
+    const plan=me.plan||0, fact=me.fact||0;
+    const left=Math.max(0,plan-fact);
+    const checks=me.avgCheck?Math.ceil(left/me.avgCheck):null;
+    const phrase=plan? (left>0?`${esc(d.name)}, до плана осталось <b>${zl(left)}</b>${checks?` — это ${checks} средн${checks===1?'ий чек':checks<5?'их чека':'их чеков'}`:''}.`:`План сделан. Красавчик, ${esc(d.name)} 🔥`) : '';
+    html+=`<div class="card heroCard rv" style="margin-top:14px">
+      <div class="aura" style="background:radial-gradient(closest-side,rgba(124,114,242,.12),transparent)"></div>
+      <div class="hlbl">Собрано мной · ${mFull(CUR_KEY)}</div>
+      <div class="hnum goldnum">${zlh(me.fact)}</div>
+      <div class="hphrase">${phrase}</div></div>`;
+    html+=`<div class="grid g3">
+      ${tile('Мои закрытия',String(me.closings??'—'),'сделок за месяц')}
+      ${tile('Мой план',me.planPct!=null?pct(me.planPct):'—',plan?('собрано '+zl(fact)+' из '+zl(plan)):'')}
+      ${tile('Средний чек',zlh(me.avgCheck),'')}
+    </div>`;
+    if(me.plan){
+      const col=me.planPct>=80?'var(--good)':me.planPct>=50?'var(--warn)':'var(--bad)';
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Мой план</b>
+        <div class="meter" style="height:12px;margin-top:12px"><div style="width:${Math.min(100,me.planPct||0)}%;background:${col}"></div></div>
+        <div class="sec-note">${zl(fact)} из ${zl(plan)} · ${pct(me.planPct)}</div></div>`;
+    }
+    html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Мои деньги и каналы</b>
+      <div class="grid g3" style="margin-top:12px">
+        ${tile('Договоров на',zlh(me.contracted),'полная стоимость сделок')}
+        ${tile('Ждём 2-х оплат',zlh(me.pay2),'')}
+        ${tile('Выручка (1+2)',zlh(me.revenue),'')}
+      </div>
+      ${me.wa?`<div class="sec-note">WA-кабинет: $${nf(me.wa.spendUsd)} · ${nf(me.wa.leads)} заявок${me.wa.cpl!=null?` · $${me.wa.cpl}/заявка`:''}</div>`:''}
+      ${me.services&&me.services.length?`<div class="schips">${me.services.map(sv=>`<span class="chip">${esc(sv.service)} · ${sv.count}</span>`).join('')}</div>`:''}
+      ${me.sources?`<div class="schips">${Object.entries(me.sources).map(([k,v])=>`<span class="chip" style="color:${srcC(k)};background:${srcC(k)}1f">${srcL(k)} ${v}</span>`).join('')}</div>`:''}
+    </div>`;
+    if(me.kommo){
+      const k=me.kommo;
+      html+=sec('Моя конверсия','из лидов Kommo этого месяца');
+      html+=`<div class="card rv">${stepFunnel(
+        [{l:'Лидов упало',v:k.got},{l:'Целевые',v:k.target},{l:'Закрыл',v:me.closings}],k.got,
+        `лид → клиент: <span style="color:var(--acc)">${pct(me.convKommo)}</span>`,'')}</div>`;
+    }
+  } else {
+    html+=`<div class="card rv" style="margin-top:14px"><div class="mut">Нет данных за этот месяц.</div></div>`;
+  }
+  // счёт команды — только закрытия, без чужих денег
+  const teamPct=m.goal?Math.round((m.closings||0)/m.goal*100):null;
+  html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Счёт команды</b>
+    <div class="meter" style="height:10px;margin-top:12px"><div style="width:${Math.min(100,teamPct||0)}%"></div></div>
+    <div class="sec-note">Команда: ${m.closings??'—'} из ${m.goal??'—'} закрытий${teamPct!=null?(' · '+teamPct+'%'):''}. Твой вклад: ${me?me.closings??0:0}.</div></div>`;
+  if(m.deals&&m.deals.length){
+    html+=`<details class="acc" open><summary><span class="arr">▶</span>📋 Мои закрытия<span class="badge">${m.deals.length}</span></summary><div class="accb">${dealsTable(m.deals)}</div></details>`;
+  }
+  const rc=d.receivables||{};
+  if(rc.count){
+    const todayIso=(d.generatedAt||'').slice(0,10);
+    html+=sec('⏳ Мои клиенты — ждём оплат');
+    html+=`<div class="card rv"><div class="t2" style="font-size:13px;margin-bottom:4px">Всего ждём <b style="color:var(--t1)">${zl(rc.total)}</b> · ${rc.count} клиентов</div>
+      ${receivablesTable(rc.items,todayIso,20)}
+      <div class="sec-note" style="margin-top:8px">Красный срок — просрочен: дожми оплату.</div></div>`;
+  }
+  $('#content').innerHTML=html;
+  bindCharts();
+  animateNumbers();
+  armAnimations();
+}
+
+// ---- reveal-on-scroll (rect-check: работает и в фоновых вкладках) ----
+function armAnimations(){
+  const targets=[...document.querySelectorAll('#content .rv:not(.in)')];
+  const vh=()=>Math.max(innerHeight||0,document.documentElement.clientHeight||0,600);
+  const check=()=>{
+    for(let i=targets.length-1;i>=0;i--){
+      const el=targets[i],r=el.getBoundingClientRect();
+      if(r.bottom>0&&r.top<vh()*0.96&&(r.width||r.height)){ el.classList.add('in'); targets.splice(i,1); }
+    }
+  };
+  if(window.__animScroll){ removeEventListener('scroll',window.__animScroll); removeEventListener('resize',window.__animScroll); }
+  let tick=false;
+  window.__animScroll=()=>{ if(!tick){ tick=true; requestAnimationFrame(()=>{ check(); tick=false; }); } };
+  addEventListener('scroll',window.__animScroll,{passive:true});
+  addEventListener('resize',window.__animScroll);
+  check();
+  // фоновые вкладки/поздний layout: перепроверить после раскладки и шрифтов
+  setTimeout(check,250); setTimeout(check,1000);
+}
+
+// ---- count-up с финализатором (точный текст в конце всегда) ----
+function animateNumbers(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.tile .kv, .hnum').forEach(el=>{
+    if(el.dataset.anim) return; el.dataset.anim='1';
+    let t=el; while(t.children.length===1&&t.children[0].tagName==='SPAN'&&!t.children[0].classList.contains('zl')) t=t.children[0];
+    const nodes=[...t.childNodes].filter(n=>n.nodeType===3&&/\d/.test(n.textContent));
+    const node=nodes[0]; if(!node) return;
+    const txt=node.textContent;
+    const m=txt.match(/-?\d[\d\s ]*(?:[.,]\d+)?/); if(!m) return;
+    const numStr=m[0].replace(/[\s ]+$/,'');
+    const target=parseFloat(numStr.replace(/[\s ]/g,'').replace(',','.'));
+    if(isNaN(target)) return;
+    const prefix=txt.slice(0,m.index), suffix=txt.slice(m.index+numStr.length);
+    const dec=/[.,]\d/.test(numStr)?1:0;
+    const start=performance.now(), dur=el.classList.contains('hnum')?900:700;
+    const fmt=v=>dec?v.toFixed(1).replace('.',','):Math.round(v).toLocaleString('ru-RU');
+    (function tk(){
+      let p=Math.min(1,(performance.now()-start)/dur); p=1-Math.pow(1-p,3);
+      node.textContent=p<1?prefix+fmt(target*p)+suffix:txt;
+      if(p<1) requestAnimationFrame(tk);
+    })();
+    setTimeout(()=>{ node.textContent=txt; },dur+120);
+  });
+}
+
+// ---- страны: флаг + русское имя ----
+function flagEmoji(iso){ if(!iso) return '🌐';
+  return iso.toUpperCase().replace(/[A-Z]/g,c=>String.fromCodePoint(127397+c.charCodeAt(0))); }
+const COUNTRY={
+  'Poland':['PL','Польша'],'Ukraine':['UA','Украина'],'Belarus':['BY','Беларусь'],
+  'Russia':['RU','Россия'],'Germany':['DE','Германия'],'United States':['US','США'],
+  'United Kingdom':['GB','Великобритания'],'France':['FR','Франция'],'Italy':['IT','Италия'],
+  'Spain':['ES','Испания'],'Netherlands':['NL','Нидерланды'],'Czechia':['CZ','Чехия'],
+  'Lithuania':['LT','Литва'],'Latvia':['LV','Латвия'],'Georgia':['GE','Грузия'],
+  'Armenia':['AM','Армения'],'Azerbaijan':['AZ','Азербайджан'],'Kazakhstan':['KZ','Казахстан'],
+  'Uzbekistan':['UZ','Узбекистан'],'Tajikistan':['TJ','Таджикистан'],'Kyrgyzstan':['KG','Киргизия'],
+  'Turkey':['TR','Турция'],'India':['IN','Индия'],'Pakistan':['PK','Пакистан'],
+  'Bangladesh':['BD','Бангладеш'],'Nepal':['NP','Непал'],'Sri Lanka':['LK','Шри-Ланка'],
+  'Philippines':['PH','Филиппины'],'Indonesia':['ID','Индонезия'],'Vietnam':['VN','Вьетнам'],
+  'China':['CN','Китай'],'Singapore':['SG','Сингапур'],'Nigeria':['NG','Нигерия'],
+  'Egypt':['EG','Египет'],'Morocco':['MA','Марокко'],'Algeria':['DZ','Алжир'],
+  'Tunisia':['TN','Тунис'],'Kenya':['KE','Кения'],'Ghana':['GH','Гана'],
+  'Cameroon':['CM','Камерун'],'Zimbabwe':['ZW','Зимбабве'],'South Africa':['ZA','ЮАР'],
+  'Brazil':['BR','Бразилия'],'Colombia':['CO','Колумбия'],'Mexico':['MX','Мексика'],
+  'Iran':['IR','Иран'],'Iraq':['IQ','Ирак'],'Syria':['SY','Сирия'],
+  'Afghanistan':['AF','Афганистан'],'United Arab Emirates':['AE','ОАЭ'],'Saudi Arabia':['SA','Саудовская Аравия'],
   '(not set)':['','Не определено']
 };
 function countryLabel(name){
-  const m = COUNTRY[name];
-  const iso = m ? m[0] : '';
-  const ru  = m ? m[1] : (name || '—');
-  return flagEmoji(iso) + ' ' + ru;
-}
-function splitBar(lead,inc){
-  const tot=(lead||0)+(inc||0);
-  if(!tot) return '<div class="muted">нет отмеченных</div>';
-  const lp=lead/tot*100;
-  return `<div class="bar-track" style="height:22px;border-radius:8px;display:flex">
-    <div style="width:${lp}%;background:var(--p)"></div><div style="flex:1;background:var(--gold)"></div></div>
-    <div class="lgd"><span><span class="dot" style="background:var(--p)"></span>Лиды: ${lead}</span>
-    <span><span class="dot" style="background:var(--gold)"></span>Входящие: ${inc}</span></div>`;
+  const m=COUNTRY[name]; const iso=m?m[0]:''; const ru=m?m[1]:(name||'—');
+  return flagEmoji(iso)+' '+esc(ru);
 }
 
+document.addEventListener('click',e=>{ if(e.target&&e.target.closest&&e.target.closest('summary')) setTimeout(()=>{ if(window.__animScroll) window.__animScroll(); },60); });
 boot();
 </script>
 </body>
