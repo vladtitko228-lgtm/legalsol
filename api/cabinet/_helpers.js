@@ -319,23 +319,33 @@ async function findContactByPhone(phone) {
     return r?._embedded?.contacts || [];
   }
   function matches(c) {
+    // равенство с учётом номеров, забитых без кода страны («539422054» ≡ «+48539422054»)
+    const hit = raw => {
+      const np = normalizePhone(raw);
+      if (!np) return false;
+      return np === normalized || (np.length === 9 && '48' + np === normalized);
+    };
     const phones = (c.custom_fields_values || [])
       .find(f => f.field_id === PHONE_FIELD_ID)?.values || [];
-    if (phones.some(v => normalizePhone(v.value) === normalized)) return true;
-    if (normalizePhone(c.name) === normalized) return true;
+    if (phones.some(v => hit(v.value))) return true;
+    if (hit(c.name)) return true;
     return false;
   }
 
+  // В Kommo встречаются ДУБЛИ контактов с одним телефоном; пароль лежит только в одном.
+  // Собираем всех совпавших и предпочитаем контакт с паролем (иначе логин бьёт в пустой дубль).
   const seenIds = new Set();
+  const found = [];
   for (const q of queries) {
     const contacts = await search(q);
     for (const c of contacts) {
       if (seenIds.has(c.id)) continue;
       seenIds.add(c.id);
-      if (matches(c)) return c;
+      if (matches(c)) found.push(c);
     }
   }
-  return null;
+  if (!found.length) return null;
+  return found.find(c => getCfValue(c, PASSWORD_FIELD_ID)) || found[0];
 }
 
 // === Парсинг custom_fields_values ===
