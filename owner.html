@@ -232,7 +232,7 @@ details.acc .accb .card{background:var(--srf2)}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
 .dash{width:14px;height:2px;display:inline-block;margin-right:5px;vertical-align:3px;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.4) 0 4px,transparent 4px 7px)}
-.chbox rect.gr{transform-box:fill-box;transform-origin:bottom;animation:growY .6s cubic-bezier(.22,1,.36,1) both;animation-play-state:paused}
+.chbox .gr{transform-box:fill-box;transform-origin:bottom;animation:growY .6s cubic-bezier(.22,1,.36,1) both;animation-play-state:paused}
 @keyframes growY{from{transform:scaleY(0)}}
 .chbox path.draw{stroke-dasharray:1500;stroke-dashoffset:1500;animation:draw .9s ease-out .15s both;animation-play-state:paused}
 @keyframes draw{to{stroke-dashoffset:0}}
@@ -268,7 +268,7 @@ circle.garc{animation:gauge 1s cubic-bezier(.34,1.3,.64,1) both;animation-play-s
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(12px);transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
 .rv.in{opacity:1;transform:none}
-.rv.in .meter>div,.rv.in .fbar,.rv.in rect.gr,.rv.in path.draw,.rv.in circle.garc{animation-play-state:running}
+.rv.in .meter>div,.rv.in .fbar,.rv.in .gr,.rv.in path.draw,.rv.in circle.garc{animation-play-state:running}
 
 /* ---------- логин ---------- */
 #login{position:relative;z-index:1;max-width:360px;margin:14vh auto 0;background:var(--srf);
@@ -648,6 +648,32 @@ function stepFunnel(steps,maxRef,finalLine,noteLine){
   if(finalLine) html+=`<div class="ffinal">${finalLine}</div>`;
   if(noteLine) html+=`<div class="fnote">${noteLine}</div>`;
   return html+'</div>';
+}
+
+// активность производства по дням: стек Даша (акцент) + боты/система (светлый)
+function activityChart(days){
+  if(!days||!days.length) return '';
+  const w=620,h=112,bw=w/days.length,max=Math.max(1,...days.map(d=>d.notes));
+  const bars=days.map((d,i)=>{
+    const hAll=(d.notes/max)*(h-26), hD=(d.dasha/max)*(h-26);
+    const x=i*bw+2, wd=Math.max(2,bw-4), rest=d.notes-d.dasha;
+    let s='';
+    if(d.dasha>0&&rest>0){
+      const capH=Math.max(1.5,hAll-hD-2);
+      s+=`<g class="gr" style="animation-delay:${i*25}ms"><rect x="${x.toFixed(1)}" y="${(h-12-hD).toFixed(1)}" width="${wd.toFixed(1)}" height="${hD.toFixed(1)}" fill="var(--acc)"/><path d="${barTop(x,h-12-hD-2-capH,wd,capH,3)}" fill="var(--cum)"/></g>`;
+    } else if(d.dasha>0){
+      s+=`<path class="gr" style="animation-delay:${i*25}ms" d="${barTop(x,h-12-hD,wd,hD,3)}" fill="var(--acc)"/>`;
+    } else if(rest>0){
+      s+=`<path class="gr" style="animation-delay:${i*25}ms" d="${barTop(x,h-12-hAll,wd,hAll,3)}" fill="var(--cum)"/>`;
+    }
+    return s;
+  }).join('');
+  const svg=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:112px">${gridLines(w,h,[.4])}${bars}</svg>`;
+  const xs=days.map(d=>dLabel(d.date));
+  const ti=[0,Math.floor(xs.length/2),xs.length-1];
+  const ticksHtml=`<div class="xticks" style="position:relative;height:14px;display:block">${ti.map(ii=>`<span style="position:absolute;left:${(((ii+0.5)/xs.length)*100).toFixed(2)}%;transform:translateX(-50%)">${xs[ii]}</span>`).join('')}</div>
+    <div class="lgd"><span><span class="dot" style="background:var(--acc)"></span>Даша</span><span><span class="dot" style="background:var(--cum)"></span>Боты и система</span></div>`;
+  return chartBox(svg,{xs,rows:i=>[{k:'всего действий',v:String(days[i].notes),sw:'var(--cum)'},{k:'из них Даша',v:String(days[i].dasha),sw:'var(--acc)'}]},ticksHtml);
 }
 
 // ---- KPI-тайл ----
@@ -1168,13 +1194,25 @@ function render(d){
   // ================= КЛИЕНТЫ =================
   html+=twO('clients');
   if(d.ops){
-    const o=d.ops;
+    const o=d.ops, w=o.waiting||{count:0,items:[]}, n30=o.notes30||{};
     html+=`<div class="grid g4" style="margin-top:16px">
-      ${tile('Дел в работе',String(o.total),'воронка «Легализация» · зона Даши')}
+      ${tile('Дел в работе',String(o.total),(o.new30?('+'+o.new30+' новых за 30 дней · '):'')+'зона Даши')}
+      ${o.waiting?tile('Ждут ответа',w.count?`<span class="neg">${w.count}</span>`:'0',w.count?('дольше всех — '+esc((w.items[0]||{}).name||'')+' '+fmtWait(w.items[0])):'все сообщения из кабинета отвечены 👍'):tile('Ждут ответа','—','обновится в ближайшие 2 часа')}
       ${tile('Застряло >7 дней',`<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`,o.stale&&o.stale.length?('дольше всех — '+o.stale[0].days+' дн.'):'')}
-      ${tile('Активность · 30 дн',String(o.notes30?(o.notes30.capped?'250+':o.notes30.total):'—'),'заметок по делам')}
-      ${tile('Писем клиентам',String(o.notes30?o.notes30.emails:'—'),'за 30 дней')}
+      ${tile('Активность Даши · 30 дн',String(n30.dasha??'—'),'заметок лично · писем '+(n30.emails??'—')+' · апдейтов клиентам '+(n30.toClient??'—'))}
     </div>`;
+    if(w.count){
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Клиенты ждут ответа в кабинете</b>
+        <div style="margin-top:10px">${w.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--hair);font-size:13.5px">
+          <span>${esc(x.name)}</span><span class="chip b">${fmtWait(x)}</span></div>`).join('')}
+        ${w.count>w.items.length?`<div style="padding:9px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${w.count-w.items.length}</div>`:''}</div>
+        <div class="sec-note">Ответить: карточка клиента в Kommo → заметка «КЛИЕНТУ: …» — она улетит в его кабинет.</div></div>`;
+    }
+    if(o.activity14&&o.activity14.length){
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Работа по делам · 14 дней</b>
+        ${activityChart(o.activity14)}
+        <div class="sec-note" style="margin-top:8px">Каждое действие в карточках дел: заметки, письма, апдейты. За 30 дней всего ${n30.total??'—'}, лично Даша — ${n30.dasha??'—'}.${n30.capped?' <span style="color:var(--warn)">⚠ часть заметок не влезла в выборку — активность занижена.</span>':''}</div></div>`;
+    }
     html+=`<div class="grid g2">
       <div class="card rv"><b style="font-size:15px">По стадиям</b>
         <div style="margin-top:6px">${hbarList(o.byStage||[],x=>x.count,x=>esc(x.stage),()=>'var(--s2)')}</div></div>
@@ -1183,6 +1221,13 @@ function render(d){
         <tbody>${(o.stale||[]).map(x=>`<tr><td>${esc(x.name)}</td><td class="t2" style="font-size:12px">${esc(x.stage)}</td><td class="n num ${x.days>14?'neg':''}">${x.days}</td></tr>`).join('')||'<tr><td colspan=3 class="mut">все дела в движении 👍</td></tr>'}</tbody></table></div>
         <div class="sec-note">Красное — больше 14 дней: глянуть с Дашей.</div></div>
     </div>`;
+    if(o.clients&&o.clients.length){
+      html+=`<details class="acc"><summary><span class="arr">▶</span>📁 Все дела в производстве<span class="badge">${o.total}</span></summary><div class="accb">
+        ${o.clients.length<o.total?`<div class="sec-note">показаны ${o.clients.length} самых застоявшихся из ${o.total}</div>`:''}
+        <div class="tblwrap"><table class="stack"><thead><tr><th>Клиент</th><th>Стадия</th><th class="n">Дней без движения</th></tr></thead>
+        <tbody>${o.clients.map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="стадия" class="t2">${esc(x.stage)}</td><td data-l="дней" class="n num ${x.days>14?'neg':''}">${x.days}</td></tr>`).join('')}</tbody></table></div>
+      </div></details>`;
+    }
   }
   if(site){
     const per=site.period?`${site.period.days} дней · до ${dLabel(site.period.end)}`:'';
@@ -1337,6 +1382,7 @@ function animateNumbers(){
 }
 
 // ---- страны: флаг + русское имя ----
+function fmtWait(x){ if(!x) return ''; return x.days>=1 ? (x.days+' дн.') : ((x.hours||0)+' ч.'); }
 function flagEmoji(iso){ if(!iso) return '🌐';
   return iso.toUpperCase().replace(/[A-Z]/g,c=>String.fromCodePoint(127397+c.charCodeAt(0))); }
 const COUNTRY={
