@@ -59,6 +59,20 @@ async function actionData(req, res, payload) {
     }
   }
   const now = Date.now();
+  // Дата последнего КЛИЕНТУ-апдейта по каждой сделке (массово, не по одной)
+  const lastUpdateMap = {};
+  try {
+    for (let np = 1; np <= 4; np++) {
+      const nr = await kommo('GET', `/leads/notes?filter[note_type]=common&order[updated_at]=desc&limit=250&page=${np}`);
+      const notes = nr?._embedded?.notes || [];
+      for (const n of notes) {
+        if (!isClientNote(n.params?.text || '')) continue;
+        const lid = n.entity_id; const ts = (n.created_at || 0) * 1000;
+        if (ts && (!lastUpdateMap[lid] || ts > lastUpdateMap[lid])) lastUpdateMap[lid] = ts;
+      }
+      if (notes.length < 250) break;
+    }
+  } catch (_) {}
   const list = []; const byStage = {};
   let active = 0, completed = 0, withAccess = 0, contractTotal = 0;
   for (const ld of leadsRaw) {
@@ -80,7 +94,7 @@ async function actionData(req, res, payload) {
     if (cm.hasAccess) withAccess++;
     contractTotal += price;
     list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
-      stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle });
+      stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle, lastUpdateMs: lastUpdateMap[ld.id] || 0 });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
   return res.status(200).json({
