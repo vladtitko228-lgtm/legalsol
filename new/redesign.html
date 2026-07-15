@@ -256,6 +256,22 @@ footer a:hover{color:#fff}
 .js .reveal.in{transform:none}
 @media(prefers-reduced-motion:reduce){.js .reveal{transform:none!important}}
 
+/* checker */
+.checker .wrap{background:linear-gradient(135deg,var(--lilac),#fff);border:1px solid var(--lilac-line);border-radius:var(--r-lg);padding:52px 48px;text-align:center}
+.checker h2{margin-bottom:12px}
+.checker>.wrap>p{color:var(--ink-2);max-width:620px;margin:0 auto 32px;font-size:16.5px}
+.chk-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:860px;margin:0 auto 24px}
+.chk{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:26px 18px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.chk:hover{transform:translateY(-4px);border-color:var(--indigo);box-shadow:var(--sh-sm)}
+.chk .ci{width:50px;height:50px;border-radius:15px;background:var(--lilac);display:grid;place-items:center;margin:0 auto 14px}
+.chk b{display:block;font-size:15.5px;color:var(--ink);margin-bottom:3px}
+.chk span{font-size:12.5px;color:var(--ink-3)}
+.checker .fine{font-size:13px;color:var(--ink-3)}
+/* geo */
+.geo{text-align:center;padding:36px 30px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm)}
+.geo p{font-weight:700;color:var(--ink);margin-bottom:18px;font-size:16px}
+.geo .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.geo .chip{background:var(--cream);border:1px solid var(--line);border-radius:var(--pill);padding:8px 16px;font-size:13.5px;color:var(--ink-2);font-weight:600}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -263,6 +279,7 @@ footer a:hover{color:#fff}
   .stats-grid{grid-template-columns:1fr 1fr}
   .guar-grid,.ref .wrap,.final .wrap{grid-template-columns:1fr;gap:34px}
   .rev-grid,.blog-grid{grid-template-columns:1fr 1fr}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:30px}
   nav.main,.hd-r .lk{display:none}
 }
 @media(max-width:640px){
@@ -274,6 +291,14 @@ footer a:hover{color:#fff}
   .rev-grid .rev:nth-child(n+4){display:none}
   .blog-grid .bcard:nth-child(n+5){display:none}
   .hero .lead{font-size:18px}
+  h2{font-size:27px}
+  .hero h1{font-size:33px}
+  .guar h2,.final h2,.checker h2{font-size:25px}
+  header .wrap{gap:10px}
+  .logo small{display:none}
+  .hd-r .btn{padding:12px 16px;font-size:14px}
+  .chk-opts{grid-template-columns:1fr 1fr}
+  .geo .chip{font-size:12.5px;padding:7px 12px}
 }
 </style>
 </head>
@@ -478,6 +503,20 @@ footer a:hover{color:#fff}
   </div>
 </div></section>
 
+<!-- CHECKER -->
+<section class="checker"><div class="wrap">
+  <span class="eyebrow">Проверка за 60 секунд</span>
+  <h2>Готовы ли ваши документы для карты побыту?</h2>
+  <p>Выберите вашу ситуацию — специалист ответит в WhatsApp за 15 минут: скажет ваши шансы и пришлёт список документов под ваш случай.</p>
+  <div class="chk-opts">
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>По работе</b><span>Umowa o pracę / zlecenie</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>Своё дело</b><span>JDG / Spółka z o.o.</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20семья%20(воссоединение).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>По семье</b><span>Воссоединение</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20учёба.%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Учёба</b><span>Дневное отделение вуза</span></a>
+  </div>
+  <div class="fine">Бесплатно · Ответ за 15 минут · Без обязательств</div>
+</div></section>
+
 <!-- REVIEWS -->
 <section id="reviews" class="reviews"><div class="wrap">
   <div class="rev-top">
@@ -493,6 +532,14 @@ footer a:hover{color:#fff}
     <div class="rev reveal"><div class="stars">★★★★★</div><p>«Сам пробовал дважды — отказали. С LegalSol — с первого раза! Честная цена, честный результат.»</p><div class="who"><img class="av" src="/assets/trc/client5.jpg" alt=""><span><b>Aakash</b><span>Карта побыту · Краков</span></span></div></div>
   </div>
 </div></section>
+
+<!-- GEO -->
+<section style="padding-top:0"><div class="wrap"><div class="geo">
+  <p>1 000+ клиентов из 9 стран — с 2020 года</p>
+  <div class="chips">
+    <span class="chip">🇮🇳 Индия</span><span class="chip">🇧🇩 Бангладеш</span><span class="chip">🇵🇰 Пакистан</span><span class="chip">🇳🇬 Нигерия</span><span class="chip">🇻🇳 Вьетнам</span><span class="chip">🇦🇿 Азербайджан</span><span class="chip">🇹🇷 Турция</span><span class="chip">🇵🇭 Филиппины</span><span class="chip">🇱🇰 Шри-Ланка</span>
+  </div>
+</div></div></section>
 
 <!-- BLOG → WHATSAPP -->
 <section id="blog"><div class="wrap">
