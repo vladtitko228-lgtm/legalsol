@@ -344,9 +344,9 @@
   +'.lsq-sub{font-size:8px;font-weight:600;letter-spacing:.16em;color:#9a93b5;text-transform:uppercase;margin-top:3px;}'
   +'#lsq-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;background:#f4f2fb;color:#8b84a8;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,color .15s;}'
   +'#lsq-close:hover{background:#ece9f6;color:#1a1535;}'
-  +'.lsq-accent{height:4px;background:linear-gradient(90deg,#5B52CC,#7C5CFC 55%,#34d3b0);}'
+  +'.lsq-accent{height:4px;background:linear-gradient(90deg,#5B52CC,#7C5CFC 55%,#5B52CC);}'
   +'.lsq-progwrap{display:flex;align-items:center;justify-content:space-between;margin:12px 0 7px;}#lsq-step{font-size:11.5px;color:#8b84a8;font-weight:600;}#lsq-pct{font-size:11.5px;color:#7C5CFC;font-weight:700;}'
-  +'.lsq-track{height:6px;border-radius:99px;background:#efedf7;overflow:hidden;}#lsq-bar{height:100%;width:11%;border-radius:99px;background:linear-gradient(90deg,#7C5CFC,#5eead4);transition:width .5s cubic-bezier(.16,1,.3,1);}'
+  +'.lsq-track{height:6px;border-radius:99px;background:#efedf7;overflow:hidden;}#lsq-bar{height:100%;width:11%;border-radius:99px;background:linear-gradient(90deg,#5B52CC,#7C5CFC);transition:width .5s cubic-bezier(.16,1,.3,1);}'
   +'#lsq-body{padding:22px 20px 26px;max-height:64vh;overflow-y:auto;}'
   +'.lsq-qh{font-size:21px;font-weight:600;line-height:1.25;color:#1a1535;margin:0 0 6px;letter-spacing:-.01em;}'
   +'.lsq-qs{font-size:13px;line-height:1.5;color:#6f6890;margin:0 0 16px;}'
@@ -354,7 +354,7 @@
   +'.lsq-opts{display:flex;flex-direction:column;gap:9px;}'
   +'.lsq-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}'
   +'.lsq-opt{position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:14px 15px 14px 16px;border-radius:13px;background:#fff;border:1px solid #e7e3f3;color:#1a1535;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;opacity:0;transform:translateY(8px);animation:lsqIn .38s cubic-bezier(.16,1,.3,1) forwards;transition:transform .15s,border-color .15s,box-shadow .15s,background .15s;}'
-  +".lsq-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#7C5CFC,#34d3b0);transform:scaleY(0);transition:transform .2s cubic-bezier(.16,1,.3,1);}"
+  +".lsq-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(#5B52CC,#7C5CFC);transform:scaleY(0);transition:transform .2s cubic-bezier(.16,1,.3,1);}"
   +'.lsq-opt:hover::before,.lsq-opt.sel::before{transform:scaleY(1);}'
   +'.lsq-grid .lsq-opt::before{display:none;}'
   +'.lsq-grid .lsq-opt{justify-content:center;text-align:center;}'

@@ -722,6 +722,67 @@ section > .wrap{position:relative;z-index:1}
   .bg-art{height:100%;top:0}
 }
 
+
+/* ===== Burman-style kit (v11) ===== */
+.feat-num{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:820px){.feat-num{grid-template-columns:1fr}}
+.feat-num .fn{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:30px 28px;box-shadow:var(--shadow-sm);transition:transform .24s,box-shadow .24s}
+.feat-num .fn:hover{transform:translateY(-4px);box-shadow:0 22px 50px -26px rgba(35,42,92,.28)}
+.feat-num .fn .ic{width:46px;height:46px;border-radius:12px;background:var(--lav);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.feat-num .fn .ic svg{width:22px;height:22px}
+.feat-num .fn .no{font:700 12px/1 var(--sans);letter-spacing:.14em;color:var(--accent);margin-bottom:10px}
+.feat-num .fn h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.feat-num .fn p{font-size:14px;color:var(--ink-2)}
+.svc-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line-2);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.svc-table thead th{font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:left;padding:18px 22px;border-bottom:1px solid var(--line-2)}
+.svc-table thead th:not(:first-child){text-align:right}
+.svc-table td{padding:16px 22px;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--ink-2)}
+.svc-table td:first-child{font-weight:600;color:var(--ink)}
+.svc-table td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.svc-table tr:last-child td{border-bottom:none}
+.svc-table .yes{color:var(--green);font-weight:700}
+.svc-table .disc{color:var(--accent);font-weight:600}
+.svc-table tbody tr{transition:background .15s}
+.svc-table tbody tr:hover{background:var(--paper-2)}
+@media(max-width:720px){.svc-table{display:block;overflow-x:auto;white-space:nowrap}}
+.htl{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;margin-top:44px;position:relative}
+.htl .step{text-align:center;position:relative;padding:0 10px}
+.htl .step::before{content:"";position:absolute;top:15px;left:-50%;width:100%;height:2px;background:rgba(255,255,255,.28)}
+.htl .step:first-child::before{display:none}
+.htl .dot{width:32px;height:32px;border-radius:50%;background:var(--lilac);color:var(--navy-deep);font:700 14px/32px var(--sans);position:relative;z-index:1;margin:0 auto 16px}
+.htl .st{font-size:14.5px;font-weight:700;color:#fff;margin-bottom:6px}
+.htl .sd{font-size:12.5px;color:#C9C7E8;line-height:1.5}
+@media(max-width:760px){.htl{grid-auto-flow:row;grid-auto-columns:auto;gap:22px}.htl .step{text-align:left;display:grid;grid-template-columns:32px 1fr;gap:14px;align-items:start;padding:0}.htl .step::before{top:-14px;left:15px;width:2px;height:22px}.htl .dot{margin:0}}
+.ava-row{display:flex;justify-content:center;margin-bottom:10px}
+.ava-row img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid var(--paper);margin-left:-12px;box-shadow:var(--shadow-sm)}
+.ava-row img:first-child{margin-left:0}
+.contact-split{display:grid;grid-template-columns:5fr 6fr;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--line-2)}
+@media(max-width:820px){.contact-split{grid-template-columns:1fr}}
+.contact-split .cs-side{background:var(--navy);color:#fff;padding:40px 36px}
+.contact-split .cs-side h3{color:#fff;font-size:22px;margin-bottom:12px}
+.contact-split .cs-side>p{color:#C9C7E8;font-size:14.5px;margin-bottom:24px}
+.contact-split .cs-line{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 18px;margin-bottom:12px;color:#fff;text-decoration:none;transition:background .18s}
+.contact-split .cs-line:hover{background:rgba(255,255,255,.14)}
+.contact-split .cs-line .ic{width:38px;height:38px;border-radius:10px;background:rgba(184,178,245,.2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--lilac)}
+.contact-split .cs-line b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lilac)}
+.contact-split .cs-line span{font-size:14.5px}
+.contact-split .cs-form{background:var(--card);padding:40px 36px}
+
+/* dark process band (Burman "how it works" strip) */
+.band-sec{background:var(--navy-deep);color:#E9E8F5;position:relative;overflow:hidden}
+.band-sec .kicker{color:var(--lilac)}
+.band-sec .kicker::before{background:none;color:#8886B0;border-right-color:rgba(255,255,255,.22)}
+.band-sec .kicker.center::after{background:var(--lilac)}
+.band-sec h2{color:#fff}
+.band-sec h2 em{color:var(--lilac)}
+.band-sec .sec-head p{color:#B9B8D4}
+.band-sec .bg-art{opacity:.14}
+.band-sec .path{background:var(--card);color:var(--ink)}
+.band-sec .path .path-head{border-bottom-color:var(--line)}
+.mos-band{margin-top:34px;border:1px solid rgba(255,255,255,.16);border-left:3px solid var(--lilac);border-radius:6px;background:rgba(255,255,255,.05);padding:20px 28px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.mos-band .mb-lbl{font-family:var(--serif);font-style:italic;color:var(--lilac);font-size:15px;flex:none}
+.mos-band p{font-size:14.5px;color:#C9C7E8;margin:0}
+
 </style>
 <script type="application/ld+json">
 {
@@ -866,8 +927,8 @@ section > .wrap{position:relative;z-index:1}
         <p>Мы сами иностранцы — студенческая виза, карта побыту, ПМЖ, гражданство. Мы знаем это ожидание, потому что прожили его сами.</p>
         
         <div class="team-strip">
-          <div class="team-card"><span class="ava">В</span><span><span class="tn" style="display:block">Влад</span><span class="tl">Основатель · в легализации с 2020 года</span></span></div>
-          <div class="team-card"><span class="ava">Д</span><span><span class="tn" style="display:block">Дарья</span><span class="tl">Старший юрист · 4 года практики · проверяет каждый пакет</span></span></div>
+          <div class="team-card"><span class="ava">✓</span><span><span class="tn" style="display:block">Команда с 2020 года</span><span class="tl">Ведём дела о легализации каждый день</span></span></div>
+          <div class="team-card"><span class="ava">§</span><span><span class="tn" style="display:block">Проверяем каждый пакет</span><span class="tl">Двойной контроль до подачи — юрист и система</span></span></div>
         </div>
       </div>
       <div>
@@ -884,19 +945,19 @@ section > .wrap{position:relative;z-index:1}
 </section>
 
 <!-- steps -->
-<section class="steps-sec" id="en-process">
-  <img class="bg-art bg-left" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
+<section class="band-sec" id="en-process">
+  <img class="bg-art bg-left bg-dark" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Как мы работаем</div>
+    <div class="sec-head center">
+      <div class="kicker center">Как мы работаем</div>
       <h2>Четыре этапа — <em>до результата</em></h2>
       <p>Больше 1 000 наших клиентов прошли через эту систему.</p>
     </div>
-    <div class="steps">
-      <div class="step"><div class="sn">01</div><h3>Бесплатная консультация</h3><p>Расскажите о своей ситуации — оценим шансы, наметим путь.</p></div>
-      <div class="step"><div class="sn">02</div><h3>Пакет документов</h3><p>Составляем чек-лист, ведём сбор, проверяем каждый документ до подачи.</p></div>
-      <div class="step"><div class="sn">03</div><h3>Подача онлайн — через MOS</h3><p>MOS — государственный сайт, через который подают документы на карту. Без очередей. А если нужно прийти в уженд лично — идём с вами.</p></div>
-      <div class="step"><div class="sn">04</div><h3>Карта побыту в руках</h3><p>Мы на связи — всегда есть у кого спросить.</p></div>
+    <div class="htl">
+      <div class="step"><div class="dot">1</div><div class="st">Бесплатная консультация</div><div class="sd">Расскажите о своей ситуации — оценим шансы, наметим путь.</div></div>
+      <div class="step"><div class="dot">2</div><div class="st">Пакет документов</div><div class="sd">Составляем чек-лист, ведём сбор, проверяем каждый документ до подачи.</div></div>
+      <div class="step"><div class="dot">3</div><div class="st">Подача онлайн — через MOS</div><div class="sd">MOS — государственный сайт, через который подают документы на карту. Без очередей. А если нужно прийти в уженд лично — идём с вами.</div></div>
+      <div class="step"><div class="dot">4</div><div class="st">Карта побыту в руках</div><div class="sd">Мы на связи — всегда есть у кого спросить.</div></div>
     </div>
 
     <div class="path">
@@ -915,9 +976,9 @@ section > .wrap{position:relative;z-index:1}
       </div>
     </div>
 
-    <div style="margin-top:26px;border:1px solid var(--line-2);border-left:3px solid var(--navy);border-radius:4px;background:var(--paper);padding:20px 28px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap">
-      <span style="font-family:var(--serif);font-style:italic;color:var(--navy);font-size:15px;flex:none">Важно ·</span>
-      <span style="font-size:14.5px;color:var(--ink-2)">С 27 апреля 2026 документы на ВНЖ принимают только онлайн — через государственную систему MOS. Мы подаём так с первого дня. Для входа в MOS нужен Profil Zaufany — ваша электронная подпись для польских госуслуг. Мы оформим её вместе с вами, это входит в сопровождение.</span>
+    <div class="mos-band">
+      <span class="mb-lbl">Важно ·</span>
+      <p>С 27 апреля 2026 документы на ВНЖ принимают только онлайн — через государственную систему MOS. Мы подаём так с первого дня. Для входа в MOS нужен Profil Zaufany — ваша электронная подпись для польских госуслуг. Мы оформим её вместе с вами, это входит в сопровождение.</p>
     </div>
   </div>
 </section>
@@ -969,9 +1030,9 @@ section > .wrap{position:relative;z-index:1}
     <div class="guar-frame">
       <div>
         <div class="doc-head"><span>Договор о сопровождении</span><span>§ Гарантия</span></div>
-        <h2>98% одобрений — <em>или апелляция за наш счёт</em></h2>
+        <h2>98% одобрений — <em>а отказ по нашей вине исправим сами</em></h2>
         <p>Больше 5 лет практики. Если шансов нет — скажем честно на бесплатной консультации, до начала работы.</p>
-        <div class="clause"><span class="ln">7.1</span><p>Если ваше дело получит отказ — подаём апелляцию бесплатно.</p><span class="ln">7.2</span><p>Цена фиксируется в договоре и не меняется, скрытых платежей нет.</p></div>
+        <div class="clause"><span class="ln">7.1</span><p>Если отказ пришёл по нашей вине — апелляцию подаём бесплатно.</p><span class="ln">7.2</span><p>Цена фиксируется в договоре и не меняется, скрытых платежей нет.</p></div>
         <a class="btn btn-primary" href="https://wa.me/48735248525">Записаться на бесплатный разбор дела</a>
       </div>
       <div class="seal">
@@ -1038,7 +1099,7 @@ section > .wrap{position:relative;z-index:1}
           <li>Записываем без очередей</li>
           <li>Двойная проверка каждого документа до подачи</li>
           <li>Статус дела — в кабинете, 24/7</li>
-          <li>Отказ → апелляция за наш счёт</li>
+          <li>Отказ по нашей вине → апелляцию берём на себя</li>
         </ul>
       </div>
     </div>
@@ -1068,6 +1129,15 @@ section > .wrap{position:relative;z-index:1}
 <section class="rev-sec" id="en-reviews">
   <img class="bg-art bg-left" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
+    <div class="ava-row" aria-hidden="true">
+      <img src="/assets/trc/client2.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client8.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client4.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client1.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client3.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client5.jpg" width="52" height="52" alt="" loading="lazy">
+      <img src="/assets/trc/client9.jpg" width="52" height="52" alt="" loading="lazy">
+    </div>
     <div class="rev-top">
       <div class="sec-head">
         <div class="kicker">Отзывы</div>
@@ -1124,6 +1194,7 @@ section > .wrap{position:relative;z-index:1}
     <div class="sec-head center">
       <div class="kicker center">Не только легализация</div>
       <h2>Одна компания — <em>три&nbsp;команды</em></h2>
+      <p>Легализация, бизнес и жильё — три направления одной компании.</p>
     </div>
     <div class="eco-grid">
       <a class="eco-card" href="#en-services">
@@ -1696,5 +1767,6 @@ section > .wrap{position:relative;z-index:1}
   }
 })();
 </script>
+<script src="quiz.js" defer></script>
 </body>
 </html>
