@@ -57,8 +57,8 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
 section{padding:120px 0}
 h1,h2,h3,.serif{font-family:var(--serif)}
-h1{font-size:clamp(38px,4.3vw,58px);font-weight:800;line-height:1.12;letter-spacing:-.012em;max-width:560px}
-h2{font-size:clamp(32px,3.9vw,52px);font-weight:700;line-height:1.12;letter-spacing:-.01em}
+h1{font-size:clamp(38px,4.3vw,58px);font-weight:800;line-height:1.12;letter-spacing:-.012em;max-width:560px;overflow-wrap:break-word}
+h2{font-size:clamp(32px,3.9vw,52px);font-weight:700;line-height:1.12;letter-spacing:-.01em;overflow-wrap:break-word}
 h1 em,h2 em{font-style:italic;font-weight:600;color:var(--accent)}
 .kicker{font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .kicker::before{content:"";width:34px;height:2px;background:var(--accent);border-radius:2px}
@@ -683,7 +683,7 @@ section > .wrap{position:relative;z-index:1}
   .nav-links{display:none}
   .btn-cab{display:none}
   .logo-sub{white-space:nowrap;font-size:8.5px;letter-spacing:.18em}
-  h1{font-size:clamp(36px,10vw,44px)}
+  h1{font-size:clamp(26px,7.4vw,40px)}
   .hero{padding:76px 0 0}
   .tech-nums{grid-template-columns:1fr 1fr}
   .guar-frame{padding:36px 24px}
@@ -783,6 +783,7 @@ section > .wrap{position:relative;z-index:1}
 .mos-band .mb-lbl{font-family:var(--serif);font-style:italic;color:var(--lilac);font-size:15px;flex:none}
 .mos-band p{font-size:14.5px;color:#C9C7E8;margin:0}
 
+.hero-grid .kicker,.hero-grid h1,.hero p.lead,.hero-ctas,.hero-note,.hero-quick{opacity:1 !important;transform:none !important}
 </style>
 <script type="application/ld+json">
 {
@@ -828,11 +829,11 @@ section > .wrap{position:relative;z-index:1}
       </span>
     </a>
     <nav class="nav-links">
-      <a href="#en-services">Услуги</a>
-      <a href="#en-process">Как мы работаем</a>
+      <a href="services.html">Услуги</a>
+      <a href="guide.html">Как мы работаем</a>
       <a href="#en-reviews">Отзывы</a>
       <a href="#en-faq">FAQ</a>
-      <a href="#en-blog">Блог</a>
+      <a href="/blog">Блог</a>
     </nav>
     <div class="nav-cta">
       
@@ -1534,13 +1535,7 @@ section > .wrap{position:relative;z-index:1}
     });
   }
 
-  /* --- вход hero --- */
-  var hero = [].slice.call(document.querySelectorAll('.hero-grid .kicker,.hero-grid h1,.hero p.lead,.hero-ctas,.hero-note,.hero-quick,.case-card,.case-foot'));
-  hero.forEach(function(el,i){
-    el.classList.add('rv');
-    el.style.transitionDelay = (reduced ? 0 : (i%8)*90) + 'ms';
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('in'); }); });
-  });
+  /* --- hero виден сразу: above-the-fold не анимируем (иначе пустой экран/джанк) --- */
 
   /* --- счётчики: 1 047 / 1,047 / 98,1% / 98.1% / −25% --- */
   function countUp(box){
