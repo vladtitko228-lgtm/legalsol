@@ -784,6 +784,40 @@ section > .wrap{position:relative;z-index:1}
 .mos-band p{font-size:14.5px;color:#C9C7E8;margin:0}
 
 .hero-grid .kicker,.hero-grid h1,.hero p.lead,.hero-ctas,.hero-note,.hero-quick{opacity:1 !important;transform:none !important}
+
+/* ===== video hero (полный экран) ===== */
+.video-hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:0;overflow:hidden;background:var(--navy-deep)}
+.video-hero .vh-bg{position:absolute;inset:0;z-index:0;display:block}
+.video-hero .vh-bg img{width:100%;height:100%;object-fit:cover}
+.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,18,45,.94) 0%,rgba(30,27,75,.82) 42%,rgba(30,27,75,.55) 70%,rgba(91,82,204,.42) 100%)}
+.video-hero .wrap{position:relative;z-index:2;width:100%}
+.video-hero .vh-inner{max-width:640px;padding:120px 0 130px}
+.video-hero .kicker{color:var(--lilac)}
+.video-hero .kicker::before{background:var(--lilac)!important;content:""!important;counter-increment:none!important;width:34px!important;height:2px!important;border:none!important;padding:0!important;color:transparent!important}
+.video-hero h1{color:#fff}
+.video-hero h1 em{color:var(--lilac)}
+.video-hero .lead{color:#DCDBF2}
+.video-hero .lead-in{color:#fff;font-weight:700}
+.video-hero .proof-txt b,.video-hero .proof-txt{color:#fff}
+.video-hero .proof-avs img{border-color:var(--navy)}
+.btn-ghost-light{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);color:#fff;backdrop-filter:blur(6px)}
+.btn-ghost-light:hover{background:rgba(255,255,255,.2)}
+.vh-play{position:absolute;z-index:3;right:6%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;text-decoration:none}
+.vh-play::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:rgba(91,82,204,.92);box-shadow:0 0 0 10px rgba(255,255,255,.14),0 20px 50px -12px rgba(0,0,0,.5);transition:transform .2s,background .2s}
+.vh-play svg{position:relative;z-index:1;margin-top:26px;margin-left:4px}
+.vh-play:hover::before{transform:translateX(-50%) scale(1.08);background:var(--accent-dark)}
+.vh-play .vh-dur{position:relative;z-index:1;margin-top:64px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;background:rgba(20,18,45,.6);padding:7px 14px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
+@media(max-width:900px){
+  .video-hero{min-height:auto;display:block}
+  .video-hero .vh-bg::after{background:linear-gradient(180deg,rgba(18,16,40,.92) 0%,rgba(30,27,75,.86) 50%,rgba(30,27,75,.94) 100%)}
+  .video-hero .vh-inner{max-width:none;padding:116px 0 30px}
+  .vh-play{position:relative;top:auto;right:auto;left:auto;transform:none;flex-direction:row;gap:15px;margin:0;padding:0 24px 92px;align-items:center;justify-content:flex-start}
+  .vh-play::before{position:relative;top:auto;left:auto;transform:none;width:56px;height:56px;flex:none}
+  .vh-play svg{position:absolute;margin:0;left:39px;top:39px}
+  .vh-play .vh-dur{margin:0}
+}
+.stats-sec{padding:0;background:var(--paper)}
+
 </style>
 <script type="application/ld+json">
 {
@@ -864,35 +898,31 @@ section > .wrap{position:relative;z-index:1}
 <main id="main">
 
 <!-- hero -->
-<section class="hero">
+<section class="hero video-hero">
+  <a class="vh-bg" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Смотреть видео: Влад, основатель — о компании (30 секунд)">
+    <img src="/assets/trc/vthumb_big.jpg" alt="" loading="eager">
+  </a>
   <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="kicker">Легализация иностранцев в Польше · Варшава</div>
-        <h1>Ваша карта побыту — профессионально <em>и без стресса</em></h1>
-        <p class="lead"><span class="lead-in">Берём на себя</span> каждый юридический вопрос — от первой консультации до документа у вас на руках.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20карте%20побыту.">Бесплатная консультация</a>
-          <a class="btn btn-wa" href="#en-check">Проверить документы — 60 секунд</a>
-        </div>
-        <a class="proof-line" href="#en-reviews">
-          <span class="proof-avs"><img src="/assets/trc/client2.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client8.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client4.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client1.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client3.jpg" width="34" height="34" alt="" loading="lazy"></span>
-          <span class="proof-txt"><b>1 000+ дел закрыто с 2020 года</b> — их истории ниже →</span>
-        </a>
-        
-        
-        
+    <div class="vh-inner">
+      <div class="kicker">Легализация иностранцев в Польше · Варшава</div>
+      <h1>Ваша карта побыту — профессионально <em>и без стресса</em></h1>
+      <p class="lead"><span class="lead-in">Берём на себя</span> каждый юридический вопрос — от первой консультации до документа у вас на руках.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20карте%20побыту.">Бесплатная консультация</a>
+        <a class="btn btn-ghost-light" href="#en-check">Проверить документы — 60 секунд</a>
       </div>
-      <div class="hero-side">
-        <a class="hero-video" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Watch: Vlad, founder — about the company (30 seconds)">
-          <img src="/assets/trc/ph_handshake.jpg" alt="" loading="eager">
-          <span class="hv-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="hv-dur" aria-hidden="true">0:30</span>
-        </a>
-      
-      </div>
+      <a class="proof-line" href="#en-reviews">
+        <span class="proof-avs"><img src="/assets/trc/client2.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client8.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client4.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client1.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client3.jpg" width="34" height="34" alt="" loading="lazy"></span>
+        <span class="proof-txt"><b>1 000+ дел закрыто с 2020 года</b> — их истории ниже →</span>
+      </a>
     </div>
   </div>
+  <a class="vh-play" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Смотреть видео">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    <span class="vh-dur">Видео о нас · 0:30</span>
+  </a>
+</section>
+<section class="stats-sec">
   <div class="stats-band">
     <div class="wrap">
       <div class="stat"><div class="n">1 000+</div><div class="l">успешных дел</div></div>
