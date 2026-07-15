@@ -770,6 +770,60 @@ section > .wrap{position:relative;z-index:1}
 
 .hero-grid .kicker,.hero-grid h1,.hero p.lead,.hero-ctas,.hero-note,.hero-quick{opacity:1 !important;transform:none !important}
 
+/* ===== video hero (полный экран) ===== */
+.video-hero{position:relative;min-height:100vh;display:grid;grid-template-rows:1fr auto;padding:0;overflow:hidden;background:var(--navy-deep)}
+.video-hero .vh-bg{position:absolute;inset:0;z-index:0;display:block}
+.video-hero .vh-bg img{width:100%;height:100%;object-fit:cover}
+.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,18,45,.94) 0%,rgba(30,27,75,.82) 42%,rgba(30,27,75,.55) 70%,rgba(91,82,204,.42) 100%)}
+.video-hero>.wrap{position:relative;z-index:2;width:100%;align-self:center}
+.video-hero .vh-inner{max-width:640px;padding:120px 0 130px}
+.video-hero .kicker{color:var(--lilac)}
+.video-hero .kicker::before{background:var(--lilac)!important;content:""!important;counter-increment:none!important;width:34px!important;height:2px!important;border:none!important;padding:0!important;color:transparent!important}
+.video-hero h1{color:#fff}
+.video-hero h1 em{color:var(--lilac)}
+.video-hero .lead{color:#DCDBF2}
+.video-hero .lead-in{color:#fff;font-weight:700}
+.video-hero .proof-txt b,.video-hero .proof-txt{color:#fff}
+.video-hero .proof-avs img{border-color:var(--navy)}
+.btn-ghost-light{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);color:#fff;backdrop-filter:blur(6px)}
+.btn-ghost-light:hover{background:rgba(255,255,255,.2)}
+.vh-play{position:absolute;z-index:3;right:6%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;text-decoration:none}
+.vh-play::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:rgba(91,82,204,.92);box-shadow:0 0 0 10px rgba(255,255,255,.14),0 20px 50px -12px rgba(0,0,0,.5);transition:transform .2s,background .2s}
+.vh-play svg{position:relative;z-index:1;margin-top:26px;margin-left:4px}
+.vh-play:hover::before{transform:translateX(-50%) scale(1.08);background:var(--accent-dark)}
+.vh-play .vh-dur{position:relative;z-index:1;margin-top:64px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;background:rgba(20,18,45,.6);padding:7px 14px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
+@media(max-width:900px){
+  .video-hero{min-height:auto;display:block}
+  .video-hero .vh-bg::after{background:linear-gradient(180deg,rgba(18,16,40,.92) 0%,rgba(30,27,75,.86) 50%,rgba(30,27,75,.94) 100%)}
+  .video-hero .vh-inner{max-width:none;padding:116px 0 30px}
+  .vh-play{position:relative;top:auto;right:auto;left:auto;transform:none;flex-direction:row;gap:15px;margin:0;padding:0 24px 92px;align-items:center;justify-content:flex-start}
+  .vh-play::before{position:relative;top:auto;left:auto;transform:none;width:56px;height:56px;flex:none}
+  .vh-play svg{position:absolute;margin:0;left:39px;top:39px}
+  .vh-play .vh-dur{margin:0}
+}
+
+.vh-stats{position:relative;z-index:2;padding:0 0 40px}
+.vh-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.vhs{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-top:3px solid var(--lilac);border-radius:14px;padding:22px 24px;backdrop-filter:blur(8px)}
+.vhs .n{display:block;font-family:var(--serif);font-size:34px;font-weight:800;color:#fff;line-height:1.05;font-variant-numeric:lining-nums tabular-nums}
+.vhs .n .u{font-size:.62em;font-weight:700}
+.vhs span:not(.u){font-size:12.5px;color:#C9C7E8}
+@media(max-width:760px){.vh-stats-row{grid-template-columns:1fr 1fr;gap:12px}.vh-stats{padding:0 0 30px}.vhs{padding:16px 18px}.vhs .n{font-size:26px}}
+
+
+
+/* ===== Burman top-accent + плавные шаги (v13) ===== */
+.feat-num .fn{border-top:3px solid var(--accent);position:relative}
+.eco-card{border-top:3px solid var(--accent)}
+.svc-card{border-top:2px solid transparent;transition:all .18s,border-top-color .18s}
+.svc-card:hover{border-top-color:var(--accent)}
+.side-card{border-top:3px solid var(--accent)}
+.mini-card{border-top:2px solid var(--accent)}
+/* плавное раскрытие шагов (max-height, работает с прямым текстом) */
+.path-row .px{display:block !important;grid-column:2/-1;font-size:14px;color:var(--ink-2);line-height:1.65;max-width:720px;overflow:hidden;max-height:0;opacity:0;padding-top:0;transition:max-height .38s cubic-bezier(.16,.72,.2,1),opacity .3s ease,padding-top .38s;will-change:max-height}
+.path-row.open .px{max-height:420px;opacity:1;padding-top:10px;animation:none !important}
+
+
 
 /* subpage additions */
 
@@ -923,11 +977,11 @@ section > .wrap{position:relative;z-index:1}
 </header>
 
 <nav class="m-menu" id="en-mmenu" hidden>
-  <a href="index.html#en-services" onclick="lsMenuClose()">Услуги</a>
-  <a href="index.html#en-process" onclick="lsMenuClose()">Как мы работаем</a>
+  <a href="services.html">Услуги</a>
+  <a href="guide.html">Как мы работаем</a>
   <a href="index.html#en-reviews" onclick="lsMenuClose()">Отзывы</a>
   <a href="index.html#en-faq" onclick="lsMenuClose()">FAQ</a>
-  <a href="index.html#en-blog" onclick="lsMenuClose()">Блог</a>
+  <a href="/blog">Блог</a>
   <a href="index.html#en-contact" onclick="lsMenuClose()">Контакты</a>
   <a href="https://legalsol.pl">Кабинет</a>
   <div class="mm-actions">
@@ -2144,6 +2198,7 @@ section > .wrap{position:relative;z-index:1}
         <a href="https://legalsol.pl">Работа в Польше</a>
         <a href="/blog">Блог</a>
         <a href="guide.html">Карта побыту: гайд</a>
+        <a href="#en-referral">Реферальная программа — 300 PLN</a>
         <a href="https://legalsol.pl">Кабинет</a>
       </div>
       <div>
