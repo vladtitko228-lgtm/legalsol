@@ -58,7 +58,7 @@ h1 em,h2 em{font-style:italic;font-weight:600;color:var(--accent)}
 .btn-outline{border-color:var(--ink);color:var(--ink);background:transparent}
 .btn-outline:hover{background:var(--ink);color:var(--paper)}
 .btn-wa{background:#fff;border-color:var(--line-2);color:var(--ink)}
-.btn-wa:hover{border-color:var(--green);color:var(--green)}
+.btn-wa:hover{border-color:var(--accent);color:var(--accent)}
 .btn-wa svg{flex:none}
 .rule-double{border:none;border-top:1px solid var(--line-2);position:relative;margin:0}
 .rule-double::after{content:"";position:absolute;left:0;right:0;top:3px;border-top:1px solid var(--line)}
@@ -110,11 +110,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdro
 .case-row:last-child,.case-row:last-of-type{border-bottom:none}
 .case-row .k{color:var(--ink-2)}
 .case-row .v{font-weight:600}
-.case-row .ok{color:var(--green);font-weight:600;font-size:13px}
+.case-row .ok{color:var(--accent);font-weight:600;font-size:13px}
 .case-row .pend{color:var(--accent);font-weight:600;font-size:13px}
 .case-card-bot{padding:18px 26px;background:var(--paper-2);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .case-card-bot .lbl{font-size:12px;color:var(--ink-3)}
-.case-card-bot .val{font-family:var(--serif);font-weight:800;font-size:22px;color:var(--green)}
+.case-card-bot .val{font-family:var(--serif);font-weight:800;font-size:22px;color:var(--accent)}
 .case-foot{font-size:12.5px;color:var(--ink-3);text-align:center;margin-top:14px}
 
 /* stats band */
@@ -637,7 +637,7 @@ section > .wrap{position:relative;z-index:1}
 
 /* floating WA */
 .fab{position:fixed;right:26px;bottom:26px;z-index:60;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line-2);border-radius:100px;padding:10px 20px 10px 12px;font-weight:600;font-size:14px;box-shadow:0 14px 40px -12px rgba(30,36,51,.25);color:var(--ink)}
-.fab:hover{border-color:var(--green)}
+.fab:hover{border-color:var(--accent)}
 .fab .dot{width:8px;height:8px;border-radius:50%;background:#37B24D;position:absolute;top:9px;left:34px;border:2px solid #fff}
 
 @media(max-width:1020px){
@@ -725,7 +725,7 @@ section > .wrap{position:relative;z-index:1}
 .svc-table td:first-child{font-weight:600;color:var(--ink)}
 .svc-table td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .svc-table tr:last-child td{border-bottom:none}
-.svc-table .yes{color:var(--green);font-weight:700}
+.svc-table .yes{color:var(--accent);font-weight:700}
 .svc-table .disc{color:var(--accent);font-weight:600}
 .svc-table tbody tr{transition:background .15s}
 .svc-table tbody tr:hover{background:var(--paper-2)}
@@ -824,6 +824,51 @@ section > .wrap{position:relative;z-index:1}
 .path-row.open .px{opacity:1;animation:none !important}
 .path-row .px>:first-child{margin-top:10px}
 @media(prefers-reduced-motion:reduce){.path-row .px{transition:none}}
+
+/* ===== premium polish (v14) — art-director pass ===== */
+/* about — компактные факты заполняют левую колонку (реальные цифры со страницы) */
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.mini-stats .ms{border:1px solid var(--line-2);border-top:2px solid var(--accent);border-radius:12px;background:var(--card);padding:18px 18px 17px;box-shadow:var(--shadow-sm);transition:transform .24s cubic-bezier(.2,.6,.2,1),box-shadow .24s,border-color .24s}
+.mini-stats .ms .n{font-family:var(--serif);font-weight:800;font-size:25px;color:var(--navy);line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.mini-stats .ms .l{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+@media(hover:hover){.mini-stats .ms:hover{transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(91,82,204,.3);border-color:rgba(91,82,204,.4)}}
+@media(max-width:640px){.mini-stats{grid-template-columns:1fr 1fr}.mini-stats .ms:last-child{grid-column:1/-1}}
+
+/* блог — крупнее и живее: pill-рубрика, wipe-полоса сверху, разделитель, colored lift */
+.blog-card{padding:32px 30px 28px;position:relative;overflow:hidden}
+.blog-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+.blog-card .cat{display:inline-block;align-self:flex-start;background:var(--lav);color:var(--accent);padding:5px 12px;border-radius:999px;margin-bottom:17px}
+.blog-card h3{font-size:19px;line-height:1.4;margin-bottom:12px}
+.blog-card p{font-size:14.5px;line-height:1.62;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.blog-card .rd{margin-top:18px}
+@media(hover:hover){
+  .blog-card:hover::before{transform:scaleX(1)}
+  .blog-card:hover{transform:translateY(-4px);box-shadow:0 22px 48px -24px rgba(91,82,204,.3);border-color:rgba(91,82,204,.42)}
+}
+@media(prefers-reduced-motion:reduce){.blog-card::before{display:none}}
+
+/* FAQ — две колонки на десктопе (заполняет пустые поля, плотнее по-бермановски).
+   Скоуп :has(.faq-col) — только главная (с колонками-обёртками), подстраницы не трогаем. */
+@media(min-width:901px){
+  .faq-cols:has(.faq-col){max-width:1040px;display:grid;grid-template-columns:1fr 1fr;column-gap:60px;align-items:start}
+}
+
+/* один «дышащий» элемент героя — приглашает к видео (десктоп, без reduce) */
+@keyframes vhFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 6px))}}
+@media(min-width:901px) and (prefers-reduced-motion:no-preference){
+  .vh-play{animation:vhFloat 5.5s ease-in-out infinite}
+}
+
+
+/* fix: grid-элементы должны сжиматься (иначе мобильное переполнение) */
+.duo>*,.contact-split>*,.calc-kit>*,.about-grid>*,.hero-grid>*,.guar-frame>*,.ca-split>*,.final-grid>*,.check-grid>*{min-width:0}
+.btn{max-width:100%}
+figure,.photo-fig,.duo-side,.duo-side>*{max-width:100%;min-width:0}
+.photo-fig img{max-width:100%}
+*{box-sizing:border-box}
+.ms,.svc-card,.eco-card,.feat-num .fn,.mini-card,.vhs,.gp,.kit-stats .stat,.stat,.fn,.tq,.rev3-card,.tech-cell{min-width:0}
+.mini-stats,.svc-grid,.eco-grid,.feat-num,.vh-stats-row,.glass-pills,.kit-stats,.mini-cards{min-width:0}
+@media(max-width:420px){.mini-stats{grid-template-columns:1fr}}
 
 
 
@@ -1262,6 +1307,14 @@ section > .wrap{position:relative;z-index:1}
 </section>
 
 <!-- sec07: Гарантии = нумерованные фичи-карточки .feat-num (референс Берман s0, WHY 01–06). Каждая § — иконка + номер + заголовок + текст, дословно. Светлая секция (не band-sec), 3 в ряд × 2. -->
+<style>
+/* тактичное появление карточек-гарантий каскадом + тёплая цветная тень при наведении (референс Берман) */
+.lsr{opacity:0;transform:translateY(20px);transition:opacity .55s cubic-bezier(.16,.72,.2,1),transform .55s cubic-bezier(.16,.72,.2,1),box-shadow .24s ease!important}
+.lsr.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.lsr{opacity:1!important;transform:none!important}}
+#guarantees .feat-num .fn{transition:transform .24s,box-shadow .24s,border-color .24s}
+#guarantees .feat-num .fn:hover{transform:translateY(-6px);box-shadow:0 22px 50px -20px rgba(91,82,204,.42);border-color:var(--accent)}
+</style>
 <section id="guarantees">
   <img class="bg-art bg-right" src="/assets/trc/bg_books.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -1309,6 +1362,28 @@ section > .wrap{position:relative;z-index:1}
       </div>
     </div>
   </div>
+  <script>
+  /* переиспользуемый мягкий reveal каскадом; безопасен: reduced-motion и без-IO оставляют всё видимым,
+     страховочный таймер гарантирует, что карточка никогда не останется невидимой */
+  window.__lsReveal=function(sel){
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var els=[].slice.call(document.querySelectorAll(sel));
+    if(!els.length||reduce||!('IntersectionObserver' in window)) return;
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px 12% 0px'});
+    els.forEach(function(el){
+      var i=[].indexOf.call(el.parentNode.children,el);
+      el.style.transitionDelay=Math.min(i*70,350)+'ms';
+      el.classList.add('lsr');
+      var r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight*0.92 && r.bottom>0){ el.classList.add('in'); } else { io.observe(el); }
+    });
+    /* страховка: если по любой причине reveal не сработал (напр. transition завис) — снимаем скрытое
+       состояние полностью, карточка гарантированно видима */
+    setTimeout(function(){ els.forEach(function(el){ el.classList.add('in'); el.classList.remove('lsr'); }); },4000);
+  };
+  /* .fn-карточки гарантий уже входят в общий reveal сайта (.fn есть в sel) — здесь не дублируем,
+     чтобы не конфликтовать со стаггером сайта. Хелпер используется секцией отзывов (.tq). */
+  </script>
 </section>
 
 <!-- sec08: Процесс — цветная полоса .band-sec с ГОРИЗОНТАЛЬНЫМ таймлайном .htl (референс Берман s1). 5 шагов дословно, тег каждого шага сохранён в .htag. Якорь #how (кнопка hero «Как это работает»). -->
@@ -1468,6 +1543,14 @@ section > .wrap{position:relative;z-index:1}
 </section>
 
 <!-- sec10: Честные цены — как зарабатывает LegalSol. 3 карточки в ряд + вынос. Числовых тарифов на проде нет — не выдумываем. -->
+<style>
+/* карточки цен: цветная окантовка сверху «прорисовывается» слева + мягкий подъём с фирменной тенью при наведении (референс Берман) */
+#pricing .svc-card{position:relative;overflow:visible;transition:transform .28s cubic-bezier(.4,0,.2,1),box-shadow .28s,border-color .28s}
+#pricing .svc-card::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.4,0,.2,1)}
+#pricing .svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px -20px rgba(91,82,204,.40);border-color:var(--accent);border-top-color:transparent}
+#pricing .svc-card:hover::after{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){#pricing .svc-card:hover{transform:none}#pricing .svc-card::after{transition:none}}
+</style>
 <section id="pricing">
   <img class="bg-art bg-right" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -1617,6 +1700,18 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
 #contact .tq-by img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
 #contact .tq-by .tqm b{display:block;font-size:14px;color:var(--ink)}
 #contact .tq-by .tqm span{font-size:12.5px;color:var(--ink-3)}
+/* навигационная карта тянется на высоту формы — прижимаем часы приёма к низу, чтобы не было пустой навы */
+#contact .contact-split .cs-side{display:flex;flex-direction:column}
+#contact .cs-static{cursor:default}
+#contact .cs-static:hover{background:rgba(255,255,255,.08)}
+#contact .cs-hours{margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:8px 20px}
+#contact .cs-hours span{font-size:13px;color:#C9C7E8;display:inline-flex;align-items:center;gap:8px}
+#contact .cs-hours span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lilac);flex:none}
+/* мобильный фикс: длинный e-mail не должен распирать тёмную карту за пределы колонки (её режет overflow:hidden) */
+#contact .contact-split>.cs-side,#contact .contact-split>.cs-form{min-width:0}
+#contact .cs-line{min-width:0}
+#contact .cs-line>span:last-child{min-width:0}
+#contact .cs-line>span:last-child>span{overflow-wrap:anywhere}
 </style>
 <section id="contact">
   <img class="bg-art bg-left" src="/assets/trc/bg_keys.jpg" alt="" aria-hidden="true" loading="lazy">
@@ -1673,6 +1768,14 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span>
           <span><b>Почта</b><span>legalsol.communication@gmail.com</span></span>
         </a>
+        <div class="cs-line cs-static">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <span><b>Офис</b><span>ul. Sienna 75, Warszawa</span></span>
+        </div>
+        <div class="cs-hours">
+          <span>ПН–ПТ · 10:00–18:00</span>
+          <span>Ответим за 15 минут</span>
+        </div>
       </div>
       <div class="cs-form">
         <form id="hous-form">
@@ -1722,6 +1825,10 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
       window.open('https://wa.me/48576228316?text='+encodeURIComponent(t),'_blank');
     });
   })();
+  </script>
+  <script>
+  /* каскадное появление карточек-отзывов (хелпер определён в sec07; reduced-motion — без анимации) */
+  if(window.__lsReveal) window.__lsReveal('#contact .trust-quotes .tq');
   </script>
 </section>
 
@@ -1815,7 +1922,8 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
   /* --- появление секций при скролле --- */
   var sel = '.sec-head,.step,.feat,.rev-card,.eco-card,.tech-cell,.blog-card,.path,.path-row,' +
             '.guar-frame,.seal,.vs-col,.check-copy,.check-panel,.stat,.tech-num,.tech-note,' +
-            '.waits,.svc-card,.lead-band,.rvph,.ref-band,.final-form,.final-grid .copy,.rev-meta,.geo-line,.faq-cols details,.clause,.note-line,.fee-table,.side-card,.kit-band,.calc-kit,.mini-card,.kit-stats .stat';
+            '.waits,.svc-card,.lead-band,.rvph,.ref-band,.final-form,.final-grid .copy,.rev-meta,.geo-line,' +
+            '.mini-stats .ms,.ca-split,.faq-cols details,.clause,.note-line,.fee-table,.side-card,.kit-band,.calc-kit,.mini-card,.kit-stats .stat,.fn,.rev3-card,.faq-proof .fp';
   var els = [].slice.call(document.querySelectorAll(sel));
   if(!reduced){
     els.forEach(function(el){ el.classList.add('rv'); });
@@ -1829,7 +1937,7 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
         if(!e.isIntersecting) return;
         e.target.classList.add('in');
         io.unobserve(e.target);
-        if(e.target.classList.contains('stat') || e.target.classList.contains('tech-num')) countUp(e.target);
+        if(e.target.classList.contains('stat') || e.target.classList.contains('tech-num') || e.target.classList.contains('ms')) countUp(e.target);
       });
     }, {threshold:.05, rootMargin:'0px 0px 20% 0px'});
     els.forEach(function(el){ io.observe(el); });
@@ -1840,9 +1948,11 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
       if(r.top < vh0 && r.bottom > 0){
         el.classList.add('in');
         io.unobserve(el);
-        if(el.classList.contains('stat') || el.classList.contains('tech-num')) countUp(el);
+        if(el.classList.contains('stat') || el.classList.contains('tech-num') || el.classList.contains('ms')) countUp(el);
       }
     });
+    /* hero stat-strip: tween once on load (панели видны сразу, анимируются только цифры) */
+    document.querySelectorAll('.vhs').forEach(function(v){ countUp(v); });
   }
 
   /* --- hero виден сразу: above-the-fold не анимируем (иначе пустой экран/джанк) --- */
@@ -2067,7 +2177,8 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
 
   /* мягкий параллакс приглушённых сцен */
   var art = [].slice.call(document.querySelectorAll('.bg-art'));
-  if(art.length){
+  var coarse = matchMedia('(max-width:900px)').matches || matchMedia('(pointer:coarse)').matches;
+  if(art.length && !coarse){
     var ticking=false;
     function upd(){
       var vh=innerHeight||1;
@@ -2087,6 +2198,6 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
 })();
 </script>
 <script src="quiz.js" defer></script>
-<script src="quiz.js" defer></script>
+
 </body>
 </html>
