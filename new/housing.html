@@ -819,9 +819,11 @@ section > .wrap{position:relative;z-index:1}
 .svc-card:hover{border-top-color:var(--accent)}
 .side-card{border-top:3px solid var(--accent)}
 .mini-card{border-top:2px solid var(--accent)}
-/* плавное раскрытие шагов (max-height, работает с прямым текстом) */
-.path-row .px{display:block !important;grid-column:2/-1;font-size:14px;color:var(--ink-2);line-height:1.65;max-width:720px;overflow:hidden;max-height:0;opacity:0;padding-top:0;transition:max-height .38s cubic-bezier(.16,.72,.2,1),opacity .3s ease,padding-top .38s;will-change:max-height}
-.path-row.open .px{max-height:420px;opacity:1;padding-top:10px;animation:none !important}
+/* плавное раскрытие шагов (JS-driven height — гладко открытие И закрытие) */
+.path-row .px{display:block !important;grid-column:2/-1;font-size:14px;color:var(--ink-2);line-height:1.65;max-width:720px;overflow:hidden;height:0;opacity:0;transition:height .36s cubic-bezier(.16,.72,.2,1),opacity .3s ease;will-change:height}
+.path-row.open .px{opacity:1;animation:none !important}
+.path-row .px>:first-child{margin-top:10px}
+@media(prefers-reduced-motion:reduce){.path-row .px{transition:none}}
 
 
 
@@ -1968,8 +1970,22 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
   document.addEventListener('click', function(ev){
     var row = ev.target.closest ? ev.target.closest('.path-row') : null;
     if(!row) return;
-    var open = row.classList.toggle('open');
-    row.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var px = row.querySelector('.px');
+    var opening = !row.classList.contains('open');
+    row.classList.toggle('open');
+    row.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    if(!px) return;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){ px.style.height = opening ? 'auto' : '0px'; return; }
+    if(opening){
+      px.style.height = px.scrollHeight + 'px';
+      var done = function(e){ if(e.target!==px || e.propertyName!=='height') return; px.removeEventListener('transitionend', done); if(row.classList.contains('open')) px.style.height='auto'; };
+      px.addEventListener('transitionend', done);
+    } else {
+      px.style.height = px.scrollHeight + 'px';
+      void px.offsetHeight;
+      requestAnimationFrame(function(){ px.style.height = '0px'; });
+    }
   });
   document.addEventListener('keydown', function(ev){
     if((ev.key === 'Enter' || ev.key === ' ') && ev.target.classList && ev.target.classList.contains('path-row')){
