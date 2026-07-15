@@ -1208,6 +1208,14 @@ function render(d){
         ${w.count>w.items.length?`<div style="padding:9px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${w.count-w.items.length}</div>`:''}</div>
         <div class="sec-note">Ответить: карточка клиента в Kommo → заметка «КЛИЕНТУ: …» — она улетит в его кабинет.</div></div>`;
     }
+    if(o.cabSeen){
+      const cs=o.cabSeen;
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">🔑 Кабинеты клиентов</b>
+        <div class="t2" style="font-size:13.5px;margin-top:8px">Вошли в кабинет: <b style="color:var(--t1)">${cs.count}</b> клиент(ов). Вход = доступ дошёл — так видно, что рассылка Даши доехала.</div>
+        ${cs.items&&cs.items.length?`<div style="margin-top:8px">${cs.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--hair);font-size:13px">
+          <span>${esc(x.name)}</span><span class="mut num">${esc(x.when)}</span></div>`).join('')}</div>`:'<div class="sec-note">Пока никто не входил — как только клиент откроет кабинет, он появится здесь (обновление каждые 2 часа).</div>'}
+      </div>`;
+    }
     if(o.activity14&&o.activity14.length){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Работа по делам · 14 дней</b>
         ${activityChart(o.activity14)}
@@ -1224,8 +1232,8 @@ function render(d){
     if(o.clients&&o.clients.length){
       html+=`<details class="acc"><summary><span class="arr">▶</span>📁 Все дела в производстве<span class="badge">${o.total}</span></summary><div class="accb">
         ${o.clients.length<o.total?`<div class="sec-note">показаны ${o.clients.length} самых застоявшихся из ${o.total}</div>`:''}
-        <div class="tblwrap"><table class="stack"><thead><tr><th>Клиент</th><th>Стадия</th><th class="n">Дней без движения</th></tr></thead>
-        <tbody>${o.clients.map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="стадия" class="t2">${esc(x.stage)}</td><td data-l="дней" class="n num ${x.days>14?'neg':''}">${x.days}</td></tr>`).join('')}</tbody></table></div>
+        <div class="tblwrap"><table class="stack"><thead><tr><th>Клиент</th><th>Стадия</th><th class="n">Дней без движения</th><th>Кабинет</th></tr></thead>
+        <tbody>${o.clients.map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="стадия" class="t2">${esc(x.stage)}</td><td data-l="дней" class="n num ${x.days>14?'neg':''}">${x.days}</td><td data-l="кабинет">${x.cab?'<span class="pos">✓ входил</span>':'<span class="mut">—</span>'}</td></tr>`).join('')}</tbody></table></div>
       </div></details>`;
     }
   }
