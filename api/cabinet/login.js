@@ -62,7 +62,7 @@ module.exports = async function handler(req, res) {
         const l = await kommo('GET', `/leads/${lid}`);
         if (l && l.pipeline_id === PIPELINE_OPS) {
           await kommo('POST', `/leads/${lid}/notes`, [
-            { note_type: 'common', params: { text: '🔑 Вход в кабинет' } }
+            { note_type: 'common', params: { text: 'Клиент вошёл в кабинет' } }
           ]);
           break;
         }
