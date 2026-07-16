@@ -13,10 +13,10 @@
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
   --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
-  --indigo:#6C5CE7;--indigo-2:#7B6EF2;--indigo-7:#5847CE;--indigo-9:#332C80;
-  --lilac:#EFEDFB;--lilac-2:#E5E2F8;--lilac-line:#E5E1F4;
+  --indigo:#2F7DF6;--indigo-2:#4D93FF;--indigo-7:#1F63D6;--indigo-9:#1E3F9E;
+  --lilac:#EAF2FF;--lilac-2:#DBE9FF;--lilac-line:#D6E4FA;
   --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
-  --card:#fff;--line:#ECE7F3;--wa:#25D366;
+  --card:#fff;--line:#E4EBF6;--wa:#25D366;
   --r:28px;--r-lg:34px;--r-sm:16px;--pill:999px;
   --sh:0 2px 4px rgba(33,30,61,.04),0 32px 64px -36px rgba(33,30,61,.30);
   --sh-sm:0 1px 2px rgba(33,30,61,.04),0 16px 34px -24px rgba(33,30,61,.20);
@@ -39,8 +39,8 @@ h2{font-size:clamp(30px,4vw,46px)}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(75,69,198,.6)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(75,69,198,.7)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(47,125,246,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(47,125,246,.7)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -56,7 +56,7 @@ h2{font-size:clamp(30px,4vw,46px)}
 header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:28px;height:74px}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(75,69,198,.6)}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(47,125,246,.6)}
 .logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
 nav.main{display:flex;gap:26px;margin-left:8px}
 nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
@@ -71,7 +71,7 @@ nav.main a:hover{color:var(--indigo)}
 
 /* hero */
 .hero{position:relative;padding:70px 0 84px;overflow:hidden}
-.hero::before{content:"";position:absolute;top:-180px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.14),transparent 68%);pointer-events:none}
+.hero::before{content:"";position:absolute;top:-180px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(77,147,255,.14),transparent 68%);pointer-events:none}
 .hero::after{content:"";position:absolute;bottom:-160px;left:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.14),transparent 68%);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.02fr 1.08fr;gap:64px;align-items:center;position:relative}
 .hero h1{font-size:clamp(38px,5.4vw,62px);margin:6px 0 20px}
@@ -145,7 +145,7 @@ nav.main a:hover{color:var(--indigo)}
 .mos-note p{font-size:14px;color:var(--ink-2)}.mos-note b{color:var(--ink)}
 
 /* guarantee */
-.guar .wrap{background:linear-gradient(135deg,var(--indigo-9),#453DA8);border-radius:var(--r-lg);padding:64px 56px;color:#fff;position:relative;overflow:hidden}
+.guar .wrap{background:linear-gradient(135deg,var(--indigo-9),#2B62DB);border-radius:var(--r-lg);padding:64px 56px;color:#fff;position:relative;overflow:hidden}
 .guar::selection{}
 .guar .wrap::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.22),transparent 70%)}
 .guar-grid{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:center;position:relative;z-index:1}
@@ -199,7 +199,7 @@ nav.main a:hover{color:var(--indigo)}
 .bask{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12.5px;color:var(--ink-2)}
 .bask svg{width:15px;height:15px}
 .bask:hover{color:#128C4B}
-.blog-wa{margin-top:28px;display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--indigo-9),#453DA8);border-radius:var(--r);padding:26px 30px;color:#fff}
+.blog-wa{margin-top:28px;display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--indigo-9),#2B62DB);border-radius:var(--r);padding:26px 30px;color:#fff}
 .blog-wa .ic{width:52px;height:52px;border-radius:15px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;flex:none}
 .blog-wa .tx{flex:1;font-size:14.5px;color:rgba(255,255,255,.85)}.blog-wa .tx b{color:#fff}
 .blog-wa .btn{flex:none}
@@ -225,8 +225,8 @@ details.q .a{padding:0 26px 24px;color:var(--ink-2);font-size:15px}
 .ref .num p{font-size:13.5px;color:var(--ink-2);margin:12px 0 20px}
 
 /* final cta */
-.final .wrap{background:linear-gradient(140deg,rgba(51,44,128,.92),rgba(69,61,168,.88)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:60px 54px;display:grid;grid-template-columns:1fr 440px;gap:50px;align-items:center;color:#fff;position:relative;overflow:hidden}
-.final .wrap::after{content:"";position:absolute;left:-90px;bottom:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.4),transparent 70%)}
+.final .wrap{background:linear-gradient(140deg,rgba(30,63,158,.92),rgba(43,98,219,.88)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:60px 54px;display:grid;grid-template-columns:1fr 440px;gap:50px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.final .wrap::after{content:"";position:absolute;left:-90px;bottom:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(77,147,255,.4),transparent 70%)}
 .final h2{color:#fff;margin-bottom:16px}
 .final .lead{color:rgba(255,255,255,.8);font-size:17px;margin-bottom:26px}
 .final .cts{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
@@ -414,7 +414,7 @@ footer a:hover{color:#fff}
 
 /* --- page:services --- */
 .sv-hero{padding:40px 0 8px}
-.sv-hbox{background:linear-gradient(140deg,rgba(51,44,128,.88),rgba(108,92,231,.55)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:84px 64px;color:#fff;position:relative;overflow:hidden}
+.sv-hbox{background:linear-gradient(140deg,rgba(30,63,158,.88),rgba(47,125,246,.55)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:84px 64px;color:#fff;position:relative;overflow:hidden}
 .sv-hbox .eyebrow{background:rgba(255,255,255,.14);color:#fff}
 .sv-hbox h1{font-size:clamp(36px,4.8vw,58px);line-height:1.08;letter-spacing:-.02em;margin:4px 0 18px;max-width:760px;color:#fff}
 .sv-sub{font-size:19px;color:rgba(255,255,255,.88);max-width:660px;margin-bottom:30px}
@@ -495,7 +495,7 @@ a.sv-tr:hover{background:var(--cream)}
 <!-- header -->
 <header><div class="wrap">
   <a class="logo" href="#top">
-    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6C5CE7"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6C5CE7"/></svg></span>
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#4D93FF"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#A9CBFF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#A9CBFF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#4D93FF"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#2F7DF6"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#2F7DF6"/></svg></span>
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
@@ -818,10 +818,10 @@ a.sv-tr:hover{background:var(--cream)}
   <h2>Опишите ситуацию — подскажем путь</h2>
   <p>Выберите, что ближе к вашей ситуации, — специалист ответит в WhatsApp за 15 минут и назовёт точную цену до начала работы.</p>
   <div class="chk-opts stg">
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20недавно%20в%20Польше%20—%20подскажите,%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Недавно в Польше</b><span>PESEL, Profil Zaufany, первые шаги</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20легализоваться%20в%20Польше%20—%20подскажите%20путь." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11h-5v-6h-6v6z"/></svg></span><b>Хочу остаться</b><span>Карта побыту, ПМЖ, Blue Card</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ%20—%20оцените%20шансы%20на%20апелляцию." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 10v4M12 17.5h.01"/></svg></span><b>Пришёл отказ</b><span>Апелляция — 14 дней на подачу</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20бизнес%20в%20Польше%20—%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Открываю бизнес</b><span>JDG / Sp. z o.o. + бухгалтерия</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20недавно%20в%20Польше%20—%20подскажите,%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F7DF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Недавно в Польше</b><span>PESEL, Profil Zaufany, первые шаги</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20легализоваться%20в%20Польше%20—%20подскажите%20путь." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F7DF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11h-5v-6h-6v6z"/></svg></span><b>Хочу остаться</b><span>Карта побыту, ПМЖ, Blue Card</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ%20—%20оцените%20шансы%20на%20апелляцию." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F7DF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 10v4M12 17.5h.01"/></svg></span><b>Пришёл отказ</b><span>Апелляция — 14 дней на подачу</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20бизнес%20в%20Польше%20—%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F7DF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Открываю бизнес</b><span>JDG / Sp. z o.o. + бухгалтерия</span></a>
   </div>
   <div class="fine">Бесплатно · Ответ за 15 минут · Без обязательств</div>
 </div></section>
@@ -851,7 +851,7 @@ a.sv-tr:hover{background:var(--cream)}
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <a class="logo" href="#top"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6C5CE7"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6C5CE7"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <a class="logo" href="#top"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#4D93FF"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#A9CBFF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#A9CBFF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#4D93FF"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#2F7DF6"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#2F7DF6"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
       <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
     </div>
     <div><h4>Услуги</h4><ul>
