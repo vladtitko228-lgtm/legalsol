@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%238B82E8'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%23B8B2F5'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%23B8B2F5'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%238B82E8'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B52CC'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B52CC'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%238B82E8'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%23B7B2E6'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%23B7B2E6'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%238B82E8'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%236E67C5'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%236E67C5'/%3E%3C/svg%3E">
 <style>
 :root{
   --paper:#FAFAF7;
@@ -1521,12 +1521,12 @@ section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;
 <main id="main">
 <div class="wrap crumb"><a href="/new/index.html">← На главную</a></div>
 
-<!-- SEC 02 · Hero — фото-хиро (ph_advisor, портрет: object-position держит лицо в кадре) в стиле
+<!-- SEC 02 · Hero — фото-хиро (bg_books — библиотека; стоковых людей на сайте не держим) в стиле
      референса Burman Robinson. Бывшая боковая карточка «Коротко о гайде» (экс note-line) разложена
      на стеклянные плашки .glass-pills — тексты дословные, разрезаны по пунктам списка;
-     «98,1% одобрений» — каноническая цифра собранной страницы (FIX сборщика). -->
+     «98% одобрений» — каноническая цифра собранной страницы (FIX сборщика). -->
 <section class="hero photo-hero">
-  <div class="ph-bg"><img src="/assets/trc/ph_advisor.jpg" alt="" style="object-position:50% 24%"></div>
+  <div class="ph-bg"><img src="/assets/trc/bg_books.jpg" alt="" style="object-position:50% 50%"></div>
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">Гайд клиента &middot; Карта побыту (TRC)</div>
@@ -1541,7 +1541,7 @@ section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;
       <div class="gp"><b>10</b><span>минут чтения</span></div>
       <div class="gp"><b>2026</b><span>подача — онлайн, через государственную систему MOS</span></div>
       <div class="gp"><b>WhatsApp</b><span>всё общение</span></div>
-      <div class="gp"><b>98,1%</b><span>одобрений; отказ по нашей вине — апелляция бесплатно</span></div>
+      <div class="gp"><b>98%</b><span>одобрений; отказ по нашей вине — апелляция бесплатно</span></div>
     </div>
   </div>
 </section>
@@ -1648,7 +1648,7 @@ section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;
 <!-- SEC 06 · Варшавская строка-доказательство. Была тёмная .band-sec — переведена в СВЕТЛЫЙ плотный
      двухколоночник .duo (иначе шли две тёмные полосы подряд: sec05-таймлайн + warsaw). Лид разрезан
      по предложениям: первое — .wb-lead, второе — .note-line. Счётчики (post-kresy) не возвращаем.
-     Фото офиса ph_office в duo-side (tall), лёгкий фон bg_city справа. -->
+     Варшава в duo-side (tall) — секция про «здесь, в Варшаве», сток-опенспейс читался как наш офис, лёгкий фон bg_city справа. -->
 <section class="warsaw" id="warsaw">
   <img class="bg-art bg-right" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -1663,7 +1663,7 @@ section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;
       </div>
       <div class="duo-side">
         <figure class="photo-fig tint">
-          <img src="/assets/trc/ph_office.jpg" alt="" loading="lazy">
+          <img src="/assets/trc/warsaw-night.jpg" alt="" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -2257,7 +2257,7 @@ window.open('https://wa.me/48735248525?text='+encodeURIComponent(t),'_blank','no
 
   /* --- hero виден сразу: above-the-fold не анимируем (иначе пустой экран/джанк) --- */
 
-  /* --- счётчики: 1 047 / 1,047 / 98,1% / 98.1% / −25% --- */
+  /* --- счётчики: 1 047 / 1,047 / 98% / 98.1% / −25% --- */
   function countUp(box){
     var n = box.querySelector('.n');
     if(!n || n.dataset.done) return;
