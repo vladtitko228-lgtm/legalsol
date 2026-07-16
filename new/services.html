@@ -909,6 +909,14 @@ p{max-width:68ch}
 .svc-card:hover,.eco-card:hover{box-shadow:0 2px 6px rgba(30,27,75,.05),0 22px 50px -26px rgba(30,27,75,.24)}
 
 
+/* видео играет на месте (не уводим на YouTube) */
+.vh-frame{position:absolute;inset:0;z-index:4;background:#000}
+.vh-frame iframe{width:100%;height:100%;border:0;display:block}
+.vh-close{position:absolute;top:calc(env(safe-area-inset-top,0px) + 84px);right:20px;z-index:5;width:44px;height:44px;border-radius:50%;background:rgba(20,18,45,.72);color:#fff;border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;cursor:pointer;font:400 22px/1 var(--sans);backdrop-filter:blur(6px);transition:background .18s}
+.vh-close:hover{background:var(--accent)}
+.video-hero.playing>.wrap,.video-hero.playing .vh-stats,.video-hero.playing .vh-play{opacity:0;pointer-events:none;transition:opacity .35s ease}
+
+
 
 /* subpage additions */
 
@@ -1247,7 +1255,7 @@ p{max-width:68ch}
         <tr><th>Услуга</th><th>Срок</th><th>Цена от</th></tr>
       </thead>
       <tbody>
-        <tr><td><a href="#karta-pobytu">Карта побыту (ВНЖ)</a></td><td data-l="Срок">3–6 мес.</td><td data-l="Цена от">от 2 500 PLN</td></tr>
+        <tr><td><a href="#karta-pobytu">Карта побыту (ВНЖ)</a></td><td data-l="Срок">4–9 мес.</td><td data-l="Цена от">от 2 500 PLN</td></tr>
         <tr><td><a href="#pmz">ПМЖ — постоянный побыт</a></td><td data-l="Срок">4–8 мес.</td><td data-l="Цена от">от 4 000 PLN</td></tr>
         <tr><td><a href="#pesel">PESEL</a></td><td data-l="Срок">в тот же день</td><td data-l="Цена от">450 PLN</td></tr>
         <tr><td><a href="#blue-card">Blue Card (ЕС)</a></td><td data-l="Срок">3–6 мес.</td><td data-l="Цена от">от 3 200 PLN</td></tr>
@@ -1299,7 +1307,7 @@ p{max-width:68ch}
         <div class="calc-out">
           <div class="co-k">Цена LegalSol от</div>
           <div class="co-big" id="cx-price">от 2 500 PLN</div>
-          <div class="co-row"><span>Средний срок</span><b id="cx-term">3–6 мес.</b></div>
+          <div class="co-row"><span>Средний срок</span><b id="cx-term">4–9 мес.</b></div>
           <div class="co-row"><span id="cx-paylbl">Оплата сразу</span><b id="cx-payv">2 500 PLN</b></div>
           <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525" style="margin-top:6px;justify-content:center">Обсудить в WhatsApp</a>
         </div>
@@ -1308,7 +1316,7 @@ p{max-width:68ch}
     <script>
     (function(){
       var CX={
-        kp:{p:"от 2 500 PLN",t:"3–6 мес.",n:2500,h:"Карта побыту (ВНЖ)"},
+        kp:{p:"от 2 500 PLN",t:"4–9 мес.",n:2500,h:"Карта побыту (ВНЖ)"},
         pmz:{p:"от 4 000 PLN",t:"4–8 мес.",n:4000,h:"ПМЖ — постоянный побыт"},
         pesel:{p:"450 PLN",t:"в тот же день",n:450,h:"PESEL"},
         blue:{p:"от 3 200 PLN",t:"3–6 мес.",n:3200,h:"Blue Card (ЕС)"},
@@ -2670,6 +2678,36 @@ p{max-width:68ch}
       [].forEach.call(tr.children,function(td,i){ if(ths[i]&&!td.hasAttribute('data-l')) td.setAttribute('data-l',ths[i]); });
     });
   });
+})();
+</script>
+<script>
+(function(){
+  var hero=document.querySelector('.video-hero'); if(!hero) return;
+  var bg=hero.querySelector('.vh-bg'), play=hero.querySelector('.vh-play');
+  var frame=null, closeBtn=null;
+  function stop(){
+    if(frame){ frame.remove(); frame=null; }
+    if(closeBtn){ closeBtn.remove(); closeBtn=null; }
+    hero.classList.remove('playing');
+  }
+  function start(e){
+    if(e){ e.preventDefault(); }
+    if(frame) return;
+    frame=document.createElement('div');
+    frame.className='vh-frame';
+    frame.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="LegalSol — видео о компании" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    hero.appendChild(frame);
+    closeBtn=document.createElement('button');
+    closeBtn.className='vh-close'; closeBtn.type='button';
+    closeBtn.setAttribute('aria-label','Закрыть видео');
+    closeBtn.innerHTML='&times;';
+    closeBtn.addEventListener('click', stop);
+    hero.appendChild(closeBtn);
+    hero.classList.add('playing');
+  }
+  if(bg) bg.addEventListener('click', start);
+  if(play) play.addEventListener('click', start);
+  addEventListener('keydown', function(e){ if(e.key==='Escape') stop(); });
 })();
 </script>
 
