@@ -7,8 +7,8 @@
 <meta name="description" content="Легализация иностранных сотрудников в Польше для компаний: один договор и один счёт, скидка до −35% за объём. Расчёт и проект договора — за 24 часа.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="LegalSol — Карта побыту в Польше | Юридическое сопровождение иностранцев">
-<meta property="og:description" content="LegalSol — легализация иностранцев в Польше. Карта побыту, ПМЖ, гражданство, бизнес. 98,1% одобрений, 1000+ дел с 2020 года. Ответ в WhatsApp за 15 минут.">
+<meta property="og:title" content="B2B — легализация сотрудников для компаний в Польше | LegalSol">
+<meta property="og:description" content="Легализация иностранных сотрудников в Польше для компаний: один договор и один счёт, скидка до −35% за объём. Расчёт и проект договора — за 24 часа.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -424,6 +424,21 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:640px){.bg-art{width:100%;opacity:.06}}
 @media(max-width:640px){.topbar .wrap>span:first-child{display:none}.topbar .wrap{justify-content:center}}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
+/* premium hovers */
+.dir,.s11,.bcard{position:relative}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(91,135,207,.12),transparent 65%);pointer-events:none}
+.dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
+.dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
+.dir:hover::after{transform:scaleX(1)}
+.dir:hover{transform:translateY(-7px) scale(1.012);box-shadow:0 3px 6px rgba(33,30,61,.05),0 44px 84px -36px rgba(61,91,169,.42)}
+.dir.pop:hover{box-shadow:0 0 0 2px var(--indigo),0 3px 6px rgba(33,30,61,.05),0 44px 84px -36px rgba(61,91,169,.5)}
+.dir .ic{transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s}
+.dir .ic svg{transition:stroke .3s}
+.dir:hover .ic{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));transform:scale(1.1) rotate(-4deg)}
+.dir:hover .ic svg{stroke:#fff}
+.s11:hover{transform:translateY(-4px)}
+.bcard:hover .cat{color:var(--indigo)}
+@media(prefers-reduced-motion:reduce){.dir:hover,.s11:hover{transform:none}.dir::after,.dir::before,.s11::before,.bcard::before{display:none}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -597,6 +612,53 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .lb-face{display:none}
   .lb-left{min-width:0}
 }
+/* alive2 — второй слой жизни: параллакс, кен-бёрнс, живые цитаты, прогулка пути, вход подстраниц, tilt, искра */
+/* a1) параллакс фоновых сцен: transform задаёт JS (rAF); запас по высоте, чтобы сдвиг не оголял края */
+@media(min-width:1000px){
+  .js.plx .bg-art{top:-28px;bottom:auto;height:calc(100% + 56px);will-change:transform}
+}
+/* a2) кен-бёрнс: дышащий фото-слой (::before, z-index:-1) под штатным градиент-фоном — читаемость текста не меняется */
+.guar .wrap::before,.final .wrap::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-position:center;background-size:cover;background-repeat:no-repeat}
+.guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
+.final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/consult.jpg)}
+@keyframes kenb{to{transform:scale(1.06)}}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
+.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+/* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
+.hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
+.hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
+.hq-in.out{opacity:0}
+.hq-in img{width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 6px rgba(33,30,61,.18);flex:none}
+.hq-q{font-size:13.5px;line-height:1.35;color:var(--ink-2)}
+.hq-in b{font-size:12.5px;color:var(--ink-3);flex:none}
+.js .hero .hq{opacity:0;transform:translateY(18px);transition:opacity .75s cubic-bezier(.16,.7,.2,1),transform .75s cubic-bezier(.16,.7,.2,1)}
+.js.hero-in .hero .hq{opacity:1;transform:none;transition-delay:.54s}
+/* a4) автопрогулка по «Пути дела» (класс .lit ставит JS) */
+.js .path .prow{transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1),background-color .5s ease}
+.js .path .prow .pn{transition:transform .7s cubic-bezier(.16,.7,.2,1),background-color .45s ease,color .45s ease}
+.prow.lit{background:var(--cream)}
+.prow.lit .pn{background:var(--indigo);color:#fff}
+/* a5) вход героев подстраниц (элементы помечает JS классом ph-i) */
+.js .ph-i{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1)}
+.js.page-in .ph-i{opacity:1;transform:none}
+/* a7) золотая искра на печати 98% (класс .shine ставит JS раз в ~7с) */
+.seal::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 40%,rgba(255,230,186,.4) 49%,rgba(255,243,220,.5) 51%,transparent 60%);background-size:300% 300%;background-position:0% 0}
+@keyframes sealshine{0%{background-position:0% 0;opacity:0}18%{opacity:1}82%{opacity:1}100%{background-position:100% 0;opacity:0}}
+.seal.shine::after{animation:sealshine 1.5s ease-in-out}
+/* alive2: защита для краулеров (noanim) — мгновенный ФИНАЛ */
+.js.noanim .guar .wrap::before,.js.noanim .final .wrap::before,.js.noanim .seal.shine::after{animation:none!important}
+.js.noanim .hero .hq,.js.noanim .ph-i{opacity:1!important;transform:none!important;transition:none!important}
+.js.noanim .bg-art,.js.noanim .vplayer{transform:none!important}
+.js.noanim .prow.lit{background:none}.js.noanim .prow.lit .pn{background:var(--lilac);color:var(--indigo)}
+/* alive2: prefers-reduced-motion — полный откат в финал */
+@media(prefers-reduced-motion:reduce){
+  .guar .wrap::before,.final .wrap::before,.seal.shine::after{animation:none!important}
+  .js .hero .hq,.js .ph-i{opacity:1!important;transform:none!important;transition:none!important}
+  .js .bg-art,.js .vplayer{transform:none!important}
+  .prow.lit{background:none}.prow.lit .pn{background:var(--lilac);color:var(--indigo)}
+  .hq-in{transition:none}
+}
+@media(min-width:1000px){.js.plx section:has(>.bg-art){overflow:clip}}
 
 /* --- page:b2b --- */
 .bb-hero{background:linear-gradient(140deg,rgba(61,91,169,.88),rgba(91,135,207,.55)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:76px 64px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)} .bb-hero h1{font-size:clamp(36px,5vw,58px);color:#fff;margin:10px 0 18px;max-width:820px} .bb-hero h1 em{font-style:normal;color:var(--gold)} .bb-lead{font-size:19px;color:rgba(255,255,255,.88);max-width:660px;margin-bottom:24px} .bb-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px} .bb-chips span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:var(--pill);padding:9px 16px;font-size:13.5px;font-weight:700} .bb-hero-note{margin-top:24px;font-size:13.5px;color:rgba(255,255,255,.75)} .bb-why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px} .bb-why .bw{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;box-shadow:var(--sh-sm);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s} .bb-why .bw:hover{transform:translateY(-4px);box-shadow:var(--sh)} .bb-why .bn{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--gold-2);margin-bottom:12px} .bb-why h3{font-size:19px;margin-bottom:9px} .bb-why p{font-size:14.5px;color:var(--ink-2);margin-bottom:16px;flex:1} .bb-why .go{font-weight:700;font-size:14px;color:var(--indigo)} .bb-ind{display:grid;grid-template-columns:repeat(3,1fr);gap:22px} .bb-ind .bi{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s} .bb-ind .bi:hover{transform:translateY(-4px);box-shadow:var(--sh-sm)} .bb-ind h3{font-size:18px;margin-bottom:8px} .bb-ind p{font-size:14px;color:var(--ink-2);margin-bottom:14px;flex:1} .bb-ind .go{font-weight:700;font-size:14px;color:var(--indigo)} .bb-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:48px} .bb-tier{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:36px 30px 30px;text-align:center;box-shadow:var(--sh-sm);position:relative} .bb-tier.pop{border-color:transparent;box-shadow:0 0 0 2px var(--indigo),var(--sh)} .bb-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;padding:6px 13px;border-radius:var(--pill);white-space:nowrap} .bb-tier .bd{font-size:46px;font-weight:800;color:var(--indigo);letter-spacing:-.03em;line-height:1} .bb-tier .bv{font-size:13px;font-weight:800;color:var(--gold-2);margin:12px 0 12px;text-transform:uppercase;letter-spacing:.05em} .bb-tier p{font-size:14px;color:var(--ink-2)} .bb-sub{text-align:center;font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.01em;margin-bottom:26px} .bb-note{margin-top:24px;font-size:13px;color:var(--ink-3)} .bb-svclbl{font-weight:800;font-size:15px;margin:26px 0 14px} @media(max-width:1000px){.bb-why,.bb-ind,.bb-tiers{grid-template-columns:1fr 1fr}.bb-hero{padding:56px 40px}} @media(max-width:640px){.bb-why,.bb-ind,.bb-tiers{grid-template-columns:1fr}.bb-hero{padding:44px 22px;border-radius:var(--r)}.bb-hero h1{font-size:33px}.bb-lead{font-size:16.5px}.bb-tiers{margin-bottom:36px}} #calc .sec-head{margin-bottom:44px} .bbc-kit{display:grid;grid-template-columns:6fr 5fr;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;box-shadow:var(--sh-sm)} .bbc-kit>*{min-width:0} .bbc-in{padding:40px 38px} .bbc-out{background:var(--lilac);border-left:1px solid var(--line);padding:40px 38px;display:flex;flex-direction:column;gap:15px} .bbc-k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--indigo-7)} .bbc-big{font-size:clamp(38px,4.4vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.04;color:var(--indigo)} .bbc-row{display:flex;justify-content:space-between;gap:14px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--line);padding-bottom:10px} .bbc-row b{color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap} .bbc-field{margin-bottom:22px} .bbc-field label{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:9px} .bbc-field label output{color:var(--indigo);font-variant-numeric:tabular-nums;font-weight:800} .bbc-field input[type=range]{width:100%;accent-color:var(--indigo)} .bbc-seg{display:flex;flex-wrap:wrap;gap:8px} .bbc-seg button{font:700 13px/1 var(--font);padding:10px 15px;border:1px solid var(--line);border-radius:var(--pill);background:var(--cream);color:var(--ink-2);cursor:pointer;transition:background .15s,color .15s,border-color .15s} .bbc-seg button.on{background:var(--indigo);border-color:var(--indigo);color:#fff} .bbc-check{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-2);margin:8px 0;cursor:pointer} .bbc-check input{accent-color:var(--indigo);width:17px;height:17px} .bbc-incl{margin-top:6px;border-top:1px solid var(--line);padding-top:18px} .bbc-incl ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:9px} .bbc-incl li{position:relative;padding-left:24px;font-size:13.5px;color:var(--ink-2);line-height:1.45} .bbc-incl li::before{content:"✓";position:absolute;left:0;top:0;color:var(--gold-2);font-weight:800} .bbc-cta{margin-top:auto;display:flex;flex-direction:column;gap:12px;padding-top:10px} .bbc-cta .btn{width:100%} .bbc-fine{font-size:12.5px;color:var(--ink-3);line-height:1.55;margin:0} .bbc-note{margin-top:26px;border:1px solid var(--line);border-left:3px solid var(--indigo);border-radius:12px;background:#fff;padding:18px 24px;font-size:14px;color:var(--ink-2)} .bbc-note b{color:var(--ink)} @media(max-width:900px){.bbc-kit{grid-template-columns:1fr}.bbc-out{border-left:0;border-top:1px solid var(--line)}} @media(max-width:640px){.bbc-in,.bbc-out{padding:28px 22px}.bbc-big{font-size:36px}}
@@ -621,10 +683,11 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
     <a href="work.html">Работа</a>
     <a href="b2b.html" style="color:var(--indigo)" aria-current="page">B2B</a>
     <a href="guide.html">Гайд</a>
+    <a href="chances.html">Шансы</a>
     <a href="blog.html">Блог</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="https://legalsol.pl">Кабинет</a>
+    <a class="lk" href="cabinet.html">Кабинет</a>
     <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
     <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -637,8 +700,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   <a href="work.html">Работа в Польше</a>
   <a href="b2b.html">B2B</a>
   <a href="guide.html">Гайд: карта побыту</a>
+  <a href="chances.html">Шансы на карту</a>
   <a href="blog.html">Блог</a>
-  <a href="https://legalsol.pl">Кабинет</a>
+  <a href="cabinet.html">Кабинет</a>
   <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
   <div class="soc" aria-label="Соцсети LegalSol">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
@@ -651,9 +715,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 <main id="top">
 <!-- PAGE:b2b -->
 <section style='padding:44px 0 76px'><div class='wrap'><div class='bb-hero reveal'><span class='eyebrow' style='background:rgba(255,255,255,.15);color:#fff'>Для бизнеса · работодателям и HR</span><h1>Легализация сотрудников — <em>под ключ</em></h1><p class='bb-lead'>Для компаний, которые нанимают от 5 иностранных сотрудников в год. Иммиграционную рутину забираем на себя — вы занимаетесь бизнесом.</p><div class='bb-chips'><span>Один договор</span><span>Один счёт</span><span>Персональный менеджер</span><span>Предсказуемые сроки</span></div><div class='hero-ctas'><a class='btn btn-gold btn-lg' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужен%20расчёт%20для%20компании.%20Легализация%20сотрудников.'>Получить расчёт за 24 часа</a><a class='btn btn-ghost btn-lg' href='https://wa.me/48883959550?text=Здравствуйте!%20Хочу%20обсудить%20легализацию%20сотрудников%20нашей%20компании.'>Поговорить с менеджером</a></div><div class='bb-hero-note'>NDA подписываем до передачи документов · данные защищены по GDPR · ответ менеджера — до 15 минут в рабочее время</div></div></div></section><section class='stats' style='padding:56px 0'><div class='wrap'><div class='stats-grid stg'><div class='stat reveal'><div class='n'>1 000<em>+</em></div><div class='l'>дел проведено</div></div><div class='stat reveal'><div class='n'>98,1<em>%</em></div><div class='l'>одобрений</div></div><div class='stat reveal'><div class='n'>до −35<em>%</em></div><div class='l'>скидка за объём</div></div><div class='stat reveal'><div class='n'>15 <em>мин</em></div><div class='l'>ответ менеджера</div></div></div></div></section><section style='padding:0'><div class='trust' style='padding:20px 0'><div class='wrap'><span><b>Иммиграционные юристы</b> — а не колл-центр</span><span class='dot'></span><span><b>6 отраслей</b> — от логистики до IT</span><span class='dot'></span><span>с <b>2020</b> команда работает в Польше</span><span class='dot'></span><span><b>Вся Польша</b> — офис в Варшаве, подачи по стране</span></div></div></section><section>
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Формат работы</span><h2>Почему компании остаются</h2><p>От 5 до 500+ легализаций в год — один контакт, прозрачные цены, предсказуемые сроки.</p></div><div class='bb-why stg'><div class='bw reveal'><div class='bn'>01</div><h3>Объёмная скидка — в договоре</h3><p>Чем больше наймов в год, тем ниже ставка за дело: от −10% при 5 делах до −35% при 100+. Точную сетку под ваш объём пришлём в предложении за 24 часа, ставка фиксируется на весь год договора.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20объёмная%20скидка.%20Пришлите%20сетку%20под%20наш%20объём.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>02</div><h3>Один менеджер на все дела</h3><p>Единый контакт по каждому сотруднику и каждому процессу. Говорит на английском, русском, украинском и польском. WhatsApp и почта — ответ в течение 15 минут в рабочее время.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Расскажите%20про%20персонального%20менеджера%20для%20компании.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>03</div><h3>Личный кабинет</h3><p>Статус каждого дела и чеклист документов — онлайн в любой момент. Отчёты для HR и финансов — по запросу, в удобном формате.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Покажите%20личный%20кабинет%20для%20HR.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>04</div><h3>Юрист на связи</h3><p>Ежемесячная сессия вопросов и ответов с иммиграционным юристом. Шаблоны кадровых политик. Документы для разрешений составляем за вас.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересуют%20сессии%20с%20иммиграционным%20юристом.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>05</div><h3>Приоритетная очередь</h3><p>Срочные наймы готовим вне общей очереди: сбор и подача документов по критичным делам — за 14 рабочих дней. Срок решения после подачи определяет уженд.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20У%20нас%20срочный%20найм.%20Расскажите%20про%20приоритетную%20очередь.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>06</div><h3>Аудит комплаенса</h3><p>Проверяем каждое действующее разрешение ваших сотрудников. Находим пробелы. Исправляем до того, как придёт проверка.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужен%20аудит%20комплаенса%20по%20сотрудникам.'>Обсудить в WhatsApp →</a></div></div></div></section><section class='steps'>
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Процесс</span><h2>От первого звонка — до карты</h2><p>От знакомства до готовых карт и автоматических продлений. Каждый шаг известен заранее — без сюрпризов.</p></div><div class='path reveal'><div class='prow'><span class='pn'>1</span><div><b>Ознакомительный звонок</b><p>30 минут в Zoom или WhatsApp: разбираем ваш план найма, порядок в документах сотрудников и объёмы на год. Бесплатно.</p></div><span class='pt'>День 1</span></div><div class='prow'><span class='pn'>2</span><div><b>Предложение и договор</b><p>Ставки по услугам, ожидаемые сроки, проект договора — за анализ денег не берём. NDA включён; любая сторона может расторгнуть договор с уведомлением за 30 дней.</p></div><span class='pt'>24 часа</span></div><div class='prow'><span class='pn'>3</span><div><b>Онбординг</b><p>Доступ в личный кабинет для вашей HR-команды и живое обучение — за один созвон.</p></div><span class='pt'>1–2 дня</span></div><div class='prow'><span class='pn'>4</span><div><b>Первые подачи</b><p>Вы присылаете данные сотрудников — таблицей или через личный кабинет. Мы заполняем заявления, запрашиваем недостающее и подаём в уженд. Статус — ежедневно.</p></div><span class='pt'>Дни 5–14</span></div><div class='prow'><span class='pn'>5</span><div><b>Ведение, карты и продления</b><p>Ходим на слушания, отвечаем на запросы уженда, сопровождаем сотрудников при выдаче карт. Продления ставим в график автоматически — за 90 дней до окончания. Годовой аудит включён.</p></div><span class='pt'>Весь год</span></div></div><div class='mos-note reveal'><span class='ic'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#C97F33' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='9'/><path d='M12 8v5M12 16h.01'/></svg></span><p><b>С 27 апреля 2026</b> заявления на ВНЖ принимают только онлайн — через государственную систему MOS. Для входа сотруднику нужен <b>Profil Zaufany</b> — оформляем его в рамках сопровождения.</p></div></div></section><section>
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head'><span class='eyebrow gold'>Услуги</span><h2>Все услуги — по одному договору</h2><p>Каждая услуга доступна по договору для бизнеса — по отдельности или единым пакетом с корпоративным счётом.</p></div><div class='svc11 stg'><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Компании%20нужны%20карты%20побыту%20для%20сотрудников.'><b>Карта побыту (TRC)</b><span>до −35% · 1–3 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20Blue%20Card%20для%20специалистов.'><b>Blue Card</b><span>для специалистов · до −35% · 1–3 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20ПМЖ%20для%20сотрудника.'><b>ПМЖ (pobyt stały)</b><span>до −35% · 3–6 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужны%20разрешения%20на%20работу%20для%20сотрудников.'><b>Разрешение на работу A / B / C</b><span>до −35% · 2–5 нед</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужно%20оформить%20PESEL%20сотрудникам.'><b>PESEL</b><span>до −35% · до 5 дней</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20апелляции%20после%20отказа%20сотруднику.'><b>Апелляция при отказе</b><span>бесплатно* · 4–8 нед</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20медицинской%20страховке%20для%20сотрудников.'><b>Мед. страховка (NFZ / частная)</b><span>без наценки · 1–3 дня</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужны%20присяжные%20переводы%20документов.'><b>Присяжный перевод</b><span>без наценки · 1–3 дня</span></a></div><div class='bb-svclbl'>Для бизнеса — также:</div><div class='svc11 stg'><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Хотим%20открыть%20компанию.%20Sp.%20z%20o.o.%20или%20JDG.'><b>Регистрация компании</b><span>Sp. z o.o. / JDG — обсудим ваш случай</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20бухгалтерия%20для%20компании.'><b>Бухгалтерия</b><span>ведение учёта компании</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужен%20Profil%20Zaufany%20для%20сотрудников.'><b>Profil Zaufany</b><span>обязателен для подачи через MOS</span></a><a class='s11 ask' href='services.html'><b>Все услуги LegalSol</b><span>смотреть полный список →</span></a></div><div class='bb-note'>Сроки — средние: решение по делу выносит уженд в свои сроки. Итоговая ставка фиксируется после ознакомительного звонка — под ваш объём, услуги и сроки. * Апелляция бесплатно — только если отказ по нашей вине.</div></div></section><section style='background:#fff'><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Отрасли</span><h2>Вашу отрасль мы знаем</h2><p>1 000+ дел · 6 отраслей. Документы, основания и риски в каждой отрасли свои — по каждой сотни проведённых дел.</p></div><div class='bb-ind stg'><div class='bi reveal'><h3>Логистика и склады</h3><p>Карта побыту для складских сотрудников. Стандартный пакет: паспорт, письмо работодателя, жильё, страховка.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Логистика.%20Нужны%20карты%20побыту%20для%20складских%20сотрудников.'>Обсудить карты побыту →</a></div><div class='bi reveal'><h3>IT и технологии</h3><p>Blue Card для senior-инженеров. Порог зарплаты — 150% средней по стране: декларацию берём на себя.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20IT.%20Интересует%20Blue%20Card%20для%20инженеров.'>Обсудить Blue Card →</a></div><div class='bi reveal'><h3>Строительство</h3><p>Разрешения на работу вместе с ВНЖ. Оформляем сертификаты практического обучения.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Строительство.%20Нужны%20разрешения%20на%20работу%20и%20ВНЖ.'>Обсудить разрешения →</a></div><div class='bi reveal'><h3>Медицина</h3><p>Легализация медперсонала. Нострификация — признание иностранных дипломов в Польше. Освобождение от языкового требования — там, где это возможно.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Медицина.%20Вопрос%20по%20нострификации%20и%20легализации%20персонала.'>Про нострификацию →</a></div><div class='bi reveal'><h3>Отели и рестораны</h3><p>Сезонные и постоянные разрешения: подбираем вариант выгоднее по цене и частоте продлений.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Отель%20или%20ресторан.%20Вопрос%20по%20сезонным%20разрешениям.'>Про сезонных →</a></div><div class='bi reveal'><h3>Производство</h3><p>Рабочие, операторы линий, техники. Подачи по всей команде синхронизируем с графиком смен.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Производство.%20Нужна%20легализация%20команды.'>Обсудить подачи →</a></div></div></div></section><section style='background:var(--lilac)'><div class='wrap'><div class='sec-head center'><span class='eyebrow gold'>Тарифы</span><h2>Скидка растёт вместе с объёмом</h2><p>Чем больше наймов в год, тем ниже ставка за дело. Точную сетку под ваш объём пришлём в предложении за 24 часа.</p></div><div class='bb-tiers stg'><div class='bb-tier reveal'><div class='bd'>−10%</div><div class='bv'>от 5 дел в год</div><p>Порог базового договора. HR-команды, которые регулярно нанимают иностранцев, добирают его в первый же квартал.</p></div><div class='bb-tier pop reveal'><div class='bb-badge'>Уровень «20+»</div><div class='bd'>−25%</div><div class='bv'>от 20 дел в год</div><p>Не добрали план — без штрафов: в конце года уровень пересчитывается по факту реально поданных дел.</p></div><div class='bb-tier reveal'><div class='bd'>−35%</div><div class='bv'>от 100 дел в год</div><p>Максимальный уровень сетки. Ставка фиксируется в договоре на весь год.</p></div></div><div class='bb-sub'>Одна и та же карта побыту — два способа её оформить</div><div class='vs-grid stg'><div class='vs a reveal'><h3>Розница — разовое обращение</h3><ul><li><b>Карта побыту.</b> Стандартная разовая цена</li><li><b>Ответ менеджера.</b> 4–24 часа</li><li><b>Статус дела.</b> Письма на почту</li><li><b>Подготовка документов.</b> Собираете и заполняете сами</li><li><b>Аудит комплаенса.</b> Не входит</li><li><b>Продления.</b> Сроки отслеживаете сами</li><li><b>Вопросы юристу.</b> Оплата за каждый вопрос</li><li><b>Формат.</b> Разовая услуга</li></ul></div><div class='vs b reveal'><h3>Договор для бизнеса</h3><ul><li><b>Карта побыту.</b> До −35% от разовой цены — по договору</li><li><b>Ответ менеджера.</b> 15 минут, WhatsApp</li><li><b>Статус дела.</b> Личный кабинет онлайн</li><li><b>Подготовка документов.</b> Делаем за вас</li><li><b>Аудит комплаенса.</b> Ежегодно, включён</li><li><b>Продления.</b> В графике автоматически</li><li><b>Вопросы юристу.</b> Ежемесячно, включено</li><li><b>Формат.</b> Годовой договор · расторжение за 30 дней</li></ul></div></div><div class='bb-note' style='text-align:center'>Уже включено в договор: персональный менеджер (ответ 15 минут) · личный кабинет · ежемесячная сессия с юристом · напоминания о продлениях за 90 дней. Расчёт ни к чему не обязывает; NDA — по запросу, ещё до обсуждения.</div></div></section><section id='calc' style='background:var(--cream)'><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Калькулятор</span><h2>Смоделируйте ваш договор</h2><p>Задайте размер команды и набор услуг — оценка пересчитывается сразу: уровень скидки, годовая цифра и горизонт на три года.</p></div><div class='bbc-kit reveal'><div class='bbc-in'><div class='bbc-field'><label><span>Быстрые пресеты</span></label><div class='bbc-seg' id='bc-seg-preset'><button type='button' data-preset='warehouse'>Склад</button><button type='button' data-preset='it'>IT-команда</button><button type='button' data-preset='construction'>Строительство</button><button type='button' data-preset='hospitality'>Отели и рестораны</button><button type='button' class='on' data-preset='custom'>Свой вариант</button></div></div><div class='bbc-field'><label for='bc-emp'><span>Сотрудников в год · от 1 до 200</span><output id='bc-emp-out'>10</output></label><input type='range' id='bc-emp' min='1' max='200' value='10'></div><div class='bbc-field'><label for='bc-fam'><span>Членов семьи на сотрудника · в среднем от 0 до 4</span><output id='bc-fam-out'>0</output></label><input type='range' id='bc-fam' min='0' max='4' step='0.5' value='0'></div><div class='bbc-field'><label for='bc-renew'><span>Доля продлений — сколько дел не первые подачи, %</span><output id='bc-renew-out'>30%</output></label><input type='range' id='bc-renew' min='0' max='100' value='30'></div><div class='bbc-field'><label><span>Гражданство команды</span></label><div class='bbc-seg' id='bc-seg-nat'><button type='button' data-nat='india'>Индия</button><button type='button' data-nat='srilanka'>Шри-Ланка</button><button type='button' data-nat='bangladesh'>Бангладеш</button><button type='button' data-nat='nepal'>Непал</button><button type='button' data-nat='philippines'>Филиппины</button><button type='button' data-nat='ukraine'>Украина</button><button type='button' class='on' data-nat='any'>Смешанный состав</button></div></div><div class='bbc-field'><label><span>Набор услуг</span></label><div class='bbc-seg' id='bc-seg-svc'><button type='button' class='on' data-svc='kp'>Карта побыту</button><button type='button' data-svc='bluecard'>Blue Card</button><button type='button' data-svc='permanent'>ПМЖ</button><button type='button' data-svc='mix'>Микс</button></div></div><div class='bbc-field'><label><span>Готовность документов</span></label><div class='bbc-seg' id='bc-seg-doc'><button type='button' class='on' data-doc='full'>Все на руках</button><button type='button' data-doc='partial'>Часть отсутствует</button><button type='button' data-doc='none'>Нужна помощь со сбором</button></div></div><div class='bbc-field'><label><span>Срочность</span></label><div class='bbc-seg' id='bc-seg-urg'><button type='button' class='on' data-urg='standard'>Стандарт</button><button type='button' data-urg='express'>Экспресс (+50%)</button><button type='button' data-urg='critical'>Критично (ставка ×2)</button></div></div><div class='bbc-field'><label><span>Срок договора</span></label><div class='bbc-seg' id='bc-seg-term'><button type='button' class='on' data-term='1'>1 год</button><button type='button' data-term='2'>2 года (−5%)</button><button type='button' data-term='3'>3 года (−8%)</button></div></div><div class='bbc-field' style='margin-bottom:8px'><label><span>Дополнительно</span></label></div><label class='bbc-check'><input type='checkbox' id='bc-audit'> Годовой аудит комплаенса</label><label class='bbc-check'><input type='checkbox' id='bc-trans'> Присяжные переводы</label></div><div class='bbc-out'><div class='bbc-k'>Годовая экономия</div><div class='bbc-big' id='bc-save'>—</div><div class='bbc-row'><span>Ваш уровень скидки</span><b id='bc-disc'>—</b></div><div class='bbc-row'><span>До следующего уровня</span><b id='bc-next-v'>—</b></div><div class='bbc-row'><span>Общая скидка</span><b id='bc-disc-total'>—</b></div><div class='bbc-row'><span>Цена за дело</span><b id='bc-case'>—</b></div><div class='bbc-row'><span>Стоимость на сотрудника</span><b id='bc-empcost'>—</b></div><div class='bbc-row'><span>Розница</span><b id='bc-retail'>—</b></div><div class='bbc-row'><span>По договору</span><b id='bc-b2b'>—</b></div><div class='bbc-row'><span>Год 1</span><b id='bc-y1'>—</b></div><div class='bbc-row'><span>Год 2</span><b id='bc-y2'>—</b></div><div class='bbc-row'><span>Итог за 3 года</span><b id='bc-y3'>—</b></div><div class='bbc-incl'><div class='bbc-k'>Уже включено в договор</div><ul><li>Персональный менеджер — ответ в течение 15 минут</li><li>Личный кабинет со статусом каждого дела</li><li>Ежемесячная сессия с иммиграционным юристом</li><li>Напоминания о продлениях за 90 дней</li></ul></div><div class='bbc-cta'><a class='btn btn-primary' id='bc-wa' href='https://wa.me/48883959550' target='_blank' rel='noopener'>Обсудить расчёт в WhatsApp</a><p class='bbc-fine'>Расчёт ни к чему не обязывает. NDA — по запросу, ещё до обсуждения; данные защищены по GDPR.</p></div></div></div><div class='bbc-note'><b>Базовые ставки — ориентир.</b> Итоговая ставка фиксируется после ознакомительного звонка — под ваш объём, услуги и сроки. Сетка скидок в калькуляторе соответствует нашей реальной модели.</div></div><script>
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Формат работы</span><h2>Почему компании остаются</h2><p>От 5 до 500+ легализаций в год — один контакт, прозрачные цены, предсказуемые сроки.</p></div><div class='bb-why stg'><div class='bw reveal'><div class='bn'>01</div><h3>Объёмная скидка — в договоре</h3><p>Чем больше наймов в год, тем ниже ставка за дело: от −10% при 5 делах до −35% при 100+. Точную сетку под ваш объём пришлём в предложении за 24 часа, ставка фиксируется на весь год договора.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20объёмная%20скидка.%20Пришлите%20сетку%20под%20наш%20объём.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>02</div><h3>Один менеджер на все дела</h3><p>Единый контакт по каждому сотруднику и каждому процессу. Говорит на английском, русском, украинском и польском. WhatsApp и почта — ответ в течение 15 минут в рабочее время.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Расскажите%20про%20персонального%20менеджера%20для%20компании.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>03</div><h3>Личный кабинет</h3><p>Статус каждого дела и чеклист документов — онлайн в любой момент. Отчёты для HR и финансов — по запросу, в удобном формате.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Покажите%20личный%20кабинет%20для%20HR.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>04</div><h3>Юрист на связи</h3><p>Ежемесячная сессия вопросов и ответов с иммиграционным юристом. Шаблоны кадровых политик. Документы для разрешений составляем за вас.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересуют%20сессии%20с%20иммиграционным%20юристом.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>05</div><h3>Приоритетная очередь</h3><p>Срочные наймы готовим вне общей очереди: сбор и подача документов по критичным делам — за 14 рабочих дней. Срок решения после подачи определяет уженд.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20У%20нас%20срочный%20найм.%20Расскажите%20про%20приоритетную%20очередь.'>Обсудить в WhatsApp →</a></div><div class='bw reveal'><div class='bn'>06</div><h3>Аудит комплаенса</h3><p>Проверяем каждое действующее разрешение ваших сотрудников. Находим пробелы. Исправляем до того, как придёт проверка.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужен%20аудит%20комплаенса%20по%20сотрудникам.'>Обсудить в WhatsApp →</a></div></div></div></section><section class='steps'>
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Процесс</span><h2>От первого звонка — до карты</h2><p>От знакомства до готовых карт и автоматических продлений. Каждый шаг известен заранее — без сюрпризов.</p></div><div class='path reveal'><div class='prow'><span class='pn'>1</span><div><b>Ознакомительный звонок</b><p>30 минут в Zoom или WhatsApp: разбираем ваш план найма, порядок в документах сотрудников и объёмы на год. Бесплатно.</p></div><span class='pt'>День 1</span></div><div class='prow'><span class='pn'>2</span><div><b>Предложение и договор</b><p>Ставки по услугам, ожидаемые сроки, проект договора — за анализ денег не берём. NDA включён; любая сторона может расторгнуть договор с уведомлением за 30 дней.</p></div><span class='pt'>24 часа</span></div><div class='prow'><span class='pn'>3</span><div><b>Онбординг</b><p>Доступ в личный кабинет для вашей HR-команды и живое обучение — за один созвон.</p></div><span class='pt'>1–2 дня</span></div><div class='prow'><span class='pn'>4</span><div><b>Первые подачи</b><p>Вы присылаете данные сотрудников — таблицей или через личный кабинет. Мы заполняем заявления, запрашиваем недостающее и подаём в уженд. Статус — ежедневно.</p></div><span class='pt'>Дни 5–14</span></div><div class='prow'><span class='pn'>5</span><div><b>Ведение, карты и продления</b><p>Ходим на слушания, отвечаем на запросы уженда, сопровождаем сотрудников при выдаче карт. Продления ставим в график автоматически — за 90 дней до окончания. Годовой аудит включён.</p></div><span class='pt'>Весь год</span></div></div><div class='mos-note reveal'><span class='ic'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#C97F33' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='9'/><path d='M12 8v5M12 16h.01'/></svg></span><p><b>С 27 апреля 2026</b> заявления на ВНЖ принимают только онлайн — через государственную систему MOS. Для входа сотруднику нужен <b>Profil Zaufany</b> — оформляем его в рамках сопровождения.</p></div></div></section><section>
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='sec-head'><span class='eyebrow gold'>Услуги</span><h2>Все услуги — по одному договору</h2><p>Каждая услуга доступна по договору для бизнеса — по отдельности или единым пакетом с корпоративным счётом.</p></div><div class='svc11 stg'><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Компании%20нужны%20карты%20побыту%20для%20сотрудников.'><b>Карта побыту (TRC)</b><span>до −35% · 1–3 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20Blue%20Card%20для%20специалистов.'><b>Blue Card</b><span>для специалистов · до −35% · 1–3 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20ПМЖ%20для%20сотрудника.'><b>ПМЖ (pobyt stały)</b><span>до −35% · 3–6 мес</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужны%20разрешения%20на%20работу%20для%20сотрудников.'><b>Разрешение на работу A / B / C</b><span>до −35% · 2–5 нед</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужно%20оформить%20PESEL%20сотрудникам.'><b>PESEL</b><span>до −35% · до 5 дней</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20апелляции%20после%20отказа%20сотруднику.'><b>Апелляция при отказе</b><span>бесплатно* · 4–8 нед</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Вопрос%20по%20медицинской%20страховке%20для%20сотрудников.'><b>Мед. страховка (NFZ / частная)</b><span>без наценки · 1–3 дня</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужны%20присяжные%20переводы%20документов.'><b>Присяжный перевод</b><span>без наценки · 1–3 дня</span></a></div><div class='bb-svclbl'>Для бизнеса — также:</div><div class='svc11 stg'><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Хотим%20открыть%20компанию.%20Sp.%20z%20o.o.%20или%20JDG.'><b>Регистрация компании</b><span>Sp. z o.o. / JDG — обсудим ваш случай</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Интересует%20бухгалтерия%20для%20компании.'><b>Бухгалтерия</b><span>ведение учёта компании</span></a><a class='s11' href='https://wa.me/48883959550?text=Здравствуйте!%20Нужен%20Profil%20Zaufany%20для%20сотрудников.'><b>Profil Zaufany</b><span>обязателен для подачи через MOS</span></a><a class='s11 ask' href='services.html'><b>Все услуги LegalSol</b><span>смотреть полный список →</span></a></div><div class='bb-note'>Сроки — средние: решение по делу выносит уженд в свои сроки. Итоговая ставка фиксируется после ознакомительного звонка — под ваш объём, услуги и сроки. * Апелляция бесплатно — только если отказ по нашей вине.</div></div></section><section style='background:#fff'><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Отрасли</span><h2>Вашу отрасль мы знаем</h2><p>1 000+ дел · 6 отраслей. Документы, основания и риски в каждой отрасли свои — по каждой сотни проведённых дел.</p></div><div class='bb-ind stg'><div class='bi reveal'><h3>Логистика и склады</h3><p>Карта побыту для складских сотрудников. Стандартный пакет: паспорт, письмо работодателя, жильё, страховка.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Логистика.%20Нужны%20карты%20побыту%20для%20складских%20сотрудников.'>Обсудить карты побыту →</a></div><div class='bi reveal'><h3>IT и технологии</h3><p>Blue Card для senior-инженеров. Порог зарплаты — 150% средней по стране: декларацию берём на себя.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20IT.%20Интересует%20Blue%20Card%20для%20инженеров.'>Обсудить Blue Card →</a></div><div class='bi reveal'><h3>Строительство</h3><p>Разрешения на работу вместе с ВНЖ. Оформляем сертификаты практического обучения.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Строительство.%20Нужны%20разрешения%20на%20работу%20и%20ВНЖ.'>Обсудить разрешения →</a></div><div class='bi reveal'><h3>Медицина</h3><p>Легализация медперсонала. Нострификация — признание иностранных дипломов в Польше. Освобождение от языкового требования — там, где это возможно.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Медицина.%20Вопрос%20по%20нострификации%20и%20легализации%20персонала.'>Про нострификацию →</a></div><div class='bi reveal'><h3>Отели и рестораны</h3><p>Сезонные и постоянные разрешения: подбираем вариант выгоднее по цене и частоте продлений.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Отель%20или%20ресторан.%20Вопрос%20по%20сезонным%20разрешениям.'>Про сезонных →</a></div><div class='bi reveal'><h3>Производство</h3><p>Рабочие, операторы линий, техники. Подачи по всей команде синхронизируем с графиком смен.</p><a class='go' href='https://wa.me/48883959550?text=Здравствуйте!%20Производство.%20Нужна%20легализация%20команды.'>Обсудить подачи →</a></div></div></div></section><section style='background:var(--lilac)'><div class='wrap'><div class='sec-head center'><span class='eyebrow gold'>Тарифы</span><h2>Скидка растёт вместе с объёмом</h2><p>Чем больше наймов в год, тем ниже ставка за дело. Точную сетку под ваш объём пришлём в предложении за 24 часа.</p></div><div class='bb-tiers stg'><div class='bb-tier reveal'><div class='bd'>−10%</div><div class='bv'>от 5 дел в год</div><p>Порог базового договора. HR-команды, которые регулярно нанимают иностранцев, добирают его в первый же квартал.</p></div><div class='bb-tier pop reveal'><div class='bb-badge'>Уровень «20+»</div><div class='bd'>−25%</div><div class='bv'>от 20 дел в год</div><p>Не добрали план — без штрафов: в конце года уровень пересчитывается по факту реально поданных дел.</p></div><div class='bb-tier reveal'><div class='bd'>−35%</div><div class='bv'>от 100 дел в год</div><p>Максимальный уровень сетки. Ставка фиксируется в договоре на весь год.</p></div></div><div class='bb-sub'>Одна и та же карта побыту — два способа её оформить</div><div class='vs-grid stg'><div class='vs a reveal'><h3>Розница — разовое обращение</h3><ul><li><b>Карта побыту.</b> Стандартная разовая цена</li><li><b>Ответ менеджера.</b> 4–24 часа</li><li><b>Статус дела.</b> Письма на почту</li><li><b>Подготовка документов.</b> Собираете и заполняете сами</li><li><b>Аудит комплаенса.</b> Не входит</li><li><b>Продления.</b> Сроки отслеживаете сами</li><li><b>Вопросы юристу.</b> Оплата за каждый вопрос</li><li><b>Формат.</b> Разовая услуга</li></ul></div><div class='vs b reveal'><h3>Договор для бизнеса</h3><ul><li><b>Карта побыту.</b> До −35% от разовой цены — по договору</li><li><b>Ответ менеджера.</b> 15 минут, WhatsApp</li><li><b>Статус дела.</b> Личный кабинет онлайн</li><li><b>Подготовка документов.</b> Делаем за вас</li><li><b>Аудит комплаенса.</b> Ежегодно, включён</li><li><b>Продления.</b> В графике автоматически</li><li><b>Вопросы юристу.</b> Ежемесячно, включено</li><li><b>Формат.</b> Годовой договор · расторжение за 30 дней</li></ul></div></div><div class='bb-note' style='text-align:center'>Уже включено в договор: персональный менеджер (ответ 15 минут) · личный кабинет · ежемесячная сессия с юристом · напоминания о продлениях за 90 дней. Расчёт ни к чему не обязывает; NDA — по запросу, ещё до обсуждения.</div></div></section><section id='calc' style='background:var(--cream)'><div class='wrap'><div class='sec-head center'><span class='eyebrow'>Калькулятор</span><h2>Смоделируйте ваш договор</h2><p>Задайте размер команды и набор услуг — оценка пересчитывается сразу: уровень скидки, годовая цифра и горизонт на три года.</p></div><div class='bbc-kit reveal'><div class='bbc-in'><div class='bbc-field'><label><span>Быстрые пресеты</span></label><div class='bbc-seg' id='bc-seg-preset'><button type='button' data-preset='warehouse'>Склад</button><button type='button' data-preset='it'>IT-команда</button><button type='button' data-preset='construction'>Строительство</button><button type='button' data-preset='hospitality'>Отели и рестораны</button><button type='button' class='on' data-preset='custom'>Свой вариант</button></div></div><div class='bbc-field'><label for='bc-emp'><span>Сотрудников в год · от 1 до 200</span><output id='bc-emp-out'>10</output></label><input type='range' id='bc-emp' min='1' max='200' value='10'></div><div class='bbc-field'><label for='bc-fam'><span>Членов семьи на сотрудника · в среднем от 0 до 4</span><output id='bc-fam-out'>0</output></label><input type='range' id='bc-fam' min='0' max='4' step='0.5' value='0'></div><div class='bbc-field'><label for='bc-renew'><span>Доля продлений — сколько дел не первые подачи, %</span><output id='bc-renew-out'>30%</output></label><input type='range' id='bc-renew' min='0' max='100' value='30'></div><div class='bbc-field'><label><span>Гражданство команды</span></label><div class='bbc-seg' id='bc-seg-nat'><button type='button' data-nat='india'>Индия</button><button type='button' data-nat='srilanka'>Шри-Ланка</button><button type='button' data-nat='bangladesh'>Бангладеш</button><button type='button' data-nat='nepal'>Непал</button><button type='button' data-nat='philippines'>Филиппины</button><button type='button' data-nat='ukraine'>Украина</button><button type='button' class='on' data-nat='any'>Смешанный состав</button></div></div><div class='bbc-field'><label><span>Набор услуг</span></label><div class='bbc-seg' id='bc-seg-svc'><button type='button' class='on' data-svc='kp'>Карта побыту</button><button type='button' data-svc='bluecard'>Blue Card</button><button type='button' data-svc='permanent'>ПМЖ</button><button type='button' data-svc='mix'>Микс</button></div></div><div class='bbc-field'><label><span>Готовность документов</span></label><div class='bbc-seg' id='bc-seg-doc'><button type='button' class='on' data-doc='full'>Все на руках</button><button type='button' data-doc='partial'>Часть отсутствует</button><button type='button' data-doc='none'>Нужна помощь со сбором</button></div></div><div class='bbc-field'><label><span>Срочность</span></label><div class='bbc-seg' id='bc-seg-urg'><button type='button' class='on' data-urg='standard'>Стандарт</button><button type='button' data-urg='express'>Экспресс (+50%)</button><button type='button' data-urg='critical'>Критично (ставка ×2)</button></div></div><div class='bbc-field'><label><span>Срок договора</span></label><div class='bbc-seg' id='bc-seg-term'><button type='button' class='on' data-term='1'>1 год</button><button type='button' data-term='2'>2 года (−5%)</button><button type='button' data-term='3'>3 года (−8%)</button></div></div><div class='bbc-field' style='margin-bottom:8px'><label><span>Дополнительно</span></label></div><label class='bbc-check'><input type='checkbox' id='bc-audit'> Годовой аудит комплаенса</label><label class='bbc-check'><input type='checkbox' id='bc-trans'> Присяжные переводы</label></div><div class='bbc-out'><div class='bbc-k'>Годовая экономия</div><div class='bbc-big' id='bc-save'>—</div><div class='bbc-row'><span>Ваш уровень скидки</span><b id='bc-disc'>—</b></div><div class='bbc-row'><span>До следующего уровня</span><b id='bc-next-v'>—</b></div><div class='bbc-row'><span>Общая скидка</span><b id='bc-disc-total'>—</b></div><div class='bbc-row'><span>Цена за дело</span><b id='bc-case'>—</b></div><div class='bbc-row'><span>Стоимость на сотрудника</span><b id='bc-empcost'>—</b></div><div class='bbc-row'><span>Розница</span><b id='bc-retail'>—</b></div><div class='bbc-row'><span>По договору</span><b id='bc-b2b'>—</b></div><div class='bbc-row'><span>Год 1</span><b id='bc-y1'>—</b></div><div class='bbc-row'><span>Год 2</span><b id='bc-y2'>—</b></div><div class='bbc-row'><span>Итог за 3 года</span><b id='bc-y3'>—</b></div><div class='bbc-incl'><div class='bbc-k'>Уже включено в договор</div><ul><li>Персональный менеджер — ответ в течение 15 минут</li><li>Личный кабинет со статусом каждого дела</li><li>Ежемесячная сессия с иммиграционным юристом</li><li>Напоминания о продлениях за 90 дней</li></ul></div><div class='bbc-cta'><a class='btn btn-primary' id='bc-wa' href='https://wa.me/48883959550' target='_blank' rel='noopener'>Обсудить расчёт в WhatsApp</a><p class='bbc-fine'>Расчёт ни к чему не обязывает. NDA — по запросу, ещё до обсуждения; данные защищены по GDPR.</p></div></div></div><div class='bbc-note'><b>Базовые ставки — ориентир.</b> Итоговая ставка фиксируется после ознакомительного звонка — под ваш объём, услуги и сроки. Сетка скидок в калькуляторе соответствует нашей реальной модели.</div></div><script>
 (function(){
   var BASE = { kp: 2800, bluecard: 4200, permanent: 3500, mix: 3500 };
   var URG_MULT = { standard: 1.0, express: 1.5, critical: 2.0 };
@@ -819,8 +883,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
       <li><a href="work.html">Работа в Польше</a></li>
       <li><a href="b2b.html">B2B</a></li>
       <li><a href="guide.html">Гайд: карта побыту</a></li>
+      <li><a href="chances.html">Шансы на карту</a></li>
       <li><a href="blog.html">Блог</a></li>
-      <li><a href="https://legalsol.pl">Кабинет</a></li>
+      <li><a href="cabinet.html">Кабинет</a></li>
     </ul></div>
     <div><h4>Контакты</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
@@ -1033,6 +1098,184 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       });
     });
   })();
+})();
+</script>
+<script>
+/* alive2: параллакс фонов, ротация цитат, автопрогулка пути, вход героев подстраниц, 3D-tilt видео, искра печати.
+   Контракт: instant() → мгновенные финалы; каждая фича проверяет сама. */
+(function(){
+  var doc=document.documentElement;
+  var reduce=false;try{reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){}
+  function instant(){return reduce||document.hidden||navigator.webdriver||doc.classList.contains('noanim');}
+  function wide(){return (window.innerWidth||0)>=1000;}
+
+  /* a1) параллакс .bg-art: ±26px от центра вьюпорта (rAF + passive), только ≥1000px */
+  (function(){
+    var arts=[].slice.call(document.querySelectorAll('.bg-art'));
+    if(!arts.length)return;
+    var on=false,tick=false;
+    function upd(){
+      tick=false;
+      if(!on)return;
+      var vh=window.innerHeight||1,vc=vh/2,i,p,r,ratio;
+      for(i=0;i<arts.length;i++){
+        p=arts[i].parentNode;if(!p||!p.getBoundingClientRect)continue;
+        r=p.getBoundingClientRect();
+        ratio=((r.top+r.height/2)-vc)/((vc+r.height/2)||1);
+        if(ratio>1)ratio=1;else if(ratio<-1)ratio=-1;
+        arts[i].style.transform='translate3d(0,'+(-ratio*26).toFixed(1)+'px,0)';
+      }
+    }
+    function req(){if(on&&!tick){tick=true;requestAnimationFrame(upd);}}
+    function judge(){
+      var want=!instant()&&wide();
+      if(want&&!on){on=true;doc.classList.add('plx');req();}
+      else if(!want&&on){on=false;doc.classList.remove('plx');for(var i=0;i<arts.length;i++)arts[i].style.transform='';}
+    }
+    window.addEventListener('scroll',req,{passive:true});
+    window.addEventListener('resize',function(){judge();req();},{passive:true});
+    document.addEventListener('visibilitychange',judge);
+    judge();
+  })();
+
+  /* a3) ротация живых цитат в герое — кроссфейд каждые 6с, при instant() статично первая */
+  (function(){
+    var box=document.querySelector('.hero .hq .hq-in');if(!box)return;
+    var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
+    if(!img||!q||!nm)return;
+    var Q=[
+      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
+      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
+      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
+      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+    ];
+    var i=0,t=null;
+    function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
+    function tick(){
+      if(instant()){stop();return;}
+      box.classList.add('out');
+      setTimeout(function(){
+        if(!t)return;
+        i=(i+1)%Q.length;
+        img.src=Q[i][0];q.textContent=Q[i][1];nm.textContent=Q[i][2];
+        box.classList.remove('out');
+      },500);
+    }
+    function start(){
+      if(t||instant())return;
+      Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
+      t=setInterval(tick,6000);
+    }
+    if(!document.hidden)start();
+    document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
+  })();
+
+  /* a4) автопрогулка по «Пути дела»: один полный проход и стоп */
+  (function(){
+    if(!('IntersectionObserver' in window))return;
+    var path=document.querySelector('[data-walk]');if(!path)return;
+    var rows=[].slice.call(path.querySelectorAll('.prow'));if(rows.length<2)return;
+    if(instant())return;
+    var done=false;
+    function walk(){
+      if(done)return;done=true;
+      if(instant())return;
+      var i=0;rows[0].classList.add('lit');
+      var t=setInterval(function(){
+        if(instant()){clearInterval(t);for(var j=0;j<rows.length;j++)rows[j].classList.remove('lit');return;}
+        rows[i].classList.remove('lit');
+        i++;
+        if(i>=rows.length){clearInterval(t);return;}
+        rows[i].classList.add('lit');
+      },1600);
+    }
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){io.unobserve(x.target);setTimeout(walk,1300);}})},{threshold:.3});
+    io.observe(path);
+  })();
+
+  /* a5) вход героев подстраниц: каскад прямых детей первой секции (на главной есть section.hero — там свой) */
+  (function(){
+    if(document.querySelector('section.hero'))return;
+    var sec=document.querySelector('main section')||document.querySelector('section');
+    if(!sec)return;
+    function go(){doc.classList.add('page-in');}
+    if(instant()){go();return;}
+    var box=null,ch=sec.children,i;
+    for(i=0;i<ch.length;i++){if(ch[i].classList&&ch[i].classList.contains('wrap')){box=ch[i];break;}}
+    box=box||sec;
+    function kids(el){
+      var out=[],c=el.children,j;
+      for(j=0;j<c.length;j++){if(!(c[j].classList&&c[j].classList.contains('bg-art')))out.push(c[j]);}
+      return out;
+    }
+    var k=kids(box),guard=0;
+    while(k.length===1&&guard<4&&!(k[0].classList&&k[0].classList.contains('stg'))){box=k[0];k=kids(box);guard++;}
+    if(!k.length||(box.classList&&box.classList.contains('stg'))){go();return;}
+    if(box.classList&&box.classList.contains('reveal'))box.classList.remove('reveal'); /* без двойного фейда */
+    var n=0;
+    for(i=0;i<k.length;i++){
+      if(k[i].classList&&(k[i].classList.contains('stg')||k[i].classList.contains('reveal')))continue; /* у них свой вход — без дублей */
+      k[i].classList.add('ph-i');
+      k[i].style.transitionDelay=(Math.min(n,7)*0.09).toFixed(2)+'s';
+      n++;
+    }
+    if(!n){go();return;}
+    setTimeout(go,60);
+    setTimeout(go,1500); /* страховка финала */
+    document.addEventListener('visibilitychange',function(){if(document.hidden)go();});
+  })();
+
+  /* a6) 3D-tilt видео-карточки: max 4°, только ≥1000px */
+  (function(){
+    var v=document.querySelector('.vplayer');if(!v)return;
+    var raf=null,rx=0,ry=0;
+    function apply(){raf=null;v.style.transition='transform .18s ease-out';v.style.transform='perspective(760px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg)';}
+    v.addEventListener('mousemove',function(e){
+      if(instant()||!wide())return;
+      var r=v.getBoundingClientRect();if(!r.width||!r.height)return;
+      ry=((e.clientX-r.left)/r.width-.5)*8;
+      rx=(.5-(e.clientY-r.top)/r.height)*8;
+      if(!raf)raf=requestAnimationFrame(apply);
+    },{passive:true});
+    v.addEventListener('mouseleave',function(){
+      if(raf){cancelAnimationFrame(raf);raf=null;}
+      v.style.transition='transform .55s cubic-bezier(.16,.7,.2,1)';
+      v.style.transform='';
+    });
+  })();
+
+  /* a7) золотая искра на печати 98%: раз в ~7с, только пока печать в вьюпорте */
+  (function(){
+    if(!('IntersectionObserver' in window))return;
+    var s=document.querySelector('.seal');if(!s)return;
+    var t=null;
+    function spark(){
+      if(instant())return;
+      s.classList.add('shine');
+      setTimeout(function(){s.classList.remove('shine');},1600);
+    }
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      else if(t){clearInterval(t);t=null;}
+    })},{threshold:.5});
+    io.observe(s);
+    document.addEventListener('visibilitychange',function(){if(document.hidden&&t){clearInterval(t);t=null;}});
+  })();
+})();
+</script>
+<script>
+/* premium hovers: прожектор за курсором */
+(function(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(navigator.webdriver||document.documentElement.classList.contains('noanim'))return;
+  if(window.innerWidth<1000)return;
+  document.addEventListener('pointermove',function(e){
+    var c=e.target.closest&&e.target.closest('.dir,.s11,.bcard');
+    if(!c)return;
+    var r=c.getBoundingClientRect();
+    c.style.setProperty('--hx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    c.style.setProperty('--hy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  },{passive:true});
 })();
 </script>
 </body>

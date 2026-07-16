@@ -7,8 +7,8 @@
 <meta name="description" content="Пошаговый гайд по карте побыту в Польше 2026: подача онлайн через MOS, Profil Zaufany, документы, штамп, честные сроки 4–9 месяцев и апелляция при отказе.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="LegalSol — Карта побыту в Польше | Юридическое сопровождение иностранцев">
-<meta property="og:description" content="LegalSol — легализация иностранцев в Польше. Карта побыту, ПМЖ, гражданство, бизнес. 98,1% одобрений, 1000+ дел с 2020 года. Ответ в WhatsApp за 15 минут.">
+<meta property="og:title" content="Карта побыту: полный гайд 2026 — MOS, документы, сроки | LegalSol">
+<meta property="og:description" content="Пошаговый гайд по карте побыту в Польше 2026: подача онлайн через MOS, Profil Zaufany, документы, штамп, честные сроки 4–9 месяцев и апелляция при отказе.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -424,6 +424,21 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:640px){.bg-art{width:100%;opacity:.06}}
 @media(max-width:640px){.topbar .wrap>span:first-child{display:none}.topbar .wrap{justify-content:center}}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
+/* premium hovers */
+.dir,.s11,.bcard{position:relative}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(91,135,207,.12),transparent 65%);pointer-events:none}
+.dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
+.dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
+.dir:hover::after{transform:scaleX(1)}
+.dir:hover{transform:translateY(-7px) scale(1.012);box-shadow:0 3px 6px rgba(33,30,61,.05),0 44px 84px -36px rgba(61,91,169,.42)}
+.dir.pop:hover{box-shadow:0 0 0 2px var(--indigo),0 3px 6px rgba(33,30,61,.05),0 44px 84px -36px rgba(61,91,169,.5)}
+.dir .ic{transition:transform .45s cubic-bezier(.34,1.56,.64,1),background .3s}
+.dir .ic svg{transition:stroke .3s}
+.dir:hover .ic{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));transform:scale(1.1) rotate(-4deg)}
+.dir:hover .ic svg{stroke:#fff}
+.s11:hover{transform:translateY(-4px)}
+.bcard:hover .cat{color:var(--indigo)}
+@media(prefers-reduced-motion:reduce){.dir:hover,.s11:hover{transform:none}.dir::after,.dir::before,.s11::before,.bcard::before{display:none}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -597,6 +612,53 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .lb-face{display:none}
   .lb-left{min-width:0}
 }
+/* alive2 — второй слой жизни: параллакс, кен-бёрнс, живые цитаты, прогулка пути, вход подстраниц, tilt, искра */
+/* a1) параллакс фоновых сцен: transform задаёт JS (rAF); запас по высоте, чтобы сдвиг не оголял края */
+@media(min-width:1000px){
+  .js.plx .bg-art{top:-28px;bottom:auto;height:calc(100% + 56px);will-change:transform}
+}
+/* a2) кен-бёрнс: дышащий фото-слой (::before, z-index:-1) под штатным градиент-фоном — читаемость текста не меняется */
+.guar .wrap::before,.final .wrap::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-position:center;background-size:cover;background-repeat:no-repeat}
+.guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
+.final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/consult.jpg)}
+@keyframes kenb{to{transform:scale(1.06)}}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
+.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+/* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
+.hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
+.hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
+.hq-in.out{opacity:0}
+.hq-in img{width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 6px rgba(33,30,61,.18);flex:none}
+.hq-q{font-size:13.5px;line-height:1.35;color:var(--ink-2)}
+.hq-in b{font-size:12.5px;color:var(--ink-3);flex:none}
+.js .hero .hq{opacity:0;transform:translateY(18px);transition:opacity .75s cubic-bezier(.16,.7,.2,1),transform .75s cubic-bezier(.16,.7,.2,1)}
+.js.hero-in .hero .hq{opacity:1;transform:none;transition-delay:.54s}
+/* a4) автопрогулка по «Пути дела» (класс .lit ставит JS) */
+.js .path .prow{transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1),background-color .5s ease}
+.js .path .prow .pn{transition:transform .7s cubic-bezier(.16,.7,.2,1),background-color .45s ease,color .45s ease}
+.prow.lit{background:var(--cream)}
+.prow.lit .pn{background:var(--indigo);color:#fff}
+/* a5) вход героев подстраниц (элементы помечает JS классом ph-i) */
+.js .ph-i{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1)}
+.js.page-in .ph-i{opacity:1;transform:none}
+/* a7) золотая искра на печати 98% (класс .shine ставит JS раз в ~7с) */
+.seal::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 40%,rgba(255,230,186,.4) 49%,rgba(255,243,220,.5) 51%,transparent 60%);background-size:300% 300%;background-position:0% 0}
+@keyframes sealshine{0%{background-position:0% 0;opacity:0}18%{opacity:1}82%{opacity:1}100%{background-position:100% 0;opacity:0}}
+.seal.shine::after{animation:sealshine 1.5s ease-in-out}
+/* alive2: защита для краулеров (noanim) — мгновенный ФИНАЛ */
+.js.noanim .guar .wrap::before,.js.noanim .final .wrap::before,.js.noanim .seal.shine::after{animation:none!important}
+.js.noanim .hero .hq,.js.noanim .ph-i{opacity:1!important;transform:none!important;transition:none!important}
+.js.noanim .bg-art,.js.noanim .vplayer{transform:none!important}
+.js.noanim .prow.lit{background:none}.js.noanim .prow.lit .pn{background:var(--lilac);color:var(--indigo)}
+/* alive2: prefers-reduced-motion — полный откат в финал */
+@media(prefers-reduced-motion:reduce){
+  .guar .wrap::before,.final .wrap::before,.seal.shine::after{animation:none!important}
+  .js .hero .hq,.js .ph-i{opacity:1!important;transform:none!important;transition:none!important}
+  .js .bg-art,.js .vplayer{transform:none!important}
+  .prow.lit{background:none}.prow.lit .pn{background:var(--lilac);color:var(--indigo)}
+  .hq-in{transition:none}
+}
+@media(min-width:1000px){.js.plx section:has(>.bg-art){overflow:clip}}
 
 /* --- page:guide --- */
 /* — гайд: герой — */
@@ -677,10 +739,11 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
     <a href="work.html">Работа</a>
     <a href="b2b.html">B2B</a>
     <a href="guide.html" style="color:var(--indigo)" aria-current="page">Гайд</a>
+    <a href="chances.html">Шансы</a>
     <a href="blog.html">Блог</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="https://legalsol.pl">Кабинет</a>
+    <a class="lk" href="cabinet.html">Кабинет</a>
     <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
     <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -693,8 +756,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   <a href="work.html">Работа в Польше</a>
   <a href="b2b.html">B2B</a>
   <a href="guide.html">Гайд: карта побыту</a>
+  <a href="chances.html">Шансы на карту</a>
   <a href="blog.html">Блог</a>
-  <a href="https://legalsol.pl">Кабинет</a>
+  <a href="cabinet.html">Кабинет</a>
   <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
   <div class="soc" aria-label="Соцсети LegalSol">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
@@ -749,7 +813,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Простая версия</span><h2>Весь путь — в шести кадрах</h2><p>Что, как и зачем — без единого термина. Подробности будут ниже, в главах.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Знакомо?</span><div class="num">1</div><h3>Часы тикают</h3><p>Виза заканчивается, уженд молчит, что делать — непонятно.</p></div>
@@ -763,7 +827,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">География</span><h2>Из Варшавы — во все 16 воеводств</h2><p>С 2020 года наша команда ведёт дела по легализации в Польше. Карты побыту — это не «одна из услуг», это то, чем мы живём.</p></div>
   <div class="geo reveal">
     <p>Подача — по всей Польше: с 2026 года всё идёт онлайн через MOS, поэтому ваш город не имеет значения</p>
@@ -779,7 +843,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава I</span><h2>Что такое карта побыту?</h2><p>Карта побыту (по-польски karta pobytu, сокращённо TRC) — это и есть вид на жительство в Польше: пластиковая карта, которая подтверждает ваше право легально жить в стране.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -806,7 +870,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава II</span><h2>Почему люди не подают в одиночку</h2><p>Дело не в сложности формы — дело в том, что процедура не прощает мелочей. Вот три причины, из-за которых чаще всего теряют месяцы.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Теперь всё онлайн</b><span>С 27.04.2026 заявления подаются только онлайн — через государственную систему MOS. Для входа в неё обязателен Profil Zaufany — ваша личная электронная подпись для польских госуслуг. Одно неверное поле — и всё дело стоит.</span></div>
@@ -830,7 +894,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава III</span><h2>Шесть этапов — от сообщения до карты</h2><p>Весь путь целиком. Сначала — сводная таблица, ниже — что именно происходит на каждом этапе, что нужно от вас и сколько это длится.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Бесплатный разбор дела</b><p>Статус, сроки, правильное основание, план и фиксированная цена</p></div><span class="pt">В тот же день</span></div>
@@ -903,7 +967,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава IV</span><h2>Сколько это длится на самом деле: 4–9 месяцев</h2><p>Целиком путь обычно занимает от четырёх до девяти месяцев. Этапы ожидания частично накладываются друг на друга — дело рассматривается уже с момента подачи, поэтому строки не складываются в общую сумму. Вот куда уходит время — без приукрашивания.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 месяцев</span></div>
@@ -1036,8 +1100,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
       <li><a href="work.html">Работа в Польше</a></li>
       <li><a href="b2b.html">B2B</a></li>
       <li><a href="guide.html">Гайд: карта побыту</a></li>
+      <li><a href="chances.html">Шансы на карту</a></li>
       <li><a href="blog.html">Блог</a></li>
-      <li><a href="https://legalsol.pl">Кабинет</a></li>
+      <li><a href="cabinet.html">Кабинет</a></li>
     </ul></div>
     <div><h4>Контакты</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
@@ -1250,6 +1315,184 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       });
     });
   })();
+})();
+</script>
+<script>
+/* alive2: параллакс фонов, ротация цитат, автопрогулка пути, вход героев подстраниц, 3D-tilt видео, искра печати.
+   Контракт: instant() → мгновенные финалы; каждая фича проверяет сама. */
+(function(){
+  var doc=document.documentElement;
+  var reduce=false;try{reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){}
+  function instant(){return reduce||document.hidden||navigator.webdriver||doc.classList.contains('noanim');}
+  function wide(){return (window.innerWidth||0)>=1000;}
+
+  /* a1) параллакс .bg-art: ±26px от центра вьюпорта (rAF + passive), только ≥1000px */
+  (function(){
+    var arts=[].slice.call(document.querySelectorAll('.bg-art'));
+    if(!arts.length)return;
+    var on=false,tick=false;
+    function upd(){
+      tick=false;
+      if(!on)return;
+      var vh=window.innerHeight||1,vc=vh/2,i,p,r,ratio;
+      for(i=0;i<arts.length;i++){
+        p=arts[i].parentNode;if(!p||!p.getBoundingClientRect)continue;
+        r=p.getBoundingClientRect();
+        ratio=((r.top+r.height/2)-vc)/((vc+r.height/2)||1);
+        if(ratio>1)ratio=1;else if(ratio<-1)ratio=-1;
+        arts[i].style.transform='translate3d(0,'+(-ratio*26).toFixed(1)+'px,0)';
+      }
+    }
+    function req(){if(on&&!tick){tick=true;requestAnimationFrame(upd);}}
+    function judge(){
+      var want=!instant()&&wide();
+      if(want&&!on){on=true;doc.classList.add('plx');req();}
+      else if(!want&&on){on=false;doc.classList.remove('plx');for(var i=0;i<arts.length;i++)arts[i].style.transform='';}
+    }
+    window.addEventListener('scroll',req,{passive:true});
+    window.addEventListener('resize',function(){judge();req();},{passive:true});
+    document.addEventListener('visibilitychange',judge);
+    judge();
+  })();
+
+  /* a3) ротация живых цитат в герое — кроссфейд каждые 6с, при instant() статично первая */
+  (function(){
+    var box=document.querySelector('.hero .hq .hq-in');if(!box)return;
+    var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
+    if(!img||!q||!nm)return;
+    var Q=[
+      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
+      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
+      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
+      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+    ];
+    var i=0,t=null;
+    function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
+    function tick(){
+      if(instant()){stop();return;}
+      box.classList.add('out');
+      setTimeout(function(){
+        if(!t)return;
+        i=(i+1)%Q.length;
+        img.src=Q[i][0];q.textContent=Q[i][1];nm.textContent=Q[i][2];
+        box.classList.remove('out');
+      },500);
+    }
+    function start(){
+      if(t||instant())return;
+      Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
+      t=setInterval(tick,6000);
+    }
+    if(!document.hidden)start();
+    document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
+  })();
+
+  /* a4) автопрогулка по «Пути дела»: один полный проход и стоп */
+  (function(){
+    if(!('IntersectionObserver' in window))return;
+    var path=document.querySelector('[data-walk]');if(!path)return;
+    var rows=[].slice.call(path.querySelectorAll('.prow'));if(rows.length<2)return;
+    if(instant())return;
+    var done=false;
+    function walk(){
+      if(done)return;done=true;
+      if(instant())return;
+      var i=0;rows[0].classList.add('lit');
+      var t=setInterval(function(){
+        if(instant()){clearInterval(t);for(var j=0;j<rows.length;j++)rows[j].classList.remove('lit');return;}
+        rows[i].classList.remove('lit');
+        i++;
+        if(i>=rows.length){clearInterval(t);return;}
+        rows[i].classList.add('lit');
+      },1600);
+    }
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){io.unobserve(x.target);setTimeout(walk,1300);}})},{threshold:.3});
+    io.observe(path);
+  })();
+
+  /* a5) вход героев подстраниц: каскад прямых детей первой секции (на главной есть section.hero — там свой) */
+  (function(){
+    if(document.querySelector('section.hero'))return;
+    var sec=document.querySelector('main section')||document.querySelector('section');
+    if(!sec)return;
+    function go(){doc.classList.add('page-in');}
+    if(instant()){go();return;}
+    var box=null,ch=sec.children,i;
+    for(i=0;i<ch.length;i++){if(ch[i].classList&&ch[i].classList.contains('wrap')){box=ch[i];break;}}
+    box=box||sec;
+    function kids(el){
+      var out=[],c=el.children,j;
+      for(j=0;j<c.length;j++){if(!(c[j].classList&&c[j].classList.contains('bg-art')))out.push(c[j]);}
+      return out;
+    }
+    var k=kids(box),guard=0;
+    while(k.length===1&&guard<4&&!(k[0].classList&&k[0].classList.contains('stg'))){box=k[0];k=kids(box);guard++;}
+    if(!k.length||(box.classList&&box.classList.contains('stg'))){go();return;}
+    if(box.classList&&box.classList.contains('reveal'))box.classList.remove('reveal'); /* без двойного фейда */
+    var n=0;
+    for(i=0;i<k.length;i++){
+      if(k[i].classList&&(k[i].classList.contains('stg')||k[i].classList.contains('reveal')))continue; /* у них свой вход — без дублей */
+      k[i].classList.add('ph-i');
+      k[i].style.transitionDelay=(Math.min(n,7)*0.09).toFixed(2)+'s';
+      n++;
+    }
+    if(!n){go();return;}
+    setTimeout(go,60);
+    setTimeout(go,1500); /* страховка финала */
+    document.addEventListener('visibilitychange',function(){if(document.hidden)go();});
+  })();
+
+  /* a6) 3D-tilt видео-карточки: max 4°, только ≥1000px */
+  (function(){
+    var v=document.querySelector('.vplayer');if(!v)return;
+    var raf=null,rx=0,ry=0;
+    function apply(){raf=null;v.style.transition='transform .18s ease-out';v.style.transform='perspective(760px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg)';}
+    v.addEventListener('mousemove',function(e){
+      if(instant()||!wide())return;
+      var r=v.getBoundingClientRect();if(!r.width||!r.height)return;
+      ry=((e.clientX-r.left)/r.width-.5)*8;
+      rx=(.5-(e.clientY-r.top)/r.height)*8;
+      if(!raf)raf=requestAnimationFrame(apply);
+    },{passive:true});
+    v.addEventListener('mouseleave',function(){
+      if(raf){cancelAnimationFrame(raf);raf=null;}
+      v.style.transition='transform .55s cubic-bezier(.16,.7,.2,1)';
+      v.style.transform='';
+    });
+  })();
+
+  /* a7) золотая искра на печати 98%: раз в ~7с, только пока печать в вьюпорте */
+  (function(){
+    if(!('IntersectionObserver' in window))return;
+    var s=document.querySelector('.seal');if(!s)return;
+    var t=null;
+    function spark(){
+      if(instant())return;
+      s.classList.add('shine');
+      setTimeout(function(){s.classList.remove('shine');},1600);
+    }
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      else if(t){clearInterval(t);t=null;}
+    })},{threshold:.5});
+    io.observe(s);
+    document.addEventListener('visibilitychange',function(){if(document.hidden&&t){clearInterval(t);t=null;}});
+  })();
+})();
+</script>
+<script>
+/* premium hovers: прожектор за курсором */
+(function(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(navigator.webdriver||document.documentElement.classList.contains('noanim'))return;
+  if(window.innerWidth<1000)return;
+  document.addEventListener('pointermove',function(e){
+    var c=e.target.closest&&e.target.closest('.dir,.s11,.bcard');
+    if(!c)return;
+    var r=c.getBoundingClientRect();
+    c.style.setProperty('--hx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    c.style.setProperty('--hy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  },{passive:true});
 })();
 </script>
 </body>
