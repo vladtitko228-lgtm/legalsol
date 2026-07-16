@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Карта побыту в Польше — полный гайд 2026: MOS, документы, сроки | LegalSol</title>
-<meta name="description" content="Что такое карта побыту, как подать онлайн через MOS в 2026 году, какие документы нужны, сколько ждать на самом деле (4–9 месяцев) и как штамп сохраняет легальность на время ожидания. Гайд клиента от LegalSol, Варшава. Первый разбор дела — бесплатно.">
+<title>Работа в Европе и Польше — вакансии, разрешение на работу и ВНЖ | LegalSol</title>
+<meta name="description" content="Оформляем вид на жительство и помогаем найти работу в Европе: разрешения на работу для ЕС, официальный контракт (umowa o pracę или zlecenie), вакансии с жильём. Ставки от 28 PLN/ч до 25 EUR/ч. Подберите вакансию за 6 шагов.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1E1B4B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1226,112 +1226,6 @@ p{max-width:68ch}
    `.fab{...display:flex}` — возвращаем задуманное поведение: на телефоне есть m-bar, .fab лишний */
 @media(max-width:640px){.fab{display:none!important}}
 
-
-section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;background:var(--accent);border:none;padding:0;margin:0}
-/* P1: на мобиле карточки гайда несут основной текст — display:none недопустим */
-@media(max-width:640px){
-  .svc-card{flex-direction:column;align-items:stretch;gap:10px;padding:20px 20px}
-  .svc-card h3{flex:none;font-size:16px;margin:0}
-  .svc-card p{display:block}
-}
-/* P4: квиз-кнопку «Проверить свой случай» на мобиле показываем только после прокрутки хиро.
-   quiz.js на ≤640 прячет #lsq-fab совсем (display:none) — селектор с body:not() специфичнее
-   и включает её обратно, когда хиро уже прокручен (класс hero-vis снят IntersectionObserver-ом). */
-@media(max-width:640px){
-  body:not(.hero-vis) #lsq-fab{display:flex}
-  body.hero-vis #lsq-fab{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-}
-/* P2: «Шесть кадров» — горизонтальная лента шагов */
-.sf-stats .stat{display:flex;flex-direction:column;gap:8px}
-.sf-stats .sf-n{font:700 11.5px/1 var(--sans);letter-spacing:.1em;color:var(--accent)}
-.sf-stats b{font-size:15px;color:var(--ink);line-height:1.35}
-.sf-stats p{font-size:13px;color:var(--ink-2);line-height:1.55;margin:0;flex:1}
-.sf-stats .sf-tag{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--navy)}
-/* SEC 06: тёмная варшавская полоса */
-.wb-lead{font-size:17.5px;line-height:1.75;max-width:520px}
-/* P3: компактный горизонтальный таймлайн Главы IV */
-.gtl{display:grid;grid-template-columns:repeat(6,1fr);gap:0 26px;margin-top:54px}
-.gtl-step{position:relative;border-top:2px solid var(--line-2);padding:18px 6px 0 0}
-.gtl-step::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--paper)}
-.gtl-step .gk{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-bottom:6px}
-.gtl-step b{font-family:var(--serif);font-size:16.5px;font-weight:700;color:var(--navy)}
-@media(max-width:900px){.gtl{grid-template-columns:repeat(3,1fr);row-gap:30px}}
-@media(max-width:640px){.gtl{grid-template-columns:1fr 1fr;gap:26px 18px;margin-top:40px}}
-/* P2: шаги Главы VII в mini-cards */
-.mc-n{font:700 11.5px/1 var(--sans);letter-spacing:.1em;color:var(--accent);display:block;margin-bottom:8px}
-.mc-tag{display:block;margin-top:10px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--navy)}
-/* P5: аватары клиентов в кейс-карточках */
-.case-ava{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 1px var(--line-2),0 4px 10px -4px rgba(30,27,75,.3)}
-@media(max-width:640px){.case-ava{width:46px;height:46px}}
-/* P2/P7: FAQ — двухколоночный аккордеон (плюс не отрывается: summary — flex) */
-@media(min-width:901px){.faq-2col{max-width:none;display:grid;grid-template-columns:1fr 1fr;column-gap:56px;align-items:start}}
-.faq-2col summary{font-size:16px}
-/* полировка: «+» только у реально раскрываемых строк (оглавление и чек-лист — без плюса) */
-.path-row:not([role="button"]) .pt::after{content:none}
-/* SEC 05: горизонтальный таймлайн .htl — заголовок/описание/ярлык стекаются в .htl-txt */
-.htl .st,.htl .sd,.htl .htl-tag{display:block}
-.htl .htl-tag{margin-top:9px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--lilac)}
-@media(max-width:760px){.htl .htl-tag{margin-top:6px}.htl .step{align-items:center!important}}
-/* SEC 09: нумерованные фичи-карточки .feat-num — WA-ссылка в третьей карточке */
-.feat-num a.fn{display:block;color:inherit;text-decoration:none}
-.feat-num .fn .go{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:var(--accent);transition:transform .2s ease}
-.feat-num a.fn:hover{border-color:var(--accent)}
-.feat-num a.fn:hover .go{transform:translateX(4px)}
-/* SEC 16: форма в .contact-split (.cs-form) — компонует сообщение в WhatsApp */
-.cs-form .cf-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-bottom:20px}
-.cs-form input,.cs-form textarea{width:100%;border:1px solid var(--line-2);border-radius:10px;padding:14px 16px;font:400 15px/1.5 var(--sans);background:var(--paper);color:var(--ink)}
-.cs-form input:focus,.cs-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,82,204,.12)}
-.cs-form textarea{min-height:122px;resize:vertical;display:block}
-.cs-form .btn{width:100%;justify-content:center;margin-top:4px}
-.cs-form .fine{font-size:12px;color:var(--ink-3);text-align:center;margin-top:14px}
-/* SEC 16: не дать длинному e-mail распирать колонку на мобиле (grid min-width + перенос) */
-.contact-split>.cs-side,.contact-split>.cs-form{min-width:0}
-.contact-split .cs-line{min-width:0}
-.contact-split .cs-line div{min-width:0}
-.contact-split .cs-line div span,.contact-split .cs-line b{overflow-wrap:anywhere}
-
-/* ============ ПРЕМИУМ-ПОЛИРОВКА · арт-дирекшн (без пустот + тактичное движение) ============ */
-/* тише вертикальный ритм: меньше воздуха между секциями (фото-хиро и TL;DR — свои правила) */
-.lang-page main>section:not(.photo-hero):not(.tldr){padding:96px 0}
-.sec-head{margin-bottom:52px}
-/* таблицы этапов/чек-листа/оглавления прижаты к заголовку, без гигантского отступа сверху */
-.path{margin-top:48px}
-#need .path{margin-top:44px}
-
-/* SEC 03 · TL;DR больше не «висит» в воздухе: компактная секция + иконка-плашка в полосе */
-.tldr{padding:30px 0 34px}
-.tldr .kit-band{display:flex;gap:26px;align-items:center;padding:32px 40px}
-.tldr .kb-ic{flex:none;width:56px;height:56px;border-radius:16px;background:rgba(184,178,245,.16);border:1px solid rgba(184,178,245,.30);display:flex;align-items:center;justify-content:center;color:var(--lilac)}
-.tldr .kb-ic svg{width:26px;height:26px}
-.tldr .kit-band p{font-size:16px;line-height:1.72}
-@media(max-width:640px){.tldr .kit-band{flex-direction:column;align-items:flex-start;gap:16px;padding:26px 24px}}
-
-/* Премиум-hover карточек: цветная окантовка сверху проявляется, мягкая цветная тень, подъём */
-.feat-num .fn,.svc-card,.mini-cards .mini-card{position:relative;overflow:hidden;transition:transform .26s cubic-bezier(.4,0,.2,1),box-shadow .26s,border-color .26s}
-.feat-num .fn::before,.svc-card::before,.mini-cards .mini-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--lilac));transform:scaleX(0);transform-origin:left;transition:transform .34s cubic-bezier(.4,0,.2,1);z-index:2}
-@media(hover:hover){
-  .feat-num .fn:hover::before,.svc-card:hover::before,.mini-cards .mini-card:hover::before{transform:scaleX(1)}
-  .feat-num .fn:hover,.svc-card:hover,.mini-cards .mini-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 18px 44px -22px rgba(91,82,204,.42)}
-  .band-sec .svc-card:hover{box-shadow:0 24px 54px -20px rgba(0,0,0,.5)}
-}
-
-/* SEC 14 · mini-cards — плотнее и «дороже»: номер-плашка + ярлык МЫ/ВЫ как пилюля */
-.mini-cards .mini-card{padding:24px 24px 22px;border-radius:14px}
-.mini-cards .mc-n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--lav);color:var(--accent);font:700 13px/1 var(--sans);letter-spacing:0;margin-bottom:14px}
-.mini-cards .mini-card b{font-size:16px}
-.mini-cards .mc-tag{display:block;width:fit-content;margin-top:12px;padding:4px 12px;border-radius:999px;background:rgba(91,82,204,.08);border:1px solid rgba(91,82,204,.16);color:var(--accent);font-size:10px}
-
-/* SEC 13 · FAQ на лёгкой подложке — визуально отделяем блок (референс: FAQ на сером) */
-#faq{background:var(--paper-2)}
-
-/* SEC 15 · ряд аватарок — по левому краю, в ритм с заголовком главы */
-#clients .ava-row{justify-content:flex-start;margin-left:-4px}
-
-/* Тактичное появление: фичи-карточки, кадры таймлайна и мини-таймлайн въезжают со сдвигом-каскадом */
-@media(prefers-reduced-motion:no-preference){
-  .gv{opacity:0;transform:translateY(18px);transition:opacity .5s cubic-bezier(.16,.72,.2,1),transform .62s cubic-bezier(.16,.72,.2,1)}
-  .gv.gin{opacity:1;transform:none}
-}
 </style>
 </head>
 <body>
@@ -1393,626 +1287,810 @@ section .kicker::before{content:"";counter-increment:none;width:34px;height:2px;
 <main id="main">
 <div class="wrap crumb"><a href="/new/index.html">← На главную</a></div>
 
-<!-- SEC 02 · Hero — фото-хиро (ph_advisor, портрет: object-position держит лицо в кадре) в стиле
-     референса Burman Robinson. Бывшая боковая карточка «Коротко о гайде» (экс note-line) разложена
-     на стеклянные плашки .glass-pills — тексты дословные, разрезаны по пунктам списка;
-     «98,1% одобрений» — каноническая цифра собранной страницы (FIX сборщика). -->
-<section class="hero photo-hero">
-  <div class="ph-bg"><img src="/assets/trc/ph_advisor.jpg" alt="" style="object-position:50% 24%"></div>
+<style>
+/* work-page hero: тот же ритм, что на услугах — мягче оверлей на телефоне,
+   плашки-цифры не исчезают и раскладываются 2×2 */
+@media(max-width:480px){
+  #hero.photo-hero .ph-bg::after{background:linear-gradient(155deg,rgba(30,27,75,.8) 0%,rgba(30,27,75,.64) 45%,rgba(91,82,204,.45) 100%)}
+  #hero.photo-hero .ph-bg img{object-position:50% 26%}
+}
+@media(max-width:600px){
+  #hero.photo-hero .wrap{padding-top:104px;padding-bottom:46px}
+  #hero .glass-pills{grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+  #hero .glass-pills .gp{opacity:1!important;transform:none!important;transition:none!important;padding:15px 15px}
+  #hero .glass-pills .gp b{font-size:23px}
+  #hero .glass-pills .gp span{font-size:11.5px;line-height:1.3}
+}
+@media(max-width:900px){.bg-art{transform:none!important;will-change:auto;top:0;height:100%}}
+@media(prefers-reduced-motion:reduce){.bg-art{transform:none!important;will-change:auto}}
+@media(max-width:640px){
+  .glass-pills .gp,
+  .photo-hero .note-line,
+  .photo-hero .hero-badges li,
+  .photo-hero .trust-strip li{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+</style>
+<section id="hero" class="photo-hero">
+  <div class="ph-bg"><img src="/assets/trc/ph_handshake.jpg" alt=""></div>
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Гайд клиента &middot; Карта побыту (TRC)</div>
-      <h2>Ваш вид на жительство —<br><em>от первого сообщения до карты</em></h2>
-      <p>Что такое карта побыту, зачем она нужна, все шаги процесса — и честно, сколько времени занимает каждый этап. Спокойно, без юридического жаргона, за 10 минут чтения.</p>
+      <div class="kicker">Работа в Европе и Польше</div>
+      <h1>Легальный статус — <em>и работа в Европе</em></h1>
+      <p>Оформляем вид на жительство и помогаем найти работу. Официально, по контракту, с поддержкой на каждом шаге — документы и вакансия в одном месте.</p>
     </div>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%AF%20%D0%BF%D1%80%D0%BE%D1%87%D0%B8%D1%82%D0%B0%D0%BB%28%D0%B0%29%20%D0%B3%D0%B0%D0%B9%D0%B4%20%D0%B8%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BD%D0%B0%D1%87%D0%B0%D1%82%D1%8C." target="_blank" rel="noopener">Начать с бесплатного разбора</a>
-      <a class="btn btn-outline" href="#process">Сначала посмотреть процесс</a>
+    <div class="note-line">
+      <p><b>Все разрешения на работу для ЕС</b> · только umowa o pracę или umowa zlecenie · многие вакансии — с жильём и питанием · ставки от 28 PLN/ч до 22 EUR/ч</p>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BD%D0%B0%D0%B9%D1%82%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83%20%D0%B2%20%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B5.%20%D0%9F%D0%BE%D0%B4%D0%B1%D0%B5%D1%80%D1%91%D1%82%D0%B5%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8E%3F" target="_blank" rel="noopener">Найти вакансию</a>
+      <a class="btn btn-outline" href="#matcher">Подобрать за 6 шагов →</a>
     </div>
     <div class="glass-pills">
-      <div class="gp"><b>10</b><span>минут чтения</span></div>
-      <div class="gp"><b>2026</b><span>подача — онлайн, через государственную систему MOS</span></div>
-      <div class="gp"><b>WhatsApp</b><span>всё общение</span></div>
-      <div class="gp"><b>98,1%</b><span>одобрений; отказ по нашей вине — апелляция бесплатно</span></div>
+      <div class="gp"><b>28 PLN/ч</b><span>нижняя ставка по вакансиям в Польше</span></div>
+      <div class="gp"><b>22 EUR/ч</b><span>верхняя ставка в витрине вакансий</span></div>
+      <div class="gp"><b>6 стран</b><span>Польша, Германия, Нидерланды, Бельгия, Австрия, Чехия</span></div>
+      <div class="gp"><b>9 отраслей</b><span>от склада и стройки до медицины</span></div>
     </div>
   </div>
 </section>
 
-<!-- SEC 03 · TL;DR-полоса «Если совсем коротко» — тёмно-синяя полоса-акцент .kit-band (текст дословный) -->
-<section class="tldr">
-  <div class="wrap">
-    <div class="kit-band">
-      <span class="kb-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span>
-      <p><b>Если совсем коротко:</b> вам нужна карта побыту. Мы берём на себя всё — документы, общение с ужендом (польским ведомством, которое выдаёт карты), ожидание, — а вы просто забираете готовую карту. Всё начинается с одного сообщения в WhatsApp.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 04 · Оглавление — редакционный индекс глав (якорные ссылки, «бумажный» указатель) + фон bg_books -->
-<section class="contents" id="contents">
-  <img class="bg-art bg-left" src="/assets/trc/bg_books.jpg" alt="" aria-hidden="true" loading="lazy">
+<style>
+/* sec02: карточки «что вы получаете» — номер ближе к иконке, ровный низ */
+#what .feat-num .fn .ic{margin-bottom:11px}
+#what .feat-num{margin-bottom:0}
+</style>
+<section id="what">
+  <img class="bg-art bg-right" src="/assets/trc/bg_work.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Оглавление</div>
-      <h2>Семь глав — <em>от вопроса до карты</em></h2>
-      <p>Читайте по порядку или переходите сразу к нужной главе.</p>
+      <div class="kicker">Что вы получаете</div>
+      <h2>Документы и работа — <em>под одной крышей</em></h2>
+      <p>Обычно это два разных мира: одни делают бумаги, другие ищут вакансию. Мы закрываем оба — от разрешения на работу до выхода на смену.</p>
     </div>
-    <div class="path">
-      <div class="path-head"><span class="t">Глава</span><span class="s">О чём она</span></div>
-      <div class="path-rows">
-        <a class="path-row" href="#what"><span class="pn">I</span><span class="pt">Что такое карта побыту</span><span class="pd">Определение, что даёт и почему важны сроки</span><span class="ptag">2 мин</span></a>
-        <a class="path-row" href="#why"><span class="pn">II</span><span class="pt">Почему не подают сами</span><span class="pd">MOS, молчание уженда и цена одной ошибки</span><span class="ptag">1 мин</span></a>
-        <a class="path-row" href="#process"><span class="pn">III</span><span class="pt">Процесс: шесть этапов</span><span class="pd">От первого сообщения до карты в руках</span><span class="ptag">3 мин</span></a>
-        <a class="path-row" href="#howlong"><span class="pn">IV</span><span class="pt">Сколько это длится</span><span class="pd">Честные сроки по каждому этапу</span><span class="ptag">1 мин</span></a>
-        <a class="path-row" href="#need"><span class="pn">V</span><span class="pt">Что нужно от вас</span><span class="pd">Шесть пунктов — остальное соберём мы</span><span class="ptag">1 мин</span></a>
-        <a class="path-row" href="#faq"><span class="pn">VI</span><span class="pt">Вопросы клиентов</span><span class="pd">Штамп, поездки, отказ, Profil Zaufany, цена</span><span class="ptag">2 мин</span></a>
-        <a class="path-row" href="#start"><span class="pn">VII</span><span class="pt">Как мы начинаем</span><span class="pd">Четыре шага после вашего «да»</span><span class="ptag">1 мин</span></a>
+    <div class="feat-num">
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="14 3 14 9 20 9"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="17.5" x2="13" y2="17.5"/></svg></div>
+        <div class="no">01</div>
+        <h3>Разрешения на работу</h3>
+        <p>Все виды разрешений на работу для стран ЕС. Разбираем, какое основание подходит именно вам, и готовим документы под него.</p>
       </div>
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h7"/><line x1="7" y1="9" x2="14" y2="9"/><line x1="7" y1="13" x2="11" y2="13"/><polyline points="15.5 18 17.5 20 21.5 15.5"/></svg></div>
+        <div class="no">02</div>
+        <h3>Официальный контракт</h3>
+        <p>Только umowa o pracę или umowa zlecenie. Никаких конвертов и работы «на честном слове» — всё на бумаге, со взносами и стажем.</p>
+      </div>
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg></div>
+        <div class="no">03</div>
+        <h3>Жильё и питание</h3>
+        <p>Во многих вакансиях проживание входит в условия, в части — ещё и питание. Это отмечено в описании каждой вакансии: не нужно искать квартиру с нуля.</p>
+      </div>
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2a3.6 3.6 0 1 0 0 5.6"/><line x1="7.5" y1="10.5" x2="13" y2="10.5"/><line x1="7.5" y1="13.5" x2="13" y2="13.5"/></svg></div>
+        <div class="no">04</div>
+        <h3>Ставки от 28 PLN/ч до 22 EUR/ч</h3>
+        <p>Нижняя планка — склад и клининг в Польше, верхняя — квалифицированные специалисты в Западной Европе. Ставка всегда названа до выхода на работу.</p>
+      </div>
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5c0 4.8-3.4 8.4-8 9.5-4.6-1.1-8-4.7-8-9.5v-5z"/><path d="M9 12l2 2 4.5-4.5"/></svg></div>
+        <div class="no">05</div>
+        <h3>Сначала статус — потом работа</h3>
+        <p>Без легального статуса хорошие работодатели не берут. Если документов пока нет — начинаем с них: оформляем вид на жительство, а вакансию подбираем параллельно.</p>
+      </div>
+      <div class="fn">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/><line x1="8" y1="8.5" x2="16" y2="8.5"/><line x1="8" y1="12" x2="13" y2="12"/></svg></div>
+        <div class="no">06</div>
+        <h3>Поддержка на каждом шаге</h3>
+        <p>Ведём вас от первого сообщения до первой смены: документы, разрешение, контракт, дорога, заселение. Вопросы — в WhatsApp, на понятном вам языке.</p>
+      </div>
+    </div>
+    <div class="note-line" style="margin-top:34px">
+      <p><b>Нет документов вообще?</b> Это не тупик — начинаем с легализации. <a href="#matcher"><b>Пройдите подборщик →</b></a> он подскажет, с чего начать именно в вашей ситуации.</p>
     </div>
   </div>
 </section>
 
-<!-- SEC 05 · «Весь путь в шести кадрах» — тёмная полоса .band-sec с ГОРИЗОНТАЛЬНЫМ таймлайном .htl
-     (референс Burman br_s1 «Как работает партнёрство»). Кружки-цифры на линии, тексты дословные
-     из бывших строк .kit-stats; ярлыки (Знакомо?/Бесплатно/Мы/Вместе/Финал) сохранены как .htl-tag.
-     Текст шага завёрнут в .htl-txt, чтобы на мобиле грид [dot|текст] не растаскивал спаны. -->
-<section class="sixframes band-sec" id="frames">
+<style>
+/* sec03: подборщик вакансий. Слева — шаги (по одному на экран), справа — тёмная
+   панель профиля, которая наполняется по ходу. Всё на классах дизайн-системы:
+   .calc-kit / .calc-in / .calc-out / .calc-seg — ниже только уточнения под шаги. */
+
+/* .co-incl / .co-cta / .co-fine есть в CSS страницы для бизнеса, но не в общем —
+   держим правила при секции, чтобы она была самодостаточной. */
+#matcher .calc-out .co-incl{margin-top:6px;border-top:1px solid rgba(255,255,255,.14);padding-top:20px}
+#matcher .calc-out .co-incl-k{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--lilac);margin-bottom:13px}
+#matcher .calc-out .co-incl ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+#matcher .calc-out .co-incl li{position:relative;padding-left:24px;font-size:13.5px;color:#DDDCF2;line-height:1.45}
+#matcher .calc-out .co-incl li::before{content:"✓";position:absolute;left:0;top:0;color:var(--lilac);font-weight:700}
+#matcher .calc-out .co-cta{margin-top:auto;display:flex;flex-direction:column;gap:13px;padding-top:8px}
+#matcher .calc-out .co-cta .btn{width:100%;justify-content:center}
+#matcher .calc-out .co-fine{font-size:12px;color:#A9A7CC;line-height:1.55;margin:0}
+
+/* шапка шага */
+#matcher .calc-in{display:flex;flex-direction:column}
+#matcher .jm-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:9px}
+#matcher .jm-count{font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+#matcher .jm-back{font:600 12.5px/1 var(--sans);color:var(--ink-3);background:none;border:0;cursor:pointer;padding:5px 2px;font-family:var(--sans)}
+#matcher .jm-back:hover{color:var(--accent)}
+#matcher .jm-back[hidden]{display:none}
+#matcher .jm-bar{height:3px;background:var(--line-2);border-radius:4px;overflow:hidden;margin-bottom:26px}
+#matcher .jm-bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:4px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+/* фиксируем высоту области вопроса: карточка не «прыгает» между шагами */
+#matcher .jm-body{min-height:430px}
+#matcher .jm-step[hidden],#matcher .jm-done[hidden]{display:none}
+#matcher .jm-q{font:700 16.5px/1.3 var(--sans);color:var(--ink);margin-bottom:4px}
+#matcher .jm-qs{font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+
+/* вариант-список: широкая кнопка с подписью — для шагов 1, 2, 4, 5 */
+#matcher .calc-seg.jm-list{flex-direction:column;gap:8px}
+#matcher .calc-seg.jm-list button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;text-align:left;border-radius:12px;padding:12px 16px}
+#matcher .calc-seg.jm-list button b{font:700 13.5px/1.25 var(--sans)}
+#matcher .calc-seg.jm-list button i{font:400 11.5px/1.35 var(--sans);font-style:normal;color:var(--ink-3)}
+#matcher .calc-seg.jm-list button.on i{color:rgba(255,255,255,.82)}
+/* пилюли: короткие ярлыки — языки и страны */
+#matcher .calc-seg.jm-pills{gap:8px}
+#matcher .jm-next{margin-top:16px;width:100%;justify-content:center}
+
+/* финальный экран шага */
+#matcher .jm-done h3{font:700 19px/1.3 var(--sans);color:var(--ink);margin-bottom:9px}
+#matcher .jm-done p{font-size:14px;color:var(--ink-2);line-height:1.6;margin-bottom:18px}
+#matcher .jm-restart{font:600 12.5px/1 var(--sans);color:var(--ink-3);background:none;border:0;cursor:pointer;padding:6px 2px;font-family:var(--sans)}
+#matcher .jm-restart:hover{color:var(--accent)}
+
+/* маршрут: что уже ответили и что впереди — заодно держит низ колонки */
+#matcher .jm-route{margin-top:auto;border-top:1px solid var(--line-2);padding-top:20px}
+#matcher .jm-route-k{font:700 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:13px}
+#matcher .jm-route ol{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+#matcher .jm-route li{display:flex;align-items:center;gap:10px;font:600 12.5px/1.3 var(--sans);color:var(--ink-3);transition:color .3s}
+#matcher .jm-route li::before{content:"";width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line-2);flex:none;box-sizing:border-box;transition:all .3s}
+#matcher .jm-route li.done,#matcher .jm-route li.cur{cursor:pointer}
+#matcher .jm-route li.done:hover{color:var(--accent)}
+#matcher .jm-route li.done{color:var(--ink-2)}
+#matcher .jm-route li.done::before{content:"✓";background:var(--accent);border-color:var(--accent);color:#fff;font:700 9px/13px var(--sans);text-align:center}
+#matcher .jm-route li.cur{color:var(--accent)}
+#matcher .jm-route li.cur::before{border-color:var(--accent);box-shadow:inset 0 0 0 3px var(--accent)}
+
+/* панель профиля: значения бывают длинные (список языков) — даём перенос */
+#matcher .calc-out .co-big{font-size:34px}
+#matcher .calc-out .co-row b{white-space:normal;text-align:right}
+#matcher .calc-out .co-row.jm-empty b{color:#A9A7CC;font-weight:400}
+@media(max-width:900px){
+  #matcher .jm-body{min-height:0}
+  #matcher .jm-route{margin-top:30px}
+  #matcher .calc-out .co-big{font-size:30px}
+}
+</style>
+<section id="matcher">
   <img class="bg-art bg-left" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Простая версия</div>
-      <h2>Весь путь — <em>в шести кадрах</em></h2>
-      <p>Что, как и зачем — без единого термина. Подробности будут ниже, в главах.</p>
+      <div class="kicker">Подборщик вакансий</div>
+      <h2>Шесть вопросов — <em>и мы поймём, что вам предложить</em></h2>
+      <p>Ответьте на шесть коротких вопросов: когда готовы начать, что умеете, какие документы на руках. Профиль соберётся справа — останется отправить его в WhatsApp.</p>
     </div>
-    <div class="htl">
-      <div class="step">
-        <span class="dot">1</span>
-        <div class="htl-txt">
-          <span class="st">Часы тикают</span>
-          <span class="sd">Виза заканчивается, уженд молчит, что делать — непонятно.</span>
-          <span class="htl-tag">Знакомо?</span>
-        </div>
-      </div>
-      <div class="step">
-        <span class="dot">2</span>
-        <div class="htl-txt">
-          <span class="st">Одно сообщение</span>
-          <span class="sd">Вы пишете нам в WhatsApp. Мы бесплатно проверяем вашу ситуацию и говорим, что делать.</span>
-          <span class="htl-tag">Бесплатно</span>
-        </div>
-      </div>
-      <div class="step">
-        <span class="dot">3</span>
-        <div class="htl-txt">
-          <span class="st">Мы собираем документы</span>
-          <span class="sd">Каждую справку — включая бумаги от работодателя. Недостающее — находим.</span>
-          <span class="htl-tag">Мы</span>
-        </div>
-      </div>
-      <div class="step">
-        <span class="dot">4</span>
-        <div class="htl-txt">
-          <span class="st">Подаём онлайн через MOS</span>
-          <span class="sd">Правильно и вовремя. Ваше пребывание остаётся легальным на всё время ожидания.</span>
-          <span class="htl-tag">Мы</span>
-        </div>
-      </div>
-      <div class="step">
-        <span class="dot">5</span>
-        <div class="htl-txt">
-          <span class="st">Отпечатки пальцев</span>
-          <span class="sd">Этот шаг проходит лично: мы записываем вас и идём вместе с вами.</span>
-          <span class="htl-tag">Вместе</span>
-        </div>
-      </div>
-      <div class="step">
-        <span class="dot">6</span>
-        <div class="htl-txt">
-          <span class="st">Карта в руках</span>
-          <span class="sd">Вы легальны на годы вперёд. Плюс поездки по Шенгену без виз.</span>
-          <span class="htl-tag">Финал</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- SEC 06 · Варшавская строка-доказательство. Была тёмная .band-sec — переведена в СВЕТЛЫЙ плотный
-     двухколоночник .duo (иначе шли две тёмные полосы подряд: sec05-таймлайн + warsaw). Лид разрезан
-     по предложениям: первое — .wb-lead, второе — .note-line. Счётчики (post-kresy) не возвращаем.
-     Фото офиса ph_office в duo-side (tall), лёгкий фон bg_city справа. -->
-<section class="warsaw" id="warsaw">
-  <img class="bg-art bg-right" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="duo" style="align-items:center">
-      <div>
-        <div class="sec-head">
-          <div class="kicker">Варшава, каждый день</div>
-          <h2>Мы занимаемся этим каждый день — <em>здесь, в Варшаве</em></h2>
+    <div class="calc-kit">
+      <div class="calc-in">
+        <div class="jm-top">
+          <div class="jm-count" id="jm-count">Шаг 1 из 6</div>
+          <button type="button" class="jm-back" id="jm-back" hidden>← Назад</button>
         </div>
-        <p class="wb-lead"><b>С 2020 года</b> наша команда ведёт дела по легализации в Польше.</p>
-        <div class="note-line"><p>Карты побыту — это не «одна из услуг», это то, чем мы живём.</p></div>
-      </div>
-      <div class="duo-side">
-        <figure class="photo-fig tint">
-          <img src="/assets/trc/ph_office.jpg" alt="" loading="lazy">
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="jm-bar"><i id="jm-bar"></i></div>
 
-<!-- SEC 07 · География — подача по всей Польше. Двухколоночник .duo.flip: слева sticky-выжимка
-     (вводный абзац секции, разрезанный по предложениям), справа — заголовок, 24 города и note-line.
-     Формулировка «знаем правила каждого уженда» смягчена до проверяемой. -->
-<section class="coverage" id="coverage">
-  <img class="bg-art bg-right" src="/assets/trc/bg_arch.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="duo flip">
-      <div>
-        <div class="sec-head">
-          <div class="kicker">География</div>
-          <h2>Из Варшавы — <em>во все 16 воеводств</em></h2>
+        <div class="jm-body">
+          <!-- ШАГ 1 — когда готовы начать -->
+          <div class="jm-step" id="jm-s1">
+            <div class="jm-q">Когда можете начать?</div>
+            <div class="jm-qs">Это влияет на то, какие вакансии вообще стоит смотреть.</div>
+            <div class="calc-seg jm-list" id="jm-seg-when">
+              <button type="button" data-v="now"><b>Прямо сейчас — готов выехать</b><i>Свободен сразу, могу выехать в любой день</i></button>
+              <button type="button" data-v="soon"><b>Через 1–2 месяца</b><i>Нужно немного времени на подготовку</i></button>
+              <button type="button" data-v="q"><b>Через 3–6 месяцев</b><i>Планирую переезд, коплю</i></button>
+              <button type="button" data-v="later"><b>Просто присматриваюсь</b><i>Сроков пока нет</i></button>
+            </div>
+          </div>
+
+          <!-- ШАГ 2 — опыт -->
+          <div class="jm-step" id="jm-s2" hidden>
+            <div class="jm-q">Опыт работы</div>
+            <div class="jm-qs">Без опыта тоже берут — на части вакансий он не нужен вовсе.</div>
+            <div class="calc-seg jm-list" id="jm-seg-exp">
+              <button type="button" data-v="none"><b>Без опыта / начинаю с нуля</b><i>Только начинаю карьеру</i></button>
+              <button type="button" data-v="lt1"><b>Меньше 1 года</b><i>Базовые навыки и практика есть</i></button>
+              <button type="button" data-v="1to3"><b>1–3 года</b><i>Уверенный опыт в своей сфере</i></button>
+              <button type="button" data-v="3to5"><b>3–5 лет</b><i>Опытный профессионал</i></button>
+              <button type="button" data-v="5plus"><b>5+ лет</b><i>Эксперт в своей области</i></button>
+            </div>
+          </div>
+
+          <!-- ШАГ 3 — языки (мультивыбор) -->
+          <div class="jm-step" id="jm-s3" hidden>
+            <div class="jm-q">Какими языками владеете?</div>
+            <div class="jm-qs">Выберите все подходящие. Если языков нет — так и отметьте: это нормальный ответ, есть направления и без языка.</div>
+            <div class="calc-seg jm-pills" id="jm-seg-langs">
+              <button type="button" data-v="en">Английский</button>
+              <button type="button" data-v="ru">Русский</button>
+              <button type="button" data-v="pl">Польский</button>
+              <button type="button" data-v="hi">Хинди / урду</button>
+              <button type="button" data-v="bn">Бенгальский</button>
+              <button type="button" data-v="si">Сингальский</button>
+              <button type="button" data-v="de">Немецкий</button>
+              <button type="button" data-v="uk">Украинский</button>
+              <button type="button" data-v="none">Никакими / другой</button>
+            </div>
+            <button type="button" class="btn btn-primary jm-next" id="jm-lang-next">Далее →</button>
+          </div>
+
+          <!-- ШАГ 4 — ставка -->
+          <div class="jm-step" id="jm-s4" hidden>
+            <div class="jm-q">Желаемая ставка</div>
+            <div class="jm-qs">Ориентир, а не обязательство: точную ставку называет работодатель до выхода на работу.</div>
+            <div class="calc-seg jm-list" id="jm-seg-pay">
+              <button type="button" data-v="low" data-big="28–34 PLN/ч"><b>28–34 PLN/ч · Польша</b><i>≈4 000–5 000 PLN/мес на руки</i></button>
+              <button type="button" data-v="mid" data-big="35–42 PLN/ч"><b>35–42 PLN/ч · Польша</b><i>≈5 500–6 500 PLN/мес на руки</i></button>
+              <button type="button" data-v="hi" data-big="43–52 PLN/ч"><b>43–52 PLN/ч · Польша</b><i>≈7 000–8 500 PLN/мес на руки</i></button>
+              <button type="button" data-v="eur" data-big="14–20 EUR/ч"><b>14–20 EUR/ч · ЕС</b><i>Германия · Нидерланды · Бельгия</i></button>
+              <button type="button" data-v="eurhi" data-big="21–30+ EUR/ч"><b>21–30+ EUR/ч · топ ЕС</b><i>Квалифицированный специалист с большим опытом</i></button>
+            </div>
+          </div>
+
+          <!-- ШАГ 5 — документы -->
+          <div class="jm-step" id="jm-s5" hidden>
+            <div class="jm-q">Какие документы у вас на руках?</div>
+            <div class="jm-qs">Самый важный вопрос: от него зависит, начинаем мы с вакансии или с документов.</div>
+            <div class="calc-seg jm-list" id="jm-seg-docs">
+              <button type="button" data-v="karta"><b>Карта побыту (ВНЖ)</b><i>Действующая карта или штамп в паспорте</i></button>
+              <button type="button" data-v="permit"><b>Разрешение на работу / виза D</b><i>От работодателя, привязано к одной фирме</i></button>
+              <button type="button" data-v="eu"><b>Гражданство ЕС / ПМЖ</b><i>Полное право работать в любой стране ЕС</i></button>
+              <button type="button" data-v="cukr"><b>Временная защита (CUKR)</b><i>Действует, но нужно повысить статус</i></button>
+              <button type="button" data-v="none"><b>Документов пока нет</b><i>Сначала нужна помощь с легальным статусом</i></button>
+            </div>
+          </div>
+
+          <!-- ШАГ 6 — страна -->
+          <div class="jm-step" id="jm-s6" hidden>
+            <div class="jm-q">Предпочитаемая страна</div>
+            <div class="jm-qs">Последний вопрос — и профиль готов.</div>
+            <div class="calc-seg jm-pills" id="jm-seg-country">
+              <button type="button" data-v="pl">Польша</button>
+              <button type="button" data-v="de">Германия</button>
+              <button type="button" data-v="nl">Нидерланды</button>
+              <button type="button" data-v="be">Бельгия</button>
+              <button type="button" data-v="at">Австрия</button>
+              <button type="button" data-v="cz">Чехия</button>
+              <button type="button" data-v="any">Где угодно в Европе</button>
+            </div>
+          </div>
+
+          <!-- ФИНАЛ: обычная ветка -->
+          <div class="jm-done" id="jm-done-a" hidden>
+            <h3>Профиль готов</h3>
+            <p>Справа — то, что вы о себе рассказали. Отправьте профиль в WhatsApp: посмотрим, что из открытых вакансий подходит под ваш опыт, языки и страну, и честно скажем, на что реально рассчитывать.</p>
+            <button type="button" class="jm-restart" id="jm-restart-a">← Начать заново</button>
+          </div>
+
+          <!-- ФИНАЛ: ветка «документов нет» -->
+          <div class="jm-done" id="jm-done-b" hidden>
+            <h3>Сначала — документы</h3>
+            <p>Без легального статуса хорошие работодатели не берут. Но это решаемо: оформляем вид на жительство и параллельно подбираем работу — всё в одном месте. Отправьте профиль в WhatsApp, разберём вашу ситуацию и скажем, с чего начать.</p>
+            <button type="button" class="jm-restart" id="jm-restart-b">← Начать заново</button>
+          </div>
         </div>
-        <!-- Данные для карты: штаб — Варшава; города-точки (24): -->
-        <p class="city-list">Гданьск &middot; Эльблонг &middot; Ольштын &middot; Белосток &middot; Люблин &middot; Жешув &middot; Тарнув &middot; Краков &middot; Бельско-Бяла &middot; Катовице &middot; Ченстохова &middot; Ополе &middot; Вроцлав &middot; Легница &middot; Зелёна-Гура &middot; Гожув-Велькопольски &middot; Щецин &middot; Познань &middot; Быдгощ &middot; Торунь &middot; Плоцк &middot; Лодзь &middot; Кельце &middot; Радом</p>
-        <div class="note-line"><p><b>Лично — только отпечатки и получение готовой карты</b> в уженде вашего воеводства; всё остальное — онлайн и в WhatsApp.</p></div>
+
+        <div class="jm-route">
+          <div class="jm-route-k">Маршрут</div>
+          <ol id="jm-route-list">
+            <li data-s="1">Когда готовы начать</li>
+            <li data-s="2">Опыт работы</li>
+            <li data-s="3">Языки</li>
+            <li data-s="4">Желаемая ставка</li>
+            <li data-s="5">Документы на руках</li>
+            <li data-s="6">Страна</li>
+          </ol>
+        </div>
       </div>
-      <div class="duo-side">
-        <div class="side-card">
-          <div class="sc-k">Подача по всей Польше</div>
+
+      <div class="calc-out">
+        <div class="co-k">Ваш профиль · желаемая ставка</div>
+        <div class="co-big" id="jm-big">—</div>
+        <div class="co-row jm-empty" id="jm-row-when"><span>Когда начать</span><b id="jm-p-when">—</b></div>
+        <div class="co-row jm-empty" id="jm-row-exp"><span>Опыт</span><b id="jm-p-exp">—</b></div>
+        <div class="co-row jm-empty" id="jm-row-langs"><span>Языки</span><b id="jm-p-langs">—</b></div>
+        <div class="co-row jm-empty" id="jm-row-docs"><span>Документы</span><b id="jm-p-docs">—</b></div>
+        <div class="co-row jm-empty" id="jm-row-country"><span>Страна</span><b id="jm-p-country">—</b></div>
+        <div class="co-incl">
+          <div class="co-incl-k">Что входит в подбор</div>
           <ul>
-            <li>Офис у нас в Варшаве, но дела мы ведём по всей Польше: с 2026 года подача идёт онлайн через MOS, поэтому ваш город не имеет значения.</li>
-            <li>Воеводство — это область в Польше, всего их 16, и в каждом свой уженд.</li>
-            <li>Мы работаем с ужендами всех воеводств и учитываем местную практику.</li>
+            <li>Разрешение на работу для ЕС — подберём основание под вашу ситуацию</li>
+            <li>Только официальный контракт: umowa o pracę или umowa zlecenie</li>
+            <li>Вакансии с жильём, в части — с питанием</li>
           </ul>
         </div>
-        <figure class="photo-fig tint" style="margin-top:18px">
-          <img src="/assets/trc/ph_handshake.jpg" alt="" loading="lazy">
-          <figcaption>Получение готовой карты</figcaption>
-        </figure>
+        <div class="co-cta">
+          <a class="btn btn-primary" id="jm-wa" href="https://wa.me/48735248525" target="_blank" rel="noopener">Подобрать вакансию в WhatsApp</a>
+          <p class="co-fine" id="jm-fine">Подбор ни к чему не обязывает. Профиль уходит в WhatsApp одним сообщением — можете отредактировать его перед отправкой.</p>
+        </div>
       </div>
     </div>
+
+    <div class="note-line" style="margin-top:30px">
+      <p><b>Подборщик — это не биржа вакансий.</b> Он собирает ваш профиль, чтобы мы сразу говорили по делу, а не выясняли базовое в переписке. Что подходит именно вам — скажет живой человек в WhatsApp.</p>
+    </div>
   </div>
+
+  <script>
+  (function(){
+    var TOTAL = 6;
+    var cur = 1;                       /* 1..6 — шаг, 7 — финал */
+    var ans = { when:null, exp:null, langs:[], pay:null, docs:null, country:null };
+
+    function $(id){ return document.getElementById(id); }
+    function noDocs(){ return !!(ans.docs && ans.docs.v === 'none'); }
+
+    function label(btn){
+      var b = btn.querySelector('b');
+      return (b ? b.textContent : btn.textContent).trim();
+    }
+
+    /* ——— панель профиля ——— */
+    function setRow(rowId, valId, val){
+      var row = $(rowId), el = $(valId);
+      el.textContent = val || '—';
+      row.classList.toggle('jm-empty', !val);
+    }
+    function paint(){
+      setRow('jm-row-when', 'jm-p-when', ans.when && ans.when.label);
+      setRow('jm-row-exp', 'jm-p-exp', ans.exp && ans.exp.label);
+      setRow('jm-row-langs', 'jm-p-langs', ans.langs.length ? ans.langs.map(function(l){ return l.label; }).join(', ') : null);
+      setRow('jm-row-docs', 'jm-p-docs', ans.docs && ans.docs.label);
+      setRow('jm-row-country', 'jm-p-country', ans.country && ans.country.label);
+      $('jm-big').textContent = ans.pay ? ans.pay.big : '—';
+
+      var wa = $('jm-wa');
+      wa.href = waHref();
+      wa.textContent = noDocs() ? 'Получить статус и работу — в WhatsApp' : 'Подобрать вакансию в WhatsApp';
+      $('jm-fine').textContent = noDocs()
+        ? 'Начнём с документов: разберём основание, сроки и стоимость — и параллельно посмотрим вакансии. Первая консультация бесплатная.'
+        : 'Подбор ни к чему не обязывает. Профиль уходит в WhatsApp одним сообщением — можете отредактировать его перед отправкой.';
+
+      /* маршрут: отвеченные — галочкой, текущий — точкой */
+      var done = { 1:!!ans.when, 2:!!ans.exp, 3:!!ans.langs.length, 4:!!ans.pay, 5:!!ans.docs, 6:!!ans.country };
+      var items = $('jm-route-list').children;
+      for (var i = 0; i < items.length; i++) {
+        var n = i + 1;
+        items[i].classList.toggle('done', !!done[n]);
+        items[i].classList.toggle('cur', n === cur);
+      }
+    }
+
+    /* ——— сообщение в WhatsApp ——— */
+    function waHref(){
+      var L = ['Здравствуйте! Заполнил подборщик вакансий на сайте. Мой профиль:'];
+      if (ans.when) L.push('• Когда готов начать: ' + ans.when.label);
+      if (ans.exp) L.push('• Опыт работы: ' + ans.exp.label);
+      if (ans.langs.length) L.push('• Языки: ' + ans.langs.map(function(l){ return l.label; }).join(', '));
+      if (ans.pay) L.push('• Желаемая ставка: ' + ans.pay.label);
+      if (ans.docs) L.push('• Документы: ' + ans.docs.label);
+      if (ans.country) L.push('• Страна: ' + ans.country.label);
+      L.push('');
+      L.push(noDocs()
+        ? 'Документов пока нет — нужен легальный статус и работа. С чего начать?'
+        : 'Подберёте вакансию под этот профиль?');
+      return 'https://wa.me/48735248525?text=' + encodeURIComponent(L.join('\n'));
+    }
+
+    /* ——— навигация ——— */
+    function render(){
+      for (var i = 1; i <= TOTAL; i++) $('jm-s' + i).hidden = (i !== cur);
+      var done = cur > TOTAL;
+      $('jm-done-a').hidden = !(done && !noDocs());
+      $('jm-done-b').hidden = !(done && noDocs());
+      $('jm-count').textContent = done ? 'Профиль готов' : 'Шаг ' + cur + ' из ' + TOTAL;
+      $('jm-bar').style.width = Math.min(100, ((cur - 1) / TOTAL) * 100) + '%';
+      $('jm-back').hidden = (cur === 1);
+      paint();
+    }
+    function go(n){
+      cur = Math.max(1, Math.min(TOTAL + 1, n));
+      render();
+    }
+
+    /* ——— одиночный выбор ——— */
+    function single(segId, key, step){
+      var box = $(segId);
+      box.addEventListener('click', function(ev){
+        var btn = ev.target.closest('button');
+        if (!btn || !box.contains(btn)) return;
+        var all = box.querySelectorAll('button');
+        for (var i = 0; i < all.length; i++) all[i].classList.remove('on');
+        btn.classList.add('on');
+        ans[key] = { v: btn.getAttribute('data-v'), label: label(btn), big: btn.getAttribute('data-big') || label(btn) };
+        go(step + 1);
+      });
+    }
+    single('jm-seg-when', 'when', 1);
+    single('jm-seg-exp', 'exp', 2);
+    single('jm-seg-pay', 'pay', 4);
+    single('jm-seg-docs', 'docs', 5);
+    single('jm-seg-country', 'country', 6);
+
+    /* ——— языки: мультивыбор, «никакими» — исключающий ——— */
+    var langBox = $('jm-seg-langs');
+    langBox.addEventListener('click', function(ev){
+      var btn = ev.target.closest('button');
+      if (!btn || !langBox.contains(btn)) return;
+      var v = btn.getAttribute('data-v');
+      var on = btn.classList.toggle('on');
+      var all = langBox.querySelectorAll('button');
+      if (v === 'none' && on) {
+        for (var i = 0; i < all.length; i++) if (all[i] !== btn) all[i].classList.remove('on');
+      } else if (on) {
+        var none = langBox.querySelector('button[data-v="none"]');
+        if (none) none.classList.remove('on');
+      }
+      ans.langs = [];
+      var sel = langBox.querySelectorAll('button.on');
+      for (var j = 0; j < sel.length; j++) ans.langs.push({ v: sel[j].getAttribute('data-v'), label: label(sel[j]) });
+      paint();
+    });
+    $('jm-lang-next').addEventListener('click', function(){ go(4); });
+
+    $('jm-back').addEventListener('click', function(){ go(cur - 1); });
+
+    /* клик по пройденному пункту маршрута — вернуться к вопросу */
+    $('jm-route-list').addEventListener('click', function(ev){
+      var li = ev.target.closest('li');
+      if (!li) return;
+      var n = parseInt(li.getAttribute('data-s'), 10);
+      if (n && n <= Math.max(cur, 1)) go(n);
+    });
+
+    function restart(){
+      ans = { when:null, exp:null, langs:[], pay:null, docs:null, country:null };
+      var on = document.querySelectorAll('#matcher .calc-seg button.on');
+      for (var i = 0; i < on.length; i++) on[i].classList.remove('on');
+      go(1);
+    }
+    $('jm-restart-a').addEventListener('click', restart);
+    $('jm-restart-b').addEventListener('click', restart);
+
+    render();
+  })();
+  </script>
 </section>
 
-<!-- SEC 08 · Глава I — что такое карта побыту. Список «что даёт карта» разложен в .svc-table
-     (референс br_s1: колонки услуга | ✓ | деталь) — все слова из исходного предложения сохранены,
-     только переложены в строки. Ниже — двухколоночник: слева карточка «Почему важны сроки» (с WA-CTA),
-     справа side-card «Карта побыту». Главное правило — note-line во всю ширину. Фон bg_arch. -->
-<section id="what">
-  <img class="bg-art bg-left" src="/assets/trc/bg_arch.jpg" alt="" aria-hidden="true" loading="lazy">
+<style>
+/* sec04: витрина вакансий таблицей — плотно и читаемо.
+   На телефоне таблица распадается на карточки (ярлыки колонок — из data-l). */
+#vacancies .tbl-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin-bottom:30px}
+#vacancies .tbl-head .sec-head{margin-bottom:0;max-width:620px}
+#vacancies .svc-table .vac{font-weight:700;color:var(--ink)}
+#vacancies .svc-table .geo{display:block;font:600 10.5px/1.35 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+#vacancies .svc-table .rate{color:var(--accent);font-weight:700;white-space:nowrap}
+#vacancies .svc-table .co{color:var(--ink-2)}
+#vacancies .svc-table .tg{display:inline-block;font:600 11px/1 var(--sans);color:var(--ink-3);border:1px solid var(--line-2);border-radius:999px;padding:5px 9px;margin:2px 0 2px 4px;white-space:nowrap}
+#vacancies .tbl-note{font-size:12.5px;color:var(--ink-3);margin:16px 2px 0}
+#vacancies .mini-cards{margin-top:40px}
+#vacancies .mini-card b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:5px}
+
+@media(max-width:820px){
+  #vacancies .svc-table{display:block;overflow:visible;white-space:normal;border:none;background:none;box-shadow:none;border-radius:0}
+  #vacancies .svc-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  #vacancies .svc-table tbody,#vacancies .svc-table tr,#vacancies .svc-table td{display:block}
+  #vacancies .svc-table tr{background:var(--card);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow-sm);margin-bottom:12px;padding:4px 2px}
+  #vacancies .svc-table tbody tr:hover{background:var(--card)}
+  #vacancies .svc-table td{border-bottom:1px solid var(--line);padding:11px 18px;text-align:left!important;white-space:normal!important;font-variant-numeric:normal}
+  #vacancies .svc-table tr td:last-child{border-bottom:none}
+  #vacancies .svc-table td:first-child{font-size:16px;padding:14px 18px 10px;color:var(--ink)}
+  #vacancies .svc-table td:not(:first-child){display:flex;justify-content:space-between;align-items:baseline;gap:16px;color:var(--ink)}
+  #vacancies .svc-table td:not(:first-child)::before{content:attr(data-l);font:700 10.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);flex-shrink:0}
+  #vacancies .svc-table .tg{margin:2px 0 2px 4px}
+}
+</style>
+<section id="vacancies">
+  <img class="bg-art bg-right" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Глава I</div>
-      <h2>Что такое <em>карта побыту</em>?</h2>
-      <p>Карта побыту (по-польски karta pobytu, сокращённо TRC) — это и есть вид на жительство в Польше: пластиковая карта, которая подтверждает ваше право легально жить в стране.</p>
+    <div class="tbl-head">
+      <div class="sec-head">
+        <div class="kicker">Направления</div>
+        <h2>Куда чаще всего <em>устраиваются</em></h2>
+        <p>Девять направлений, по которым к нам обращаются чаще всего: страна и города, кто нанимает, ставка и условия. Это примеры типичных вакансий — конкретный список открытых мест уточняйте в WhatsApp, он меняется каждую неделю.</p>
+      </div>
+      <a class="btn btn-primary" href="#matcher">Подобрать под себя →</a>
     </div>
 
     <table class="svc-table">
       <thead>
-        <tr><th>Что даёт карта побыту</th><th>Есть</th><th>Деталь</th></tr>
+        <tr>
+          <th>Вакансия</th>
+          <th>Кто нанимает</th>
+          <th>Условия</th>
+          <th>Ставка</th>
+        </tr>
       </thead>
       <tbody>
-        <tr><td>Легальное проживание</td><td class="yes">✓</td><td>на 1–3 года</td></tr>
-        <tr><td>Право работать</td><td class="yes">✓</td><td>—</td></tr>
-        <tr><td>Номер PESEL</td><td class="yes">✓</td><td>ваш личный номер в Польше</td></tr>
-        <tr><td>Поездки по Шенгену</td><td class="yes">✓</td><td>без виз</td></tr>
-        <tr><td>База для ПМЖ</td><td class="yes">✓</td><td>а в будущем — для гражданства</td></tr>
+        <tr>
+          <td><span class="vac">Работник склада</span><span class="geo">🇵🇱 Польша · Варшава / Лодзь / Вроцлав</span></td>
+          <td class="co" data-l="Кто нанимает">Логистические операторы и склады</td>
+          <td data-l="Условия"><span><span class="tg">Упаковка</span><span class="tg">Погрузка</span><span class="tg">Жильё</span></span></td>
+          <td class="rate" data-l="Ставка">30 PLN/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Горничная / клинер</span><span class="geo">🇵🇱 Польша · Краков / Варшава / Гданьск</span></td>
+          <td class="co" data-l="Кто нанимает">Сетевые отели</td>
+          <td data-l="Условия"><span><span class="tg">Отель</span><span class="tg">Без опыта</span></span></td>
+          <td class="rate" data-l="Ставка">28 PLN/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Повар / помощник повара</span><span class="geo">🇵🇱 Польша · Вроцлав / Познань</span></td>
+          <td class="co" data-l="Кто нанимает">Отели и рестораны</td>
+          <td data-l="Условия"><span><span class="tg">Кухня</span><span class="tg">Питание</span></span></td>
+          <td class="rate" data-l="Ставка">26 PLN/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Медсестра / санитар</span><span class="geo">🇵🇱 Польша · Варшава / Познань</span></td>
+          <td class="co" data-l="Кто нанимает">Частные медицинские сети</td>
+          <td data-l="Условия"><span><span class="tg">Мед. диплом</span><span class="tg">Официально</span></span></td>
+          <td class="rate" data-l="Ставка">32 PLN/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Строитель / разнорабочий</span><span class="geo">🇩🇪 Германия · Берлин / Гамбург / Мюнхен</span></td>
+          <td class="co" data-l="Кто нанимает">Строительные подрядчики</td>
+          <td data-l="Условия"><span><span class="tg">Стройка</span><span class="tg">Отделка</span></span></td>
+          <td class="rate" data-l="Ставка">16 EUR/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Сварщик / слесарь</span><span class="geo">🇩🇪 Германия · Дюссельдорф / Кёльн</span></td>
+          <td class="co" data-l="Кто нанимает">Металлообработка</td>
+          <td data-l="Условия"><span><span class="tg">Сварка MIG</span><span class="tg">Металл</span></span></td>
+          <td class="rate" data-l="Ставка">17 EUR/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Водитель-экспедитор CE</span><span class="geo">🇳🇱 Нидерланды · Амстердам / Роттердам</span></td>
+          <td class="co" data-l="Кто нанимает">Международные перевозчики</td>
+          <td data-l="Условия"><span><span class="tg">Код 95</span><span class="tg">Категория CE</span></span></td>
+          <td class="rate" data-l="Ставка">22 EUR/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Работник производства</span><span class="geo">🇧🇪 Бельгия · Антверпен / Брюссель</span></td>
+          <td class="co" data-l="Кто нанимает">Пищевое и упаковочное производство</td>
+          <td data-l="Условия"><span><span class="tg">Фасовка</span><span class="tg">Питание</span></span></td>
+          <td class="rate" data-l="Ставка">20 EUR/ч</td>
+        </tr>
+        <tr>
+          <td><span class="vac">Электрик / монтажник</span><span class="geo">🇦🇹 Австрия · Вена / Грац</span></td>
+          <td class="co" data-l="Кто нанимает">Электромонтажные подрядчики</td>
+          <td data-l="Условия"><span><span class="tg">Электрика</span><span class="tg">Жильё</span></span></td>
+          <td class="rate" data-l="Ставка">18 EUR/ч</td>
+        </tr>
       </tbody>
     </table>
+    <p class="tbl-note">Ставки — ориентир по типичным вакансиям этих направлений; точную ставку работодатель называет до выхода на работу. Итоговая сумма на руки зависит от типа контракта (umowa o pracę или umowa zlecenie), количества часов и того, входит ли в условия жильё.</p>
 
-    <div class="duo" style="margin-top:44px">
-      <div>
-        <a class="svc-card" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%BC%D0%BE%D0%B5%D0%B9%20%D1%81%D0%B8%D1%82%D1%83%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BF%D0%BE%20%D0%BA%D0%B0%D1%80%D1%82%D0%B5%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83." target="_blank" rel="noopener">
-          <h3>Почему важны сроки</h3>
-          <p>Если легальное пребывание закончится до правильной подачи, вы рискуете отказом, запретом на въезд и потерей работы. Здесь всё решают формальности — одна маленькая ошибка может стоить месяцев.</p>
-          <span class="go">Обсудить в WhatsApp &rarr;</span>
-        </a>
-      </div>
-      <div class="duo-side">
-        <div class="side-card">
-          <div class="sc-k">Карта побыту</div>
-          <ul>
-            <li>Она всегда привязана к основанию: работа, учёба, семья или бизнес.</li>
-            <li>С ней вы живёте, работаете, ездите по Шенгену и подтверждаете свой статус в любом уженде, банке или у работодателя.</li>
-          </ul>
-        </div>
-      </div>
+    <div class="mini-cards">
+      <div class="mini-card"><b>Без опыта</b>Склад, клининг, фасовка, кухня — направления, куда чаще всего берут с нуля. Требования по опыту и языку у каждого работодателя свои — проверим их по конкретной вакансии.</div>
+      <div class="mini-card"><b>С профессией</b>Сварка, электрика, стройка, международные перевозки — ставка выше, но нужны документы о квалификации.</div>
+      <div class="mini-card"><b>С дипломом</b>Медицина — самая высокая ставка в Польше из нашей витрины, нужен подтверждённый мед. диплом.</div>
+      <div class="mini-card"><b>С жильём</b>В вакансиях с отметкой «Жильё» проживание входит в условия, в части — ещё и питание.</div>
     </div>
-
-    <div class="note-line"><p><b>Главное правило:</b> подать заявление правильно и до истечения текущего статуса. Тогда всё ожидание вы проводите в Польше легально.</p></div>
   </div>
 </section>
 
-<!-- SEC 09 · Глава II — почему не подают в одиночку. 3 карточки .svc-grid переведены в нумерованные
-     фичи-карточки .feat-num (референс br_s0 «WHY»: иконка + номер 01–03 + заголовок + текст).
-     Иконки — простые inline-SVG stroke 22×22. Третья карточка — ссылка с WA-CTA. Тексты дословные,
-     note-line «частые ошибки» сохранён во всю ширину. -->
-<section id="why">
+<section id="how" class="band-sec">
+  <div class="wrap">
+    <div class="sec-head htl-head">
+      <div class="kicker">Как это работает</div>
+      <h2>От заявки — <em>до первой смены</em></h2>
+      <p>Шесть шагов. Ни один из них вы не проходите в одиночку: документы, разрешение, контракт и заселение — на нас.</p>
+    </div>
+    <div class="htl">
+      <div class="step">
+        <div class="dot">1</div>
+        <div class="st">Профиль</div>
+        <div class="sd">Заполняете подборщик или просто пишете в WhatsApp. Нам нужно понять шесть вещей: когда готовы начать, опыт, языки, желаемая ставка, документы и страна. <b>Пара минут.</b></div>
+      </div>
+      <div class="step">
+        <div class="dot">2</div>
+        <div class="st">Разбор документов</div>
+        <div class="sd">Смотрим, что у вас на руках: карта побыту, разрешение на работу или виза D, гражданство ЕС, временная защита (CUKR) — или пока ничего. От этого зависит весь дальнейший путь.</div>
+      </div>
+      <div class="step">
+        <div class="dot">3</div>
+        <div class="st">Легальный статус</div>
+        <div class="sd">Если документов нет или статус нужно повысить — начинаем отсюда: оформляем вид на жительство. Без него хорошие работодатели не берут, и это не наша прихоть, а требование закона.</div>
+      </div>
+      <div class="step">
+        <div class="dot">4</div>
+        <div class="st">Подбор вакансии</div>
+        <div class="sd">Сопоставляем ваш профиль с открытыми вакансиями и требованиями работодателей: опыт, языки, страна, ставка. Показываем, что реально подходит — вместе с условиями и жильём.</div>
+      </div>
+      <div class="step">
+        <div class="dot">5</div>
+        <div class="st">Разрешение и контракт</div>
+        <div class="sd">Готовим разрешение на работу и следим, чтобы контракт был официальным: umowa o pracę или umowa zlecenie. Ставку, часы и условия проговариваем до подписания.</div>
+      </div>
+      <div class="step">
+        <div class="dot">6</div>
+        <div class="st">Выход на работу</div>
+        <div class="sd">Дорога, заселение, первый день. Если вакансия с жильём — оно готово к приезду. Остаёмся на связи и после выхода: вопросы по документам и продлениям никуда не деваются.</div>
+      </div>
+    </div>
+    <div class="note-line" style="margin-top:40px">
+      <p><b>Порядок может быть и другим.</b> Если статус уже есть — шаг 3 пропускаем и идём сразу к подбору. Если статуса нет — документы и поиск вакансии идут параллельно, чтобы не терять время.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* sec06: FAQ — слева липкий рельс с CTA, справа аккордеон. */
+#faq .duo{grid-template-columns:5fr 7fr;gap:48px}
+@media(max-width:900px){#faq .duo{grid-template-columns:1fr;gap:32px}}
+#faq .faq-cols{max-width:none;margin:0}
+#faq .faq-cols details:first-child{border-top:1px solid var(--line-2)}
+#faq .duo-side .sec-head{margin-bottom:22px;max-width:none}
+#faq .bg-art{opacity:.08}
+#faq .faq-proof{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+#faq .faq-proof .fp{position:relative;background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm);overflow:hidden}
+#faq .faq-proof .fp::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+#faq .faq-proof .fp.in::before,#faq .faq-proof:hover .fp::before{transform:scaleX(1)}
+#faq .faq-proof .fp b{display:block;font-family:var(--serif);font-size:27px;font-weight:800;color:var(--navy);line-height:1.05;font-variant-numeric:lining-nums tabular-nums}
+#faq .faq-proof .fp span{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-3);line-height:1.4}
+@media(max-width:900px){#faq .faq-proof{max-width:420px}}
+@media(max-width:900px){#faq .faq-cols details:first-child{border-top:none}}
+</style>
+<section id="faq">
+  <img class="bg-art bg-right" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
+    <div class="duo">
+      <div class="duo-side">
+        <div class="sec-head">
+          <div class="kicker">Вопросы и ответы</div>
+          <h2>Что спрашивают <em>до первого сообщения</em></h2>
+          <p>Честно о документах, контракте, ставках и о том, что делать, если на руках пока ничего нет.</p>
+        </div>
+        <div class="note-line" style="margin:0">
+          <p><b>Не нашли свой вопрос?</b> Напишите — ответим и честно скажем, реально ли это в вашей ситуации. <a href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%95%D1%81%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5%20%D0%B8%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8F%D0%BC."><b>Спросить в WhatsApp →</b></a></p>
+        </div>
+        <a class="btn btn-primary" style="margin-top:22px" href="#matcher">Подобрать вакансию →</a>
+        <div class="faq-proof">
+          <div class="fp"><b>28 PLN/ч</b><span>нижняя ставка в Польше</span></div>
+          <div class="fp"><b>22 EUR/ч</b><span>верхняя ставка в витрине</span></div>
+          <div class="fp"><b>6 стран</b><span>Польша и Западная Европа</span></div>
+          <div class="fp"><b>9 отраслей</b><span>от склада до медицины</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="faq-cols">
+          <details open>
+            <summary>У меня нет вообще никаких документов. Мне есть смысл писать?</summary>
+            <div class="a">Есть. Без легального статуса хорошие работодатели действительно не берут — но это отправная точка, а не приговор. В таком случае начинаем с документов: оформляем вид на жительство, а вакансию подбираем параллельно, чтобы не терять время. Это и есть смысл работы «в одном месте»: не нужно искать отдельно юриста и отдельно работу.</div>
+          </details>
+          <details>
+            <summary>Какие документы дают право работать?</summary>
+            <div class="a">Вариантов несколько. <b>Карта побыту</b> — действующая карта или штамп в паспорте. <b>Разрешение на работу или виза D</b> — обычно от работодателя и привязано к одной фирме. <b>Гражданство ЕС или ПМЖ</b> — полное право работать в любой стране ЕС. <b>Временная защита (CUKR)</b> — действует, но статус чаще всего имеет смысл повысить. Если ничего из этого нет — начинаем с оформления статуса.</div>
+          </details>
+          <details>
+            <summary>Какой будет контракт?</summary>
+            <div class="a">Только официальный: umowa o pracę или umowa zlecenie. Никаких «конвертов» и договорённостей на словах. Тип контракта влияет на то, сколько вы получите на руки, поэтому ставку, часы и условия проговариваем до подписания, а не после.</div>
+          </details>
+          <details>
+            <summary>Сколько платят?</summary>
+            <div class="a">По вакансиям из витрины выше — от 28 PLN/ч в Польше (склад, клининг, кухня) до 32 PLN/ч у медсестры; в Германии, Австрии, Бельгии и Нидерландах — от 16 до 22 EUR/ч, выше ставка там, где нужна профессия: сварка, электрика, международные перевозки. Это ориентир по типичным вакансиям направления, а не оффер: точную ставку, количество часов и тип контракта работодатель называет до выхода на работу, и мы проговариваем их с вами до подписания.</div>
+          </details>
+          <details>
+            <summary>Есть ли вакансии с жильём и питанием?</summary>
+            <div class="a">Да, во многих вакансиях проживание входит в условия — в нашей витрине это склад в Польше и электромонтаж в Австрии. В части вакансий есть и питание — производство в Бельгии, кухня в Польше. Отметки «Жильё» и «Питание» стоят прямо в описании, чтобы не выяснять это в последний момент.</div>
+          </details>
+          <details>
+            <summary>В каких странах вы помогаете с работой?</summary>
+            <div class="a">Польша, Германия, Нидерланды, Бельгия, Австрия и Чехия. Если страна не принципиальна — так и скажите: в подборщике есть вариант «где угодно в Европе», и тогда мы смотрим шире, ориентируясь на вашу ставку и опыт.</div>
+          </details>
+          <details>
+            <summary>У меня нет опыта. Возьмут?</summary>
+            <div class="a">На части направлений опыт обычно не нужен — это склад и упаковка, клининг в отелях, фасовка на производстве, кухня. Точные требования у каждого работодателя свои, поэтому проверяем их по конкретной вакансии. Опыт и профессия (сварка, электрика, категория CE, мед. диплом) поднимают ставку — но начать можно и без них.</div>
+          </details>
+          <details>
+            <summary>Я не говорю по-польски и по-английски. Это проблема?</summary>
+            <div class="a">Не везде. На складе, в клининге и на фасовке язык обычно не требуется. Мы спрашиваем про языки в подборщике именно поэтому — среди вариантов есть «никакими»: это нормальный ответ, а не повод отказать. Чем больше языков, тем шире выбор и выше ставка, но старт возможен и без них.</div>
+          </details>
+          <details>
+            <summary>У меня временная защита (CUKR). Можно работать?</summary>
+            <div class="a">Да, CUKR действует, и работать с ним можно. Но статус временный, поэтому его чаще всего имеет смысл повысить — например, до карты побыту. Это даёт больше свободы при смене работодателя и не привязывает вас к одной фирме. Разберём вашу ситуацию и скажем, какое основание подходит.</div>
+          </details>
+          <details>
+            <summary>Разрешение на работу привязывает меня к работодателю?</summary>
+            <div class="a">Разрешение на работу и виза D — да, они обычно спонсируются работодателем и привязаны к одной фирме. Карта побыту и ПМЖ дают больше свободы: с ними вы не зависите от одного нанимателя. Если сейчас вы привязаны к фирме и хотите это изменить — скажите об этом сразу, это решаемо.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* sec07: финальный перехват. Слева контакты, справа короткая форма —
+   форма без бэкенда: собирает сообщение и открывает WhatsApp. */
+/* .cs-txt есть в CSS страницы для бизнеса, но не в общем — держим при секции,
+   иначе длинный email вылезает из плашки */
+#contact .cs-line .cs-txt{min-width:0}
+#contact .cs-line .cs-txt span{display:block;font-size:13.5px;word-break:break-word}
+#contact .cs-form form{display:flex;flex-direction:column;gap:10px}
+#contact .wf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){#contact .wf-row{grid-template-columns:1fr}}
+#contact .cs-form .btn{margin-top:4px}
+</style>
+<section id="contact">
   <img class="bg-art bg-left" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Глава II</div>
-      <h2>Почему люди не подают <em>в одиночку</em></h2>
-      <p>Дело не в сложности формы — дело в том, что процедура не прощает мелочей. Вот три причины, из-за которых чаще всего теряют месяцы.</p>
+      <div class="kicker">Начало</div>
+      <h2>Нужен статус <em>и работа</em>?</h2>
+      <p>Без легального статуса лучшие работодатели не берут. Мы оформим документы и подберём вакансию — всё в одном месте. Напишите: разберём вашу ситуацию и честно скажем, что реально.</p>
     </div>
-    <div class="feat-num">
-      <div class="fn">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3"/></svg></span>
-        <span class="no">01</span>
-        <h3>Теперь всё онлайн</h3>
-        <p>С 2026 года заявления подаются только онлайн — через государственную систему MOS. Для входа в неё обязателен Profil Zaufany — ваша личная электронная подпись для польских госуслуг. Одно неверное поле — и всё дело стоит.</p>
-      </div>
-      <div class="fn">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
-        <span class="no">02</span>
-        <h3>Уженд медлит и молчит</h3>
-        <p>Месяцы могут пройти без единой новости. Письма приходят на польском, сроки ответа короткие. Пропустили одно — и возможен отказ.</p>
-      </div>
-      <a class="fn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BA%D0%B0%D1%80%D1%82%D0%B5%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83." target="_blank" rel="noopener">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 21.5 20H2.5z"/><path d="M12 10v4M12 17h.01"/></svg></span>
-        <span class="no">03</span>
-        <h3>Одна ошибка = минус месяцы</h3>
-        <p>Недостающая справка, не та оплата, поздний ответ на письмо — каждая мелочь способна отбросить дело назад. Наша работа — проверить каждую из этих мелочей до подачи.</p>
-        <span class="go">Обсудить в WhatsApp &rarr;</span>
-      </a>
-    </div>
-    <div class="note-line"><p><b>Самые частые ошибки самостоятельной подачи:</b> подача после истечения визы &middot; неверное основание пребывания &middot; неполный комплект документов &middot; неоплаченный или неправильно оплаченный сбор &middot; непрочитанное письмо из уженда с коротким сроком ответа.</p></div>
-  </div>
-</section>
-
-<!-- SEC 10 · Глава III — процесс: 6 этапов. Сводная таблица (path), развёрнутые пункты (.clause)
-     перенесены ДОСЛОВНО в раскрытия .px соответствующих строк; первая строка раскрыта по умолчанию.
-     Формулировка про Profil Zaufany — «оформим вместе с вами». Фон bg_desk. -->
-<section id="process">
-  <img class="bg-art bg-right" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Глава III</div>
-      <h2>Шесть этапов — <em>от сообщения до карты</em></h2>
-      <p>Весь путь целиком. Сначала — сводная таблица, ниже — что именно происходит на каждом этапе, что нужно от вас и сколько это длится.</p>
-    </div>
-
-    <div class="path">
-      <div class="path-head"><span class="t">Этап</span><span class="s">Срок</span></div>
-      <div class="path-rows">
-
-        <div class="path-row open" role="button" tabindex="0" aria-expanded="true">
-          <span class="pn">01</span><span class="pt">Бесплатный разбор дела</span><span class="pd">Статус, сроки, правильное основание, план и фиксированная цена</span><span class="ptag">В тот же день</span>
-          <div class="px">
-            <div class="clause">
-              <h3>01 &middot; Бесплатный разбор дела — в тот же день</h3>
-              <p>Вы пишете нам в WhatsApp и описываете ситуацию. Мы проверяем текущий статус, сроки и подбираем правильное юридическое основание для карты.</p>
-              <ul>
-                <li>Говорим точно, в какой точке вы находитесь;</li>
-                <li>Отмечаем риски: заканчивающаяся виза или штамп, пропущенное письмо;</li>
-                <li>Вы получаете понятный план и фиксированную цену.</li>
-              </ul>
-              <p><b>Это ничего не стоит.</b> Никаких обязательств — только ясность.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="path-row" role="button" tabindex="0" aria-expanded="false">
-          <span class="pn">02</span><span class="pt">Документы</span><span class="pd">Персональный чек-лист; бумаги от работодателя и арендодателя запрашиваем мы</span><span class="ptag">1–2 недели</span>
-          <div class="px">
-            <div class="clause">
-              <h3>02 &middot; Документы — 1–2 недели</h3>
-              <p>Выдаём персональный чек-лист и собираем всё необходимое — включая документы от вашего работодателя или университета.</p>
-              <ul>
-                <li>Бумаги от работодателя и арендодателя запрашиваем сами;</li>
-                <li>Проверяем каждый документ до того, как он пойдёт в дело;</li>
-                <li>Заполняем и вычитываем анкету заявления.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="path-row" role="button" tabindex="0" aria-expanded="false">
-          <span class="pn">03</span><span class="pt">Подача онлайн (MOS)</span><span class="pd">Подаём вовремя и в полном комплекте; пребывание остаётся легальным</span><span class="ptag">Несколько дней</span>
-          <div class="px">
-            <div class="clause">
-              <h3>03 &middot; Подача онлайн через MOS — несколько дней</h3>
-              <p>С 2026 года заявление подаётся онлайн через систему MOS — для этого нужен Profil Zaufany.</p>
-              <ul>
-                <li>Настраиваем Profil Zaufany вместе с вами;</li>
-                <li>Проверяем каждое поле и подаём через MOS;</li>
-                <li>Делу присваивается номер, по которому мы отслеживаем статус.</li>
-              </ul>
-              <div class="note-line"><p><b>Подача вовремя = легальное ожидание.</b> Если заявление подано правильно до конца текущего статуса, в паспорт ставится штамп — и вы легально живёте в Польше до самого решения.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="path-row" role="button" tabindex="0" aria-expanded="false">
-          <span class="pn">04</span><span class="pt">Отпечатки пальцев</span><span class="pd">Личный визит — записываем и идём с вами</span><span class="ptag">Ожидание 3–4 мес.</span>
-          <div class="px">
-            <div class="clause">
-              <h3>04 &middot; Отпечатки пальцев — ожидание приглашения 3–4 месяца</h3>
-              <p>Уженд приглашает вас сдать биометрию: отпечатки пальцев и подпись. Этот шаг нужно сделать лично.</p>
-              <ul>
-                <li>Записываем на приём и следим за датой;</li>
-                <li>Идём вместе с вами — никакого языкового стресса;</li>
-                <li>Проверяем, что в день визита ничего не забыто.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="path-row" role="button" tabindex="0" aria-expanded="false">
-          <span class="pn">05</span><span class="pt">Рассмотрение</span><span class="pd">Воевода изучает дело; мы следим, отвечаем на письма, ускоряем</span><span class="ptag">2–6 мес.</span>
-          <div class="px">
-            <div class="clause">
-              <h3>05 &middot; Рассмотрение и ожидание — 2–6 месяцев</h3>
-              <p>Дело рассматривает воевода — глава воеводства, который и принимает решение по карте. Именно здесь большинство дел застревает — и именно здесь сопровождение важнее всего.</p>
-              <ul>
-                <li>Мониторим статус и напоминаем уженду о деле;</li>
-                <li>Читаем каждое официальное письмо и отвечаем в срок;</li>
-                <li>Отправляем требования ускорить дело, когда оно стоит.</li>
-              </ul>
-              <div class="note-line"><p><b>Официальный срок — 60 дней,</b> но на практике рассмотрение часто занимает несколько месяцев. Наша задача — не дать делу лежать без движения.</p></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="path-row" role="button" tabindex="0" aria-expanded="false">
-          <span class="pn">06</span><span class="pt">Решение и выдача карты</span><span class="pd">Забираете карту; при отказе апелляция — бесплатно</span><span class="ptag">Финал</span>
-          <div class="px">
-            <div class="clause">
-              <h3>06 &middot; Решение и получение карты</h3>
-              <p>Приходит положительное решение, карта изготавливается — и вы забираете свою карту побыту.</p>
-              <ul>
-                <li>Сопровождаем получение и объясняем следующие шаги;</li>
-                <li>Если отказ по нашей вине — апелляцию делаем бесплатно;</li>
-                <li>Напомним заранее, когда придёт время продлевать карту.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 11 · Глава IV — честный таймлайн. Таблица «Этап/Длительность» убрана (дублировала сроки
-     Главы III): вместо неё компактный горизонтальный таймлайн .gtl (подписи — дословно из бывшей
-     таблицы) и живое фото ph_consult в duo-side. -->
-<section id="howlong">
-  <img class="bg-art bg-left" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="duo">
-      <div>
-        <div class="sec-head">
-          <div class="kicker">Глава IV</div>
-          <h2>Сколько это длится <em>на самом деле</em>: 4–9 месяцев</h2>
-          <p>Целиком путь обычно занимает от четырёх до девяти месяцев. Этапы ожидания частично накладываются друг на друга — дело рассматривается уже с момента подачи, поэтому строки таблицы не складываются в общую сумму. Вот куда уходит время — без приукрашивания.</p>
-        </div>
-        <div class="note-line"><p><b>На что мы влияем:</b> скорость уженда не в наших руках. Но задержки из-за недостающих документов, непрочитанных писем и пропущенных сроков — в наших, и убирать эти причины — ровно наша работа.</p></div>
-      </div>
-      <div class="duo-side">
-        <figure class="photo-fig tint">
-          <img src="/assets/trc/ph_consult.jpg" alt="" loading="lazy">
-          <figcaption>Бесплатный разбор дела</figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="gtl">
-      <div class="gtl-step"><span class="gk">Разбор дела</span><b>1 день</b></div>
-      <div class="gtl-step"><span class="gk">Документы</span><b>~2 недели</b></div>
-      <div class="gtl-step"><span class="gk">Подача через MOS</span><b>Несколько дней</b></div>
-      <div class="gtl-step"><span class="gk">Ожидание отпечатков</span><b>3–4 месяца</b></div>
-      <div class="gtl-step"><span class="gk">Рассмотрение</span><b>2–6 месяцев</b></div>
-      <div class="gtl-step"><span class="gk">Карта готова</span><b>Финал</b></div>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 12 · Глава V — чек-лист клиента: шесть пунктов. Шапка — .duo.flip с sticky-карточкой
-     «Чего-то не хватает?» (бывшая note-line, разрезана по предложениям); сам чек-лист — .path. Фон bg_note. -->
-<section id="need">
-  <img class="bg-art bg-left" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="duo" style="align-items:center">
-      <div>
-        <div class="sec-head">
-          <div class="kicker">Глава V</div>
-          <h2>Что нужно <em>от вас</em></h2>
-          <p>Не переживайте, если чего-то нет — недостающее мы поможем получить. Типичный стартовый набор выглядит так:</p>
-        </div>
-        <div class="side-card">
-          <div class="sc-k">Чего-то не хватает?</div>
-          <ul>
-            <li>Это нормально — большинство клиентов приходит с неполным набором.</li>
-            <li>Мы говорим, что именно нужно, и помогаем это получить.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="duo-side">
-        <figure class="photo-fig tint">
-          <img src="/assets/trc/bg_desk2.jpg" alt="" loading="lazy">
-        </figure>
-      </div>
-    </div>
-    <div class="path">
-      <div class="path-head"><span class="t">Документ</span><span class="s">Комментарий</span></div>
-      <div class="path-rows">
-        <div class="path-row"><span class="pn">1</span><span class="pt">Паспорт</span><span class="pd">Действующий загранпаспорт — страница с фото</span><span class="ptag">Обязательно</span></div>
-        <div class="path-row"><span class="pn">2</span><span class="pt">Текущий статус</span><span class="pd">Виза, предыдущая карта или штамп о въезде — что есть</span><span class="ptag">Что есть</span></div>
-        <div class="path-row"><span class="pn">3</span><span class="pt">Основание пребывания</span><span class="pd">Трудовой договор, справка о зачислении на учёбу, семейное основание или свой бизнес в Польше — JDG (аналог ИП) или фирма Sp. z o.o.</span><span class="ptag">Подберём вместе</span></div>
-        <div class="path-row"><span class="pn">4</span><span class="pt">Адрес в Польше</span><span class="pd">Договор аренды или адрес фактического проживания — подскажем, как оформить правильно</span><span class="ptag">Подскажем</span></div>
-        <div class="path-row"><span class="pn">5</span><span class="pt">Медицинская страховка</span><span class="pd">Государственная (NFZ) или частная — можем организовать по партнёрскому тарифу</span><span class="ptag">Поможем</span></div>
-        <div class="path-row"><span class="pn">6</span><span class="pt">Profil Zaufany</span><span class="pd">Нужен для онлайн-подачи через MOS — если нет, оформим вместе с вами</span><span class="ptag">Оформим вместе</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 13 · Глава VI — FAQ: двухколоночный аккордеон .faq-cols.faq-2col (тот же details-паттерн,
-     что на главной; «+» в summary — flex:none, не отрывается). Тексты ответов дословные:
-     бывшая видимая строка + бывшее раскрытие склеены в .a. Ярлыки-теги строк убраны —
-     эти же слова стоят в оглавлении. -->
-<section id="faq">
-  <img class="bg-art bg-right" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Глава VI</div>
-      <h2>Вопросы, которые клиенты <em>задают всегда</em></h2>
-      <p>Короткие честные ответы на шесть самых частых вопросов о карте побыту.</p>
-    </div>
-
-    <div class="faq-cols faq-2col">
-      <details>
-        <summary>Могу ли я оставаться в Польше, пока жду решения?</summary>
-        <div class="a">Да. Если заявление подано правильно до истечения текущего статуса, в паспорт ставится штамп — и ваше пребывание легально до самого решения, даже если ожидание растянется на месяцы.</div>
-      </details>
-      <details>
-        <summary>Могу ли я путешествовать, пока дело рассматривается?</summary>
-        <div class="a">Штамп разрешает находиться в Польше, но сам по себе не даёт права ездить по Шенгену. Расскажите нам о планах — мы подскажем, что безопасно, до того как вы что-либо забронируете.</div>
-      </details>
-      <details>
-        <summary>А если у меня уже есть отказ?</summary>
-        <div class="a">На апелляцию есть 14 дней — не теряйте их. Напишите нам сразу: мы разберём решение и подготовим апелляцию. Если дело ведём мы и приходит отрицательное решение — апелляция для вас бесплатна.</div>
-      </details>
-      <details>
-        <summary>Нужен ли мне Profil Zaufany?</summary>
-        <div class="a">Да — с 2026 года онлайн-подача через MOS без него невозможна. Если профиля нет, оформим его вместе с вами. Заодно он открывает доступ к PESEL, налогам и десяткам других государственных сервисов онлайн.</div>
-      </details>
-      <details>
-        <summary>Сколько это стоит?</summary>
-        <div class="a">Зависит от вашего дела и уровня сопровождения. Первый разбор — бесплатный, цена фиксируется письменно, скрытых платежей нет. Тарифы — на странице <a href="/new/index.html#en-services">планов сопровождения TRC</a>.</div>
-      </details>
-      <details>
-        <summary>Я живу не в Варшаве — это проблема?</summary>
-        <div class="a">Нет. Весь процесс идёт онлайн — мы работаем с клиентами во всех воеводствах. Лично нужно приехать только на отпечатки и за готовой картой — в уженд вашего воеводства.</div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 14 · Глава VII — онбординг: четыре шага после «да» — карточки .mini-cards (анти-монотонность,
-     бывшая лента .path) + CTA. Фон bg_meet. -->
-<section id="start">
-  <img class="bg-art bg-right" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Глава VII</div>
-      <h2>Вы сказали «да» — <em>дальше четыре шага</em></h2>
-      <p>После бесплатного разбора от вас нужно только это. Всё дистанционно: без очередей и без визитов в офис.</p>
-    </div>
-    <div class="mini-cards">
-      <div class="mini-card"><span class="mc-n">1</span><b>Получите договор</b>Присылаем уже заполненный — в WhatsApp или на почту<span class="mc-tag">Мы</span></div>
-      <div class="mini-card"><span class="mc-n">2</span><b>Подпишите</b>Электронно — или распечатайте, подпишите и сфотографируйте<span class="mc-tag">Вы</span></div>
-      <div class="mini-card"><span class="mc-n">3</span><b>Отправьте обратно</b>Подписанный договор + фото страницы паспорта с данными<span class="mc-tag">Вы</span></div>
-      <div class="mini-card"><span class="mc-n">4</span><b>Готово — мы начали</b>Открываем дело и держим вас в курсе в WhatsApp<span class="mc-tag">Мы</span></div>
-    </div>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%AF%20%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%28%D0%B0%29%20%D0%BD%D0%B0%D1%87%D0%B0%D1%82%D1%8C%20%E2%80%94%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80." target="_blank" rel="noopener">Пришлите мне договор</a>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 15 · Истории клиентов — тёмная секция .band-sec (референс br_s2: ряд аватарок сверху → карточки).
-     Добавлен .ava-row (ряд налезающих аватарок client1–7, декоративные). Три кейс-карточки .svc-grid
-     с аватарами client1–3 (каноническое соответствие с главной). CTA один — в последней карточке.
-     Тексты дословные. -->
-<section id="clients" class="band-sec">
-  <div class="wrap">
-    <div class="ava-row" aria-hidden="true">
-      <img src="/assets/trc/client1.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client2.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client3.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client4.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client5.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client6.jpg" alt="" loading="lazy">
-      <img src="/assets/trc/client7.jpg" alt="" loading="lazy">
-    </div>
-    <div class="sec-head">
-      <div class="kicker">Из практики</div>
-      <h2>Настоящие люди — <em>настоящие карты</em></h2>
-      <p>Несколько дел из нашей практики. Каждая ситуация уникальна, и результат зависит от обстоятельств дела — но подход всегда один: считать сроки и не терять ни одного письма.</p>
-    </div>
-    <div class="svc-grid">
-      <div class="svc-card">
-        <img class="case-ava" src="/assets/trc/client1.jpg" alt="" loading="lazy">
-        <h3>Дело лежало 8 месяцев</h3>
-        <p>Ананья, Индия. Дело лежало в уженде восемь месяцев без ответа. Мы приняли его, привели документы в порядок и добились решения — карта через три месяца.</p>
-      </div>
-      <div class="svc-card">
-        <img class="case-ava" src="/assets/trc/client2.jpg" alt="" loading="lazy">
-        <h3>Отказ и 14 дней на апелляцию</h3>
-        <p>Каран, Индия. Пришёл с отказом после другого агентства, до конца срока апелляции оставалось 14 дней. Мы подали апелляцию, выиграли — карта на три года.</p>
-      </div>
-      <a class="svc-card" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%BC%D0%BE%D0%B5%D0%B9%20%D1%81%D0%B8%D1%82%D1%83%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BF%D0%BE%20%D0%BA%D0%B0%D1%80%D1%82%D0%B5%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83." target="_blank" rel="noopener">
-        <img class="case-ava" src="/assets/trc/client3.jpg" alt="" loading="lazy">
-        <h3>Одобрено с первой подачи</h3>
-        <p>Рохит, Индия. Новая работа и полное непонимание, с чего начать. Мы подготовили комплект целиком и подали через MOS — одобрение с первой попытки.</p>
-        <span class="go">Хочу так же &rarr; WhatsApp</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- SEC 16 · Финал — .contact-split (референс br_s3): слева тёмная карточка контактов .cs-side
-     (WhatsApp/телефон/почта/адрес — .cs-line), справа форма .cs-form (компонует сообщение в WhatsApp,
-     живая фишка — window.open на wa.me с префиллом гайда). Телефон — текстом, без tel:. Дисклеймер
-     обязателен (note-line). Реквизиты Sp. z o.o. не добавляем. Свой <footer>/wa-float здесь не нужны —
-     сборщик подставляет общие из index.html. -->
-<section id="ready">
-  <img class="bg-art bg-left" src="/assets/trc/bg_desk2.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Когда будете готовы</div>
-      <h2>Всё ещё сомневаетесь? <em>Просто спросите</em></h2>
-      <p>Опишите свою ситуацию в WhatsApp. Мы скажем, что делать дальше — бесплатно, простым языком и без обязательств.</p>
-    </div>
-
     <div class="contact-split">
       <div class="cs-side">
-        <h3>Свяжитесь с нами</h3>
-        <p>Пишите в WhatsApp — так быстрее всего. Телефон, почта и адрес — ниже.</p>
-        <a class="cs-line" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20LegalSol%21%20%D0%AF%20%D0%BF%D1%80%D0%BE%D1%87%D0%B8%D1%82%D0%B0%D0%BB%28%D0%B0%29%20%D0%B3%D0%B0%D0%B9%D0%B4%20%E2%80%94%20%D0%B2%D0%BE%D1%82%20%D0%BC%D0%BE%D1%8F%20%D1%81%D0%B8%D1%82%D1%83%D0%B0%D1%86%D0%B8%D1%8F%3A" target="_blank" rel="noopener">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 21l1.95-5.6A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
-          <div><b>WhatsApp</b><span>+48 735 248 525</span></div>
+        <h3>Проще всего — написать в WhatsApp</h3>
+        <p>Расскажите в двух словах, что у вас на руках и чего хотите. Первая консультация бесплатная, и она ни к чему не обязывает. Ваши данные никому не передаются.</p>
+        <a class="cs-line" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C%20%D0%B2%20%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B5%20%D0%BB%D0%B5%D0%B3%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE.%20%D0%9F%D0%BE%D0%BC%D0%BE%D0%B3%D0%B8%D1%82%D0%B5%20%D1%81%20%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8%20%D0%B8%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D0%B5%D0%B9." target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16.5 5 13a6.5 6.5 0 1 1 2.5 2.5z"/><path d="M7 8.5c.4 2 1.5 3.1 3.5 3.5"/></svg></span>
+          <div class="cs-txt"><b>WhatsApp</b><span>+48 735 248 525</span></div>
         </a>
-        <div class="cs-line">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
-          <div><b>Телефон</b><span>+48 735 248 525</span></div>
-        </div>
+        <a class="cs-line" href="tel:+48735248525">
+          <span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5c-1 0-1.5.8-1.5 1.7C3.5 11 9 16.5 14.8 16.5c.9 0 1.7-.5 1.7-1.5v-2l-3-1-1.3 1.5c-1.7-.8-3.1-2.2-3.9-3.9L6.5 8l-1-3z"/></svg></span>
+          <div class="cs-txt"><b>Позвонить</b><span>+48 735 248 525</span></div>
+        </a>
         <a class="cs-line" href="mailto:legalsol.communication@gmail.com">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <div><b>Почта</b><span>legalsol.communication@gmail.com</span></div>
+          <span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="14" height="11" rx="2"/><path d="M3.5 6 10 11l6.5-5"/></svg></span>
+          <div class="cs-txt"><b>Email</b><span>legalsol.communication@gmail.com</span></div>
         </a>
-        <div class="cs-line">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
-          <div><b>Офис</b><span>Sienna 75, 00-833 Warszawa</span></div>
-        </div>
+        <a class="cs-line" href="#matcher">
+          <span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><line x1="13.5" y1="13.5" x2="17" y2="17"/></svg></span>
+          <div class="cs-txt"><b>Подборщик вакансий</b><span>6 вопросов — и профиль готов</span></div>
+        </a>
       </div>
       <div class="cs-form">
-        <div class="cf-lbl">Быстрый старт</div>
-        <form id="guide-form" novalidate>
-          <div class="ff-field"><input id="gf-name" type="text" autocomplete="name" placeholder="Ваше имя"></div>
-          <div class="ff-field"><textarea id="gf-msg" placeholder="Коротко опишите ситуацию: виза или штамп, сроки, основание"></textarea></div>
-          <button class="btn btn-primary" type="submit">Написать в WhatsApp</button>
-          <p class="fine">Первый разбор — бесплатно, без обязательств.</p>
+        <div class="sc-k">Короткая заявка</div>
+        <form id="wf-form">
+          <input id="wf-name" type="text" placeholder="Как вас зовут" required>
+          <div class="wf-row">
+            <input id="wf-phone" type="tel" placeholder="Телефон / WhatsApp" required>
+            <input id="wf-prof" type="text" placeholder="Профессия или сфера">
+          </div>
+          <input id="wf-docs" type="text" placeholder="Какие документы на руках (или «нет»)">
+          <textarea id="wf-notes" placeholder="Что важно? Страна, ставка, жильё, сроки…"></textarea>
+          <button type="submit" class="btn btn-primary">Отправить в WhatsApp →</button>
         </form>
+        <div class="note-line" style="margin-bottom:0">
+          <p><b>Кнопка откроет WhatsApp</b> с готовым сообщением — вы увидите текст и сможете поправить его перед отправкой. Ничего не уходит без вашего нажатия.</p>
+        </div>
       </div>
     </div>
-
-    <div class="note-line"><p>Этот гайд — общая информация, а не индивидуальная юридическая консультация. LegalSol</p></div>
   </div>
+
+  <script>
+  (function(){
+    var form = document.getElementById('wf-form');
+    if (!form) return;
+    function val(id){
+      var el = document.getElementById(id);
+      return el && el.value ? el.value.trim() : '';
+    }
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var L = ['Здравствуйте! Хочу работать в Европе легально.'];
+      if (val('wf-name')) L.push('• Имя: ' + val('wf-name'));
+      if (val('wf-phone')) L.push('• Телефон / WhatsApp: ' + val('wf-phone'));
+      if (val('wf-prof')) L.push('• Профессия / сфера: ' + val('wf-prof'));
+      if (val('wf-docs')) L.push('• Документы: ' + val('wf-docs'));
+      if (val('wf-notes')) L.push('• Что важно: ' + val('wf-notes'));
+      L.push('');
+      L.push('Поможете с документами и вакансией?');
+      window.open('https://wa.me/48735248525?text=' + encodeURIComponent(L.join('\n')), '_blank', 'noopener');
+    });
+  })();
+  </script>
 </section>
-<script>
-(function(){var f=document.getElementById('guide-form');if(!f)return;
-f.addEventListener('submit',function(e){e.preventDefault();
-var g=function(id){var el=document.getElementById(id);return el&&el.value?el.value.trim():'';};
-var n=g('gf-name'),m=g('gf-msg');
-var t='Здравствуйте, LegalSol! Я прочитал(а) гайд — вот моя ситуация:';
-if(n)t+='\n\nИмя: '+n;
-if(m)t+='\n\nСитуация: '+m;
-window.open('https://wa.me/48735248525?text='+encodeURIComponent(t),'_blank','noopener');});})();
-</script>
 
 </main>
 
@@ -2437,34 +2515,6 @@ window.open('https://wa.me/48735248525?text='+encodeURIComponent(t),'_blank','no
   if(location.hash){ setTimeout(function(){ openById(location.hash.slice(1)); }, 60); }
 })();
 </script>
-<script>
-(function(){
-  var h=document.querySelector('.photo-hero');
-  if(!h||!('IntersectionObserver' in window))return;
-  document.body.classList.add('hero-vis'); /* до первого замера считаем хиро видимым — без вспышки кнопки */
-  var io=new IntersectionObserver(function(es){
-    document.body.classList.toggle('hero-vis',es[es.length-1].isIntersecting);
-  },{threshold:.05});
-  io.observe(h);
-})();
-/* каскадное появление фичи-карточек, кадров таймлайна и мини-таймлайна (fade-up со сдвигом) */
-(function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if(!('IntersectionObserver' in window)) return;
-  var els=[].slice.call(document.querySelectorAll('.feat-num .fn,.htl .step,.gtl-step'));
-  if(!els.length) return;
-  els.forEach(function(el){ el.classList.add('gv'); });
-  els.forEach(function(el){
-    var sibs=[].filter.call(el.parentNode.children,function(c){return c.classList&&c.classList.contains('gv');});
-    el.style.transitionDelay=Math.min(sibs.indexOf(el)*70,420)+'ms';
-  });
-  var io2=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('gin'); io2.unobserve(e.target); } });
-  },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-  els.forEach(function(el){ io2.observe(el); });
-  var vh=innerHeight;
-  els.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh&&r.bottom>0){ el.classList.add('gin'); io2.unobserve(el); } });
-})();
-</script>
+
 </body>
 </html>

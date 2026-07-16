@@ -78,7 +78,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdro
 .logo-mark svg{width:20px;height:20px}
 .logo-name{font-family:var(--serif);font-weight:800;font-size:21px;letter-spacing:.04em;color:var(--navy)}
 .logo-sub{font-size:9.5px;letter-spacing:.26em;color:var(--ink-3);text-transform:uppercase;margin-top:1px}
-.nav-links{display:flex;gap:22px;font-size:14.5px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.nav-links{display:flex;gap:19px;font-size:14.5px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+@media(max-width:1220px){.nav-phone{display:none}}
 .nav-links a:hover{color:var(--accent)}
 .nav-cta{display:flex;align-items:center;gap:10px}
 .nav-phone{font-weight:600;font-size:14.5px;color:var(--ink);white-space:nowrap;margin-right:4px}
@@ -1250,10 +1251,11 @@ p{max-width:68ch}
     </a>
     <nav class="nav-links">
       <a href="/new/services.html">Услуги</a>
-      <a href="/new/guide.html">Как мы работаем</a>
-      <a href="/new/index.html#en-reviews">Отзывы</a>
-      <a href="/new/index.html#en-faq">FAQ</a>
+      <a href="/new/work.html">Работа</a>
+      <a href="/new/guide.html">Гайд</a>
+      <a href="/new/business.html">B2B</a>
       <a href="/blog">Блог</a>
+      <a href="/new/index.html#en-referral">Рефералка</a>
     </nav>
     <div class="nav-cta">
       
@@ -1269,12 +1271,13 @@ p{max-width:68ch}
 
 <nav class="m-menu" id="en-mmenu" hidden>
   <a href="/new/services.html">Услуги</a>
-  <a href="/new/guide.html">Как мы работаем</a>
-  <a href="/new/index.html#en-reviews" onclick="lsMenuClose()">Отзывы</a>
-  <a href="/new/index.html#en-faq" onclick="lsMenuClose()">FAQ</a>
+  <a href="/new/work.html">Работа</a>
+  <a href="/new/guide.html">Гайд</a>
+  <a href="/new/business.html">B2B</a>
   <a href="/blog">Блог</a>
+  <a href="/new/index.html#en-referral" onclick="lsMenuClose()">Рефералка</a>
+  <a href="https://legalsol.pl">Кабинет клиентов</a>
   <a href="/new/index.html#en-contact" onclick="lsMenuClose()">Контакты</a>
-  <a href="https://legalsol.pl">Кабинет</a>
   <div class="mm-actions">
     <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20карте%20побыту.">Бесплатная консультация в WhatsApp</a>
     <a class="btn btn-wa" href="tel:+48735248525">+48 735 248 525</a>
