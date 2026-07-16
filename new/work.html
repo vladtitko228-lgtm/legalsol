@@ -1460,6 +1460,8 @@ p{max-width:68ch}
   #matcher .jm-route{margin-top:30px}
   #matcher .calc-out .co-big{font-size:30px}
 }
+#matcher .jm-next[disabled]{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+#matcher .jm-next[disabled]:hover{opacity:.4}
 </style>
 <section id="matcher">
   <img class="bg-art bg-left" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
@@ -1519,7 +1521,7 @@ p{max-width:68ch}
               <button type="button" data-v="uk">Украинский</button>
               <button type="button" data-v="none">Никакими / другой</button>
             </div>
-            <button type="button" class="btn btn-primary jm-next" id="jm-lang-next">Далее →</button>
+            <button type="button" class="btn btn-primary jm-next" id="jm-lang-next" disabled>Далее →</button>
           </div>
 
           <!-- ШАГ 4 — ставка -->
@@ -1732,8 +1734,10 @@ p{max-width:68ch}
       ans.langs = [];
       var sel = langBox.querySelectorAll('button.on');
       for (var j = 0; j < sel.length; j++) ans.langs.push({ v: sel[j].getAttribute('data-v'), label: label(sel[j]) });
-      paint();
+      syncLangNext();
+        paint();
     });
+    function syncLangNext(){ $('jm-lang-next').disabled = ans.langs.length === 0; }
     $('jm-lang-next').addEventListener('click', function(){ go(4); });
 
     $('jm-back').addEventListener('click', function(){ go(cur - 1); });
@@ -1750,6 +1754,7 @@ p{max-width:68ch}
       ans = { when:null, exp:null, langs:[], pay:null, docs:null, country:null };
       var on = document.querySelectorAll('#matcher .calc-seg button.on');
       for (var i = 0; i < on.length; i++) on[i].classList.remove('on');
+      syncLangNext();
       go(1);
     }
     $('jm-restart-a').addEventListener('click', restart);
