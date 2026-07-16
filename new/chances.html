@@ -942,7 +942,8 @@ function buildTips(v){
   if(v.docs==='part')t.push('Соберите недостающее по чек-листу: присяжные переводы, страховка, подтверждение проживания и доходов.');
   if(v.docs==='none')t.push('Начните с базового чек-листа: паспорт, фото, подтверждение проживания, занятости или учёбы, страховка, документы о доходах.');
   if(v.hist==='appeal')t.push('На апелляцию есть 14 дней — не теряйте их. Пришлите решение: разберём и подготовим апелляцию.');
-  if(v.hist==='refusal')t.push('Отказ — не конец: апелляции мы уже выигрывали, в том числе после отказов в других фирмах<3)t.push('Оформите Profil Zaufany заранее — без него онлайн-подача через MOS невозможна. Оформим вместе.');
+  if(v.hist==='refusal')t.push('Отказ — не конец: апелляции мы уже выигрывали, в том числе после отказов в других фирмах.');
+  if(t.length<3)t.push('Оформите Profil Zaufany заранее — без него онлайн-подача через MOS невозможна. Оформим вместе.');
   if(t.length<3)t.push('Проверьте даты, подписи и переводы дважды — формальности решают больше всего. Мы проверяем каждый пакет двойным контролем.');
   if(t.length<3)t.push('Запишитесь на бесплатный разбор — юрист проверит пакет и подтвердит расчёт до подачи.');
   return t.slice(0,4);
@@ -1053,7 +1054,7 @@ if(location.hash==='#chc-demo'){
 
 <!-- LEADBAND -->
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите точный разбор, а не оценку?</div>
@@ -1070,7 +1071,7 @@ if(location.hash==='#chc-demo'){
 
 <!-- FAQ -->
 <section id="chc-faq" class="faq">
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Вопросы о калькуляторе</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Насколько точна эта оценка?<span class="pl">+</span></summary><div class="a">Это предварительная оценка на основе практики 1 000+ дел LegalSol, а не юридическое заключение. Каждое дело индивидуально: точный разбор с юристом — бесплатно, на консультации проверим документы и назовём реальные шансы.</div></details>

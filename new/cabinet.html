@@ -815,18 +815,19 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
     <div class="cb2-login">
       <div class="t">Вход в кабинет</div>
       <div class="s">Для клиентов LegalSol</div>
-      <input type="text" placeholder="Номер дела или телефон" aria-label="Номер дела или телефон" disabled>
-      <a class="btn btn-primary" href="https://legalsol.pl" target="_blank" rel="noopener">Войти в кабинет →</a>
+      <input type="text" id="cb2-inp" placeholder="Номер дела или телефон" aria-label="Номер дела или телефон">
+      <a class="btn btn-primary" href="#cb2-demo" id="cb2-login" onclick="var b=this;b.textContent='Входим…';setTimeout(function(){b.textContent='Войти в кабинет →'},1400);">Войти в кабинет →</a>
       <div class="or">или</div>
       <a class="btn btn-gold" href="#cb2-demo">Посмотреть демо-кабинет ↓</a>
       <div class="fine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Доступ выдаётся после первой консультации</div>
+      <div style="font-size:12.5px;color:var(--ink-3);margin-top:10px">Настоящий кабинет с вашим делом — на <a href="https://legalsol.pl" target="_blank" rel="noopener" style="color:var(--indigo);font-weight:600">legalsol.pl</a></div>
     </div>
   </div>
 </div></section>
 
 <!-- DEMO DASHBOARD -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">ДЕМО — так выглядит кабинет клиента</span>
     <h2>Загляните внутрь — до старта дела</h2>
@@ -883,7 +884,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Доступ</span>
     <h2>Как получить свой кабинет</h2>
@@ -902,7 +903,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Пока нет — выше показано демо с вымышленными данными. Ваш кабинет появится после старта дела: на первой консультации мы заведём профиль и выдадим личный номер дела.</div></details>
@@ -913,7 +914,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите такой же кабинет для своего дела?</div>
