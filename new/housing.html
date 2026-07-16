@@ -716,7 +716,7 @@ section > .wrap{position:relative;z-index:1}
 .feat-num .fn .ic{width:46px;height:46px;border-radius:12px;background:var(--lav);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .feat-num .fn .ic svg{width:22px;height:22px}
 .feat-num .fn .no{font:700 12px/1 var(--sans);letter-spacing:.14em;color:var(--accent);margin-bottom:10px}
-.feat-num .fn h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.feat-num .fn h3{font-size:18px;font-weight:700;margin-bottom:8px;min-height:2.5em;display:flex;align-items:flex-start}
 .feat-num .fn p{font-size:14px;color:var(--ink-2)}
 .svc-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line-2);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
 .svc-table thead th{font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:left;padding:18px 22px;border-bottom:1px solid var(--line-2)}
@@ -813,7 +813,7 @@ section > .wrap{position:relative;z-index:1}
 
 
 /* ===== Burman top-accent + плавные шаги (v13) ===== */
-.feat-num .fn{border-top:3px solid var(--accent);position:relative}
+.feat-num .fn{border-top:3px solid var(--accent);position:relative;display:flex;flex-direction:column}
 .eco-card{border-top:3px solid var(--accent)}
 .svc-card{border-top:2px solid transparent;transition:all .18s,border-top-color .18s}
 .svc-card:hover{border-top-color:var(--accent)}
@@ -1716,6 +1716,10 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
 <section id="contact">
   <img class="bg-art bg-left" src="/assets/trc/bg_keys.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
+    <div class="sec-head center">
+      <div class="kicker center">Отзывы</div>
+      <h2>Нам <em>доверяют</em></h2>
+    </div>
     <div class="ava-row">
       <img src="/assets/trc/client1.jpg" alt="" loading="lazy">
       <img src="/assets/trc/client2.jpg" alt="" loading="lazy">
