@@ -39,10 +39,10 @@
   --shadow-sm:0 1px 2px rgba(30,27,75,.05),0 18px 44px -30px rgba(30,27,75,.14);
   --navy:#26215C;
   --navy-deep:#1E1B4B;
-  --accent:#5B52CC;
-  --accent-dark:#453CB0;
-  --lilac:#B8B2F5;
-  --lav:#EEEDF8;
+  --accent:#6E67C5;
+  --accent-dark:#4740B5;
+  --lilac:#B7B2E6;
+  --lav:#EFEEF7;
   --gold:#A98444;
   --gold-soft:#C3A368;
   --green:#2E7D5B;
@@ -188,7 +188,6 @@ header{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdro
 .path-row .pt::after{content:"\00A0+";font-family:var(--serif);color:var(--accent);margin-left:3px;font-size:17px}
 .path-row.open .pt::after{content:"\00A0×"}
 .path-row .px{display:none;grid-column:2/-1;font-size:14px;color:var(--ink-2);line-height:1.65;max-width:720px;padding-top:2px}
-.path-row.open .px{display:block;animation:faqIn .3s ease}
 .path-row:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .path-row:last-child{border-bottom:none}
 .path-row .pn{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
@@ -363,7 +362,7 @@ header.scrolled{box-shadow:0 12px 34px -24px rgba(30,27,75,.4)}
 .eco-card:hover .go{transform:translateX(4px)}
 .blog-card:hover .rd{transform:translateX(4px)}
 .btn{will-change:transform}
-.btn-primary:hover{box-shadow:0 10px 26px -14px rgba(91,82,204,.55)}
+.btn-primary:hover{box-shadow:0 10px 26px -14px rgba(110,103,197,.55)}
 details[open] .a{animation:faqIn .32s ease}
 @keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .fab .dot{animation:dotPulse 2.6s ease-in-out infinite}
@@ -484,9 +483,9 @@ section .kicker::before{counter-increment:chap;content:counter(chap,decimal-lead
 .stat .n .u{font-size:.6em;font-weight:700;margin-left:.05em}
 .stat .n .u.word{font-size:.44em;letter-spacing:.02em}
 .geo-stamps{display:flex;flex-wrap:wrap;gap:10px 12px;justify-content:center;margin:16px auto 0;max-width:720px}
-.geo-stamps span{border:1.5px solid rgba(38,33,92,.4);box-shadow:inset 0 0 0 1px rgba(38,33,92,.12);color:var(--navy);border-radius:5px;padding:5px 13px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.geo-stamps span:nth-child(odd){transform:rotate(-1.2deg)}
-.geo-stamps span:nth-child(3n){transform:rotate(1deg)}
+.geo-stamps a{border:1.5px solid rgba(38,33,92,.4);box-shadow:inset 0 0 0 1px rgba(38,33,92,.12);color:var(--navy);border-radius:5px;padding:5px 13px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.geo-stamps a:nth-child(odd){transform:rotate(-1.2deg)}
+.geo-stamps a:nth-child(3n){transform:rotate(1deg)}
 .rvph-nav{display:flex;gap:8px;margin-left:auto}
 .rvph-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);color:var(--navy);display:grid;place-items:center;cursor:pointer;transition:border-color .18s,color .18s,opacity .18s,transform .18s}
 .rvph-btn:hover{border-color:var(--accent);color:var(--accent)}
@@ -525,7 +524,7 @@ h1 em{margin-left:-.03em}
 h2,.lb-title,.path-head .t,.rvph-title,.guar-frame h2{text-wrap:balance}
 p,li{text-wrap:pretty}
 .sec-head p{max-width:58ch}
-.cc-stamp{display:block;width:max-content;max-width:100%;margin:11px auto 6px;transform:rotate(-4deg) scale(1.25);border:2px solid rgba(91,82,204,.5);color:rgba(91,82,204,.8);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;border-radius:4px;opacity:0;transition:opacity .25s ease,transform .3s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
+.cc-stamp{display:block;width:max-content;max-width:100%;margin:11px auto 6px;transform:rotate(-4deg) scale(1.25);border:2px solid rgba(110,103,197,.5);color:rgba(110,103,197,.8);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;border-radius:4px;opacity:0;transition:opacity .25s ease,transform .3s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
 .case-card{position:relative}
 .case-card.stamped .cc-stamp{opacity:1;transform:rotate(-4deg) scale(1)}
 @media(prefers-reduced-motion:reduce){
@@ -538,24 +537,16 @@ p,li{text-wrap:pretty}
 .hero-side{position:relative}
 .hero-video{display:block;position:relative;border-radius:16px;overflow:hidden;box-shadow:0 2px 4px rgba(30,27,75,.06),0 30px 70px -30px rgba(30,27,75,.35)}
 .hero-video img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:saturate(.72)}
-.hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(30,27,75,.58),rgba(30,27,75,.30) 52%,rgba(91,82,204,.32));pointer-events:none;z-index:1}
+.hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(30,27,75,.58),rgba(30,27,75,.30) 52%,rgba(110,103,197,.32));pointer-events:none;z-index:1}
 .hero-video .hv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(38,33,92,.88);box-shadow:0 0 0 6px rgba(250,250,247,.18);display:grid;place-items:center;transition:transform .18s,background .18s;z-index:2}
 .hv-dur{position:absolute;right:14px;bottom:12px;z-index:2;background:rgba(30,27,75,.82);color:#fff;font:600 12.5px/1 var(--sans);padding:6px 10px;border-radius:6px;letter-spacing:.05em;font-variant-numeric:lining-nums tabular-nums}
 .hero-video .hv-play svg{margin-left:3px}
 .hero-video:hover .hv-play{transform:translate(-50%,-50%) scale(1.08);background:var(--accent)}
 .hero-side{align-self:center}
-.strip{overflow:hidden;background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
-.strip-track{display:flex;width:max-content;animation:stripMove 55s linear infinite}
-.strip:hover .strip-track{animation-play-state:paused}
-.strip img{height:150px;width:auto;aspect-ratio:3/3.55;object-fit:cover;border-radius:10px;box-shadow:0 6px 18px -8px rgba(30,27,75,.25);margin-right:16px}
-@keyframes stripMove{to{transform:translateX(-50%)}}
 .final-shots{display:flex;gap:14px;margin-top:30px}
 .final-shots img{width:86px;aspect-ratio:3/3.55;object-fit:cover;border-radius:8px;border:3px solid rgba(255,255,255,.9);box-shadow:0 10px 26px -12px rgba(0,0,0,.5)}
 .final-shots img:nth-child(1){transform:rotate(-4deg)}
 .final-shots img:nth-child(3){transform:rotate(4deg)}
-
-@media(max-width:640px){.strip img{height:110px}.strip{padding:14px 0}}
-@media(prefers-reduced-motion:reduce){.strip-track{animation:none}}
 
 .vq-hero{margin:18px 0 14px;max-width:520px}
 .vq-hero .vq-thumb{width:92px;height:52px}
@@ -644,7 +635,7 @@ section > .wrap{position:relative;z-index:1}
 /* ---------- photo kit ---------- */
 .photo-fig{border-radius:16px;overflow:hidden;border:1px solid var(--line-2);box-shadow:var(--shadow-sm);margin:0;position:relative}
 .photo-fig img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-fig.tint::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.16),rgba(91,82,204,.08));pointer-events:none}
+.photo-fig.tint::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.16),rgba(110,103,197,.08));pointer-events:none}
 .photo-fig figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(transparent,rgba(30,27,75,.82));color:#fff;font-size:13px;font-weight:600;z-index:1}
 .about-fig{aspect-ratio:16/9;margin-bottom:22px}
 .cab-fig{aspect-ratio:21/9;margin-top:30px;max-width:560px}
@@ -699,7 +690,6 @@ section > .wrap{position:relative;z-index:1}
 
 /* ===== motion polish (v10.5) ===== */
 @keyframes kenburns{0%{transform:scale(1)}100%{transform:scale(1.07)}}
-@keyframes softrise{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
 .rv{transition:opacity .62s cubic-bezier(.16,.72,.2,1),transform .72s cubic-bezier(.16,.72,.2,1)}
 .rv-sc{opacity:0;transform:scale(1.045);transition:opacity .7s ease,transform .95s cubic-bezier(.16,.72,.2,1);will-change:transform,opacity}
 .rv-sc.in{opacity:1;transform:none}
@@ -763,7 +753,7 @@ section > .wrap{position:relative;z-index:1}
 .contact-split .cs-side>p{color:#C9C7E8;font-size:14.5px;margin-bottom:24px}
 .contact-split .cs-line{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 18px;margin-bottom:12px;color:#fff;text-decoration:none;transition:background .18s}
 .contact-split .cs-line:hover{background:rgba(255,255,255,.14)}
-.contact-split .cs-line .ic{width:38px;height:38px;border-radius:10px;background:rgba(184,178,245,.2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--lilac)}
+.contact-split .cs-line .ic{width:38px;height:38px;border-radius:10px;background:rgba(183,178,230,.2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--lilac)}
 .contact-split .cs-line b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--lilac)}
 .contact-split .cs-line span{font-size:14.5px}
 .contact-split .cs-form{background:var(--card);padding:40px 36px}
@@ -789,7 +779,7 @@ section > .wrap{position:relative;z-index:1}
 .video-hero{position:relative;min-height:100vh;display:grid;grid-template-rows:1fr auto;padding:0;overflow:hidden;background:var(--navy-deep)}
 .video-hero .vh-bg{position:absolute;inset:0;z-index:0;display:block}
 .video-hero .vh-bg img{width:100%;height:100%;object-fit:cover}
-.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,18,45,.94) 0%,rgba(30,27,75,.82) 42%,rgba(30,27,75,.55) 70%,rgba(91,82,204,.42) 100%)}
+.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,18,45,.94) 0%,rgba(30,27,75,.82) 42%,rgba(30,27,75,.55) 70%,rgba(110,103,197,.42) 100%)}
 .video-hero>.wrap{position:relative;z-index:2;width:100%;align-self:center}
 .video-hero .vh-inner{max-width:640px;padding:120px 0 130px}
 .video-hero .kicker{color:var(--lilac)}
@@ -803,7 +793,7 @@ section > .wrap{position:relative;z-index:1}
 .btn-ghost-light{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4);color:#fff;backdrop-filter:blur(6px)}
 .btn-ghost-light:hover{background:rgba(255,255,255,.2)}
 .vh-play{position:absolute;z-index:3;right:6%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;text-decoration:none}
-.vh-play::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:rgba(91,82,204,.92);box-shadow:0 0 0 10px rgba(255,255,255,.14),0 20px 50px -12px rgba(0,0,0,.5);transition:transform .2s,background .2s}
+.vh-play::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:78px;border-radius:50%;background:rgba(110,103,197,.92);box-shadow:0 0 0 10px rgba(255,255,255,.14),0 20px 50px -12px rgba(0,0,0,.5);transition:transform .2s,background .2s}
 .vh-play svg{position:relative;z-index:1;margin-top:26px;margin-left:4px}
 .vh-play:hover::before{transform:translateX(-50%) scale(1.08);background:var(--accent-dark)}
 .vh-play .vh-dur{position:relative;z-index:1;margin-top:64px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;background:rgba(20,18,45,.6);padding:7px 14px;border-radius:999px;backdrop-filter:blur(6px);white-space:nowrap}
@@ -846,7 +836,7 @@ section > .wrap{position:relative;z-index:1}
 .mini-stats .ms{border:1px solid var(--line-2);border-top:2px solid var(--accent);border-radius:12px;background:var(--card);padding:18px 18px 17px;box-shadow:var(--shadow-sm);transition:transform .24s cubic-bezier(.2,.6,.2,1),box-shadow .24s,border-color .24s}
 .mini-stats .ms .n{font-family:var(--serif);font-weight:800;font-size:25px;color:var(--navy);line-height:1;font-variant-numeric:lining-nums tabular-nums}
 .mini-stats .ms .l{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.4}
-@media(hover:hover){.mini-stats .ms:hover{transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(91,82,204,.3);border-color:rgba(91,82,204,.4)}}
+@media(hover:hover){.mini-stats .ms:hover{transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(110,103,197,.3);border-color:rgba(110,103,197,.4)}}
 @media(max-width:640px){.mini-stats{grid-template-columns:1fr 1fr}.mini-stats .ms:last-child{grid-column:1/-1}}
 
 /* блог — крупнее и живее: pill-рубрика, wipe-полоса сверху, разделитель, colored lift */
@@ -858,7 +848,7 @@ section > .wrap{position:relative;z-index:1}
 .blog-card .rd{margin-top:18px}
 @media(hover:hover){
   .blog-card:hover::before{transform:scaleX(1)}
-  .blog-card:hover{transform:translateY(-4px);box-shadow:0 22px 48px -24px rgba(91,82,204,.3);border-color:rgba(91,82,204,.42)}
+  .blog-card:hover{transform:translateY(-4px);box-shadow:0 22px 48px -24px rgba(110,103,197,.3);border-color:rgba(110,103,197,.42)}
 }
 @media(prefers-reduced-motion:reduce){.blog-card::before{display:none}}
 
@@ -868,11 +858,6 @@ section > .wrap{position:relative;z-index:1}
   .faq-cols:has(.faq-col){max-width:1040px;display:grid;grid-template-columns:1fr 1fr;column-gap:60px;align-items:start}
 }
 
-/* один «дышащий» элемент героя — приглашает к видео (десктоп, без reduce) */
-@keyframes vhFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 6px))}}
-@media(min-width:901px) and (prefers-reduced-motion:no-preference){
-  .vh-play{animation:vhFloat 5.5s ease-in-out infinite}
-}
 
 
 /* fix: grid-элементы должны сжиматься (иначе мобильное переполнение) */
@@ -903,7 +888,7 @@ figure,.photo-fig,.duo-side,.duo-side>*{max-width:100%;min-width:0}
 /* 1. Фото — единый арт-дирекшен: приглушённый монохром + наш тон (не «цветной сток») */
 .photo-fig img{filter:grayscale(.78) contrast(1.07) brightness(.99);transition:transform .85s cubic-bezier(.16,.72,.2,1),filter .6s ease}
 .photo-fig:hover img{filter:grayscale(.42) contrast(1.04) brightness(1.01)}
-.photo-fig.tint::after{background:linear-gradient(152deg,rgba(38,33,92,.34) 0%,rgba(91,82,204,.2) 55%,rgba(38,33,92,.28) 100%)}
+.photo-fig.tint::after{background:linear-gradient(152deg,rgba(38,33,92,.34) 0%,rgba(110,103,197,.2) 55%,rgba(38,33,92,.28) 100%)}
 .photo-fig{border-color:rgba(38,33,92,.10)}
 /* 2. Тени — многослойные, мягкие (дорогая глубина вместо плоского блока) */
 :root{--shadow-sm:0 1px 2px rgba(30,27,75,.04),0 8px 20px -12px rgba(30,27,75,.10),0 28px 60px -34px rgba(30,27,75,.16)}
@@ -1033,7 +1018,7 @@ p{max-width:68ch}
 /* ===== hero v16: чистое фото + видео отдельным кадром ===== */
 .video-hero{min-height:auto}
 .video-hero .vh-bg img{filter:grayscale(.35) contrast(1.04)}
-.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(104deg,rgba(18,16,42,.95) 0%,rgba(30,27,75,.9) 44%,rgba(30,27,75,.72) 68%,rgba(91,82,204,.5) 100%)}
+.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(104deg,rgba(18,16,42,.95) 0%,rgba(30,27,75,.9) 44%,rgba(30,27,75,.72) 68%,rgba(110,103,197,.5) 100%)}
 .vh-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;padding:118px 0 96px}
 .video-hero .vh-inner{max-width:none;padding:0}
 .vh-side{min-width:0}
@@ -1041,7 +1026,7 @@ p{max-width:68ch}
 .video-hero .hero-video img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,.72,.2,1)}
 .video-hero .hero-video:hover img{transform:scale(1.03)}
 .video-hero .hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.2),transparent 60%);pointer-events:none}
-.video-hero .hv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(91,82,204,.94);box-shadow:0 0 0 10px rgba(255,255,255,.16),0 18px 40px -10px rgba(0,0,0,.5);display:grid;place-items:center;transition:transform .2s,background .2s;z-index:2}
+.video-hero .hv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(110,103,197,.94);box-shadow:0 0 0 10px rgba(255,255,255,.16),0 18px 40px -10px rgba(0,0,0,.5);display:grid;place-items:center;transition:transform .2s,background .2s;z-index:2}
 .video-hero .hv-play svg{margin-left:4px}
 .video-hero .hero-video:hover .hv-play{transform:translate(-50%,-50%) scale(1.07);background:var(--accent-dark)}
 .video-hero .hv-dur{position:absolute;right:14px;bottom:13px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(18,16,42,.72);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
@@ -1130,6 +1115,149 @@ p{max-width:68ch}
   .m-menu a{animation:none !important}
 }
 
+/* ===== соцсети · только главная (#en-social) ===== */
+#en-social .soc-band{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:stretch}
+#en-social .soc-list{min-width:0}
+
+#en-social .soc-row{display:grid;grid-template-columns:46px 1fr auto;gap:2px 16px;align-items:center;
+  padding:16px 14px;margin:0 -14px;border-bottom:1px solid var(--line);border-radius:10px;
+  text-decoration:none;color:inherit}
+#en-social .soc-rows .soc-row:last-child{border-bottom:none}
+
+/* чип = клон .feat-num .fn .ic (46px / radius 12 / --lav / --accent / svg 22px).
+   ВСЕ позиции заданы явно: .ic и .go имеют определённую строку (grid-row:1/3), поэтому
+   авто-раскладка ставит их ДО .sn — без явных колонок стрелка уезжала в колонку 2,
+   а название улетало в колонку 3 (правый край). */
+#en-social .soc-row .ic{grid-column:1;grid-row:1/3;width:46px;height:46px;border-radius:12px;background:var(--lav);
+  color:var(--accent);display:flex;align-items:center;justify-content:center}
+#en-social .soc-row .ic svg{width:22px;height:22px}
+
+#en-social .soc-row .sn{grid-column:2;grid-row:1;font-size:15.5px;font-weight:600;color:var(--ink)}
+#en-social .soc-row .sh{font-weight:500;font-size:13px;color:var(--ink-3);margin-left:7px}
+#en-social .soc-row .sd{grid-column:2;grid-row:2;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+#en-social .soc-row .go{grid-column:3;grid-row:1/3;justify-self:end;color:var(--accent);font-weight:600;font-size:15px}
+
+#en-social .soc-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:13px;line-height:1.6;color:var(--ink-2)}
+#en-social .soc-note a{color:var(--accent);font-weight:600}
+
+/* фото тянется по высоте ЛЕВОЙ колонки: img выведен из потока, иначе его собственные
+   1200×1800 задавали высоту строки (640px) и под списком зияла пустая половина.
+   .photo-fig уже position:relative + overflow:hidden — идиому не трогаем. */
+#en-social .soc-fig{margin:0;height:100%}
+#en-social .soc-fig img{position:absolute;inset:0;width:100%;height:100%;object-position:50% 28%}
+
+@media(max-width:1020px){
+  #en-social .soc-band{grid-template-columns:1fr;gap:34px}
+  #en-social .soc-fig{height:auto;aspect-ratio:4/3}
+}
+@media(max-width:560px){
+  #en-social .soc-row{grid-template-columns:40px 1fr;gap:2px 13px;padding:15px 10px;margin:0 -10px}
+  #en-social .soc-row .ic{width:40px;height:40px;border-radius:11px}
+  #en-social .soc-row .ic svg{width:20px;height:20px}
+  #en-social .soc-row .go{display:none}
+}
+
+/* соцсети · движение (база ВИДИМАЯ, прячет только .rv:not(.in) — .rv вешает JS лишь при !reduced) */
+#en-social .soc-row{transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1),background-color .2s}
+#en-social .soc-row.rv:not(.in){opacity:0;transform:translateX(-6px)}
+#en-social .soc-row .ic{transition:transform .44s cubic-bezier(.3,1.34,.5,1),background-color .28s,color .28s;transition-delay:inherit}
+#en-social .soc-row.rv:not(.in) .ic{transform:scale(.4)}
+#en-social .soc-row .go{transition:transform .26s cubic-bezier(.2,.6,.2,1)}
+
+@media(hover:hover){
+  #en-social .soc-row:hover{background:var(--paper-2)}
+  #en-social .soc-row:hover .ic{transform:translateY(-2px) scale(1.06);background:var(--accent);color:#fff}
+  #en-social .soc-row:hover .go{transform:translateX(4px)}
+}
+#en-social .soc-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media(prefers-reduced-motion:reduce){
+  #en-social .soc-row,#en-social .soc-row .ic{opacity:1!important;transform:none!important;transition:none!important}
+  #en-social .soc-row:hover .ic{transform:none!important}
+}
+
+/* ===== motion v15 — оживление главной (всё по схеме «база видима, прячет .rv:not(.in)») ===== */
+
+/* 2 · гео-штампы: проштамповываются по доскроллу (базовый rotate живёт внутри того же transform) */
+#en-reviews .geo-stamps a{transition:opacity .4s cubic-bezier(.16,.72,.2,1),transform .46s cubic-bezier(.3,1.35,.45,1)}
+#en-reviews .geo-line.rv:not(.in) .geo-stamps a{opacity:0;transform:scale(1.18)}
+#en-reviews .geo-line.rv:not(.in) .geo-stamps a:nth-child(odd){transform:rotate(-1.2deg) scale(1.18)}
+#en-reviews .geo-line.rv:not(.in) .geo-stamps a:nth-child(3n){transform:rotate(1deg) scale(1.18)}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(1){transition-delay:.04s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(2){transition-delay:.08s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(3){transition-delay:.12s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(4){transition-delay:.16s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(5){transition-delay:.2s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(6){transition-delay:.24s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(7){transition-delay:.28s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(8){transition-delay:.32s}
+#en-reviews .geo-line.rv.in .geo-stamps a:nth-child(9){transition-delay:.36s}
+@media(prefers-reduced-motion:reduce){
+  #en-reviews .geo-stamps a{opacity:1!important;transition:none!important}
+}
+
+/* 4 · «О компании»: заголовок теперь в .sec-head — гасим её глобальные отступы/ширину */
+#en-about .sec-head{margin-bottom:0;max-width:none}
+
+/* 5 · «Сравните»: пункты обеих колонок проявляются каскадом (идиома .side-card.rv li) */
+#en-vs .vs-col.rv li{opacity:0;transform:translateX(-6px);transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1)}
+#en-vs .vs-col.rv li::before{transform:scale(.4);transition:transform .44s cubic-bezier(.3,1.34,.5,1);transition-delay:inherit}
+#en-vs .vs-col.rv.in li{opacity:1;transform:none}
+#en-vs .vs-col.rv.in li::before{transform:none}
+#en-vs .vs-col.rv.in li:nth-child(1){transition-delay:.06s}
+#en-vs .vs-col.rv.in li:nth-child(2){transition-delay:.12s}
+#en-vs .vs-col.rv.in li:nth-child(3){transition-delay:.18s}
+#en-vs .vs-col.rv.in li:nth-child(4){transition-delay:.24s}
+#en-vs .vs-col.rv.in li:nth-child(5){transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){
+  #en-vs .vs-col.rv li,#en-vs .vs-col.rv li::before{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* 6 · MOS-плашка: метка «Важно ·» подаётся следом за плашкой */
+#en-process .mos-band .mb-lbl{transition:opacity .5s cubic-bezier(.16,.72,.2,1) .18s,transform .5s cubic-bezier(.16,.72,.2,1) .18s}
+#en-process .mos-band.rv:not(.in) .mb-lbl{opacity:0;transform:translateX(-6px)}
+@media(prefers-reduced-motion:reduce){
+  #en-process .mos-band .mb-lbl{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* 7 · опросник: 4 плитки-витрины въезжают каскадом от контейнера .check-panel
+   (.check-opt в sel НЕ добавляем — был бы .rv внутри .rv; свойства перечислены явно,
+   иначе глобальный .check-opt{transition:all .15s} перебьёт) */
+#en-check .check-opts .check-opt{transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1),border-color .15s,background-color .15s}
+#en-check .check-panel.rv:not(.in) .check-opt{opacity:0;transform:translateY(6px)}
+#en-check .check-panel.rv.in .check-opt:nth-child(1){transition-delay:.08s}
+#en-check .check-panel.rv.in .check-opt:nth-child(2){transition-delay:.14s}
+#en-check .check-panel.rv.in .check-opt:nth-child(3){transition-delay:.2s}
+#en-check .check-panel.rv.in .check-opt:nth-child(4){transition-delay:.26s}
+@media(prefers-reduced-motion:reduce){
+  #en-check .check-opts .check-opt{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* 8 · рефералка: шаги 1 → 2 → 3 пересчитываются */
+#en-referral .ref-steps .rs{transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1)}
+#en-referral .ref-band.rv:not(.in) .rs{opacity:0;transform:translateX(-6px)}
+#en-referral .ref-band.rv.in .rs:nth-child(1){transition-delay:.1s}
+#en-referral .ref-band.rv.in .rs:nth-child(2){transition-delay:.18s}
+#en-referral .ref-band.rv.in .rs:nth-child(3){transition-delay:.26s}
+@media(prefers-reduced-motion:reduce){
+  #en-referral .ref-steps .rs{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* 9 · полароиды в контактах: веер под курсором (базовый rotate переписывается внутри transform) */
+#en-contact .final-shots img{transition:transform .38s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover){
+  #en-contact .final-shots:hover img:nth-child(1){transform:rotate(-4deg) translateX(-7px)}
+  #en-contact .final-shots:hover img:nth-child(2){transform:translateY(-3px) scale(1.06)}
+  #en-contact .final-shots:hover img:nth-child(3){transform:rotate(4deg) translateX(7px)}
+}
+@media(prefers-reduced-motion:reduce){
+  #en-contact .final-shots img{transition:none!important}
+  #en-contact .final-shots:hover img:nth-child(1){transform:rotate(-4deg)}
+  #en-contact .final-shots:hover img:nth-child(2){transform:none}
+  #en-contact .final-shots:hover img:nth-child(3){transform:rotate(4deg)}
+}
+
 </style>
 <script type="application/ld+json">
 {
@@ -1168,7 +1296,7 @@ p{max-width:68ch}
 <header>
   <div class="wrap nav">
     <a class="logo" href="#en-top">
-      <svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+      <svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B7B2E6"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B7B2E6"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6E67C5"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6E67C5"/></svg>
       <span>
         <span class="logo-name">LEGALSOL</span>
         <span class="logo-sub" style="display:block">LEGALIZATION SERVICES</span>
@@ -1271,11 +1399,13 @@ p{max-width:68ch}
   <div class="wrap">
     <div class="about-grid">
       <div class="about-copy">
-        <div class="kicker">О компании</div>
-        <h2>С удобством и <em>без лишнего стресса</em></h2>
-        <p style="margin-top:22px">Мы становимся вашим <strong>персональным юридическим партнёром</strong> на всё время пребывания в Польше.</p>
-        <p>Мы сами иностранцы — студенческая виза, карта побыту, ПМЖ, гражданство. Мы знаем это ожидание, потому что прожили его сами.</p>
-        
+        <div class="sec-head">
+          <div class="kicker">О компании</div>
+          <h2>С удобством и <em>без лишнего стресса</em></h2>
+          <p style="margin-top:22px">Мы становимся вашим <strong>персональным юридическим партнёром</strong> на всё время пребывания в Польше.</p>
+          <p>Мы сами иностранцы — студенческая виза, карта побыту, ПМЖ, гражданство. Мы знаем это ожидание, потому что прожили его сами.</p>
+        </div>
+
         <div class="team-strip">
           <div class="team-card"><span class="ava">✓</span><span><span class="tn" style="display:block">Команда с 2020 года</span><span class="tl">Ведём дела о легализации каждый день</span></span></div>
           <div class="team-card"><span class="ava">§</span><span><span class="tn" style="display:block">Проверяем каждый пакет</span><span class="tl">Двойной контроль до подачи — юрист и система</span></span></div>
@@ -1493,7 +1623,7 @@ p{max-width:68ch}
 </section>
 
 <!-- vs -->
-<section>
+<section id="en-vs">
   <img class="bg-art bg-right" src="/assets/trc/bg_desk2.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head center">
@@ -1703,6 +1833,74 @@ p{max-width:68ch}
 
 
 
+<!-- ============ соцсети · «Каналы» ============ -->
+<section id="en-social" style="padding-top:0">
+  <div class="wrap">
+
+    <div class="sec-head">
+      <div class="kicker">Каналы</div>
+      <h2>Нас видно <em>не только здесь</em></h2>
+      <p>Instagram, TikTok, Telegram и YouTube — если удобнее следить за нами там.</p>
+    </div>
+
+    <div class="soc-band">
+      <div class="soc-list">
+
+        <div class="doc-head"><span>Официальные аккаунты</span><span>4 канала</span></div>
+
+        <div class="soc-rows">
+
+          <a class="soc-row" href="https://instagram.com/legalsol.pl" target="_blank" rel="noopener">
+            <span class="ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </span>
+            <span class="sn">Instagram<span class="sh">@legalsol.pl</span></span>
+            <span class="sd">Карточки и разборы: PESEL, карта побыту, частые ошибки при подаче</span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="soc-row" href="https://tiktok.com/@legalsol.pl" target="_blank" rel="noopener">
+            <span class="ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v12a4 4 0 1 1-4-4c.35 0 .7.05 1 .13"/><path d="M13 4c.4 2.6 2.5 4.5 5 4.6"/></svg>
+            </span>
+            <span class="sn">TikTok<span class="sh">@legalsol.pl</span></span>
+            <span class="sd">Короткие видео о легализации</span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="soc-row" href="https://t.me/legalsolinfo" target="_blank" rel="noopener">
+            <span class="ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 4.6 3.2 11.3c-.6.2-.6 1 0 1.2l4.6 1.5 1.7 5.1c.2.6 1 .7 1.3.2l2.4-2.7 4.4 3.2c.5.4 1.2.1 1.3-.5l3.1-13.8c.1-.6-.4-1.1-1-.9Z"/><path d="m7.9 14 11.6-8.2-8.2 11.6"/></svg>
+            </span>
+            <span class="sn">Telegram<span class="sh">@legalsolinfo</span></span>
+            <span class="sd">Наш Telegram — для тех, кому он привычнее</span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="soc-row" href="https://youtube.com/@legal_sol" target="_blank" rel="noopener">
+            <span class="ic" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10.2 9.3 5.3 2.7-5.3 2.7z"/></svg>
+            </span>
+            <span class="sn">YouTube<span class="sh">@legal_sol</span></span>
+            <span class="sd">Видео о компании — то самое, что в начале этой страницы</span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+        <p class="soc-note">Ваш личный вопрос быстрее решить в <a href="https://wa.me/48735248525">WhatsApp</a> — ответим за 15 минут.</p>
+
+      </div>
+
+      <figure class="photo-fig tint soc-fig">
+        <img src="/assets/trc/ph_advisor.jpg" alt="" loading="lazy" width="1200" height="1800">
+        <figcaption>На понятном языке</figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
 <!-- referral -->
 <section style="padding-top:0" id="en-referral">
   <img class="bg-art bg-right" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
@@ -1776,7 +1974,7 @@ p{max-width:68ch}
     <div class="ft-grid">
       <div class="ft-brand">
         <span style="display:flex;align-items:center;gap:11px">
-          <svg width="30" height="28" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B52CC"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B52CC"/></svg>
+          <svg width="30" height="28" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B7B2E6"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B7B2E6"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#8B82E8"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6E67C5"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6E67C5"/></svg>
           <span class="logo-name serif">LEGALSOL</span>
         </span>
         <p>Юридическое сопровождение иностранцев в Польше.</p>
@@ -1851,7 +2049,7 @@ p{max-width:68ch}
   var sel = '.sec-head,.step,.feat,.rev-card,.eco-card,.tech-cell,.blog-card,.path,.path-row,' +
             '.guar-frame,.seal,.vs-col,.check-copy,.check-panel,.stat,.tech-num,.tech-note,' +
             '.waits,.svc-card,.lead-band,.rvph,.ref-band,.final-form,.final-grid .copy,.rev-meta,.geo-line,' +
-            '.mini-stats .ms,.ca-split,.faq-cols details';
+            '.mini-stats .ms,.ca-split,#en-social .soc-row,#en-process .mos-band,.faq-cols details';
   var els = [].slice.call(document.querySelectorAll(sel));
   if(!reduced){
     els.forEach(function(el){ el.classList.add('rv'); });
@@ -1865,7 +2063,7 @@ p{max-width:68ch}
         if(!e.isIntersecting) return;
         e.target.classList.add('in');
         io.unobserve(e.target);
-        if(e.target.classList.contains('stat') || e.target.classList.contains('tech-num') || e.target.classList.contains('ms')) countUp(e.target);
+        if(e.target.classList.contains('stat') || e.target.classList.contains('tech-num') || e.target.classList.contains('ms') || e.target.classList.contains('ref-band')) countUp(e.target);
       });
     }, {threshold:.05, rootMargin:'0px 0px 20% 0px'});
     els.forEach(function(el){ io.observe(el); });
@@ -1876,7 +2074,7 @@ p{max-width:68ch}
       if(r.top < vh0 && r.bottom > 0){
         el.classList.add('in');
         io.unobserve(el);
-        if(el.classList.contains('stat') || el.classList.contains('tech-num') || el.classList.contains('ms')) countUp(el);
+        if(el.classList.contains('stat') || el.classList.contains('tech-num') || el.classList.contains('ms') || el.classList.contains('ref-band')) countUp(el);
       }
     });
     /* hero stat-strip: tween once on load (панели видны сразу, анимируются только цифры) */
@@ -1937,10 +2135,11 @@ p{max-width:68ch}
         if(cc0) cc0.classList.add('stamped');
         return;
       }
-      setTimeout(function(){
+      /* сценарий отыгрывает, когда карточку РЕАЛЬНО видно (была ~7 экранов ниже таймера на 2.2с) */
+      var run = function(){
         var row = photo.closest('.case-row');
         row.style.transition = 'background .4s';
-        row.style.background = '#EEEDF8';
+        row.style.background = '#EFEEF7';
         photo.textContent = t.checking;
         setTimeout(function(){
           photo.textContent = t.updated;
@@ -1957,7 +2156,17 @@ p{max-width:68ch}
             }
           }, 260);
         }, 1100);
-      }, 2200);
+      };
+      var ccBox = chance.closest('.case-card');
+      if(!ccBox || !('IntersectionObserver' in window)){ setTimeout(run, 2200); return; }
+      var cio = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(!e.isIntersecting) return;
+          cio.unobserve(e.target);
+          setTimeout(run, 600);
+        });
+      }, {threshold:.35});
+      cio.observe(ccBox);
     });
 
   /* --- лид-формы -> WhatsApp --- */
@@ -2101,7 +2310,14 @@ p{max-width:68ch}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
-  scale.forEach(function(el){ io.observe(el); });
+  /* Фото — та же защита, что и у плашек: у observer'а нижний rootMargin -8%,
+     и фото, попавшее в первый экран, висело бы прозрачным до первого скролла. */
+  requestAnimationFrame(function(){
+    scale.forEach(function(el){
+      if(el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
+      else io.observe(el);
+    });
+  });
   /* Плашки: те, что уже в первом экране, показываем сразу — у observer'а нижний
      rootMargin -8%, и плашки героя попадали под эту черту → первый экран зиял пустотой. */
   var gps = [].slice.call(document.querySelectorAll('.glass-pills .gp'));
