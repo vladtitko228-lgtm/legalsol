@@ -106,7 +106,7 @@ nav.main a:hover{color:var(--indigo)}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .stat{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;text-align:center}
 .stat .n{font-size:clamp(30px,3.6vw,42px);font-weight:800;color:var(--indigo);letter-spacing:-.03em;line-height:1}
-.stat .n em{font-style:normal;color:var(--gold-2)}
+.stat .n em{font-style:normal;color:inherit;opacity:.85}
 .stat .l{font-size:14px;color:var(--ink-2);margin-top:10px;font-weight:500}
 
 /* trust strip */
@@ -420,6 +420,62 @@ section>.wrap{position:relative;z-index:1}
   .chk-opts{grid-template-columns:1fr 1fr}
   .geo .chip{font-size:12.5px;padding:7px 12px}
 }
+/* motion pack */
+.stat .n{transition:color .35s cubic-bezier(.16,.7,.2,1)}
+.stat:hover .n{color:var(--indigo-7)}
+/* waits: бары сроков scaleX(0)->1 каскадом */
+.js .waits .wbar{transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.16,.7,.2,1)}
+.js .waits.in .wbar{transform:scaleX(1)}
+.js .waits.in .wrow:nth-child(3) .wbar{transition-delay:.12s}
+.js .waits.in .wrow:nth-child(4) .wbar{transition-delay:.24s}
+.js .waits.in .wrow:nth-child(5) .wbar{transition-delay:.36s}
+/* path: линия прогресса + каскад строк + pop номеров */
+.path{position:relative}
+.path .prow .pn{position:relative;z-index:1}
+.prow:hover .pn{transform:scale(1.08)}
+.path::before{content:"";position:absolute;left:46px;top:41px;width:2px;height:calc(100% - 82px);background:linear-gradient(180deg,var(--indigo-2),var(--indigo) 55%,var(--gold));pointer-events:none}
+.js .path::before{height:0;transition:height 1.2s cubic-bezier(.16,.7,.2,1) .15s}
+.js .path.in::before{height:calc(100% - 82px)}
+.js .path .prow{opacity:0;transform:translateX(-14px);transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1)}
+.js .path.in .prow{opacity:1;transform:none}
+.js .path .prow .pn{transform:scale(.6);transition:transform .7s cubic-bezier(.16,.7,.2,1)}
+.js .path.in .prow .pn{transform:scale(1)}
+.js .path.in .prow:nth-child(2),.js .path.in .prow:nth-child(2) .pn{transition-delay:.09s}
+.js .path.in .prow:nth-child(3),.js .path.in .prow:nth-child(3) .pn{transition-delay:.18s}
+.js .path.in .prow:nth-child(4),.js .path.in .prow:nth-child(4) .pn{transition-delay:.27s}
+.js .path.in .prow:nth-child(5),.js .path.in .prow:nth-child(5) .pn{transition-delay:.36s}
+.js .path.in .prow:nth-child(6),.js .path.in .prow:nth-child(6) .pn{transition-delay:.45s}
+.js .path.in .prow:nth-child(7),.js .path.in .prow:nth-child(7) .pn{transition-delay:.54s}
+.js .path.in .prow:hover .pn{transform:scale(1.08);transition-delay:0s;transition-duration:.25s}
+/* cabinet: прогресс готовности 0->91% */
+.js .cabcard .cbf{width:0;transition:width 1s cubic-bezier(.16,.7,.2,1) .3s}
+.js .cabcard.in .cbf{width:91%}
+/* steps: pop номеров этапов */
+.js .steps-grid .step .num{transform:scale(.7) rotate(-6deg);transition:transform .8s cubic-bezier(.16,.7,.2,1)}
+.js .steps-grid.in .step .num{transform:none}
+.js .steps-grid.in .step:nth-child(2) .num{transition-delay:.1s}
+.js .steps-grid.in .step:nth-child(3) .num{transition-delay:.2s}
+.js .steps-grid.in .step:nth-child(4) .num{transition-delay:.3s}
+@media(max-width:640px){
+  .path::before{left:38px;top:37px}
+  .js .path.in::before{height:calc(100% - 74px)}
+}
+/* motion pack: защита для краулеров (noanim) — мгновенный ФИНАЛ */
+.js.noanim .waits .wbar,.js.noanim .path::before,.js.noanim .path .prow,.js.noanim .path .prow .pn,.js.noanim .cabcard .cbf,.js.noanim .steps-grid .step .num{transition:none!important}
+.js.noanim .waits .wbar{transform:scaleX(1)!important}
+.js.noanim .path::before{height:calc(100% - 82px)!important}
+.js.noanim .path .prow{opacity:1!important;transform:none!important}
+.js.noanim .path .prow .pn,.js.noanim .steps-grid .step .num{transform:none!important}
+.js.noanim .cabcard .cbf{width:91%!important}
+/* motion pack: prefers-reduced-motion — полный откат в финал */
+@media(prefers-reduced-motion:reduce){
+  .js .waits .wbar,.js .path::before,.js .path .prow,.js .path .prow .pn,.js .cabcard .cbf,.js .steps-grid .step .num{transition:none!important}
+  .js .waits .wbar{transform:scaleX(1)!important}
+  .js .path::before{height:calc(100% - 82px)!important}
+  .js .path .prow{opacity:1!important;transform:none!important}
+  .js .path .prow .pn,.js .steps-grid .step .num{transform:none!important}
+  .js .cabcard .cbf{width:91%!important}
+}
 </style>
 </head>
 <body>
@@ -464,7 +520,7 @@ section>.wrap{position:relative;z-index:1}
 
 <main id="top">
 <!-- HERO -->
-<section class="hero"><div class="wrap"><div class="hero-grid">
+<section class="hero"><img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="eager" style="opacity:.08;width:52%"><div class="wrap"><div class="hero-grid">
   <div>
     <span class="eyebrow">Легализация иностранцев в Польше · Варшава</span>
     <h1>Ваша карта побыту — <em>профессионально и без стресса</em></h1>
@@ -903,7 +959,7 @@ section>.wrap{position:relative;z-index:1}
   </div>
   <div class="ft-bot">
     <span>© 2026 LegalSol. Все права защищены.</span>
-    <span>Instagram · TikTok · Telegram · YouTube</span>
+    <span class="socials"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener">TikTok</a> · <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener">Telegram</a> · <a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener">YouTube</a></span>
   </div>
 </div></footer>
 <div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
@@ -926,12 +982,12 @@ document.documentElement.className='js';
 window.lsPlay=function(el){var f=document.createElement('iframe');f.className='vframe';f.src='https://www.youtube.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1';f.title='LegalSol';f.allow='autoplay; encrypted-media; picture-in-picture; web-share';f.setAttribute('allowfullscreen','');el.replaceWith(f);};
 window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;try{v.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}window.lsPlay(v);};
 (function(){
-  var els=[].slice.call(document.querySelectorAll('.reveal,.stg'));
+  var els=[].slice.call(document.querySelectorAll('.reveal,.stg,.path,.waits,.cabcard,.steps-grid'));
   function showAll(instant){if(instant){document.documentElement.classList.add('noanim');}els.forEach(function(e){e.classList.add('in');});}
-  if(document.hidden||!('IntersectionObserver' in window)){showAll(true);return;}
+  if(document.hidden||navigator.webdriver||!('IntersectionObserver' in window)){showAll(true);return;}
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
-  setTimeout(function(){showAll(false)},1200);
+  setTimeout(function(){showAll(false)},7000);
   document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
 })();
 </script>
@@ -941,6 +997,68 @@ window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim(
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
+</script>
+<script>
+/* motion pack: каунт-ап цифр в .stats-grid — числа в разметке не меняем (SEO), JS читает и восстанавливает */
+(function(){
+  var doc=document.documentElement;
+  var reduce=false;try{reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){}
+  function instant(){return reduce||document.hidden||navigator.webdriver||doc.classList.contains('noanim');}
+  var nodes=[].slice.call(document.querySelectorAll('.stats-grid .stat .n'));
+  if(!nodes.length)return;
+  var items=[];
+  nodes.forEach(function(n){
+    var tn=null,i;
+    for(i=0;i<n.childNodes.length;i++){if(n.childNodes[i].nodeType===3&&/\d/.test(n.childNodes[i].nodeValue)){tn=n.childNodes[i];break;}}
+    if(!tn)return;
+    var raw=tn.nodeValue;
+    var m=raw.match(/^([^\d]*)([\d\u00A0\u202F ]*\d)(?:,(\d+))?([\s\S]*)$/);
+    if(!m)return;
+    var sm=m[2].match(/[\u00A0\u202F ]/);
+    items.push({node:tn,raw:raw,pre:m[1],post:m[4],dec:(m[3]||'').length,sep:sm?sm[0]:'',target:parseFloat(m[2].replace(/[\u00A0\u202F ]/g,'')+(m[3]?'.'+m[3]:'')),done:false});
+  });
+  if(!items.length)return;
+  function fmt(v,it){
+    var p=v.toFixed(it.dec).split('.'),ip=p[0];
+    if(it.sep)ip=ip.replace(/\B(?=(\d{3})+(?!\d))/g,it.sep);
+    return it.pre+ip+(it.dec?','+p[1]:'')+it.post;
+  }
+  function finish(it){it.done=true;it.settled=true;it.node.nodeValue=it.raw;}
+  function run(it){
+    if(it.done)return;
+    it.done=true;
+    if(instant()){finish(it);return;}
+    var t0=null,D=900;
+    it.node.nodeValue=fmt(0,it);
+    function step(ts){
+      if(it.settled)return;
+      if(instant()){finish(it);return;}
+      if(t0===null)t0=ts;
+      var p=Math.min((ts-t0)/D,1),e=1-Math.pow(1-p,3);
+      if(p<1){it.node.nodeValue=fmt(it.target*e,it);requestAnimationFrame(step);}
+      else finish(it);
+    }
+    requestAnimationFrame(step);
+    /* жёсткая гарантия финала: таймер не зависит от rAF (краулеры/headless) */
+    setTimeout(function(){if(!it.settled)finish(it);},D+120);
+  }
+  if(instant()||!('IntersectionObserver' in window)){items.forEach(finish);return;}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(!x.isIntersecting)return;
+      io.unobserve(x.target);
+      items.forEach(function(it){if(x.target.contains(it.node))run(it);});
+    });
+  },{threshold:.35});
+  var seen=[];
+  items.forEach(function(it){
+    var st=it.node.parentNode;
+    while(st&&st!==document.body&&!(st.classList&&st.classList.contains('stat')))st=st.parentNode;
+    if(!st||st===document.body)st=it.node.parentNode;
+    if(seen.indexOf(st)<0){seen.push(st);io.observe(st);}
+  });
+  document.addEventListener('visibilitychange',function(){if(document.hidden)items.forEach(finish);});
+})();
 </script>
 </body>
 </html>
