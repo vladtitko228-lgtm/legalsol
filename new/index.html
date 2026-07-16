@@ -898,6 +898,31 @@ figure,.photo-fig,.duo-side,.duo-side>*{max-width:100%;min-width:0}
   .svc-table td:not(:first-child)::before{content:attr(data-l);color:var(--ink-3);font-size:11.5px;font-weight:600;letter-spacing:.02em;flex:none;max-width:52%}
 }
 
+
+/* ===== premium refinement (v15) ===== */
+/* 1. Фото — единый арт-дирекшен: приглушённый монохром + наш тон (не «цветной сток») */
+.photo-fig img{filter:grayscale(.78) contrast(1.07) brightness(.99);transition:transform .85s cubic-bezier(.16,.72,.2,1),filter .6s ease}
+.photo-fig:hover img{filter:grayscale(.42) contrast(1.04) brightness(1.01)}
+.photo-fig.tint::after{background:linear-gradient(152deg,rgba(38,33,92,.34) 0%,rgba(91,82,204,.2) 55%,rgba(38,33,92,.28) 100%)}
+.photo-fig{border-color:rgba(38,33,92,.10)}
+/* 2. Тени — многослойные, мягкие (дорогая глубина вместо плоского блока) */
+:root{--shadow-sm:0 1px 2px rgba(30,27,75,.04),0 8px 20px -12px rgba(30,27,75,.10),0 28px 60px -34px rgba(30,27,75,.16)}
+/* 3. Границы — тоньше и спокойнее */
+:root{--line:#EDECE6;--line-2:#E4E2D9}
+/* 4. Типографика — уверенный трекинг, лучше ритм */
+h1{letter-spacing:-.024em}
+h2{letter-spacing:-.02em}
+h1,h2{font-feature-settings:"kern" 1,"liga" 1;text-rendering:optimizeLegibility}
+body{line-height:1.68;text-rendering:optimizeLegibility}
+p{max-width:68ch}
+.kicker{letter-spacing:.2em}
+/* 5. Кнопки — спокойнее и дороже */
+.btn{letter-spacing:.005em}
+.btn-primary{box-shadow:0 1px 2px rgba(69,60,176,.16),0 12px 28px -14px rgba(69,60,176,.5)}
+.btn-primary:hover{box-shadow:0 2px 4px rgba(69,60,176,.2),0 18px 40px -16px rgba(69,60,176,.55)}
+/* 6. Карточки — мягче радиус-ритм и спокойнее ховер */
+.svc-card:hover,.eco-card:hover{box-shadow:0 2px 6px rgba(30,27,75,.05),0 22px 50px -26px rgba(30,27,75,.24)}
+
 </style>
 <script type="application/ld+json">
 {
