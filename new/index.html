@@ -956,6 +956,100 @@ p{max-width:68ch}
 }
 @media(prefers-reduced-motion:reduce){.acc-body{animation:none}}
 
+/* ===== motion v12 — тактичный слой (только transform/opacity) ===== */
+
+/* 1 · заголовок секции: кикер → h2 → лид, лёгкий каскад внутри .sec-head */
+.sec-head.rv > h2{opacity:0;transform:translateY(9px);transition:opacity .5s cubic-bezier(.16,.72,.2,1) .07s,transform .58s cubic-bezier(.16,.72,.2,1) .07s}
+.sec-head.rv > p{opacity:0;transform:translateY(9px);transition:opacity .5s cubic-bezier(.16,.72,.2,1) .16s,transform .58s cubic-bezier(.16,.72,.2,1) .16s}
+.sec-head.rv.in > h2,.sec-head.rv.in > p{opacity:1;transform:none}
+/* ГЕРОЙ ВИДЕН СРАЗУ: above-the-fold не анимируем ни блоком, ни каскадом */
+#hero .sec-head.rv,.hero .sec-head.rv,.video-hero .sec-head.rv,
+#hero .sec-head.rv > *,.hero .sec-head.rv > *,.video-hero .sec-head.rv > *{opacity:1 !important;transform:none !important;transition:none !important}
+#hero .sec-head .kicker::before,.hero .sec-head .kicker::before,.video-hero .sec-head .kicker::before{width:auto;transition:none}
+
+/* 2 · строки таблицы услуг приезжают каскадом (делэй ставит JS) */
+.svc-table tbody tr.trv{opacity:0;transform:translateY(9px);transition:opacity .45s cubic-bezier(.16,.72,.2,1),transform .5s cubic-bezier(.16,.72,.2,1),background .15s}
+.svc-table tbody tr.trv.in{opacity:1;transform:none}
+
+/* 3 · таймлайн .htl: линия прочерчивается, следом встаёт точка */
+.htl .step.rv::before{transform:scaleX(0);transform-origin:left center;transition:transform .55s cubic-bezier(.16,.72,.2,1)}
+.htl .step.rv.in::before{transform:scaleX(1)}
+.htl .step.rv .dot{opacity:0;transform:scale(.62);transition:opacity .3s ease .17s,transform .46s cubic-bezier(.3,1.32,.5,1) .17s}
+.htl .step.rv.in .dot{opacity:1;transform:none}
+@media(max-width:760px){
+  .htl .step.rv::before{transform:scaleY(0);transform-origin:center top}
+  .htl .step.rv.in::before{transform:scaleY(1)}
+}
+
+/* 4 · главная кнопка: тонкий блик пробегает на ховере */
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;bottom:0;left:0;width:42%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:translateX(-220%) skewX(-16deg);pointer-events:none}
+@media(hover:hover){
+  .btn-primary:hover::after{transform:translateX(360%) skewX(-16deg);transition:transform .78s cubic-bezier(.16,.72,.2,1)}
+}
+
+/* 5 · аватарки слегка разъезжаются под курсором */
+.ava-row img,.proof-avs img{transition:transform .38s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover){
+  .ava-row:hover img:nth-child(1),.proof-avs:hover img:nth-child(1){transform:translateX(-7px)}
+  .ava-row:hover img:nth-child(2),.proof-avs:hover img:nth-child(2){transform:translateX(-3px)}
+  .ava-row:hover img:nth-child(3),.proof-avs:hover img:nth-child(3){transform:translateY(-3px) scale(1.06)}
+  .ava-row:hover img:nth-child(4),.proof-avs:hover img:nth-child(4){transform:translateX(3px)}
+  .ava-row:hover img:nth-child(5),.proof-avs:hover img:nth-child(5){transform:translateX(7px)}
+}
+
+/* 6 · нумерованные карточки .fn: иконка проявляется при доскролле и живёт на ховере */
+.feat-num .fn.rv .ic svg{opacity:0;transform:scale(.68);transition:opacity .32s ease .15s,transform .5s cubic-bezier(.3,1.32,.5,1) .15s}
+.feat-num .fn.rv.in .ic svg{opacity:1;transform:none}
+.feat-num .fn .ic{transition:transform .28s cubic-bezier(.2,.6,.2,1),background-color .28s,color .28s}
+@media(hover:hover){
+  .feat-num .fn:hover .ic{transform:translateY(-2px) scale(1.06);background:var(--accent);color:#fff}
+}
+
+/* 7 · контактные строки: иконка подаётся вперёд */
+@media(hover:hover){
+  .contact-split .cs-line .ic{transition:transform .26s cubic-bezier(.2,.6,.2,1)}
+  .contact-split .cs-line:hover .ic{transform:translateX(3px) scale(1.06)}
+}
+
+/* 8 · «01/02/03» у нумерованных карточек — мягкий сдвиг вслед за иконкой */
+.feat-num .fn.rv .no{opacity:0;transform:translateY(6px);transition:opacity .38s ease .2s,transform .44s cubic-bezier(.16,.72,.2,1) .2s}
+.feat-num .fn.rv.in .no{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  .sec-head.rv > h2,.sec-head.rv > p,
+  .svc-table tbody tr.trv,
+  .htl .step.rv .dot,
+  .feat-num .fn.rv .ic svg,.feat-num .fn.rv .no{opacity:1 !important;transform:none !important;transition:none !important}
+  .htl .step.rv::before{transform:none !important;transition:none !important}
+  .btn-primary::after{display:none}
+  .ava-row img,.proof-avs img,.feat-num .fn .ic,.contact-split .cs-line .ic{transition:none !important}
+  .ava-row:hover img,.proof-avs:hover img,.feat-num .fn:hover .ic,.contact-split .cs-line:hover .ic{transform:none !important}
+}
+
+
+/* ===== hero v16: чистое фото + видео отдельным кадром ===== */
+.video-hero{min-height:auto}
+.video-hero .vh-bg img{filter:grayscale(.35) contrast(1.04)}
+.video-hero .vh-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(104deg,rgba(18,16,42,.95) 0%,rgba(30,27,75,.9) 44%,rgba(30,27,75,.72) 68%,rgba(91,82,204,.5) 100%)}
+.vh-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;padding:118px 0 96px}
+.video-hero .vh-inner{max-width:none;padding:0}
+.vh-side{min-width:0}
+.video-hero .hero-video{display:block;position:relative;border-radius:16px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.24),0 40px 80px -28px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.16)}
+.video-hero .hero-video img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,.72,.2,1)}
+.video-hero .hero-video:hover img{transform:scale(1.03)}
+.video-hero .hero-video::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.2),transparent 60%);pointer-events:none}
+.video-hero .hv-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(91,82,204,.94);box-shadow:0 0 0 10px rgba(255,255,255,.16),0 18px 40px -10px rgba(0,0,0,.5);display:grid;place-items:center;transition:transform .2s,background .2s;z-index:2}
+.video-hero .hv-play svg{margin-left:4px}
+.video-hero .hero-video:hover .hv-play{transform:translate(-50%,-50%) scale(1.07);background:var(--accent-dark)}
+.video-hero .hv-dur{position:absolute;right:14px;bottom:13px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(18,16,42,.72);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+.vh-frame{position:absolute;inset:0;z-index:3;background:#000;border-radius:16px;overflow:hidden}
+@media(max-width:980px){
+  .vh-grid{grid-template-columns:1fr;gap:34px;padding:112px 0 30px}
+  .vh-side{order:2}
+  .video-hero .hv-play{width:60px;height:60px}
+}
+
 </style>
 <script type="application/ld+json">
 {
@@ -1037,11 +1131,12 @@ p{max-width:68ch}
 
 <!-- hero -->
 <section class="hero video-hero">
-  <a class="vh-bg" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Смотреть видео: Влад, основатель — о компании (30 секунд)">
-    <img src="/assets/trc/vthumb_big.jpg" alt="" loading="eager">
-  </a>
+  <div class="vh-bg">
+    <img src="/assets/trc/ph_consult.jpg" alt="" loading="eager">
+  </div>
   <div class="wrap">
-    <div class="vh-inner">
+    <div class="vh-grid">
+      <div class="vh-inner">
       <div class="kicker">Легализация иностранцев в Польше · Варшава</div>
       <h1>Ваша карта побыту — профессионально <em>и без стресса</em></h1>
       <p class="lead"><span class="lead-in">Берём на себя</span> каждый юридический вопрос — от первой консультации до документа у вас на руках.</p>
@@ -1052,13 +1147,17 @@ p{max-width:68ch}
       <a class="proof-line" href="#en-reviews">
         <span class="proof-avs"><img src="/assets/trc/client2.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client8.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client4.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client1.jpg" width="34" height="34" alt="" loading="lazy"><img src="/assets/trc/client3.jpg" width="34" height="34" alt="" loading="lazy"></span>
         <span class="proof-txt"><b>1 000+ дел закрыто с 2020 года</b> — их истории ниже →</span>
-      </a>
+        </a>
+      </div>
+      <div class="vh-side">
+        <a class="hero-video" id="hero-video" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Смотреть видео о компании, 30 секунд">
+          <img src="/assets/trc/vthumb_big.jpg" alt="" loading="eager">
+          <span class="hv-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="hv-dur">Видео о нас · 0:30</span>
+        </a>
+      </div>
     </div>
   </div>
-  <a class="vh-play" href="https://www.youtube.com/watch?v=WRYMR8caNPc" target="_blank" rel="noopener" aria-label="Смотреть видео">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-    <span class="vh-dur">Видео о нас · 0:30</span>
-  </a>
   <div class="vh-stats">
     <div class="wrap">
       <div class="vh-stats-row">
@@ -1954,6 +2053,27 @@ p{max-width:68ch}
   }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
   scale.concat([].slice.call(document.querySelectorAll('.glass-pills .gp'))).forEach(function(el){ io.observe(el); });
 
+  /* строки таблицы услуг: каскад по доскроллу (по таблице целиком, чтобы читалось как волна) */
+  var tio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      tio.unobserve(e.target);
+      [].slice.call(e.target.querySelectorAll('tbody tr.trv')).forEach(function(tr){ tr.classList.add('in'); });
+    });
+  }, {threshold:.06, rootMargin:'0px 0px -6% 0px'});
+  [].slice.call(document.querySelectorAll('.svc-table')).forEach(function(t){
+    var rows = [].slice.call(t.querySelectorAll('tbody tr'));
+    if(!rows.length) return;
+    rows.forEach(function(tr,i){
+      tr.classList.add('trv');
+      tr.style.transitionDelay = Math.min(i*45, 320)+'ms';
+    });
+    /* уже в кадре при загрузке — показываем сразу, без призраков */
+    var r = t.getBoundingClientRect();
+    if(r.top < innerHeight && r.bottom > 0){ rows.forEach(function(tr){ tr.classList.add('in'); }); }
+    else tio.observe(t);
+  });
+
   /* мягкий параллакс приглушённых сцен */
   var art = [].slice.call(document.querySelectorAll('.bg-art'));
   var coarse = matchMedia('(max-width:900px)').matches || matchMedia('(pointer:coarse)').matches;
@@ -1989,32 +2109,17 @@ p{max-width:68ch}
 </script>
 <script>
 (function(){
-  var hero=document.querySelector('.video-hero'); if(!hero) return;
-  var bg=hero.querySelector('.vh-bg'), play=hero.querySelector('.vh-play');
-  var frame=null, closeBtn=null;
-  function stop(){
-    if(frame){ frame.remove(); frame=null; }
-    if(closeBtn){ closeBtn.remove(); closeBtn=null; }
-    hero.classList.remove('playing');
-  }
-  function start(e){
-    if(e){ e.preventDefault(); }
+  var card=document.getElementById('hero-video'); if(!card) return;
+  var frame=null;
+  card.addEventListener('click', function(e){
+    e.preventDefault();
     if(frame) return;
     frame=document.createElement('div');
     frame.className='vh-frame';
-    frame.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="LegalSol — видео о компании" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-    hero.appendChild(frame);
-    closeBtn=document.createElement('button');
-    closeBtn.className='vh-close'; closeBtn.type='button';
-    closeBtn.setAttribute('aria-label','Закрыть видео');
-    closeBtn.innerHTML='&times;';
-    closeBtn.addEventListener('click', stop);
-    hero.appendChild(closeBtn);
-    hero.classList.add('playing');
-  }
-  if(bg) bg.addEventListener('click', start);
-  if(play) play.addEventListener('click', start);
-  addEventListener('keydown', function(e){ if(e.key==='Escape') stop(); });
+    frame.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="LegalSol — видео о компании" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe>';
+    card.appendChild(frame);
+    card.classList.add('playing');
+  });
 })();
 </script>
 <script>
