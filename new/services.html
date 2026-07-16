@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru" class="nojs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Услуги LegalSol — карта побыту, ПМЖ, гражданство, PESEL и бизнес в Польше</title>
+<meta name="description" content="11 услуг LegalSol в Польше: карта побыту от 2 500 PLN, ПМЖ, Blue Card, гражданство, PESEL, Profil Zaufany, бизнес. Цена — в договоре до начала работы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FAF7F2;--cream-2:#F2ECE3;
+  --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
+  --indigo:#6C5CE7;--indigo-2:#7B6EF2;--indigo-7:#5847CE;--indigo-9:#332C80;
+  --lilac:#EFEDFB;--lilac-2:#E5E2F8;--lilac-line:#E5E1F4;
+  --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
+  --card:#fff;--line:#ECE7F3;--wa:#25D366;
+  --r:28px;--r-lg:34px;--r-sm:16px;--pill:999px;
+  --sh:0 2px 4px rgba(33,30,61,.04),0 32px 64px -36px rgba(33,30,61,.30);
+  --sh-sm:0 1px 2px rgba(33,30,61,.04),0 16px 34px -24px rgba(33,30,61,.20);
+  --font:'Plus Jakarta Sans',-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+section{padding:96px 0}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em;font-weight:800}
+h2{font-size:clamp(30px,4vw,46px)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);background:var(--lilac);padding:8px 14px;border-radius:var(--pill);margin-bottom:20px}
+.eyebrow.gold{color:var(--gold-2);background:var(--gold-soft)}
+.sec-head{max-width:640px;margin-bottom:52px}
+.sec-head p{color:var(--ink-2);font-size:18px;margin-top:16px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(75,69,198,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(75,69,198,.7)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
+.btn-gold:hover{transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--indigo);color:var(--indigo)}
+.btn-wa{background:var(--wa);color:#062b16}
+.btn-lg{padding:18px 32px;font-size:16px}
+
+/* topbar + header */
+.topbar{background:var(--indigo-9);color:rgba(255,255,255,.82);font-size:13px;font-weight:500}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:40px;gap:16px}
+.topbar b{color:#fff}
+.topbar .tb-r{display:flex;gap:18px;align-items:center}
+header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:28px;height:74px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(75,69,198,.6)}
+.logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
+nav.main{display:flex;gap:26px;margin-left:8px}
+nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
+nav.main a:hover{color:var(--indigo)}
+.hd-r{margin-left:auto;display:flex;gap:12px;align-items:center}
+.hd-r .lk{font-size:15px;font-weight:700;color:var(--ink)}
+.burger{display:none;place-items:center;width:44px;height:44px;border-radius:13px;border:1.5px solid var(--line);background:#fff;cursor:pointer}
+.mnav{display:none;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.25)}
+.mnav.open{display:block}
+.mnav a{display:block;padding:15px 26px;font-size:16px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line)}
+.mnav a:last-child{border-bottom:0;color:var(--indigo)}
+
+/* hero */
+.hero{position:relative;padding:70px 0 84px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-180px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.14),transparent 68%);pointer-events:none}
+.hero::after{content:"";position:absolute;bottom:-160px;left:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.14),transparent 68%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.02fr 1.08fr;gap:64px;align-items:center;position:relative}
+.hero h1{font-size:clamp(38px,5.4vw,62px);margin:6px 0 20px}
+.hero h1 em{font-style:normal;color:var(--indigo)}
+.hero .lead{font-size:20px;color:var(--ink-2);max-width:600px;margin-bottom:26px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.proof{display:inline-flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);padding:10px 18px 10px 12px;border-radius:var(--pill);box-shadow:var(--sh-sm)}
+.proof .avs{display:flex}
+.proof .avs img{width:38px;height:38px;border-radius:50%;border:2.5px solid #fff;object-fit:cover;margin-left:-12px}
+.proof .avs img:first-child{margin-left:0}
+.proof b{font-size:14px}
+.proof span{font-size:13px;color:var(--ink-3);display:block}
+
+/* video card */
+.vcard{position:relative}
+.vplayer{display:block;width:100%;aspect-ratio:16/9;position:relative;border:0;padding:0;cursor:pointer;border-radius:var(--r);overflow:hidden;background:var(--indigo-9);box-shadow:var(--sh)}
+.vplayer .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82)}
+.vplayer::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.34),rgba(30,27,75,.06) 46%,rgba(30,27,75,.34));pointer-events:none}
+.vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.4);transition:transform .2s}
+.vplay svg{margin-left:4px}
+.vplayer:hover .vplay{transform:translate(-50%,-50%) scale(1.08)}
+.vtag{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:7px;background:rgba(30,27,75,.62);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;padding:7px 12px;border-radius:var(--pill)}
+.vtag i{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.vdur{position:absolute;right:14px;bottom:14px;background:rgba(30,27,75,.82);color:#fff;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:10px}
+.vframe{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r);box-shadow:var(--sh)}
+.vcap{display:flex;align-items:center;gap:12px;margin-top:16px;padding-left:4px}
+.vcap .vb{width:42px;height:42px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center;flex:none}
+.vcap b{font-size:14.5px}.vcap span{display:block;font-size:12.5px;color:var(--ink-3)}
+
+/* stats */
+.stats{background:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;text-align:center}
+.stat .n{font-size:clamp(30px,3.6vw,42px);font-weight:800;color:var(--indigo);letter-spacing:-.03em;line-height:1}
+.stat .n em{font-style:normal;color:var(--gold-2)}
+.stat .l{font-size:14px;color:var(--ink-2);margin-top:10px;font-weight:500}
+
+/* trust strip */
+.trust{background:var(--indigo-9);color:rgba(255,255,255,.9)}
+.trust .wrap{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;justify-content:center;text-align:center;font-size:14.5px;font-weight:500}
+.trust b{color:#fff}
+.trust .stars{color:var(--gold);letter-spacing:2px}
+.trust .dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3)}
+
+/* directions cards */
+.dir-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.dir{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh-sm);position:relative;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.dir:hover{transform:translateY(-5px);box-shadow:var(--sh)}
+.dir.pop{border-color:transparent;box-shadow:0 0 0 2px var(--indigo),var(--sh)}
+.dir .badge{position:absolute;top:-12px;left:28px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;padding:6px 13px;border-radius:var(--pill);box-shadow:0 8px 18px -8px rgba(201,127,51,.6)}
+.dir .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;margin-bottom:20px}
+.dir.i1 .ic{background:var(--lilac)}.dir.i2 .ic{background:var(--gold-soft)}.dir.i3 .ic{background:#E4F3EC}.dir.i4 .ic{background:#FBE9EF}
+.dir h3{font-size:21px;margin-bottom:10px}
+.dir>p{color:var(--ink-2);font-size:14.5px;margin-bottom:18px}
+.dir ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;flex:1}
+.dir li{display:flex;gap:9px;font-size:14px;color:var(--ink-2)}
+.dir li svg{flex:none;margin-top:3px}
+.dir .go{font-weight:700;font-size:14px;color:var(--indigo);display:inline-flex;gap:6px;align-items:center}
+.svc-more{text-align:center;margin-top:34px}
+.svc-more a{font-weight:700;color:var(--indigo);font-size:15px}
+
+/* steps */
+.steps{background:var(--lilac)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step{background:#fff;border-radius:var(--r);padding:30px 26px;box-shadow:var(--sh-sm);position:relative}
+.step .num{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));color:#fff;font-weight:800;font-size:18px;display:grid;place-items:center;margin-bottom:18px}
+.step h3{font-size:18px;margin-bottom:9px}
+.step p{font-size:14px;color:var(--ink-2)}
+.mos-note{margin-top:26px;background:#fff;border-radius:var(--r);padding:22px 26px;display:flex;gap:16px;align-items:flex-start;box-shadow:var(--sh-sm)}
+.mos-note .ic{width:40px;height:40px;border-radius:12px;background:var(--gold-soft);flex:none;display:grid;place-items:center}
+.mos-note p{font-size:14px;color:var(--ink-2)}.mos-note b{color:var(--ink)}
+
+/* guarantee */
+.guar .wrap{background:linear-gradient(135deg,var(--indigo-9),#453DA8);border-radius:var(--r-lg);padding:64px 56px;color:#fff;position:relative;overflow:hidden}
+.guar::selection{}
+.guar .wrap::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.22),transparent 70%)}
+.guar-grid{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:center;position:relative;z-index:1}
+.guar h2{color:#fff;max-width:560px}
+.guar .lead{color:rgba(255,255,255,.8);font-size:17px;margin:18px 0 26px;max-width:540px}
+.guar .pts{display:flex;flex-direction:column;gap:12px;margin-bottom:30px}
+.guar .pt{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:rgba(255,255,255,.9);max-width:520px}
+.guar .pt svg{flex:none;margin-top:3px}
+.seal{width:160px;height:160px;border-radius:50%;border:2px solid rgba(226,155,84,.5);display:grid;place-items:center;text-align:center;background:radial-gradient(circle,rgba(226,155,84,.16),transparent 70%)}
+.seal .big{font-size:46px;font-weight:800;color:var(--gold);line-height:1}
+.seal small{font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.7);text-transform:uppercase;margin-top:6px}
+
+/* VS */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.vs{border-radius:var(--r);padding:34px 30px}
+.vs.a{background:#fff;border:1px solid var(--line)}
+.vs.b{background:linear-gradient(150deg,#fff, var(--lilac));border:2px solid var(--indigo)}
+.vs h3{font-size:20px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.vs.a h3{color:var(--ink-3)}
+.vs ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.vs li{display:flex;gap:11px;font-size:15px;color:var(--ink-2)}
+.vs.b li{color:var(--ink)}
+.vs li svg{flex:none;margin-top:2px}
+.vs .btn{margin-top:26px;width:100%}
+
+/* reviews */
+.reviews{background:#fff}
+.rev-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.gbadge{display:inline-flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:16px 22px}
+.gbadge .score{font-size:34px;font-weight:800;color:var(--ink);line-height:1}
+.gbadge .stars{color:var(--gold);font-size:15px;letter-spacing:1px}
+.gbadge small{color:var(--ink-3);font-size:12.5px}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rev{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column;gap:14px}
+.rev .stars{color:var(--gold);letter-spacing:1px;font-size:14px}
+.rev p{font-size:15px;color:var(--ink);flex:1}
+.rev .who{display:flex;align-items:center;gap:12px}
+.rev .who .av{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.rev .who b{font-size:14.5px;display:block}
+.rev .who span{font-size:12.5px;color:var(--ink-3)}
+
+/* blog + wa */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.bcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;box-shadow:var(--sh-sm);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.bcard .cat{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);margin-bottom:14px}
+.bcard h3{font-size:18px;line-height:1.35;margin-bottom:10px}
+.bcard p{font-size:14px;color:var(--ink-2);flex:1;margin-bottom:18px}
+.bfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:16px}
+.bread{font-weight:700;font-size:14px;color:var(--indigo)}
+.bask{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12.5px;color:var(--ink-2)}
+.bask svg{width:15px;height:15px}
+.bask:hover{color:#128C4B}
+.blog-wa{margin-top:28px;display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--indigo-9),#453DA8);border-radius:var(--r);padding:26px 30px;color:#fff}
+.blog-wa .ic{width:52px;height:52px;border-radius:15px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;flex:none}
+.blog-wa .tx{flex:1;font-size:14.5px;color:rgba(255,255,255,.85)}.blog-wa .tx b{color:#fff}
+.blog-wa .btn{flex:none}
+
+/* faq */
+.faq{background:var(--lilac)}
+.faq-wrap{max-width:820px;margin:0 auto}
+details.q{background:#fff;border-radius:var(--r-sm);margin-bottom:14px;box-shadow:var(--sh-sm);overflow:hidden}
+details.q summary{list-style:none;cursor:pointer;padding:22px 26px;font-weight:700;font-size:16.5px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary .pl{width:26px;height:26px;flex:none;border-radius:50%;background:var(--lilac);display:grid;place-items:center;color:var(--indigo);transition:transform .2s;font-size:18px;line-height:1}
+details.q[open] summary .pl{transform:rotate(45deg)}
+details.q .a{padding:0 26px 24px;color:var(--ink-2);font-size:15px}
+
+/* referral */
+.ref .wrap{background:linear-gradient(135deg,var(--gold-soft),#fff);border:1px solid var(--gold-soft);border-radius:var(--r-lg);padding:52px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:center}
+.ref h2{margin-bottom:22px}
+.ref .rs{display:flex;flex-direction:column;gap:12px}
+.ref .rs div{display:flex;gap:12px;font-size:15px;color:var(--ink-2)}
+.ref .rs b{width:26px;height:26px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;font-size:13px;flex:none}
+.ref .num{background:#fff;border-radius:var(--r);padding:34px;text-align:center;box-shadow:var(--sh-sm)}
+.ref .num .big{font-size:52px;font-weight:800;color:var(--gold-2);line-height:1}
+.ref .num p{font-size:13.5px;color:var(--ink-2);margin:12px 0 20px}
+
+/* final cta */
+.final .wrap{background:linear-gradient(140deg,rgba(51,44,128,.92),rgba(69,61,168,.88)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:60px 54px;display:grid;grid-template-columns:1fr 440px;gap:50px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.final .wrap::after{content:"";position:absolute;left:-90px;bottom:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(91,82,204,.4),transparent 70%)}
+.final h2{color:#fff;margin-bottom:16px}
+.final .lead{color:rgba(255,255,255,.8);font-size:17px;margin-bottom:26px}
+.final .cts{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+.final .cts .row{display:flex;gap:11px;font-size:14.5px;color:rgba(255,255,255,.86)}
+.final .cts .row b{color:#fff}
+.ffbox{background:#fff;border-radius:var(--r);padding:30px;position:relative;z-index:1;box-shadow:var(--sh)}
+.ffbox .t{font-weight:800;font-size:19px;color:var(--ink)}
+.ffbox .s{font-size:13.5px;color:var(--ink-3);margin:6px 0 20px}
+.ffbox input,.ffbox select{width:100%;font-family:var(--font);font-size:15px;padding:14px 16px;border:1.5px solid var(--line);border-radius:14px;margin-bottom:12px;color:var(--ink);background:#fff}
+.ffbox input:focus,.ffbox select:focus{outline:none;border-color:var(--indigo)}
+.ffbox .btn{width:100%;margin-top:4px}
+.ffbox .fine{font-size:12px;color:var(--ink-3);text-align:center;margin-top:12px}
+
+/* footer */
+footer{background:var(--indigo-9);color:rgba(255,255,255,.66);padding:64px 0 30px;font-size:14px}
+.ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
+footer .logo{color:#fff;margin-bottom:16px}
+footer .logo small{color:rgba(255,255,255,.5)}
+footer h4{color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+footer a:hover{color:#fff}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;font-size:13px;color:rgba(255,255,255,.5)}
+
+/* floating wa */
+.fab{position:fixed;right:22px;bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:var(--pill);padding:10px 18px 10px 12px;box-shadow:0 16px 40px -12px rgba(0,0,0,.3);font-weight:700;font-size:14px;color:var(--ink)}
+.fab .wa{width:36px;height:36px;border-radius:50%;background:var(--wa);display:grid;place-items:center;flex:none}
+
+/* reveal */
+/* reveal: NEVER hides content — opacity always 1, only a subtle slide */
+.reveal{opacity:1}
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+.js .stg>*{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,.7,.2,1),transform .6s cubic-bezier(.16,.7,.2,1)}
+.js .stg.in>*{opacity:1;transform:none}
+.js .stg.in>*:nth-child(2){transition-delay:.08s}.js .stg.in>*:nth-child(3){transition-delay:.16s}
+.js .stg.in>*:nth-child(4){transition-delay:.24s}.js .stg.in>*:nth-child(5){transition-delay:.32s}.js .stg.in>*:nth-child(6){transition-delay:.4s}
+@media(prefers-reduced-motion:reduce){.js .reveal,.js .stg>*{opacity:1!important;transform:none!important}}
+
+/* checker */
+.checker .wrap{background:linear-gradient(135deg,var(--lilac),#fff);border:1px solid var(--lilac-line);border-radius:var(--r-lg);padding:52px 48px;text-align:center}
+.checker h2{margin-bottom:12px}
+.checker>.wrap>p{color:var(--ink-2);max-width:620px;margin:0 auto 32px;font-size:16.5px}
+.chk-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:860px;margin:0 auto 24px}
+.chk{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:26px 18px;transition:transform .18s,border-color .18s,box-shadow .18s}
+.chk:hover{transform:translateY(-4px);border-color:var(--indigo);box-shadow:var(--sh-sm)}
+.chk .ci{width:50px;height:50px;border-radius:15px;background:var(--lilac);display:grid;place-items:center;margin:0 auto 14px}
+.chk b{display:block;font-size:15.5px;color:var(--ink);margin-bottom:3px}
+.chk span{font-size:12.5px;color:var(--ink-3)}
+.checker .fine{font-size:13px;color:var(--ink-3)}
+/* geo */
+.geo{text-align:center;padding:36px 30px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm)}
+.geo p{font-weight:700;color:var(--ink);margin-bottom:18px;font-size:16px}
+.geo .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.geo .chip{background:var(--cream);border:1px solid var(--line);border-radius:var(--pill);padding:8px 16px;font-size:13.5px;color:var(--ink-2);font-weight:600}
+/* motion */
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
+@keyframes sealspin{to{transform:rotate(360deg)}}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
+.hero::before{animation:drift 20s ease-in-out infinite}
+.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.vcard{animation:floaty 6.5s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
+.seal{position:relative}
+.seal::before{content:"";position:absolute;inset:-10px;border:2px dashed rgba(226,155,84,.45);border-radius:50%;animation:sealspin 26s linear infinite}
+@media(prefers-reduced-motion:reduce){.seal::before{animation:none}}
+.btn{position:relative;overflow:hidden}
+.btn-primary::after,.btn-gold::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .5s}
+.btn-primary:hover::after,.btn-gold:hover::after{left:130%}
+/* people band */
+.ppl-band{display:flex;align-items:center;gap:26px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 30px;box-shadow:var(--sh-sm);flex-wrap:wrap}
+.ppl-photos{display:flex}
+.ppl-photos img{width:64px;height:64px;border-radius:18px;object-fit:cover;border:3px solid #fff;margin-left:-16px;box-shadow:0 8px 18px -8px rgba(33,30,61,.35)}
+.ppl-photos img:first-child{margin-left:0}
+.ppl-txt b{font-size:17px;display:block;color:var(--ink)}.ppl-txt span{font-size:14px;color:var(--ink-3)}
+.ppl-band .go{margin-left:auto;font-weight:700;color:var(--indigo);white-space:nowrap}
+/* recurring lead band */
+.leadband{background:linear-gradient(135deg,var(--lilac),#fff);border:1px solid var(--lilac-line);border-radius:var(--r-lg);padding:38px 44px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.leadband .lb-t{font-size:23px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.leadband .lb-s{font-size:15px;color:var(--ink-2);margin-top:6px}
+.leadband form{display:flex;gap:12px;flex-wrap:wrap}
+.leadband input{font-family:var(--font);font-size:15px;padding:14px 18px;border:1.5px solid var(--line);border-radius:var(--pill);min-width:180px;background:#fff}
+.leadband input:focus{outline:none;border-color:var(--indigo)}
+/* scroll reminder toast */
+.remind{position:fixed;right:22px;bottom:92px;z-index:59;max-width:330px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px -18px rgba(33,30,61,.4);padding:18px 20px;transform:translateY(30px);opacity:0;pointer-events:none;transition:opacity .4s,transform .4s}
+.remind.show{transform:none;opacity:1;pointer-events:auto}
+.remind .rc{display:flex;gap:12px;align-items:flex-start}
+.remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s infinite}
+.remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
+.remind .rb{display:flex;gap:8px}
+.remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
+.remind .btn{padding:11px 16px;font-size:13.5px}
+@media(max-width:640px){.remind{left:12px;right:12px;bottom:84px;max-width:none}.leadband{padding:28px 22px}.ppl-band .go{margin-left:0}}
+.hero-feats{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.hero-feats span{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
+/* about */
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about-lead{font-size:19px;color:var(--ink-2);margin:18px 0 22px}
+.about-note{background:var(--lilac);border-radius:var(--r);padding:22px 24px;font-size:15px;color:var(--ink-2);margin-bottom:22px}
+.about-feats{display:flex;flex-direction:column;gap:14px}
+.about-feats div{display:flex;gap:12px;font-size:15px;color:var(--ink-2)}
+.about-feats b{color:var(--ink)}
+.ab-pts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ab-pt{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.ab-pt .n{font-size:12px;font-weight:800;color:var(--gold-2);letter-spacing:.1em;margin-bottom:8px}
+.ab-pt b{display:block;font-size:16.5px;margin-bottom:6px}
+.ab-pt span{font-size:13.5px;color:var(--ink-2)}
+/* 11 services */
+.svc11{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.s11{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:22px 20px;transition:transform .18s,border-color .18s,box-shadow .18s;display:block}
+.s11:hover{transform:translateY(-3px);border-color:var(--indigo);box-shadow:var(--sh-sm)}
+.s11 b{display:block;font-size:15.5px;margin-bottom:5px;color:var(--ink)}
+.s11 span{font-size:13px;color:var(--ink-3)}
+.s11.ask{background:linear-gradient(135deg,var(--lilac),#fff);border-color:var(--lilac-line)}
+/* path 7 steps */
+.path{display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm)}
+.prow{display:grid;grid-template-columns:56px 1fr 150px;gap:20px;align-items:center;padding:22px 28px;border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:0}
+.prow:hover{background:var(--cream)}
+.prow .pn{width:38px;height:38px;border-radius:12px;background:var(--lilac);color:var(--indigo);font-weight:800;font-size:15px;display:grid;place-items:center}
+.prow b{display:block;font-size:16px;margin-bottom:3px}
+.prow p{font-size:14px;color:var(--ink-2)}
+.prow .pt{justify-self:end;font-size:12.5px;font-weight:700;color:var(--gold-2);background:var(--gold-soft);padding:7px 13px;border-radius:var(--pill);white-space:nowrap}
+/* waits */
+.waits{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:38px 40px;box-shadow:var(--sh-sm)}
+.wscale{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);margin-bottom:16px;font-weight:600}
+.wrow{display:grid;grid-template-columns:230px 1fr 90px;gap:18px;align-items:center;margin-bottom:16px}
+.wrow .wn b{display:block;font-size:15px}.wrow .wn span{font-size:12.5px;color:var(--ink-3)}
+.wtrack{height:12px;background:var(--lilac);border-radius:var(--pill);position:relative;overflow:hidden}
+.wbar{position:absolute;height:100%;border-radius:var(--pill);background:linear-gradient(90deg,var(--indigo-2),var(--indigo))}
+.wrow .wv{justify-self:end;font-weight:800;font-size:14.5px;color:var(--indigo)}
+.wnote{margin-top:22px;background:var(--lilac);border-radius:var(--r);padding:20px 22px;font-size:14.5px;color:var(--ink-2)}
+.wnote b{color:var(--ink)}
+/* cabinet */
+.cab .wrap{background:linear-gradient(135deg,var(--lilac),#fff);border:1px solid var(--lilac-line);border-radius:var(--r-lg);padding:48px 44px;display:grid;grid-template-columns:1fr 380px;gap:44px;align-items:center}
+.cabcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--sh)}
+.cabcard .ch{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-3);margin-bottom:16px;font-weight:600}
+.cabrow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.cabrow:last-of-type{border-bottom:0}
+.cabrow i{font-style:normal;font-size:12px;font-weight:700;color:#2E8B57;background:#E4F3EC;padding:5px 10px;border-radius:var(--pill)}
+.cabrow i.w{color:var(--gold-2);background:var(--gold-soft)}
+.cabbar{margin-top:16px}
+.cabbar .cb{height:10px;background:var(--lilac);border-radius:var(--pill);overflow:hidden;margin-top:8px}
+.cabbar .cbf{height:100%;width:91%;border-radius:var(--pill);background:linear-gradient(90deg,var(--indigo-2),var(--gold))}
+@media(max-width:1000px){.about-grid,.cab .wrap{grid-template-columns:1fr;gap:34px}.svc11{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){
+  .svc11,.ab-pts{grid-template-columns:1fr}
+  .prow{grid-template-columns:44px 1fr;gap:14px;padding:18px 20px}
+  .prow .pt{grid-column:2;justify-self:start;margin-top:8px}
+  .wrow{grid-template-columns:1fr;gap:8px}.wrow .wv{justify-self:start}
+  .waits{padding:26px 20px}
+  .hero-feats{gap:10px 18px}
+}
+/* responsive */
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .dir-grid,.steps-grid{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .guar-grid,.ref .wrap,.final .wrap{grid-template-columns:1fr;gap:34px}
+  .rev-grid,.blog-grid{grid-template-columns:1fr 1fr}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:30px}
+  nav.main,.hd-r .lk{display:none}
+  .burger{display:grid}
+}
+@media(max-width:640px){
+  section{padding:64px 0}.wrap{padding:0 18px}
+  .dir-grid,.steps-grid,.stats-grid,.vs-grid,.rev-grid,.blog-grid{grid-template-columns:1fr}
+  .topbar .tb-r .hide-m{display:none}
+  .guar .wrap,.final .wrap,.ref .wrap{padding:38px 24px}
+  .blog-wa{flex-direction:column;text-align:center}
+  .rev-grid .rev:nth-child(n+4){display:none}
+  .blog-grid .bcard:nth-child(n+5){display:none}
+  .hero .lead{font-size:18px}
+  h2{font-size:27px}
+  .hero h1{font-size:33px}
+  .guar h2,.final h2,.checker h2{font-size:25px}
+  header .wrap{gap:10px}
+  .logo small{display:none}
+  .hd-r .btn{padding:12px 16px;font-size:14px}
+  .chk-opts{grid-template-columns:1fr 1fr}
+  .geo .chip{font-size:12.5px;padding:7px 12px}
+}
+
+/* --- page:services --- */
+.sv-hero{padding:40px 0 8px}
+.sv-hbox{background:linear-gradient(140deg,rgba(51,44,128,.88),rgba(108,92,231,.55)),url(/assets/trc/consult.jpg) center/cover;border-radius:var(--r-lg);padding:84px 64px;color:#fff;position:relative;overflow:hidden}
+.sv-hbox .eyebrow{background:rgba(255,255,255,.14);color:#fff}
+.sv-hbox h1{font-size:clamp(36px,4.8vw,58px);line-height:1.08;letter-spacing:-.02em;margin:4px 0 18px;max-width:760px;color:#fff}
+.sv-sub{font-size:19px;color:rgba(255,255,255,.88);max-width:660px;margin-bottom:30px}
+.sv-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.sv-hstats{display:flex;gap:10px;flex-wrap:wrap}
+.sv-hstats span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:var(--pill);padding:9px 16px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.94);backdrop-filter:blur(4px)}
+.sv-nav{padding:30px 0 6px}
+.sv-chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.sv-chips a{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:var(--pill);padding:12px 20px;font-weight:700;font-size:14.5px;color:var(--ink);transition:transform .18s,border-color .18s,color .18s,box-shadow .18s}
+.sv-chips a:hover{transform:translateY(-2px);border-color:var(--indigo);color:var(--indigo);box-shadow:var(--sh-sm)}
+.sv-chips a small{font-size:12px;font-weight:800;color:var(--indigo);background:var(--lilac);border-radius:var(--pill);padding:2px 9px}
+.sv-white{background:#fff}
+.sv-lilac{background:var(--lilac)}
+.sv-table{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm)}
+.sv-tr{display:grid;grid-template-columns:1fr 170px 170px;gap:18px;align-items:center;padding:17px 28px;border-bottom:1px solid var(--line)}
+.sv-tr:last-child{border-bottom:0}
+a.sv-tr{transition:background .15s}
+a.sv-tr:hover{background:var(--cream)}
+.sv-tr.hd{background:var(--lilac);padding:13px 28px;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo)}
+.sv-tr b{font-size:15.5px}
+.sv-tr .tv{font-size:13.5px;color:var(--ink-2);font-weight:600}
+.sv-tr .tp{justify-self:end;font-weight:800;font-size:15px;color:var(--indigo);white-space:nowrap}
+.sv-fn{font-size:13px;color:var(--ink-3);margin-top:16px;text-align:center}
+.sv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.sv-grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sv-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh-sm);display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
+.sv-card:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.sv-card.pop{border-color:transparent;box-shadow:0 0 0 2px var(--indigo),var(--sh-sm)}
+.sv-badge{position:absolute;top:-12px;left:28px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;padding:6px 13px;border-radius:var(--pill);box-shadow:0 8px 18px -8px rgba(201,127,51,.6)}
+.sv-tag{align-self:flex-start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo);background:var(--lilac);padding:6px 12px;border-radius:var(--pill);margin-bottom:16px}
+.sv-tag.gold{color:var(--gold-2);background:var(--gold-soft)}
+.sv-card h3{font-size:20px;margin-bottom:10px}
+.sv-card>p{font-size:14.5px;color:var(--ink-2);margin-bottom:16px}
+.sv-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px;flex:1}
+.sv-list li{position:relative;padding-left:23px;font-size:14px;color:var(--ink-2)}
+.sv-list li::before{content:"✓";position:absolute;left:0;top:0;color:var(--indigo);font-weight:800}
+.sv-note{background:var(--lilac);border-radius:var(--r-sm);padding:13px 16px;font-size:13px;color:var(--ink-2);margin-bottom:16px}
+.sv-note b{color:var(--ink)}
+.sv-facts{border-top:1px solid var(--line);margin-bottom:20px}
+.sv-facts>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.sv-facts span{color:var(--ink-2)}
+.sv-facts b{color:var(--ink);white-space:nowrap;text-align:right}
+.sv-facts b.hl{color:var(--indigo)}
+.sv-card .btn{width:100%}
+.sv-faqcta{text-align:center;margin-top:26px;font-size:15px;color:var(--ink-2)}
+.sv-faqcta a{color:var(--indigo);font-weight:800}
+#sv-prices,#sv-legal,#sv-docs,#sv-biz,#sv-faq,.sv-card{scroll-margin-top:100px}
+@media(max-width:1000px){
+.sv-grid{grid-template-columns:1fr 1fr}
+.sv-grid2{grid-template-columns:1fr}
+.sv-hbox{padding:60px 38px}
+.sv-tr{grid-template-columns:1fr 120px 140px;padding:15px 20px}
+}
+@media(max-width:640px){
+.sv-grid{grid-template-columns:1fr}
+.sv-hero{padding:18px 0 0}
+.sv-hbox{padding:46px 24px}
+.sv-sub{font-size:16.5px}
+.sv-hstats span{font-size:12.5px;padding:8px 12px}
+.sv-chips a{padding:10px 15px;font-size:13.5px}
+.sv-tr{grid-template-columns:1fr auto;gap:4px 14px;padding:14px 18px}
+.sv-tr.hd{display:none}
+.sv-tr b{grid-column:1}
+.sv-tr .tv{grid-column:1}
+.sv-tr .tp{grid-column:2;grid-row:1/3;align-self:center}
+.sv-card{padding:26px 20px}
+.sv-facts b{white-space:normal}
+}
+</style>
+</head>
+<body>
+<!-- topbar -->
+<div class="topbar"><div class="wrap">
+  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b>онлайн</b></span> <b>+48 735 248 525</b></span>
+</div></div>
+
+<!-- header -->
+<header><div class="wrap">
+  <a class="logo" href="#top">
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6C5CE7"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6C5CE7"/></svg></span>
+    <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
+  </a>
+  <nav class="main">
+    <a href="redesign.html">Главная</a>
+    <a href="services.html" style="color:var(--indigo)" aria-current="page">Услуги</a>
+    <a href="work.html">Работа</a>
+    <a href="b2b.html">B2B</a>
+    <a href="blog.html">Блог</a>
+  </nav>
+  <div class="hd-r">
+    <a class="lk" href="https://legalsol.pl">Кабинет</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</div>
+<div class="mnav" id="lsMnav">
+  <a href="redesign.html">Главная</a>
+  <a href="services.html">Услуги</a>
+  <a href="work.html">Работа в Польше</a>
+  <a href="b2b.html">B2B</a>
+  <a href="blog.html">Блог</a>
+  <a href="https://legalsol.pl">Кабинет</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
+</div></header>
+
+<main id="top">
+<!-- PAGE:services -->
+<!-- HERO -->
+<section class="sv-hero"><div class="wrap">
+  <div class="sv-hbox reveal">
+    <span class="eyebrow">Каталог услуг · Легализация в Польше</span>
+    <h1>Все услуги LegalSol</h1>
+    <p class="sv-sub">Одиннадцать услуг — один надёжный партнёр. От первого PESEL до польского паспорта: легализация, документы и бизнес — под одной крышей. Спокойно, по договору, с ценой, которая известна до начала работы.</p>
+    <div class="sv-ctas">
+      <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20услугам%20LegalSol.">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+        Бесплатная консультация
+      </a>
+      <a class="btn btn-ghost btn-lg" href="#sv-prices">Смотреть цены</a>
+    </div>
+    <div class="sv-hstats">
+      <span>11 услуг — от PESEL до гражданства</span>
+      <span>1 000+ успешных дел с 2020 года</span>
+      <span>98,1% одобрений</span>
+      <span>Ответ в WhatsApp — 15 минут</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ANCHOR NAV -->
+<section class="sv-nav"><div class="wrap">
+  <div class="sv-chips stg reveal">
+    <a href="#sv-legal">Легализация пребывания <small>6</small></a>
+    <a href="#sv-docs">Документы <small>3</small></a>
+    <a href="#sv-biz">Бизнес <small>2</small></a>
+    <a href="#sv-prices">Цены — одной таблицей</a>
+    <a href="#sv-faq">Вопросы и ответы</a>
+  </div>
+</div></section>
+
+<!-- PRICE TABLE -->
+<section id="sv-prices" class="sv-white"><div class="wrap">
+  <div class="sec-head center"><span class="eyebrow">Каталог</span><h2>Все услуги и цены — одной таблицей</h2><p>Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Оплата — 2–3 платежа на счёт фирмы. Нажмите на строку — откроется подробная карточка услуги.</p></div>
+  <div class="sv-table reveal">
+    <div class="sv-tr hd"><span>Услуга</span><span>Срок</span><span style="justify-self:end">Цена от</span></div>
+    <a class="sv-tr" href="#sv-pobyt"><b>Карта побыту (ВНЖ)</b><span class="tv">4–9 мес.</span><span class="tp">от 2 500 PLN</span></a>
+    <a class="sv-tr" href="#sv-pmz"><b>ПМЖ — постоянный побыт</b><span class="tv">4–8 мес.</span><span class="tp">от 4 000 PLN</span></a>
+    <a class="sv-tr" href="#sv-pesel"><b>PESEL</b><span class="tv">в тот же день</span><span class="tp">450 PLN</span></a>
+    <a class="sv-tr" href="#sv-blue"><b>Blue Card (ЕС)</b><span class="tv">3–6 мес.</span><span class="tp">от 3 200 PLN</span></a>
+    <a class="sv-tr" href="#sv-apel"><b>Апелляции</b><span class="tv">2–6 мес.</span><span class="tp">бесплатно*</span></a>
+    <a class="sv-tr" href="#sv-firm"><b>Регистрация компании</b><span class="tv">1–14 раб. дней</span><span class="tp">от 800 PLN</span></a>
+    <a class="sv-tr" href="#sv-buh"><b>Бухгалтерия и налоги</b><span class="tv">ежемесячно</span><span class="tp">от 300 PLN/мес</span></a>
+    <a class="sv-tr" href="#sv-prava"><b>Замена водительских прав</b><span class="tv">по записи</span><span class="tp">от 600 PLN</span></a>
+    <a class="sv-tr" href="#sv-pz"><b>Profil Zaufany</b><span class="tv">онлайн через банк</span><span class="tp">350 PLN</span></a>
+    <a class="sv-tr" href="#sv-citiz"><b>Гражданство Польши</b><span class="tv">6–24 мес.</span><span class="tp">по договорённости</span></a>
+    <a class="sv-tr" href="#sv-protect"><b>Международная защита</b><span class="tv">6–24 мес.</span><span class="tp">по договорённости</span></a>
+  </div>
+  <p class="sv-fn">* Апелляция бесплатно для клиентов LegalSol, если дело изначально вели мы. Для новых клиентов — по договорённости. Госпошлина ужонда оплачивается отдельно.</p>
+</div></section>
+
+<!-- LEGALIZATION -->
+<section id="sv-legal"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Легализация пребывания</span><h2>От первой карты — до паспорта ЕС</h2><p>Шесть услуг для тех, кто оформляет право жить в Польше: временный и постоянный побыт, Blue Card, гражданство — и защита, если пришёл отказ.</p></div>
+  <div class="sv-grid stg">
+
+    <article class="sv-card pop reveal" id="sv-pobyt">
+      <span class="sv-badge">Флагман</span>
+      <span class="sv-tag">Легализация</span>
+      <h3>Карта побыту — временный вид на жительство</h3>
+      <p>Karta pobytu подтверждает ваше право жить в Польше. Выдаётся воеводским управлением на 1–3 года, затем продлевается. Ведём от первой консультации до карты у вас на руках. Основания: работа, свой бизнес, учёба, семья, польские корни, временная защита.</p>
+      <ul class="sv-list">
+        <li>Бесплатная правовая оценка шансов</li>
+        <li>Полный пакет документов и ИИ-проверка перед подачей</li>
+        <li>Запись в воеводское управление — без очередей</li>
+        <li>Сопровождение специалиста в ужонд</li>
+        <li>Апелляция при отказе — бесплатно</li>
+      </ul>
+      <div class="sv-note"><b>При подаче — штамп в паспорт:</b> право работать во время ожидания решения.</div>
+      <div class="sv-facts">
+        <div><span>Сопровождение LegalSol</span><b class="hl">от 2 500 PLN</b></div>
+        <div><span>Госпошлина — отдельно</span><b>~340 PLN</b></div>
+        <div><span>Подготовка документов</span><b>1–2 недели</b></div>
+        <div><span>Ожидание решения</span><b>3–6 мес.</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20карта%20побыту%20(ВНЖ).%20Расскажите,%20с%20чего%20начать.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-pmz">
+      <span class="sv-tag">Легализация</span>
+      <h3>ПМЖ — постоянный побыт</h3>
+      <p>Zezwolenie na pobyt stały — статус постоянного проживания в Польше, следующий шаг после временной карты. Выдаётся бессрочно: работа без разрешений, свободное передвижение по ЕС и основа для гражданства.</p>
+      <ul class="sv-list">
+        <li>Общий случай — 5 лет непрерывного проживания по временной карте</li>
+        <li>Karta Polaka — без требования срока проживания</li>
+        <li>Оценка права на подачу и полный сбор документов</li>
+        <li>Перевод, нотариальное заверение, подача и контроль дела</li>
+        <li>Апелляция при отказе — бесплатно</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Сопровождение LegalSol</span><b class="hl">от 4 000 PLN</b></div>
+        <div><span>Госпошлина — отдельно</span><b>~640 PLN</b></div>
+        <div><span>Подготовка документов</span><b>2–4 недели</b></div>
+        <div><span>Ожидание решения</span><b>4–8 мес.</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20ПМЖ%20(постоянный%20побыт).%20Оцените%20моё%20право%20на%20подачу.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-blue">
+      <span class="sv-tag">Легализация</span>
+      <h3>Blue Card — карта для специалистов</h3>
+      <p>Niebieska Karta UE — карта побыту для высококвалифицированных специалистов: право работать и жить в ЕС. Карта на 2–4 года, право на ПМЖ — уже через 2 года, мобильность в ЕС — через 18 месяцев.</p>
+      <ul class="sv-list">
+        <li>Диплом вуза (от 3 лет обучения) — или опыт работы от 5 лет</li>
+        <li>Трудовой договор минимум на 1 год</li>
+        <li>Зарплата от ~8 500 PLN брутто — 1,5 средней по Польше</li>
+        <li>Подходите не по всем пунктам? Проверим на бесплатной консультации</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Сопровождение LegalSol</span><b class="hl">от 3 200 PLN</b></div>
+        <div><span>Госпошлина — отдельно</span><b>~440 PLN</b></div>
+        <div><span>Подготовка документов</span><b>1–2 недели</b></div>
+        <div><span>Ожидание решения</span><b>3–6 мес.</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20Blue%20Card.%20Проверьте,%20подхожу%20ли%20я%20по%20требованиям.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-citiz">
+      <span class="sv-tag gold">Легализация · Максимум</span>
+      <h3>Гражданство Польши — паспорт ЕС</h3>
+      <p>Obywatelstwo polskie — польский паспорт с полными правами гражданина Евросоюза. Ведём дело от анализа оснований до паспорта. Четыре пути — какой подходит вам, определим на консультации:</p>
+      <ul class="sv-list">
+        <li>Натурализация — 10 лет проживания, последние 3 года по ПМЖ, язык B1+</li>
+        <li>Karta Polaka — ускоренная процедура для лиц польского происхождения</li>
+        <li>Брак — 3 года в браке + 2 года проживания в Польше по ВНЖ</li>
+        <li>Репатриация — для потомков поляков из стран бывшего СССР</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Стоимость — зависит от основания</span><b class="hl">по договорённости</b></div>
+        <div><span>Срок рассмотрения</span><b>6–24 мес.</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20гражданство%20Польши.%20Помогите%20определить%20мой%20путь.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-apel">
+      <span class="sv-tag gold">Защита при отказе</span>
+      <h3>Апелляции — отказ можно оспорить</h3>
+      <p>Отказ по карте побыту, ПМЖ или другому документу — не конец. Мы специализируемся на апелляциях и отменяем отказы даже тогда, когда другие юристы говорили «шансов нет». Три инстанции:</p>
+      <ul class="sv-list">
+        <li>Odwołanie — обычная апелляция, 14 дней на подачу</li>
+        <li>Skarga do WSA — жалоба в административный суд, 30 дней</li>
+        <li>Skarga kasacyjna — кассация в NSA, высшая инстанция</li>
+        <li>Анализ причин отказа и честное заключение о шансах</li>
+      </ul>
+      <div class="sv-note"><b>Важно:</b> на подачу апелляции — 14 дней с даты получения отказа. Если отказ уже на руках — напишите нам сегодня.</div>
+      <div class="sv-facts">
+        <div><span>Клиентам LegalSol — если дело вели мы</span><b class="hl">бесплатно</b></div>
+        <div><span>Для новых клиентов</span><b>по договорённости</b></div>
+        <div><span>Срок рассмотрения</span><b>2–6 мес.</b></div>
+      </div>
+      <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ.%20Нужна%20апелляция%20—%20оцените%20шансы.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-protect">
+      <span class="sv-tag">Сложные случаи</span>
+      <h3>Международная защита</h3>
+      <p>Ochrona międzynarodowa — статус для тех, кто не может вернуться на родину из-за угрозы преследования, войны или других серьёзных угроз жизни. Такие дела всегда индивидуальны — ситуацию и шансы оценим честно, до начала работы.</p>
+      <ul class="sv-list">
+        <li>Статус беженца — карта побыту на 3 года с продлением</li>
+        <li>Дополнительная защита — карта на 2 года</li>
+        <li>Временная защита (UKR) — для граждан Украины</li>
+        <li>Подготовка к интервью и юридическое представительство</li>
+        <li>Апелляция при отказе — входит в работу по делу</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Стоимость — дела индивидуальны</span><b class="hl">по договорённости</b></div>
+        <div><span>Рассмотрение</span><b>6–24 мес.</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20международная%20защита.%20Оцените%20мою%20ситуацию.">Обсудить в WhatsApp</a>
+    </article>
+
+  </div>
+</div></section>
+
+<!-- DOCUMENTS -->
+<section id="sv-docs" class="sv-lilac"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Документы</span><h2>Документы, без которых в Польше никуда</h2><p>PESEL, электронная подпись и польские права: быстрые услуги с фиксированной ценой — оформляем с сопровождением, без очередей.</p></div>
+  <div class="sv-grid stg">
+
+    <article class="sv-card reveal" id="sv-pesel">
+      <span class="sv-tag">Документы</span>
+      <h3>PESEL — ваш номер в Польше</h3>
+      <p>11-значный идентификационный номер, аналог ИНН: без него не откроется почти ни одна дверь — банк, официальная работа, полис NFZ, госуслуги, договор аренды, регистрация бизнеса. Сам номер государство выдаёт бесплатно и в тот же день.</p>
+      <ul class="sv-list">
+        <li>Подготовка документов и сопровождение в ужонд</li>
+        <li>Регистрация мелдунка — если нужно</li>
+        <li>Получение подтверждения PESEL</li>
+        <li>Следующий шаг — Profil Zaufany: онлайн-доступ к госсервисам</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Услуга LegalSol — с сопровождением</span><b class="hl">450 PLN</b></div>
+        <div><span>Госпошлина — PESEL выдаётся бесплатно</span><b>0 PLN</b></div>
+        <div><span>Получение номера</span><b>в тот же день</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20PESEL.%20Помогите%20оформить.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card pop reveal" id="sv-pz">
+      <span class="sv-badge">Нужен для MOS</span>
+      <span class="sv-tag">Документы</span>
+      <h3>Profil Zaufany — электронная подпись</h3>
+      <p>Электронная идентификация в госсистемах Польши: заявления на карту побыту, статус дела, e-Recepta, декларации в налоговую и регистрация бизнеса — онлайн, не выходя из дома.</p>
+      <ul class="sv-list">
+        <li>Онлайн через банк — PKO BP, mBank, ING, Santander: самый быстрый способ</li>
+        <li>Или сопровождение в пункт подтверждения — US, ZUS, почта</li>
+        <li>Активация и проверка работы профиля</li>
+        <li>Условия: PESEL + польский номер телефона или банковский аккаунт</li>
+      </ul>
+      <div class="sv-note"><b>С 27 апреля 2026</b> документы на ВНЖ принимают только онлайн через MOS — для входа нужен Profil Zaufany.</div>
+      <div class="sv-facts">
+        <div><span>Услуга LegalSol — с сопровождением</span><b class="hl">350 PLN</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20Profil%20Zaufany.%20Помогите%20оформить.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-prava">
+      <span class="sv-tag">Документы</span>
+      <h3>Замена водительских прав</h3>
+      <p>Обмен иностранного удостоверения на польское (europejskie prawo jazdy). После получения карты побыту или ПМЖ иностранные права нужно обменять в течение определённого срока.</p>
+      <ul class="sv-list">
+        <li>Консультация по категории и основанию</li>
+        <li>Подготовка документов для обмена</li>
+        <li>Запись в Urząd Komunikacji и сопровождение при подаче</li>
+        <li>Код 95 для водителей категорий C, CE, D — направление в автошколу</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Категория B — легковые</span><b class="hl">от 600 PLN</b></div>
+        <div><span>Категории C/CE + Код 95</span><b>по договорённости</b></div>
+        <div><span>Подача</span><b>по записи</b></div>
+      </div>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20замена%20водительских%20прав%20на%20польские.">Обсудить в WhatsApp</a>
+    </article>
+
+  </div>
+  <div class="mos-note reveal">
+    <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>
+    <p><b>С 27 апреля 2026</b> документы на ВНЖ принимают только онлайн — через государственную систему MOS. Нашим клиентам по карте побыту Profil Zaufany оформляем в начале пути — это входит в сопровождение.</p>
+  </div>
+</div></section>
+
+<!-- BUSINESS -->
+<section id="sv-biz" class="sv-white"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow gold">Бизнес</span><h2>Своё дело в Польше — под ключ</h2><p>Открываем фирму и ведём бухгалтерию: JDG или Sp. z o.o., налоговые режимы, ZUS и декларации — без сюрпризов.</p></div>
+  <div class="sv-grid2 stg">
+
+    <article class="sv-card reveal" id="sv-firm">
+      <span class="sv-tag gold">Бизнес</span>
+      <h3>Регистрация компании — JDG или Sp. z o.o.</h3>
+      <p>Помогаем иностранцам открыть бизнес в Польше: ИП (jednoosobowa działalność gospodarcza) — проще всего открыть и закрыть, или ООО (spółka z o.o.) — ответственность ограничена, уставной капитал от 5 000 PLN. Консультация по налоговым режимам — liniowy 19%, ryczałt 2–17%, skala 12%/32% — входит в услугу.</p>
+      <ul class="sv-list">
+        <li>Консультация по форме бизнеса и подбор кодов PKD</li>
+        <li>Регистрация в CEIDG или KRS, получение NIP и REGON</li>
+        <li>Помощь с открытием расчётного счёта</li>
+        <li>Подключение к Profil Zaufany</li>
+        <li>Основание для карты побыту по działalność gospodarcza</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>ИП (JDG) — через CEIDG, 1–3 раб. дня</span><b class="hl">от 800 PLN</b></div>
+        <div><span>ООО (Sp. z o.o.) — через KRS, 5–14 раб. дней</span><b class="hl">от 2 000 PLN</b></div>
+        <div><span>Госпошлины</span><b>включены</b></div>
+      </div>
+      <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20фирму%20в%20Польше.%20Подскажите%20форму%20—%20JDG%20или%20Sp.%20z%20o.o.">Обсудить в WhatsApp</a>
+    </article>
+
+    <article class="sv-card reveal" id="sv-buh">
+      <span class="sv-tag gold">Бизнес</span>
+      <h3>Бухгалтерия и налоги — без сюрпризов</h3>
+      <p>Ведение учёта и налоговое сопровождение для иностранных предпринимателей: декларации, ZUS, учёт доходов и расходов, годовое закрытие и консультации. Работаем с ИП и ООО. Открываете фирму с нами — бухгалтерию подключим сразу.</p>
+      <ul class="sv-list">
+        <li>Ежемесячные декларации — JPK_V7, PIT/CIT</li>
+        <li>Расчёт ZUS и работа с банковскими выписками</li>
+        <li>Годовое закрытие — PIT-36 / PIT-28 / CIT-8, сверка с ZUS и US</li>
+        <li>Разово: налоговая консультация, регистрация плательщика VAT</li>
+      </ul>
+      <div class="sv-facts">
+        <div><span>Старт — ИП, до 30 операций</span><b class="hl">от 300 PLN/мес</b></div>
+        <div><span>Бизнес — ИП/ООО, до 100 операций</span><b class="hl">от 600 PLN/мес</b></div>
+        <div><span>Премиум — ООО, неограниченно</span><b class="hl">от 1 200 PLN/мес</b></div>
+      </div>
+      <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бухгалтерия%20для%20фирмы%20в%20Польше.">Обсудить в WhatsApp</a>
+    </article>
+
+  </div>
+</div></section>
+
+<!-- CHECKER -->
+<section class="checker"><div class="wrap">
+  <span class="eyebrow">Не знаете, что нужно?</span>
+  <h2>Опишите ситуацию — подскажем путь</h2>
+  <p>Выберите, что ближе к вашей ситуации, — специалист ответит в WhatsApp за 15 минут и назовёт точную цену до начала работы.</p>
+  <div class="chk-opts stg">
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20недавно%20в%20Польше%20—%20подскажите,%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Недавно в Польше</b><span>PESEL, Profil Zaufany, первые шаги</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20легализоваться%20в%20Польше%20—%20подскажите%20путь." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11h-5v-6h-6v6z"/></svg></span><b>Хочу остаться</b><span>Карта побыту, ПМЖ, Blue Card</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ%20—%20оцените%20шансы%20на%20апелляцию." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 10v4M12 17.5h.01"/></svg></span><b>Пришёл отказ</b><span>Апелляция — 14 дней на подачу</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20бизнес%20в%20Польше%20—%20с%20чего%20начать." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B45C6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Открываю бизнес</b><span>JDG / Sp. z o.o. + бухгалтерия</span></a>
+  </div>
+  <div class="fine">Бесплатно · Ответ за 15 минут · Без обязательств</div>
+</div></section>
+
+<!-- LEADBAND -->
+<section style="padding-top:0"><div class="wrap"><div class="leadband reveal">
+  <div><div class="lb-t">Остались вопросы? Оставьте заявку</div><div class="lb-s">Ответим в WhatsApp за 15 минут в рабочее время — бесплатно наметим ваш путь.</div></div>
+  <form onsubmit="return lsLead(this)">
+    <input type="text" placeholder="Ваше имя" aria-label="Имя">
+    <input type="tel" placeholder="Телефон / WhatsApp" aria-label="Телефон">
+    <button class="btn btn-primary" type="submit">Оставить заявку →</button>
+  </form>
+</div></div></section>
+
+<!-- FAQ -->
+<section id="sv-faq" class="faq"><div class="wrap">
+  <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Коротко о ценах и сроках</h2><p>Что чаще всего спрашивают перед началом работы. Отвечаем честно.</p></div>
+  <div class="faq-wrap">
+    <details class="q"><summary>Сколько стоят услуги и когда я узнаю цену?<span class="pl">+</span></summary><div class="a">Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Карта побыту — от 2 500 PLN, PESEL — 450 PLN, ПМЖ — от 4 000 PLN, Profil Zaufany — 350 PLN. Точную сумму называем на бесплатной консультации. Оплата — 2–3 платежами на счёт фирмы.</div></details>
+    <details class="q"><summary>Можно ли платить частями?<span class="pl">+</span></summary><div class="a">Да. Оплата — 2–3 платежа на счёт фирмы. Начинаем работу, не дожидаясь всей суммы.</div></details>
+    <details class="q"><summary>Что будет, если придёт отказ?<span class="pl">+</span></summary><div class="a">Если ваше дело изначально вели мы — апелляцию подаём бесплатно. На подачу апелляции есть 14 дней с даты получения отказа, поэтому напишите сразу. Отказ, полученный в другом месте, тоже разбираем: проанализируем причины и честно скажем, есть ли шансы.</div></details>
+    <details class="q"><summary>Правда ли, что с 27 апреля 2026 документы на ВНЖ подают только онлайн?<span class="pl">+</span></summary><div class="a">Да. С 27 апреля 2026 заявления на карту побыту принимают только через государственную систему MOS. Для входа в MOS нужен Profil Zaufany — нашим клиентам по карте побыту мы оформляем его в начале пути, это входит в сопровождение.</div></details>
+  </div>
+  <div class="sv-faqcta">Не нашли свой вопрос? <a href="https://wa.me/48735248525?text=Здравствуйте!%20Есть%20вопрос%20по%20услугам%20LegalSol.">Спросить в WhatsApp →</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="ft-grid">
+    <div>
+      <a class="logo" href="#top"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#B8B2F5"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#7B6EF2"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#6C5CE7"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#6C5CE7"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+    </div>
+    <div><h4>Услуги</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
+    </ul></div>
+    <div><h4>Навигация</h4><ul>
+      <li><a href="redesign.html">Главная</a></li>
+      <li><a href="services.html">Услуги</a></li>
+      <li><a href="work.html">Работа в Польше</a></li>
+      <li><a href="b2b.html">B2B</a></li>
+      <li><a href="blog.html">Блог</a></li>
+      <li><a href="https://legalsol.pl">Кабинет</a></li>
+    </ul></div>
+    <div><h4>Контакты</h4><ul>
+      <li><a href="tel:+48735248525">+48 735 248 525</a></li>
+      <li><a href="tel:+48883959550">+48 883 959 550</a></li>
+      <li>WhatsApp — ответим за 15 минут</li>
+      <li>ul. Sienna 75, 00-833 Warszawa</li>
+      <li>ПН–ПТ: 10:00–18:00</li>
+    </ul></div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 LegalSol. Все права защищены.</span>
+    <span>Instagram · TikTok · Telegram · YouTube</span>
+  </div>
+</div></footer>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+  <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
+    <div><b>Остались вопросы?</b><p>Напишите — специалист ответит за 15 минут, бесплатно.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
+  <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
+  Бесплатная консультация
+</a>
+
+<script>
+document.documentElement.className='js';
+window.lsPlay=function(el){var f=document.createElement('iframe');f.className='vframe';f.src='https://www.youtube.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1';f.title='LegalSol';f.allow='autoplay; encrypted-media; picture-in-picture; web-share';f.setAttribute('allowfullscreen','');el.replaceWith(f);};
+window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;try{v.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}window.lsPlay(v);};
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.reveal,.stg'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+  setTimeout(function(){els.forEach(function(e){e.classList.add('in')})},1500);
+})();
+</script>
+<script src="quiz.js" defer></script>
+<script>
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+(function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
+r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
+window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
+</script>
+</body>
+</html>
