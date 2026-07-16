@@ -71,8 +71,9 @@ nav.main a:hover{color:var(--indigo)}
 .hd-r{margin-left:auto;display:flex;gap:12px;align-items:center}
 .hd-r .lk{font-size:15px;font-weight:700;color:var(--ink)}
 .burger{display:none;place-items:center;width:44px;height:44px;border-radius:13px;border:1.5px solid var(--line);background:#fff;cursor:pointer}
-.mnav{display:none;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.25)}
+.mnav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.35);max-height:calc(100vh - 74px);overflow-y:auto}
 .mnav.open{display:block}
+header{position:sticky}
 .mnav a{display:block;padding:15px 26px;font-size:16px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line)}
 .mnav a:last-of-type{border-bottom:0;color:var(--indigo)}
 
@@ -925,7 +926,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- WAITS -->
 <section id="wk-waits">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head reveal">
     <span class="eyebrow gold">Сроки — честно</span>
     <h2>Полный цикл: 8–16 месяцев</h2>
@@ -962,7 +963,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- CALC -->
 <section id="wk-calc">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Калькулятор</span>
     <h2>Прикиньте цену и срок — за пару секунд</h2>

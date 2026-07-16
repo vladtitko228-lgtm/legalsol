@@ -71,8 +71,9 @@ nav.main a:hover{color:var(--indigo)}
 .hd-r{margin-left:auto;display:flex;gap:12px;align-items:center}
 .hd-r .lk{font-size:15px;font-weight:700;color:var(--ink)}
 .burger{display:none;place-items:center;width:44px;height:44px;border-radius:13px;border:1.5px solid var(--line);background:#fff;cursor:pointer}
-.mnav{display:none;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.25)}
+.mnav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.35);max-height:calc(100vh - 74px);overflow-y:auto}
 .mnav.open{display:block}
+header{position:sticky}
 .mnav a{display:block;padding:15px 26px;font-size:16px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line)}
 .mnav a:last-of-type{border-bottom:0;color:var(--indigo)}
 
@@ -827,7 +828,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- DEMO DASHBOARD -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">ДЕМО — так выглядит кабинет клиента</span>
     <h2>Загляните внутрь — до старта дела</h2>
@@ -884,7 +885,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Доступ</span>
     <h2>Как получить свой кабинет</h2>
@@ -903,7 +904,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Пока нет — выше показано демо с вымышленными данными. Ваш кабинет появится после старта дела: на первой консультации мы заведём профиль и выдадим личный номер дела.</div></details>
@@ -914,7 +915,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите такой же кабинет для своего дела?</div>

@@ -71,8 +71,9 @@ nav.main a:hover{color:var(--indigo)}
 .hd-r{margin-left:auto;display:flex;gap:12px;align-items:center}
 .hd-r .lk{font-size:15px;font-weight:700;color:var(--ink)}
 .burger{display:none;place-items:center;width:44px;height:44px;border-radius:13px;border:1.5px solid var(--line);background:#fff;cursor:pointer}
-.mnav{display:none;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.25)}
+.mnav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(33,30,61,.35);max-height:calc(100vh - 74px);overflow-y:auto}
 .mnav.open{display:block}
+header{position:sticky}
 .mnav a{display:block;padding:15px 26px;font-size:16px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line)}
 .mnav a:last-of-type{border-bottom:0;color:var(--indigo)}
 
@@ -807,7 +808,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- ANCHOR NAV -->
 <section class="sv-nav">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sv-chips stg reveal">
     <a href="#sv-legal">Легализация пребывания <small>6</small></a>
     <a href="#sv-docs">Документы <small>3</small></a>
@@ -819,7 +820,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- PRICE TABLE -->
 <section id="sv-prices" class="sv-white">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Каталог</span><h2>Все услуги — одной таблицей</h2><p>Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Оплата — 2–3 платежа на счёт фирмы. Нажмите на строку — откроется подробная карточка услуги.</p></div>
   <div class="sv-table reveal">
     <div class="sv-tr hd"><span>Услуга</span><span>Срок</span></div>
@@ -840,7 +841,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- LEGALIZATION -->
 <section id="sv-legal">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Легализация пребывания</span><h2>От первой карты — до паспорта ЕС</h2><p>Шесть услуг для тех, кто оформляет право жить в Польше: временный и постоянный побыт, Blue Card, гражданство — и защита, если пришёл отказ.</p></div>
   <div class="sv-grid stg">
 
@@ -964,7 +965,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- DOCUMENTS -->
 <section id="sv-docs" class="sv-lilac">
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Документы</span><h2>Документы, без которых в Польше никуда</h2><p>PESEL, электронная подпись и польские права: быстрые услуги с фиксированной ценой — оформляем с сопровождением, без очередей.</p></div>
   <div class="sv-grid stg">
 
@@ -1031,7 +1032,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- BUSINESS -->
 <section id="sv-biz" class="sv-white">
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow gold">Бизнес</span><h2>Своё дело в Польше — под ключ</h2><p>Открываем фирму и ведём бухгалтерию: JDG или Sp. z o.o., налоговые режимы, ZUS и декларации — без сюрпризов.</p></div>
   <div class="sv-grid2 stg">
 
@@ -1077,7 +1078,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- CHECKER -->
 <section class="checker">
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <span class="eyebrow">Не знаете, что нужно?</span>
   <h2>Опишите ситуацию — подскажем путь</h2>
   <p>Выберите, что ближе к вашей ситуации, — специалист ответит в WhatsApp за 15 минут и назовёт точную цену до начала работы.</p>
