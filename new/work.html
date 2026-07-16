@@ -1417,6 +1417,11 @@ p{max-width:68ch}
 #matcher .jm-bar{height:3px;background:var(--line-2);border-radius:4px;overflow:hidden;margin-bottom:26px}
 #matcher .jm-bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:4px;transition:width .45s cubic-bezier(.4,0,.2,1)}
 /* фиксируем высоту области вопроса: карточка не «прыгает» между шагами */
+#matcher .jm-nx{border-top:1px solid var(--line);margin:20px 0 22px;padding-top:18px}
+#matcher .jm-nx-k{font:700 10.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+#matcher .jm-nx ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:nx}
+#matcher .jm-nx li{counter-increment:nx;display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+#matcher .jm-nx li::before{content:counter(nx);flex:none;width:20px;height:20px;border-radius:50%;background:var(--lav);color:var(--accent);font:700 11px/20px var(--sans);text-align:center;margin-top:1px}
 #matcher .jm-body{min-height:430px}
 #matcher .jm-step[hidden],#matcher .jm-done[hidden]{display:none}
 #matcher .jm-q{font:700 16.5px/1.3 var(--sans);color:var(--ink);margin-bottom:4px}
@@ -1569,6 +1574,14 @@ p{max-width:68ch}
           <div class="jm-done" id="jm-done-a" hidden>
             <h3>Профиль готов</h3>
             <p>Справа — то, что вы о себе рассказали. Отправьте профиль в WhatsApp: посмотрим, что из открытых вакансий подходит под ваш опыт, языки и страну, и честно скажем, на что реально рассчитывать.</p>
+            <div class="jm-nx">
+              <div class="jm-nx-k">Что дальше</div>
+              <ol>
+                <li>Смотрим, что из открытых вакансий подходит под ваш профиль — в рабочее время отвечаем в течение 15 минут.</li>
+                <li>Присылаем подходящие: город, ставку, условия и то, входит ли жильё.</li>
+                <li>Если вариант устраивает — готовим документы и контракт. Ставку, часы и тип договора проговариваем до подписания.</li>
+              </ol>
+            </div>
             <button type="button" class="jm-restart" id="jm-restart-a">← Начать заново</button>
           </div>
 
@@ -1576,6 +1589,14 @@ p{max-width:68ch}
           <div class="jm-done" id="jm-done-b" hidden>
             <h3>Сначала — документы</h3>
             <p>Без легального статуса хорошие работодатели не берут. Но это решаемо: оформляем вид на жительство и параллельно подбираем работу — всё в одном месте. Отправьте профиль в WhatsApp, разберём вашу ситуацию и скажем, с чего начать.</p>
+            <div class="jm-nx">
+              <div class="jm-nx-k">Что дальше</div>
+              <ol>
+                <li>Разбираем вашу ситуацию и подбираем основание для легального статуса.</li>
+                <li>Готовим документы на ВНЖ или разрешение на работу — параллельно смотрим вакансии.</li>
+                <li>Выходите на работу официально: umowa o pracę или umowa zlecenie, без «конвертов».</li>
+              </ol>
+            </div>
             <button type="button" class="jm-restart" id="jm-restart-b">← Начать заново</button>
           </div>
         </div>
