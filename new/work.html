@@ -2588,23 +2588,27 @@ p{max-width:68ch}
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
-  /* Фото — та же защита, что и у плашек: у observer'а нижний rootMargin -8%,
-     и фото, попавшее в первый экран, висело бы прозрачным до первого скролла. */
-  requestAnimationFrame(function(){
-    scale.forEach(function(el){
-      if(el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
-      else io.observe(el);
-    });
-  });
-  /* Плашки: те, что уже в первом экране, показываем сразу — у observer'а нижний
-     rootMargin -8%, и плашки героя попадали под эту черту → первый экран зиял пустотой. */
+  /* Защита первого экрана. У observer'а нижний rootMargin -8%: элемент, стоящий у
+     нижней кромки первого экрана, под эту черту НЕ попадает и висит прозрачным,
+     пока юзер не проскроллит. Поэтому всё, что уже в первом экране, показываем сами.
+     Гонка, на которой это уже горело: один прогон на requestAnimationFrame ненадёжен —
+     он случается ДО подгрузки шрифтов и картинок, вёрстка ещё едет, и позиции вранья.
+     Поэтому подметаем несколько раз, пока раскладка не устоится. */
   var gps = [].slice.call(document.querySelectorAll('.glass-pills .gp'));
-  requestAnimationFrame(function(){
-    gps.forEach(function(el){
-      if(el.getBoundingClientRect().top < innerHeight) el.classList.add('in');
-      else io.observe(el);
+  var pending = scale.concat(gps);
+  function sweep(){
+    pending = pending.filter(function(el){
+      if(el.classList.contains('in')) return false;
+      if(el.getBoundingClientRect().top < innerHeight){ el.classList.add('in'); return false; }
+      return true;
     });
-  });
+    if(!pending.length) return;
+    pending.forEach(function(el){ io.observe(el); });
+  }
+  requestAnimationFrame(sweep);
+  addEventListener('load', sweep);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(sweep);
+  setTimeout(sweep, 1200);
 
   /* строки таблицы услуг: каскад по доскроллу (по таблице целиком, чтобы читалось как волна) */
   var tio = new IntersectionObserver(function(es){
