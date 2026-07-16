@@ -917,6 +917,31 @@ p{max-width:68ch}
 .video-hero.playing>.wrap,.video-hero.playing .vh-stats,.video-hero.playing .vh-play{opacity:0;pointer-events:none;transition:opacity .35s ease}
 
 
+/* ===== аккордеон услуг ===== */
+.acc{display:grid;gap:12px}
+.acc-item{background:var(--card);border:1px solid var(--line-2);border-top:2px solid var(--accent);border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .24s,transform .24s}
+.acc-item[open]{box-shadow:0 2px 6px rgba(30,27,75,.05),0 26px 56px -28px rgba(30,27,75,.26)}
+.acc-item>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;transition:background .18s}
+.acc-item>summary::-webkit-details-marker{display:none}
+.acc-item>summary:hover{background:var(--paper-2)}
+.acc-meta{display:flex;flex-direction:column;gap:5px;min-width:0}
+.acc-k{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.acc-t{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink);line-height:1.25}
+.acc-term{font-size:13px;font-weight:600;color:var(--ink-3);white-space:nowrap;flex:none;margin-left:auto;padding-right:4px}
+.acc-body{padding:4px 26px 30px;border-top:1px solid var(--line);animation:accIn .34s ease}
+@keyframes accIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.acc-lead{font-size:15.5px;color:var(--ink-2);margin:18px 0 22px;max-width:70ch}
+.acc-body .duo{gap:34px}
+.acc-body .sec-head{margin-bottom:0}
+@media(max-width:640px){
+  .acc-item>summary{padding:16px 18px;gap:12px}
+  .acc-t{font-size:17px}
+  .acc-term{font-size:11.5px;gap:8px}
+  .acc-body{padding:4px 18px 24px}
+}
+@media(prefers-reduced-motion:reduce){.acc-body{animation:none}}
+
+
 
 /* subpage additions */
 
@@ -2286,6 +2311,27 @@ main section:has(> .wrap > a.fab:only-child){padding:0}
   if(bg) bg.addEventListener('click', start);
   if(play) play.addEventListener('click', start);
   addEventListener('keydown', function(e){ if(e.key==='Escape') stop(); });
+})();
+</script>
+<script>
+(function(){
+  var acc=document.querySelector('.acc'); if(!acc) return;
+  // клик по строке таблицы-указателя → раскрыть нужную услугу
+  function openById(id){
+    var d=document.getElementById(id);
+    if(!d || d.tagName.toLowerCase()!=='details') return false;
+    d.open=true;
+    d.scrollIntoView({behavior:'smooth',block:'start'});
+    return true;
+  }
+  document.addEventListener('click', function(e){
+    var a=e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var id=a.getAttribute('href').slice(1);
+    if(openById(id)) e.preventDefault();
+  });
+  // приход по прямой ссылке /services.html#karta-pobytu
+  if(location.hash){ setTimeout(function(){ openById(location.hash.slice(1)); }, 60); }
 })();
 </script>
 

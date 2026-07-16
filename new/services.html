@@ -917,6 +917,31 @@ p{max-width:68ch}
 .video-hero.playing>.wrap,.video-hero.playing .vh-stats,.video-hero.playing .vh-play{opacity:0;pointer-events:none;transition:opacity .35s ease}
 
 
+/* ===== аккордеон услуг ===== */
+.acc{display:grid;gap:12px}
+.acc-item{background:var(--card);border:1px solid var(--line-2);border-top:2px solid var(--accent);border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .24s,transform .24s}
+.acc-item[open]{box-shadow:0 2px 6px rgba(30,27,75,.05),0 26px 56px -28px rgba(30,27,75,.26)}
+.acc-item>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;transition:background .18s}
+.acc-item>summary::-webkit-details-marker{display:none}
+.acc-item>summary:hover{background:var(--paper-2)}
+.acc-meta{display:flex;flex-direction:column;gap:5px;min-width:0}
+.acc-k{font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.acc-t{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--ink);line-height:1.25}
+.acc-term{font-size:13px;font-weight:600;color:var(--ink-3);white-space:nowrap;flex:none;margin-left:auto;padding-right:4px}
+.acc-body{padding:4px 26px 30px;border-top:1px solid var(--line);animation:accIn .34s ease}
+@keyframes accIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.acc-lead{font-size:15.5px;color:var(--ink-2);margin:18px 0 22px;max-width:70ch}
+.acc-body .duo{gap:34px}
+.acc-body .sec-head{margin-bottom:0}
+@media(max-width:640px){
+  .acc-item>summary{padding:16px 18px;gap:12px}
+  .acc-t{font-size:17px}
+  .acc-term{font-size:11.5px;gap:8px}
+  .acc-body{padding:4px 18px 24px}
+}
+@media(prefers-reduced-motion:reduce){.acc-body{animation:none}}
+
+
 
 /* subpage additions */
 
@@ -1190,11 +1215,6 @@ p{max-width:68ch}
 }
 
 /* P5: живой калькулятор цены/срока/платежа — выпадающий список + сегмент оплаты */
-#svc-calc .calc-field select{width:100%;font:600 15px/1.4 var(--sans);color:var(--ink);background-color:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:13px 40px 13px 15px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);background-position:calc(100% - 20px) center,calc(100% - 15px) center;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
-#svc-calc .calc-field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,82,204,.12)}
-#svc-calc .cx-fine{font-size:12px;color:var(--ink-3);margin:2px 0 0;line-height:1.55}
-#svc-calc .calc-out .co-big{overflow-wrap:anywhere}
-#svc-calc .calc-out .btn-primary{width:100%}
 </style>
 <section id="uslugi">
   <img class="bg-art bg-left" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy">
@@ -1247,125 +1267,48 @@ p{max-width:68ch}
       <div class="sec-head">
         <div class="kicker">Каталог</div>
         <h2>Все услуги — <em>в одном месте</em></h2>
-        <p>Одиннадцать услуг под одной крышей. Нажмите на строку — откроется подробный блок с ценой, сроком и тем, что входит.</p>
+        <p>Одиннадцать услуг под одной крышей. Нажмите на строку — раскроется подробно: что входит, сроки и условия.</p>
       </div>
     </div>
     <table class="svc-table">
       <thead>
-        <tr><th>Услуга</th><th>Срок</th><th>Цена от</th></tr>
+        <tr><th>Услуга</th><th>Срок</th></tr>
       </thead>
       <tbody>
-        <tr><td><a href="#karta-pobytu">Карта побыту (ВНЖ)</a></td><td data-l="Срок">4–9 мес.</td><td data-l="Цена от">от 2 500 PLN</td></tr>
-        <tr><td><a href="#pmz">ПМЖ — постоянный побыт</a></td><td data-l="Срок">4–8 мес.</td><td data-l="Цена от">от 4 000 PLN</td></tr>
-        <tr><td><a href="#pesel">PESEL</a></td><td data-l="Срок">в тот же день</td><td data-l="Цена от">450 PLN</td></tr>
-        <tr><td><a href="#blue-card">Blue Card (ЕС)</a></td><td data-l="Срок">3–6 мес.</td><td data-l="Цена от">от 3 200 PLN</td></tr>
-        <tr><td><a href="#apelacje">Апелляции</a></td><td data-l="Срок">2–6 мес.</td><td class="disc" data-l="Цена от">бесплатно*</td></tr>
-        <tr><td><a href="#spolka">Регистрация компании</a></td><td data-l="Срок">1–14 раб. дней</td><td data-l="Цена от">от 800 PLN</td></tr>
-        <tr><td><a href="#buhgalteria">Бухгалтерия и налоги</a></td><td data-l="Срок">ежемесячно</td><td data-l="Цена от">от 300 PLN/мес</td></tr>
-        <tr><td><a href="#prava">Замена водительских прав</a></td><td data-l="Срок">по записи</td><td data-l="Цена от">от 600 PLN</td></tr>
-        <tr><td><a href="#profil-zaufany">Profil Zaufany</a></td><td data-l="Срок">онлайн через банк</td><td data-l="Цена от">350 PLN</td></tr>
-        <tr><td><a href="#grazhdanstvo">Гражданство Польши</a></td><td data-l="Срок">6–24 мес.</td><td data-l="Цена от">по договорённости</td></tr>
-        <tr><td><a href="#zashchita">Международная защита</a></td><td data-l="Срок">6–24 мес.</td><td data-l="Цена от">по договорённости</td></tr>
+        <tr><td><a href="#karta-pobytu">Карта побыту (ВНЖ)</a></td><td data-l="Срок">4–9 мес.</td></tr>
+        <tr><td><a href="#pmz">ПМЖ — постоянный побыт</a></td><td data-l="Срок">4–8 мес.</td></tr>
+        <tr><td><a href="#pesel">PESEL</a></td><td data-l="Срок">в тот же день</td></tr>
+        <tr><td><a href="#blue-card">Blue Card (ЕС)</a></td><td data-l="Срок">3–6 мес.</td></tr>
+        <tr><td><a href="#apelacje">Апелляции</a></td><td data-l="Срок">2–6 мес.</td></tr>
+        <tr><td><a href="#spolka">Регистрация компании</a></td><td data-l="Срок">1–14 раб. дней</td></tr>
+        <tr><td><a href="#buhgalteria">Бухгалтерия и налоги</a></td><td data-l="Срок">ежемесячно</td></tr>
+        <tr><td><a href="#prava">Замена водительских прав</a></td><td data-l="Срок">по записи</td></tr>
+        <tr><td><a href="#profil-zaufany">Profil Zaufany</a></td><td data-l="Срок">онлайн через банк</td></tr>
+        <tr><td><a href="#grazhdanstvo">Гражданство Польши</a></td><td data-l="Срок">6–24 мес.</td></tr>
+        <tr><td><a href="#zashchita">Международная защита</a></td><td data-l="Срок">6–24 мес.</td></tr>
       </tbody>
     </table>
     <p class="tbl-note">* Апелляция бесплатно для клиентов LegalSol, если дело изначально вели мы. Для новых клиентов — по договорённости.</p>
-
-    <div class="svc-calc" id="svc-calc">
-      <div class="sec-head" style="margin:64px 0 26px">
-        <div class="kicker">Калькулятор</div>
-        <h2>Прикиньте цену и срок — <em>за пару секунд</em></h2>
-        <p>Выберите услугу — покажем цену «от», средний срок и размер платежа, если платить частями. Точную сумму назовём на бесплатной консультации — до начала работы.</p>
-      </div>
-      <div class="calc-kit">
-        <div class="calc-in">
-          <div class="calc-field">
-            <label for="cx-svc">Услуга</label>
-            <select id="cx-svc">
-              <option value="kp">Карта побыту (ВНЖ)</option>
-              <option value="pmz">ПМЖ — постоянный побыт</option>
-              <option value="pesel">PESEL</option>
-              <option value="blue">Blue Card (ЕС)</option>
-              <option value="apel">Апелляции</option>
-              <option value="spolka">Регистрация компании</option>
-              <option value="buh">Бухгалтерия и налоги</option>
-              <option value="prava">Замена водительских прав</option>
-              <option value="pz">Profil Zaufany</option>
-              <option value="graz">Гражданство Польши</option>
-              <option value="zash">Международная защита</option>
-            </select>
-          </div>
-          <div class="calc-field" style="margin-bottom:14px">
-            <label>Как удобнее платить</label>
-            <div class="calc-seg" id="cx-pay">
-              <button type="button" class="on" data-n="1">Сразу</button>
-              <button type="button" data-n="2">2 платежа</button>
-              <button type="button" data-n="3">3 платежа</button>
-            </div>
-          </div>
-          <p class="cx-fine">Госпошлина ужонда оплачивается отдельно. Оплата — на счёт фирмы, по официальному договору.</p>
-        </div>
-        <div class="calc-out">
-          <div class="co-k">Цена LegalSol от</div>
-          <div class="co-big" id="cx-price">от 2 500 PLN</div>
-          <div class="co-row"><span>Средний срок</span><b id="cx-term">4–9 мес.</b></div>
-          <div class="co-row"><span id="cx-paylbl">Оплата сразу</span><b id="cx-payv">2 500 PLN</b></div>
-          <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525" style="margin-top:6px;justify-content:center">Обсудить в WhatsApp</a>
-        </div>
-      </div>
-    </div>
-    <script>
-    (function(){
-      var CX={
-        kp:{p:"от 2 500 PLN",t:"4–9 мес.",n:2500,h:"Карта побыту (ВНЖ)"},
-        pmz:{p:"от 4 000 PLN",t:"4–8 мес.",n:4000,h:"ПМЖ — постоянный побыт"},
-        pesel:{p:"450 PLN",t:"в тот же день",n:450,h:"PESEL"},
-        blue:{p:"от 3 200 PLN",t:"3–6 мес.",n:3200,h:"Blue Card (ЕС)"},
-        apel:{p:"бесплатно*",t:"2–6 мес.",n:0,h:"Апелляции"},
-        spolka:{p:"от 800 PLN",t:"1–14 раб. дней",n:800,h:"Регистрация компании"},
-        buh:{p:"от 300 PLN/мес",t:"ежемесячно",n:0,h:"Бухгалтерия и налоги"},
-        prava:{p:"от 600 PLN",t:"по записи",n:600,h:"Замена водительских прав"},
-        pz:{p:"350 PLN",t:"онлайн через банк",n:350,h:"Profil Zaufany"},
-        graz:{p:"по договорённости",t:"6–24 мес.",n:0,h:"Гражданство Польши"},
-        zash:{p:"по договорённости",t:"6–24 мес.",n:0,h:"Международная защита"}
-      };
-      var sel=document.getElementById('cx-svc'),seg=document.getElementById('cx-pay');
-      if(!sel||!seg)return;
-      var payN=1;
-      function money(v){v=String(v);var o='',c=0;for(var i=v.length-1;i>=0;i--){o=v.charAt(i)+o;if(++c%3===0&&i>0)o=' '+o;}return o;}
-      function render(){
-        var d=CX[sel.value]||CX.kp;
-        document.getElementById('cx-price').textContent=d.p;
-        document.getElementById('cx-term').textContent=d.t;
-        var lbl=document.getElementById('cx-paylbl'),val=document.getElementById('cx-payv');
-        if(!d.n){lbl.textContent='Оплата';val.textContent='по договорённости';}
-        else if(payN===1){lbl.textContent='Оплата сразу';val.textContent=money(d.n)+' PLN';}
-        else{lbl.textContent=(payN===2?'2 платежа по ≈':'3 платежа по ≈');val.textContent=money(Math.round(d.n/payN))+' PLN';}
-        document.getElementById('cx-wa').href='https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Интересует услуга: '+d.h);
-      }
-      sel.addEventListener('change',render);
-      seg.addEventListener('click',function(e){
-        var b=e.target.closest('button');if(!b)return;
-        [].forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
-        b.classList.add('on');payN=parseInt(b.getAttribute('data-n'),10)||1;render();
-      });
-      render();
-    })();
-    </script>
-    <div class="note-line">
-      <p><b>Не знаете, какая услуга нужна?</b> Опишите ситуацию — подскажем путь на бесплатной консультации и назовём точную цену до начала работы. <a href="https://wa.me/48735248525?text=Здравствуйте!%20Не%20знаю,%20какая%20услуга%20мне%20нужна%20—%20подскажите."><b>Обсудить в WhatsApp →</b></a></p>
-    </div>
   </div>
 </section>
 
-<section id="karta-pobytu">
-  <img class="bg-art bg-right" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy">
+<section id="uslugi-list">
+  <img class="bg-art bg-right" src="/assets/trc/bg_books.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Легализация · Флагман</div>
-      <h2>Карта побыту — <em>временный вид на жительство</em></h2>
-      <p>Karta pobytu — документ, который подтверждает ваше право жить в Польше. Выдаётся воеводским управлением (Urząd Wojewódzki) на 1–3 года, затем продлевается. Наша главная услуга: ведём от первой консультации до карты у вас на руках.</p>
+      <div class="kicker">Подробно</div>
+      <h2>Выберите услугу — <em>и прочитайте про неё</em></h2>
+      <p>Нажмите на услугу: раскроются условия, сроки и что входит. Точную цену называем на бесплатном разборе.</p>
     </div>
-    <div class="duo">
+    <div class="acc">
+      <details class="acc-item" id="karta-pobytu">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация · Флагман</span><span class="acc-t">Карта побыту — <em>временный вид на жительство</em></span></span>
+          <span class="acc-term">4–9 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Karta pobytu — документ, который подтверждает ваше право жить в Польше. Выдаётся воеводским управлением (Urząd Wojewódzki) на 1–3 года, затем продлевается. Наша главная услуга: ведём от первой консультации до карты у вас на руках.</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Основания для подачи</h3>
@@ -1407,7 +1350,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Сопровождение LegalSol — точная сумма после консультации</td><td class="fee-v">от 2 500 PLN</td></tr>
+          
           <tr><td>Госпошлина — оплачивается отдельно</td><td class="fee-v">~340 PLN</td></tr>
           <tr><td>Подготовка документов</td><td class="fee-v">1–2 недели</td></tr>
           <tr><td>Ожидание решения — с нами быстрее на 1,5–2 мес.</td><td class="fee-v">3–6 мес.</td></tr>
@@ -1419,18 +1362,16 @@ p{max-width:68ch}
         </figure>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="pmz">
-  <img class="bg-art bg-right" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Легализация</div>
-      <h2>ПМЖ — <em>постоянный побыт</em></h2>
-      <p>Zezwolenie na pobyt stały — статус постоянного проживания в Польше, следующий шаг после временной карты побыту. Выдаётся бессрочно.</p>
-    </div>
-    <div class="duo flip">
+        </div>
+      </details>
+      <details class="acc-item" id="pmz">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация</span><span class="acc-t">ПМЖ — <em>постоянный побыт</em></span></span>
+          <span class="acc-term">4–8 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Zezwolenie na pobyt stały — статус постоянного проживания в Польше, следующий шаг после временной карты побыту. Выдаётся бессрочно.</p>
+          <div class="duo flip">
       <div>
         <div class="clause">
           <h3>Кто может подавать</h3>
@@ -1468,7 +1409,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Сопровождение LegalSol</td><td class="fee-v">от 4 000 PLN</td></tr>
+          
           <tr><td>Госпошлина — оплачивается отдельно</td><td class="fee-v">~640 PLN</td></tr>
           <tr><td>Подготовка документов</td><td class="fee-v">2–4 недели</td></tr>
           <tr><td>Ожидание решения</td><td class="fee-v">4–8 мес.</td></tr>
@@ -1483,18 +1424,16 @@ p{max-width:68ch}
       <div class="mini-card"><b>Шаг к гражданству</b>ПМЖ — основа для получения польского гражданства.</div>
       <div class="mini-card"><b>Социальные льготы</b>Наравне с гражданами Польши.</div>
     </div>
-  </div>
-</section>
-
-<section id="pesel">
-  <img class="bg-art bg-left" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Документы</div>
-      <h2>PESEL — <em>ваш номер в Польше</em></h2>
-      <p>11-значный идентификационный номер, который присваивается каждому жителю Польши. Аналог ИНН: без него не откроется почти ни одна дверь — от банка до поликлиники.</p>
-    </div>
-    <div class="duo">
+        </div>
+      </details>
+      <details class="acc-item" id="pesel">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Документы</span><span class="acc-t">PESEL — <em>ваш номер в Польше</em></span></span>
+          <span class="acc-term">в тот же день</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">11-значный идентификационный номер, который присваивается каждому жителю Польши. Аналог ИНН: без него не откроется почти ни одна дверь — от банка до поликлиники.</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Без PESEL невозможно</h3>
@@ -1531,7 +1470,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Услуга LegalSol — включая сопровождение</td><td class="fee-v">450 PLN</td></tr>
+          
           <tr><td>Госпошлина — PESEL выдаётся бесплатно</td><td class="fee-v">0 PLN</td></tr>
           <tr><td>Получение номера</td><td class="fee-v">в тот же день</td></tr>
         </table>
@@ -1544,18 +1483,16 @@ p{max-width:68ch}
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="blue-card">
-  <img class="bg-art bg-left" src="/assets/trc/bg_desk2.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Легализация</div>
-      <h2>Blue Card — <em>карта для специалистов</em></h2>
-      <p>Niebieska Karta UE — особый вид карты побыту для высококвалифицированных специалистов. Аналог американской Green Card, но для Евросоюза: право работать и жить в любой стране ЕС.</p>
-    </div>
-    <div class="duo flip">
+        </div>
+      </details>
+      <details class="acc-item" id="blue-card">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация</span><span class="acc-t">Blue Card — <em>карта для специалистов</em></span></span>
+          <span class="acc-term">3–6 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Niebieska Karta UE — особый вид карты побыту для высококвалифицированных специалистов. Аналог американской Green Card, но для Евросоюза: право работать и жить в любой стране ЕС.</p>
+          <div class="duo flip">
       <div>
         <div class="clause">
           <h3>Требования</h3>
@@ -1583,7 +1520,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Сопровождение LegalSol</td><td class="fee-v">от 3 200 PLN</td></tr>
+          
           <tr><td>Госпошлина — оплачивается отдельно</td><td class="fee-v">~440 PLN</td></tr>
           <tr><td>Подготовка документов</td><td class="fee-v">1–2 недели</td></tr>
           <tr><td>Ожидание решения</td><td class="fee-v">3–6 мес.</td></tr>
@@ -1610,18 +1547,16 @@ p{max-width:68ch}
         </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="apelacje">
-  <img class="bg-art bg-left" src="/assets/trc/bg_books.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Легализация · Защита</div>
-      <h2>Апелляции — <em>отказ можно оспорить</em></h2>
-      <p>Отказ по карте побыту, ПМЖ или другому документу — это не конец. Мы специализируемся на апелляциях и отменяем отказы даже тогда, когда другие юристы говорили «шансов нет».</p>
-    </div>
-    <div class="duo">
+        </div>
+      </details>
+      <details class="acc-item" id="apelacje">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация · Защита</span><span class="acc-t">Апелляции — <em>отказ можно оспорить</em></span></span>
+          <span class="acc-term">2–6 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Отказ по карте побыту, ПМЖ или другому документу — это не конец. Мы специализируемся на апелляциях и отменяем отказы даже тогда, когда другие юристы говорили «шансов нет».</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Когда нужна апелляция</h3>
@@ -1677,18 +1612,16 @@ p{max-width:68ch}
         <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20услуга:%20Апелляции">Обсудить в WhatsApp</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="spolka">
-  <img class="bg-art bg-right" src="/assets/trc/bg_books.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Бизнес</div>
-      <h2>Регистрация компании — <em>JDG или Sp. z o.o.</em></h2>
-      <p>Помогаем иностранцам открыть бизнес в Польше: ИП (jednoosobowa działalność gospodarcza) или ООО (spółka z o.o.) — в зависимости от ваших целей.</p>
-    </div>
-    <div class="duo flip">
+        </div>
+      </details>
+      <details class="acc-item" id="spolka">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Бизнес</span><span class="acc-t">Регистрация компании — <em>JDG или Sp. z o.o.</em></span></span>
+          <span class="acc-term">1–14 раб. дней</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Помогаем иностранцам открыть бизнес в Польше: ИП (jednoosobowa działalność gospodarcza) или ООО (spółka z o.o.) — в зависимости от ваших целей.</p>
+          <div class="duo flip">
       <div>
         <div class="clause">
           <h3>Зачем регистрировать фирму</h3>
@@ -1726,8 +1659,8 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Регистрация ИП (JDG)</td><td class="fee-v">от 800 PLN</td></tr>
-          <tr><td>Регистрация ООО (Sp. z o.o.)</td><td class="fee-v">от 2 000 PLN</td></tr>
+          
+          
           <tr><td>Госпошлины</td><td class="fee-v">включены</td></tr>
           <tr><td>Срок: ИП — через CEIDG</td><td class="fee-v">1–3 раб. дня</td></tr>
           <tr><td>Срок: ООО — через KRS</td><td class="fee-v">5–14 раб. дней</td></tr>
@@ -1738,17 +1671,16 @@ p{max-width:68ch}
       <div class="mini-card"><b>JDG — ИП</b>Проще всего открыть и закрыть, вся ответственность — личная. Подходит фрилансерам, консультантам, перевозчикам. Регистрация через CEIDG — 1 день.</div>
       <div class="mini-card"><b>Sp. z o.o. — ООО</b>Минимальный уставной капитал — 5 000 PLN, ответственность ограничена. Сложнее в управлении, но престижнее. Регистрация через KRS — 5–14 дней.</div>
     </div>
-  </div>
-</section>
-
-<section id="buhgalteria" class="band-sec">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Бизнес</div>
-      <h2>Бухгалтерия и налоги — <em>без сюрпризов</em></h2>
-      <p>Ведение учёта и налоговое сопровождение для иностранных предпринимателей в Польше. Работаем с ИП и ООО.</p>
-    </div>
-    <div class="duo">
+        </div>
+      </details>
+      <details class="acc-item" id="buhgalteria">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Бизнес</span><span class="acc-t">Бухгалтерия и налоги — <em>без сюрпризов</em></span></span>
+          <span class="acc-term">ежемесячно</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Ведение учёта и налоговое сопровождение для иностранных предпринимателей в Польше. Работаем с ИП и ООО.</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Ежемесячное сопровождение</h3>
@@ -1779,11 +1711,7 @@ p{max-width:68ch}
         <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20услуга:%20Бухгалтерия">Обсудить в WhatsApp</a>
       </div>
       <div class="duo-side">
-        <table class="fee-table">
-          <tr><td>Старт — ИП, до 30 операций</td><td class="fee-v">от 300 PLN/мес</td></tr>
-          <tr><td>Бизнес — ИП/ООО, до 100 операций</td><td class="fee-v">от 600 PLN/мес</td></tr>
-          <tr><td>Премиум — ООО, неограниченно</td><td class="fee-v">от 1 200 PLN/мес</td></tr>
-        </table>
+        
         <div class="mini-cards" style="margin-top:18px">
           <div class="mini-card"><b>PIT</b>Налог на доходы физлиц.</div>
           <div class="mini-card"><b>CIT</b>Налог на прибыль организаций.</div>
@@ -1795,18 +1723,16 @@ p{max-width:68ch}
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="prava">
-  <img class="bg-art bg-left" src="/assets/trc/bg_arch.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Документы</div>
-      <h2>Замена водительских прав — <em>на польские</em></h2>
-      <p>Обмен иностранного водительского удостоверения на польское (europejskie prawo jazdy). После получения карты побыту или ПМЖ иностранные права нужно обменять в течение определённого срока.</p>
-    </div>
-    <div class="duo flip">
+        </div>
+      </details>
+      <details class="acc-item" id="prava">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Документы</span><span class="acc-t">Замена водительских прав — <em>на польские</em></span></span>
+          <span class="acc-term">по записи</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Обмен иностранного водительского удостоверения на польское (europejskie prawo jazdy). После получения карты побыту или ПМЖ иностранные права нужно обменять в течение определённого срока.</p>
+          <div class="duo flip">
       <div>
         <div class="clause">
           <h3>Когда нужна замена</h3>
@@ -1825,7 +1751,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin:26px 0">
-          <tr><td>Замена прав категории B</td><td class="fee-v">от 600 PLN</td></tr>
+          
           <tr><td>Категории C/CE + Код 95</td><td class="fee-v">по договорённости</td></tr>
         </table>
         <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20услуга:%20Замена%20водительских%20прав">Обсудить в WhatsApp</a>
@@ -1860,18 +1786,16 @@ p{max-width:68ch}
       <div class="mini-card"><b>Категория D</b>Автобусы.</div>
       <div class="mini-card"><b>Код 95</b>Обязателен для профессиональных водителей категорий C, CE, D.</div>
     </div>
-  </div>
-</section>
-
-<section id="profil-zaufany">
-  <img class="bg-art bg-left" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Документы</div>
-      <h2>Profil Zaufany — <em>ваша электронная подпись</em></h2>
-      <p>Электронная идентификация в государственных системах Польши. Позволяет подписывать документы онлайн и получать госуслуги, не выходя из дома.</p>
-    </div>
-    <div class="duo">
+        </div>
+      </details>
+      <details class="acc-item" id="profil-zaufany">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Документы</span><span class="acc-t">Profil Zaufany — <em>ваша электронная подпись</em></span></span>
+          <span class="acc-term">онлайн через банк</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Электронная идентификация в государственных системах Польши. Позволяет подписывать документы онлайн и получать госуслуги, не выходя из дома.</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Что можно делать онлайн</h3>
@@ -1908,7 +1832,7 @@ p{max-width:68ch}
           </ul>
         </div>
         <table class="fee-table" style="margin-top:18px">
-          <tr><td>Услуга LegalSol — включая сопровождение</td><td class="fee-v">350 PLN</td></tr>
+          
         </table>
       </div>
     </div>
@@ -1916,18 +1840,16 @@ p{max-width:68ch}
       <div class="mini-card"><b>Онлайн через банк</b>PKO BP, mBank, ING, Santander — верификация через интернет-банк. Самый быстрый способ.</div>
       <div class="mini-card"><b>Punkt Potwierdzający</b>Urząd Skarbowy, ZUS или почта — личный визит с паспортом и PESEL.</div>
     </div>
-  </div>
-</section>
-
-<section id="grazhdanstvo">
-  <img class="bg-art bg-right" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Легализация · Максимум</div>
-      <h2>Гражданство Польши — <em>паспорт ЕС</em></h2>
-      <p>Obywatelstwo polskie — польский паспорт с полными правами гражданина Евросоюза: свободно жить и работать в любой стране ЕС. Ведём дело от анализа оснований до паспорта.</p>
-    </div>
-    <div class="duo flip">
+        </div>
+      </details>
+      <details class="acc-item" id="grazhdanstvo">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация · Максимум</span><span class="acc-t">Гражданство Польши — <em>паспорт ЕС</em></span></span>
+          <span class="acc-term">6–24 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Obywatelstwo polskie — польский паспорт с полными правами гражданина Евросоюза: свободно жить и работать в любой стране ЕС. Ведём дело от анализа оснований до паспорта.</p>
+          <div class="duo flip">
       <div>
         <div class="clause">
           <h3>Натурализация — требования</h3>
@@ -1972,18 +1894,16 @@ p{max-width:68ch}
         <div class="path-row" role="button" tabindex="0" aria-expanded="false"><span class="pn">Путь 4</span><span class="pt">Repatriacja</span><span class="pd">Репатриация — для потомков поляков из стран бывшего СССР.</span><span class="ptag">Репатриация</span><div class="px">Отдельная процедура для потомков поляков из стран бывшего СССР — поможем подтвердить основание.</div></div>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="zashchita">
-  <img class="bg-art bg-right" src="/assets/trc/bg_arch.jpg" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Легализация · Сложные случаи</div>
-      <h2>Международная защита — <em>когда домой нельзя</em></h2>
-      <p>Ochrona międzynarodowa — статус для тех, кто не может вернуться на родину из-за угрозы преследования, войны или других серьёзных угроз жизни и безопасности.</p>
-    </div>
-    <div class="duo">
+        </div>
+      </details>
+      <details class="acc-item" id="zashchita">
+        <summary>
+          <span class="acc-meta"><span class="acc-k">Легализация · Сложные случаи</span><span class="acc-t">Международная защита — <em>когда домой нельзя</em></span></span>
+          <span class="acc-term">6–24 мес.</span>
+        </summary>
+        <div class="acc-body">
+          <p class="acc-lead">Ochrona międzynarodowa — статус для тех, кто не может вернуться на родину из-за угрозы преследования, войны или других серьёзных угроз жизни и безопасности.</p>
+          <div class="duo">
       <div>
         <div class="clause">
           <h3>Виды защиты в Польше</h3>
@@ -2027,6 +1947,9 @@ p{max-width:68ch}
         <div class="path-row" role="button" tabindex="0" aria-expanded="false"><span class="pn">Шаг 4</span><span class="pt">Ожидание решения</span><span class="pd">Рассмотрение занимает 6–24 месяца.</span><span class="ptag">6–24 мес.</span><div class="px">Всё это время остаёмся на связи и представляем ваши интересы.</div></div>
         <div class="path-row" role="button" tabindex="0" aria-expanded="false"><span class="pn">Шаг 5</span><span class="pt">Статус — или апелляция</span><span class="pd">Получение статуса. При отказе — подаём апелляцию.</span><span class="ptag">Результат</span><div class="px">Отказ — не конец: апелляция входит в нашу работу по делу.</div></div>
       </div>
+    </div>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -2189,7 +2112,7 @@ p{max-width:68ch}
         <div class="faq-cols">
           <details open>
             <summary>Сколько стоят услуги и когда я узнаю цену?</summary>
-            <div class="a">Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Карта побыту — от 2 500 PLN, PESEL — 450 PLN, ПМЖ — от 4 000 PLN, Profil Zaufany — 350 PLN. Точную сумму называем на бесплатной консультации. Оплата — 2–3 платежами на счёт фирмы.</div>
+            <div class="a">Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Точную сумму называем на бесплатной консультации: она зависит от вашего основания, готовности документов и срочности. Оплата — 2–3 платежами на счёт фирмы.</div>
           </details>
           <details>
             <summary>Что будет, если придёт отказ?</summary>
@@ -2217,7 +2140,7 @@ p{max-width:68ch}
           </details>
           <details>
             <summary>Делаете ли вы PESEL и Profil Zaufany отдельно?</summary>
-            <div class="a">Да. PESEL оформляем в тот же день — 450 PLN, при этом сам номер государство выдаёт бесплатно. Profil Zaufany — 350 PLN, онлайн через банк или с сопровождением в пункт подтверждения.</div>
+            <div class="a">Да. PESEL оформляем в тот же день, при этом сам номер государство выдаёт бесплатно. Profil Zaufany — онлайн через банк или с сопровождением в пункт подтверждения.</div>
           </details>
         </div>
       </div>
@@ -2252,7 +2175,7 @@ p{max-width:68ch}
 #cta .cs-office{overflow-wrap:anywhere}
 </style>
 <section id="cta">
-  <img class="bg-art bg-left" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy">
+  <img class="bg-art bg-right" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">Начнём?</div>
@@ -2708,6 +2631,27 @@ p{max-width:68ch}
   if(bg) bg.addEventListener('click', start);
   if(play) play.addEventListener('click', start);
   addEventListener('keydown', function(e){ if(e.key==='Escape') stop(); });
+})();
+</script>
+<script>
+(function(){
+  var acc=document.querySelector('.acc'); if(!acc) return;
+  // клик по строке таблицы-указателя → раскрыть нужную услугу
+  function openById(id){
+    var d=document.getElementById(id);
+    if(!d || d.tagName.toLowerCase()!=='details') return false;
+    d.open=true;
+    d.scrollIntoView({behavior:'smooth',block:'start'});
+    return true;
+  }
+  document.addEventListener('click', function(e){
+    var a=e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var id=a.getAttribute('href').slice(1);
+    if(openById(id)) e.preventDefault();
+  });
+  // приход по прямой ссылке /services.html#karta-pobytu
+  if(location.hash){ setTimeout(function(){ openById(location.hash.slice(1)); }, 60); }
 })();
 </script>
 
