@@ -97,8 +97,8 @@ header{position:sticky}
 /* video card */
 .vcard{position:relative}
 .vplayer{display:block;width:100%;aspect-ratio:16/9;position:relative;border:0;padding:0;cursor:pointer;border-radius:var(--r);overflow:hidden;background:var(--indigo-9);box-shadow:var(--sh)}
-.vplayer .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82)}
-.vplayer::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.34),rgba(30,27,75,.06) 46%,rgba(30,27,75,.34));pointer-events:none}
+.vplayer .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.5) contrast(.92) brightness(.94)}
+.vplayer::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(61,91,169,.45),rgba(61,91,169,.18) 46%,rgba(61,91,169,.42));pointer-events:none}
 .vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.4);transition:transform .2s}
 .vplay svg{margin-left:4px}
 .vplayer:hover .vplay{transform:translate(-50%,-50%) scale(1.08)}
@@ -520,6 +520,17 @@ details.q[open]{border-left-color:var(--gold)}
 .dir .badge{z-index:3}
 .rev-rail img{object-position:50% 30%}
 .pbreak .pb-line{text-shadow:0 1px 12px rgba(15,25,55,.8)}
+.s11{padding:24px 20px 22px;min-height:150px}
+.s11 .ix{position:absolute;top:14px;right:16px;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--lilac-2);line-height:1;transition:color .3s}
+.s11:hover .ix{color:var(--indigo-2)}
+.s11 .sic{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:var(--lilac);color:var(--indigo);margin-bottom:14px;transition:background .3s,color .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.s11 .sic svg{width:23px;height:23px}
+.s11:nth-child(3n+2) .sic{background:var(--gold-soft);color:var(--gold-2)}
+.s11:hover .sic{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;transform:scale(1.08) rotate(-4deg)}
+.s11::after{content:"→";position:absolute;right:18px;bottom:14px;font-size:16px;font-weight:700;color:var(--indigo);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s}
+.s11:hover::after{opacity:1;transform:none}
+.s11.ask .sic{display:none}
+@media(max-width:640px){.s11{min-height:0;padding:18px 16px}.s11 .sic{width:38px;height:38px;margin-bottom:10px}.s11 .ix{font-size:24px}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -1100,7 +1111,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       </form>
       <div class="cb2-err" id="cb2-err" role="alert"></div>
       <div class="or">или</div>
-      <a class="btn btn-gold" href="#cb2-demo" onclick="return cb3Open(event)">Посмотреть демо-кабинет →</a>
+      <a class="btn btn-gold" href="#cb2-demo" onclick="return cb3Open(event)">Зайти в кабинет без пароля →</a>
       <div class="fine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Доступ выдаётся после первой консультации</div>
       <div style="font-size:12.5px;color:var(--ink-3);margin-top:10px">Логин и пароль присылает ваш специалист в WhatsApp. Не получили? <a href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BC%D0%BE%D0%B3%D1%83%20%D0%B2%D0%BE%D0%B9%D1%82%D0%B8%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%E2%80%94%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF." target="_blank" rel="noopener" style="color:var(--indigo);font-weight:600">Напишите нам</a></div>
     </div>
@@ -1109,7 +1120,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- ТИЗЕР ДЕМО-КАБИНЕТА -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">ДЕМО — глазами клиента</span>
     <h2>Загляните внутрь — до старта дела</h2>
@@ -1133,7 +1144,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Доступ</span>
     <h2>Как получить свой кабинет</h2>
@@ -1152,7 +1163,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Да — если вы клиент LegalSol. Войдите по телефону и паролю, которые прислал ваш специалист, и увидите живой статус своего дела прямо из CRM. Если пока не клиент — откройте демо и посмотрите, как это выглядит.</div></details>
@@ -1163,7 +1174,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите такой же кабинет для своего дела?</div>
@@ -1443,6 +1454,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
     var h=location.hash||'',q=location.search||'';
     var tab=(h==='#app-chat')?'chat':((h==='#app-pay')?'pay':null);
     if(q.indexOf('app=1')>-1||h==='#app'||tab)open(tab||'delo');
+    else if(q.indexOf('login=1')===-1)setTimeout(function(){open('delo');},300); /* превью: кабинет открыт без пароля; форма входа — ?login=1 или «Выйти» */
     if(q.indexOf('req=1')>-1)window.cb3Pay(document.getElementById('cb3-paybtn2'));
   }catch(e){}
 })();
