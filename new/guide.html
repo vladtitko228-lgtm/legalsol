@@ -918,6 +918,19 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 #clr-tog b{display:inline-block;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9))}
 @media(max-width:640px){#clr-tog{padding:8px 12px;font-size:12px}}
 
+/* language switcher */
+.lsw{position:relative;display:inline-flex;margin-right:6px}
+.lsw-b{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;font:inherit;font-size:12.5px;font-weight:700;letter-spacing:.03em;padding:6px 11px;border-radius:999px;cursor:pointer;transition:background .2s}
+.lsw-b:hover{background:rgba(255,255,255,.24)}
+.lsw-b svg{opacity:.85}
+.lsw-dd{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line,#E8E2D8);border-radius:16px;box-shadow:0 18px 48px -12px rgba(33,30,61,.28);padding:8px;min-width:172px;display:none;z-index:90}
+.lsw.open .lsw-dd{display:block}
+.lsw-o{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;font-size:13.5px;color:var(--ink,#211E3D);padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left}
+.lsw-o:hover{background:rgba(91,135,207,.09)}
+.lsw-o.cur{background:rgba(91,135,207,.13);font-weight:700}
+.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#5B87CF);width:22px;flex:0 0 auto}
+@media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
+
 /* --- page:guide --- */
 /* — гайд: герой — */
 .gd-hero{padding:36px 0 0}
@@ -1083,7 +1096,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">The simple version</span><h2>The whole journey in six frames</h2><p>What, how and why — without a single legal term. Details come below, in the chapters.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Sound familiar?</span><div class="num">1</div><h3>The clock is ticking</h3><p>Your visa is ending, the urząd is silent, and it's unclear what to do.</p></div>
@@ -1097,7 +1110,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Geography</span><h2>From Warsaw to all 16 voivodeships</h2><p>Our team runs legalization cases all over Poland. Residence cards aren't "one service among many" — they're what we live and breathe.</p></div>
   <div class="geo reveal">
     <p>Filing works across all of Poland: since 2026 everything goes online through MOS, so your city makes no difference</p>
@@ -1113,7 +1126,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter I</span><h2>What is a residence card?</h2><p>A residence card (karta pobytu in Polish, TRC for short) is Poland's residence permit: a plastic card that confirms your right to live in the country legally.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -1140,7 +1153,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter II</span><h2>Why people don't file on their own</h2><p>It's not that the form is hard — it's that the procedure doesn't forgive small things. Here are the three reasons people most often lose months.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Everything is online now</b><span>From 27.04.2026, applications are filed online only — through the government MOS system. Logging in requires a Profil Zaufany — your personal electronic signature for Polish government services. One wrong field, and the whole case stalls.</span></div>
@@ -1166,7 +1179,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter III</span><h2>Six stages — from your first message to the card</h2><p>The whole journey in one place. First a summary table, then what exactly happens at each stage, what we need from you and how long it takes.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Free case review</b><p>Status, timelines, the right basis, a plan and a fixed price</p></div><span class="pt">Same day</span></div>
@@ -1241,7 +1254,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter IV</span><h2>How long it really takes: 4–9 months</h2><p>The whole journey usually takes four to nine months. The waiting stages partly overlap — your case is being processed from the moment of filing, so the rows don't add up to a total. Here's where the time goes — no sugar-coating.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 months</span></div>
@@ -1834,5 +1847,119 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 </script>
 <button id="clr-tog" type="button" aria-label="Toggle accent color" onclick="var h=document.documentElement,v=h.classList.toggle('violet');try{localStorage.setItem('ls_color',v?'violet':'blue');}catch(e){}this.querySelector('span').textContent=v?'Violet':'Blue';"><b aria-hidden="true"></b><span>Blue</span></button>
 <script>(function(){var b=document.getElementById('clr-tog');if(b)b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
+<script>
+/* i18n: EN base + runtime dictionaries */
+(function(){
+  var LANGS=[['en','EN','English'],['ru','RU','\u0420\u0443\u0441\u0441\u043a\u0438\u0439'],['pl','PL','Polski'],['uk','UA','\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430'],['hi','HI','\u0939\u093f\u0928\u094d\u0926\u0940'],['ur','UR','\u0627\u0631\u062f\u0648'],['tr','TR','T\u00fcrk\u00e7e'],['es','ES','Espa\u00f1ol']];
+  var isCab=location.pathname.indexOf('cabinet')>-1;
+  var cur='en';
+  try{cur=localStorage.getItem('ls_lang')||'en';}catch(e){}
+  if(isCab)cur='en';
+  var ok=false;for(var i=0;i<LANGS.length;i++){if(LANGS[i][0]===cur)ok=true;}
+  if(!ok)cur='en';
+  var DICTS={en:{}};
+  var applying=false;
+  function collapse(s){return s.replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'');}
+  function trText(node,dict,toEn){
+    if(node.__en===undefined)node.__en=node.data;
+    var src=node.__en;
+    var key=collapse(src);
+    if(!key)return;
+    var lead=src.slice(0,src.length-src.replace(/^\s+/,'').length);
+    var tail=src.slice(src.replace(/\s+$/,'').length);
+    if(toEn){if(node.data!==src)node.data=src;return;}
+    var tr=dict[key];
+    if(tr!==undefined&&node.data!==lead+tr+tail)node.data=lead+tr+tail;
+  }
+  var ATTRS=['alt','aria-label','placeholder','title'];
+  function trAttrs(el,dict,toEn){
+    if(!el.getAttribute)return;
+    for(var i=0;i<ATTRS.length;i++){
+      var a=ATTRS[i],v=el.getAttribute(a);
+      if(v===null)continue;
+      if(!el.__enA)el.__enA={};
+      if(el.__enA[a]===undefined)el.__enA[a]=v;
+      var src=el.__enA[a];
+      if(toEn){if(v!==src)el.setAttribute(a,src);continue;}
+      var tr=dict[src];
+      if(tr!==undefined&&v!==tr)el.setAttribute(a,tr);
+    }
+  }
+  function walk(root,dict,toEn){
+    if(root.nodeType===3){trText(root,dict,toEn);return;}
+    if(root.nodeType!==1)return;
+    var tag=root.nodeName;
+    if(tag==='SCRIPT'||tag==='STYLE'||tag==='NOSCRIPT')return;
+    trAttrs(root,dict,toEn);
+    var ch=root.childNodes;
+    for(var i=0;i<ch.length;i++)walk(ch[i],dict,toEn);
+  }
+  function apply(){
+    var dict=DICTS[cur];
+    if(!dict)return;
+    applying=true;
+    try{
+      walk(document.body,dict,cur==='en');
+      if(window.__lsMO)window.__lsMO.takeRecords();
+      document.documentElement.lang=cur;
+      if(cur==='ur')document.documentElement.setAttribute('data-rtl','1');
+      else document.documentElement.removeAttribute('data-rtl');
+    }catch(e){}
+    applying=false;
+    var bl=document.getElementById('lsw-cur');
+    if(bl){for(var i=0;i<LANGS.length;i++){if(LANGS[i][0]===cur)bl.textContent=LANGS[i][1];}}
+    var os=document.querySelectorAll('.lsw-o');
+    for(var j=0;j<os.length;j++){os[j].className='lsw-o'+(os[j].getAttribute('data-l')===cur?' cur':'');}
+  }
+  window.__lsDictReady=function(lang,dict){DICTS[lang]=dict;if(lang===cur)apply();};
+  function load(lang){
+    if(DICTS[lang]){apply();return;}
+    var s=document.createElement('script');
+    s.src='i18n/'+lang+'.js';s.async=true;
+    document.head.appendChild(s);
+  }
+  window.lsSetLang=function(lang){
+    cur=lang;
+    try{localStorage.setItem('ls_lang',lang);}catch(e){}
+    var el=document.querySelector('.lsw');if(el)el.classList.remove('open');
+    if(lang==='en'){apply();}else{load(lang);}
+  };
+  /* observer: динамический контент (квизы, тосты, калькуляторы) */
+  try{
+    var mo=window.__lsMO=new MutationObserver(function(ms){
+      if(applying||cur==='en'||!DICTS[cur])return;
+      applying=true;
+      try{
+        for(var i=0;i<ms.length;i++){
+          var m=ms[i];
+          if(m.type==='characterData'){if(m.target.__en===undefined)m.target.__en=m.target.data;trText(m.target,DICTS[cur],false);}
+          else if(m.addedNodes){for(var j=0;j<m.addedNodes.length;j++)walk(m.addedNodes[j],DICTS[cur],false);}
+        }
+      }catch(e){}
+      applying=false;
+    });
+    mo.observe(document.body,{childList:true,subtree:true,characterData:true});
+  }catch(e){}
+  /* switcher UI */
+  if(!isCab){
+    var host=document.querySelector('.topbar .tb-r')||document.querySelector('.topbar .wrap')||document.querySelector('.topbar');
+    if(host){
+      var w=document.createElement('div');
+      w.className='lsw';
+      var opts='';
+      for(var i=0;i<LANGS.length;i++){
+        opts+='<button type="button" class="lsw-o'+(LANGS[i][0]===cur?' cur':'')+'" data-l="'+LANGS[i][0]+'" onclick="lsSetLang(\''+LANGS[i][0]+'\')"><em>'+LANGS[i][1]+'</em>'+LANGS[i][2]+'</button>';
+      }
+      w.innerHTML='<button type="button" class="lsw-b" aria-haspopup="listbox" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg><span id="lsw-cur">EN</span></button>'+'<div class="lsw-dd" role="listbox">'+opts+'</div>';
+      host.insertBefore(w,host.firstChild);
+      w.querySelector('.lsw-b').addEventListener('click',function(e){e.stopPropagation();w.classList.toggle('open');});
+      document.addEventListener('click',function(){w.classList.remove('open');});
+      var bl=document.getElementById('lsw-cur');
+      if(bl){for(var i=0;i<LANGS.length;i++){if(LANGS[i][0]===cur)bl.textContent=LANGS[i][1];}}
+    }
+    if(cur!=='en')load(cur);
+  }
+})();
+</script>
 </body>
 </html>
