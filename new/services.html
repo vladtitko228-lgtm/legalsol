@@ -474,6 +474,7 @@ details.q:hover{transform:translateX(6px);box-shadow:0 2px 4px rgba(33,30,61,.04
 details.q[open]{border-left-color:var(--gold)}
 @media(max-width:1000px){#faq .faq-wrap{grid-template-columns:1fr}.faq-side{position:static}}
 @media(prefers-reduced-motion:reduce){details.q:hover,.fs-link:hover{transform:none}}
+@media(max-width:1140px){nav.main,.hd-r .lk{display:none}.burger{display:grid}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -596,7 +597,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 /* 7) отзывы: подъём при hover */
 .rev{transition:transform .35s cubic-bezier(.16,.7,.2,1),box-shadow .35s cubic-bezier(.16,.7,.2,1)}
 .rev:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:var(--sh)}
-/* 9) реферальные 300 PLN: мягкий scale-pop при reveal */
+/* 9) реферальный бонус: мягкий scale-pop при reveal */
 .js .ref .num .big{opacity:0;transform:scale(.72);transition:opacity .6s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.26,1.35,.42,1)}
 .js .ref .num.in .big{opacity:1;transform:none;transition-delay:.12s}
 /* 11) фото клиентов: соседи расступаются при hover */
@@ -844,7 +845,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- ANCHOR NAV -->
 <section class="sv-nav">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sv-chips stg reveal">
     <a href="#sv-legal">Легализация пребывания <small>6</small></a>
     <a href="#sv-docs">Документы <small>3</small></a>
@@ -856,7 +857,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- PRICE TABLE -->
 <section id="sv-prices" class="sv-white">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Каталог</span><h2>Все услуги — одной таблицей</h2><p>Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Оплата — 2–3 платежа на счёт фирмы. Нажмите на строку — откроется подробная карточка услуги.</p></div>
   <div class="sv-table reveal">
     <div class="sv-tr hd"><span>Услуга</span><span>Срок</span></div>
@@ -877,7 +878,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- LEGALIZATION -->
 <section id="sv-legal">
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Легализация пребывания</span><h2>От первой карты — до паспорта ЕС</h2><p>Шесть услуг для тех, кто оформляет право жить в Польше: временный и постоянный побыт, Blue Card, гражданство — и защита, если пришёл отказ.</p></div>
   <div class="sv-grid stg">
 
@@ -1001,7 +1002,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- DOCUMENTS -->
 <section id="sv-docs" class="sv-lilac">
-<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Документы</span><h2>Документы, без которых в Польше никуда</h2><p>PESEL, электронная подпись и польские права: быстрые услуги с фиксированной ценой — оформляем с сопровождением, без очередей.</p></div>
   <div class="sv-grid stg">
 
@@ -1068,7 +1069,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- BUSINESS -->
 <section id="sv-biz" class="sv-white">
-<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow gold">Бизнес</span><h2>Своё дело в Польше — под ключ</h2><p>Открываем фирму и ведём бухгалтерию: JDG или Sp. z o.o., налоговые режимы, ZUS и декларации — без сюрпризов.</p></div>
   <div class="sv-grid2 stg">
 
@@ -1114,7 +1115,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- CHECKER -->
 <section class="checker">
-<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <span class="eyebrow">Не знаете, что нужно?</span>
   <h2>Опишите ситуацию — подскажем путь</h2>
   <p>Выберите, что ближе к вашей ситуации, — специалист ответит в WhatsApp за 15 минут и назовёт точную цену до начала работы.</p>

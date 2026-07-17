@@ -474,6 +474,7 @@ details.q:hover{transform:translateX(6px);box-shadow:0 2px 4px rgba(33,30,61,.04
 details.q[open]{border-left-color:var(--gold)}
 @media(max-width:1000px){#faq .faq-wrap{grid-template-columns:1fr}.faq-side{position:static}}
 @media(prefers-reduced-motion:reduce){details.q:hover,.fs-link:hover{transform:none}}
+@media(max-width:1140px){nav.main,.hd-r .lk{display:none}.burger{display:grid}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -596,7 +597,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 /* 7) отзывы: подъём при hover */
 .rev{transition:transform .35s cubic-bezier(.16,.7,.2,1),box-shadow .35s cubic-bezier(.16,.7,.2,1)}
 .rev:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:var(--sh)}
-/* 9) реферальные 300 PLN: мягкий scale-pop при reveal */
+/* 9) реферальный бонус: мягкий scale-pop при reveal */
 .js .ref .num .big{opacity:0;transform:scale(.72);transition:opacity .6s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.26,1.35,.42,1)}
 .js .ref .num.in .big{opacity:1;transform:none;transition-delay:.12s}
 /* 11) фото клиентов: соседи расступаются при hover */
@@ -962,7 +963,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- WAITS -->
 <section id="wk-waits">
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head reveal">
     <span class="eyebrow gold">Сроки — честно</span>
     <h2>Полный цикл: 8–16 месяцев</h2>
@@ -999,7 +1000,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- CALC -->
 <section id="wk-calc">
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Калькулятор</span>
     <h2>Прикиньте цену и срок — за пару секунд</h2>
