@@ -978,7 +978,9 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 .js .chc-step.act.back{animation-name:chcInBack}
 @keyframes chcIn{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
 @keyframes chcInBack{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
-@media(min-width:1001px){.js .chc-step{min-height:250px}}
+@media(min-width:1001px){.js .chc-step{min-height:230px}
+#chcCard{transition:none}
+@media(min-width:641px){.chc-step[data-k="voiv"]{min-height:230px}}}
 .chc-nav{display:flex;justify-content:space-between;gap:14px;margin-top:26px}
 .chc-nav .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none}
 @keyframes chcPulse{0%{box-shadow:0 14px 30px -12px rgba(115,86,198,.6),0 0 0 0 rgba(115,86,198,.4)}100%{box-shadow:0 14px 30px -12px rgba(115,86,198,.6),0 0 0 16px rgba(115,86,198,0)}}
@@ -1022,7 +1024,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 .js.noanim .chc-bar span,.js.noanim .chc-dots i,.js.noanim .chc-arc,.js.noanim .chc-opt{transition:none!important}
 .js.noanim .chc-tips li,.js.noanim .chc-result{opacity:1!important;transform:none!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){
-  .js .chc-step.act,.js .chc-ready{animation:none!important}
+  .js .chc-ready{animation:none!important}
   .js .chc-bar span,.js .chc-dots i,.js .chc-arc,.js .chc-opt{transition:none!important}
   .js .chc-tips li,.js .chc-result{opacity:1!important;transform:none!important;transition:none!important}
 }
@@ -1362,7 +1364,7 @@ function show(demo){
     var rh=document.getElementById('chcResHead');
     rh.setAttribute('tabindex','-1');
     try{rh.focus({preventScroll:true})}catch(e){}
-    try{result.scrollIntoView({behavior:instant()?'auto':'smooth',block:'nearest'})}catch(e){}
+    try{result.scrollIntoView({behavior:instant()?'auto':'smooth',block:'start'})}catch(e){}
   }
 }
 document.getElementById('chcAgain').addEventListener('click',function(){
@@ -1438,7 +1440,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- LEADBAND -->
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Want an exact case review, not just an estimate?</div>
@@ -1455,7 +1457,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- FAQ -->
 <section id="chc-faq" class="faq">
-<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Questions about the calculator</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>How accurate is this estimate?<span class="pl">+</span></summary><div class="a">This is a preliminary estimate based on the experience of 1,000+ LegalSol cases, not a legal opinion. Every case is unique: an exact review with a lawyer is free — at the consultation we'll check your documents and tell you your real chances.</div></details>
