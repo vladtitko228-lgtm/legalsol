@@ -821,6 +821,9 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 html.noanim .step .num,html.noanim #process .step h3,html.noanim #process .step p{opacity:1!important;transform:none!important;transition:none!important}
 html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!important}
 @media(prefers-reduced-motion:reduce){.step:hover{transform:none}.js #process .step h3,.js #process .step p,.js .step .num{opacity:1;transform:none;transition:none}.steps-grid::before{transform:scaleX(1);transition:none}}
+.ft-legal{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;align-items:center;padding:16px 0 0;font-size:10.5px;letter-spacing:.45px;opacity:.55}
+.ft-legal i{font-style:normal;opacity:.5}
+@media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
 
 /* --- page:services --- */
 .sv-hero{padding:40px 0 8px}
@@ -1004,7 +1007,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- ANCHOR NAV -->
 <section class="sv-nav">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sv-chips stg reveal">
     <a href="#sv-legal">Легализация пребывания <small>6</small></a>
     <a href="#sv-docs">Документы <small>3</small></a>
@@ -1016,7 +1019,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- PRICE TABLE -->
 <section id="sv-prices" class="sv-white">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Каталог</span><h2>Все услуги — одной таблицей</h2><p>Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Оплата — 2–3 платежа на счёт фирмы. Нажмите на строку — откроется подробная карточка услуги.</p></div>
   <div class="sv-table reveal">
     <div class="sv-tr hd"><span>Услуга</span><span>Срок</span></div>
@@ -1037,7 +1040,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- LEGALIZATION -->
 <section id="sv-legal">
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Легализация пребывания</span><h2>От первой карты — до паспорта ЕС</h2><p>Шесть услуг для тех, кто оформляет право жить в Польше: временный и постоянный побыт, Blue Card, гражданство — и защита, если пришёл отказ.</p></div>
   <div class="sv-grid stg">
 
@@ -1247,7 +1250,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- DOCUMENTS -->
 <section id="sv-docs" class="sv-lilac">
-<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Документы</span><h2>Документы, без которых в Польше никуда</h2><p>PESEL, электронная подпись и польские права: быстрые услуги с фиксированной ценой — оформляем с сопровождением, без очередей.</p></div>
   <div class="sv-grid stg">
 
@@ -1359,7 +1362,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- BUSINESS -->
 <section id="sv-biz" class="sv-white">
-<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow gold">Бизнес</span><h2>Своё дело в Польше — под ключ</h2><p>Открываем фирму и ведём бухгалтерию: JDG или Sp. z o.o., налоговые режимы, ZUS и декларации — без сюрпризов.</p></div>
   <div class="sv-grid2 stg">
 
@@ -1434,7 +1437,7 @@ html:not(.js) .sv-tgl{display:none}
 
 <!-- CHECKER -->
 <section class="checker">
-<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <span class="eyebrow">Не знаете, что нужно?</span>
   <h2>Опишите ситуацию — подскажем путь</h2>
   <p>Выберите, что ближе к вашей ситуации, — Талыш или Адриан ответят в WhatsApp за 15 минут и назовут точную цену до начала работы.</p>
@@ -1540,7 +1543,8 @@ html:not(.js) .sv-tgl{display:none}
       <li>ПН–ПТ: 10:00–18:00</li>
     </ul></div>
   </div>
-  <div class="ft-bot">
+  <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
+<div class="ft-bot">
     <span>© 2026 LegalSol. Все права защищены.</span>
     <div class="soc" aria-label="Соцсети LegalSol">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
