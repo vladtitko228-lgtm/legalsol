@@ -910,8 +910,8 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 }
 
 :root.violet{
-  --indigo:#7161C9;--indigo-2:#9E90E2;--indigo-7:#514497;--indigo-9:#453A86;
-  --lilac:#F0EEF9;--lilac-2:#E7E2F4;--lilac-line:#DED7EE;--line:#E7E3F1;
+  --indigo:#6449B0;--indigo-2:#9082D2;--indigo-7:#443878;--indigo-9:#2E2358;
+  --lilac:#F1EFF7;--lilac-2:#E6E1F1;--lilac-line:#DCD5EA;--line:#E6E2EF;
 }
 /* временный переключатель цвета (снять после выбора) */
 #clr-tog{position:fixed;left:16px;bottom:16px;z-index:120;display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 15px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:var(--sh-sm)}
@@ -1017,7 +1017,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .gd-break::after{content:"";position:absolute;inset:0;background:rgba(20,30,60,.28);pointer-events:none}
 .gd-break p{position:relative;z-index:1;text-shadow:0 1px 10px rgba(15,25,55,.7)}
 </style>
-<script>(function(){try{var P=location.pathname;var isHome=P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P);var q=new URLSearchParams(location.search).get('c');var v=q||(isHome?'violet':'blue');if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
+<script>(function(){try{var q=new URLSearchParams(location.search).get('c');var v=q||'violet';if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
 </head>
 <body>
 <!-- topbar -->
@@ -1113,7 +1113,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">The simple version</span><h2>The whole journey in six frames</h2><p>What, how and why — without a single legal term. Details come below, in the chapters.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Sound familiar?</span><div class="num">1</div><h3>The clock is ticking</h3><p>Your visa is ending, the urząd is silent, and it's unclear what to do.</p></div>
@@ -1127,7 +1127,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Geography</span><h2>From Warsaw to all 16 voivodeships</h2><p>Our team runs legalization cases all over Poland. Residence cards aren't "one service among many" — they're what we live and breathe.</p></div>
   <div class="geo reveal">
     <p>Filing works across all of Poland: since 2026 everything goes online through MOS, so your city makes no difference</p>
@@ -1143,7 +1143,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter I</span><h2>What is a residence card?</h2><p>A residence card (karta pobytu in Polish, TRC for short) is Poland's residence permit: a plastic card that confirms your right to live in the country legally.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -1170,7 +1170,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter II</span><h2>Why people don't file on their own</h2><p>It's not that the form is hard — it's that the procedure doesn't forgive small things. Here are the three reasons people most often lose months.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Everything is online now</b><span>From 27.04.2026, applications are filed online only — through the government MOS system. Logging in requires a Profil Zaufany — your personal electronic signature for Polish government services. One wrong field, and the whole case stalls.</span></div>
@@ -1196,7 +1196,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter III</span><h2>Six stages — from your first message to the card</h2><p>The whole journey in one place. First a summary table, then what exactly happens at each stage, what we need from you and how long it takes.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Free case review</b><p>Status, timelines, the right basis, a plan and a fixed price</p></div><span class="pt">Same day</span></div>
@@ -1271,7 +1271,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter IV</span><h2>How long it really takes: 4–9 months</h2><p>The whole journey usually takes four to nine months. The waiting stages partly overlap — your case is being processed from the moment of filing, so the rows don't add up to a total. Here's where the time goes — no sugar-coating.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 months</span></div>
@@ -1863,7 +1863,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 })();
 </script>
 <button id="clr-tog" type="button" aria-label="Toggle accent color" onclick="var h=document.documentElement,v=h.classList.toggle('violet');try{localStorage.setItem('ls_color',v?'violet':'blue');}catch(e){}this.querySelector('span').textContent=v?'Violet':'Blue';"><b aria-hidden="true"></b><span>Blue</span></button>
-<script>(function(){var b=document.getElementById('clr-tog');if(!b)return;var P=location.pathname;if(!(P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P))){b.style.display='none';return;}b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
+<script>(function(){var b=document.getElementById('clr-tog');if(!b)return;b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
 <script>
 /* i18n: EN base + runtime dictionaries */
 (function(){

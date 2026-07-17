@@ -910,8 +910,8 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 }
 
 :root.violet{
-  --indigo:#7161C9;--indigo-2:#9E90E2;--indigo-7:#514497;--indigo-9:#453A86;
-  --lilac:#F0EEF9;--lilac-2:#E7E2F4;--lilac-line:#DED7EE;--line:#E7E3F1;
+  --indigo:#6449B0;--indigo-2:#9082D2;--indigo-7:#443878;--indigo-9:#2E2358;
+  --lilac:#F1EFF7;--lilac-2:#E6E1F1;--lilac-line:#DCD5EA;--line:#E6E2EF;
 }
 /* временный переключатель цвета (снять после выбора) */
 #clr-tog{position:fixed;left:16px;bottom:16px;z-index:120;display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 15px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;box-shadow:var(--sh-sm)}
@@ -1083,7 +1083,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 @media(max-width:640px){.chc-photos{margin-top:28px}.chc-photos .cph img{height:150px}.chc-photos .cph-a{width:58%;transform:rotate(-1.5deg)}.chc-photos .cph-b{width:58%;margin:34px 0 0 -18%}}
 
 </style>
-<script>(function(){try{var P=location.pathname;var isHome=P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P);var q=new URLSearchParams(location.search).get('c');var v=q||(isHome?'violet':'blue');if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
+<script>(function(){try{var q=new URLSearchParams(location.search).get('c');var v=q||'violet';if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
 </head>
 <body>
 <!-- topbar -->
@@ -1448,7 +1448,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- LEADBAND -->
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Want an exact case review, not just an estimate?</div>
@@ -1465,7 +1465,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- FAQ -->
 <section id="chc-faq" class="faq">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Questions about the calculator</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>How accurate is this estimate?<span class="pl">+</span></summary><div class="a">This is a preliminary estimate based on the experience of 1,000+ LegalSol cases, not a legal opinion. Every case is unique: an exact review with a lawyer is free — at the consultation we'll check your documents and tell you your real chances.</div></details>
@@ -1948,7 +1948,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 })();
 </script>
 <button id="clr-tog" type="button" aria-label="Toggle accent color" onclick="var h=document.documentElement,v=h.classList.toggle('violet');try{localStorage.setItem('ls_color',v?'violet':'blue');}catch(e){}this.querySelector('span').textContent=v?'Violet':'Blue';"><b aria-hidden="true"></b><span>Blue</span></button>
-<script>(function(){var b=document.getElementById('clr-tog');if(!b)return;var P=location.pathname;if(!(P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P))){b.style.display='none';return;}b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
+<script>(function(){var b=document.getElementById('clr-tog');if(!b)return;b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
 <script>
 /* i18n: EN base + runtime dictionaries */
 (function(){
