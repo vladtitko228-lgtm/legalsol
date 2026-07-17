@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Реферальная программа LegalSol — от 300 zł за друга | Легализация в Польше</title>
-<meta name="description" content="Приводите друзей в LegalSol: выплата от 300 zł за каждого человека — или скидка на любую услугу. Перевод за 1–3 рабочих дня после первой оплаты друга.">
+<title>LegalSol referral program — from 300 zł per friend | Legalization in Poland</title>
+<meta name="description" content="Refer friends to LegalSol: from 300 zł paid out per person — or a discount on any service. Transfer within 1–3 business days after your friend's first payment.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="Реферальная программа LegalSol — от 300 zł за друга | Легализация в Польше">
-<meta property="og:description" content="Приводите друзей в LegalSol: выплата от 300 zł за каждого человека — или скидка на любую услугу. Перевод за 1–3 рабочих дня после первой оплаты друга.">
+<meta property="og:title" content="LegalSol referral program — from 300 zł per friend | Legalization in Poland">
+<meta property="og:description" content="Refer friends to LegalSol: from 300 zł paid out per person — or a discount on any service. Transfer within 1–3 business days after your friend's first payment.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -825,6 +826,89 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
 
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
+
 /* --- page:referral --- */
 .rf2-hero{padding:40px 0 8px}
 .rf2-hbox{background:linear-gradient(140deg,rgba(61,91,169,.92),rgba(201,127,51,.52)),url(/assets/trc/ph_team.jpg) center/cover;border-radius:var(--r-lg);padding:84px 64px;color:#fff;position:relative;overflow:hidden}
@@ -883,8 +967,8 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -894,35 +978,35 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html">Работа</a>
+    <a href="redesign.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html">Шансы</a>
-    <a href="referral.html" style="color:var(--indigo)" aria-current="page">Рефералка</a>
-    <a href="blog.html">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html">Chances</a>
+    <a href="referral.html" style="color:var(--indigo)" aria-current="page">Referral</a>
+    <a href="blog.html">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -935,75 +1019,75 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <!-- HERO -->
 <section class="rf2-hero"><div class="wrap">
   <div class="rf2-hbox reveal">
-    <span class="eyebrow">Реферальная программа LegalSol</span>
-    <h1>Приводите друзей — <em>зарабатывайте</em></h1>
-    <p class="rf2-sub">Порекомендуйте LegalSol — и после первой оплаты друга мы переведём вам от 300 zł — или дадим скидку на любую услугу. Что выгоднее — выбор за вами.</p>
+    <span class="eyebrow">LegalSol referral program</span>
+    <h1>Refer friends — <em>earn money</em></h1>
+    <p class="rf2-sub">Recommend LegalSol — and after your friend's first payment we'll send you from 300 zł, or give you a discount on any service. Whichever works better — the choice is yours.</p>
     <div class="rf2-hchips stg">
-      <span><b>от 300 zł</b>&nbsp;за человека</span>
-      <span>выплата —&nbsp;<b>1–3 рабочих дня</b></span>
-      <span>или скидка на любую услугу</span>
+      <span><b>from 300 zł</b>&nbsp;per person</span>
+      <span>payout —&nbsp;<b>1–3 business days</b></span>
+      <span>or a discount on any service</span>
     </div>
     <div class="hero-ctas">
-      <a class="btn btn-gold btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Хочу участвовать</a>
-      <a class="btn btn-ghost btn-lg" href="#rf2-steps">Как это работает</a>
+      <a class="btn btn-gold btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> I want to join</a>
+      <a class="btn btn-ghost btn-lg" href="#rf2-steps">How it works</a>
     </div>
   </div>
 </div></section>
 
 <!-- 3 STEPS -->
 <section class="steps" id="rf2-steps">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center reveal"><span class="eyebrow">Как это работает</span><h2>Три шага — и перевод у вас</h2><p>Никаких анкет и отчётов. Вы просто делитесь контактом — остальное делаем мы.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Three steps — and the money is yours</h2><p>No forms, no reports. You just share our contact — we handle the rest.</p></div>
   <div class="steps-grid rf2-steps3 stg">
-    <div class="step"><div class="num">1</div><h3>Поделитесь контактом</h3><p>Отправьте другу наш контакт — WhatsApp или сайт. Для него всё как обычно: бесплатная консультация, ответ за 15 минут.</p></div>
-    <div class="step"><div class="num">2</div><h3>Друг называет ваше имя</h3><p>Друг обращается к нам и говорит, что пришёл от вас. Этого достаточно — мы всё зафиксируем.</p></div>
-    <div class="step"><div class="num">3</div><h3>Вам приходит перевод</h3><p>После первой оплаты друга отправляем вам бонус — в течение 1–3 рабочих дней.</p></div>
+    <div class="step"><div class="num">1</div><h3>Share our contact</h3><p>Send your friend our contact — WhatsApp or the website. For them everything works as usual: a free consultation and a reply within 15 minutes.</p></div>
+    <div class="step"><div class="num">2</div><h3>Your friend mentions your name</h3><p>Your friend contacts us and says they came from you. That's all it takes — we'll record everything.</p></div>
+    <div class="step"><div class="num">3</div><h3>You get your transfer</h3><p>After your friend's first payment, we send your bonus — within 1–3 business days.</p></div>
   </div>
 </div></section>
 
-<div class="rf-break"><img class="rf-break-img" src="/assets/trc/ph_team.jpg" alt="" aria-hidden="true" loading="lazy"><p class="rf-break-line"><span>Друзья приводят друзей</span></p></div>
+<div class="rf-break"><img class="rf-break-img" src="/assets/trc/ph_team.jpg" alt="" aria-hidden="true" loading="lazy"><p class="rf-break-line"><span>Friends bring friends</span></p></div>
 
 <!-- REWARD STATS -->
 <section class="stats rf2-stats">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center reveal"><span class="eyebrow gold">Вознаграждение</span><h2>Сколько вы получаете</h2><p>Деньги или скидка — выбираете сами.</p></div>
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow gold">Rewards</span><h2>How much you get</h2><p>Cash or a discount — the choice is yours.</p></div>
   <div class="stats-grid stg">
-    <div class="stat"><div class="n">от 300 zł</div><div class="l">за каждого приведённого друга</div></div>
-    <div class="stat"><div class="n">от 300 zł</div><div class="l">или скидка на любую услугу — вместо выплаты</div></div>
-    <div class="stat"><div class="n">от 900 zł</div><div class="l">примерно столько приносят 3 друга в сумме</div></div>
-    <div class="stat"><div class="n">1–3&#8202;<em>дня</em></div><div class="l">на выплату после первой оплаты друга</div></div>
+    <div class="stat"><div class="n">from 300 zł</div><div class="l">for every friend you refer</div></div>
+    <div class="stat"><div class="n">from 300 zł</div><div class="l">or a discount on any service — instead of a payout</div></div>
+    <div class="stat"><div class="n">from 900 zł</div><div class="l">roughly what 3 friends bring in total</div></div>
+    <div class="stat"><div class="n">1–3&#8202;<em>days</em></div><div class="l">for the payout after your friend's first payment</div></div>
   </div>
 </div></section>
 
 <!-- LEVELS -->
 <section id="rf2-levels">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head reveal"><span class="eyebrow">Уровни программы</span><h2>Больше друзей — больше бонусов</h2><p>Количество друзей не ограничено. Чем больше рекомендаций — тем выше уровень.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head reveal"><span class="eyebrow">Program levels</span><h2>More friends — more bonuses</h2><p>There's no limit on the number of friends. The more referrals, the higher your level.</p></div>
   <div class="rf2-lad stg">
-    <div class="rf2-tier t1"><div class="rf2-tn">3<small>друга</small></div><div><b>Бонус ×3</b><p>Три друга — три выплаты. Суммы расскажем в WhatsApp.</p><div class="rf2-bar"><i></i></div></div></div>
-    <div class="rf2-tier t2"><div class="rf2-tn">5<small>друзей</small></div><div><b>Повышенный бонус</b><p>Дополнительное вознаграждение и особые условия на услуги.</p><div class="rf2-bar"><i></i></div></div></div>
-    <div class="rf2-tier t3"><div class="rf2-tn">10+<small>друзей</small></div><div><b>Статус партнёра</b><p>Для тех, кто рекомендует нас постоянно. Напишите — расскажем об условиях.</p><div class="rf2-bar"><i></i></div></div></div>
+    <div class="rf2-tier t1"><div class="rf2-tn">3<small>friends</small></div><div><b>Bonus ×3</b><p>Three friends — three payouts. We'll share the amounts on WhatsApp.</p><div class="rf2-bar"><i></i></div></div></div>
+    <div class="rf2-tier t2"><div class="rf2-tn">5<small>friends</small></div><div><b>Boosted bonus</b><p>Extra rewards and special terms on services.</p><div class="rf2-bar"><i></i></div></div></div>
+    <div class="rf2-tier t3"><div class="rf2-tn">10+<small>friends</small></div><div><b>Partner status</b><p>For those who recommend us regularly. Message us — we'll share the details.</p><div class="rf2-bar"><i></i></div></div></div>
   </div>
 </div></section>
 
 <!-- JOIN -->
 <section class="checker rf2-join">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <span class="eyebrow gold">Участвовать</span>
-  <h2>Одно сообщение — и вы в программе</h2>
-  <p>Напишите нам в WhatsApp «Хочу участвовать» — подключим вас к программе и ответим на вопросы. Дальше просто делитесь нашим контактом.</p>
-  <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Написать «Хочу участвовать»</a>
-  <div class="fine">Бесплатно · Без обязательств · Ответ за 15 минут в рабочие часы</div>
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <span class="eyebrow gold">Join</span>
+  <h2>One message — and you're in</h2>
+  <p>Message us on WhatsApp saying "I want to join" — we'll add you to the program and answer your questions. After that, just share our contact.</p>
+  <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Send "I want to join"</a>
+  <div class="fine">Free · No obligations · Reply within 15 minutes during business hours</div>
 </div></section>
 
 <!-- FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Частые вопросы</h2><p>Коротко о главном. Не нашли ответ — напишите нам в WhatsApp.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2><p>The essentials in brief. Didn't find your answer — message us on WhatsApp.</p></div>
   <div class="faq-wrap reveal">
-    <details class="q"><summary>Когда я получу выплату?<span class="pl">+</span></summary><div class="a">После первой оплаты вашего друга. Перевод отправляем в течение 1–3 рабочих дней.</div></details>
-    <details class="q"><summary>Можно ли взять скидкой вместо денег?<span class="pl">+</span></summary><div class="a">Да. Вместо перевода можно выбрать скидку на любую услугу LegalSol — что удобнее вам. Выбираете сами.</div></details>
-    <details class="q"><summary>Сколько друзей можно привести?<span class="pl">+</span></summary><div class="a">Без ограничений. Больше друзей — больше бонусов: за 5 друзей — повышенное вознаграждение, а с 10+ друзьями вы получаете статус партнёра.</div></details>
+    <details class="q"><summary>When will I get my payout?<span class="pl">+</span></summary><div class="a">After your friend's first payment. We send the transfer within 1–3 business days.</div></details>
+    <details class="q"><summary>Can I take a discount instead of cash?<span class="pl">+</span></summary><div class="a">Yes. Instead of a transfer, you can choose a discount on any LegalSol service — whichever suits you. It's your choice.</div></details>
+    <details class="q"><summary>How many friends can I refer?<span class="pl">+</span></summary><div class="a">No limits. More friends — more bonuses: 5 friends earn you a boosted reward, and with 10+ friends you get partner status.</div></details>
   </div>
 </div></section>
 
@@ -1011,13 +1095,13 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <section style="background:#fff;padding:72px 0"><div class="wrap">
   <div class="leadband reveal">
     <div>
-      <div class="lb-t">Хотите порекомендовать — а вопрос остался?</div>
-      <div class="lb-s">Оставьте номер — бесплатно перезвоним в течение 15 минут в рабочие часы.</div>
+      <div class="lb-t">Want to recommend us — but still have a question?</div>
+      <div class="lb-s">Leave your number — we'll call you back for free within 15 minutes during business hours.</div>
     </div>
     <form onsubmit="var n=(this[0].value||'').trim(),t=(this[1].value||'').trim();window.open('https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Заявка по реферальной программе.'+(n?' Имя: '+n:'')+(t?', телефон: '+t:'')),'_blank');return false;">
-      <input type="text" name="name" placeholder="Имя" required>
-      <input type="tel" name="phone" placeholder="Телефон / WhatsApp" required>
-      <button class="btn btn-primary" type="submit">Жду звонка</button>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="tel" name="phone" placeholder="Phone / WhatsApp" required>
+      <button class="btn btn-primary" type="submit">Call me back</button>
     </form>
   </div>
 </div></section>
@@ -1025,19 +1109,19 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <!-- FINAL CTA -->
 <section class="final" style="padding-top:0"><div class="wrap">
   <div>
-    <h2>Порекомендуйте нас — остальное сделаем мы</h2>
-    <p class="lead">Напишите «Хочу участвовать» в WhatsApp — и делитесь нашим контактом. После первой оплаты друга переведём вам от 300 zł.</p>
+    <h2>Recommend us — we'll do the rest</h2>
+    <p class="lead">Send "I want to join" on WhatsApp — then share our contact. After your friend's first payment, we'll transfer you from 300 zł.</p>
     <div class="cts">
-      <div class="row"><b>WhatsApp:</b>&nbsp;+48 735 248 525 — ответ за 15 минут</div>
-      <div class="row"><b>Офис:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · ПН–ПТ 10:00–18:00</div>
-      <div class="row"><b>Онлайн:</b>&nbsp;работаем по всей Польше</div>
+      <div class="row"><b>WhatsApp:</b>&nbsp;+48 735 248 525 — reply within 15 minutes</div>
+      <div class="row"><b>Office:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · Mon–Fri 10:00–18:00</div>
+      <div class="row"><b>Online:</b>&nbsp;we work across all of Poland</div>
     </div>
   </div>
   <div class="ffbox">
-    <div class="t">Участвовать в программе</div>
-    <div class="s">Денежный бонус за друга — или скидка на любую услугу. Выплата за 1–3 рабочих дня после первой оплаты друга.</div>
-    <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Хочу участвовать</a>
-    <div class="fine">Бесплатно · Без обязательств</div>
+    <div class="t">Join the program</div>
+    <div class="s">A cash bonus for each friend — or a discount on any service. Payout within 1–3 business days after your friend's first payment.</div>
+    <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20участвовать%20в%20реферальной%20программе%20LegalSol." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> I want to join</a>
+    <div class="fine">Free · No obligations</div>
   </div>
 </div></section>
 
@@ -1045,38 +1129,38 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1084,25 +1168,25 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -1116,12 +1200,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -1330,10 +1414,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -1350,7 +1434,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -1441,7 +1525,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Шансы на карту побыту — калькулятор за 60 секунд | LegalSol</title>
-<meta name="description" content="Бесплатный калькулятор шансов на карту побыту: 8 вопросов, 60 секунд, без контактов. Оценка на основе 1 000+ дел LegalSol и сроки по воеводствам.">
+<title>Residence card chances — 60-second calculator | LegalSol</title>
+<meta name="description" content="Free residence card chances calculator: 8 questions, 60 seconds, no contact details. Estimate based on 1,000+ LegalSol cases plus timelines by voivodeship.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="Шансы на карту побыту — калькулятор за 60 секунд | LegalSol">
-<meta property="og:description" content="Бесплатный калькулятор шансов на карту побыту: 8 вопросов, 60 секунд, без контактов. Оценка на основе 1 000+ дел LegalSol и сроки по воеводствам.">
+<meta property="og:title" content="Residence card chances — 60-second calculator | LegalSol">
+<meta property="og:description" content="Free residence card chances calculator: 8 questions, 60 seconds, no contact details. Estimate based on 1,000+ LegalSol cases plus timelines by voivodeship.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -824,6 +825,89 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;align-items:center;padding:16px 0 0;font-size:10.5px;letter-spacing:.45px;opacity:.55}
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
+
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
 
 /* --- page:chances --- */
 .chc-hcard{background:linear-gradient(140deg,rgba(61,91,169,.9),rgba(91,135,207,.58)),url(/assets/trc/story2.jpg) center/cover;border-radius:var(--r-lg);padding:92px 72px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
@@ -963,8 +1047,8 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -974,35 +1058,35 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html">Работа</a>
+    <a href="redesign.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html" style="color:var(--indigo)" aria-current="page">Шансы</a>
-    <a href="referral.html">Рефералка</a>
-    <a href="blog.html">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html" style="color:var(--indigo)" aria-current="page">Chances</a>
+    <a href="referral.html">Referral</a>
+    <a href="blog.html">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1015,15 +1099,15 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 <!-- HERO -->
 <section class="chc-hero" style="padding:44px 0 72px"><div class="wrap">
   <div class="chc-hcard reveal">
-    <span class="eyebrow">Калькулятор шансов · Карта побыту</span>
-    <h1>Посчитайте свои шансы <em>на карту побыту</em></h1>
-    <p class="lead">Честная предварительная оценка на основе 1 000+ дел LegalSol: балл, срок ожидания по вашему воеводству и план, как усилить заявку.</p>
+    <span class="eyebrow">Chances calculator · Residence card</span>
+    <h1>Calculate your chances <em>of getting a residence card</em></h1>
+    <p class="lead">An honest preliminary assessment based on 1,000+ LegalSol cases: your score, the waiting time in your voivodeship and a plan to strengthen your application.</p>
     <div class="hero-ctas">
-      <a class="btn btn-gold btn-lg" href="#chc-wiz"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"/></svg> Начать расчёт</a>
-      <a class="btn btn-ghost btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D0%B8%20%D1%88%D0%B0%D0%BD%D1%81%D1%8B%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D1%83%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83." target="_blank" rel="noopener">Спросить юриста</a>
+      <a class="btn btn-gold btn-lg" href="#chc-wiz"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 12l6 6 6-6"/></svg> Start the calculator</a>
+      <a class="btn btn-ghost btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D1%81%D0%B2%D0%BE%D0%B8%20%D1%88%D0%B0%D0%BD%D1%81%D1%8B%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D1%83%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83." target="_blank" rel="noopener">Ask a lawyer</a>
     </div>
     <div class="chc-hfeats">
-      <span>8 вопросов</span><span>·</span><span>60 секунд</span><span>·</span><span>Без контактов и регистрации</span>
+      <span>8 questions</span><span>·</span><span>60 seconds</span><span>·</span><span>No contact details, no sign-up</span>
     </div>
   </div>
 </div></section>
@@ -1031,26 +1115,26 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 <!-- WIZARD -->
 <section id="chc-wiz" class="chc-wizsec" style="padding:84px 0;background:linear-gradient(180deg,var(--cream),var(--lilac))"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Калькулятор</span>
-    <h2>8 вопросов — и честный результат</h2>
-    <p>Выберите вариант, который ближе всего к вашей ситуации. Ответы никуда не отправляются — всё считается прямо у вас в браузере.</p>
+    <span class="eyebrow">Calculator</span>
+    <h2>8 questions — and an honest result</h2>
+    <p>Pick the option closest to your situation. Your answers are never sent anywhere — everything is calculated right in your browser.</p>
   </div>
   <div class="chc-card reveal" id="chcCard">
     <div class="chc-top">
       <div class="chc-bar" aria-hidden="true"><span id="chcBarFill"></span></div>
       <div class="chc-meta">
-        <span class="chc-stepnum" id="chcStepNum">Вопрос 1 из 8</span>
+        <span class="chc-stepnum" id="chcStepNum">Question 1 of 8</span>
         <span class="chc-dots" id="chcDots" aria-hidden="true"></span>
       </div>
     </div>
-    <div class="chc-step act" data-k="basis"><h3 class="chc-q">На каком основании планируете карту побыту?</h3><div class="chc-opts" role="radiogroup" aria-label="Основание пребывания"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="work" data-pts="10"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Работа</b><span class="d">Umowa o pracę / zlecenie</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="jdg" data-pts="7"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>Своё дело</b><span class="d">JDG / Spółka z o.o.</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="blue" data-pts="11"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M14 9.5h5M14 13h5"/></svg></span><b>Blue Card</b><span class="d">Специалист с высокой квалификацией</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="family" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>Семья</b><span class="d">Воссоединение с семьёй</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="study" data-pts="6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Учёба</b><span class="d">Дневное отделение вуза</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="other" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg></span><b>Другое / гуманитарные</b><span class="d">Нестандартное основание</span></button></div></div><div class="chc-step" data-k="status"><h3 class="chc-q">Где вы сейчас — и что со статусом?</h3><div class="chc-opts" role="radiogroup" aria-label="Текущий статус"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="fine" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>В Польше, статус в порядке</b><span class="d">Виза или карта действует с запасом</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="expiring" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><b>В Польше, виза скоро истекает</b><span class="d">Осталось мало времени</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="abroad" data-pts="2"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><b>Ещё не в Польше</b><span class="d">Планирую переезд</span></button></div></div><div class="chc-step" data-k="docs"><h3 class="chc-q">Документы из базового чек-листа — паспорт, фото, проживание, занятость, страховка, доходы?</h3><div class="chc-opts" role="radiogroup" aria-label="Готовность документов"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="all" data-pts="12"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/><path d="m8.5 16.2 1.8 1.8 3.4-3.6"/></svg></span><b>Всё на руках</b><span class="d">Пакет собран полностью</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="part" data-pts="6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5"/></svg></span><b>Часть есть</b><span class="d">Кое-чего не хватает</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="none" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h4"/></svg></span><b>Пока почти ничего</b><span class="d">Только начинаю собирать</span></button></div></div><div class="chc-step" data-k="stab"><h3 class="chc-q">Насколько крепкое у вас основание?</h3><div class="chc-opts" role="radiogroup" aria-label="Стабильность основания"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="strong" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="m9 11.5 2 2 4-4"/></svg></span><b>Крепкое</b><span class="d">Долгий контракт / брак / очная учёба</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="mid" data-pts="4"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span><b>Среднее</b><span class="d">Есть, но не идеально</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="weak" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/></svg></span><b>Шаткое</b><span class="d">Короткий срок или всё неопределённо</span></button></div></div><div class="chc-step" data-k="income"><h3 class="chc-q">Доход — ваш или спонсора (семьи)?</h3><div class="chc-opts" role="radiogroup" aria-label="Уровень дохода"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="high" data-pts="7"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-8"/><path d="M14 7h6v6"/></svg></span><b>Уверенно выше минимума</b><span class="d">С запасом</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="avg" data-pts="4"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-8M12 20V7M19 20v-5"/></svg></span><b>Около среднего</b><span class="d">Стабильно, без излишков</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="min" data-pts="1"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-3M12 20v-5M19 20V9"/></svg></span><b>Минимальный</b><span class="d">На грани требований</span></button></div></div><div class="chc-step" data-k="hist"><h3 class="chc-q">Были ли отказы по побыту раньше?</h3><div class="chc-opts" role="radiogroup" aria-label="История обращений"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="clean" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>Отказов не было</b><span class="d">Первая подача или чистая история</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="refusal" data-pts="-6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg></span><b>Был отказ</b><span class="d">Пришло отрицательное решение</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="appeal" data-pts="-3"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span><b>Был отказ, думаю об апелляции</b><span class="d">Хочу обжаловать решение</span></button></div></div><div class="chc-step" data-k="risk" data-multi="1"><h3 class="chc-q">Что-то из этого — про вас?</h3><p class="chc-subq">Можно выбрать несколько. Честный ответ — честная оценка: считается у вас в браузере, никуда не отправляется.</p><div class="chc-opts multi" role="group" aria-label="Сложные факторы"><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="crim" data-pts="-14"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v17M5 6.5h14"/><path d="M7 6.5 4 13a3.2 3.2 0 0 0 6 0zM17 6.5 14 13a3.2 3.2 0 0 0 6 0z"/></svg></span><b>Была судимость / уголовное дело</b><span class="d">Сейчас или в прошлом</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="ban" data-pts="-14"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><b>Был запрет въезда или депортация</b><span class="d">Действует или был раньше</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="illegal" data-pts="-10"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v4M16 3v4"/><path d="M12 12.5v3.2M12 18.3h.01"/></svg></span><b>Был период нелегального пребывания</b><span class="d">Какое-то время без статуса</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="illwork" data-pts="-8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="m10 11.5 4 4M14 11.5l-4 4"/></svg></span><b>Работал(а) без разрешения</b><span class="d">Неофициальная занятость</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="none" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>Ничего из этого</b><span class="d">Чистая история</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button></div></div><div class="chc-step" data-k="voiv"><h3 class="chc-q">В каком воеводстве будете подаваться?</h3><div class="chc-opts" role="radiogroup" aria-label="Воеводство"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="maz" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Мазовецкое</b><span class="d">Варшава</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="mal" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Малопольское</b><span class="d">Краков</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="niz" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Нижнесилезское</b><span class="d">Вроцлав</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="wlk" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Великопольское</b><span class="d">Познань</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pom" data-pts="0"><b>Поморское</b><span class="d">Гданьск</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="sil" data-pts="0"><b>Силезское</b><span class="d">Катовице</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lod" data-pts="0"><b>Лодзинское</b><span class="d">Лодзь</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="zap" data-pts="0"><b>Западнопоморское</b><span class="d">Щецин</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="kuj" data-pts="0"><b>Куявско-Поморское</b><span class="d">Быдгощ · Торунь</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lub" data-pts="0"><b>Люблинское</b><span class="d">Люблин</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pod" data-pts="0"><b>Подкарпатское</b><span class="d">Жешув</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pdl" data-pts="0"><b>Подляское</b><span class="d">Белосток</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lbs" data-pts="0"><b>Любуское</b><span class="d">Зелёна-Гура</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="opo" data-pts="0"><b>Опольское</b><span class="d">Ополе</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="swi" data-pts="0"><b>Свентокшиское</b><span class="d">Кельце</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="war" data-pts="0"><b>Варминьско-Мазурское</b><span class="d">Ольштын</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="other" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><b>Ещё не знаю</b><span class="d">подскажем, где быстрее</span></button></div></div>
+    <div class="chc-step act" data-k="basis"><h3 class="chc-q">What is the basis for your residence card?</h3><div class="chc-opts" role="radiogroup" aria-label="Grounds for stay"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="work" data-pts="10"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Jobs</b><span class="d">Umowa o pracę / zlecenie</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="jdg" data-pts="7"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>My own business</b><span class="d">JDG / Spółka z o.o.</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="blue" data-pts="11"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M14 9.5h5M14 13h5"/></svg></span><b>Blue Card</b><span class="d">Highly qualified specialist</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="family" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>Family</b><span class="d">Family reunification</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="study" data-pts="6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Studies</b><span class="d">Full-time university studies</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="other" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg></span><b>Other / humanitarian</b><span class="d">Non-standard basis</span></button></div></div><div class="chc-step" data-k="status"><h3 class="chc-q">Where are you now — and what about your status?</h3><div class="chc-opts" role="radiogroup" aria-label="Current status"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="fine" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>In Poland, my status is fine</b><span class="d">Visa or card valid with time to spare</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="expiring" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><b>In Poland, my visa expires soon</b><span class="d">Not much time left</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="abroad" data-pts="2"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><b>Not in Poland yet</b><span class="d">Planning the move</span></button></div></div><div class="chc-step" data-k="docs"><h3 class="chc-q">Documents from the basic checklist — passport, photos, housing, employment, insurance, income?</h3><div class="chc-opts" role="radiogroup" aria-label="Document readiness"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="all" data-pts="12"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/><path d="m8.5 16.2 1.8 1.8 3.4-3.6"/></svg></span><b>Everything in hand</b><span class="d">The full package is ready</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="part" data-pts="6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5"/></svg></span><b>Some of them</b><span class="d">A few things are missing</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="none" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h4"/></svg></span><b>Almost nothing yet</b><span class="d">Just starting to gather</span></button></div></div><div class="chc-step" data-k="stab"><h3 class="chc-q">How strong is your basis?</h3><div class="chc-opts" role="radiogroup" aria-label="Stability of grounds"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="strong" data-pts="8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="m9 11.5 2 2 4-4"/></svg></span><b>Strong</b><span class="d">Long contract / marriage / full-time studies</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="mid" data-pts="4"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span><b>Average</b><span class="d">In place, but not ideal</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="weak" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17h.01"/></svg></span><b>Shaky</b><span class="d">Short-term or still uncertain</span></button></div></div><div class="chc-step" data-k="income"><h3 class="chc-q">Income — yours or your sponsor's (family)?</h3><div class="chc-opts" role="radiogroup" aria-label="Income level"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="high" data-pts="7"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-8"/><path d="M14 7h6v6"/></svg></span><b>Comfortably above the minimum</b><span class="d">With room to spare</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="avg" data-pts="4"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-8M12 20V7M19 20v-5"/></svg></span><b>Around average</b><span class="d">Stable, nothing extra</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="min" data-pts="1"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-3M12 20v-5M19 20V9"/></svg></span><b>Minimal</b><span class="d">On the edge of the requirements</span></button></div></div><div class="chc-step" data-k="hist"><h3 class="chc-q">Any residence permit refusals before?</h3><div class="chc-opts" role="radiogroup" aria-label="Application history"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="clean" data-pts="5"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>No refusals</b><span class="d">First application or a clean history</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="refusal" data-pts="-6"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg></span><b>Had a refusal</b><span class="d">Received a negative decision</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="appeal" data-pts="-3"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></span><b>Had a refusal, considering an appeal</b><span class="d">I want to appeal the decision</span></button></div></div><div class="chc-step" data-k="risk" data-multi="1"><h3 class="chc-q">Does any of this apply to you?</h3><p class="chc-subq">You can select more than one. An honest answer means an honest assessment — calculated in your browser, never sent anywhere.</p><div class="chc-opts multi" role="group" aria-label="Complicating factors"><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="crim" data-pts="-14"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v17M5 6.5h14"/><path d="M7 6.5 4 13a3.2 3.2 0 0 0 6 0zM17 6.5 14 13a3.2 3.2 0 0 0 6 0z"/></svg></span><b>A conviction / criminal case</b><span class="d">Now or in the past</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="ban" data-pts="-14"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><b>An entry ban or deportation</b><span class="d">In force now or in the past</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="illegal" data-pts="-10"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v4M16 3v4"/><path d="M12 12.5v3.2M12 18.3h.01"/></svg></span><b>A period of illegal stay</b><span class="d">Some time without legal status</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="illwork" data-pts="-8"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="m10 11.5 4 4M14 11.5l-4 4"/></svg></span><b>Worked without a permit</b><span class="d">Undeclared employment</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button><button type="button" class="chc-opt mchk" role="checkbox" aria-checked="false" data-v="none" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></svg></span><b>None of these</b><span class="d">Clean record</span><span class="tick" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></svg></span></button></div></div><div class="chc-step" data-k="voiv"><h3 class="chc-q">Which voivodeship will you apply in?</h3><div class="chc-opts" role="radiogroup" aria-label="Voivodeship"><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="maz" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Mazowieckie</b><span class="d">Warsaw</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="mal" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Małopolskie</b><span class="d">Kraków</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="niz" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Dolnośląskie</b><span class="d">Wrocław</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="wlk" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Wielkopolskie</b><span class="d">Poznań</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pom" data-pts="0"><b>Pomorskie</b><span class="d">Gdańsk</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="sil" data-pts="0"><b>Śląskie</b><span class="d">Katowice</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lod" data-pts="0"><b>Łódzkie</b><span class="d">Łódź</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="zap" data-pts="0"><b>Zachodniopomorskie</b><span class="d">Szczecin</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="kuj" data-pts="0"><b>Kujawsko-Pomorskie</b><span class="d">Bydgoszcz · Toruń</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lub" data-pts="0"><b>Lubelskie</b><span class="d">Lublin</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pod" data-pts="0"><b>Podkarpackie</b><span class="d">Rzeszów</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="pdl" data-pts="0"><b>Podlaskie</b><span class="d">Białystok</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="lbs" data-pts="0"><b>Lubuskie</b><span class="d">Zielona Góra</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="opo" data-pts="0"><b>Opolskie</b><span class="d">Opole</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="swi" data-pts="0"><b>Świętokrzyskie</b><span class="d">Kielce</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="war" data-pts="0"><b>Warmińsko-Mazurskie</b><span class="d">Olsztyn</span></button><button type="button" class="chc-opt" role="radio" aria-checked="false" data-v="other" data-pts="0"><span class="ci" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><b>Not sure yet</b><span class="d">we'll suggest where it's faster</span></button></div></div>
     <div class="chc-nav">
-      <button type="button" class="btn btn-ghost" id="chcBack" disabled>← Назад</button>
-      <button type="button" class="btn btn-primary" id="chcNext" disabled>Далее →</button>
+      <button type="button" class="btn btn-ghost" id="chcBack" disabled>← Back</button>
+      <button type="button" class="btn btn-primary" id="chcNext" disabled>Next →</button>
     </div>
-    <div class="chc-result" id="chcResult" hidden><h3 class="chc-reshead" id="chcResHead">Ваш предварительный результат</h3><div class="chc-res-grid"><div class="chc-gauge"><svg class="chc-gsvg" viewBox="0 0 200 120" aria-hidden="true"><path d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="var(--lilac-2)" stroke-width="15" stroke-linecap="round"/><path class="chc-arc" id="chcArc" d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="#5B87CF" stroke-width="15" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33"/></svg><div class="chc-score"><span class="chc-n" id="chcNum">0</span><small>баллов из 100 · предварительно</small></div></div><div class="chc-verdict"><div class="chc-cat" id="chcCat" aria-live="polite">…</div><p class="chc-phrase" id="chcPhrase"></p><div class="chc-wait"><span class="wic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#41659F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><p id="chcWait"></p></div></div></div><div class="chc-tips" id="chcTipsBox"><b>Что усилит вашу заявку</b><ul id="chcTips"></ul></div><p class="chc-disc">Это предварительная оценка LegalSol на основе 1 000+ дел, а не юридическое заключение. Точный разбор — бесплатно на консультации.</p><div class="chc-res-ctas"><a class="btn btn-wa btn-lg" id="chcWaBtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%88%D1%91%D0%BB%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%88%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%20%E2%80%94%20%D1%85%D0%BE%D1%87%D1%83%20%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Получить точный разбор в WhatsApp</a><button type="button" class="btn btn-ghost btn-lg" id="chcAgain">Пройти заново</button></div></div>
+    <div class="chc-result" id="chcResult" hidden><h3 class="chc-reshead" id="chcResHead">Your preliminary result</h3><div class="chc-res-grid"><div class="chc-gauge"><svg class="chc-gsvg" viewBox="0 0 200 120" aria-hidden="true"><path d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="var(--lilac-2)" stroke-width="15" stroke-linecap="round"/><path class="chc-arc" id="chcArc" d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="#5B87CF" stroke-width="15" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33"/></svg><div class="chc-score"><span class="chc-n" id="chcNum">0</span><small>points out of 100 · preliminary</small></div></div><div class="chc-verdict"><div class="chc-cat" id="chcCat" aria-live="polite">…</div><p class="chc-phrase" id="chcPhrase"></p><div class="chc-wait"><span class="wic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#41659F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><p id="chcWait"></p></div></div></div><div class="chc-tips" id="chcTipsBox"><b>What will strengthen your application</b><ul id="chcTips"></ul></div><p class="chc-disc">This is a preliminary LegalSol estimate based on 1,000+ cases, not a legal opinion. An exact case review is free at a consultation.</p><div class="chc-res-ctas"><a class="btn btn-wa btn-lg" id="chcWaBtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%88%D1%91%D0%BB%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%88%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%20%E2%80%94%20%D1%85%D0%BE%D1%87%D1%83%20%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Get an exact case review on WhatsApp</a><button type="button" class="btn btn-ghost btn-lg" id="chcAgain">Start over</button></div></div>
   </div>
-  <p class="chc-under reveal">Скоринг прозрачный: базовый балл + основание, статус, документы, стабильность, доход, история и сложные факторы. Никакой магии — только практика 1 000+ дел.</p>
+  <p class="chc-under reveal">The scoring is transparent: a base score + grounds, status, documents, stability, income, history and complicating factors. No magic — just the experience of 1,000+ cases.</p>
 </div>
 <script>
 (function(){
@@ -1076,10 +1160,10 @@ function paint(dir){
     steps[i].classList.toggle('back',dir<0);
     dots[i].className=i<idx?'done':(i===idx?'cur':'');
   }
-  stepNum.textContent='Вопрос '+(idx+1)+' из '+N;
+  stepNum.textContent='Question '+(idx+1)+' of '+N;
   barFill.style.width=Math.round((idx+1)/N*100)+'%';
   back.disabled=(idx===0);
-  next.textContent=(idx===N-1)?'Посчитать результат →':'Далее →';
+  next.textContent=(idx===N-1)?'Get my result →':'Next →';
   next.disabled=!ans[idx];
   next.classList.toggle('chc-ready',!!ans[idx]);
 }
@@ -1090,7 +1174,7 @@ function readMulti(s,i){
     if(vv==='none')return;
     p+=parseInt(o.getAttribute('data-pts'),10)||0;vs.push(vv);ts.push(o.querySelector('b').textContent);
   });
-  ans[i]={p:p,v:vs.join(','),t:ts.length?ts.join(', '):'нет',list:vs};
+  ans[i]={p:p,v:vs.join(','),t:ts.length?ts.join(', '):'no',list:vs};
 }
 function setMultiDefault(s,i){
   [].slice.call(s.querySelectorAll('.chc-opt')).forEach(function(o){
@@ -1145,48 +1229,48 @@ function go(dir){
 back.addEventListener('click',function(){go(-1)});
 next.addEventListener('click',function(){if(!next.disabled)go(1)});
 var CATS=[
- [85,'Отличные шансы','Профиль сильный — при аккуратной подаче дело выглядит уверенно. Осталось не споткнуться о формальности.','#2E8B57'],
- [70,'Хорошие шансы','Хорошая база. Пара усилений — и заявка станет заметно крепче.','#41659F'],
- [55,'Нужна подготовка','Шансы есть, но заявку стоит подготовить. План усиления — ниже, а точный путь наметим на бесплатном разборе.','#C97F33'],
- [0,'Сложный кейс — берём и такие','Такие дела требуют юриста — и это ровно то, что мы делаем: международная защита, апелляции, нестандартные основания. На бесплатном разборе скажем честно, есть ли путь.','var(--indigo-9)']
+ [85,'Excellent chances','A strong profile — filed carefully, this case looks solid. The only thing left is not to trip over a formality.','#2E8B57'],
+ [70,'Good chances','A good foundation. A couple of improvements and your application will be noticeably stronger.','#41659F'],
+ [55,'Preparation needed','You have a chance, but the application needs some preparation. Your improvement plan is below — and we’ll map out the exact path at a free case review.','#C97F33'],
+ [0,'A tough case — we take those too','Cases like this call for a lawyer — and that’s exactly what we do: international protection, appeals, non-standard grounds. At a free case review we’ll tell you honestly whether there is a path.','var(--indigo-9)']
 ];
 var WAITS={
- maz:['Мазовецкое (Варшава)','11–16 мес'],
- mal:['Малопольское (Краков)','10–15 мес'],
- niz:['Нижнесилезское (Вроцлав)','9–14 мес'],
- wlk:['Великопольское (Познань)','8–13 мес'],
- pom:['Поморское (Гданьск)','8–16 мес по стране'],
- sil:['Силезское (Катовице)','8–16 мес по стране'],
- lod:['Лодзинское (Лодзь)','8–16 мес по стране'],
- zap:['Западнопоморское (Щецин)','8–16 мес по стране'],
- kuj:['Куявско-Поморское (Быдгощ)','8–16 мес по стране'],
- lub:['Люблинское (Люблин)','8–16 мес по стране'],
- pod:['Подкарпатское (Жешув)','8–16 мес по стране'],
- pdl:['Подляское (Белосток)','8–16 мес по стране'],
- lbs:['Любуское (Зелёна-Гура)','8–16 мес по стране'],
- opo:['Опольское (Ополе)','8–16 мес по стране'],
- swi:['Свентокшиское (Кельце)','8–16 мес по стране'],
- war:['Варминьско-Мазурское (Ольштын)','8–16 мес по стране'],
- other:['выбранное воеводство','8–16 мес по стране']
+ maz:['Mazowieckie (Warsaw)','11–16 months'],
+ mal:['Małopolskie (Kraków)','10–15 months'],
+ niz:['Dolnośląskie (Wrocław)','9–14 months'],
+ wlk:['Wielkopolskie (Poznań)','8–13 months'],
+ pom:['Pomorskie (Gdańsk)','8–16 months nationwide'],
+ sil:['Śląskie (Katowice)','8–16 months nationwide'],
+ lod:['Łódzkie (Łódź)','8–16 months nationwide'],
+ zap:['Zachodniopomorskie (Szczecin)','8–16 months nationwide'],
+ kuj:['Kujawsko-Pomorskie (Bydgoszcz)','8–16 months nationwide'],
+ lub:['Lubelskie (Lublin)','8–16 months nationwide'],
+ pod:['Podkarpackie (Rzeszów)','8–16 months nationwide'],
+ pdl:['Podlaskie (Białystok)','8–16 months nationwide'],
+ lbs:['Lubuskie (Zielona Góra)','8–16 months nationwide'],
+ opo:['Opolskie (Opole)','8–16 months nationwide'],
+ swi:['Świętokrzyskie (Kielce)','8–16 months nationwide'],
+ war:['Warmińsko-Mazurskie (Olsztyn)','8–16 months nationwide'],
+ other:['the selected voivodeship','8–16 months nationwide']
 };
 var RISKTIP={
- crim:'Судимость — серьёзный фактор: юрист оценит перспективы честно на бесплатном разборе.',
- ban:'Запрет въезда или депортация: сначала проверим статус и сроки запрета — от этого зависит путь.',
- illegal:'Период нелегального пребывания: важно, как он оформлен и закрыт — юрист подскажет, что делать.',
- illwork:'Работа без разрешения — риск, но в ряде случаев решаемо: нужен персональный разбор.'
+ crim:'A criminal record is a serious factor: a lawyer will assess your prospects honestly at a free case review.',
+ ban:'An entry ban or deportation: first we’ll check the status and duration of the ban — the path forward depends on it.',
+ illegal:'A period of illegal stay: how it was documented and closed matters — a lawyer will advise you on what to do.',
+ illwork:'Working without a permit is a risk, but in many cases solvable: you need a personal case review.'
 };
 function buildTips(v){
   var t=[];
   (v.risks||[]).forEach(function(r){if(RISKTIP[r])t.push(RISKTIP[r])});
-  if(v.basis==='other')t.push('Нестандартное основание — разберём лично: гуманитарные обстоятельства оцениваются индивидуально.');
-  if(v.status==='expiring')t.push('Главное — подать до конца визы: в паспорт поставят штамп, и вы легальны в Польше до самого решения.');
-  if(v.docs==='part')t.push('Соберите недостающее по чек-листу: присяжные переводы, страховка, подтверждение проживания и доходов.');
-  if(v.docs==='none')t.push('Начните с базового чек-листа: паспорт, фото, подтверждение проживания, занятости или учёбы, страховка, документы о доходах.');
-  if(v.hist==='appeal')t.push('На апелляцию есть 14 дней — не теряйте их. Пришлите решение: разберём и подготовим апелляцию.');
-  if(v.hist==='refusal')t.push('Отказ — не конец: апелляции мы уже выигрывали, в том числе после отказов в других фирмах.');
-  if(t.length<3)t.push('Оформите Profil Zaufany заранее — без него онлайн-подача через MOS невозможна. Оформим вместе.');
-  if(t.length<3)t.push('Проверьте даты, подписи и переводы дважды — формальности решают больше всего. Мы проверяем каждый пакет двойным контролем.');
-  if(t.length<3)t.push('Запишитесь на бесплатный разбор — юрист проверит пакет и подтвердит расчёт до подачи.');
+  if(v.basis==='other')t.push('A non-standard ground — we’ll look at it personally: humanitarian circumstances are assessed individually.');
+  if(v.status==='expiring')t.push('The key is to apply before your visa expires: you get a stamp in your passport and remain legal in Poland right up to the decision.');
+  if(v.docs==='part')t.push('Gather the missing items from the checklist: sworn translations, insurance, proof of accommodation and income.');
+  if(v.docs==='none')t.push('Start with the basic checklist: passport, photos, proof of accommodation, employment or studies, insurance, and income documents.');
+  if(v.hist==='appeal')t.push('You have 14 days to appeal — don’t lose them. Send us the decision: we’ll review it and prepare the appeal.');
+  if(v.hist==='refusal')t.push('A refusal isn’t the end: we’ve won appeals before, including after refusals at other firms.');
+  if(t.length<3)t.push('Set up your Profil Zaufany in advance — without it, filing online through MOS is impossible. We can set it up together.');
+  if(t.length<3)t.push('Check dates, signatures and translations twice — formalities decide the most here. We run every package through a double check.');
+  if(t.length<3)t.push('Book a free case review — a lawyer will check your package and confirm the estimate before filing.');
   return t.slice(0,5);
 }
 function show(demo){
@@ -1200,22 +1284,22 @@ function show(demo){
   steps.forEach(function(s){s.classList.remove('act')});
   barFill.style.width='100%';
   dots.forEach(function(d){d.className='done'});
-  stepNum.textContent='Результат';
+  stepNum.textContent='Result';
   var cat=CATS[CATS.length-1];
   for(var c=0;c<CATS.length;c++){if(score>=CATS[c][0]){cat=CATS[c];break;}}
   document.getElementById('chcCat').textContent=cat[1];
   document.getElementById('chcCat').style.color=cat[3];
   document.getElementById('chcPhrase').textContent=cat[2];
   var w=WAITS[v.voiv]||WAITS.other;
-  document.getElementById('chcWait').innerHTML='Срок ожидания — <b>'+w[0]+': '+w[1]+'</b>. Долгое ожидание в Польше — норма: при подаче до конца визы вы легальны всё время рассмотрения.';
+  document.getElementById('chcWait').innerHTML='Waiting time — <b>'+w[0]+': '+w[1]+'</b>. Long waits are normal in Poland: if you file before your visa ends, you stay legal for the whole review.';
   var tips=buildTips(v);
   var ul=document.getElementById('chcTips');
   ul.innerHTML='';
   tips.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
-  var RISKSHORT={crim:'судимость',ban:'запрет въезда',illegal:'нелегальный период',illwork:'работа без разрешения'};
-  var msg='Здравствуйте! Прошёл(ла) калькулятор шансов на карту побыту. Основание: '+(mp.basis?mp.basis.t:'—')+'. Статус: '+(mp.status?mp.status.t:'—')+'. Документы: '+(mp.docs?mp.docs.t:'—')+'. Воеводство: '+(mp.voiv?mp.voiv.t:'—')+'.';
-  if(v.risks.length){msg+=' Сложности: '+v.risks.map(function(r){return RISKSHORT[r]||r}).join(', ')+'.';}
-  msg+=' Оценка: '+score+'/100 — '+cat[1]+'. Хочу точный бесплатный разбор.';
+  var RISKSHORT={crim:'criminal record',ban:'entry ban',illegal:'illegal stay period',illwork:'work without a permit'};
+  var msg='Hello! I completed the residence card chances calculator. Basis: '+(mp.basis?mp.basis.t:'—')+'. Status: '+(mp.status?mp.status.t:'—')+'. Documents: '+(mp.docs?mp.docs.t:'—')+'. Voivodeship: '+(mp.voiv?mp.voiv.t:'—')+'.';
+  if(v.risks.length){msg+=' Complications: '+v.risks.map(function(r){return RISKSHORT[r]||r}).join(', ')+'.';}
+  msg+=' Score: '+score+'/100 — '+cat[1]+'. I want a precise free case review.';
   document.getElementById('chcWaBtn').href='https://wa.me/48735248525?text='+encodeURIComponent(msg);
   arc.style.stroke=cat[3];
   num.style.color=cat[3];
@@ -1301,50 +1385,50 @@ if(location.search.indexOf('probe=worst')>-1){
 <!-- TRUST -->
 <section class="chc-trust" style="background:#fff"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow gold">Почему нам можно верить</span>
-    <h2>Оценка — из практики, а не из воздуха</h2>
-    <p>Калькулятор построен на реальной статистике дел LegalSol.</p>
+    <span class="eyebrow gold">Why you can trust us</span>
+    <h2>An estimate built on practice, not thin air</h2>
+    <p>The calculator is built on real statistics from LegalSol cases.</p>
   </div>
   <div class="chc-stats stg">
-    <div class="stat reveal"><div class="n">1 000<em>+</em></div><div class="l">завершённых дел — на них построена оценка</div></div>
-    <div class="stat reveal"><div class="n">98,1<em>%</em></div><div class="l">одобрений наших дел</div></div>
-    <div class="stat reveal"><div class="n">Любая</div><div class="l">сложность дела — берём и непростые</div></div>
+    <div class="stat reveal"><div class="n">1 000<em>+</em></div><div class="l">completed cases — the estimate is built on them</div></div>
+    <div class="stat reveal"><div class="n">98,1<em>%</em></div><div class="l">of our cases approved</div></div>
+    <div class="stat reveal"><div class="n">Any</div><div class="l">case complexity — we take on the tough ones too</div></div>
   </div>
   <div class="chc-apnote reveal">
     <span class="ic" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="m9 11.5 2 2 4-4"/></svg></span>
-    <p><b>Отказ — не конец: апелляции мы выигрывали — в том числе после отказов в других фирмах.</b> Для наших клиентов апелляция — бесплатно. А если шансов нет — скажем честно на бесплатной консультации, до начала работы.</p>
+    <p><b>A refusal isn't the end: we've won appeals — including after refusals at other firms.</b> For our clients, the appeal is free. And if there's no real chance, we'll say so honestly at a free consultation — before any work begins.</p>
   </div>
   <div class="chc-photos reveal" aria-hidden="true">
-    <figure class="cph cph-a"><img src="/assets/trc/story2.jpg" alt="" loading="lazy"><figcaption>Каждое дело ведёт живой юрист</figcaption></figure>
-    <figure class="cph cph-b"><img src="/assets/trc/ph_meet.jpg" alt="" loading="lazy"><figcaption>Разбор дела — вместе с вами</figcaption></figure>
+    <figure class="cph cph-a"><img src="/assets/trc/story2.jpg" alt="" loading="lazy"><figcaption>Every case is handled by a real lawyer</figcaption></figure>
+    <figure class="cph cph-b"><img src="/assets/trc/ph_meet.jpg" alt="" loading="lazy"><figcaption>We review your case together with you</figcaption></figure>
   </div>
 </div></section>
 
 <!-- LEADBAND -->
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
-      <div class="lb-t">Хотите точный разбор, а не оценку?</div>
-      <div class="lb-s">Оставьте контакт — юрист бесплатно разберёт вашу ситуацию и назовёт реальные шансы.</div>
-      <span class="lb-badge"><i></i>Отвечаем за 15 минут</span>
+      <div class="lb-t">Want an exact case review, not just an estimate?</div>
+      <div class="lb-s">Leave your contact details — a lawyer will review your situation for free and tell you your real chances.</div>
+      <span class="lb-badge"><i></i>We reply within 15 minutes</span>
     </div>
   </div>
   <form onsubmit="return lsLead(this)">
-    <input type="text" placeholder="Ваше имя" aria-label="Имя">
-    <input type="tel" placeholder="Телефон / WhatsApp" aria-label="Телефон">
-    <button class="btn btn-primary" type="submit">Оставить заявку →</button>
+    <input type="text" placeholder="Your name" aria-label="Name">
+    <input type="tel" placeholder="Phone / WhatsApp" aria-label="Phone">
+    <button class="btn btn-primary" type="submit">Leave a request →</button>
   </form>
 </div></div></section>
 
 <!-- FAQ -->
 <section id="chc-faq" class="faq">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Вопросы о калькуляторе</h2></div>
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Questions about the calculator</h2></div>
   <div class="faq-wrap reveal">
-    <details class="q"><summary>Насколько точна эта оценка?<span class="pl">+</span></summary><div class="a">Это предварительная оценка на основе практики 1 000+ дел LegalSol, а не юридическое заключение. Каждое дело индивидуально: точный разбор с юристом — бесплатно, на консультации проверим документы и назовём реальные шансы.</div></details>
-    <details class="q"><summary>Вы сохраняете мои ответы?<span class="pl">+</span></summary><div class="a">Нет. Калькулятор работает прямо в вашем браузере, ответы никуда не отправляются и нигде не хранятся. Мы увидим их только если вы сами решите написать нам в WhatsApp.</div></details>
-    <details class="q"><summary>Что делать после расчёта?<span class="pl">+</span></summary><div class="a">Напишите нам в WhatsApp — бесплатный разбор за 15 минут: проверим основание, соберём чек-лист документов под ваш случай и наметим план подачи через MOS. Без обязательств — решение за вами.</div></details>
+    <details class="q"><summary>How accurate is this estimate?<span class="pl">+</span></summary><div class="a">This is a preliminary estimate based on the experience of 1,000+ LegalSol cases, not a legal opinion. Every case is unique: an exact review with a lawyer is free — at the consultation we'll check your documents and tell you your real chances.</div></details>
+    <details class="q"><summary>Do you save my answers?<span class="pl">+</span></summary><div class="a">No. The calculator runs right in your browser — your answers aren't sent anywhere and aren't stored. We'll only see them if you decide to message us on WhatsApp.</div></details>
+    <details class="q"><summary>What should I do after getting my result?<span class="pl">+</span></summary><div class="a">Message us on WhatsApp — a free 15-minute case review: we'll check your grounds, put together a document checklist for your situation and map out a plan for filing via MOS. No strings attached — the decision is yours.</div></details>
   </div>
 </div></section>
 
@@ -1352,38 +1436,38 @@ if(location.search.indexOf('probe=worst')>-1){
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1391,25 +1475,25 @@ if(location.search.indexOf('probe=worst')>-1){
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -1423,12 +1507,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -1637,10 +1721,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -1657,7 +1741,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -1748,7 +1832,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Работа в Польше — карта побыту по работе, Blue Card, своё дело | LegalSol</title>
-<meta name="description" content="Работа в Польше легально: карта побыту по работе, смена работодателя, Blue Card, своё дело. Права со штампом, подача через MOS. LegalSol, Варшава.">
+<title>Work in Poland — residence card, Blue Card, own business | LegalSol</title>
+<meta name="description" content="Work in Poland legally: work-based residence card, changing employers, Blue Card, your own business. Work rights with the stamp, filing via MOS. LegalSol, Warsaw.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="Работа в Польше — карта побыту по работе, Blue Card, своё дело | LegalSol">
-<meta property="og:description" content="Работа в Польше легально: карта побыту по работе, смена работодателя, Blue Card, своё дело. Права со штампом, подача через MOS. LegalSol, Варшава.">
+<meta property="og:title" content="Work in Poland — residence card, Blue Card, own business | LegalSol">
+<meta property="og:description" content="Work in Poland legally: work-based residence card, changing employers, Blue Card, your own business. Work rights with the stamp, filing via MOS. LegalSol, Warsaw.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -824,6 +825,89 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;align-items:center;padding:16px 0 0;font-size:10.5px;letter-spacing:.45px;opacity:.55}
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
+
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
 
 /* --- page:work --- */
 .wk-hcard{background:linear-gradient(140deg,rgba(61,91,169,.88),rgba(91,135,207,.55)),url(/assets/trc/wk_truck.jpg) center/cover;border-radius:var(--r-lg);padding:92px 72px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
@@ -1009,8 +1093,8 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -1020,35 +1104,35 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html" style="color:var(--indigo)" aria-current="page">Работа</a>
+    <a href="redesign.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html" style="color:var(--indigo)" aria-current="page">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html">Шансы</a>
-    <a href="referral.html">Рефералка</a>
-    <a href="blog.html">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html">Chances</a>
+    <a href="referral.html">Referral</a>
+    <a href="blog.html">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1061,20 +1145,20 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <!-- HERO -->
 <section class="wk-hero" style="padding:44px 0 76px"><div class="wrap">
   <div class="wk-hcard reveal">
-    <span class="eyebrow">Работа · Легализация в Польше</span>
-    <h1>Работа в Польше — <em>легально и спокойно</em></h1>
-    <p class="lead">Работаете или ищете работу — оформим карту побыту по работе, подскажем при смене работодателя, проверим шансы на Blue Card. Вы работаете — бумагами занимаемся мы.</p>
+    <span class="eyebrow">Work · Legalization in Poland</span>
+    <h1>Work in Poland — <em>legally and with peace of mind</em></h1>
+    <p class="lead">Whether you're working or job-hunting — we'll arrange your work-based residence card (karta pobytu), guide you through changing employers, and check your chances for a Blue Card. You keep working — we take care of the paperwork.</p>
     <div class="hero-ctas">
       <a class="btn btn-gold btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20работаю%20в%20Польше%20и%20хочу%20оформить%20карту%20побыту.%20Нужна%20бесплатная%20консультация.">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-        Бесплатная консультация
+        Free consultation
       </a>
-      <a class="btn btn-ghost btn-lg" href="#wk-path">Как проходит оформление</a>
+      <a class="btn btn-ghost btn-lg" href="#wk-path">How the process works</a>
     </div>
     <div class="wk-hfeats">
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ответ за 15 минут</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Подача онлайн — через MOS</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>98,1% одобрений</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reply within 15 minutes</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Online submission — via MOS</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>98.1% approval rate</span>
     </div>
   </div>
 </div></section>
@@ -1082,134 +1166,134 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <!-- RIGHTS WITH STAMP -->
 <section id="wk-rights" style="background:#fff"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Ваши права со штампом</span>
-    <h2>Подали документы — и продолжаете жить</h2>
-    <p>Штамп о подаче в паспорте — это не «подвешенное состояние», а понятный правовой статус. Вот что он даёт работающему человеку.</p>
+    <span class="eyebrow">Your rights with the stamp</span>
+    <h2>Documents filed — and life goes on</h2>
+    <p>The submission stamp in your passport isn't "limbo" — it's a clear legal status. Here's what it gives you as a working person.</p>
   </div>
   <div class="wk-rights stg">
     <div class="wk-right reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
-      <h3>Работать — можно</h3>
-      <p>Если у вас есть действующее разрешение на работу, со штампом о подаче вы сохраняете прежние права до самого решения. Если разрешения нет — поможем оформить его параллельно.</p>
-      <span class="tag">Разрешение действует — работаете</span>
+      <h3>You can work</h3>
+      <p>If you hold a valid work permit, the submission stamp keeps all your existing rights until the decision itself. No permit? We'll help you arrange one in parallel.</p>
+      <span class="tag">Permit valid — you keep working</span>
     </div>
     <div class="wk-right g reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-      <h3>Вы легальны всё время ожидания</h3>
-      <p>Заявление подано правильно до конца текущего статуса — в паспорт ставится штамп, и ваше пребывание легально до самого решения. Даже если ожидание растянется на месяцы.</p>
-      <span class="tag">Подача до конца визы</span>
+      <h3>You stay legal the whole wait</h3>
+      <p>Application filed correctly before your current status ends — a stamp goes into your passport, and your stay is legal right up to the decision. Even if the wait stretches into months.</p>
+      <span class="tag">Filed before your visa ends</span>
     </div>
     <div class="wk-right gr reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3.5 3 14 0 18"/><path d="M12 3c-3 3.5-3 14 0 18"/></svg></span>
-      <h3>Поездки — по правилам</h3>
-      <p>Со штампом возможны выезды в страны Шенгена, но с ограничениями; для третьих стран нужна действующая виза. Расскажите нам о планах до бронирования — подскажем, что безопасно.</p>
-      <span class="tag">Спросите нас до поездки</span>
+      <h3>Travel — by the rules</h3>
+      <p>With the stamp you can visit Schengen countries, though with limits; for other countries you need a valid visa. Tell us your plans before booking — we'll advise what's safe.</p>
+      <span class="tag">Ask us before you travel</span>
     </div>
   </div>
   <div class="mos-note reveal">
     <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg></span>
-    <p><b>С 27 апреля 2026 документы на ВНЖ принимают только онлайн</b> — через государственную систему MOS. Для входа нужен Profil Zaufany — ваша электронная подпись для польских госуслуг. Оформим её вместе с вами, это входит в сопровождение.</p>
+    <p><b>From 27 April 2026, residence permit applications are accepted online only</b> — through the government MOS system. To log in you need a Profil Zaufany — your electronic signature for Polish government services. We'll set it up together with you, it's included in our support.</p>
   </div>
 </div></section>
 
 <!-- SITUATIONS -->
 <section id="wk-cases" style="background:var(--lilac)"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow gold">Ситуации</span>
-    <h2>С чем приходят — и что мы делаем</h2>
-    <p>Выберите свою ситуацию и напишите нам в WhatsApp — ответим за 15 минут и скажем, что делать дальше.</p>
+    <span class="eyebrow gold">Situations</span>
+    <h2>What people come with — and what we do</h2>
+    <p>Pick your situation and message us on WhatsApp — we'll reply within 15 minutes and tell you what to do next.</p>
   </div>
   <div class="dir-grid stg">
     <div class="dir i1 pop reveal">
-      <span class="badge">ЧАЩЕ ВСЕГО</span>
+      <span class="badge">MOST COMMON</span>
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
-      <h3>Карта побыту по работе</h3>
-      <p>Umowa o pracę или umowa zlecenie — самое частое основание для ВНЖ. Ведём от консультации до карты в руках.</p>
+      <h3>Work-based residence card</h3>
+      <p>Umowa o pracę or umowa zlecenie — the most common basis for a residence permit. We take you from consultation to card in hand.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Штамп при подаче — право работать во время ожидания</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Карта на 1–3 года</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Поездки по Шенгену — 90 дней из 180</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>База для ПМЖ — а в будущем и гражданства</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A stamp at submission — the right to work while you wait</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Card for 1–3 years</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Schengen travel — 90 days out of 180</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A foundation for permanent residence — and citizenship down the road</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Работаю%20по%20umowa%20o%20pracę.%20Хочу%20оформить%20карту%20побыту%20по%20работе.">Оформить карту по работе →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Работаю%20по%20umowa%20o%20pracę.%20Хочу%20оформить%20карту%20побыту%20по%20работе.">Get a work-based residence card →</a>
     </div>
     <div class="dir i2 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg></span>
-      <h3>Смена работодателя</h3>
-      <p>Новая работа во время рассмотрения дела — не катастрофа. Важно сделать всё по правилам и вовремя.</p>
+      <h3>Changing employers</h3>
+      <p>A new job while your case is pending isn't a disaster. What matters is doing everything by the rules and on time.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>О смене нужно уведомить воеводское управление</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>В некоторых случаях нужно новое заявление</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Напишите нам до смены — сохраним дело в порядке</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>You need to notify the voivodeship office about the change</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>In some cases a new application is required</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Message us before you switch — we'll keep your case in order</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Меняю%20работодателя%20во%20время%20рассмотрения%20дела.%20Подскажите%20что%20нужно%20сделать.">Спросить о смене работы →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Меняю%20работодателя%20во%20время%20рассмотрения%20дела.%20Подскажите%20что%20нужно%20сделать.">Ask about changing jobs →</a>
     </div>
     <div class="dir i3 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"/></svg></span>
-      <h3>Blue Card — для специалистов</h3>
-      <p>Niebieska Karta UE — карта побыту для высококвалифицированных специалистов, с бонусами по всему ЕС.</p>
+      <h3>Blue Card — for specialists</h3>
+      <p>Niebieska Karta UE — a residence card for highly qualified specialists, with perks across the EU.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Диплом вуза — или опыт работы от 5 лет</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Трудовой договор минимум на 1 год</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Право на ПМЖ — уже через 2 года</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Мобильность в ЕС — через 18 месяцев</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A university degree — or 5+ years of work experience</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>An employment contract for at least 1 year</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Permanent residence — after just 2 years</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>EU mobility — after 18 months</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20Blue%20Card%20для%20специалистов.%20Проверьте%20подхожу%20ли%20я%20по%20требованиям.">Проверить шансы на Blue Card →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20Blue%20Card%20для%20специалистов.%20Проверьте%20подхожу%20ли%20я%20по%20требованиям.">Check your Blue Card chances →</a>
     </div>
     <div class="dir i4 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></span>
-      <h3>Своё дело: JDG или Spółka</h3>
-      <p>Собственный бизнес — тоже основание для карты побыту. Откроем фирму и подключим бухгалтерию.</p>
+      <h3>Your own business: JDG or Spółka</h3>
+      <p>Your own business is also a basis for a residence card. We'll open the company and set up the accounting.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>JDG (ИП) — регистрация через CEIDG, 1–3 раб. дня</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sp. z o.o. (ООО) — ответственность ограничена</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Счёт в банке и коды PKD — под ключ</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Подскажем форму и налоговый режим</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>JDG (sole proprietorship) — registration via CEIDG, 1–3 business days</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sp. z o.o. (LLC) — limited liability</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Bank account and PKD codes — done for you</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>We'll advise on the right form and tax regime</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20своё%20дело%20в%20Польше.%20Помогите%20выбрать%20JDG%20или%20Spółka.">Открыть своё дело →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20своё%20дело%20в%20Польше.%20Помогите%20выбрать%20JDG%20или%20Spółka.">Start your own business →</a>
     </div>
   </div>
-  <div class="svc-more reveal"><a href="services.html">Все услуги — подробнее →</a></div>
+  <div class="svc-more reveal"><a href="services.html">All services — learn more →</a></div>
 </div></section>
 
 <!-- PATH · sticky duo -->
 <section id="wk-path" style="background:#fff"><div class="wrap">
   <div class="duo2">
     <div class="duo2-side reveal">
-      <span class="eyebrow">Как проходит оформление</span>
-      <h2 class="duo2-h">Рабочая карта побыту — шесть этапов</h2>
-      <p class="duo2-lead">Весь путь — онлайн, через государственную систему MOS. Лично — только отпечатки пальцев и получение готовой карты.</p>
-      <p class="duo2-lead"><b>Работа не прерывается.</b> Подача вовремя + действующее разрешение на работу = вы продолжаете работать все месяцы ожидания. Мы следим, чтобы ни один срок не был пропущен.</p>
+      <span class="eyebrow">How the process works</span>
+      <h2 class="duo2-h">Work residence card — six steps</h2>
+      <p class="duo2-lead">The whole journey is online, through the government MOS system. In person — only fingerprints and picking up your finished card.</p>
+      <p class="duo2-lead"><b>Your work doesn't stop.</b> Filing on time + a valid work permit = you keep working through all the months of waiting. We make sure not a single deadline is missed.</p>
       <div class="duo2-facts">
-        <span class="duo2-fact"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>98,1% одобрений</span>
-        <span class="duo2-fact"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Подача через MOS</span>
+        <span class="duo2-fact"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>98.1% approval rate</span>
+        <span class="duo2-fact"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Filing via MOS</span>
       </div>
-      <a class="btn btn-primary duo2-cta" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20работаю%20в%20Польше%20и%20хочу%20оформить%20карту%20побыту.%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">Начать с бесплатного разбора</a>
+      <a class="btn btn-primary duo2-cta" href="https://wa.me/48735248525?text=Здравствуйте!%20Я%20работаю%20в%20Польше%20и%20хочу%20оформить%20карту%20побыту.%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">Start with a free case review</a>
     </div>
     <div class="duo2-cards stg">
       <article class="duo2-card">
         <span class="duo2-num">01</span>
-        <div class="duo2-body"><h3>Бесплатный разбор дела</h3><p>Статус, сроки, правильное основание — и фиксированная цена. Никаких обязательств, только ясность.</p><span class="duo2-chip">В тот же день</span></div>
+        <div class="duo2-body"><h3>Free case review</h3><p>Status, timelines, the right legal basis — and a fixed price. No obligations, just clarity.</p><span class="duo2-chip">Same day</span></div>
       </article>
       <article class="duo2-card">
         <span class="duo2-num">02</span>
-        <div class="duo2-body"><h3>Документы</h3><p>Персональный чек-лист под ваш случай. Бумаги от работодателя и арендодателя запрашиваем сами.</p><span class="duo2-chip">1–2 недели</span></div>
+        <div class="duo2-body"><h3>Documents</h3><p>A personal checklist for your case. We request the papers from your employer and landlord ourselves.</p><span class="duo2-chip">1–2 weeks</span></div>
       </article>
       <article class="duo2-card">
         <span class="duo2-num">03</span>
-        <div class="duo2-body"><h3>Подача онлайн через MOS</h3><p>Настраиваем Profil Zaufany, проверяем каждое поле и подаём. Штамп в паспорт — легальное ожидание.</p><span class="duo2-chip">Несколько дней</span></div>
+        <div class="duo2-body"><h3>Online filing via MOS</h3><p>We set up your Profil Zaufany, check every field and submit. A stamp in your passport — you wait legally.</p><span class="duo2-chip">A few days</span></div>
       </article>
       <article class="duo2-card">
         <span class="duo2-num">04</span>
-        <div class="duo2-body"><h3>Отпечатки пальцев</h3><p>Единственный личный визит: записываем на приём и идём вместе с вами — никакого языкового стресса.</p><span class="duo2-chip">Ожидание 3–4 мес.</span></div>
+        <div class="duo2-body"><h3>Fingerprints</h3><p>The only in-person visit: we book the appointment and go with you — no language stress.</p><span class="duo2-chip">3–4 mo. wait</span></div>
       </article>
       <article class="duo2-card">
         <span class="duo2-num">05</span>
-        <div class="duo2-body"><h3>Рассмотрение</h3><p>Читаем каждое письмо, отвечаем в срок, напоминаем уженду о деле и требуем ускорить, когда оно стоит.</p><span class="duo2-chip">2–6 мес.</span></div>
+        <div class="duo2-body"><h3>Processing</h3><p>We read every letter, reply on time, remind the urząd about your case and push to speed things up when it stalls.</p><span class="duo2-chip">2–6 mo.</span></div>
       </article>
       <article class="duo2-card">
         <span class="duo2-num">06</span>
-        <div class="duo2-body"><h3>Решение и карта</h3><p>Сопровождаем получение и объясняем следующие шаги. Отказ по нашей вине — апелляция бесплатно.</p><span class="duo2-chip">Финал</span></div>
+        <div class="duo2-body"><h3>Decision and card</h3><p>We walk you through collecting the card and explain the next steps. If a refusal is our fault — the appeal is free.</p><span class="duo2-chip">Finale</span></div>
       </article>
     </div>
   </div>
@@ -1217,97 +1301,97 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 
 <!-- WAITS -->
 <section id="wk-waits">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head reveal">
-    <span class="eyebrow gold">Сроки — честно</span>
-    <h2>Полный цикл: 8–16 месяцев</h2>
-    <p>Сроки из нашей практики — по воеводствам, где рассматривают дело. Ждать в Польше приходится долго, это норма — и всё это время вы легальны.</p>
+    <span class="eyebrow gold">Timelines — honestly</span>
+    <h2>Full cycle: 8–16 months</h2>
+    <p>Timelines from our own practice — by voivodeship where the case is processed. Waiting in Poland takes a while, that's the norm — and you're legal the entire time.</p>
   </div>
   <div class="waits reveal">
-    <div class="wscale"><span>0</span><span>6</span><span>12</span><span>18 месяцев</span></div>
+    <div class="wscale"><span>0</span><span>6</span><span>12</span><span>18 months</span></div>
     <div class="wrow">
-      <div class="wn"><b>Мазовецкое</b><span>Варшава — наш домашний офис</span></div>
+      <div class="wn"><b>Mazowieckie</b><span>Warsaw — our home base</span></div>
       <div class="wtrack"><div class="wbar" style="left:61%;width:28%"></div></div>
-      <div class="wv">11–16 мес</div>
+      <div class="wv">11–16 months</div>
     </div>
     <div class="wrow">
-      <div class="wn"><b>Малопольское</b><span>Краков</span></div>
+      <div class="wn"><b>Małopolskie</b><span>Kraków</span></div>
       <div class="wtrack"><div class="wbar" style="left:55.5%;width:28%"></div></div>
-      <div class="wv">10–15 мес</div>
+      <div class="wv">10–15 months</div>
     </div>
     <div class="wrow">
-      <div class="wn"><b>Нижнесилезское</b><span>Вроцлав</span></div>
+      <div class="wn"><b>Dolnośląskie</b><span>Wrocław</span></div>
       <div class="wtrack"><div class="wbar" style="left:50%;width:28%"></div></div>
-      <div class="wv">9–14 мес</div>
+      <div class="wv">9–14 months</div>
     </div>
     <div class="wrow">
-      <div class="wn"><b>Великопольское</b><span>Познань</span></div>
+      <div class="wn"><b>Wielkopolskie</b><span>Poznań</span></div>
       <div class="wtrack"><div class="wbar" style="left:44.5%;width:28%"></div></div>
-      <div class="wv">8–13 мес</div>
+      <div class="wv">8–13 months</div>
     </div>
-    <div class="wnote"><b>Пока вы ждёте — вы под защитой:</b> подача до истечения визы сохраняет легальность пребывания до решения, а при действующем разрешении вы продолжаете работать. Мы следим за каждым дедлайном — напоминания за 90, 60 и 30 дней.</div>
+    <div class="wnote"><b>While you wait, you're protected:</b> filing before your visa expires keeps your stay legal until the decision, and with a valid work permit you keep working. We track every deadline — reminders at 90, 60 and 30 days.</div>
   </div>
   <div class="wk-center reveal">
-    <a class="btn btn-primary btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Подскажите%20сроки%20рассмотрения%20карты%20побыту%20в%20моём%20воеводстве.">Спросить о своём воеводстве</a>
+    <a class="btn btn-primary btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Подскажите%20сроки%20рассмотрения%20карты%20побыту%20в%20моём%20воеводстве.">Ask about your voivodeship</a>
   </div>
 </div></section>
 
 <!-- CALC -->
 <section id="wk-calc">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Подбор услуги</span>
-    <h2>Подберите услугу — срок и формат за пару секунд</h2>
-    <p>Выберите услугу — покажем средний срок оформления, что входит в сопровождение и как удобнее платить. Точную цену назовём в WhatsApp — обычно за 15 минут.</p>
+    <span class="eyebrow">Service finder</span>
+    <h2>Pick a service — timeline and format in a couple of seconds</h2>
+    <p>Choose a service — we'll show the average processing time, what's included in our support and the easiest way to pay. We'll name the exact price on WhatsApp — usually within 15 minutes.</p>
   </div>
   <div class="wkc-kit reveal">
     <div class="wkc-in">
       <div class="wkc-field">
-        <label id="cx-lbl" for="cx-btn">Услуга</label>
+        <label id="cx-lbl" for="cx-btn">Service</label>
         <div class="cx-dd" id="cx-dd">
           <button type="button" class="cx-dd-btn" id="cx-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="cx-list">
-            <span class="cx-cur" id="cx-cur">Карта побыту (ВНЖ)</span>
+            <span class="cx-cur" id="cx-cur">Residence card (karta pobytu)</span>
             <svg class="cx-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="cx-dd-panel" id="cx-list" role="listbox" aria-labelledby="cx-lbl">
-            <button type="button" class="cx-opt" role="option" id="cx-o-kp" aria-selected="true" data-v="kp"><span class="cx-t">Карта побыту (ВНЖ)</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
-            <button type="button" class="cx-opt" role="option" id="cx-o-blue" aria-selected="false" data-v="blue"><span class="cx-t">Blue Card (ЕС)</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
-            <button type="button" class="cx-opt" role="option" id="cx-o-pmz" aria-selected="false" data-v="pmz"><span class="cx-t">ПМЖ — постоянный побыт</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
-            <button type="button" class="cx-opt" role="option" id="cx-o-spolka" aria-selected="false" data-v="spolka"><span class="cx-t">Регистрация компании</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
-            <button type="button" class="cx-opt" role="option" id="cx-o-buh" aria-selected="false" data-v="buh"><span class="cx-t">Бухгалтерия и налоги</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+            <button type="button" class="cx-opt" role="option" id="cx-o-kp" aria-selected="true" data-v="kp"><span class="cx-t">Residence card (karta pobytu)</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+            <button type="button" class="cx-opt" role="option" id="cx-o-blue" aria-selected="false" data-v="blue"><span class="cx-t">Blue Card (EU)</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+            <button type="button" class="cx-opt" role="option" id="cx-o-pmz" aria-selected="false" data-v="pmz"><span class="cx-t">Permanent residence — pobyt stały</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+            <button type="button" class="cx-opt" role="option" id="cx-o-spolka" aria-selected="false" data-v="spolka"><span class="cx-t">Company registration</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
+            <button type="button" class="cx-opt" role="option" id="cx-o-buh" aria-selected="false" data-v="buh"><span class="cx-t">Accounting and taxes</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
             <button type="button" class="cx-opt" role="option" id="cx-o-pesel" aria-selected="false" data-v="pesel"><span class="cx-t">PESEL</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
             <button type="button" class="cx-opt" role="option" id="cx-o-pz" aria-selected="false" data-v="pz"><span class="cx-t">Profil Zaufany</span><span class="cx-chk" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>
           </div>
         </div>
       </div>
-      <p class="wkc-fine">Госпошлина ужонда оплачивается отдельно — размер подскажем. Оплата — на счёт фирмы, по официальному договору.</p>
+      <p class="wkc-fine">The urząd state fee is paid separately — we'll tell you the amount. Payment goes to the company account under an official contract.</p>
     </div>
     <div class="wkc-out">
-      <div class="wkc-k" id="cx-klbl">Средний срок оформления</div>
-      <div class="wkc-big" id="cx-term">4–9 мес.</div>
-      <div class="wkc-row"><span>Оплата частями</span><b>2–3 платежа</b></div>
-      <div class="wkc-row"><span>Точная цена</span><b>в WhatsApp — за 15 минут</b></div>
+      <div class="wkc-k" id="cx-klbl">Average processing time</div>
+      <div class="wkc-big" id="cx-term">4–9 months</div>
+      <div class="wkc-row"><span>Pay in installments</span><b>2–3 installments</b></div>
+      <div class="wkc-row"><span>Exact price</span><b>on WhatsApp — within 15 minutes</b></div>
       <div class="wkc-incl">
-        <div class="wkc-k">Что входит</div>
+        <div class="wkc-k">What's included</div>
         <ul id="cx-incl">
-          <li>Персональный чек-лист; бумаги от работодателя запросим сами</li>
-          <li>Подача онлайн через MOS — штамп о легальном ожидании</li>
-          <li>Отказ по нашей вине — апелляция бесплатно</li>
+          <li>Personal checklist; we'll request the employer papers ourselves</li>
+          <li>Online submission via MOS — a stamp confirming legal stay</li>
+          <li>If a refusal is our fault — the appeal is free</li>
         </ul>
       </div>
-      <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B0%3A%20%D0%9A%D0%B0%D1%80%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%20%D1%82%D0%BE%D1%87%D0%BD%D1%83%D1%8E%20%D1%86%D0%B5%D0%BD%D1%83.">Узнать цену за 15 минут</a>
+      <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B0%3A%20%D0%9A%D0%B0%D1%80%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%20%D1%82%D0%BE%D1%87%D0%BD%D1%83%D1%8E%20%D1%86%D0%B5%D0%BD%D1%83.">Get your price in 15 minutes</a>
     </div>
   </div>
   <script>
   (function(){
     var CX={
-      kp:{t:"4–9 мес.",h:"Карта побыту (ВНЖ)",i:["Персональный чек-лист; бумаги от работодателя запросим сами","Подача онлайн через MOS — штамп о легальном ожидании","Отказ по нашей вине — апелляция бесплатно"]},
-      blue:{t:"3–6 мес.",h:"Blue Card (ЕС)",i:["Проверим соответствие требованиям Blue Card","Подача онлайн через MOS","Отказ по нашей вине — апелляция бесплатно"]},
-      pmz:{t:"4–8 мес.",h:"ПМЖ — постоянный побыт",i:["Персональный чек-лист под ваш случай","Подача онлайн через MOS","Сопровождение до решения и карты"]},
-      spolka:{t:"1–14 раб. дней",h:"Регистрация компании",i:["Регистрация JDG через CEIDG или Sp. z o.o.","Счёт в банке и коды PKD — под ключ","Подскажем форму и налоговый режим"]},
-      buh:{t:"ежемесячно",k:"Формат работы",h:"Бухгалтерия и налоги",i:["Ведение учёта вашей фирмы","Консультация по налоговым режимам"]},
-      pesel:{t:"в тот же день",h:"PESEL",i:["Бумагами занимаемся мы — от заявления до номера","Менеджер на связи — ответ за 15 минут"]},
-      pz:{t:"онлайн через банк",k:"Как оформляется",h:"Profil Zaufany",i:["Нужен для подачи документов через MOS","Оформим вместе с вами — онлайн"]}
+      kp:{t:"4–9 months",h:"Residence card (karta pobytu)",i:["Personal checklist; we request employer paperwork ourselves","Online filing via MOS — a stamp confirming legal stay while you wait","If the refusal is our fault, the appeal is free"]},
+      blue:{t:"3–6 months",h:"Blue Card (EU)",i:["We check that you meet the Blue Card requirements","Online filing via MOS","If the refusal is our fault, the appeal is free"]},
+      pmz:{t:"4–8 months",h:"Permanent residence — pobyt stały",i:["Personal checklist for your case","Online filing via MOS","Support all the way to the decision and your card"]},
+      spolka:{t:"1–14 business days",h:"Company registration",i:["JDG registration via CEIDG or Sp. z o.o.","Bank account and PKD codes — turnkey","We help you pick the legal form and tax regime"]},
+      buh:{t:"monthly",k:"Service format",h:"Accounting and taxes",i:["Bookkeeping for your company","Consultation on tax regimes"]},
+      pesel:{t:"same day",h:"PESEL",i:["We handle the paperwork — from application to number","Your manager stays in touch — reply within 15 minutes"]},
+      pz:{t:"online via your bank",k:"How it is set up",h:"Profil Zaufany",i:["Needed to file documents via MOS","We set it up together with you — online"]}
     };
     var dd=document.getElementById('cx-dd');
     if(!dd)return;
@@ -1316,12 +1400,12 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
     var cur='kp';
     function render(){
       var d=CX[cur]||CX.kp;
-      document.getElementById('cx-klbl').textContent=d.k||'Средний срок оформления';
+      document.getElementById('cx-klbl').textContent=d.k||'Average processing time';
       document.getElementById('cx-term').textContent=d.t;
       var ul=document.getElementById('cx-incl');
       ul.innerHTML='';
       for(var j=0;j<d.i.length;j++){var li=document.createElement('li');li.textContent=d.i[j];ul.appendChild(li);}
-      document.getElementById('cx-wa').href='https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Интересует услуга: '+d.h+'. Подскажите, пожалуйста, точную цену.');
+      document.getElementById('cx-wa').href='https://wa.me/48735248525?text='+encodeURIComponent('Hello! I am interested in this service: '+d.h+'. Could you please tell me the exact price.');
       curEl.textContent=d.h;
       opts.forEach(function(o){o.setAttribute('aria-selected',o.getAttribute('data-v')===cur?'true':'false');});
     }
@@ -1354,138 +1438,138 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <!-- VACANCIES -->
 <section id="wk-vac" style="background:#fff"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow gold">Вакансии от партнёров</span>
-    <h2>Работа у проверенных работодателей — Польша и ЕС</h2>
-    <p>Подберём вакансию и поможем с трудоустройством. Нет легального статуса — оформим документы и найдём работу: всё в одном месте.</p>
+    <span class="eyebrow gold">Jobs from our partners</span>
+    <h2>Work with vetted employers — Poland and the EU</h2>
+    <p>We'll match you with a job and help you get hired. No legal status yet — we'll sort the documents and find you work: everything in one place.</p>
   </div>
   <div class="wkv-grid stg">
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_build.jpg" alt="" loading="lazy"><span class="wkv-cty">🇩🇪 Германия</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Берлин / Гамбург / Мюнхен</span><span class="wkv-rate">16 EUR/ч</span></div>
-      <h3>Строитель / разнорабочий</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_build.jpg" alt="" loading="lazy"><span class="wkv-cty">🇩🇪 Germany</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Berlin / Hamburg / Munich</span><span class="wkv-rate">16 EUR/h</span></div>
+      <h3>Construction worker / general laborer</h3>
       <div class="wkv-emp">Bauunternehmen GmbH</div>
-      <div class="wkv-chips"><span>Стройка</span><span>Отделка</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Строитель%20%2F%20разнорабочий%2C%20Германия">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Construction</span><span>Finishing</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Строитель%20%2F%20разнорабочий%2C%20Германия">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_welder.jpg" alt="" loading="lazy"><span class="wkv-cty">🇩🇪 Германия</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Дюссельдорф / Кёльн</span><span class="wkv-rate">17 EUR/ч</span></div>
-      <h3>Сварщик / слесарь</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_welder.jpg" alt="" loading="lazy"><span class="wkv-cty">🇩🇪 Germany</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Düsseldorf / Cologne</span><span class="wkv-rate">17 EUR/h</span></div>
+      <h3>Welder / fitter</h3>
       <div class="wkv-emp">MetallBau GmbH</div>
-      <div class="wkv-chips"><span>Сварка MIG</span><span>Металл</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Сварщик%20%2F%20слесарь%2C%20Германия">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>MIG welding</span><span>Metal</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Сварщик%20%2F%20слесарь%2C%20Германия">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_factory.jpg" alt="" loading="lazy"><span class="wkv-cty">🇧🇪 Бельгия</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Антверпен / Брюссель</span><span class="wkv-rate">20 EUR/ч</span></div>
-      <h3>Работник производства</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_factory.jpg" alt="" loading="lazy"><span class="wkv-cty">🇧🇪 Belgium</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Antwerp / Brussels</span><span class="wkv-rate">20 EUR/h</span></div>
+      <h3>Production worker</h3>
       <div class="wkv-emp">LogiPack Belgium</div>
-      <div class="wkv-chips"><span>Фасовка</span><span>Питание</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Работник%20производства%2C%20Бельгия">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Packing</span><span>Food</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Работник%20производства%2C%20Бельгия">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_driver.jpg" alt="" loading="lazy"><span class="wkv-cty">🇳🇱 Нидерланды</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Amsterdam / Rotterdam</span><span class="wkv-rate">22 EUR/ч</span></div>
-      <h3>Водитель-экспедитор CE</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_driver.jpg" alt="" loading="lazy"><span class="wkv-cty">🇳🇱 Netherlands</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Amsterdam / Rotterdam</span><span class="wkv-rate">22 EUR/h</span></div>
+      <h3>CE truck driver</h3>
       <div class="wkv-emp">TransEuropa Logistics</div>
-      <div class="wkv-chips"><span>Код 95</span><span>CE</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Водитель-экспедитор%20CE%2C%20Нидерланды">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Code 95</span><span>CE</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Водитель-экспедитор%20CE%2C%20Нидерланды">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_electric.jpg" alt="" loading="lazy"><span class="wkv-cty">🇦🇹 Австрия</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Вена / Грац</span><span class="wkv-rate">18 EUR/ч</span></div>
-      <h3>Электрик / монтажник</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_electric.jpg" alt="" loading="lazy"><span class="wkv-cty">🇦🇹 Austria</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Vienna / Graz</span><span class="wkv-rate">18 EUR/h</span></div>
+      <h3>Electrician / installer</h3>
       <div class="wkv-emp">ElektroBau Wien GmbH</div>
-      <div class="wkv-chips"><span>Электрика</span><span>Жильё</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Электрик%20%2F%20монтажник%2C%20Австрия">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Electrical</span><span>Housing</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Электрик%20%2F%20монтажник%2C%20Австрия">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_warehouse.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Польша</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Варшава / Лодзь / Вроцлав</span><span class="wkv-rate">30 PLN/ч</span></div>
-      <h3>Работник склада</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_warehouse.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Poland</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Warsaw / Łódź / Wrocław</span><span class="wkv-rate">30 PLN/h</span></div>
+      <h3>Warehouse worker</h3>
       <div class="wkv-emp">Amazon, DHL, FM Logistic</div>
-      <div class="wkv-chips"><span>Упаковка</span><span>Погрузка</span><span>Жильё</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Работник%20склада%2C%20Польша">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Packing</span><span>Loading</span><span>Housing</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Работник%20склада%2C%20Польша">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_hotel.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Польша</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Краков / Варшава / Гданьск</span><span class="wkv-rate">28 PLN/ч</span></div>
-      <h3>Горничная / клинер</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_hotel.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Poland</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Kraków / Warsaw / Gdańsk</span><span class="wkv-rate">28 PLN/h</span></div>
+      <h3>Housekeeper / cleaner</h3>
       <div class="wkv-emp">Marriott, Hilton, Accor</div>
-      <div class="wkv-chips"><span>Отель</span><span>Без опыта</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Горничная%2C%20Польша">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Hotel</span><span>No experience</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Горничная%2C%20Польша">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_nurse.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Польша</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Варшава / Познань</span><span class="wkv-rate">32 PLN/ч</span></div>
-      <h3>Медсестра / санитар</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_nurse.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Poland</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Warsaw / Poznań</span><span class="wkv-rate">32 PLN/h</span></div>
+      <h3>Nurse / orderly</h3>
       <div class="wkv-emp">Medicover, LUX MED</div>
-      <div class="wkv-chips"><span>Мед. диплом</span><span>Офиц.</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Медсестра%2C%20Польша">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Medical diploma</span><span>Official</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Медсестра%2C%20Польша">Learn more →</a>
     </article>
     <article class="wkv-card">
-      <div class="wkv-cover"><img src="/assets/trc/vc_chef.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Польша</span></div>
-      <div class="wkv-top"><span class="wkv-geo">Вроцлав / Познань</span><span class="wkv-rate">26 PLN/ч</span></div>
-      <h3>Повар / помощник повара</h3>
+      <div class="wkv-cover"><img src="/assets/trc/vc_chef.jpg" alt="" loading="lazy"><span class="wkv-cty">🇵🇱 Poland</span></div>
+      <div class="wkv-top"><span class="wkv-geo">Wrocław / Poznań</span><span class="wkv-rate">26 PLN/h</span></div>
+      <h3>Cook / kitchen assistant</h3>
       <div class="wkv-emp">NH Hotel Group</div>
-      <div class="wkv-chips"><span>Кухня</span><span>Питание</span></div>
-      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Повар%2C%20Польша">Узнать подробнее →</a>
+      <div class="wkv-chips"><span>Kitchen</span><span>Food</span></div>
+      <a class="wkv-go" href="https://wa.me/48735248525?text=WORK%3A%20Повар%2C%20Польша">Learn more →</a>
     </article>
   </div>
   <div class="wkv-note reveal">
-    <div class="wkv-note-txt"><b>Нужен вид на жительство для работы?</b><span>Без легального статуса лучшие работодатели не берут. Мы оформим документы и подберём вакансию — всё в одном месте.</span></div>
-    <a class="btn btn-gold" href="https://wa.me/48735248525?text=WORK%3A%20нужен%20ВНЖ%20и%20работа">ВНЖ + Работа →</a>
+    <div class="wkv-note-txt"><b>Need a residence permit to work?</b><span>Top employers won't hire you without legal status. We'll sort your documents and match you with a job — all in one place.</span></div>
+    <a class="btn btn-gold" href="https://wa.me/48735248525?text=WORK%3A%20нужен%20ВНЖ%20и%20работа">Residence permit + job →</a>
   </div>
 </div></section>
 
-<div class="wk-break"><img class="wk-break-img" src="/assets/trc/nx_team1.jpg" alt="" aria-hidden="true" loading="lazy"><p class="wk-break-line"><span>Помогаем устроиться легально</span></p></div>
+<div class="wk-break"><img class="wk-break-img" src="/assets/trc/nx_team1.jpg" alt="" aria-hidden="true" loading="lazy"><p class="wk-break-line"><span>We help you get hired legally</span></p></div>
 
 <!-- JOB QUIZ -->
 <section id="wk-quiz" style="background:var(--lilac)"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Джоб-квиз</span>
-    <h2>Подберём вакансию — три вопроса</h2>
-    <p>Ответьте на три вопроса — подберём варианты под вашу ситуацию и скажем, с чего начать. Без контактов и без обязательств.</p>
+    <span class="eyebrow">Job quiz</span>
+    <h2>We'll match you with a job — three questions</h2>
+    <p>Answer three questions — we'll suggest options for your situation and tell you where to start. No contact details, no strings attached.</p>
   </div>
   <div class="wq-card reveal">
     <div class="wq-bar" aria-hidden="true"><span id="wq-bar"></span></div>
-    <div class="wq-meta"><span class="wq-stepnum" id="wq-stepnum">Вопрос 1 из 3</span><span class="wq-dots" aria-hidden="true"><i class="cur"></i><i></i><i></i></span></div>
+    <div class="wq-meta"><span class="wq-stepnum" id="wq-stepnum">Question 1 of 3</span><span class="wq-dots" aria-hidden="true"><i class="cur"></i><i></i><i></i></span></div>
     <div id="wq-steps">
       <div class="wq-step act" data-k="what">
-        <h3 class="wq-q">Что ищете?</h3>
-        <div class="wq-opts" role="radiogroup" aria-label="Что ищете">
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Склад / производство"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2v9.6l-9 4-9-4V8.2l9-4z"/><path d="M3 8.2l9 4 9-4M12 12.2V21.8"/></svg></span><b>Склад / производство</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Стройка"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-6 7 6v11"/><path d="M9 21v-6h6v6"/></svg></span><b>Стройка</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Транспорт (CE)"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.5h12v9h-12z"/><path d="M13.5 10.5h4l3.5 3.5v2.5h-7.5z"/><circle cx="6" cy="18.5" r="1.7"/><circle cx="17" cy="18.5" r="1.7"/></svg></span><b>Транспорт (CE)</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Отель / кухня"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg></span><b>Отель / кухня</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Другое"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg></span><b>Другое</b></button>
+        <h3 class="wq-q">What are you looking for?</h3>
+        <div class="wq-opts" role="radiogroup" aria-label="What are you looking for">
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Склад / производство"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8.2v9.6l-9 4-9-4V8.2l9-4z"/><path d="M3 8.2l9 4 9-4M12 12.2V21.8"/></svg></span><b>Warehouse / production</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Стройка"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-6 7 6v11"/><path d="M9 21v-6h6v6"/></svg></span><b>Construction</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Транспорт (CE)"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.5h12v9h-12z"/><path d="M13.5 10.5h4l3.5 3.5v2.5h-7.5z"/><circle cx="6" cy="18.5" r="1.7"/><circle cx="17" cy="18.5" r="1.7"/></svg></span><b>Transport (CE)</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Отель / кухня"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/></svg></span><b>Hotel / kitchen</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Другое"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg></span><b>Other</b></button>
         </div>
       </div>
       <div class="wq-step" data-k="where">
-        <h3 class="wq-q">Где хотите работать?</h3>
-        <div class="wq-opts" role="radiogroup" aria-label="Где хотите работать">
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Польша"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h13l-3 4 3 4H5"/></svg></span><b>Польша</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Германия / Бельгия / ЕС"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3.5 3 14 0 18"/><path d="M12 3c-3 3.5-3 14 0 18"/></svg></span><b>Германия / Бельгия / ЕС</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Где быстрее"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span><b>Где быстрее</b></button>
+        <h3 class="wq-q">Where do you want to work?</h3>
+        <div class="wq-opts" role="radiogroup" aria-label="Where do you want to work">
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Польша"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h13l-3 4 3 4H5"/></svg></span><b>Poland</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Германия / Бельгия / ЕС"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3.5 3 14 0 18"/><path d="M12 3c-3 3.5-3 14 0 18"/></svg></span><b>Germany / Belgium / EU</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Где быстрее"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span><b>Wherever is faster</b></button>
         </div>
       </div>
       <div class="wq-step" data-k="docs">
-        <h3 class="wq-q">Документы для работы в ЕС?</h3>
-        <div class="wq-opts" role="radiogroup" aria-label="Документы для работы в ЕС">
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Есть ВНЖ / виза"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M14 9.5h4M14 13h4M6 16c.6-1.3 1.8-2 3-2s2.4.7 3 2"/></svg></span><b>Есть ВНЖ / виза</b></button>
-          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Нужно оформить" data-need="1"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><b>Нужно оформить</b></button>
+        <h3 class="wq-q">Documents to work in the EU?</h3>
+        <div class="wq-opts" role="radiogroup" aria-label="Documents to work in the EU">
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Есть ВНЖ / виза"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M14 9.5h4M14 13h4M6 16c.6-1.3 1.8-2 3-2s2.4.7 3 2"/></svg></span><b>Have a residence permit / visa</b></button>
+          <button type="button" class="wq-opt" role="radio" aria-checked="false" data-v="Нужно оформить" data-need="1"><span class="ci" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><b>Need to get them</b></button>
         </div>
       </div>
     </div>
-    <div class="wq-nav"><button type="button" class="btn btn-ghost" id="wq-back" disabled>← Назад</button><span class="wq-hint">Выберите вариант — перейдём к следующему вопросу</span></div>
+    <div class="wq-nav"><button type="button" class="btn btn-ghost" id="wq-back" disabled>← Back</button><span class="wq-hint">Pick an option — we'll move on to the next question</span></div>
     <div class="wq-done" id="wq-done" hidden>
-      <div class="wq-badge"><i></i>✦ Нашли подходящие вакансии!</div>
-      <h3>Напишите «WORK» в WhatsApp</h3>
-      <p>Команда подберёт вакансии под ваш запрос и поможет с трудоустройством.</p>
-      <p class="wq-extra" id="wq-extra" hidden>Сначала оформим статус: ВНЖ + работа — всё в одном месте.</p>
+      <div class="wq-badge"><i></i>✦ We found matching jobs!</div>
+      <h3>Send "WORK" on WhatsApp</h3>
+      <p>Our team will match vacancies to your request and help you get hired.</p>
+      <p class="wq-extra" id="wq-extra" hidden>First we'll sort out your status: residence permit + job — all in one place.</p>
       <div class="wq-flags" aria-hidden="true">🇵🇱 · 🇩🇪 · 🇧🇪 · 🇳🇱 · 🇦🇹</div>
-      <a class="btn btn-wa btn-lg" id="wq-wa" href="https://wa.me/48735248525?text=WORK" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Написать «WORK» в WhatsApp</a>
-      <button type="button" class="wq-again" id="wq-again">← Начать заново</button>
+      <a class="btn btn-wa btn-lg" id="wq-wa" href="https://wa.me/48735248525?text=WORK" target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Send "WORK" on WhatsApp</a>
+      <button type="button" class="wq-again" id="wq-again">← Start over</button>
     </div>
   </div>
   <script>
@@ -1504,7 +1588,7 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
       idx=i;
       steps.forEach(function(s,j){s.classList.toggle('act',j===i);});
       bar.style.width=((i+1)/3*100)+'%';
-      num.textContent='Вопрос '+(i+1)+' из 3';
+      num.textContent='Question '+(i+1)+' of 3';
       dots.forEach(function(d,j){d.className=j<i?'done':(j===i?'cur':'');});
       back.disabled=(i===0);
     }
@@ -1512,7 +1596,7 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
       stepsBox.hidden=true;nav.hidden=true;meta.hidden=true;
       bar.style.width='100%';
       extra.hidden=!need;
-      var msg='WORK: '+(ans.what||'')+', '+(ans.where||'')+(need?', нужно оформить документы':', документы для работы есть');
+      var msg='WORK: '+(ans.what||'')+', '+(ans.where||'')+(need?', need to arrange documents':', already have work documents');
       wal.href='https://wa.me/48735248525?text='+encodeURIComponent(msg);
       done.hidden=false;
     }
@@ -1544,13 +1628,13 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <section style="background:#fff;padding:72px 0"><div class="wrap">
   <div class="leadband reveal">
     <div>
-      <div class="lb-t">Работаете в Польше — а карты ещё нет?</div>
-      <div class="lb-s">Оставьте номер — бесплатно перезвоним в течение 15 минут в рабочие часы.</div>
+      <div class="lb-t">Working in Poland — but no residence card yet?</div>
+      <div class="lb-s">Leave your number — we'll call you back for free within 15 minutes during business hours.</div>
     </div>
     <form onsubmit="return lsLead(this)">
-      <input type="text" name="name" placeholder="Имя" required>
-      <input type="tel" name="phone" placeholder="Телефон / WhatsApp" required>
-      <button class="btn btn-primary" type="submit">Жду звонка</button>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="tel" name="phone" placeholder="Phone / WhatsApp" required>
+      <button class="btn btn-primary" type="submit">Call me back</button>
     </form>
   </div>
 </div></section>
@@ -1558,22 +1642,22 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
 <!-- FINAL CTA -->
 <section class="final" style="padding-top:0"><div class="wrap">
   <div>
-    <h2>Начните с одного сообщения</h2>
-    <p class="lead">Опишите свою рабочую ситуацию в WhatsApp — скажем, что делать дальше. Бесплатно, простым языком и без обязательств.</p>
+    <h2>Start with a single message</h2>
+    <p class="lead">Describe your work situation on WhatsApp — we'll tell you what to do next. Free, in plain language and with no strings attached.</p>
     <div class="cts">
-      <div class="row"><b>WhatsApp:</b>&nbsp;+48 735 248 525 — ответ за 15 минут</div>
-      <div class="row"><b>Офис:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · ПН–ПТ 10:00–18:00</div>
-      <div class="row"><b>Онлайн:</b>&nbsp;ведём дела по всей Польше</div>
+      <div class="row"><b>WhatsApp:</b>&nbsp;+48 735 248 525 — reply within 15 minutes</div>
+      <div class="row"><b>Office:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · Mon–Fri 10:00–18:00</div>
+      <div class="row"><b>Online:</b>&nbsp;we handle cases across all of Poland</div>
     </div>
   </div>
   <div class="ffbox">
-    <div class="t">Быстрый старт</div>
-    <div class="s">Первый разбор — бесплатный. Цена фиксируется в договоре, оплата частями — 2–3 платежа.</div>
+    <div class="t">Quick start</div>
+    <div class="s">Your first case review is free. The price is fixed in the contract, and you pay in 2–3 installments.</div>
     <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20работе%20и%20легализации%20в%20Польше.">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-      Написать в WhatsApp
+      Message us on WhatsApp
     </a>
-    <div class="fine">Ответ за 15 минут в рабочие часы · Без обязательств</div>
+    <div class="fine">Reply within 15 minutes during business hours · No strings attached</div>
   </div>
 </div></section>
 
@@ -1581,38 +1665,38 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1620,25 +1704,25 @@ html.nojs .wq-nav,html.nojs .wq-meta,html.nojs .wq-bar{display:none}
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -1652,12 +1736,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -1866,10 +1950,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -1886,7 +1970,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -1977,7 +2061,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);

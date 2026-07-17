@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Кабинет клиента LegalSol — статус дела под контролем 24/7</title>
-<meta name="description" content="Кабинет клиента LegalSol: статус дела в любой момент, чат со специалистом, оплаты и напоминания за 90/60/30 дней. Всё синхронизировано с CRM. Посмотрите демо-кабинет.">
+<title>LegalSol client portal — your case status under control 24/7</title>
+<meta name="description" content="LegalSol client portal: case status any time, chat with your specialist, payments and reminders 90/60/30 days ahead. All synced with CRM. Try the demo portal.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="Кабинет клиента LegalSol — статус дела под контролем 24/7">
-<meta property="og:description" content="Кабинет клиента LegalSol: статус дела в любой момент, чат со специалистом, оплаты и напоминания за 90/60/30 дней. Всё синхронизировано с CRM. Посмотрите демо-кабинет.">
+<meta property="og:title" content="LegalSol client portal — your case status under control 24/7">
+<meta property="og:description" content="LegalSol client portal: case status any time, chat with your specialist, payments and reminders 90/60/30 days ahead. All synced with CRM. Try the demo portal.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -824,6 +825,89 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;align-items:center;padding:16px 0 0;font-size:10.5px;letter-spacing:.45px;opacity:.55}
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
+
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
 
 /* --- page:cabinet --- */
 /* cabinet (cb2- лендинг, cb3- app-режим) */
@@ -1417,13 +1501,32 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app .cbx-pm-two{display:block;}
 }
 
+/* cbx dashboard rows */
+.cb3-app .cbx-row{display:grid;gap:18px}
+.cb3-app .cbx-row2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr));align-items:start}
+.cb3-app .cbx-row3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));align-items:stretch}
+.cb3-app .cbx-cell{display:flex;flex-direction:column;gap:10px;min-width:0}
+.cb3-app .cbx-row3 .cbx-cell>*:last-child{flex:1}
+.cb3-app .cbx-row3 .cbx-legal{height:100%;box-sizing:border-box}
+.cb3-app .cbx-row3 .cbx-moscard{height:100%;box-sizing:border-box}
+.cb3-app .cbx-row3 .cb3-rem{height:100%;box-sizing:border-box}
+.cb3-app .cbx-contact{margin-top:2px}
+@media(max-width:900px){.cb3-app .cbx-row{grid-template-columns:1fr!important;gap:14px}}
+
+/* legal как плитка дашборда: печать сверху, текст не сжимается в колонку */
+.cb3-app .cbx-row3 .cbx-legal{grid-template-columns:1fr;justify-items:start;text-align:left;gap:14px;margin-top:0;padding:22px 22px 20px}
+.cb3-app .cbx-row3 .cbx-legal .cbx-stamp{order:-1;width:78px;height:78px}
+.cb3-app .cbx-row3 .cbx-legal-h{font-size:16px}
+.cb3-app .cbx-row3 .cbx-legal-tx p{font-size:13px}
+@media(max-width:900px){.cb3-app .cbx-row3 .cbx-legal{grid-template-columns:1fr auto;align-items:center;justify-items:stretch}.cb3-app .cbx-row3 .cbx-legal .cbx-stamp{order:0;width:96px;height:96px}}
+
 </style>
 </head>
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -1433,35 +1536,35 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html">Работа</a>
+    <a href="redesign.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html">Шансы</a>
-    <a href="referral.html">Рефералка</a>
-    <a href="blog.html">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html">Chances</a>
+    <a href="referral.html">Referral</a>
+    <a href="blog.html">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1475,117 +1578,117 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 <section class="cb2-hero"><div class="wrap">
   <div class="cb2-hero-card reveal">
     <div>
-      <span class="eyebrow">Кабинет клиента</span>
-      <h1>Ваше дело — под контролем 24/7</h1>
-      <p class="lead">Статус дела, документы и следующие шаги — в личном кабинете. Проверяйте в любой момент — или просто напишите нам.</p>
+      <span class="eyebrow">Client portal</span>
+      <h1>Your case — under control 24/7</h1>
+      <p class="lead">Case status, documents and next steps — all in your personal portal. Check in at any moment — or just message us.</p>
       <div class="cb2-feats">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Всё по делу в одном месте: статус · чат со специалистом · оплаты и напоминания</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Напоминания за 90, 60 и 30 дней до истечения любого документа</span>
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Персональный специалист — в вашем WhatsApp-чате</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Everything on your case in one place: status · chat with a specialist · payments and reminders</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reminders 90, 60 and 30 days before any document expires</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Your personal specialist — right in your WhatsApp chat</span>
       </div>
-      <div class="cb2-trust"><span>1 000+ дел</span><span>98,1% одобрений</span><span>Любая сложность</span><span>Индивидуальный подход</span></div>
+      <div class="cb2-trust"><span>1,000+ cases</span><span>98.1% approval rate</span><span>Any complexity</span><span>Personal approach</span></div>
     </div>
     <div class="cb2-login">
-      <div class="t">Войти как клиент</div>
-      <div class="s">Для клиентов LegalSol</div>
+      <div class="t">Log in as a client</div>
+      <div class="s">For LegalSol clients</div>
       <form id="cb2-form" novalidate>
-        <input type="tel" id="cb2-inp" placeholder="Телефон — как в договоре" aria-label="Телефон" autocomplete="tel" inputmode="tel">
-        <input type="password" id="cb2-pass" placeholder="Пароль из WhatsApp" aria-label="Пароль" autocomplete="current-password">
-        <button class="btn btn-primary" id="cb2-login" type="submit">Войти в кабинет →</button>
+        <input type="tel" id="cb2-inp" placeholder="Phone — as in your contract" aria-label="Phone" autocomplete="tel" inputmode="tel">
+        <input type="password" id="cb2-pass" placeholder="Password from WhatsApp" aria-label="Password" autocomplete="current-password">
+        <button class="btn btn-primary" id="cb2-login" type="submit">Log in to your portal →</button>
       </form>
       <div class="cb2-err" id="cb2-err" role="alert"></div>
-      <div class="or">или</div>
-      <a class="btn btn-gold" href="#cb2-demo" onclick="return cb3Open(event)">Посмотреть демо-кабинет →</a>
-      <div class="fine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Доступ выдаётся после первой консультации</div>
-      <div style="font-size:12.5px;color:var(--ink-3);margin-top:10px">Логин и пароль присылает ваш специалист в WhatsApp. Не получили? <a href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BC%D0%BE%D0%B3%D1%83%20%D0%B2%D0%BE%D0%B9%D1%82%D0%B8%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%E2%80%94%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF." target="_blank" rel="noopener" style="color:var(--indigo);font-weight:600">Напишите нам</a></div>
+      <div class="or">or</div>
+      <a class="btn btn-gold" href="#cb2-demo" onclick="return cb3Open(event)">View the demo portal →</a>
+      <div class="fine"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Access is granted after your first consultation</div>
+      <div style="font-size:12.5px;color:var(--ink-3);margin-top:10px">Your specialist sends your login and password via WhatsApp. Haven't received them? <a href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D0%B5%20%D0%BC%D0%BE%D0%B3%D1%83%20%D0%B2%D0%BE%D0%B9%D1%82%D0%B8%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%E2%80%94%20%D0%BF%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF." target="_blank" rel="noopener" style="color:var(--indigo);font-weight:600">Message us</a></div>
     </div>
   </div>
 </div></section>
 
 <!-- ТИЗЕР ДЕМО-КАБИНЕТА -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow gold">ДЕМО — глазами клиента</span>
-    <h2>Загляните внутрь — до старта дела</h2>
-    <p>Откройте демо-кабинет с вымышленным делом: этапы, документы, напоминания. Ваш будет выглядеть так же — только про ваше дело.</p>
+    <span class="eyebrow gold">DEMO — through a client's eyes</span>
+    <h2>Take a look inside — before your case even starts</h2>
+    <p>Open the demo portal with a fictional case: stages, documents, reminders. Yours will look exactly the same — only about your case.</p>
   </div>
   <div class="cb3-teaser reveal">
     <div class="tz-mock" aria-hidden="true">
-      <div class="tz-dots"><i></i><i></i><i></i><em>кабинет клиента · демо</em></div>
-      <div class="tz-row"><b>Дело № 812 · Карта побыту</b><span class="tz-chip">На рассмотрении</span></div>
-      <div class="tz-row"><b>Готовность документов</b><span class="tz-barwrap"><span class="tz-bar"><span></span></span><u>91%</u></span></div>
-      <div class="tz-row"><b>Напоминание</b><span class="tz-soft">страховка — через 64 дня</span></div>
+      <div class="tz-dots"><i></i><i></i><i></i><em>client portal · demo</em></div>
+      <div class="tz-row"><b>Case no. 812 · Residence card</b><span class="tz-chip">Under review</span></div>
+      <div class="tz-row"><b>Document readiness</b><span class="tz-barwrap"><span class="tz-bar"><span></span></span><u>91%</u></span></div>
+      <div class="tz-row"><b>Reminder</b><span class="tz-soft">insurance — in 64 days</span></div>
     </div>
     <div class="tz-tx">
-      <b>Полноэкранный демо-кабинет</b>
-      <p>Таймлайн из 7 этапов, чат со специалистом, оплаты по договору и напоминания 90/60/30 — ровно так дело выглядит у настоящего клиента.</p>
-      <a class="btn btn-primary btn-lg" href="#cb2-demo" onclick="return cb3Open(event)">Открыть демо-кабинет →</a>
-      <span class="tz-fine">Данные вымышленные · Ничего вводить не нужно</span>
+      <b>Full-screen demo portal</b>
+      <p>A 7-stage timeline, chat with your specialist, contract payments and 90/60/30 reminders — exactly how a real client's case looks.</p>
+      <a class="btn btn-primary btn-lg" href="#cb2-demo" onclick="return cb3Open(event)">Open the demo portal →</a>
+      <span class="tz-fine">The data is fictional · Nothing to enter</span>
     </div>
   </div>
 </div></section>
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Доступ</span>
-    <h2>Как получить свой кабинет</h2>
-    <p>Три шага — и ваше дело всегда под рукой.</p>
+    <span class="eyebrow">Access</span>
+    <h2>How to get your portal</h2>
+    <p>Three steps — and your case is always at hand.</p>
   </div>
   <div class="steps-grid cb2-acc3 stg reveal">
-    <div class="step"><div class="num">1</div><h3>Бесплатная консультация</h3><p>Расскажите о своей ситуации в WhatsApp — оценим шансы и наметим путь. 20–30 минут, без обязательств.</p></div>
-    <div class="step"><div class="num">2</div><h3>Договор</h3><p>Фиксируем объём работы в договоре. Оплата частями — 2–3 платежа.</p></div>
-    <div class="step"><div class="num">3</div><h3>Номер дела и доступ</h3><p>Заводим профиль дела и выдаём личный номер — кабинет открыт для вас 24/7.</p></div>
+    <div class="step"><div class="num">1</div><h3>Free consultation</h3><p>Tell us about your situation on WhatsApp — we'll assess your chances and map out the path. 20–30 minutes, no obligations.</p></div>
+    <div class="step"><div class="num">2</div><h3>Contract</h3><p>We set the scope of work in a contract. Pay in parts — 2–3 installments.</p></div>
+    <div class="step"><div class="num">3</div><h3>Case number and access</h3><p>We create your case profile and issue a personal number — your portal is open to you 24/7.</p></div>
   </div>
   <div class="cb2-cta reveal">
-    <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Начать с бесплатной консультации</a>
-    <div class="fine">Ответим за 15 минут в рабочие часы · Без обязательств</div>
+    <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Start with a free consultation</a>
+    <div class="fine">We reply within 15 minutes during working hours · No obligations</div>
   </div>
 </div></section>
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Common questions about the portal</h2></div>
   <div class="faq-wrap reveal">
-    <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Да — если вы клиент LegalSol. Войдите по телефону и паролю, которые прислал ваш специалист, и увидите живой статус своего дела прямо из CRM. Если пока не клиент — откройте демо и посмотрите, как это выглядит.</div></details>
-    <details class="q"><summary>Это безопасно?<span class="pl">+</span></summary><div class="a">Да. Вход — по телефону и личному паролю, которые знаете только вы и ваш специалист. Данные вашего дела не публичны и никому не показываются.</div></details>
-    <details class="q"><summary>Где настоящий вход?<span class="pl">+</span></summary><div class="a">Прямо на этой странице — форма входа сверху. Кнопка «Посмотреть демо-кабинет» открывает пример с вымышленными данными: ничего вводить не нужно.</div></details>
+    <details class="q"><summary>Is this my portal?<span class="pl">+</span></summary><div class="a">Yes — if you're a LegalSol client. Log in with the phone number and password your specialist sent you, and you'll see the live status of your case straight from our CRM. Not a client yet? Open the demo and see what it looks like.</div></details>
+    <details class="q"><summary>Is it safe?<span class="pl">+</span></summary><div class="a">Yes. You log in with your phone number and a personal password known only to you and your specialist. Your case data is not public and is never shown to anyone.</div></details>
+    <details class="q"><summary>Where is the real login?<span class="pl">+</span></summary><div class="a">Right on this page — the login form is at the top. The "View the demo portal" button opens an example with fictional data: nothing to enter.</div></details>
   </div>
 </div></section>
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
-      <div class="lb-t">Хотите такой же кабинет для своего дела?</div>
-      <div class="lb-s">Оставьте номер — перезвоним за 15 минут в рабочие часы и наметим ваш путь.</div>
-      <span class="lb-badge"><i></i>Отвечаем за 15 минут</span>
+      <div class="lb-t">Want a portal like this for your own case?</div>
+      <div class="lb-s">Leave your number — we'll call back within 15 minutes during working hours and map out your path.</div>
+      <span class="lb-badge"><i></i>We reply within 15 minutes</span>
     </div>
   </div>
   <form onsubmit="return lsLead(this)">
-    <input type="text" placeholder="Ваше имя" aria-label="Имя">
-    <input type="tel" placeholder="Телефон / WhatsApp" aria-label="Телефон">
-    <button class="btn btn-primary" type="submit">Оставить заявку →</button>
+    <input type="text" placeholder="Your name" aria-label="Name">
+    <input type="tel" placeholder="Phone / WhatsApp" aria-label="Phone">
+    <button class="btn btn-primary" type="submit">Leave a request →</button>
   </form>
 </div></div></section>
 
 <!-- APP-РЕЖИМ: полноэкранный демо-кабинет (скрыт по умолчанию, открывается JS) -->
-<div class="cb3-app" id="cb3-app" role="dialog" aria-modal="true" aria-label="Демо-кабинет клиента">
+<div class="cb3-app" id="cb3-app" role="dialog" aria-modal="true" aria-label="Client portal demo">
   <div class="cb3-sticky">
   <header class="cb3-top">
     <span class="cb3-logo" aria-hidden="true"><svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span>
-    <span class="cb3-ttl">Кабинет клиента <span class="cb3-demo-chip" id="cb3-mode-chip">Демо</span></span>
-    <button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Выйти ×</button>
+    <span class="cb3-ttl">Client portal <span class="cb3-demo-chip" id="cb3-mode-chip">Demo</span></span>
+    <button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Exit ×</button>
   </header>
-  <nav class="cb3-tabs" role="tablist" aria-label="Разделы кабинета">
-    <button class="cb3-tab" id="cb3-tab-delo" role="tab" aria-selected="true" aria-controls="cb3-sec-delo" type="button" onclick="cb3Tab('delo')">Дело</button>
-    <button class="cb3-tab" id="cb3-tab-chat" role="tab" aria-selected="false" aria-controls="cb3-sec-chat" type="button" onclick="cb3Tab('chat')">Чат<span class="nb" id="cb3-chat-nb">1</span></button>
-    <button class="cb3-tab" id="cb3-tab-pay" role="tab" aria-selected="false" aria-controls="cb3-sec-pay" type="button" onclick="cb3Tab('pay')">Оплаты</button>
-    <button class="cb3-tab cbx-dx" id="cb3-tab-profile" role="tab" aria-selected="false" aria-controls="cb3-sec-profile" type="button" onclick="cb3Tab('profile')">Данные</button>
+  <nav class="cb3-tabs" role="tablist" aria-label="Portal sections">
+    <button class="cb3-tab" id="cb3-tab-delo" role="tab" aria-selected="true" aria-controls="cb3-sec-delo" type="button" onclick="cb3Tab('delo')">Case</button>
+    <button class="cb3-tab" id="cb3-tab-chat" role="tab" aria-selected="false" aria-controls="cb3-sec-chat" type="button" onclick="cb3Tab('chat')">Chat<span class="nb" id="cb3-chat-nb">1</span></button>
+    <button class="cb3-tab" id="cb3-tab-pay" role="tab" aria-selected="false" aria-controls="cb3-sec-pay" type="button" onclick="cb3Tab('pay')">Payments</button>
+    <button class="cb3-tab cbx-dx" id="cb3-tab-profile" role="tab" aria-selected="false" aria-controls="cb3-sec-profile" type="button" onclick="cb3Tab('profile')">Details</button>
   </nav>
   </div>
   <div class="cb3-body">
@@ -1593,221 +1696,220 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
     <!-- 1. Привет-строка -->
     <div class="cb3-greet">
-      <div class="g-tx" id="cb3-greet-tx"><span class="hi"><span id="cbx-greet-word">Добрый день</span>, <span class="cbx-name">Алина</span>!</span><b>Дело № 812 — Карта побыту · всё под контролем</b></div>
-      <div class="cb3-chips" id="cb3-chips"><span class="cb3-chip st">На рассмотрении</span><span class="cb3-chip">Мазовецкое воеводство</span><span class="cbx-sig" title="Номер дела (sygnatura) — демо"><span class="cbx-sig-l">sygn.</span><code class="cbx-sig-n">WSC-812/2026</code><button class="cbx-sig-b" type="button" data-cbx="copysig" aria-label="Скопировать номер дела"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span></div>
+      <div class="g-tx" id="cb3-greet-tx"><span class="hi"><span id="cbx-greet-word">Good afternoon</span>, <span class="cbx-name">Alina</span>!</span><b>Case no. 812 — Residence card · everything under control</b></div>
+      <div class="cb3-chips" id="cb3-chips"><span class="cb3-chip st">Under review</span><span class="cb3-chip">Mazowieckie voivodeship</span><span class="cbx-sig" title="Case number (sygnatura) — demo"><span class="cbx-sig-l">sygn.</span><code class="cbx-sig-n">WSC-812/2026</code><button class="cbx-sig-b" type="button" data-cbx="copysig" aria-label="Copy case number"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span></div>
     </div>
 
     <!-- 2. Прогресс дела -->
     <div class="cb3-prog">
-      <div class="pr-lbl" id="cb3-pr-lbl">Прогресс дела · этап 5 из 7</div>
-      <div class="pr-t" id="cb3-pr-t">Подача через MOS — выполнена</div>
+      <div class="pr-lbl" id="cb3-pr-lbl">Case progress · stage 5 of 7</div>
+      <div class="pr-t" id="cb3-pr-t">Submission via MOS — complete</div>
       <div class="pr-bar"><span id="cb3-pr-fill" style="width:71%"></span></div>
-      <div class="pr-next" id="cb3-pr-next"><b>Что дальше:</b> ожидание решения — мы следим за статусом и сообщим о каждом изменении. Всё это время вы в Польше легально.</div>
-      <button class="cb3-updbtn" type="button" onclick="cb3Update()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg> Запросить апдейт</button>
-<div class="cbx-dx cbx-progx" id="cbx-progx"><div class="cbx-ring"><svg viewBox="0 0 110 110" width="110" height="110" aria-hidden="true"><defs><linearGradient id="cbxRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3D5BA9"/><stop offset="1" stop-color="#84A8DE"/></linearGradient></defs><circle cx="55" cy="55" r="48" fill="none" stroke="#EDE7DC" stroke-width="9"></circle><circle id="cbx-ring-fg" cx="55" cy="55" r="48" fill="none" stroke="url(#cbxRingGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="87.5" transform="rotate(-90 55 55)"></circle></svg><div class="cbx-ring-c"><b>День <span id="cbx-day-n">39</span></b><span>после подачи</span></div></div><div class="cbx-progx-tx"><b>71% пути позади — этап 5 из 7</b><p>Идёт рассмотрение — самый долгий этап. Мы проверяем статус каждый рабочий день и увидим движение первыми. От вас сейчас ничего не нужно.</p></div></div>
+      <div class="pr-next" id="cb3-pr-next"><b>What's next:</b> waiting for the decision — we're tracking the status and will tell you about every change. All this time you're in Poland legally.</div>
+      <button class="cb3-updbtn" type="button" onclick="cb3Update()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg> Request an update</button>
+<div class="cbx-dx cbx-progx" id="cbx-progx"><div class="cbx-ring"><svg viewBox="0 0 110 110" width="110" height="110" aria-hidden="true"><defs><linearGradient id="cbxRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3D5BA9"/><stop offset="1" stop-color="#84A8DE"/></linearGradient></defs><circle cx="55" cy="55" r="48" fill="none" stroke="#EDE7DC" stroke-width="9"></circle><circle id="cbx-ring-fg" cx="55" cy="55" r="48" fill="none" stroke="url(#cbxRingGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="87.5" transform="rotate(-90 55 55)"></circle></svg><div class="cbx-ring-c"><b>Day <span id="cbx-day-n">39</span></b><span>since submission</span></div></div><div class="cbx-progx-tx"><b>71% of the journey done — stage 5 of 7</b><p>Your case is under review — the longest stage. We check the status every working day and will be the first to see any movement. Nothing is needed from you right now.</p></div></div>
     </div>
 
-<div class="cbx-dx cbx-legal"><div class="cbx-legal-tx"><div class="cbx-legal-h">Вы легальны в Польше</div><p>Пока дело рассматривается, ваше пребывание легально — это закреплено законом при подаче в срок. Можно спокойно жить, а работать — как раньше, у своего работодателя.</p><p class="cbx-legal-sub">Это зафиксировано электронным подтверждением приёма (UPP) от 8 июня.</p></div><div class="cbx-stamp" id="cbx-stamp" aria-hidden="true"><svg viewBox="0 0 122 122" width="122" height="122"><defs><path id="cbxArc" d="M61 61 m -45 0 a 45 45 0 1 1 90 0 a 45 45 0 1 1 -90 0"/></defs><circle cx="61" cy="61" r="57" fill="rgba(201,127,51,.06)" stroke="#C97F33" stroke-width="2.6"/><circle cx="61" cy="61" r="52.5" fill="none" stroke="#C97F33" stroke-width="1" opacity=".55"/><text font-size="8.8" font-weight="700" letter-spacing="1.6" fill="#C97F33"><textPath href="#cbxArc">POBYT LEGALNY · LEGAL SOLUTIONS ·</textPath></text><circle cx="61" cy="61" r="34" fill="none" stroke="#C97F33" stroke-width="1.4" opacity=".7"/><path d="M50 60.5l7.5 7.5L72 53" fill="none" stroke="#C97F33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><text x="61" y="82" text-anchor="middle" font-size="10.2" font-weight="800" letter-spacing="1.6" fill="#C97F33">LEGALNY</text></svg></div></div>
-<div class="cbx-dx cbx-card cbx-care"><div class="cbx-hh">Пока вы жили свою жизнь</div><div class="cbx-hsub">Работа по делу не останавливается — вот что мы делали без вас.</div><div class="cbx-care-rows"><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">Сегодня · 09:00</span><p>Плановая проверка статуса в MOS — без изменений ✓</p></div></div><div class="cbx-care-row"><span class="cbx-mini">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">1 июля</span><p>Юрист отправил в воеводство запрос о статусе вашего дела.</p></div></div><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">24 июня</span><p>Занесли номер дела WSC-812/2026 в систему и в ваш кабинет.</p></div></div><div class="cbx-care-row"><span class="cbx-mini">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">17 июня</span><p>Проверили комплектность пакета в MOS — всё на месте.</p></div></div></div><div class="cbx-care-ind"><span class="cbx-dot"></span>Проверяем статус в MOS каждый рабочий день · сегодня 09:00 ✓ без изменений — для этого этапа это нормально.</div></div>
-<div class="cbx-dx cbx-card cbx-feed"><div class="cbx-hh">Лента дела</div><div class="cbx-hsub">Как трекинг посылки — только про ваше дело. Новое сверху.</div><div class="cbx-ghost"><span class="cbx-ghost-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12"/><path d="M6 22h12"/><path d="M7 2v4l5 5 5-5V2"/><path d="M7 22v-4l5-5 5 5v4"/></svg></span><div><b>Ожидаем: приглашение на отпечатки (biometria)</b><p>Обычно приходит в первые месяцы после подачи. О письме узнаем первыми — и сразу напишем вам.</p></div></div><div class="cbx-evs" id="cbx-feed-list"><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--woj"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">24 июня</span><span class="cbx-src cbx-src--woj">Воеводство</span></div><b>Дело зарегистрировано, присвоен номер</b><p>Пришло письмо воеводства: делу присвоена sygnatura WSC-812/2026. Это штатный шаг — дело официально в работе.</p><span class="cbx-zare">ZAREJESTROWANO · 24.06.2026</span></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">8 июня</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>Подача выполнена — UPP получено</b><p>Вы нажали «Отправить» в системе MOS — наш специалист был рядом онлайн. В тот же день пришло электронное подтверждение приёма.</p><button type="button" class="cbx-att" data-cbx="upp"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg> Подтверждение UPP.pdf <em>демо</em></button></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">8 июня</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>Госпошлины оплачены</b><p>Оплачены онлайн прямо при подаче — квитанции сохранены в деле.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10.5 12.5 8-8"/><path d="m15 8 3 3"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">2 июня</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Profil Zaufany оформлен</b><p>Ваш электронный ключ для государственных сервисов готов — без него подать онлайн нельзя.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 7.7 8 9 4.6-1.3 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">28 мая</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Пакет прошёл двойную проверку</b><p>ИИ-проверка по 12 частым причинам отказа, затем ваш юрист лично проверил каждый документ — дважды.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.3 0-2.6-.3-3.7-.9L3 21l1.9-5.8A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">12 мая</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Дело стартовало</b><p>Вы написали в WhatsApp — ответили за 15 минут. Дальше — бесплатная консультация, договор и этот кабинет.</p></div></div></div></div>
-<div class="cbx-dx cbx-card cbx-back"><div class="cbx-hh">Что происходит сейчас</div><div class="cbx-hsub">Честно о том, что за кулисами вашего дела.</div><div class="cbx-back-rows"><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><span class="cbx-back-l">Где дело</span><div class="cbx-back-v">У инспектора воеводства — идёт рассмотрение.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="cbx-back-l">Что это значит</span><div class="cbx-back-v">Инспектор сверяет документы — это самый долгий этап. По практике Мазовецкого воеводства — 11–16 месяцев, зависит от загрузки. Долгие сроки — так устроена система, а не проблема вашего дела.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></span><span class="cbx-back-l">Что делаем мы</span><div class="cbx-back-v">Проверяем статус каждый рабочий день и сами отвечаем на письма воеводства. Последняя проверка — сегодня 09:00 ✓.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"/></svg></span><span class="cbx-back-l">От вас сейчас</span><div class="cbx-back-v"><span class="cbx-pill">Ничего. Можно спокойно жить — если что-то понадобится, напишем первыми.</span></div></div></div></div>
-    <div class="cb3-grid">
-      <!-- 3. Таймлайн 7 шагов -->
-      <div class="cb3-col">
-        <div class="cb3-h">Путь вашего дела</div>
-        <div class="path cb3-tl" id="cb3-tl">
-<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Вы обратились</b><p>Написали в WhatsApp — ответили за 15 минут. На следующий день — бесплатная консультация и честная оценка шансов.</p></div><span class="pt">12 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Чек-лист и документы</b><p>Список под Мазовецкое воеводство и ваше основание — пакет собран полностью, ничего не упущено.</p></div><span class="pt">26 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Двойная проверка</b><p>ИИ-проверка по 12 частым причинам отказа + юрист проверил каждый документ лично.</p></div><span class="pt">28 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Profil Zaufany оформлен</b><p>Ваш электронный ключ для подачи онлайн — готов.</p></div><span class="pt">2 июня</span></div><div class="prow c"><span class="pn">5</span><div><b>Подача через MOS — выполнена</b><p>8 июня вы нажали «Отправить» — наш специалист был рядом онлайн. Подтверждение приёма (UPP) пришло в тот же день. Всё это время вы в Польше легально.</p></div><span class="pt">Вы здесь</span></div><div class="prow f"><span class="pn">6</span><div><b>Ожидание — под контролем</b><p>Проверяем статус каждый рабочий день, напоминания за 90/60/30 дней — статус всегда в кабинете.</p></div><span class="pt">24/7</span></div><div class="prow f"><span class="pn">7</span><div><b>Карта побыту у вас</b><p>Проверим данные карты и спланируем следующий шаг вместе.</p></div><span class="pt">Результат</span></div>
-</div>
-      </div>
 
-      <div class="cb3-col">
-        <!-- 4. Документы -->
-        <div class="cb3-h">Документы</div>
-        <div class="cabcard cb3-docs" id="cb3-docs">
-<div class="ch"><span><b>Пакет по делу № 812</b></span><span>8 позиций</span></div><div class="cabrow"><span>Загранпаспорт (все страницы)<small class="cbx-sub">Проверено · юристом, дважды</small></span><i>✓ Проверен</i></div><div class="cabrow"><span>Umowa o pracę<small class="cbx-sub">Проверено · юристом, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Zaświadczenie o zatrudnieniu<small class="cbx-sub">С печатью работодателя · проверено дважды</small></span><i>✓ Проверено</i></div><div class="cabrow"><span>Wyciąg bankowy за 3 месяца<small class="cbx-sub">Проверено · юристом, дважды</small></span><i>✓ Проверен</i></div><div class="cabrow"><span>Медицинская страховка<small class="cbx-sub">Проверено · юристом, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Umowa najmu — подтверждение проживания<small class="cbx-sub">Проверено · юристом, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Фото 3,5 × 4,5 см<small class="cbx-sub">Просили новое — пришлите в WhatsApp</small></span><i class="w">⟳ Обновить</i></div><div class="cabrow"><span>PIT за прошлый год<small class="cbx-sub">Для вашего случая не нужен</small></span><i class="cbx-na">— Не требуется</i></div><div class="cabbar"><div class="cb3-pct"><b>91%</b><span>Готовность пакета документов</span></div><div class="cb"><div class="cbf"></div></div></div><div class="cbx-upwrap"><label class="cbx-drop" for="cbx-upfile"><span class="cbx-clip"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span><span class="cbx-droptxt"><b>Догрузить документ</b><small>Просто сфотографируйте на телефон — или перетащите файл сюда</small></span></label><input type="file" id="cbx-upfile" class="cbx-hidden" accept="image/*,.pdf" aria-label="Догрузить документ"><p class="cbx-fine">Демо: файл никуда не отправляется. В настоящем кабинете он уходит юристу в CRM.</p></div>
-<a class="btn btn-wa cb3-docbtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D1%81%D0%BB%D0%B0%D1%82%D1%8C%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%84%D0%BE%D1%82%D0%BE%2035%C3%9745%20%D0%BC%D0%BC%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Прислать фото в WhatsApp</a>
-</div>
 
-        <!-- 5. Напоминания -->
-        <div class="cb3-h">Напоминания</div>
-        <div class="cb3-rem" id="cb3-rem">
+
+
+    <div class="cbx-row cbx-row3">
+      <div class="cbx-cell cbx-dx"><div class="cbx-dx cbx-legal"><div class="cbx-legal-tx"><div class="cbx-legal-h">Your stay in Poland is legal</div><p>While your case is under review, your stay is legal — the law guarantees this when you file on time. You can live your life in peace and keep working for your employer, just as before.</p><p class="cbx-legal-sub">This is confirmed by the electronic acknowledgement of receipt (UPP) dated June 8.</p></div><div class="cbx-stamp" id="cbx-stamp" aria-hidden="true"><svg viewBox="0 0 122 122" width="122" height="122"><defs><path id="cbxArc" d="M61 61 m -45 0 a 45 45 0 1 1 90 0 a 45 45 0 1 1 -90 0"/></defs><circle cx="61" cy="61" r="57" fill="rgba(201,127,51,.06)" stroke="#C97F33" stroke-width="2.6"/><circle cx="61" cy="61" r="52.5" fill="none" stroke="#C97F33" stroke-width="1" opacity=".55"/><text font-size="8.8" font-weight="700" letter-spacing="1.6" fill="#C97F33"><textPath href="#cbxArc">POBYT LEGALNY · LEGAL SOLUTIONS ·</textPath></text><circle cx="61" cy="61" r="34" fill="none" stroke="#C97F33" stroke-width="1.4" opacity=".7"/><path d="M50 60.5l7.5 7.5L72 53" fill="none" stroke="#C97F33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><text x="61" y="82" text-anchor="middle" font-size="10.2" font-weight="800" letter-spacing="1.6" fill="#C97F33">LEGALNY</text></svg></div></div></div>
+      <div class="cbx-cell cbx-dx"><div class="cbx-dx cbx-moscard" id="cbx-mos"><div class="cbx-moshead"><span class="cbx-mosherb"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 2.6v5c0 4.6-2.9 8.1-7 9.9-4.1-1.8-7-5.3-7-9.9v-5L12 3z"></path><path d="M8.6 11.8l2.3 2.3 4.5-4.8"></path></svg></span><span class="cbx-mostitle"><b>Status in MOS</b><small>mos.cudzoziemcy.gov.pl</small></span></div><div class="cbx-krow"><span class="cbx-kl">Case</span><span class="cbx-kv">WSC-812/2026</span></div><div class="cbx-krow"><span class="cbx-kl">Status</span><span class="cbx-kv"><span class="cbx-stpill">W trakcie rozpatrywania</span><small class="cbx-stru">Under review</small></span></div><div class="cbx-krow"><span class="cbx-kl">Submitted</span><span class="cbx-kv">08.06.2026<small class="cbx-kvnote">UPP — same day</small></span></div><div class="cbx-krow"><span class="cbx-kl">Synced</span><span class="cbx-kv cbx-sync"><span class="cbx-syncrow"><span id="cbx-mostime">today at 09:00</span><svg class="cbx-syncck" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7-8"></path></svg></span></span></div><button type="button" class="cbx-mosbtn" id="cbx-mosbtn"><svg id="cbx-mosic" class="cbx-mosic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> Check now</button><p class="cbx-fine">We also check it ourselves — every business day.</p></div></div>
+      <div class="cbx-cell"><div class="cb3-rem" id="cb3-rem">
           <span class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
           <div>
-            <b>Ближайшее напоминание</b>
-            <p>Продлить медицинскую страховку — <b style="color:var(--gold-2);white-space:nowrap">через 64 дня</b></p>
-            <p style="margin-top:5px;color:var(--ink-3)">Правило 90/60/30: напомним заранее — в WhatsApp и в кабинете.</p>
-            <div class="cb3-days"><span>за 90 дней</span><span>за 60 дней</span><span>за 30 дней</span></div>
+            <b>Next reminder</b>
+            <p>Renew your health insurance — <b style="color:var(--gold-2);white-space:nowrap">in 64 days</b></p>
+            <p style="margin-top:5px;color:var(--ink-3)">The 90/60/30 rule: we'll remind you ahead of time — on WhatsApp and in your portal.</p>
+            <div class="cb3-days"><span>90 days ahead</span><span>60 days ahead</span><span>30 days ahead</span></div>
           </div>
-        </div>
-
-        <!-- 6. Чат -->
-        <div class="cbx-dx cbx-moscard" id="cbx-mos"><div class="cbx-moshead"><span class="cbx-mosherb"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 2.6v5c0 4.6-2.9 8.1-7 9.9-4.1-1.8-7-5.3-7-9.9v-5L12 3z"></path><path d="M8.6 11.8l2.3 2.3 4.5-4.8"></path></svg></span><span class="cbx-mostitle"><b>Статус в MOS</b><small>mos.cudzoziemcy.gov.pl</small></span></div><div class="cbx-krow"><span class="cbx-kl">Дело</span><span class="cbx-kv">WSC-812/2026</span></div><div class="cbx-krow"><span class="cbx-kl">Статус</span><span class="cbx-kv"><span class="cbx-stpill">W trakcie rozpatrywania</span><small class="cbx-stru">На рассмотрении</small></span></div><div class="cbx-krow"><span class="cbx-kl">Подано</span><span class="cbx-kv">08.06.2026<small class="cbx-kvnote">UPP — в тот же день</small></span></div><div class="cbx-krow"><span class="cbx-kl">Синхронизировано</span><span class="cbx-kv cbx-sync"><span class="cbx-syncrow"><span id="cbx-mostime">сегодня 09:00</span><svg class="cbx-syncck" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7-8"></path></svg></span></span></div><button type="button" class="cbx-mosbtn" id="cbx-mosbtn"><svg id="cbx-mosic" class="cbx-mosic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> Проверить сейчас</button><p class="cbx-fine">Проверяем и сами — каждый рабочий день.</p></div>
-        <div class="cb3-h">Связь</div>
-        <div class="cb3-chat">
-          <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-          <div class="tx"><b>Ваш специалист на связи</b>Вопрос по делу? Отвечаем в вашем личном WhatsApp-чате.</div>
-          <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Написать в WhatsApp</a>
-        </div>
-      </div>
+        </div></div>
     </div>
 
-<div class="cbx-dx cbx-card cbx-team"><div class="cbx-hh">Ваше дело ведут люди</div><div class="cbx-hsub">Не бот и не колл-центр — за результат отвечает ваша команда. Роли и контакты — ниже.</div><div class="cbx-team-g"><div class="cbx-tcard"><span class="cbx-ava cbx-ava--gold">⚖</span><b>Ваш юрист</b><span class="cbx-role">ведение дела</span><span class="cbx-tbadge cbx-tbadge--gold">ведёт ваше дело</span><p>Лично проверяет каждый документ — дважды. На связи в чате кабинета.</p></div><div class="cbx-tcard"><span class="cbx-ava">W</span><b>+48 735 248 525</b><span class="cbx-role">WhatsApp · консультации</span><span class="cbx-tbadge">на связи в WhatsApp</span><p>Отвечаем за 15 минут в рабочие часы (ПН–ПТ 10:00–18:00).</p></div><div class="cbx-tcard"><span class="cbx-ava">☎</span><b>+48 883 959 550</b><span class="cbx-role">WhatsApp / телефон</span><span class="cbx-tbadge">звонок или сообщение</span><p>Держим вас в курсе на каждом шаге.</p></div></div></div>
+    <div class="cbx-row cbx-row2">
+      <div class="cbx-cell"><div class="cb3-h">Your case's journey</div><div class="path cb3-tl" id="cb3-tl">
+<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>You reached out</b><p>You messaged us on WhatsApp — we replied within 15 minutes. The next day — a free consultation and an honest assessment of your chances.</p></div><span class="pt">May 12</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Checklist and documents</b><p>A list tailored to Mazowieckie voivodeship and your grounds — the package assembled in full, nothing missed.</p></div><span class="pt">May 26</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Double check</b><p>AI check against the 12 most common refusal reasons + a lawyer personally reviewed every document.</p></div><span class="pt">May 28</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Profil Zaufany set up</b><p>Your electronic key for online submission is ready.</p></div><span class="pt">June 2</span></div><div class="prow c"><span class="pn">5</span><div><b>Submission via MOS — complete</b><p>On June 8 you clicked "Submit" — our specialist was right beside you online. The confirmation of receipt (UPP) arrived the same day. All this time you've been in Poland legally.</p></div><span class="pt">You are here</span></div><div class="prow f"><span class="pn">6</span><div><b>The wait is under control</b><p>We check your status every business day, send reminders 90/60/30 days ahead — and the status is always in your portal.</p></div><span class="pt">24/7</span></div><div class="prow f"><span class="pn">7</span><div><b>Residence card in your hands</b><p>We'll check your card details and plan the next step together.</p></div><span class="pt">Result</span></div>
+</div></div>
+      <div class="cbx-cell"><div class="cb3-h">Documents</div><div class="cabcard cb3-docs" id="cb3-docs">
+<div class="ch"><span><b>Package for case no. 812</b></span><span>8 items</span></div><div class="cabrow"><span>Passport (all pages)<small class="cbx-sub">Checked · by your lawyer, twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Umowa o pracę<small class="cbx-sub">Checked · by your lawyer, twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Zaświadczenie o zatrudnieniu<small class="cbx-sub">With the employer's stamp · checked twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Wyciąg bankowy for the last 3 months<small class="cbx-sub">Checked · by your lawyer, twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Health insurance<small class="cbx-sub">Checked · by your lawyer, twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Umowa najmu — proof of accommodation<small class="cbx-sub">Checked · by your lawyer, twice</small></span><i>✓ Checked</i></div><div class="cabrow"><span>Photo 3.5 × 4.5 cm<small class="cbx-sub">We've asked for a new one — send it via WhatsApp</small></span><i class="w">⟳ Update</i></div><div class="cabrow"><span>PIT for last year<small class="cbx-sub">Not needed for your case</small></span><i class="cbx-na">— Not required</i></div><div class="cabbar"><div class="cb3-pct"><b>91%</b><span>Document package readiness</span></div><div class="cb"><div class="cbf"></div></div></div><div class="cbx-upwrap"><label class="cbx-drop" for="cbx-upfile"><span class="cbx-clip"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></span><span class="cbx-droptxt"><b>Upload a document</b><small>Just snap it on your phone — or drag the file here</small></span></label><input type="file" id="cbx-upfile" class="cbx-hidden" accept="image/*,.pdf" aria-label="Upload another document"><p class="cbx-fine">Demo: the file doesn't go anywhere. In the real portal it goes straight to your lawyer in the CRM.</p></div>
+<a class="btn btn-wa cb3-docbtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D1%81%D0%BB%D0%B0%D1%82%D1%8C%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%84%D0%BE%D1%82%D0%BE%2035%C3%9745%20%D0%BC%D0%BC%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Send a photo via WhatsApp</a>
+</div></div>
+    </div>
+
+    <div class="cbx-row cbx-row2">
+      <div class="cbx-cell cbx-dx"><div class="cbx-dx cbx-card cbx-care"><div class="cbx-hh">While you were living your life</div><div class="cbx-hsub">Work on your case never stops — here's what we did without you.</div><div class="cbx-care-rows"><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">Today · 09:00</span><p>Scheduled status check in MOS — no changes ✓</p></div></div><div class="cbx-care-row"><span class="cbx-mini">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">July 1</span><p>Our lawyer sent the voivodeship a request about the status of your case.</p></div></div><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">June 24</span><p>We entered case number WSC-812/2026 into the system and into your portal.</p></div></div><div class="cbx-care-row"><span class="cbx-mini">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">June 17</span><p>We checked that your package in MOS is complete — everything is in place.</p></div></div></div><div class="cbx-care-ind"><span class="cbx-dot"></span>We check the MOS status every working day · today 09:00 ✓ no changes — perfectly normal for this stage.</div></div></div>
+      <div class="cbx-cell cbx-dx"><div class="cbx-dx cbx-card cbx-back"><div class="cbx-hh">What's happening now</div><div class="cbx-hsub">An honest look behind the scenes of your case.</div><div class="cbx-back-rows"><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><span class="cbx-back-l">Where your case is</span><div class="cbx-back-v">With the voivodeship inspector — under review.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="cbx-back-l">What it means</span><div class="cbx-back-v">The inspector is reviewing your documents — the longest stage. In Mazowieckie voivodeship practice this takes 11–16 months, depending on the workload. Long waits are how the system works, not a problem with your case.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></span><span class="cbx-back-l">What we're doing</span><div class="cbx-back-v">We check the status every working day and answer the voivodeship's letters ourselves. Last check — today 09:00 ✓.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"/></svg></span><span class="cbx-back-l">From you right now</span><div class="cbx-back-v"><span class="cbx-pill">Nothing. Live your life in peace — if we need anything, we'll message you first.</span></div></div></div></div></div>
+    </div>
+
+    <div class="cbx-dx cbx-card cbx-feed"><div class="cbx-hh">Case feed</div><div class="cbx-hsub">Like parcel tracking — but for your case. Newest first.</div><div class="cbx-ghost"><span class="cbx-ghost-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12"/><path d="M6 22h12"/><path d="M7 2v4l5 5 5-5V2"/><path d="M7 22v-4l5-5 5 5v4"/></svg></span><div><b>Expecting: invitation for fingerprints (biometria)</b><p>It usually arrives within the first months after submission. We'll be the first to know about the letter — and will message you right away.</p></div></div><div class="cbx-evs" id="cbx-feed-list"><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--woj"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">June 24</span><span class="cbx-src cbx-src--woj">Voivodeship</span></div><b>Case registered, number assigned</b><p>A letter arrived from the voivodeship: your case has been assigned sygnatura WSC-812/2026. This is a routine step — your case is officially in progress.</p><span class="cbx-zare">ZAREJESTROWANO · 24.06.2026</span></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">June 8</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>Submission complete — UPP received</b><p>You clicked "Send" in the MOS system — our specialist was right there with you online. The electronic acknowledgement of receipt arrived the same day.</p><button type="button" class="cbx-att" data-cbx="upp"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg> UPP confirmation.pdf <em>demo</em></button></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">June 8</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>State fees paid</b><p>Paid online right at submission — the receipts are saved in your case.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10.5 12.5 8-8"/><path d="m15 8 3 3"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">June 2</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Profil Zaufany set up</b><p>Your electronic key to government services is ready — without it, filing online isn't possible.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 7.7 8 9 4.6-1.3 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">May 28</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Package passed a double check</b><p>An AI check against the 12 most common refusal reasons, then your lawyer personally reviewed every document — twice.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.3 0-2.6-.3-3.7-.9L3 21l1.9-5.8A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">May 12</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Case started</b><p>You messaged us on WhatsApp — we replied within 15 minutes. Then came the free consultation, the contract and this portal.</p></div></div></div></div>
+
+    <div class="cbx-dx cbx-card cbx-team"><div class="cbx-hh">Real people handle your case</div><div class="cbx-hsub">Not a bot, not a call center — your own team owns the result. Roles and contacts are below.</div><div class="cbx-team-g"><div class="cbx-tcard"><span class="cbx-ava cbx-ava--gold">⚖</span><b>Your lawyer</b><span class="cbx-role">case management</span><span class="cbx-tbadge cbx-tbadge--gold">handles your case</span><p>Personally checks every document — twice. Available in your portal chat.</p></div><div class="cbx-tcard"><span class="cbx-ava">W</span><b>+48 735 248 525</b><span class="cbx-role">WhatsApp · consultations</span><span class="cbx-tbadge">available on WhatsApp</span><p>We reply within 15 minutes during business hours (Mon–Fri 10:00–18:00).</p></div><div class="cbx-tcard"><span class="cbx-ava">☎</span><b>+48 883 959 550</b><span class="cbx-role">WhatsApp / phone</span><span class="cbx-tbadge">call or message</span><p>We keep you in the loop at every step.</p></div></div></div>
+
+    <div class="cbx-cell cbx-contact"><div class="cb3-h">Contact</div><div class="cb3-chat">
+          <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
+          <div class="tx"><b>Your specialist is on hand</b>Question about your case? We reply in your personal WhatsApp chat.</div>
+          <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A3%20%D0%BC%D0%B5%D0%BD%D1%8F%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Message us on WhatsApp</a>
+        </div></div>
+
+
 <!-- 7. Низ: демо-примечание + CTA -->
     <div class="cb3-final" id="cb3-final">
-      <p>Это демо-кабинет — данные вымышленные. Ваш появится после старта дела.</p>
-      <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Начать — бесплатная консультация</a>
+      <p>This is a demo portal — the data is fictional. Yours appears once your case starts.</p>
+      <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Get started — free consultation</a>
     </div>
-      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>The portal pulls data from the CRM automatically — status, documents, payments and chat are always up to date.</span></div>
     </div>
 
     <div class="cb3-sec" id="cb3-sec-chat" role="tabpanel" aria-labelledby="cb3-tab-chat">
-      <div class="cb3-h">Чат со специалистом</div>
+      <div class="cb3-h">Chat with your specialist</div>
       <div class="cb3-chatcard">
         <div class="cb3-chathead" id="cb3-chath">
-<span class="cb3-av cbx-avring" aria-hidden="true">⚖</span><div id="cb3-chn"><b>Ваш юрист</b><span class="cbx-sub"><span class="cbx-dot" aria-hidden="true"></span>ведёт ваше дело · на связи</span></div><span class="cbx-sla" tabindex="0" role="note" aria-label="Отвечаем за 15 минут"><svg class="cbx-slaclock" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="cbx-slaring" cx="12" cy="12" r="9"></circle><path d="M12 7.5v4.5l2.8 1.8" stroke="#41659F"></path></svg><span class="cbx-slatxt">Отвечаем за 15 минут</span></span>
+<span class="cb3-av cbx-avring" aria-hidden="true">⚖</span><div id="cb3-chn"><b>Your lawyer</b><span class="cbx-sub"><span class="cbx-dot" aria-hidden="true"></span>handles your case · online</span></div><span class="cbx-sla" tabindex="0" role="note" aria-label="We reply within 15 minutes"><svg class="cbx-slaclock" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="cbx-slaring" cx="12" cy="12" r="9"></circle><path d="M12 7.5v4.5l2.8 1.8" stroke="#41659F"></path></svg><span class="cbx-slatxt">We reply within 15 minutes</span></span>
 </div>
         <div class="cb3-thread" id="cb3-thread">
-<div class="cb3-day">15 мая</div><div class="cb3-msg sp">Добрый день, Алина! Я ваш юрист — веду ваше дело. Договор подписан — кабинет открыт, здесь всегда видно, что происходит с делом. Чек-лист документов уже собран под ваше воеводство 👌<span class="cbx-file" role="button" tabindex="0" aria-label="Открыть документ: Чек-лист — карта побыту (работа), демо"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Чек-лист — карта побыту (работа).pdf</span><span class="cbx-fdemo">демо</span></span><span class="tm">10:24</span></div><div class="cb3-day">8 июня</div><div class="cb3-msg sp">Подача выполнена! Вы отлично справились с MOS — подтверждение приёма (UPP) уже в деле. Теперь всё остальное берём на себя: письма, статусы, сроки.<span class="cbx-file" role="button" tabindex="0" aria-label="Открыть документ: Potwierdzenie złożenia (UPP), демо"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Potwierdzenie złożenia (UPP).pdf</span><span class="cbx-fdemo">демо</span></span><span class="tm">12:41</span></div><div class="cb3-msg me">Спасибо огромное! Долго теперь ждать?<span class="cbx-read">✓✓ прочитано</span><span class="tm">12:58</span></div><div class="cb3-msg sp">Сроки в Польше сейчас длинные у всех — так устроена система, а не ваше дело такое. Пока идёт рассмотрение, вы в Польше легально. Мы проверяем статус каждый день и напишем первыми, как будет движение. Мы рядом 🤍<span class="tm">13:07</span></div><div class="cb3-day">Сегодня</div><div class="cb3-msg sp">Утренняя проверка: дело в работе у инспектора, без изменений — для этого этапа это нормально. От вас ничего не нужно, живите спокойно 🙌<span class="tm">09:03</span></div>
+<div class="cb3-day">May 15</div><div class="cb3-msg sp">Hello, Alina! I'm your lawyer — I handle your case. The contract is signed and your portal is open: you can always see here what's happening with your case. Your document checklist is already tailored to your voivodeship 👌<span class="cbx-file" role="button" tabindex="0" aria-label="Open document: Checklist — residence card (work), demo"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Checklist — residence card (work).pdf</span><span class="cbx-fdemo">demo</span></span><span class="tm">10:24</span></div><div class="cb3-day">June 8</div><div class="cb3-msg sp">Submission complete! You did great with MOS — the confirmation of receipt (UPP) is already in your file. From here we take over everything else: letters, statuses, deadlines.<span class="cbx-file" role="button" tabindex="0" aria-label="Open document: Potwierdzenie złożenia (UPP), demo"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Potwierdzenie złożenia (UPP).pdf</span><span class="cbx-fdemo">demo</span></span><span class="tm">12:41</span></div><div class="cb3-msg me">Thank you so much! How long will the wait be?<span class="cbx-read">✓✓ read</span><span class="tm">12:58</span></div><div class="cb3-msg sp">Waiting times in Poland are long for everyone right now — that's how the system works, not something wrong with your case. While it's under review, you're in Poland legally. We check the status every day and will message you first the moment anything moves. We're right here 🤍<span class="tm">13:07</span></div><div class="cb3-day">Today</div><div class="cb3-msg sp">Morning check: your case is with the inspector, no changes — that's normal for this stage. Nothing is needed from you, just live your life 🙌<span class="tm">09:03</span></div>
 </div>
         <form class="cb3-chatin" onsubmit="return cb3Send(this)">
-          <input type="text" placeholder="Ваше сообщение…" aria-label="Ваше сообщение">
-          <button class="btn btn-primary" type="submit">Отправить</button>
+          <input type="text" placeholder="Your message…" aria-label="Your message">
+          <button class="btn btn-primary" type="submit">Send</button>
         </form>
-<div class="cbx-quick cbx-dx" id="cbx-quick" role="group" aria-label="Быстрые вопросы"><span class="cbx-qlabel">Быстрые вопросы</span><button type="button" class="cbx-chip" data-q="how">Как моё дело?</button><button type="button" class="cbx-chip" data-q="biometria">Когда отпечатки?</button><button type="button" class="cbx-chip" data-q="need">Что от меня нужно?</button></div>
+<div class="cbx-quick cbx-dx" id="cbx-quick" role="group" aria-label="Quick questions"><span class="cbx-qlabel">Quick questions</span><button type="button" class="cbx-chip" data-q="how">How's my case?</button><button type="button" class="cbx-chip" data-q="biometria">When's biometria?</button><button type="button" class="cbx-chip" data-q="need">What do you need from me?</button></div>
       </div>
-<div class="cbx-slanote cbx-dx" id="cbx-slanote"><span class="cbx-duty" id="cbx-duty">Сейчас на связи · WhatsApp +48 735 248 525</span><span class="cbx-sync">Этот чат синхронизирован с CRM — сообщения видит вся ваша команда.</span></div>
-      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+<div class="cbx-slanote cbx-dx" id="cbx-slanote"><span class="cbx-duty" id="cbx-duty">Available now · WhatsApp +48 735 248 525</span><span class="cbx-sync">This chat is synced with the CRM — your whole team sees your messages.</span></div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>The portal pulls data from the CRM automatically — status, documents, payments and chat are always up to date.</span></div>
     </div>
 
     <div class="cb3-sec" id="cb3-sec-pay" role="tabpanel" aria-labelledby="cb3-tab-pay">
-      <div class="cb3-h">Оплаты</div>
+      <div class="cb3-h">Payments</div>
       <div class="cb3-paycard" id="cb3-paycard">
 <div class="cb3-payhead">
-  <div><b>Договор № 812</b><span class="sub">Рассрочка · 3 платежа на счёт фирмы · подписан онлайн 15 мая</span></div>
-  <span class="cb3-chip-ok">1 из 3 оплачен</span>
+  <div><b>Contract no. 812</b><span class="sub">Installment plan · 3 payments to the company account · signed online on May 15</span></div>
+  <span class="cb3-chip-ok">1 of 3 paid</span>
 </div>
 <div class="cbx-plan" id="cbx-plan">
   <div class="cbx-seg cbx-seg-paid">
     <span class="cbx-seg-fill"></span>
     <span class="cbx-seg-body">
-      <span class="cbx-seg-t"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Платёж 1</span>
-      <span class="cbx-seg-d">15 мая</span>
+      <span class="cbx-seg-t"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Payment 1</span>
+      <span class="cbx-seg-d">May 15</span>
     </span>
   </div>
   <div class="cbx-seg cbx-seg-cur">
     <span class="cbx-seg-body">
-      <span class="cbx-seg-t">Платёж 2</span>
-      <span class="cbx-seg-d">до 15 августа</span>
+      <span class="cbx-seg-t">Payment 2</span>
+      <span class="cbx-seg-d">by August 15</span>
     </span>
   </div>
   <div class="cbx-seg cbx-seg-off">
     <span class="cbx-seg-body">
-      <span class="cbx-seg-t">Платёж 3</span>
-      <span class="cbx-seg-d">после решения</span>
+      <span class="cbx-seg-t">Payment 3</span>
+      <span class="cbx-seg-d">after the decision</span>
     </span>
   </div>
 </div>
 <div class="cb3-payrow paid">
   <span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-  <div class="ptx"><b>Платёж 1 из 3</b><p>Аванс при подписании договора · 15 мая</p></div>
-  <span class="cb3-chip-ok">Оплачен ✓</span>
-  <button class="cbx-rcpt-btn" id="cbx-rcpt-btn" type="button" aria-expanded="false" aria-controls="cbx-rcpt">Квитанция (демо)<svg class="cbx-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+  <div class="ptx"><b>Payment 1 of 3</b><p>Deposit upon signing the contract · May 15</p></div>
+  <span class="cb3-chip-ok">Paid ✓</span>
+  <button class="cbx-rcpt-btn" id="cbx-rcpt-btn" type="button" aria-expanded="false" aria-controls="cbx-rcpt">Receipt (demo)<svg class="cbx-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
 </div>
 <div class="cbx-rcpt" id="cbx-rcpt">
   <div class="cbx-rcpt-in">
     <div class="cbx-rcpt-paper">
-      <div class="cbx-rcpt-head">Квитанция № LS-0812-1 (демо)</div>
+      <div class="cbx-rcpt-head">Receipt no. LS-0812-1 (demo)</div>
       <hr class="cbx-rcpt-sep">
-      <div class="cbx-rcpt-row"><span>Дата</span><b>15.05.2026</b></div>
-      <div class="cbx-rcpt-row"><span>Платёж</span><b>1 из 3</b></div>
-      <div class="cbx-rcpt-row"><span>Сумма</span><b>по договору</b></div>
-      <div class="cbx-rcpt-row"><span>Способ</span><b>перевод на счёт фирмы</b></div>
-      <div class="cbx-rcpt-row"><span>Статус</span><b class="cbx-rcpt-ok">зачислен ✓</b></div>
+      <div class="cbx-rcpt-row"><span>Date</span><b>15.05.2026</b></div>
+      <div class="cbx-rcpt-row"><span>Payment</span><b>1 of 3</b></div>
+      <div class="cbx-rcpt-row"><span>Amount</span><b>as per contract</b></div>
+      <div class="cbx-rcpt-row"><span>Method</span><b>transfer to the company account</b></div>
+      <div class="cbx-rcpt-row"><span>Status</span><b class="cbx-rcpt-ok">credited ✓</b></div>
       <hr class="cbx-rcpt-sep">
-      <div class="cbx-rcpt-foot">демо-документ</div>
+      <div class="cbx-rcpt-foot">demo document</div>
     </div>
   </div>
 </div>
 <div class="cb3-payrow cur">
   <span class="pnum">2</span>
-  <div class="ptx"><b>Платёж 2 из 3</b><p>Срок — до 15 августа</p></div>
-  <span class="cb3-chip-wait">Ожидается</span>
-  <button class="btn btn-gold cb3-paybtn" id="cb3-paybtn2" type="button" onclick="cb3Pay(this)">Оплатить</button>
-  <button class="cbx-cardbtn cbx-dx" id="cbx-cardbtn" type="button" aria-haspopup="dialog" aria-controls="cbx-paymodal"><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>Картой онлайн</button>
+  <div class="ptx"><b>Payment 2 of 3</b><p>Due by August 15</p></div>
+  <span class="cb3-chip-wait">Pending</span>
+  <button class="btn btn-gold cb3-paybtn" id="cb3-paybtn2" type="button" onclick="cb3Pay(this)">Pay</button>
+  <button class="cbx-cardbtn cbx-dx" id="cbx-cardbtn" type="button" aria-haspopup="dialog" aria-controls="cbx-paymodal"><svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>By card online</button>
 </div>
 <div class="cb3-req" id="cb3-req">
-  <div class="rq"><span>Получатель</span><b>LEGALSOL SP. Z O.O.</b></div>
-  <div class="rq"><span>Банк</span><b>mBank</b></div>
-  <div class="rq"><span>IBAN</span><b>PL00 0000 0000 0000 0000 0000 0000 <em>демо</em></b></div>
-  <div class="rq"><span>Назначение платежа</span><b>Дело № 812, платёж 2/3</b></div>
-  <div class="rq"><span>Сумма</span><b>по договору</b></div>
+  <div class="rq"><span>Recipient</span><b>LEGALSOL SP. Z O.O.</b></div>
+  <div class="rq"><span>Banking</span><b>mBank</b></div>
+  <div class="rq"><span>IBAN</span><b>PL00 0000 0000 0000 0000 0000 0000 <em>demo</em></b></div>
+  <div class="rq"><span>Payment reference</span><b>Case no. 812, payment 2/3</b></div>
+  <div class="rq"><span>Amount</span><b>as per contract</b></div>
   <div class="rq-btns">
-    <button class="btn btn-primary" type="button" onclick="cb3Copy(this)">Скопировать реквизиты</button>
-    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%80%D0%B5%D0%BA%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6%D0%B0%202%20%D0%B8%D0%B7%203%20%D0%BF%D0%BE%20%D0%B4%D0%B5%D0%BB%D1%83%20%E2%84%96%20812." target="_blank" rel="noopener">Прислать реквизиты в WhatsApp</a>
+    <button class="btn btn-primary" type="button" onclick="cb3Copy(this)">Copy bank details</button>
+    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%80%D0%B5%D0%BA%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6%D0%B0%202%20%D0%B8%D0%B7%203%20%D0%BF%D0%BE%20%D0%B4%D0%B5%D0%BB%D1%83%20%E2%84%96%20812." target="_blank" rel="noopener">Send bank details via WhatsApp</a>
   </div>
-  <p class="rq-note">Это демо-реквизиты: IBAN — нулевой плейсхолдер. В настоящем кабинете здесь данные вашего договора из CRM.</p>
+  <p class="rq-note">These are demo details: the IBAN is an all-zeros placeholder. In the real portal, this shows your contract details from the CRM.</p>
 </div>
 <div class="cb3-payrow off">
   <span class="pnum">3</span>
-  <div class="ptx"><b>Платёж 3 из 3</b><p>После решения по делу</p></div>
-  <span class="cb3-chip-off">Позже</span>
+  <div class="ptx"><b>Payment 3 of 3</b><p>After the decision on your case</p></div>
+  <span class="cb3-chip-off">Later</span>
 </div>
 <div class="cbx-payfoot">
-  <div class="cbx-foot-line"><span class="cbx-foot-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></span><span>Госпошлины воеводства — отдельно; оплачены онлайн при подаче 8 июня ✓</span></div>
-  <div class="cbx-guarantee"><svg class="cbx-seal" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/><path d="m9.5 8 1.7 1.7 3.3-3.3"/></svg><span>Если придёт отказ — апелляция за наш счёт. Это условие договора.</span></div>
+  <div class="cbx-foot-line"><span class="cbx-foot-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></span><span>Voivodeship fees are separate; paid online at submission on June 8 ✓</span></div>
+  <div class="cbx-guarantee"><svg class="cbx-seal" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/><path d="m9.5 8 1.7 1.7 3.3-3.3"/></svg><span>If you get a refusal, we handle the appeal at our expense. It's written into your contract.</span></div>
 </div>
 </div>
       <div class="cbx-paysupport cbx-dx">
   <div class="cbx-sup-tx">
-    <b>Вопрос по оплате?</b>
-    <p>Удобнее частями по-другому? Напишите менеджеру в WhatsApp — подстроим график под вас.</p>
+    <b>Question about payment?</b>
+    <p>Prefer to split it differently? Message your manager on WhatsApp — we'll tailor the schedule to you.</p>
   </div>
   <div class="cbx-sup-act">
-    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83%2E" target="_blank" rel="noopener">Обсудить в WhatsApp</a>
-    <span class="cbx-sup-note">Blik и наличные в офисе тоже принимаем</span>
+    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83%2E" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <span class="cbx-sup-note">We also accept Blik and cash at the office</span>
   </div>
 </div>
-      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>The portal pulls data from the CRM automatically — status, documents, payments and chat are always up to date.</span></div>
     </div>
-<div class="cb3-sec cbx-dx" id="cb3-sec-profile" role="tabpanel" aria-labelledby="cb3-tab-profile"><div class="cbx-pgrid"><div class="cbx-pcard"><div class="cbx-phead"><b>Мои данные</b><span class="cbx-pdemo">демо</span></div><form class="cbx-pform" id="cbx-pform" novalidate="novalidate"><div class="cbx-frow2"><div class="cbx-field"><label class="cbx-lab" for="cbx-f-name">Имя</label><input class="cbx-input" id="cbx-f-name" type="text" value="Алина" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-surname">Фамилия</label><input class="cbx-input" id="cbx-f-surname" type="text" value="Демо" autocomplete="off"></div></div><div class="cbx-frow2"><div class="cbx-field"><label class="cbx-lab" for="cbx-f-phone">Телефон</label><input class="cbx-input" id="cbx-f-phone" type="tel" value="+48 500 123 456" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-email">Email</label><input class="cbx-input" id="cbx-f-email" type="email" value="alina@demo.pl" autocomplete="off"></div></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-addr">Адрес в Польше</label><input class="cbx-input" id="cbx-f-addr" type="text" value="ul. Przykładowa 12/3, Warszawa" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-lang">Язык связи</label><select class="cbx-input" id="cbx-f-lang"><option selected="selected">Русский</option><option>English</option><option>Polski</option><option>Українська</option></select></div><div class="cbx-saverow"><button type="submit" class="cbx-savebtn" id="cbx-savebtn"><svg id="cbx-saveic" class="cbx-saveic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"></path></svg> Сохранить</button><span class="cbx-savedok" id="cbx-savedok" aria-live="polite"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7-8"></path></svg> Сохранено</span></div></form><p class="cbx-fine">Эти данные видит ваш юрист. Меняются здесь — обновляются в CRM.</p></div><div class="cbx-pcard"><div class="cbx-phead"><b>Уведомления</b></div><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>WhatsApp-уведомления</b><small>Пишем о каждом движении по делу</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="WhatsApp-уведомления" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>Email-уведомления</b><small>Дублируем важное на почту</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="Email-уведомления" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>Напоминания о платежах</b><small>Мягко напомним заранее — без сюрпризов</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="Напоминания о платежах" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><p class="cbx-fine">Настройки — демо. В настоящем кабинете они применяются сразу.</p></div></div></div>
+<div class="cb3-sec cbx-dx" id="cb3-sec-profile" role="tabpanel" aria-labelledby="cb3-tab-profile"><div class="cbx-pgrid"><div class="cbx-pcard"><div class="cbx-phead"><b>My details</b><span class="cbx-pdemo">demo</span></div><form class="cbx-pform" id="cbx-pform" novalidate="novalidate"><div class="cbx-frow2"><div class="cbx-field"><label class="cbx-lab" for="cbx-f-name">First name</label><input class="cbx-input" id="cbx-f-name" type="text" value="Алина" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-surname">Last name</label><input class="cbx-input" id="cbx-f-surname" type="text" value="Демо" autocomplete="off"></div></div><div class="cbx-frow2"><div class="cbx-field"><label class="cbx-lab" for="cbx-f-phone">Phone</label><input class="cbx-input" id="cbx-f-phone" type="tel" value="+48 500 123 456" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-email">Email</label><input class="cbx-input" id="cbx-f-email" type="email" value="alina@demo.pl" autocomplete="off"></div></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-addr">Address in Poland</label><input class="cbx-input" id="cbx-f-addr" type="text" value="ul. Przykładowa 12/3, Warszawa" autocomplete="off"></div><div class="cbx-field"><label class="cbx-lab" for="cbx-f-lang">Preferred language</label><select class="cbx-input" id="cbx-f-lang"><option selected="selected">Russian</option><option>English</option><option>Polski</option><option>Ukrainian</option></select></div><div class="cbx-saverow"><button type="submit" class="cbx-savebtn" id="cbx-savebtn"><svg id="cbx-saveic" class="cbx-saveic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"></path></svg> Save</button><span class="cbx-savedok" id="cbx-savedok" aria-live="polite"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7-8"></path></svg> Saved</span></div></form><p class="cbx-fine">Your lawyer sees these details. Change them here and they update in the CRM.</p></div><div class="cbx-pcard"><div class="cbx-phead"><b>Notifications</b></div><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>WhatsApp notifications</b><small>We message you about every movement in your case</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="WhatsApp-уведомления" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>Email notifications</b><small>We copy important updates to your email</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="Email-уведомления" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><label class="cbx-tglrow"><span class="cbx-tgltxt"><b>Payment reminders</b><small>A gentle reminder ahead of time — no surprises</small></span><input type="checkbox" class="cbx-tgl" data-cbx-name="Напоминания о платежах" checked="checked"><span class="cbx-tglui" aria-hidden="true"></span></label><p class="cbx-fine">Settings are a demo. In the real portal they apply instantly.</p></div></div></div>
   </div>
-<div class="cbx-paymodal cbx-dx" id="cbx-paymodal" role="dialog" aria-modal="true" aria-label="Оплата картой — демо" hidden>
+<div class="cbx-paymodal cbx-dx" id="cbx-paymodal" role="dialog" aria-modal="true" aria-label="Card payment — demo" hidden>
 <div class="cbx-pm-ovl" id="cbx-pm-ovl"></div>
 <div class="cbx-pm-card" id="cbx-pm-card" tabindex="-1">
   <div class="cbx-pm-head">
     <div class="cbx-pm-head-tx">
-      <span class="cbx-pm-title">Оплата картой · демо</span>
-      <span class="cbx-pm-badge">Stripe появится здесь</span>
+      <span class="cbx-pm-title">Card payment · demo</span>
+      <span class="cbx-pm-badge">Stripe will appear here</span>
     </div>
-    <button class="cbx-pm-close" id="cbx-pm-close" type="button" aria-label="Закрыть"><svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <button class="cbx-pm-close" id="cbx-pm-close" type="button" aria-label="Close"><svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="cbx-pm-form" id="cbx-pm-form">
     <div class="cbx-pm-meta">
-      <div class="cbx-pm-meta-row"><span>Дело № 812</span><b>Платёж 2 из 3</b></div>
-      <div class="cbx-pm-meta-row"><span>Сумма</span><b>по договору</b></div>
+      <div class="cbx-pm-meta-row"><span>Case no. 812</span><b>Payment 2 of 3</b></div>
+      <div class="cbx-pm-meta-row"><span>Amount</span><b>as per contract</b></div>
     </div>
-    <label class="cbx-pm-lab" for="cbx-cc-num">Номер карты</label>
+    <label class="cbx-pm-lab" for="cbx-cc-num">Card number</label>
     <div class="cbx-pm-field"><span class="cbx-pm-cardic"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></span><input class="cbx-pm-inp" id="cbx-cc-num" type="text" inputmode="numeric" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="off" spellcheck="false"></div>
     <div class="cbx-pm-two">
       <div class="cbx-pm-col">
-        <label class="cbx-pm-lab" for="cbx-cc-exp">Срок действия</label>
-        <div class="cbx-pm-field"><input class="cbx-pm-inp" id="cbx-cc-exp" type="text" inputmode="numeric" placeholder="ММ/ГГ" maxlength="5" autocomplete="off" spellcheck="false"></div>
+        <label class="cbx-pm-lab" for="cbx-cc-exp">Expiry date</label>
+        <div class="cbx-pm-field"><input class="cbx-pm-inp" id="cbx-cc-exp" type="text" inputmode="numeric" placeholder="MM/YY" maxlength="5" autocomplete="off" spellcheck="false"></div>
       </div>
       <div class="cbx-pm-col">
         <label class="cbx-pm-lab" for="cbx-cc-cvc">CVC</label>
         <div class="cbx-pm-field"><input class="cbx-pm-inp" id="cbx-cc-cvc" type="text" inputmode="numeric" placeholder="•••" maxlength="4" autocomplete="off" spellcheck="false"></div>
       </div>
     </div>
-    <label class="cbx-pm-lab" for="cbx-cc-name">Имя на карте</label>
-    <div class="cbx-pm-field"><input class="cbx-pm-inp" id="cbx-cc-name" type="text" placeholder="Как указано на карте" maxlength="40" autocomplete="off" spellcheck="false"></div>
-    <button class="btn btn-primary cbx-pm-paybtn" id="cbx-pm-pay" type="button"><span class="cbx-pm-spin" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity=".25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg></span><span class="cbx-pm-paytx" id="cbx-pm-paytx">Оплатить</span></button>
-    <p class="cbx-pm-note">Демо-режим: данные карты никуда не отправляются и не сохраняются.</p>
+    <label class="cbx-pm-lab" for="cbx-cc-name">Name on card</label>
+    <div class="cbx-pm-field"><input class="cbx-pm-inp" id="cbx-cc-name" type="text" placeholder="As shown on the card" maxlength="40" autocomplete="off" spellcheck="false"></div>
+    <button class="btn btn-primary cbx-pm-paybtn" id="cbx-pm-pay" type="button"><span class="cbx-pm-spin" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="9" opacity=".25"/><path d="M21 12a9 9 0 0 0-9-9"/></svg></span><span class="cbx-pm-paytx" id="cbx-pm-paytx">Pay</span></button>
+    <p class="cbx-pm-note">Demo mode: your card details are not sent or stored anywhere.</p>
   </div>
   <div class="cbx-pm-success" id="cbx-pm-success" hidden>
     <span class="cbx-ok-wrap"><svg class="cbx-ok-svg" width="76" height="76" viewBox="0 0 76 76" aria-hidden="true" focusable="false"><circle class="cbx-ok-circ" cx="38" cy="38" r="32" fill="#EAF6EC" stroke="#3E9B4F" stroke-width="3"/><path class="cbx-ok-check" d="M25 39.5 34 48.5 51 30" fill="none" stroke="#3E9B4F" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    <div class="cbx-pm-ok-t">Платёж принят (демо)</div>
-    <p class="cbx-pm-ok-sub">В настоящем кабинете здесь спишется оплата и придёт квитанция.</p>
-    <button class="btn btn-primary cbx-pm-donebtn" id="cbx-pm-done" type="button">Готово</button>
+    <div class="cbx-pm-ok-t">Payment accepted (demo)</div>
+    <p class="cbx-pm-ok-sub">In the real portal the payment would be charged here and you would receive a receipt.</p>
+    <button class="btn btn-primary cbx-pm-donebtn" id="cbx-pm-done" type="button">Done</button>
   </div>
 </div>
 </div>
@@ -1864,7 +1966,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     if(toastT)clearTimeout(toastT);
     toastT=setTimeout(function(){toastEl.classList.remove('show');},3000);
   };
-  window.cb3Update=function(){window.cb3Toast('Запрос отправлен специалисту — ответит в чате и WhatsApp');};
+  window.cb3Update=function(){window.cb3Toast('Request sent to your specialist — they will reply in chat and on WhatsApp');};
   /* демо-чат */
   var thread=document.getElementById('cb3-thread');
   function hhmm(){var d=new Date(),h=d.getHours(),m=d.getMinutes();return (h<10?'0':'')+h+':'+((m<10?'0':'')+m);}
@@ -1884,7 +1986,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
       bubble('me',v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'));
       inp.value='';
       setTimeout(function(){
-        bubble('sp','Это демо-чат 🙂 В настоящем кабинете вам отвечает ваш специалист — сообщения синхронизированы с CRM.<br><a class="btn btn-wa cb3-wamini" href="https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Пишу из демо-кабинета — хочу задать вопрос по своей ситуации.')+'" target="_blank" rel="noopener">Продолжить в WhatsApp →</a>');
+        bubble('sp','This is a demo chat 🙂 In the real portal your specialist replies to you — messages are synced with the CRM.<br><a class="btn btn-wa cb3-wamini" href="https://wa.me/48735248525?text='+encodeURIComponent('Hello! I am writing from the demo portal — I would like to ask about my situation.')+'" target="_blank" rel="noopener">Continue in WhatsApp →</a>');
       },1200);
     }catch(e){}
     return false;
@@ -1895,13 +1997,13 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     p.classList.remove('anim');
     var isOpen=p.classList.toggle('open');
     if(isOpen&&!inst()){void p.offsetWidth;p.classList.add('anim');}
-    if(btn)btn.textContent=isOpen?'Скрыть реквизиты':'Оплатить';
+    if(btn)btn.textContent=isOpen?'Hide bank details':'Pay';
   };
   window.cb3Copy=function(btn){
-    var txt='Получатель: LEGALSOL SP. Z O.O.\nБанк: mBank\nIBAN: PL00 0000 0000 0000 0000 0000 0000 (демо)\nНазначение: Дело № 812, платёж 2/3\nСумма: по договору';
+    var txt='Recipient: LEGALSOL SP. Z O.O.\\nBank: mBank\\nIBAN: PL00 0000 0000 0000 0000 0000 0000 (demo)\\nReference: Case no. 812, payment 2/3\\nAmount: as per contract';
     function ok(){
-      if(btn){btn.textContent='Скопировано ✓';setTimeout(function(){btn.textContent='Скопировать реквизиты';},1800);}
-      window.cb3Toast('Реквизиты скопированы — это демо-данные');
+      if(btn){btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy bank details';},1800);}
+      window.cb3Toast('Bank details copied — this is demo data');
     }
     function fb(){
       try{
@@ -1958,11 +2060,11 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
   var upCount=0;
   var CK='<svg class="cbx-ck" width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path class="cbx-ckpath" d="M2.5 8.5l3.5 3.5 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><\/path><\/svg>';
   function addUploadRow(rawName){
-    if(upCount>=3){toast('В демо можно догрузить до 3 файлов');return;}
+    if(upCount>=3){toast('Up to 3 files can be uploaded in the demo');return;}
     var docs=document.getElementById('cb3-docs');
     if(!docs){return;}
     upCount++;
-    var nm=String(rawName||'Документ');
+    var nm=String(rawName||'Document');
     if(nm.length>28){nm=nm.slice(0,27)+'…';}
     var row=document.createElement('div');
     row.className='cabrow cbx-uprow';
@@ -1970,11 +2072,11 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     span.appendChild(document.createTextNode(nm));
     var sub=document.createElement('small');
     sub.className='cbx-sub';
-    sub.textContent='Загружен только что · демо';
+    sub.textContent='Uploaded just now · demo';
     span.appendChild(sub);
     var st=document.createElement('i');
     st.className='cbx-checking';
-    st.textContent='На проверке у юриста…';
+    st.textContent='Being reviewed by your lawyer…';
     row.appendChild(span);
     row.appendChild(st);
     var bar=docs.querySelector('.cabbar');
@@ -1986,13 +2088,13 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     }
     setTimeout(function(){
       st.className='cbx-ok';
-      st.innerHTML=CK+' Проверен';
+      st.innerHTML=CK+' Verified';
       if(!cbxRM()){
         st.className='cbx-ok cbx-ck-anim';
         void st.offsetWidth;
         st.className='cbx-ok cbx-ck-anim cbx-ck-go';
       }
-      toast('Документ принят — юрист проверит и подтвердит (демо)');
+      toast('Document received — your lawyer will review and confirm it (demo)');
     },1600);
   }
 
@@ -2012,8 +2114,8 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     setTimeout(function(){
       if(ic){ic.classList.remove('cbx-spinning');}
       var tm=document.getElementById('cbx-mostime');
-      if(tm){tm.textContent='сегодня '+warsawTime();}
-      toast('Проверили в MOS: без изменений — для этого этапа это нормально');
+      if(tm){tm.textContent='today '+warsawTime();}
+      toast('Checked in MOS: no changes — normal for this stage');
       btn.disabled=false;
       mosBusy=false;
     },RM?120:1300);
@@ -2039,7 +2141,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
       if(ic){ic.classList.remove('cbx-spinning');}
       if(btn){btn.disabled=false;}
       saving=false;
-      toast('Сохранено (демо) — в настоящем кабинете данные обновятся в CRM и у юриста');
+      toast('Saved (demo) — in the real portal your details update in the CRM and with your lawyer');
       if(ok){
         ok.classList.add('cbx-show');
         if(savedTimer){clearTimeout(savedTimer);}
@@ -2054,7 +2156,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
     var drop=closestCls(t,'cbx-drop');
     if(drop&&upCount>=3){
       e.preventDefault();
-      toast('В демо можно догрузить до 3 файлов');
+      toast('Up to 3 files can be uploaded in the demo');
       return;
     }
     var mosb=closestCls(t,'cbx-mosbtn');
@@ -2074,8 +2176,8 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
       return;
     }
     if(t.classList&&t.classList.contains('cbx-tgl')){
-      var nm=t.getAttribute('data-cbx-name')||'Уведомления';
-      toast(nm+(t.checked?' включены':' выключены')+' (демо)');
+      var nm=t.getAttribute('data-cbx-name')||'Notifications';
+      toast(nm+(t.checked?' enabled':' disabled')+' (demo)');
       return;
     }
   },false);
@@ -2133,7 +2235,7 @@ if(timer){clearTimeout(timer);timer=null;}
 busy=false;
 var b=byId('cbx-pm-pay');
 if(b){b.classList.remove('cbx-loading');b.classList.remove('cbx-spin-go');}
-setPayTx('Оплатить');
+setPayTx('Pay');
 }
 function closeModal(){
 var m=byId('cbx-paymodal');
@@ -2156,12 +2258,12 @@ if((' '+rows[i].className+' ').indexOf(' cur ')>-1){row=rows[i];break;}
 }
 if(row){
 var chips=row.getElementsByClassName('cb3-chip-wait');
-if(chips&&chips.length){var ch=chips[0];ch.className='cb3-chip-ok';ch.innerHTML='Оплачен ✓ (демо)';}
+if(chips&&chips.length){var ch=chips[0];ch.className='cb3-chip-ok';ch.innerHTML='Paid ✓ (demo)';}
 }
 var b1=byId('cb3-paybtn2');if(b1){b1.style.display='none';}
 var b2=byId('cbx-cardbtn');if(b2){b2.style.display='none';}
 var rq=byId('cb3-req');if(rq){rq.style.display='none';}
-if(window.cb3Toast){window.cb3Toast('Платёж 2 отмечен оплаченным — это демо, карта не списывалась');}
+if(window.cb3Toast){window.cb3Toast('Payment 2 marked as paid — this is a demo, no card was charged');}
 }
 function showSuccess(){
 var f=byId('cbx-pm-form');
@@ -2187,12 +2289,12 @@ if(b){
 b.classList.add('cbx-loading');
 if(!rm()){b.classList.add('cbx-spin-go');}
 }
-setPayTx('Обрабатываем…');
+setPayTx('Processing…');
 timer=setTimeout(function(){
 timer=null;
 busy=false;
 if(b){b.classList.remove('cbx-loading');b.classList.remove('cbx-spin-go');}
-setPayTx('Оплатить');
+setPayTx('Pay');
 if(isOpen()){showSuccess();}
 },rm()?220:1300);
 }
@@ -2242,10 +2344,10 @@ var app=document.getElementById('cb3-app');
 var gw=document.getElementById('cbx-greet-word');
 if(gw){
   var h=(new Date()).getHours();
-  gw.textContent=(h>=5&&h<12)?'Доброе утро':((h>=12&&h<18)?'Добрый день':'Добрый вечер');
+  gw.textContent=(h>=5&&h<12)?'Good morning':((h>=12&&h<18)?'Good afternoon':'Good evening');
 }
 function cbxCopy(txt){
-  function ok(){if(window.cb3Toast){window.cb3Toast('Номер дела скопирован — назовите его в WhatsApp');}}
+  function ok(){if(window.cb3Toast){window.cb3Toast('Case number copied — quote it in WhatsApp');}}
   function fb(){
     var ta=document.createElement('textarea');
     ta.value=txt;ta.setAttribute('readonly','');
@@ -2267,7 +2369,7 @@ if(app){
     if(!t||t===app||!t.getAttribute){return;}
     var k=t.getAttribute('data-cbx');
     if(k==='copysig'){cbxCopy('WSC-812/2026');}
-    else if(k==='upp'){if(window.cb3Toast){window.cb3Toast('Демо-документ: в настоящем кабинете здесь открывается PDF');}}
+    else if(k==='upp'){if(window.cb3Toast){window.cb3Toast('Demo document: in the real portal a PDF opens here');}}
   });
 }
 function once(el,fn){
@@ -2311,7 +2413,7 @@ once(list,function(){list.className+=' cbx-cascade';});
 (function(){
   var app=document.getElementById('cb3-app');
   if(!app){return;}
-  var TOAST='Демо-документ: в настоящем кабинете здесь открывается PDF';
+  var TOAST='Demo document: in the real portal a PDF opens here';
   function RM(){return (window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||!!navigator.webdriver||document.hidden||document.documentElement.classList.contains('noanim');}
   function cls(el){var c=el&&el.className;if(c&&typeof c==='object'&&typeof c.baseVal==='string'){return c.baseVal;}return (typeof c==='string')?c:'';}
   function hasClass(el,c){return (' '+cls(el)+' ').indexOf(' '+c+' ')>-1;}
@@ -2344,14 +2446,14 @@ once(list,function(){list.className+=' cbx-cascade';});
     var w=warsaw();
     var div=document.createElement('div');
     div.className='cb3-msg '+kind;
-    var extra=(kind==='me')?'<span class="cbx-read">✓✓ прочитано</span>':'';
+    var extra=(kind==='me')?'<span class="cbx-read">✓✓ read</span>':'';
     div.innerHTML=html+extra+'<span class="tm">'+pad(w.h)+':'+pad(w.m)+'</span>';
     t.appendChild(div);scrollBottom();
   }
   var ANS={
-    how:'Проверили сегодня утром: дело в работе у инспектора, статус без изменений — для этого этапа это совершенно нормально. Всё время рассмотрения вы в Польше легально: живите спокойно, работа у своего работодателя продолжается как раньше. Мы смотрим статус каждый рабочий день и напишем первыми, как только будет движение 🤍',
-    biometria:'Wezwanie на отпечатки обычно приходит в первые месяцы после подачи — точную дату воеводство заранее не называет, это зависит от загрузки. Мы проверяем статус каждый день и узнаем первыми. Как только придёт — сразу напишем и придём с готовым планом: куда, когда и что взять с собой.',
-    need:'Сейчас — ничего 🙌 Единственная мелочь: ждём новое фото 3,5×4,5 до пятницы — можно прислать прямо сюда или в WhatsApp. Остальное — письма, статусы, сроки — мы берём на себя.'
+    how:'We checked this morning: your case is with the inspector, status unchanged — for this stage that is completely normal. Throughout the review you are in Poland legally: live calmly, and work with your current employer continues as before. We check the status every working day and will be the first to message you the moment there is movement 🤍',
+    biometria:'The wezwanie for fingerprints usually arrives in the first months after submission — the voivodeship does not announce the exact date in advance, it depends on their workload. We check the status every day and will know first. The moment it arrives, we will message you with a ready plan: where, when and what to bring.',
+    need:'Right now — nothing 🙌 The only small thing: we are waiting for a new 3,5×4,5 photo by Friday — you can send it right here or via WhatsApp. The rest — letters, statuses, deadlines — we take care of.'
   };
   var busy=false;
   function drawClock(sla){
@@ -2375,7 +2477,7 @@ once(list,function(){list.className+=' cbx-cascade';});
       var typing=document.createElement('div');
       typing.className='cb3-msg sp cbx-typing';
       typing.setAttribute('data-rep','0');
-      typing.setAttribute('aria-label','Юрист печатает');
+      typing.setAttribute('aria-label','Your lawyer is typing');
       typing.innerHTML='<span class="cbx-tdot"></span><span class="cbx-tdot"></span><span class="cbx-tdot"></span>';
       var t=thread();
       if(t){t.appendChild(typing);scrollBottom();}
@@ -2393,8 +2495,8 @@ once(list,function(){list.className+=' cbx-cascade';});
     if(!el){return;}
     var w=warsaw();
     var open=(w.dow>=1&&w.dow<=5&&w.h>=10&&w.h<18);
-    if(open){el.textContent='Сейчас на связи · WhatsApp +48 735 248 525';removeClass(el,'cbx-night');}
-    else{var m2;if(w.dow===0||w.dow===6){m2='Сейчас выходной — ответим в понедельник с 10:00';}else if(w.h>=18&&w.h<23){m2='Рабочий день закончился — ответим завтра с 10:00';}else{m2='Сейчас в Варшаве ночь — ответим утром до 10:00';}el.textContent=m2;addClass(el,'cbx-night');}
+    if(open){el.textContent='Online now · WhatsApp +48 735 248 525';removeClass(el,'cbx-night');}
+    else{var m2;if(w.dow===0||w.dow===6){m2='It is the weekend — we will reply on Monday from 10:00';}else if(w.h>=18&&w.h<23){m2='The working day is over — we will reply tomorrow from 10:00';}else{m2='It is night in Warsaw right now — we will reply in the morning by 10:00';}el.textContent=m2;addClass(el,'cbx-night');}
   })();
   app.addEventListener('click',function(ev){
     var t=ev.target||ev.srcElement;
@@ -2506,8 +2608,8 @@ once(list,function(){list.className+=' cbx-cascade';});
   function dayLabel(ts){
     var d=new Date(ts),n=new Date();
     var k=function(x){return x.getFullYear()+'-'+x.getMonth()+'-'+x.getDate();};
-    if(k(d)===k(n))return 'Сегодня';
-    if(k(d)===k(new Date(n.getTime()-864e5)))return 'Вчера';
+    if(k(d)===k(n))return 'Today';
+    if(k(d)===k(new Date(n.getTime()-864e5)))return 'Yesterday';
     return fmtDate(ts);
   }
   function fmtZl(n){try{return (n||0).toLocaleString('ru-RU')+' zł';}catch(e){return (n||0)+' zł';}}
@@ -2522,12 +2624,12 @@ once(list,function(){list.className+=' cbx-cascade';});
     var f=$('cb3-pr-fill');if(f)SNAP.fill=f.style.width;
     var c=$('cb3-mode-chip');if(c)SNAP.chip=c.textContent;
   }
-  function restoreDemo(){ app.setAttribute('aria-label','Демо-кабинет клиента');
+  function restoreDemo(){ app.setAttribute('aria-label','Client portal demo');
     if(MODE!=='real'&&!CUR)return;
     if(SNAP){
       for(var id in SNAP.html){var el=$(id);if(el)el.innerHTML=SNAP.html[id];}
       var f=$('cb3-pr-fill');if(f)f.style.width=SNAP.fill;
-      var c=$('cb3-mode-chip');if(c){c.textContent=SNAP.chip||'Демо';c.classList.remove('live');}
+      var c=$('cb3-mode-chip');if(c){c.textContent=SNAP.chip||'Demo';c.classList.remove('live');}
     }
     var nb=$('cb3-chat-nb');if(nb)nb.style.display='';
     var fin=$('cb3-final');if(fin)fin.style.display='';
@@ -2543,23 +2645,23 @@ once(list,function(){list.className+=' cbx-cascade';});
     return leads.reduce(function(a,b){return (b.updatedAt||0)>(a.updatedAt||0)?b:a;});
   }
   var STEPS=[
-    ['Заявка принята','Профиль дела создан, специалист закреплён.'],
-    ['Документы отправлены','Пакет документов сформирован и отправлен.'],
-    ['Подано в офис','Дело зарегистрировано в воеводстве.'],
-    ['Активная работа по делу','Юрист ведёт дело и отвечает на запросы офиса.'],
-    ['Финальная стадия','Биометрия и финальная проверка перед выдачей.'],
-    ['Результат','Выдача результата и планирование следующего шага.']];
+    ['Application received','Case profile created, specialist assigned.'],
+    ['Documents sent','Document package prepared and sent.'],
+    ['Submitted to the office','The case is registered with the voivodeship.'],
+    ['Active work on the case','Your lawyer manages the case and responds to office requests.'],
+    ['Final stage','Biometria and the final check before issuance.'],
+    ['Result','Issuing the result and planning the next step.']];
   function renderTimeline(L){
     var el=$('cb3-tl');if(!el)return;
     var step=(L.stage&&L.stage.step)||2,total=L.totalSteps||6,h='';
     for(var i=1;i<=total;i++){
-      var s=STEPS[i-1]||['Этап '+i,''];
+      var s=STEPS[i-1]||['Stage '+i,''];
       if(i<step){
-        h+='<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Готово</span></div>';
+        h+='<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Done</span></div>';
       }else if(i===step){
-        h+='<div class="prow c"><span class="pn">'+i+'</span><div><b>'+esc(L.stage.ru||s[0])+'</b><p>'+esc(L.whatWeDo||s[1])+'</p></div><span class="pt">Вы здесь</span></div>';
+        h+='<div class="prow c"><span class="pn">'+i+'</span><div><b>'+esc(L.stage.ru||s[0])+'</b><p>'+esc(L.whatWeDo||s[1])+'</p></div><span class="pt">You are here</span></div>';
       }else{
-        h+='<div class="prow f"><span class="pn">'+i+'</span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Впереди</span></div>';
+        h+='<div class="prow f"><span class="pn">'+i+'</span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Ahead</span></div>';
       }
     }
     el.innerHTML=h;
@@ -2568,7 +2670,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var th=$('cb3-thread');if(!th)return;
     var h='',last='';
     if(!chat||!chat.length){
-      h='<div class="cb3-day">Начало диалога</div><div class="cb3-msg sp">Здравствуйте! Это чат с вашим специалистом — напишите сообщение, и оно попадёт прямо в вашу карточку в CRM. Отвечаем в рабочие часы.</div>';
+      h='<div class="cb3-day">Start of conversation</div><div class="cb3-msg sp">Hello! This is the chat with your specialist — write a message and it goes straight to your card in the CRM. We reply during working hours.</div>';
     }else{
       chat.forEach(function(m){
         var d=dayLabel(m.createdAt);
@@ -2588,9 +2690,9 @@ once(list,function(){list.className+=' cbx-cascade';});
   }
   function renderPay(L){
     var pc=$('cb3-paycard');if(!pc)return;
-    var h='<div class="cb3-payhead"><div><b>Договор по делу № '+L.id+'</b><span class="sub">'+esc(L.serviceType||'Услуга легализации')+'</span></div>';
-    if(L.price>0)h+='<span class="'+(L.remaining>0?'cb3-chip-wait':'cb3-chip-ok')+'">Оплачено '+fmtZl(L.paidTotal)+' из '+fmtZl(L.price)+'</span>';
-    else if(L.paidTotal>0)h+='<span class="cb3-chip-ok">Оплачено '+fmtZl(L.paidTotal)+'</span>';
+    var h='<div class="cb3-payhead"><div><b>Contract for case no. '+L.id+'</b><span class="sub">'+esc(L.serviceType||'Legalization service')+'</span></div>';
+    if(L.price>0)h+='<span class="'+(L.remaining>0?'cb3-chip-wait':'cb3-chip-ok')+'">Paid '+fmtZl(L.paidTotal)+' of '+fmtZl(L.price)+'</span>';
+    else if(L.paidTotal>0)h+='<span class="cb3-chip-ok">Paid '+fmtZl(L.paidTotal)+'</span>';
     h+='</div>';
     var ins=L.plan&&L.plan.installments;
     if(ins&&ins.length){
@@ -2598,66 +2700,66 @@ once(list,function(){list.className+=' cbx-cascade';});
       ins.forEach(function(it,i){if(!it.paid&&firstUnpaid<0)firstUnpaid=i;});
       ins.forEach(function(it,i){
         var cls=it.paid?'paid':(i===firstUnpaid?'cur':'off');
-        var chip=it.paid?'<span class="cb3-chip-ok">Оплачен ✓</span>':(i===firstUnpaid?'<span class="cb3-chip-wait">Ожидается</span>':'<span class="cb3-chip-off">Позже</span>');
+        var chip=it.paid?'<span class="cb3-chip-ok">Paid ✓</span>':(i===firstUnpaid?'<span class="cb3-chip-wait">Pending</span>':'<span class="cb3-chip-off">Later</span>');
         var pn=it.paid?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>':String(i+1);
-        var sub=it.paid?(it.dateText?'Оплачен '+esc(it.dateText):'Оплачен'):(it.dateText?'Срок — до '+esc(it.dateText):'Срок — по договорённости');
-        h+='<div class="cb3-payrow '+cls+'"><span class="pnum">'+pn+'</span><div class="ptx"><b>Платёж '+(i+1)+' из '+ins.length+' · '+fmtZl(it.amount)+'</b><p>'+sub+'</p></div>'+chip+'</div>';
+        var sub=it.paid?(it.dateText?'Paid '+esc(it.dateText):'Paid'):(it.dateText?'Due by '+esc(it.dateText):'Due date — as agreed');
+        h+='<div class="cb3-payrow '+cls+'"><span class="pnum">'+pn+'</span><div class="ptx"><b>Payment '+(i+1)+' of '+ins.length+' · '+fmtZl(it.amount)+'</b><p>'+sub+'</p></div>'+chip+'</div>';
       });
     }else if(L.payments&&L.payments.length){
       L.payments.forEach(function(p){
-        h+='<div class="cb3-payrow paid"><span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="ptx"><b>'+fmtZl(p.amount)+'</b><p>'+esc([p.method,p.dateText].filter(Boolean).join(' · ')||'Платёж получен')+'</p></div><span class="cb3-chip-ok">Получен ✓</span></div>';
+        h+='<div class="cb3-payrow paid"><span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div class="ptx"><b>'+fmtZl(p.amount)+'</b><p>'+esc([p.method,p.dateText].filter(Boolean).join(' · ')||'Payment received')+'</p></div><span class="cb3-chip-ok">Received ✓</span></div>';
       });
     }else{
-      h+='<p class="rq-note" style="margin-top:6px">График оплат появится здесь после старта дела — суммы и сроки фиксируются в договоре.</p>';
+      h+='<p class="rq-note" style="margin-top:6px">Your payment schedule will appear here once your case starts — amounts and dates are set in your contract.</p>';
     }
-    if(L.remaining>0)h+='<p class="rq-note">Остаток по договору: <b>'+fmtZl(L.remaining)+'</b>. Реквизиты для оплаты пришлёт ваш специалист.</p>';
-    h+='<div style="margin-top:14px"><a class="btn btn-wa" href="'+waHref('Здравствуйте! Пришлите, пожалуйста, реквизиты для оплаты по делу № '+L.id+'.')+'" target="_blank" rel="noopener">Запросить реквизиты в WhatsApp</a></div>';
+    if(L.remaining>0)h+='<p class="rq-note">Remaining balance on your contract: <b>'+fmtZl(L.remaining)+'</b>. Your specialist will send you the payment details.</p>';
+    h+='<div style="margin-top:14px"><a class="btn btn-wa" href="'+waHref('Hello! Please send me the payment details for case no. '+L.id+'.')+'" target="_blank" rel="noopener">Request payment details on WhatsApp</a></div>';
     pc.innerHTML=h;
   }
-  function renderReal(me){ app.setAttribute('aria-label','Кабинет клиента');
+  function renderReal(me){ app.setAttribute('aria-label','Client portal');
     var L=pickLead(me.leads);
     CUR={lead:L,me:me};
     var name=(me.contact&&me.contact.name)||'';
     if(/^[\s+()\-\d]+$/.test(name))name='';
     var first=name?name.split(/\s+/)[0]:'';
     var g=$('cb3-greet-tx');
-    if(g)g.innerHTML='<span class="hi">Здравствуйте'+(first?', '+esc(first):'')+'!</span><b>Ваше дело № '+L.id+' — '+esc(L.serviceType||'Услуга легализации')+'</b>';
+    if(g)g.innerHTML='<span class="hi">Hello'+(first?', '+esc(first):'')+'!</span><b>Your case no. '+L.id+' — '+esc(L.serviceType||'Legalization service')+'</b>';
     var step=(L.stage&&L.stage.step)||2,total=L.totalSteps||6;
     var ch=$('cb3-chips');
-    if(ch)ch.innerHTML='<span class="cb3-chip st">'+esc((L.stage&&L.stage.ru)||'В работе')+'</span><span class="cb3-chip">Этап '+step+' из '+total+'</span>'+(me.leads.length>1?'<span class="cb3-chip">Дел в работе: '+me.leads.length+'</span>':'');
-    var lbl=$('cb3-pr-lbl');if(lbl)lbl.textContent='Прогресс дела · этап '+step+' из '+total;
-    var pt=$('cb3-pr-t');if(pt)pt.textContent=(L.stage&&L.stage.ru)||'В работе';
+    if(ch)ch.innerHTML='<span class="cb3-chip st">'+esc((L.stage&&L.stage.ru)||'In progress')+'</span><span class="cb3-chip">Stage '+step+' of '+total+'</span>'+(me.leads.length>1?'<span class="cb3-chip">Cases in progress: '+me.leads.length+'</span>':'');
+    var lbl=$('cb3-pr-lbl');if(lbl)lbl.textContent='Case progress · stage '+step+' of '+total;
+    var pt=$('cb3-pr-t');if(pt)pt.textContent=(L.stage&&L.stage.ru)||'In progress';
     var fill=$('cb3-pr-fill');if(fill)fill.style.width=Math.max(8,Math.round(step/total*100))+'%';
     var nx=$('cb3-pr-next');
-    if(nx)nx.innerHTML='<b>Что дальше:</b> '+esc(L.whatWeDo||'Мы ведём дело и сообщим о каждом изменении.')+(L.clientAction?' <b>От вас:</b> '+esc(L.clientAction):'')+(L.etaText?' <span style="color:var(--ink-3)">Обычный срок этапа: '+esc(L.etaText)+'.</span>':'');
+    if(nx)nx.innerHTML='<b>What’s next:</b> '+esc(L.whatWeDo||'We are handling your case and will let you know about every change.')+(L.clientAction?' <b>From you:</b> '+esc(L.clientAction):'')+(L.etaText?' <span style="color:var(--ink-3)">Typical time for this stage: '+esc(L.etaText)+'.</span>':'');
     renderTimeline(L);
     var docs=$('cb3-docs');
-    if(docs)docs.innerHTML='<div class="ch"><span><b>Пакет по делу № '+L.id+'</b></span></div><p class="rq-note" style="margin-top:2px">Онлайн-список документов появится здесь после старта работы с пакетом. Актуальный чек-лист вам присылает специалист — прислать документ можно прямо в WhatsApp.</p><a class="btn btn-wa cb3-docbtn" href="'+waHref('Здравствуйте! Хочу прислать документ по делу № '+L.id+'.')+'" target="_blank" rel="noopener">Прислать документ в WhatsApp</a>';
+    if(docs)docs.innerHTML='<div class="ch"><span><b>Package for case no. '+L.id+'</b></span></div><p class="rq-note" style="margin-top:2px">Your online document list will appear here once work on the package starts. Your specialist sends you the up-to-date checklist — and you can send documents right in WhatsApp.</p><a class="btn btn-wa cb3-docbtn" href="'+waHref('Hello! I want to send a document for case no. '+L.id+'.')+'" target="_blank" rel="noopener">Send a document on WhatsApp</a>';
     var rem=$('cb3-rem');
     if(rem){
       var now=Date.now(),next=null;
       (L.tasks||[]).forEach(function(t){if(t.completeTill>now&&(!next||t.completeTill<next))next=t.completeTill;});
       var body=next
-        ?'<p>Ближайшее событие по делу — <b style="color:var(--gold-2);white-space:nowrap">'+fmtDate(next)+'</b> (через '+Math.max(1,Math.round((next-now)/864e5))+' дн.)</p>'
-        :'<p>Запланированных дедлайнов сейчас нет — о каждом изменении напомним заранее.</p>';
-      rem.innerHTML='<span class="ic">'+BELL+'</span><div><b>Напоминания по делу</b>'+body+'<p style="margin-top:5px;color:var(--ink-3)">Правило 90/60/30: напомним заранее — в WhatsApp и в кабинете.</p><div class="cb3-days"><span>за 90 дней</span><span>за 60 дней</span><span>за 30 дней</span></div></div>';
+        ?'<p>Next event in your case — <b style="color:var(--gold-2);white-space:nowrap">'+fmtDate(next)+'</b> (in '+Math.max(1,Math.round((next-now)/864e5))+' days)</p>'
+        :'<p>No deadlines scheduled right now — we will remind you about every change in advance.</p>';
+      rem.innerHTML='<span class="ic">'+BELL+'</span><div><b>Case reminders</b>'+body+'<p style="margin-top:5px;color:var(--ink-3)">The 90/60/30 rule: we remind you in advance — on WhatsApp and in your portal.</p><div class="cb3-days"><span>90 days before</span><span>60 days before</span><span>30 days before</span></div></div>';
     }
     var chh=$('cb3-chath');
-    if(chh)chh.innerHTML='<span class="cb3-av" aria-hidden="true">LS</span><div><b>Ваш специалист LegalSol</b><span class="st-on">на связи</span></div>';
+    if(chh)chh.innerHTML='<span class="cb3-av" aria-hidden="true">LS</span><div><b>Your LegalSol specialist</b><span class="st-on">online</span></div>';
     renderChat(L.chat);
     renderPay(L);
     var nb=$('cb3-chat-nb');if(nb)nb.style.display='none';
     var fin=$('cb3-final');if(fin)fin.style.display='none';
     var chip=$('cb3-mode-chip');
-    if(chip){chip.textContent='Синхронизировано с CRM · только что';chip.classList.add('live');}
+    if(chip){chip.textContent='Synced with CRM · just now';chip.classList.add('live');}
   }
 
   /* ── логин ── */
   var form=$('cb2-form'),inp=$('cb2-inp'),pw=$('cb2-pass'),btn=$('cb2-login'),errEl=$('cb2-err');
   function showErr(html){if(errEl){errEl.innerHTML=html;errEl.classList.add('on');}}
   function hideErr(){if(errEl)errEl.classList.remove('on');}
-  var waErr=' или <a href="'+waHref('Здравствуйте! Не получается войти в кабинет клиента.')+'" target="_blank" rel="noopener">напишите нам в WhatsApp</a>';
-  var SOFT='Не нашли дело по этому номеру. Проверьте формат — например +48 500 123 456'+waErr+'.';
+  var waErr=' or <a href="'+waHref('Hello! I cannot sign in to the client portal.')+'" target="_blank" rel="noopener">message us on WhatsApp</a>';
+  var SOFT='We could not find a case for this number. Check the format — for example +48 500 123 456'+waErr+'.';
   function enterReal(me){
     snap();
     app.classList.add('is-real');
@@ -2671,30 +2773,30 @@ once(list,function(){list.className+=' cbx-cascade';});
     e.preventDefault();
     hideErr();
     var ph=(inp&&inp.value||'').trim(),ps=(pw&&pw.value)||'';
-    if(!ph||!ps){showErr('Введите телефон и пароль — их присылает ваш специалист в WhatsApp.');return;}
+    if(!ph||!ps){showErr('Enter your phone and password — your specialist sends them to you on WhatsApp.');return;}
     if(btn.dataset.busy)return;
     btn.dataset.busy='1';
-    var t0=btn.textContent;btn.textContent='Входим…';
+    var t0=btn.textContent;btn.textContent='Signing in…';
     function done(){btn.textContent=t0;delete btn.dataset.busy;}
     fetch('/api/cabinet/login',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:ph,password:ps})})
       .then(function(r){return r.json().then(function(j){return{s:r.status,j:j};}).catch(function(){return{s:r.status,j:{}};});})
       .then(function(x){
         if(x.s===200&&x.j&&x.j.ok){
-          if(x.j.staff){done();doLogout();showErr('Это вход сотрудника — админ-панель работает в основном кабинете на <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
+          if(x.j.staff){done();doLogout();showErr('This is a staff login — the admin panel works in the main portal at <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
           return fetch('/api/cabinet/me',{credentials:'include'})
             .then(function(r2){if(!r2.ok)throw 0;return r2.json();})
             .then(function(me){
               done();
-              if(me.role==='staff'){doLogout();showErr('Это вход сотрудника — админ-панель работает в основном кабинете на <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
-              if(!me.leads||!me.leads.length){showErr('Вход выполнен, но активное дело пока не заведено — кабинет наполнится после старта дела. Вопросы'+waErr+'.');return;}
+              if(me.role==='staff'){doLogout();showErr('This is a staff login — the admin panel works in the main portal at <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
+              if(!me.leads||!me.leads.length){showErr('You are signed in, but there is no active case yet — your portal will fill up once your case starts. Questions'+waErr+'.');return;}
               enterReal(me);
             });
         }
         done();
-        if(x.s===429)showErr(esc((x.j&&x.j.message)||'Слишком много попыток входа. Попробуйте через 15 минут')+waErr.replace(' или ',' — или ')+'.');
+        if(x.s===429)showErr(esc((x.j&&x.j.message)||'Too many sign-in attempts. Try again in 15 minutes')+waErr.replace(' or ',' — or ')+'.');
         else showErr(SOFT);
       })
-      .catch(function(){done();showErr('Не получилось связаться с сервером. Проверьте интернет'+waErr+'.');});
+      .catch(function(){done();showErr('Could not reach the server. Check your internet'+waErr+'.');});
   });
 
   /* ── обёртки демо-функций ── */
@@ -2714,8 +2816,8 @@ once(list,function(){list.className+=' cbx-cascade';});
       appendMsg('me',v);
       i.value='';
       fetch('/api/cabinet/me',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:v,leadId:CUR&&CUR.lead.id})})
-        .then(function(r){if(!r.ok)throw 0;if(window.cb3Toast)window.cb3Toast('Сообщение отправлено специалисту');})
-        .catch(function(){if(window.cb3Toast)window.cb3Toast('Не отправилось — попробуйте ещё раз или напишите в WhatsApp');});
+        .then(function(r){if(!r.ok)throw 0;if(window.cb3Toast)window.cb3Toast('Message sent to your specialist');})
+        .catch(function(){if(window.cb3Toast)window.cb3Toast('Did not go through — try again or message us on WhatsApp');});
     }catch(e){}
     return false;
   };
@@ -2724,9 +2826,9 @@ once(list,function(){list.className+=' cbx-cascade';});
     if(MODE!=='real')return _upd?_upd():undefined;
     if(updBusy)return;
     updBusy=true;setTimeout(function(){updBusy=false;},15000);
-    fetch('/api/cabinet/me',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'Здравствуйте! Прошу короткий апдейт по моему делу.',leadId:CUR&&CUR.lead.id})})
-      .then(function(r){if(!r.ok)throw 0;if(window.cb3Toast)window.cb3Toast('Запрос отправлен — специалист ответит в чате кабинета');})
-      .catch(function(){if(window.cb3Toast)window.cb3Toast('Не отправилось — напишите нам в WhatsApp');});
+    fetch('/api/cabinet/me',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'Hello! Please send me a quick update on my case.',leadId:CUR&&CUR.lead.id})})
+      .then(function(r){if(!r.ok)throw 0;if(window.cb3Toast)window.cb3Toast('Request sent — your specialist will reply in the portal chat');})
+      .catch(function(){if(window.cb3Toast)window.cb3Toast('Did not go through — message us on WhatsApp');});
   };
   var _tab=window.cb3Tab;
   window.cb3Tab=function(n){
@@ -2746,38 +2848,38 @@ once(list,function(){list.className+=' cbx-cascade';});
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -2785,25 +2887,25 @@ once(list,function(){list.className+=' cbx-cascade';});
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -2817,12 +2919,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -3031,10 +3133,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -3051,7 +3153,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -3142,7 +3244,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Блог LegalSol — просто о легализации иностранцев в Польше</title>
-<meta name="description" content="Блог LegalSol: 221 статья о легализации в Польше — карта побыту, MOS, PESEL, Profil Zaufany, налоги, семья и жильё. Ответ в WhatsApp за 15 минут.">
+<title>LegalSol blog — legalization in Poland, explained simply</title>
+<meta name="description" content="LegalSol blog: 221 articles on legalization in Poland — residence card, MOS, PESEL, Profil Zaufany, taxes, family and housing. Reply on WhatsApp within 15 minutes.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="Блог LegalSol — просто о легализации иностранцев в Польше">
-<meta property="og:description" content="Блог LegalSol: 221 статья о легализации в Польше — карта побыту, MOS, PESEL, Profil Zaufany, налоги, семья и жильё. Ответ в WhatsApp за 15 минут.">
+<meta property="og:title" content="LegalSol blog — legalization in Poland, explained simply">
+<meta property="og:description" content="LegalSol blog: 221 articles on legalization in Poland — residence card, MOS, PESEL, Profil Zaufany, taxes, family and housing. Reply on WhatsApp within 15 minutes.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -825,6 +826,89 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
 
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
+
 /* --- page:blog --- */
 .bl-hero-sec{padding:44px 0 0}
 .bl-hero{background:linear-gradient(140deg,rgba(61,91,169,.88),rgba(91,135,207,.55)),url(/assets/trc/warsaw.jpg) center/cover;border-radius:var(--r-lg);padding:84px 64px 70px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
@@ -850,8 +934,8 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -861,35 +945,35 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html">Работа</a>
+    <a href="redesign.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html">Шансы</a>
-    <a href="referral.html">Рефералка</a>
-    <a href="blog.html" style="color:var(--indigo)" aria-current="page">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html">Chances</a>
+    <a href="referral.html">Referral</a>
+    <a href="blog.html" style="color:var(--indigo)" aria-current="page">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -900,77 +984,77 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <main id="top">
 <!-- PAGE:blog -->
 <section class='bl-hero-sec'><div class='wrap'><div class='bl-hero reveal'>
-<span class='eyebrow'>Блог LegalSol · 221 статья</span>
-<h1>Блог LegalSol — <em>просто о легализации</em></h1>
-<p class='bl-sub'>Карта побыту, MOS, PESEL, налоги и жизнь в Варшаве — объясняем спокойно и без канцелярита. А если нужен живой ответ — мы в WhatsApp, отвечаем за 15 минут.</p>
+<span class='eyebrow'>LegalSol blog · 221 articles</span>
+<h1>LegalSol blog — <em>legalization made simple</em></h1>
+<p class='bl-sub'>Residence card (karta pobytu), MOS, PESEL, taxes and life in Warsaw — explained calmly and without legalese. And if you need a live answer — we're on WhatsApp, replying within 15 minutes.</p>
 <div class='bl-chips stg'>
-<a class='bl-chip' href='#bl-karta'>Карта побыту</a>
-<a class='bl-chip' href='#bl-docs'>Документы и статусы</a>
-<a class='bl-chip' href='#bl-work'>Работа и деньги</a>
-<a class='bl-chip' href='#bl-life'>Жизнь в Польше</a>
-<a class='bl-chip wa' href='https://wa.me/48735248525?text=Здравствуйте!%20Читаю%20ваш%20блог%20—%20есть%20вопрос.' target='_blank' rel='noopener'>Спросить в WhatsApp</a>
+<a class='bl-chip' href='#bl-karta'>Residence card</a>
+<a class='bl-chip' href='#bl-docs'>Documents and statuses</a>
+<a class='bl-chip' href='#bl-work'>Work and money</a>
+<a class='bl-chip' href='#bl-life'>Life in Poland</a>
+<a class='bl-chip wa' href='https://wa.me/48735248525?text=Здравствуйте!%20Читаю%20ваш%20блог%20—%20есть%20вопрос.' target='_blank' rel='noopener'>Ask on WhatsApp</a>
 </div>
 </div></div></section>
 
 <section id='bl-karta' class='bl-w bl-anchor'>
-<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
-<div class='sec-head reveal'><span class='eyebrow'>Карта побыту</span><h2>Путь к карте — шаг за шагом</h2><p>Первая подача, онлайн-система MOS и что делать, если пришёл отказ.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
+<div class='sec-head reveal'><span class='eyebrow'>Residence card</span><h2>The path to your card — step by step</h2><p>First application, the MOS online system, and what to do if you get a refusal.</p></div>
 <div class='blog-grid stg'>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_stamp.jpg' alt='' loading='lazy'></div><div class='cat'>Карта побыту</div><h3>Карта побыту в 2026: полный гид для первой подачи</h3><p>Основания, документы и весь путь — от подготовки пакета до решения воеводы.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/how-to-apply-for-karta-pobytu-in-poland-2026-first-timer-complete-guide-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20оформить%20карту%20побыту%20—%20с%20чего%20начать?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_sign.jpg' alt='' loading='lazy'></div><div class='cat'>MOS · Подача онлайн</div><h3>Подача через MOS: пошаговая инструкция</h3><p>Как устроена государственная онлайн-подача — с 27.04.2026 это единственный путь.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/applying-for-karta-pobytu-through-mos-online-step-by-step-2026-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20подаче%20через%20MOS.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_law.jpg' alt='' loading='lazy'></div><div class='cat'>Апелляция</div><h3>Отказ по карте побыту: что делать дальше</h3><p>Сроки обжалования, реальные шансы и первые шаги после негативного решения.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/karta-pobytu-negative-decision-what-to-do-next-poland-2026-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ%20по%20карте%20побыту%20—%20что%20делать?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_stamp.jpg' alt='' loading='lazy'></div><div class='cat'>Residence card</div><h3>Residence card in 2026: a complete guide to your first application</h3><p>Grounds, documents and the whole journey — from preparing your file to the voivode's decision.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/how-to-apply-for-karta-pobytu-in-poland-2026-first-timer-complete-guide-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20оформить%20карту%20побыту%20—%20с%20чего%20начать?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_sign.jpg' alt='' loading='lazy'></div><div class='cat'>MOS · Online application</div><h3>Applying through MOS: a step-by-step guide</h3><p>How the government's online application works — from 27.04.2026 it's the only way.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/applying-for-karta-pobytu-through-mos-online-step-by-step-2026-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20подаче%20через%20MOS.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_law.jpg' alt='' loading='lazy'></div><div class='cat'>Appeal</div><h3>Residence card refusal: what to do next</h3><p>Appeal deadlines, real chances and first steps after a negative decision.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/karta-pobytu-negative-decision-what-to-do-next-poland-2026-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ%20по%20карте%20побыту%20—%20что%20делать?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
 </div>
-<div class='mos-note reveal'><span class='ic'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#C97F33' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='M12 8v5'/><path d='M12 16.5h.01'/></svg></span><p><b>Важно:</b> с 27 апреля 2026 документы на ВНЖ принимают только онлайн — через государственную систему MOS. Для входа в MOS нужен Profil Zaufany — мы оформим его вместе с вами, это входит в сопровождение.</p></div>
+<div class='mos-note reveal'><span class='ic'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#C97F33' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='M12 8v5'/><path d='M12 16.5h.01'/></svg></span><p><b>Important:</b> from 27 April 2026, residence permit documents are accepted online only — through the government MOS system. To log in to MOS you need a Profil Zaufany — we'll set it up together with you, it's included in our support.</p></div>
 </div></section>
 
 <section id='bl-docs' class='bl-l bl-anchor'>
-<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
-<div class='sec-head reveal'><span class='eyebrow'>Документы и статусы</span><h2>Документы, которые открывают всё остальное</h2><p>Blue Card для специалистов, PESEL и Profil Zaufany — база для жизни в Польше.</p></div>
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
+<div class='sec-head reveal'><span class='eyebrow'>Documents and statuses</span><h2>The documents that unlock everything else</h2><p>Blue Card for specialists, PESEL and Profil Zaufany — the foundations of life in Poland.</p></div>
 <div class='blog-grid stg'>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_office.jpg' alt='' loading='lazy'></div><div class='cat'>Blue Card</div><h3>Blue Card в Польше: кому подходит и как получить</h3><p>ВНЖ и работа для квалифицированных специалистов — условия и процесс оформления.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/eu-blue-card-poland-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20Blue%20Card.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_docs.jpg' alt='' loading='lazy'></div><div class='cat'>PESEL</div><h3>PESEL для иностранца: зачем нужен и как получить</h3><p>Номер, без которого сложно открыть счёт, работать и лечиться — оформляем по шагам.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/pesel-guide-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20PESEL.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/online.jpg' alt='' loading='lazy'></div><div class='cat'>Profil Zaufany</div><h3>Profil Zaufany: электронная подпись для госуслуг</h3><p>Обязателен для подачи через MOS — как оформить и где он пригодится ещё.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/profil-zaufany-guide-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20Profil%20Zaufany.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_office.jpg' alt='' loading='lazy'></div><div class='cat'>Blue Card</div><h3>Blue Card in Poland: who it's for and how to get it</h3><p>A residence permit and work for qualified specialists — the requirements and the process.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/eu-blue-card-poland-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20Blue%20Card.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_docs.jpg' alt='' loading='lazy'></div><div class='cat'>PESEL</div><h3>PESEL for foreigners: why you need it and how to get it</h3><p>Hard to open a bank account, work or see a doctor without it — we guide you step by step.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/pesel-guide-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20PESEL.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/online.jpg' alt='' loading='lazy'></div><div class='cat'>Profil Zaufany</div><h3>Profil Zaufany: your electronic signature for government services</h3><p>Required for applying through MOS — how to get it and where else it comes in handy.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/profil-zaufany-guide-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20Profil%20Zaufany.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
 </div>
 </div></section>
 
 <section id='bl-work' class='bl-w bl-anchor'>
-<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
-<div class='sec-head reveal'><span class='eyebrow'>Работа и деньги</span><h2>Работа, налоги и банк — без сюрпризов</h2><p>Чтобы статус, доход и счёт в банке были в порядке.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
+<div class='sec-head reveal'><span class='eyebrow'>Work and money</span><h2>Work, taxes and banking — no surprises</h2><p>So that your status, income and bank account are all in order.</p></div>
 <div class='blog-grid stg'>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_note.jpg' alt='' loading='lazy'></div><div class='cat'>Налоги</div><h3>Налоги в Польше для иностранца: с чего начать</h3><p>PIT, ZUS и типы договоров — объясняем простыми словами.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/taxes-poland-foreigner-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20налогам%20в%20Польше.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_desk.jpg' alt='' loading='lazy'></div><div class='cat'>Работа</div><h3>Смена работодателя во время карты побыту</h3><p>Как поменять работу и не потерять статус: уведомления, сроки, риски.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/change-employer-karta-pobytu-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Меняю%20работодателя%20—%20как%20сохранить%20карту%20побыту?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_news.jpg' alt='' loading='lazy'></div><div class='cat'>Банк</div><h3>Как открыть счёт в польском банке</h3><p>Какие документы попросят и что делать, если PESEL ещё в процессе.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/how-to-open-bank-account-poland-foreigner-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20открытию%20счёта%20в%20банке.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_note.jpg' alt='' loading='lazy'></div><div class='cat'>Taxes</div><h3>Taxes in Poland for foreigners: where to start</h3><p>PIT, ZUS and contract types — explained in plain language.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/taxes-poland-foreigner-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20налогам%20в%20Польше.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_desk.jpg' alt='' loading='lazy'></div><div class='cat'>Jobs</div><h3>Changing employers while holding a residence card</h3><p>How to change jobs without losing your status: notifications, deadlines and risks.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/change-employer-karta-pobytu-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Меняю%20работодателя%20—%20как%20сохранить%20карту%20побыту?' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_news.jpg' alt='' loading='lazy'></div><div class='cat'>Banking</div><h3>How to open a Polish bank account</h3><p>What documents the bank will ask for and what to do if your PESEL is still in progress.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/how-to-open-bank-account-poland-foreigner-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20открытию%20счёта%20в%20банке.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
 </div>
 </div></section>
 
 <section id='bl-life' class='bl-anchor'>
-<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
-<div class='sec-head reveal'><span class='eyebrow gold'>Жизнь в Польше</span><h2>Семья, права, жильё</h2><p>Практические гиды — не только про бумаги, но и про жизнь.</p></div>
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
+<div class='sec-head reveal'><span class='eyebrow gold'>Life in Poland</span><h2>Family, driver's license, housing</h2><p>Practical guides — not just about paperwork, but about life too.</p></div>
 <div class='blog-grid stg'>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_meet.jpg' alt='' loading='lazy'></div><div class='cat'>Семья</div><h3>Как перевезти семью в Польшу</h3><p>Воссоединение семьи: основания, документы и порядок подачи для супругов и детей.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/bring-family-to-poland-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20перевезти%20семью%20в%20Польшу.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_city.jpg' alt='' loading='lazy'></div><div class='cat'>Водительские права</div><h3>Замена иностранных прав на польские</h3><p>Когда обмен обязателен, какие документы нужны и как проходит процедура.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/driving-license-exchange-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20заменить%20права%20на%20польские.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
-<div class='bcard'><div class='bc-cover'><img src='/assets/trc/warsaw.jpg' alt='' loading='lazy'></div><div class='cat'>Жильё</div><h3>Аренда в Варшаве без обмана</h3><p>Типичные схемы мошенников и как проверить квартиру и договор до оплаты.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/avoid-rental-scams-warsaw-foreign-tenants-2026-en'>Читать →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20аренде%20и%20документам%20для%20побыту.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Спросить</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_meet.jpg' alt='' loading='lazy'></div><div class='cat'>Family</div><h3>How to bring your family to Poland</h3><p>Family reunification: grounds, documents and how to apply for spouses and children.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/bring-family-to-poland-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20перевезти%20семью%20в%20Польшу.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/bg_city.jpg' alt='' loading='lazy'></div><div class='cat'>Driver's license</div><h3>Exchanging a foreign driver's license for a Polish one</h3><p>When exchange is mandatory, what documents you need and how the procedure works.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/driving-license-exchange-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20заменить%20права%20на%20польские.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
+<div class='bcard'><div class='bc-cover'><img src='/assets/trc/warsaw.jpg' alt='' loading='lazy'></div><div class='cat'>Housing</div><h3>Renting in Warsaw without scams</h3><p>Common scam schemes and how to check the apartment and contract before paying.</p><div class='bfoot'><a class='bread' href='https://www.legalsol.pl/blog/avoid-rental-scams-warsaw-foreign-tenants-2026-en'>Read →</a><a class='bask' href='https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20аренде%20и%20документам%20для%20побыту.' target='_blank' rel='noopener'><svg viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg>Ask</a></div></div>
 </div>
 </div></section>
 
 <section class='bl-w'>
-<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
-<div class='sec-head center reveal'><span class='eyebrow gold'>Весь блог · 221 статья</span><h2>Не нашли свой случай?</h2><p>Блог — это база. Живой ответ быстрее: напишите нам в WhatsApp — разберём вашу ситуацию бесплатно.</p></div>
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'>
+<div class='sec-head center reveal'><span class='eyebrow gold'>The full blog · 221 articles</span><h2>Don't see your case here?</h2><p>The blog is the foundation. A live answer is faster: message us on WhatsApp — we'll look into your situation for free.</p></div>
 <a class='blog-wa reveal' href='https://wa.me/48735248525?text=Здравствуйте!%20В%20блоге%20не%20нашлось%20ответа%20—%20нужна%20консультация.' target='_blank' rel='noopener'>
 <span class='ic'><svg width='26' height='26' viewBox='0 0 24 24' fill='#25D366'><path d='M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z'/></svg></span>
-<span class='tx'><b>Не нашли ответ на свой вопрос?</b> Напишите нам — разберём вашу ситуацию лично и бесплатно, ответим за 15 минут.</span>
-<span class='btn btn-wa btn-lg'>Написать в WhatsApp →</span>
+<span class='tx'><b>Didn't find the answer to your question?</b> Message us — we'll go through your situation personally and for free, and reply within 15 minutes.</span>
+<span class='btn btn-wa btn-lg'>Message us on WhatsApp →</span>
 </a>
-<div class='bl-all reveal'><a class='btn btn-ghost btn-lg' href='https://www.legalsol.pl/blog'>Все 221 статья →</a></div>
+<div class='bl-all reveal'><a class='btn btn-ghost btn-lg' href='https://www.legalsol.pl/blog'>All 221 articles →</a></div>
 </div></section>
 
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='leadband reveal'>
-<div><div class='lb-t'>Остался вопрос по легализации?</div><div class='lb-s'>Оставьте номер — перезвоним за 15 минут в рабочие часы, бесплатно наметим ваш путь.</div></div>
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class='wrap'><div class='leadband reveal'>
+<div><div class='lb-t'>Still have a question about legalization?</div><div class='lb-s'>Leave your number — we'll call back within 15 minutes during business hours and map out your path, free.</div></div>
 <form onsubmit='return lsLead(this)'>
 <input type='text' placeholder='Ваше имя' aria-label='Имя'>
 <input type='tel' placeholder='Телефон / WhatsApp' aria-label='Телефон'>
-<button class='btn btn-primary' type='submit'>Оставить заявку →</button>
+<button class='btn btn-primary' type='submit'>Leave a request →</button>
 </form>
 </div></div></section>
 
@@ -978,38 +1062,38 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1017,25 +1101,25 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -1049,12 +1133,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -1263,10 +1347,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -1283,7 +1367,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -1374,7 +1458,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);

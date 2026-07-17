@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="nojs">
+<html lang="en" class="nojs">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LegalSol — Карта побыту в Польше | Юридическое сопровождение иностранцев</title>
-<meta name="description" content="LegalSol — легализация иностранцев в Польше. Карта побыту, ПМЖ, гражданство, бизнес. 98,1% одобрений, 1 000+ дел любой сложности. Ответ в WhatsApp за 15 минут.">
+<title>LegalSol — Residence card in Poland | Legal support for foreigners</title>
+<meta name="description" content="LegalSol — legalization for foreigners in Poland. Residence card, permanent residence, citizenship, business. 98.1% approvals, 1,000+ cases. WhatsApp reply in 15 min.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
-<meta property="og:title" content="LegalSol — Карта побыту в Польше | Юридическое сопровождение иностранцев">
-<meta property="og:description" content="LegalSol — легализация иностранцев в Польше. Карта побыту, ПМЖ, гражданство, бизнес. 98,1% одобрений, 1 000+ дел любой сложности. Ответ в WhatsApp за 15 минут.">
+<meta property="og:title" content="LegalSol — Residence card in Poland | Legal support for foreigners">
+<meta property="og:description" content="LegalSol — legalization for foreigners in Poland. Residence card, permanent residence, citizenship, business. 98.1% approvals, 1,000+ cases. WhatsApp reply in 15 min.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@ footer a:hover{color:#fff}
 /* motion */
 @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-22px)}}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(226,155,84,.5)}70%{box-shadow:0 0 0 10px rgba(226,155,84,0)}100%{box-shadow:0 0 0 0 rgba(226,155,84,0)}}
-.hero::before{animation:drift 20s ease-in-out infinite}
-.hero::after{animation:drift 26s ease-in-out infinite reverse}
+.hero::before{animation:drift 20s cubic-bezier(.4,0,.2,1) 1 forwards}
+.hero::after{animation:drift 26s cubic-bezier(.4,0,.2,1) reverse 1 forwards}
 @media(prefers-reduced-motion:reduce){.hero::before,.hero::after,.vcard{animation:none}}
 .seal{position:relative}
 .seal::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,155,84,.35);border-radius:50%}
@@ -347,7 +347,8 @@ footer a:hover{color:#fff}
 .remind.show{transform:none;opacity:1;pointer-events:auto}
 .remind .rc{display:flex;gap:12px;align-items:flex-start}
 .remind .rd{width:38px;height:38px;border-radius:11px;background:var(--gold-soft);flex:none;display:grid;place-items:center;position:relative}
-.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulseDot 1.8s 3}
+.remind .rd i{position:absolute;top:-2px;right:-2px;width:9px;height:9px;border-radius:50%;background:var(--gold);animation:none}
+.remind.show .rd i{animation:pulseDot 1.8s 3}
 .remind b{font-size:15px}.remind p{font-size:13px;color:var(--ink-2);margin:2px 0 12px}
 .remind .rb{display:flex;gap:8px}
 .remind .rx{position:absolute;top:10px;right:12px;color:var(--ink-3);font-size:18px;line-height:1;cursor:pointer;background:none;border:0}
@@ -500,7 +501,7 @@ details.q[open]{border-left-color:var(--gold)}
 .pbreak.pb-warsaw::after{content:"";position:absolute;inset:0;background:rgba(43,60,120,.22);pointer-events:none;z-index:0}
 .pbreak .pb-line{z-index:2}
 /* alive4: пузырёк, онлайн-точки, обложки блога */
-.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:pulseDot 2s infinite}
+.odot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3BB273;margin-right:7px;vertical-align:1px;animation:none}.fab-bub.show .odot{animation:pulseDot 2s 3}
 .fab-bub{position:fixed;right:22px;bottom:92px;z-index:58;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:18px 18px 4px 18px;box-shadow:0 22px 54px -18px rgba(33,30,61,.4);padding:14px 16px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s,transform .45s cubic-bezier(.16,.7,.2,1)}
 .fab-bub.show{opacity:1;transform:none;pointer-events:auto}
 .fab-bub p{font-size:13.5px;color:var(--ink);margin:0 0 6px;line-height:1.45}
@@ -714,8 +715,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .guar .wrap::before{background-image:linear-gradient(135deg,rgba(61,91,169,.93),rgba(88,119,184,.88)),url(/assets/trc/ph_handshake.jpg)}
 .final .wrap::before{background-image:linear-gradient(140deg,rgba(61,91,169,.92),rgba(88,119,184,.88)),url(/assets/trc/nx_team1.jpg)}
 @keyframes kenb{to{transform:scale(1.06)}}
-.js:not(.noanim) .guar .wrap::before{animation:kenb 24s ease-in-out infinite alternate}
-.js:not(.noanim) .final .wrap::before{animation:kenb 26s ease-in-out -12s infinite alternate}
+.js:not(.noanim) .guar .wrap::before{animation:kenb 22s ease-out 1 forwards}
+.js:not(.noanim) .final .wrap::before{animation:kenb 24s ease-out 1 forwards}
 /* a3) живые цитаты в герое (высота фиксирована — без прыжков) */
 .hq{margin-top:16px;min-height:44px;display:flex;align-items:center}
 .hq-in{display:inline-flex;align-items:center;gap:9px;transition:opacity .5s ease}
@@ -824,13 +825,96 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .ft-legal{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;align-items:center;padding:16px 0 0;font-size:10.5px;letter-spacing:.45px;opacity:.55}
 .ft-legal i{font-style:normal;opacity:.5}
 @media(max-width:640px){.ft-legal{font-size:9.5px;gap:4px 8px}}
+
+/* services bridge */
+/* ===== SERVICES BRIDGE (sx-) ===== */
+.sx-bridge{padding-top:0}
+.sx-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:44px 48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+.sx-main{align-self:center;padding-right:48px}
+.sx-kicker{display:block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:12px}
+.sx-title{font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.02em;font-weight:800;color:var(--ink)}
+.sx-text{margin-top:14px;font-size:15.5px;color:var(--ink-2);text-wrap:pretty;max-width:52ch}
+.sx-side{align-self:center;border-left:1px solid var(--line);padding-left:48px}
+.sx-lbl{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-bottom:14px}
+.sx-chips{display:flex;flex-wrap:wrap;gap:9px;list-style:none;margin:0;padding:0}
+.sx-chip{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);border:1px solid var(--lilac-line);color:var(--ink-2);font-size:13.5px;font-weight:600;line-height:1;padding:10px 15px;border-radius:var(--pill);white-space:nowrap}
+.sx-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--indigo-2);flex:none}
+.sx-more{background:transparent;border-style:dashed;border-color:var(--line);color:var(--ink-3);font-weight:700}
+.sx-more::before{display:none}
+.sx-cta{margin-top:24px}
+.sx-arrow{display:inline-block;transition:transform .18s}
+.sx-cta:hover .sx-arrow{transform:translateX(3px)}
+
+@media(max-width:980px){
+  .sx-card{grid-template-columns:1fr;padding:36px 34px}
+  .sx-main{padding-right:0}
+  .sx-text{max-width:none}
+  .sx-side{border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:28px;padding-top:26px}
+}
+@media(max-width:640px){
+  .sx-card{padding:26px 20px;border-radius:var(--r-sm)}
+  .sx-title{font-size:20px}
+  .sx-text{font-size:14.5px;margin-top:12px}
+  .sx-side{margin-top:22px;padding-top:22px}
+  .sx-lbl{font-size:12px;margin-bottom:12px}
+  .sx-chips{gap:8px}
+  .sx-chip{font-size:12.5px;padding:9px 13px}
+  .sx-cta{margin-top:20px;width:100%}
+}
+@media(max-width:900px){.sx-card{grid-template-columns:1fr;padding:28px 22px}.sx-main{padding-right:0}.sx-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:22px;margin-top:22px}}
+@media(max-width:1000px){.hero::before,.hero::after,.guar .wrap::before,.final .wrap::before{animation:none!important}}
+
+/* === mobile authority (v29): последним словом фиксим читабельность === */
+@media(max-width:640px){
+  section{padding:46px 0}
+  h2{font-size:24px;line-height:1.2}
+  .wrap{padding:0 18px}
+  /* hero второй CTA — нормальная кнопка ≥44px */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-ctas .btn-ghost{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:15px 20px;color:var(--ink);min-height:44px}
+  /* checker больше не каша */
+  .checker .wrap{padding:30px 18px;margin:0 16px;border-radius:var(--r)}
+  .chk{padding:18px 13px}
+  .chk b{font-size:14.5px}
+  .chk span{font-size:12.5px;line-height:1.4}
+  .chk-opts{gap:10px}
+  /* leadband формы на всю ширину */
+  .leadband{flex-direction:column;align-items:stretch}
+  .leadband form{flex-direction:column;gap:10px;width:100%}
+  .leadband input{min-width:0;width:100%}
+  .leadband form .btn{width:100%;justify-content:center}
+  /* реквизиты читаемы */
+  .ft-legal{font-size:12px;gap:6px 10px;opacity:.72;line-height:1.5;letter-spacing:.2px}
+  /* футер в одну колонку, крупные тап-зоны */
+  .ft-grid{grid-template-columns:1fr;gap:24px}
+  footer{font-size:14.5px}
+  footer ul{gap:2px}
+  footer ul li a{display:block;padding:11px 0;min-height:44px;line-height:1.5}
+  .soc a{width:44px;height:44px}
+  .soc{gap:12px}
+  /* фото-разрыв и подписи — крупнее */
+  .pbreak{height:150px}
+  .pbreak .pb-line{font-size:13px;letter-spacing:.08em;line-height:1.5;padding:0 24px}
+  .vpost span{font-size:12.5px;color:rgba(255,255,255,.9);line-height:1.4}
+  .stat .l{font-size:13px;margin-top:7px;line-height:1.35}
+  .geo{padding:24px 14px}
+  .geo .chip{font-size:13px;padding:8px 12px}
+  /* тизер услуг: чипы читаемы */
+  .sx-text{font-size:14.5px}
+  .sx-chip{font-size:13px}
+}
+@media(max-width:400px){
+  .hd-r .btn{padding:11px 12px;font-size:13px;min-height:44px}
+  .burger{width:44px;height:44px}
+}
 </style>
 </head>
 <body>
 <!-- topbar -->
 <div class="topbar"><div class="wrap">
-  <span>📍 ul. Sienna 75, Warszawa · ПН–ПТ 10:00–18:00</span>
-  <span class="tb-r"><span class="hide-m">Работаем по всей Польше — <b><i class="odot" aria-hidden="true"></i>онлайн</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Наши соцсети" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
+  <span>📍 ul. Sienna 75, Warszawa · Mon–Fri 10:00–18:00</span>
+  <span class="tb-r"><span class="hide-m">We work across all of Poland — <b><i class="odot" aria-hidden="true"></i>online</b></span><span class="tb-soc hide-m"><button class="tsb" type="button" aria-expanded="false" aria-label="Our social media" onclick="var p=this.parentNode;p.classList.toggle('open');this.setAttribute('aria-expanded',p.classList.contains('open'))"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.3M8.3 13.3l7.4 4.4"/></svg></button><span class="tsr"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.2C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg></a></span></span> <b>+48 735 248 525</b></span>
 </div></div>
 
 <!-- header -->
@@ -840,35 +924,35 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
-    <a href="redesign.html" style="color:var(--indigo)" aria-current="page">Главная</a>
-    <a href="services.html">Услуги</a>
-    <a href="work.html">Работа</a>
+    <a href="redesign.html" style="color:var(--indigo)" aria-current="page">Home</a>
+    <a href="services.html">Services</a>
+    <a href="work.html">Work</a>
     <a href="b2b.html">B2B</a>
-    <a href="guide.html">Гайд</a>
-    <a href="chances.html">Шансы</a>
-    <a href="referral.html">Рефералка</a>
-    <a href="blog.html">Блог</a>
+    <a href="guide.html">Guide</a>
+    <a href="chances.html">Chances</a>
+    <a href="referral.html">Referral</a>
+    <a href="blog.html">Blog</a>
   </nav>
   <div class="hd-r">
-    <a class="lk" href="cabinet.html">Кабинет</a>
-    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Консультация</a>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
+    <a class="lk" href="cabinet.html">Client portal</a>
+    <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">Consultation</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" onclick="document.getElementById('lsMnav').classList.toggle('open');this.setAttribute('aria-expanded',document.getElementById('lsMnav').classList.contains('open'))">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 </div>
 <div class="mnav" id="lsMnav">
-  <a href="redesign.html">Главная</a>
-  <a href="services.html">Услуги</a>
-  <a href="work.html">Работа в Польше</a>
+  <a href="redesign.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="work.html">Work in Poland</a>
   <a href="b2b.html">B2B</a>
-  <a href="guide.html">Гайд: карта побыту</a>
-  <a href="chances.html">Шансы на карту</a>
-  <a href="referral.html">Рефералка — бонус за друга</a>
-  <a href="blog.html">Блог</a>
-  <a href="cabinet.html">Кабинет</a>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — бесплатная консультация</a>
-  <div class="soc" aria-label="Соцсети LegalSol">
+  <a href="guide.html">Guide: residence card</a>
+  <a href="chances.html">Chances of getting a card</a>
+  <a href="referral.html">Refer a friend — get a bonus</a>
+  <a href="blog.html">Blog</a>
+  <a href="cabinet.html">Client portal</a>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация.">WhatsApp — free consultation</a>
+  <div class="soc" aria-label="LegalSol social media">
     <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
     <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
     <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -880,33 +964,33 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <!-- HERO -->
 <section class="hero"><img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="eager" style="opacity:.09;width:100%;-webkit-mask-image:linear-gradient(to bottom,#000 60%,transparent);mask-image:linear-gradient(to bottom,#000 60%,transparent)"><div class="wrap"><div class="hero-grid">
   <div>
-    <span class="eyebrow">Легализация иностранцев в Польше · Варшава</span>
-    <h1>Ваша карта побыту&nbsp;— <em>профессионально и без стресса</em></h1>
-    <p class="lead">Берём на себя каждый юридический вопрос — от первой консультации до документа у вас на руках.</p>
+    <span class="eyebrow">Legalization of foreigners in Poland · Warsaw</span>
+    <h1>Your residence card&nbsp;— <em>professionally and stress-free</em></h1>
+    <p class="lead">We take on every legal question — from the first consultation to the document in your hands.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20карте%20побыту.">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
-        Бесплатная консультация
+        Free consultation
       </a>
       <a class="btn btn-ghost btn-lg" href="#" onclick="lsWatch();return false;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Смотреть видео
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Watch the video
       </a>
     </div>
     <div class="hero-feats">
-      <span><i class="odot" aria-hidden="true"></i>Ответ за 15 минут</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Договор — фиксированная цена</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Апелляция для клиентов — бесплатно</span>
+      <span><i class="odot" aria-hidden="true"></i>Reply within 15 minutes</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Contract — fixed price</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Appeals — free for clients</span>
     </div>
     <a class="proof" href="#reviews">
       <span class="avs"><img src="/assets/trc/client2.jpg" alt=""><img src="/assets/trc/client8.jpg" alt=""><img src="/assets/trc/client4.jpg" alt=""><img src="/assets/trc/client1.jpg" alt=""></span>
-      <span><b>1 000+ дел закрыто</b><span>их истории ниже →</span></span>
+      <span><b>1 000+ cases closed</b><span>their stories below →</span></span>
     </a>
-    <div class="hq"><span class="hq-in"><img src="/assets/trc/client8.jpg" alt="" loading="lazy"><span class="hq-q">«Всё через WhatsApp, очень удобно»</span><b>Priya</b></span></div>
+    <div class="hq"><span class="hq-in"><img src="/assets/trc/client8.jpg" alt="" loading="lazy"><span class="hq-q">"Everything via WhatsApp — so convenient"</span><b>Priya</b></span></div>
   </div>
   <div class="vcard">
-    <button type="button" class="vplayer" onclick="lsPlay(this)" aria-label="Смотреть видео о LegalSol">
-      <img class="vthumb" src="/assets/trc/ph_consult.jpg" alt="LegalSol — как проходит легализация в Польше" loading="eager">
-      <span class="vpost" aria-hidden="true"><b>TRC process changes 2026 Poland 🇵🇱</b><span>наш ролик о переменах в процессе карты побыту · YouTube — Legal Sol</span></span>
+    <button type="button" class="vplayer" onclick="lsPlay(this)" aria-label="Watch a video about LegalSol">
+      <img class="vthumb" src="/assets/trc/ph_consult.jpg" alt="LegalSol — how legalization in Poland works" loading="eager">
+      <span class="vpost" aria-hidden="true"><b>TRC process changes 2026 Poland 🇵🇱</b><span>our video on the changes to the residence card process · YouTube — Legal Sol</span></span>
       <span class="vplay"><svg width="28" height="28" viewBox="0 0 24 24" fill="#3D5BA9"><path d="M8 5v14l11-7z"/></svg></span>
       <span class="vdur">8:40</span>
     </button>
@@ -915,10 +999,10 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 
 <!-- STATS -->
 <section class="stats" style="padding:56px 0"><div class="wrap"><div class="stats-grid stg">
-  <div class="stat reveal"><div class="n">1 000<em>+</em></div><div class="l">успешных дел</div></div>
-  <div class="stat reveal"><div class="n">98,1<em>%</em></div><div class="l">одобрений</div></div>
-  <div class="stat reveal"><div class="n">Любая</div><div class="l">сложность дела</div></div>
-  <div class="stat reveal"><div class="n">15 <em>мин</em></div><div class="l">ответ в WhatsApp</div></div>
+  <div class="stat reveal"><div class="n">1 000<em>+</em></div><div class="l">successful cases</div></div>
+  <div class="stat reveal"><div class="n">98,1<em>%</em></div><div class="l">approval rate</div></div>
+  <div class="stat reveal"><div class="n">Any</div><div class="l">case complexity</div></div>
+  <div class="stat reveal"><div class="n">15 <em>min</em></div><div class="l">reply on WhatsApp</div></div>
 </div></div></section>
 
 <!-- PEOPLE BAND -->
@@ -926,30 +1010,30 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   <div class="ppl-photos">
     <img loading="lazy" src="/assets/trc/client1.jpg" alt=""><img src="/assets/trc/client8.jpg" alt=""><img src="/assets/trc/client4.jpg" alt=""><img src="/assets/trc/client3.jpg" alt=""><img src="/assets/trc/client9.jpg" alt="">
   </div>
-  <div class="ppl-txt"><b>Наши клиенты — в день получения карты побыту</b><span>Реальные люди, реальные истории — 1 000+ семей</span></div>
-  <a class="go" href="#reviews">Смотреть истории →</a>
+  <div class="ppl-txt"><b>Our clients — on the day they received their residence card</b><span>Real people, real stories — 1 000+ families</span></div>
+  <a class="go" href="#reviews">See their stories →</a>
 </div></div></section>
 
 <!-- TRUST -->
 <div class="trust" style="padding:20px 0"><div class="wrap">
-  <span><span class="stars">★★★★★</span> &nbsp;<b>Каждый отзыв — от реального клиента</b></span>
+  <span><span class="stars">★★★★★</span> &nbsp;<b>Every review is from a real client</b></span>
   <span class="dot"></span>
-  <span><b>Официальный договор</b> — фиксированная цена, рассрочка</span>
+  <span><b>Official contract</b> — fixed price, installment plan</span>
   <span class="dot"></span>
-  <span><b>Виза заканчивается?</b> Подача до конца визы = вы легально в Польше</span>
+  <span><b>Visa running out?</b> File before your visa expires = you're legally in Poland</span>
 </div></div>
 
 <!-- ABOUT -->
 <section class="about">
 <img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="about-grid">
   <div class="reveal">
-    <span class="eyebrow">О компании</span>
-    <h2>С удобством и без лишнего стресса</h2>
-    <p class="about-lead">Мы становимся вашим персональным юридическим партнёром на всё время пребывания в Польше.</p>
-    <div class="about-note">Мы сами иностранцы — студенческая виза, карта побыту, ПМЖ, гражданство. Мы знаем это ожидание, потому что прожили его сами.</div>
+    <span class="eyebrow">About us</span>
+    <h2>Convenient and free of extra stress</h2>
+    <p class="about-lead">We become your personal legal partner for your entire stay in Poland.</p>
+    <div class="about-note">We're foreigners ourselves — student visa, residence card, permanent residence, citizenship. We know what the waiting feels like, because we've lived it.</div>
     <div class="about-feats">
-      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Любая сложность</b> — берём и непростые дела, честно оцениваем шансы</span></div>
-      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Проверяем каждый пакет</b> — двойной контроль до подачи: юрист и система</span></div>
+      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Any complexity</b> — we take on difficult cases too, and assess your chances honestly</span></div>
+      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>We check every document package</b> — double-checked before filing: a lawyer and the system</span></div>
     </div>
     <div class="ab-shots reveal" aria-hidden="true">
       <img class="big" src="/assets/trc/nx_team2.jpg" alt="" loading="lazy">
@@ -957,189 +1041,192 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     </div>
   </div>
   <div class="ab-pts stg reveal">
-    <div class="ab-pt"><div class="n">01</div><b>Один звонок</b><span>Большинству клиентов хватает одного разговора, чтобы наметить план.</span></div>
-    <div class="ab-pt"><div class="n">02</div><b>Индивидуальный подход</b><span>Оплата частями — 2–3 платежа.</span></div>
-    <div class="ab-pt"><div class="n">03</div><b>Прозрачный контроль</b><span>Статус вашего дела виден в любой момент.</span></div>
-    <div class="ab-pt"><div class="n">04</div><b>Экономия времени</b><span>Вы живёте своей жизнью — бумагами занимаемся мы.</span></div>
+    <div class="ab-pt"><div class="n">01</div><b>One call</b><span>For most clients, one conversation is enough to map out a plan.</span></div>
+    <div class="ab-pt"><div class="n">02</div><b>Personal approach</b><span>Pay in parts — 2–3 installments.</span></div>
+    <div class="ab-pt"><div class="n">03</div><b>Transparent tracking</b><span>You can see your case status at any time.</span></div>
+    <div class="ab-pt"><div class="n">04</div><b>Time saved</b><span>You live your life — we handle the paperwork.</span></div>
   </div>
 </div></div></section>
 
 <!-- SERVICES / DIRECTIONS -->
 <section id="services"><div class="wrap">
   <div class="sec-head center">
-    <span class="eyebrow">Что мы делаем</span>
-    <h2>Четыре направления, одна&nbsp;команда</h2>
-    <p>От первой карты побыту до бизнеса в Польше — сопровождаем на каждом&nbsp;шаге.</p>
+    <span class="eyebrow">What we do</span>
+    <h2>Four practice areas, one&nbsp;team</h2>
+    <p>From your first residence card to a business in Poland — we're with you at every&nbsp;step.</p>
   </div>
   <div class="dir-grid stg">
     <div class="dir i1 pop reveal">
-      <span class="badge">ПОПУЛЯРНОЕ</span>
+      <span class="badge">POPULAR</span>
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
-      <h3>Легализация и ВНЖ</h3>
-      <p>Всё, чтобы жить в Польше легально — от первой карты до ПМЖ.</p>
+      <h3>Legalization and residence permits</h3>
+      <p>Everything you need to live in Poland legally — from your first card to permanent residence.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Карта побыту (ВНЖ)</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>ПМЖ и гражданство</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Апелляции — бесплатно клиентам</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Residence card (karta pobytu)</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Permanent residence and citizenship</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Appeals — free for clients</li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>PESEL · Profil Zaufany</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20карте%20побыту.">Оформить карту побыту →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20карте%20побыту.">Get your residence card →</a>
     </div>
     <div class="dir i2 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
-      <h3>Бизнес</h3>
-      <p>Открыть и вести дело в Польше — с полной юридической и бухгалтерской поддержкой.</p>
+      <h3>Business</h3>
+      <p>Start and run a business in Poland — with full legal and accounting support.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Регистрация JDG / Sp. z o.o.</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Счёт в банке под ключ</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Бухгалтерия JDG и Spółki</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Легализация всей команды</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>JDG / Sp. z o.o. registration</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Bank account — fully set up</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Accounting for JDG and Spółki</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Legalization for your whole team</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20бизнесу%20в%20Польше.">Открыть компанию →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20бизнесу%20в%20Польше.">Start a company →</a>
     </div>
     <div class="dir i3 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#41659F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span>
-      <h3>Страхование</h3>
-      <p>Здоровье, авто и имущество — лучшие цены через партнёрскую сеть.</p>
+      <h3>Insurance</h3>
+      <p>Health, car and property — the best prices through our partner network.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Медицинская страховка</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Авто (OC / AC)</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Страхование имущества</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Подбор под ваш случай</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Health insurance</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Car (OC / AC)</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Property insurance</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Tailored to your case</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20страховке.">Подобрать страховку →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20страховке.">Find the right insurance →</a>
     </div>
     <div class="dir i4 reveal">
       <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></svg></span>
-      <h3>Дополнительно</h3>
-      <p>Сервисы, которые упрощают жизнь в Польше — переводы и не только.</p>
+      <h3>Extras</h3>
+      <p>Services that make life in Poland easier — translations and more.</p>
       <ul>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Присяжные переводы</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Замена водительских прав</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Курьер документов</li>
-        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Реферальная программа</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sworn translations</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Driver's license exchange</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Document courier</li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Referral program</li>
       </ul>
-      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20дополнительная%20услуга.">Узнать подробнее →</a>
+      <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20дополнительная%20услуга.">Learn more →</a>
     </div>
   </div>
 </div></section>
 
-<!-- 11 SERVICES -->
-<section style="padding-top:0">
+<!-- SERVICES BRIDGE -->
+<!-- SERVICES BRIDGE — заменяет сетку 11 услуг -->
+<section class="sx-bridge">
 <div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">Услуги</span><h2>Чем мы поможем</h2><p>Одиннадцать направлений. Одна компания.</p></div>
-  <div class="svc11 stg reveal">
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту."><span class="ix">01</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="8.6" cy="11" r="2.1"/><path d="M5.8 16.4c.5-1.6 1.6-2.4 2.8-2.4s2.3.8 2.8 2.4M14 9.5h5M14 13h4"/></svg></span><b>Карта побыту (ВНЖ)</b><span>Флагман — от консультации до карты</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ."><span class="ix">02</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.8V20h12V9.8"/><path d="M9.8 20v-5.4h4.4V20"/></svg></span><b>ПМЖ</b><span>Для тех, кто остаётся надолго</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card."><span class="ix">03</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12.5" rx="2.5"/><path d="M7 10.2h6M7 13.4h4"/><circle cx="16.8" cy="12" r="1.9"/></svg></span><b>Blue Card</b><span>Побыт и работа для специалистов</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Гражданство."><span class="ix">04</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 21V4.2"/><path d="M5.5 4.6c2.4-1.5 4.7-1.5 7 0s4.6 1.5 6.5.3v8.4c-1.9 1.2-4.2 1.2-6.5-.3s-4.6-1.5-7 0"/></svg></span><b>Гражданство Польши</b><span>Весь путь — до паспорта</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Апелляция."><span class="ix">05</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M7 20h10"/><path d="M12 6.5 6 9l-2.6 5.4a3.4 3.4 0 0 0 5.2 0L6 9M12 6.5 18 9l2.6 5.4a3.4 3.4 0 0 1-5.2 0L18 9"/></svg></span><b>Апелляции</b><span>Для наших клиентов — бесплатно</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Международная%20защита."><span class="ix">06</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 19 6.4v5.3c0 4.6-3 7.7-7 9.3-4-1.6-7-4.7-7-9.3V6.4z"/><path d="m9.2 12 2 2 3.7-4"/></svg></span><b>Международная защита</b><span>Защита, обжалования, депортация</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL."><span class="ix">07</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="2.5"/><path d="M8 9.5h8M8 13h8M8 16.4h4.6"/></svg></span><b>PESEL</b><span>Банк, работа, медицина</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Profil%20Zaufany."><span class="ix">08</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9.5" r="3.4"/><path d="M4.2 19.5c.8-3 2.6-4.5 4.8-4.5s4 1.5 4.8 4.5"/><path d="m15.5 10.8 1.6 1.6 3.4-3.7"/></svg></span><b>Profil Zaufany</b><span>Обязателен для подачи через MOS</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Замена%20прав."><span class="ix">09</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15.5 6.8 9a2.4 2.4 0 0 1 2.3-1.7h5.8A2.4 2.4 0 0 1 17.2 9L19 15.5"/><rect x="4" y="14.6" width="16" height="4.6" rx="1.6"/><circle cx="7.6" cy="17" r=".5"/><circle cx="16.4" cy="17" r=".5"/></svg></span><b>Замена водительских прав</b><span>Иностранные права → польские</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании."><span class="ix">10</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2.2"/><path d="M9 8V6.4A2.4 2.4 0 0 1 11.4 4h1.2A2.4 2.4 0 0 1 15 6.4V8M12 12v3.4M10.3 13.7h3.4"/></svg></span><b>Регистрация компании</b><span>JDG или Sp. z o.o. — под ключ</span></a>
-<a class="s11" href="https://wa.me/48735248525?text=Здравствуйте!%20Бухгалтерия."><span class="ix">11</span><span class="sic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.8" width="14" height="16.4" rx="2.2"/><path d="M8.6 7.6h6.8"/><path d="M8.6 11.4h.01M12 11.4h.01M15.4 11.4h.01M8.6 14.6h.01M12 14.6h.01M15.4 14.6h.01M8.6 17.6h.01M12 17.6h.01M15.4 17.6h.01"/></svg></span><b>Бухгалтерия</b><span>JDG и Spółki — полное ведение</span></a>
-    <a class="s11 ask" href="https://wa.me/48735248525?text=Здравствуйте!%20Не%20знаю%20какая%20услуга%20нужна."><b>Не знаете, какая услуга нужна?</b><span>Опишите ситуацию — подскажем путь →</span></a>
+  <div class="sx-card reveal">
+    <div class="sx-main">
+      <span class="sx-kicker">Full-service firm</span>
+      <h3 class="sx-title">Residence card is our core work — but not our only one</h3>
+      <p class="sx-text">Most people come to us for a karta pobytu, and that's where most of our cases are. But life in Poland brings other paperwork — a PESEL number, a company to register, an appeal after a refusal. Same team, same file, no starting over.</p>
+    </div>
+    <div class="sx-side">
+      <p class="sx-lbl">Also handled in-house</p>
+      <ul class="sx-chips stg">
+        <li class="sx-chip">Permanent residence</li>
+        <li class="sx-chip">Polish citizenship</li>
+        <li class="sx-chip">Blue Card</li>
+        <li class="sx-chip">Company registration</li>
+        <li class="sx-chip">PESEL</li>
+        <li class="sx-chip sx-more">+5 more</li>
+      </ul>
+      <a class="btn btn-ghost sx-cta" href="services.html">All services and timelines <span class="sx-arrow" aria-hidden="true">→</span></a>
+    </div>
   </div>
-</div></section>
-
-<!-- PHOTO BREAK 1 (live3) -->
-<div class="pbreak"><img class="pb-img" src="/assets/trc/ph_office.jpg" alt="" aria-hidden="true" loading="lazy"><p class="pb-line"><span>Работаем по всей Польше — онлайн</span></p></div>
+</div>
+</section>
 
 <!-- PROCESS -->
 <section id="process" class="steps">
 <img class="bg-art bgl" src="/assets/trc/bg_work.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center">
-    <span class="eyebrow">Как мы работаем</span>
-    <h2>Четыре этапа — до&nbsp;результата</h2>
-    <p>Больше 1 000 наших клиентов прошли через эту систему.</p>
+    <span class="eyebrow">How we work</span>
+    <h2>Four steps — to&nbsp;your result</h2>
+    <p>More than 1 000 of our clients have been through this system.</p>
   </div>
   <div class="steps-grid stg">
-    <div class="step reveal"><div class="num">1</div><h3>Бесплатная консультация</h3><p>Расскажите о своей ситуации — оценим шансы, наметим путь.</p></div>
-    <div class="step reveal"><div class="num">2</div><h3>Пакет документов</h3><p>Составляем чек-лист, ведём сбор, проверяем каждый документ до подачи.</p></div>
-    <div class="step reveal"><div class="num">3</div><h3>Подача онлайн — MOS</h3><p>Подаём через государственный сайт MOS. Нужно в уженд лично — идём с вами.</p></div>
-    <div class="step reveal"><div class="num">4</div><h3>Карта побыту в руках</h3><p>Мы на связи всегда — есть у кого спросить на каждом шаге.</p></div>
+    <div class="step reveal"><div class="num">1</div><h3>Free consultation</h3><p>Tell us about your situation — we'll weigh your chances and map out the path.</p></div>
+    <div class="step reveal"><div class="num">2</div><h3>Document package</h3><p>We draw up a checklist, guide the collection, and check every document before submission.</p></div>
+    <div class="step reveal"><div class="num">3</div><h3>Online submission — MOS</h3><p>We submit through the government MOS portal. If you're needed at the urząd in person — we go with you.</p></div>
+    <div class="step reveal"><div class="num">4</div><h3>Residence card in hand</h3><p>We're always in touch — someone to ask at every step.</p></div>
   </div>
   <div class="mos-note reveal">
     <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>
-    <p><b>С 27 апреля 2026</b> документы на ВНЖ принимают только онлайн — через государственную систему MOS. Мы подаём так с первого дня. Для входа нужен <b>Profil Zaufany</b> — оформим его вместе с вами, это входит в сопровождение.</p>
+    <p><b>From April 27, 2026</b> residence permit documents are accepted online only — through the government MOS system. We've been submitting this way since day one. To log in you need <b>Profil Zaufany</b> — we'll set it up together with you; it's included in our service.</p>
   </div>
 </div></section>
 
 <!-- PATH 7 STEPS -->
 <section>
 <img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">Этапы</span><h2>Путь вашего дела — шаг за&nbsp;шагом</h2><p>Каждый этап фиксируется в личном кабинете.</p></div>
+  <div class="sec-head center"><span class="eyebrow">Steps</span><h2>Your case's journey — step by&nbsp;step</h2><p>Every step is logged in your client portal.</p></div>
   <div class="path reveal" data-walk>
-    <div class="prow"><span class="pn">1</span><div><b>Вы обращаетесь</b><p>Напишите в WhatsApp — заведём профиль вашего дела: гражданство, основание, сроки.</p></div><span class="pt">День 1</span></div>
-    <div class="prow"><span class="pn">2</span><div><b>Чек-лист под ваш случай</b><p>Список документов под ваше воеводство и основание — на базе 1 000+ дел.</p></div><span class="pt">1–2 дня</span></div>
-    <div class="prow"><span class="pn">3</span><div><b>Проверка документов</b><p>Юрист дважды проверяет даты, подписи, присяжные переводы, апостили.</p></div><span class="pt">До подачи</span></div>
-    <div class="prow"><span class="pn">4</span><div><b>Запись без очереди</b><p>Отслеживаем слоты во всех 16 воеводствах и бронируем самый ранний.</p></div><span class="pt">Мониторинг</span></div>
-    <div class="prow"><span class="pn">5</span><div><b>Подача через MOS</b><p>Полный, дважды проверенный пакет уходит онлайн. С этого дня пребывание легально.</p></div><span class="pt">Сопровождение</span></div>
-    <div class="prow"><span class="pn">6</span><div><b>Ожидание — под контролем</b><p>Напоминания за 90, 60 и 30 дней до истечения любого документа.</p></div><span class="pt">24/7</span></div>
-    <div class="prow"><span class="pn">7</span><div><b>Карта побыту у вас</b><p>Вручаем документ и планируем следующий шаг: ПМЖ, гражданство, Blue Card.</p></div><span class="pt">Результат</span></div>
+    <div class="prow"><span class="pn">1</span><div><b>You reach out</b><p>Message us on WhatsApp — we'll set up your case profile: citizenship, grounds, timelines.</p></div><span class="pt">Day 1</span></div>
+    <div class="prow"><span class="pn">2</span><div><b>A checklist for your case</b><p>A document list for your voivodeship and grounds — built on 1 000+ cases.</p></div><span class="pt">1–2 days</span></div>
+    <div class="prow"><span class="pn">3</span><div><b>Document check</b><p>A lawyer double-checks dates, signatures, sworn translations, and apostilles.</p></div><span class="pt">Before submission</span></div>
+    <div class="prow"><span class="pn">4</span><div><b>Appointment without queues</b><p>We track slots across all 16 voivodeships and book the earliest one.</p></div><span class="pt">Monitoring</span></div>
+    <div class="prow"><span class="pn">5</span><div><b>Filing via MOS</b><p>Your complete, double-checked package goes in online. From that day on, your stay is legal.</p></div><span class="pt">Support</span></div>
+    <div class="prow"><span class="pn">6</span><div><b>The wait is under control</b><p>Reminders 90, 60 and 30 days before any document expires.</p></div><span class="pt">24/7</span></div>
+    <div class="prow"><span class="pn">7</span><div><b>Residence card in your hands</b><p>We hand you the document and plan the next step: permanent residence, citizenship, Blue Card.</p></div><span class="pt">Result</span></div>
   </div>
 </div></section>
 
 <!-- WAITS -->
 <section style="padding-top:0">
 <img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">Сроки ожидания</span><h2>Сколько это занимает —&nbsp;честно</h2><p>Сроки из нашей практики по воеводствам. Ждать в Польше приходится долго — это нормально, и всё это время вы находитесь в стране легально.</p></div>
+  <div class="sec-head center"><span class="eyebrow">Waiting times</span><h2>How long it takes —&nbsp;honestly</h2><p>Timelines from our own cases, by voivodeship. Waiting in Poland takes a long time — that's normal, and you stay in the country legally the whole time.</p></div>
   <div class="waits reveal">
-    <div class="wscale"><span>0</span><span>6</span><span>12</span><span>18 месяцев</span></div>
-    <div class="wrow"><div class="wn"><b>Мазовецкое</b><span>Варшава — наш домашний офис</span></div><div class="wtrack"><span class="wbar" style="left:61%;width:28%"></span></div><span class="wv">11–16 мес</span></div>
-    <div class="wrow"><div class="wn"><b>Малопольское</b><span>Краков</span></div><div class="wtrack"><span class="wbar" style="left:55.5%;width:28%"></span></div><span class="wv">10–15 мес</span></div>
-    <div class="wrow"><div class="wn"><b>Нижнесилезское</b><span>Вроцлав</span></div><div class="wtrack"><span class="wbar" style="left:50%;width:28%"></span></div><span class="wv">9–14 мес</span></div>
-    <div class="wrow"><div class="wn"><b>Великопольское</b><span>Познань</span></div><div class="wtrack"><span class="wbar" style="left:44.5%;width:28%"></span></div><span class="wv">8–13 мес</span></div>
-    <div class="wnote"><b>Пока вы ждёте — вы под защитой:</b> подача до истечения визы сохраняет легальность пребывания до решения. Мы следим за каждым дедлайном — напоминания за 90/60/30 дней, статус в кабинете. <a class="wgo" href="https://wa.me/48735248525?text=Здравствуйте!%20Скажите%20мой%20срок%20и%20шансы%20—%20моя%20ситуация:%20">Узнать свой срок и шансы — бесплатно в WhatsApp →</a></div>
+    <div class="wscale"><span>0</span><span>6</span><span>12</span><span>18 months</span></div>
+    <div class="wrow"><div class="wn"><b>Mazowieckie</b><span>Warsaw — our home base</span></div><div class="wtrack"><span class="wbar" style="left:61%;width:28%"></span></div><span class="wv">11–16 months</span></div>
+    <div class="wrow"><div class="wn"><b>Małopolskie</b><span>Kraków</span></div><div class="wtrack"><span class="wbar" style="left:55.5%;width:28%"></span></div><span class="wv">10–15 months</span></div>
+    <div class="wrow"><div class="wn"><b>Dolnośląskie</b><span>Wrocław</span></div><div class="wtrack"><span class="wbar" style="left:50%;width:28%"></span></div><span class="wv">9–14 months</span></div>
+    <div class="wrow"><div class="wn"><b>Wielkopolskie</b><span>Poznań</span></div><div class="wtrack"><span class="wbar" style="left:44.5%;width:28%"></span></div><span class="wv">8–13 months</span></div>
+    <div class="wnote"><b>While you wait, you're protected:</b> submitting before your visa expires keeps your stay legal until the decision. We track every deadline — reminders at 90/60/30 days, status in your portal. <a class="wgo" href="https://wa.me/48735248525?text=Здравствуйте!%20Скажите%20мой%20срок%20и%20шансы%20—%20моя%20ситуация:%20">Find out your timeline and chances — free on WhatsApp →</a></div>
   </div>
 </div></section>
 
 <!-- GUARANTEE -->
-<section class="guar"><div class="wrap"><div class="guar-grid">
+<section class="guar reveal"><div class="wrap"><div class="guar-grid">
   <div>
-    <span class="eyebrow gold">Гарантия</span>
-    <h2>98,1% одобрений — а&nbsp;отказ по нашей вине исправим&nbsp;сами</h2>
-    <p class="lead">Если шансов нет — скажем честно на бесплатной консультации, до начала работы.</p>
+    <span class="eyebrow gold">Guarantee</span>
+    <h2>98.1% approvals —&nbsp;and if a refusal is our fault, we fix it&nbsp;ourselves</h2>
+    <p class="lead">If there's no chance, we'll say so honestly at the free consultation — before any work starts.</p>
     <div class="pts">
-      <div class="pt"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Если отказ пришёл по нашей вине — апелляцию подаём бесплатно.</div>
-      <div class="pt"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Цена фиксируется в договоре и не меняется — скрытых платежей нет.</div>
+      <div class="pt"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>If a refusal comes through our fault — we file the appeal for free.</div>
+      <div class="pt"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>The price is fixed in the contract and never changes — no hidden fees.</div>
     </div>
-    <a class="btn btn-gold btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Запишите%20на%20бесплатный%20разбор%20дела.">Записаться на бесплатный разбор</a>
+    <a class="btn btn-gold btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Запишите%20на%20бесплатный%20разбор%20дела.">Book a free case review</a>
   </div>
-  <div class="seal"><div><div class="big">98,1%</div><small>одобрений</small></div></div>
+  <div class="seal"><div><div class="big">98,1%</div><small>approval rate</small></div></div>
 </div></div></section>
 
 <!-- VS -->
 <section>
 <img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">Сравните</span><h2>Самостоятельно — или с LegalSol</h2></div>
+  <div class="sec-head center"><span class="eyebrow">Compare</span><h2>On your own — or with LegalSol</h2></div>
   <div class="vs-grid">
     <div class="vs a reveal">
-      <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8C88A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg> Самостоятельно</h3>
+      <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8C88A6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg> On your own</h3>
       <ul>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Сами ищете список документов</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Часами в очереди в уженде</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Ошибка = отказ, начинайте сначала</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Месяцы ожидания без информации</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Отказ — за ваш счёт</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>You hunt for the document list yourself</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Hours in line at the urząd</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>A mistake = refusal, start over</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Months of waiting with no updates</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C0407B" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>A refusal — at your expense</li>
       </ul>
     </div>
     <div class="vs b reveal">
-      <h3><span class="logo-mark" style="width:28px;height:28px;border-radius:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M4 20V9l8-5 8 5v11h-5v-6h-6v6z"/></svg></span> С LegalSol</h3>
+      <h3><span class="logo-mark" style="width:28px;height:28px;border-radius:8px"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M4 20V9l8-5 8 5v11h-5v-6h-6v6z"/></svg></span> With LegalSol</h3>
       <ul>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Полный чек-лист под ваш случай</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Записываем без очередей</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Двойная проверка каждого документа</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Статус дела — в кабинете, 24/7</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Отказ по нашей вине → апелляция на нас</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A complete checklist for your case</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>We book appointments — no queues</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Every document double-checked</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Case status in your portal, 24/7</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E8B57" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Refusal our fault → appeal on us</li>
       </ul>
       <div class="vs-proof">
         <span class="avs" aria-hidden="true"><img src="/assets/trc/client2.jpg" alt="" loading="lazy"><img src="/assets/trc/client4.jpg" alt="" loading="lazy"><img src="/assets/trc/client8.jpg" alt="" loading="lazy"></span>
-        <span>1 000+ клиентов прошли этот путь</span>
+        <span>1 000+ clients have walked this path</span>
       </div>
-      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20доверить%20дело%20LegalSol.">Доверить дело LegalSol</a>
+      <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20доверить%20дело%20LegalSol.">Trust your case to LegalSol</a>
     </div>
   </div>
 </div></section>
@@ -1147,36 +1234,36 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <!-- CHECKER -->
 <section class="checker"><div class="wrap">
   <img class="bg-art bgr" src="/assets/trc/ph_meet.jpg" alt="" aria-hidden="true" loading="lazy" style="opacity:.12">
-  <span class="eyebrow">Проверка за 60 секунд</span>
-  <h2>Готовы ли ваши документы для карты побыту?</h2>
-  <p>Выберите вашу ситуацию — Талыш или Адриан ответят в WhatsApp за 15 минут: скажут ваши шансы и пришлют список документов под ваш случай.</p>
+  <span class="eyebrow">60-second check</span>
+  <h2>Are your documents ready for a residence card?</h2>
+  <p>Pick your situation — Talysh or Adrian will reply on WhatsApp within 15 minutes: they'll tell you your chances and send a document list for your case.</p>
   <div class="chk-opts stg">
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>По работе</b><span>Umowa o pracę / zlecenie</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>Своё дело</b><span>JDG / Spółka z o.o.</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20семья%20(воссоединение).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>По семье</b><span>Воссоединение</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20учёба.%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Учёба</b><span>Дневное отделение вуза</span></a>
-    <a class="chk other" href="https://wa.me/48735248525?text=Здравствуйте!%20У%20меня%20другая%20ситуация%20—%20подскажите%20путь." target="_blank" rel="noopener"><b>Другая ситуация?</b><span>Опишите в WhatsApp — подскажем путь →</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Through work</b><span>Umowa o pracę / zlecenie</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>My own business</b><span>JDG / Spółka z o.o.</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20семья%20(воссоединение).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>Through family</b><span>Reunification</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20учёба.%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B87CF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Studies</b><span>Full-time university studies</span></a>
+    <a class="chk other" href="https://wa.me/48735248525?text=Здравствуйте!%20У%20меня%20другая%20ситуация%20—%20подскажите%20путь." target="_blank" rel="noopener"><b>Different situation?</b><span>Describe it on WhatsApp — we'll point the way →</span></a>
   </div>
-  <div class="fine">Бесплатно · Ответ за 15 минут · Без обязательств</div>
+  <div class="fine">Free · Reply within 15 minutes · No obligation</div>
 </div></section>
 
 <!-- CABINET -->
 <section class="cab"><div class="wrap">
   <div class="reveal">
-    <span class="eyebrow">Кабинет клиента</span>
-    <h2>Ваше дело — под контролем, 24/7</h2>
-    <p class="about-lead">Статус, документы и следующие шаги — в кабинете клиента. Персональный номер дела выдаётся после первой консультации.</p>
-    <a class="btn btn-primary btn-lg" href="cabinet.html">Открыть кабинет клиента →</a>
-    <div style="margin-top:14px"><a class="cab-lead" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20номер%20дела%20—%20запишите%20на%20бесплатную%20консультацию.">Ещё не клиент? Номер дела выдаём на бесплатной консультации →</a></div>
+    <span class="eyebrow">Client portal</span>
+    <h2>Your case — under control, 24/7</h2>
+    <p class="about-lead">Status, documents and next steps — in your client portal. You'll get a personal case number after your first consultation.</p>
+    <a class="btn btn-primary btn-lg" href="cabinet.html">Open the client portal →</a>
+    <div style="margin-top:14px"><a class="cab-lead" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20номер%20дела%20—%20запишите%20на%20бесплатную%20консультацию.">Not a client yet? Get your case number at a free consultation →</a></div>
   </div>
   <div class="cabcard reveal">
-    <div class="ch"><span><b>Дело № 812</b> · Карта побыту</span><span>Мазовецкое</span></div>
-    <div class="cabrow"><span>Загранпаспорт</span><i>Проверен</i></div>
-    <div class="cabrow"><span>Umowa o pracę</span><i>Проверена</i></div>
-    <div class="cabrow"><span>Фото 35×45 мм</span><i class="w">Обновить</i></div>
-    <div class="cabrow"><span>Медицинская страховка</span><i>Проверена</i></div>
-    <div class="cabrow"><span>Запись в уженд</span><i>Назначена</i></div>
-    <div class="cabbar"><div class="ch" style="margin:0"><span>Готовность пакета</span><b style="color:var(--indigo)">91%</b></div><div class="cb"><div class="cbf"></div></div></div>
+    <div class="ch"><span><b>Case no. 812</b> · Residence card</span><span>Mazowieckie</span></div>
+    <div class="cabrow"><span>Passport</span><i>Verified</i></div>
+    <div class="cabrow"><span>Umowa o pracę</span><i>Verified</i></div>
+    <div class="cabrow"><span>Photo 35×45 mm</span><i class="w">Update</i></div>
+    <div class="cabrow"><span>Health insurance</span><i>Verified</i></div>
+    <div class="cabrow"><span>Urząd appointment</span><i>Booked</i></div>
+    <div class="cabbar"><div class="ch" style="margin:0"><span>Package readiness</span><b style="color:var(--indigo)">91%</b></div><div class="cb"><div class="cbf"></div></div></div>
   </div>
 </div></section>
 
@@ -1184,8 +1271,8 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <section id="reviews" class="reviews">
 <img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="rev-top">
-    <div class="sec-head" style="margin-bottom:0"><span class="eyebrow">Отзывы</span><h2>Что говорят клиенты</h2></div>
-    <div class="gbadge"><div class="score">4,9</div><div><div class="stars">★★★★★</div><small>Отзывы реальных клиентов</small></div></div>
+    <div class="sec-head" style="margin-bottom:0"><span class="eyebrow">Reviews</span><h2>What clients say</h2></div>
+    <div class="gbadge"><div class="score">4,9</div><div><div class="stars">★★★★★</div><small>Reviews from real clients</small></div></div>
   </div>
   <div class="rev-rail stg reveal" aria-hidden="true">
     <img src="/assets/trc/client1.jpg" alt="" loading="lazy">
@@ -1194,66 +1281,66 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     <img src="/assets/trc/client9.jpg" alt="" loading="lazy">
   </div>
   <div class="rev-grid stg">
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Всю подготовку и подачу оформили за 6 недель. Документы, переводы, запись — всё сами. Я только пришёл и расписался. Невероятный сервис!»</p><div class="who"><img class="av" src="/assets/trc/client7.jpg" alt="" loading="lazy"><span><b>Karan</b><span>Карта побыту · Варшава</span></span></div></div>
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Постоянный побыт получила с первого раза! Всё через WhatsApp, очень удобно. Никакого стресса — они взяли всё на себя.»</p><div class="who"><img class="av" src="/assets/trc/client8.jpg" alt="" loading="lazy"><span><b>Priya</b><span>ПМЖ · Варшава</span></span></div></div>
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Мне отказали в другой фирме — сказали, шансов нет. LegalSol подали апелляцию и выиграли! Теперь у меня постоянный побыт.»</p><div class="who"><img class="av" src="/assets/trc/client4.jpg" alt="" loading="lazy"><span><b>Emeka</b><span>Апелляция → ПМЖ · Варшава</span></span></div></div>
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Переехали всей семьёй. Оформили побыт мне, жене и двоим детям одновременно. Прозрачная цена, чёткие сроки — никаких сюрпризов!»</p><div class="who"><img class="av" src="/assets/trc/client3.jpg" alt="" loading="lazy"><span><b>Rohit</b><span>Воссоединение семьи · Варшава</span></span></div></div>
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Приехала с Филиппин — ничего не знала о польской бюрократии. LegalSol всё объяснили и сделали. Теперь у меня карта побыту!»</p><div class="who"><img class="av" src="/assets/trc/client9.jpg" alt="" loading="lazy"><span><b>Anjali</b><span>Карта побыту · Краков</span></span></div></div>
-    <div class="rev reveal"><div class="stars">★★★★★</div><p>«Сам пробовал дважды — отказали. С LegalSol — с первого раза! Честная цена, честный результат.»</p><div class="who"><img class="av" src="/assets/trc/client5.jpg" alt="" loading="lazy"><span><b>Aakash</b><span>Карта побыту · Краков</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"They handled all the preparation and submission in 6 weeks. Documents, translations, the appointment — all on their side. I just showed up and signed. Incredible service!"</p><div class="who"><img class="av" src="/assets/trc/client7.jpg" alt="" loading="lazy"><span><b>Karan</b><span>Residence card · Warsaw</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"Got my permanent residence on the first try! Everything over WhatsApp — so convenient. No stress at all, they took care of everything."</p><div class="who"><img class="av" src="/assets/trc/client8.jpg" alt="" loading="lazy"><span><b>Priya</b><span>Permanent residence · Warsaw</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"I got a refusal with another firm — they said I had no chance. LegalSol filed an appeal and won! Now I have permanent residence."</p><div class="who"><img class="av" src="/assets/trc/client4.jpg" alt="" loading="lazy"><span><b>Emeka</b><span>Appeal → permanent residence · Warsaw</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"We moved as a whole family. They arranged residence for me, my wife, and our two kids at once. Transparent pricing, clear timelines — no surprises!"</p><div class="who"><img class="av" src="/assets/trc/client3.jpg" alt="" loading="lazy"><span><b>Rohit</b><span>Family reunification · Warsaw</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"I came from the Philippines and knew nothing about Polish bureaucracy. LegalSol explained everything and handled it all. Now I have my residence card!"</p><div class="who"><img class="av" src="/assets/trc/client9.jpg" alt="" loading="lazy"><span><b>Anjali</b><span>Residence card · Kraków</span></span></div></div>
+    <div class="rev reveal"><div class="stars">★★★★★</div><p>"I tried twice on my own — refused. With LegalSol — first try! Fair price, honest result."</p><div class="who"><img class="av" src="/assets/trc/client5.jpg" alt="" loading="lazy"><span><b>Aakash</b><span>Residence card · Kraków</span></span></div></div>
   </div>
 </div></section>
 
 <!-- GEO -->
 <section style="padding-top:0"><div class="wrap"><div class="geo reveal">
-  <p>1 000+ клиентов из 9 стран</p>
+  <p>1 000+ clients from 9 countries</p>
   <div class="chips">
-    <span class="chip">Индия</span><span class="chip">Бангладеш</span><span class="chip">Пакистан</span><span class="chip">Нигерия</span><span class="chip">Вьетнам</span><span class="chip">Азербайджан</span><span class="chip">Турция</span><span class="chip">Филиппины</span><span class="chip">Шри-Ланка</span>
+    <span class="chip">India</span><span class="chip">Bangladesh</span><span class="chip">Pakistan</span><span class="chip">Nigeria</span><span class="chip">Vietnam</span><span class="chip">Azerbaijan</span><span class="chip">Turkey</span><span class="chip">Philippines</span><span class="chip">Sri Lanka</span>
   </div>
 </div></div></section>
 
 <!-- PHOTO BREAK 2 (live3) -->
-<div class="pbreak pb-warsaw"><img class="pb-img" src="/assets/trc/nx_warsaw1.jpg" alt="" aria-hidden="true" loading="lazy"><p class="pb-line"><span>Варшава · ul. Sienna 75</span></p></div>
+<div class="pbreak pb-warsaw"><img class="pb-img" src="/assets/trc/nx_warsaw1.jpg" alt="" aria-hidden="true" loading="lazy"><p class="pb-line"><span>Warsaw · ul. Sienna 75</span></p></div>
 
 <!-- LEAD REMINDER -->
 <section style="padding-top:0"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
-      <div class="lb-t">Готовы начать? Оставьте заявку</div>
-      <div class="lb-s">Ответим за 15 минут в рабочие часы — бесплатно наметим ваш путь.</div>
-      <span class="lb-badge"><i></i>Отвечаем за 15 минут</span>
+      <div class="lb-t">Ready to start? Send us a request</div>
+      <div class="lb-s">We reply within 15 minutes during working hours — and map out your path for free.</div>
+      <span class="lb-badge"><i></i>We reply within 15 minutes</span>
     </div>
   </div>
   <form onsubmit="return lsLead(this)">
-    <input type="text" placeholder="Ваше имя" aria-label="Имя">
-    <input type="tel" placeholder="Телефон / WhatsApp" aria-label="Телефон" required>
-    <button class="btn btn-primary" type="submit">Отправить в WhatsApp →</button>
+    <input type="text" placeholder="Your name" aria-label="Name">
+    <input type="tel" placeholder="Phone / WhatsApp" aria-label="Phone" required>
+    <button class="btn btn-primary" type="submit">Send via WhatsApp →</button>
   </form>
 </div></div></section>
 
 <!-- FAQ -->
 <section id="faq" class="faq">
 <img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы</h2></div>
+  <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2></div>
   <div class="faq-wrap"><div class="faq-col">
-    <details class="q"><summary>Сколько ждать решения по карте побыту?<span class="pl">+</span></summary><div class="a">По нашей практике полный цикл — от 8 до 16 месяцев в зависимости от воеводства; в Мазовецком (Варшава) обычно 11–16 месяцев. Долгое ожидание в Польше — норма, и всё это время вы имеете право легально находиться в стране.</div></details>
-    <details class="q"><summary>Можно ли выезжать за границу во время ожидания?<span class="pl">+</span></summary><div class="a">Да, но с ограничениями. Со штампом о подаче вы можете выезжать в страны Шенгена. При поездке в третьи страны необходимо иметь действующую визу.</div></details>
-    <details class="q"><summary>Какие документы нужны для подачи?<span class="pl">+</span></summary><div class="a">Базовый пакет: загранпаспорт, фото, подтверждение проживания, подтверждение занятости или учёбы, медицинская страховка, документы о доходах. Точный список зависит от основания — мы готовим индивидуальный чек-лист для каждого клиента.</div></details>
-    <details class="q"><summary>Могу ли я работать во время ожидания карты?<span class="pl">+</span></summary><div class="a">Да, если у вас есть действующее разрешение на работу. Со штампом о подаче вы сохраняете прежние права до получения решения. Если разрешения нет — поможем оформить его параллельно.</div></details>
-    <details class="q"><summary>Что будет, если виза истечёт в процессе?<span class="pl">+</span></summary><div class="a">Если заявление подано до истечения визы, штамп автоматически продлевает право на пребывание до получения решения. Главное — не выезжать без нашей консультации, чтобы не прервать этот статус.</div></details>
-    <details class="q"><summary>Могу ли я перевезти семью по своей карте побыту?<span class="pl">+</span></summary><div class="a">Да. Супруг(а) и дети могут подать заявление на побыт по основанию воссоединения. Нужен действующий побыт и стабильный доход.</div></details>
-    <details class="q"><summary>Что делать, если я сменил работу в процессе рассмотрения?<span class="pl">+</span></summary><div class="a">О смене работодателя необходимо уведомить воеводское управление. В некоторых случаях требуется новое заявление. Проконсультируйтесь с нами до смены.</div></details>
-    <details class="q"><summary>Что такое PESEL и нужен ли он мне?<span class="pl">+</span></summary><div class="a">PESEL — польский идентификационный номер, аналог ИНН. Нужен для открытия счёта в банке, трудоустройства и медицинских услуг. Иностранцы, проживающие более 30 дней, имеют право его получить. Мы помогаем оформить PESEL в рамках комплексного сопровождения.</div></details>
-    <details class="q"><summary>Сколько стоят услуги LegalSol?<span class="pl">+</span></summary><div class="a">Цена зависит от вашей ситуации — точную сумму назовём на бесплатной консультации, до начала работы. Цена фиксируется в договоре и не меняется, скрытых платежей нет. Оплатить можно частями — 2–3 платежа. Напишите в WhatsApp — назовём цену за 15 минут.</div></details>
-    <details class="q"><summary>Как проходит бесплатная консультация?<span class="pl">+</span></summary><div class="a">20–30 минут по телефону, WhatsApp или в офисе. Мы выясняем ситуацию, определяем основание для легализации, оцениваем шансы и называем точную стоимость. Никаких обязательств — решение за вами.</div></details></div>    <div class="faq-side reveal">
+    <details class="q"><summary>How long does a residence card decision take?<span class="pl">+</span></summary><div class="a">In our practice the full cycle takes 8 to 16 months depending on the voivodeship; in Mazowieckie (Warsaw) it's usually 11–16 months. Long waits are the norm in Poland — and the whole time you have the right to stay in the country legally.</div></details>
+    <details class="q"><summary>Can I travel abroad while waiting?<span class="pl">+</span></summary><div class="a">Yes, but with restrictions. With the submission stamp you can travel to Schengen countries. For trips to third countries you'll need a valid visa.</div></details>
+    <details class="q"><summary>What documents do I need to apply?<span class="pl">+</span></summary><div class="a">The basic package: passport, photos, proof of accommodation, proof of employment or study, health insurance, and income documents. The exact list depends on your grounds — we prepare an individual checklist for every client.</div></details>
+    <details class="q"><summary>Can I work while waiting for my card?<span class="pl">+</span></summary><div class="a">Yes, if you have a valid work permit. With the submission stamp you keep your existing rights until the decision comes. If you don't have a permit, we'll help you get one in parallel.</div></details>
+    <details class="q"><summary>What happens if my visa expires during the process?<span class="pl">+</span></summary><div class="a">If the application was submitted before your visa expired, the stamp automatically extends your right to stay until the decision. The key thing is not to travel without consulting us first, so you don't interrupt that status.</div></details>
+    <details class="q"><summary>Can I bring my family on my residence card?<span class="pl">+</span></summary><div class="a">Yes. Your spouse and children can apply for residence on reunification grounds. You'll need a valid residence card and a stable income.</div></details>
+    <details class="q"><summary>What should I do if I changed jobs while my application is being processed?<span class="pl">+</span></summary><div class="a">You need to notify the voivodeship office about the change of employer. In some cases a new application is required. Check with us before making the switch.</div></details>
+    <details class="q"><summary>What is PESEL and do I need it?<span class="pl">+</span></summary><div class="a">PESEL is the Polish identification number, similar to a tax ID. You need it to open a bank account, get a job and access healthcare. Foreigners staying longer than 30 days are entitled to one. We help you get a PESEL as part of our full support.</div></details>
+    <details class="q"><summary>How much do LegalSol services cost?<span class="pl">+</span></summary><div class="a">The price depends on your situation — we'll give you the exact amount at a free consultation, before any work begins. The price is fixed in the contract and never changes, with no hidden fees. You can pay in instalments — 2–3 payments. Message us on WhatsApp — we'll quote your price within 15 minutes.</div></details>
+    <details class="q"><summary>How does the free consultation work?<span class="pl">+</span></summary><div class="a">20–30 minutes by phone, WhatsApp or at our office. We look into your situation, determine your grounds for legalization, assess your chances and give you the exact price. No obligations — the decision is yours.</div></details></div>    <div class="faq-side reveal">
       <div class="fs-card">
-        <b>Не нашли свой вопрос?</b>
-        <p>Спросите юриста напрямую — бесплатно, ответ за 15 минут в рабочие часы.</p>
-        <a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20легализации." target="_blank" rel="noopener">Спросить в WhatsApp</a>
+        <b>Didn't find your question?</b>
+        <p>Ask a lawyer directly — free, with a reply within 15 minutes during business hours.</p>
+        <a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20легализации." target="_blank" rel="noopener">Ask on WhatsApp</a>
       </div>
-      <a class="fs-link" href="guide.html">Полный гайд: карта побыту от А до Я <span>→</span></a>
-      <a class="fs-link" href="chances.html">Посчитать свои шансы — 60 секунд <span>→</span></a>
-      <a class="fs-link" href="cabinet.html">Как выглядит кабинет клиента <span>→</span></a>
-      <figure class="fs-photo" aria-hidden="true"><img src="/assets/trc/nx_warsaw2.jpg" alt="" loading="lazy"><figcaption>Варшава · наш дом</figcaption></figure>
+      <a class="fs-link" href="guide.html">Full guide: residence card from A to Z <span>→</span></a>
+      <a class="fs-link" href="chances.html">Check your chances — 60 seconds <span>→</span></a>
+      <a class="fs-link" href="cabinet.html">What the client portal looks like <span>→</span></a>
+      <figure class="fs-photo" aria-hidden="true"><img src="/assets/trc/nx_warsaw2.jpg" alt="" loading="lazy"><figcaption>Warsaw · our home</figcaption></figure>
     </div>
   </div>
 </div></section>
@@ -1262,38 +1349,38 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <section id="blog">
 <img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center">
-    <span class="eyebrow">Блог</span>
-    <h2>Полезно для иностранцев</h2>
-    <p>Короткие ответы на частые вопросы. Не нашли свой случай — <b>напишите нам</b>, разберём лично и бесплатно за 15 минут.</p>
+    <span class="eyebrow">Blog</span>
+    <h2>Useful for foreigners</h2>
+    <p>Short answers to common questions. Didn't find your case — <b>message us</b>, we'll go through it personally — free, within 15 minutes.</p>
   </div>
   <div class="blog-grid stg">
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_stamp.jpg" alt="" loading="lazy"></div><div class="cat">Вид на жительство</div><h3>Как получить карту побыту: гид 2026</h3><p>Разбираем весь процесс от записи в уженд до получения карты.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20карте%20побыту." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_note.jpg" alt="" loading="lazy"></div><div class="cat">Налоги</div><h3>Налоги для иностранцев в Польше</h3><p>PIT, ZUS, umowa o pracę vs B2B — объясняем просто.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20налогам." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_law.jpg" alt="" loading="lazy"></div><div class="cat">Апелляции</div><h3>Что делать, если отказали в ВНЖ</h3><p>Отказ — не конец. Разбираем, как подать апелляцию и выиграть.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Мне%20отказали%20—%20нужна%20апелляция." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_docs.jpg" alt="" loading="lazy"></div><div class="cat">PESEL</div><h3>PESEL для иностранца: как получить</h3><p>Без PESEL невозможно открыть счёт или устроиться официально.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20PESEL." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/online.jpg" alt="" loading="lazy"></div><div class="cat">Profil Zaufany</div><h3>Profil Zaufany: зачем иностранцу</h3><p>Как оформить и какие госуслуги получить онлайн.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20Profil%20Zaufany." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
-    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_desk.jpg" alt="" loading="lazy"></div><div class="cat">Бизнес</div><h3>Как открыть ИП: JDG vs Sp. z o.o.</h3><p>Плюсы, минусы, налоги и где лучше начинать бизнес в Польше.</p><div class="bfoot"><a class="bread" href="/blog">Читать →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20бизнес%20—%20JDG%20или%20Sp.%20z%20o.o.?" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Спросить</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_stamp.jpg" alt="" loading="lazy"></div><div class="cat">Residence permit</div><h3>How to get a residence card: the 2026 guide</h3><p>We walk through the whole process, from booking at the urząd to collecting your card.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20карте%20побыту." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_note.jpg" alt="" loading="lazy"></div><div class="cat">Taxes</div><h3>Taxes for foreigners in Poland</h3><p>PIT, ZUS, umowa o pracę vs B2B — explained simply.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20налогам." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_law.jpg" alt="" loading="lazy"></div><div class="cat">Appeals</div><h3>What to do if your residence permit is refused</h3><p>A refusal isn't the end. We break down how to appeal and win.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Мне%20отказали%20—%20нужна%20апелляция." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_docs.jpg" alt="" loading="lazy"></div><div class="cat">PESEL</div><h3>PESEL for foreigners: how to get one</h3><p>Without a PESEL you can't open a bank account or get a formal job.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20PESEL." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/online.jpg" alt="" loading="lazy"></div><div class="cat">Profil Zaufany</div><h3>Profil Zaufany: why foreigners need it</h3><p>How to set it up and which government services you can access online.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20помощь%20с%20Profil%20Zaufany." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
+    <div class="bcard reveal"><div class="bc-cover"><img src="/assets/trc/bg_desk.jpg" alt="" loading="lazy"></div><div class="cat">Business</div><h3>How to start a business: JDG vs Sp. z o.o.</h3><p>Pros, cons, taxes and the best way to start a business in Poland.</p><div class="bfoot"><a class="bread" href="/blog">Read →</a><a class="bask" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20бизнес%20—%20JDG%20или%20Sp.%20z%20o.o.?" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>Ask</a></div></div>
   </div>
   <a class="blog-wa reveal" href="https://wa.me/48735248525?text=Здравствуйте!%20Читал(а)%20ваш%20блог%20—%20остался%20вопрос." target="_blank" rel="noopener">
     <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-    <span class="tx"><b>Не нашли ответ на свой вопрос?</b> Напишите нам — разберём вашу ситуацию лично и бесплатно, ответим за 15 минут.</span>
-    <span class="btn btn-wa btn-lg">Написать в WhatsApp →</span>
+    <span class="tx"><b>Didn't find the answer to your question?</b> Message us — we'll go through your situation personally and for free, and reply within 15 minutes.</span>
+    <span class="btn btn-wa btn-lg">Message us on WhatsApp →</span>
   </a>
 </div></section>
 
 <!-- FINAL CTA -->
-<section id="contact" class="final"><div class="wrap">
+<section id="contact" class="final reveal"><div class="wrap">
   <div>
-    <span class="eyebrow gold">Контакты</span>
-    <h2>Начните легализацию сегодня</h2>
-    <p class="lead">Первая консультация бесплатна — ответим за 15 минут.</p>
+    <span class="eyebrow gold">Contact</span>
+    <h2>Start your legalization today</h2>
+    <p class="lead">The first consultation is free — we'll reply within 15 minutes.</p>
     <div class="cts">
-      <div class="row"><b>WhatsApp / телефон:</b>&nbsp;+48 735 248 525 · +48 883 959 550</div>
-      <div class="row"><b>Офис:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · ПН–ПТ 10:00–18:00</div>
-      <div class="row"><b>Онлайн:</b>&nbsp;ведём дела по всей Польше</div>
-      <div class="row"><b>Языки:</b>&nbsp;английский, русский, украинский, польский</div>
+      <div class="row"><b>WhatsApp / phone:</b>&nbsp;+48 735 248 525 · +48 883 959 550</div>
+      <div class="row"><b>Office:</b>&nbsp;ul. Sienna 75, 00-833 Warszawa · Mon–Fri 10:00–18:00</div>
+      <div class="row"><b>Online:</b>&nbsp;we handle cases across all of Poland</div>
+      <div class="row"><b>Languages:</b>&nbsp;English, Russian, Ukrainian, Polish</div>
     </div>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1301,31 +1388,31 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     </div>
   </div>
   <div class="ffbox">
-    <div class="t">Запишитесь на консультацию</div>
-    <div class="s">Бесплатно — наметим ваш следующий шаг.</div>
+    <div class="t">Book a consultation</div>
+    <div class="s">Free — we'll map out your next step.</div>
     <form onsubmit="return lsLead(this)">
-    <input type="text" placeholder="Ваше имя">
-    <input type="tel" placeholder="Телефон / WhatsApp" required>
-    <select aria-label="Что вас интересует?"><option>Что вас интересует?</option><option>Карта побыту</option><option>ПМЖ</option><option>Апелляция</option><option>Для бизнеса</option><option>Не знаю — нужна консультация</option></select>
-    <button class="btn btn-primary" type="submit">Записаться в WhatsApp →</button>
+    <input type="text" placeholder="Your name">
+    <input type="tel" placeholder="Phone / WhatsApp" required>
+    <select aria-label="What are you interested in?"><option>What are you interested in?</option><option>Residence card</option><option>Permanent residence</option><option>Appeal</option><option>For business</option><option>Not sure — I need a consultation</option></select>
+    <button class="btn btn-primary" type="submit">Book via WhatsApp →</button>
     </form>
-    <div class="fine">Откроется чат с готовым текстом · Без спама · Конфиденциально</div>
+    <div class="fine">Opens a chat with a pre-filled message · No spam · Confidential</div>
   </div>
 </div></section>
 
 <!-- REFERRAL -->
 <section class="ref"><div class="wrap">
-  <div class="sec-head" style="margin-bottom:0"><span class="eyebrow gold">Реферальная программа</span><h2>Приводите друзей — зарабатывайте</h2>
+  <div class="sec-head" style="margin-bottom:0"><span class="eyebrow gold">Referral program</span><h2>Refer friends — earn money</h2>
     <div class="rs" style="margin-top:22px">
-      <div><b>1</b> Поделитесь нашим контактом с другом</div>
-      <div><b>2</b> Друг обращается и называет ваше имя</div>
-      <div><b>3</b> После первой оплаты друга — вам перевод (1–3 рабочих дня)</div>
+      <div><b>1</b> Share our contact with a friend</div>
+      <div><b>2</b> Your friend reaches out and mentions your name</div>
+      <div><b>3</b> After your friend's first payment — you get a transfer (1–3 business days)</div>
     </div>
   </div>
   <div class="num reveal">
-    <div class="big">от 300 zł</div>
-    <p>за каждого приведённого человека — деньгами или скидкой на услугу. <br>Больше друзей — больше бонус · 10+ — статус партнёра.</p>
-    <a class="btn btn-gold" href="referral.html">Участвовать</a>
+    <div class="big">from 300 zł</div>
+    <p>for every person you refer — in cash or as a discount on a service. <br>More friends — bigger bonus · 10+ — partner status.</p>
+    <a class="btn btn-gold" href="referral.html">Join</a>
   </div>
 </div></section>
 
@@ -1333,38 +1420,38 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
-      <p style="margin-top:14px;max-width:280px">Юридическое сопровождение иностранцев в Польше. Карта побыту, ПМЖ, бизнес.</p>
+      <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
-    <div><h4>Услуги</h4><ul>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Карта побыту (ВНЖ)</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">ПМЖ · Гражданство</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Апелляции</a></li>
-      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Регистрация компании</a></li>
+    <div><h4>Services</h4><ul>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Карта%20побыту.">Residence card (karta pobytu)</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20ПМЖ%20или%20гражданство.">Permanent residence · Citizenship</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Blue%20Card%20или%20апелляция.">Blue Card · Appeals</a></li>
+      <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20Регистрация%20компании.">Company registration</a></li>
       <li><a href="https://wa.me/48735248525?text=Здравствуйте!%20PESEL%20или%20Profil%20Zaufany.">PESEL · Profil Zaufany</a></li>
     </ul></div>
-    <div><h4>Навигация</h4><ul>
-      <li><a href="redesign.html">Главная</a></li>
-      <li><a href="services.html">Услуги</a></li>
-      <li><a href="work.html">Работа в Польше</a></li>
+    <div><h4>Navigation</h4><ul>
+      <li><a href="redesign.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="work.html">Work in Poland</a></li>
       <li><a href="b2b.html">B2B</a></li>
-      <li><a href="guide.html">Гайд: карта побыту</a></li>
-      <li><a href="chances.html">Шансы на карту</a></li>
-      <li><a href="referral.html">Рефералка</a></li>
-      <li><a href="blog.html">Блог</a></li>
-      <li><a href="cabinet.html">Кабинет</a></li>
+      <li><a href="guide.html">Guide: residence card</a></li>
+      <li><a href="chances.html">Chances of getting a card</a></li>
+      <li><a href="referral.html">Referral</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="cabinet.html">Client portal</a></li>
     </ul></div>
-    <div><h4>Контакты</h4><ul>
+    <div><h4>Contact</h4><ul>
       <li><a href="tel:+48735248525">+48 735 248 525</a></li>
       <li><a href="tel:+48883959550">+48 883 959 550</a></li>
-      <li>WhatsApp — ответим за 15 минут</li>
+      <li>WhatsApp — we reply within 15 minutes</li>
       <li>ul. Sienna 75, 00-833 Warszawa</li>
-      <li>ПН–ПТ: 10:00–18:00</li>
+      <li>Mon–Fri: 10:00–18:00</li>
     </ul></div>
   </div>
   <div class="ft-legal"><span>BOLIDE SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</span><i>·</i><span>NIP: 9462746135</span><i>·</i><span>20-115 Lublin, woj. Lubelskie</span></div>
 <div class="ft-bot">
-    <span>© 2026 LegalSol. Все права защищены.</span>
-    <div class="soc" aria-label="Соцсети LegalSol">
+    <span>© 2026 LegalSol. All rights reserved.</span>
+    <div class="soc" aria-label="LegalSol social media">
       <a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
       <a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07Z"/></svg></a>
       <a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg></a>
@@ -1372,25 +1459,25 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
     </div>
   </div>
 </div></footer>
-<div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
-  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
+<div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
+  <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
-      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
+    <div><b>Still have questions?</b><p>Message us — Talysh or Adrian will reply within 15 minutes, free of charge.</p>
+      <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
 </div>
 </main>
 
 <div class="fab-bub" id="fabBub" role="status">
-  <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
-  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
+  <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
+  <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Talysh and Adrian · LegalSol</small>
+  <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
   <span class="wa"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></span>
-  Бесплатная консультация
+  Free consultation
 </a>
 
 <script>
@@ -1404,12 +1491,12 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.12,rootMargin:'0px'});
   els.forEach(function(e){io.observe(e)});
   setTimeout(function(){showAll(false)},25000);
-  document.addEventListener('visibilitychange',function(){if(document.hidden)showAll(true);});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
 <script src="quiz.js" defer></script>
 <script>
-window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Здравствуйте!%20Оставляю%20заявку.'+(n?'%20Имя:%20'+encodeURIComponent(n):'')+(p?',%20телефон:%20'+encodeURIComponent(p):'')+(s?'.%20Интересует:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
+window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
@@ -1618,10 +1705,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var img=box.querySelector('img'),q=box.querySelector('.hq-q'),nm=box.querySelector('b');
     if(!img||!q||!nm)return;
     var Q=[
-      ['/assets/trc/client8.jpg','«Всё через WhatsApp, очень удобно»','Priya'],
-      ['/assets/trc/client5.jpg','«С LegalSol — с первого раза!»','Aakash'],
-      ['/assets/trc/client4.jpg','«Подали апелляцию и выиграли»','Emeka'],
-      ['/assets/trc/client7.jpg','«Я только пришёл и расписался»','Karan']
+      ['/assets/trc/client8.jpg','"Everything via WhatsApp, so convenient"','Priya'],
+      ['/assets/trc/client5.jpg','"With LegalSol — approved on the first try!"','Aakash'],
+      ['/assets/trc/client4.jpg','"We filed an appeal and won"','Emeka'],
+      ['/assets/trc/client7.jpg','"I just showed up and signed"','Karan']
     ];
     var i=0,t=null;
     function stop(){if(t){clearInterval(t);t=null;}box.classList.remove('out');}
@@ -1638,7 +1725,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     function start(){
       if(t||instant())return;
       Q.forEach(function(qq){var im=new Image();im.src=qq[0];}); /* прогрев аватаров */
-      t=setInterval(tick,6000);
+      t=setInterval(function(){tick();window.__lsq=(window.__lsq||0)+1;if(window.__lsq>=Q.length){clearInterval(t);t=null;}},6000);
     }
     if(!document.hidden)start();
     document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
@@ -1729,7 +1816,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       setTimeout(function(){s.classList.remove('shine');},1600);
     }
     var io=new IntersectionObserver(function(en){en.forEach(function(x){
-      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=setInterval(spark,7000);}}
+      if(x.isIntersecting){if(!t){setTimeout(spark,1400);t=1;setTimeout(spark,1400);}}
       else if(t){clearInterval(t);t=null;}
     })},{threshold:.5});
     io.observe(s);
