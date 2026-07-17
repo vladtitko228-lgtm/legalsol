@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Кабинет клиента LegalSol — статус дела под контролем 24/7</title>
-<meta name="description" content="Кабинет клиента LegalSol: статус дела в любой момент, статусы документов, напоминания за 90/60/30 дней и специалист в WhatsApp. Посмотрите демо-кабинет.">
+<meta name="description" content="Кабинет клиента LegalSol: статус дела в любой момент, чат со специалистом, оплаты и напоминания за 90/60/30 дней. Всё синхронизировано с CRM. Посмотрите демо-кабинет.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 32'%3E%3Crect x='0' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='9' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='18' y='4' width='7' height='25' rx='2' fill='%235B87CF'/%3E%3Crect x='27' y='9' width='7' height='20' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='5' width='34' height='4' rx='2' fill='%235B87CF'/%3E%3Crect x='0' y='29' width='34' height='3' rx='1.5' fill='%235B87CF'/%3E%3C/svg%3E">
 <meta name="theme-color" content="#FAF7F2">
 <meta property="og:title" content="Кабинет клиента LegalSol — статус дела под контролем 24/7">
-<meta property="og:description" content="Кабинет клиента LegalSol: статус дела в любой момент, статусы документов, напоминания за 90/60/30 дней и специалист в WhatsApp. Посмотрите демо-кабинет.">
+<meta property="og:description" content="Кабинет клиента LegalSol: статус дела в любой момент, чат со специалистом, оплаты и напоминания за 90/60/30 дней. Всё синхронизировано с CRM. Посмотрите демо-кабинет.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -475,6 +475,24 @@ details.q[open]{border-left-color:var(--gold)}
 @media(max-width:1000px){#faq .faq-wrap{grid-template-columns:1fr}.faq-side{position:static}}
 @media(prefers-reduced-motion:reduce){details.q:hover,.fs-link:hover{transform:none}}
 @media(max-width:1140px){nav.main,.hd-r .lk{display:none}.burger{display:grid}}
+.wgo,.cab-lead{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:700;color:var(--indigo);transition:transform .2s}
+.wgo:hover,.cab-lead:hover{transform:translateX(4px);color:var(--indigo-7)}
+/* logo motion: колонны вырастают, волна на hover */
+.logo-ico rect{transform-box:fill-box;transform-origin:center bottom}
+.js:not(.noanim) .logo-ico rect:nth-child(-n+4){animation:logoRise .55s cubic-bezier(.16,.7,.2,1) backwards}
+.js:not(.noanim) .logo-ico rect:nth-child(1){animation-delay:.05s}
+.js:not(.noanim) .logo-ico rect:nth-child(2){animation-delay:.12s}
+.js:not(.noanim) .logo-ico rect:nth-child(3){animation-delay:.19s}
+.js:not(.noanim) .logo-ico rect:nth-child(4){animation-delay:.26s}
+.js:not(.noanim) .logo-ico rect:nth-child(n+5){animation:logoBeam .4s ease .34s backwards}
+@keyframes logoRise{from{transform:scaleY(0);opacity:0}}
+@keyframes logoBeam{from{opacity:0;transform:scaleX(.4)}}
+.logo:hover .logo-ico rect:nth-child(-n+4){animation:logoHop .5s cubic-bezier(.34,1.56,.64,1)}
+.logo:hover .logo-ico rect:nth-child(2){animation-delay:.06s}
+.logo:hover .logo-ico rect:nth-child(3){animation-delay:.12s}
+.logo:hover .logo-ico rect:nth-child(4){animation-delay:.18s}
+@keyframes logoHop{35%{transform:translateY(-2.5px)}}
+@media(prefers-reduced-motion:reduce){.logo-ico rect{animation:none!important}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -695,6 +713,48 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .hq-in{transition:none}
 }
 @media(min-width:1000px){.js.plx section:has(>.bg-art){overflow:clip}}
+/* live3 — фото-разрывы + микро-анимации */
+/* l1) полноширинный фото-разрыв: цвет приглушён, тёмно-синие края для перехода, строка-факт по центру */
+.pbreak{position:relative;height:300px;overflow:hidden;background:var(--indigo-9)}
+.pbreak .pb-img{position:absolute;left:0;top:-40px;width:100%;height:calc(100% + 80px);object-fit:cover;filter:saturate(.85)}
+.pbreak::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,27,75,.52),rgba(30,27,75,.16) 32%,rgba(30,27,75,.16) 68%,rgba(30,27,75,.52)),radial-gradient(130% 110% at 50% 50%,transparent 52%,rgba(30,27,75,.32));pointer-events:none}
+.pbreak .pb-line{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;margin:0;padding:0 20px;text-align:center;color:rgba(255,255,255,.93);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 12px rgba(30,27,75,.6)}
+@media(min-width:1000px){.pbreak .pb-img{will-change:transform}}
+@media(max-width:640px){.pbreak{height:180px}.pbreak .pb-img{top:0;height:100%}.pbreak .pb-line{font-size:11.5px;letter-spacing:.12em}}
+/* l2а) галочки в .dir li: прорисовка stroke при появлении карточки, каскад */
+.js .dir.reveal li svg path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .55s cubic-bezier(.16,.7,.2,1) .18s}
+.js .dir.reveal.in li svg path{stroke-dashoffset:0}
+.js .dir.reveal.in li:nth-child(2) svg path{transition-delay:.3s}
+.js .dir.reveal.in li:nth-child(3) svg path{transition-delay:.42s}
+.js .dir.reveal.in li:nth-child(4) svg path{transition-delay:.54s}
+.js .dir.reveal.in li:nth-child(5) svg path{transition-delay:.66s}
+/* l2б) иконка .dir .ic: один мягкий «вдох» при появлении (без fill — hover-transform живёт дальше) */
+@keyframes icBreath{0%{transform:scale(1)}45%{transform:scale(1.06)}100%{transform:scale(1)}}
+.js .dir.reveal.in .ic{animation:icBreath .9s cubic-bezier(.16,.7,.2,1) .3s 1}
+.js .dir.reveal.in.i2 .ic{animation-delay:.42s}
+.js .dir.reveal.in.i3 .ic{animation-delay:.54s}
+.js .dir.reveal.in.i4 .ic{animation-delay:.66s}
+/* l2в) фото-рейл отзывов: лёгкий tilt + подъём при hover */
+.rev-rail img{transition:transform .28s cubic-bezier(.16,.7,.2,1),box-shadow .28s}
+.rev-rail img:hover{transform:translateY(-6px) rotate(-1.5deg);box-shadow:var(--sh)}
+/* l2д) номер этапа при автопрогулке: лёгкий пульс вместе с подсветкой .lit */
+@keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+.js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
+/* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(91,135,207,.6)}
+/* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
+@media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
+/* live3: защита noanim — мгновенный финал */
+.js.noanim .dir.reveal li svg path{stroke-dashoffset:0!important;transition:none!important}
+.js.noanim .dir .ic,.js.noanim .prow.lit .pn{animation:none!important}
+.js.noanim .pbreak .pb-img{transform:none!important}
+/* live3: prefers-reduced-motion — финал без движения */
+@media(prefers-reduced-motion:reduce){
+  .js .dir.reveal li svg path{stroke-dashoffset:0!important;transition:none!important}
+  .dir .ic,.prow.lit .pn{animation:none!important}
+  .pbreak .pb-img{transform:none!important}
+  .rev-rail img:hover{transform:none}
+}
 
 /* --- page:cabinet --- */
 /* cabinet (cb2- лендинг, cb3- app-режим) */
@@ -748,7 +808,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 @media(prefers-reduced-motion:reduce){.cb3-app.open{animation:none!important}}
 body.cb3-lock{overflow:hidden}
 body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!important}
-.cb3-top{position:sticky;top:0;z-index:5;background:rgba(250,247,242,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:13px 26px}
+.cb3-sticky{position:sticky;top:0;z-index:6;background:rgba(250,247,242,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.cb3-top{display:flex;align-items:center;gap:12px;padding:13px 26px 9px}
 .cb3-logo{display:grid;place-items:center;flex:none}
 .cb3-ttl{font-weight:800;font-size:16.5px;display:inline-flex;align-items:center;gap:10px;letter-spacing:-.01em}
 .cb3-demo-chip{background:var(--gold-soft);color:var(--gold-2);font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:4px 11px;border-radius:var(--pill)}
@@ -823,7 +884,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
   .cb2-acc3{grid-template-columns:1fr}
   .cb3-teaser{padding:24px 18px}
   .tz-tx b{font-size:21px}
-  .cb3-top{padding:10px 14px;gap:9px}
+  .cb3-top{padding:10px 14px 7px;gap:9px}
   .cb3-ttl{font-size:14.5px}
   .cb3-demo-chip{padding:3px 8px;font-size:9.5px}
   .cb3-exit{padding:8px 14px;font-size:12.5px}
@@ -837,6 +898,94 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
   .cb3-pct b{font-size:32px}
   .cb3-rem,.cb3-chat{padding:18px 16px}
   .cb3-final .btn{width:100%}
+}
+
+/* ===== cb4: вкладки, чат, оплаты, toast, CRM ===== */
+.cb3-tabs{display:flex;gap:8px;padding:2px 26px 11px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cb3-tabs::-webkit-scrollbar{display:none}
+.cb3-tab{flex:none;display:inline-flex;align-items:center;gap:7px;font-family:var(--font);font-size:13.5px;font-weight:700;color:var(--ink-2);background:#fff;border:1.5px solid var(--line);border-radius:var(--pill);padding:9px 20px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.cb3-tab:hover{border-color:var(--indigo-2);color:var(--indigo)}
+.cb3-tab[aria-selected="true"]{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.cb3-tab .nb{background:var(--gold);color:#fff;font-size:10.5px;font-weight:800;line-height:1;border-radius:var(--pill);padding:3px 7px}
+.cb3-sec{display:none}
+.cb3-sec.on{display:flex;flex-direction:column;gap:18px}
+.cb3-sec.anim{animation:cb3sec .28s cubic-bezier(.16,.7,.2,1)}
+@keyframes cb3sec{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* чат-вкладка */
+.cb3-chatcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);overflow:hidden;display:flex;flex-direction:column}
+.cb3-chathead{display:flex;align-items:center;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line);background:var(--cream)}
+.cb3-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.cb3-chathead b{display:block;font-size:15px;letter-spacing:-.01em}
+.cb3-chathead .st-on{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#2E8B57;margin-top:2px}
+.cb3-chathead .st-on::before{content:"";width:7px;height:7px;border-radius:50%;background:#2E8B57}
+.cb3-thread{padding:20px;display:flex;flex-direction:column;gap:10px;min-height:280px;max-height:520px;overflow-y:auto;background:#fff}
+.cb3-day{align-self:center;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:var(--cream);border:1px solid var(--line);border-radius:var(--pill);padding:4px 12px;margin:4px 0 2px}
+.cb3-msg{max-width:72%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.55;overflow-wrap:break-word}
+.cb3-msg .tm{display:block;font-size:10.5px;font-weight:600;margin-top:5px;opacity:.6;text-align:right}
+.cb3-msg.sp{align-self:flex-start;background:var(--lilac);color:var(--ink);border-bottom-left-radius:6px}
+.cb3-msg.me{align-self:flex-end;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));color:#fff;border-bottom-right-radius:6px}
+.cb3-msg.anim{animation:cb3msg .3s cubic-bezier(.16,.7,.2,1)}
+@keyframes cb3msg{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cb3-wamini{margin-top:10px;padding:9px 16px;font-size:13px}
+.cb3-chatin{display:flex;gap:10px;padding:14px 16px;border-top:1px solid var(--line);background:var(--cream)}
+.cb3-chatin input{flex:1;min-width:0;font-family:var(--font);font-size:14.5px;padding:12px 15px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink)}
+.cb3-chatin .btn{padding:12px 20px;font-size:14px;flex:none}
+/* оплаты-вкладка */
+.cb3-paycard{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-sm);padding:24px 26px}
+.cb3-payhead{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.cb3-payhead b{font-size:17px;display:block;letter-spacing:-.01em}
+.cb3-payhead .sub{display:block;font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.cb3-payrow{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px;flex-wrap:wrap}
+.cb3-payrow .pnum{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13.5px;flex:none;background:var(--lilac);color:var(--indigo-7)}
+.cb3-payrow.paid .pnum{background:#E4F3EC;color:#2E8B57}
+.cb3-payrow.cur{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.cb3-payrow.cur .pnum{background:var(--gold-soft);color:var(--gold-2)}
+.cb3-payrow.off{opacity:.6}
+.cb3-payrow .ptx{flex:1;min-width:150px}
+.cb3-payrow .ptx b{font-size:14.5px;display:block}
+.cb3-payrow .ptx p{font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.cb3-chip-ok{background:#E4F3EC;color:#2E8B57;font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:var(--pill);white-space:nowrap}
+.cb3-chip-wait{background:var(--gold-soft);color:var(--gold-2);font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:var(--pill);white-space:nowrap}
+.cb3-chip-off{background:var(--cream-2);color:var(--ink-3);font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:var(--pill);white-space:nowrap}
+.cb3-paybtn{padding:10px 18px;font-size:13.5px}
+.cb3-req{display:none;margin-top:10px;background:var(--cream);border:1.5px dashed var(--line);border-radius:14px;padding:18px 20px}
+.cb3-req.open{display:block}
+.cb3-req.anim{animation:cb3sec .28s cubic-bezier(.16,.7,.2,1)}
+.cb3-req .rq{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;flex-wrap:wrap}
+.cb3-req .rq span{color:var(--ink-3);font-weight:600;font-size:13px}
+.cb3-req .rq b{text-align:right;overflow-wrap:anywhere}
+.cb3-req .rq em{font-style:normal;font-size:11px;font-weight:800;color:var(--gold-2);background:var(--gold-soft);border-radius:var(--pill);padding:2px 8px;margin-left:6px;white-space:nowrap}
+.rq-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.rq-btns .btn{font-size:13.5px;padding:11px 18px}
+.rq-note{font-size:12px;color:var(--ink-3);margin-top:12px}
+/* запросить апдейт */
+.cb3-updbtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-weight:700;font-size:13.5px;color:#fff;background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.32);border-radius:var(--pill);padding:10px 20px;cursor:pointer;transition:background .2s}
+.cb3-updbtn:hover{background:rgba(255,255,255,.24)}
+/* CRM-подпись */
+.cb3-crm{display:flex;gap:8px;align-items:flex-start;justify-content:center;font-size:12.5px;color:var(--ink-3);padding:6px 10px 0}
+.cb3-crm svg{flex:none;margin-top:2px}
+/* toast */
+.cb3-toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,14px);z-index:95;background:var(--indigo-9);color:#fff;font-size:14px;font-weight:600;line-height:1.45;padding:13px 22px;border-radius:18px;box-shadow:var(--sh);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:min(480px,92vw);text-align:center}
+.cb3-toast.show{opacity:1;transform:translate(-50%,0)}
+/* guards */
+.js.noanim .cb3-sec.anim,.js.noanim .cb3-msg.anim,.js.noanim .cb3-req.anim{animation:none!important}
+@media(prefers-reduced-motion:reduce){.cb3-sec.anim,.cb3-msg.anim,.cb3-req.anim{animation:none!important}.cb3-toast{transition:none}}
+/* мобайл cb4 */
+@media(max-width:640px){
+  .cb3-tabs{padding:0 14px 9px;gap:7px}
+  .cb3-tab{padding:8px 16px;font-size:12.5px}
+  .cb3-msg{max-width:90%}
+  .cb3-thread{padding:14px;min-height:220px}
+  .cb3-chatin{padding:11px 12px;gap:8px}
+  .cb3-chatin .btn{padding:12px 15px;font-size:13px}
+  .cb3-paycard{padding:18px 15px}
+  .cb3-payrow{padding:13px 13px}
+  .cb3-paybtn{width:100%;justify-content:center;margin-top:4px}
+  .cb3-req{padding:15px 14px}
+  .cb3-req .rq b{text-align:left}
+  .rq-btns{flex-direction:column}
+  .rq-btns .btn{width:100%;justify-content:center}
+  .cb3-updbtn{width:100%;justify-content:center}
 }
 
 </style>
@@ -901,7 +1050,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <h1>Ваше дело — под контролем 24/7</h1>
       <p class="lead">Статус дела, документы и следующие шаги — в личном кабинете. Проверяйте в любой момент — или просто напишите нам.</p>
       <div class="cb2-feats">
-        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Статус дела — в любой момент, с телефона</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Всё по делу в одном месте: статус · чат со специалистом · оплаты и напоминания</span>
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Напоминания за 90, 60 и 30 дней до истечения любого документа</span>
         <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E29B54" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Персональный специалист — в вашем WhatsApp-чате</span>
       </div>
@@ -922,7 +1071,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- ТИЗЕР ДЕМО-КАБИНЕТА -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">ДЕМО — глазами клиента</span>
     <h2>Загляните внутрь — до старта дела</h2>
@@ -937,7 +1086,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
     </div>
     <div class="tz-tx">
       <b>Полноэкранный демо-кабинет</b>
-      <p>Таймлайн из 7 этапов, статусы документов и напоминания 90/60/30 — ровно так дело выглядит у настоящего клиента.</p>
+      <p>Таймлайн из 7 этапов, чат со специалистом, оплаты по договору и напоминания 90/60/30 — ровно так дело выглядит у настоящего клиента.</p>
       <a class="btn btn-primary btn-lg" href="#cb2-demo" onclick="return cb3Open(event)">Открыть демо-кабинет →</a>
       <span class="tz-fine">Данные вымышленные · Ничего вводить не нужно</span>
     </div>
@@ -946,7 +1095,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Доступ</span>
     <h2>Как получить свой кабинет</h2>
@@ -965,7 +1114,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Пока нет — по кнопке выше открывается демо с вымышленными данными. Ваш кабинет появится после старта дела: на первой консультации мы заведём профиль и выдадим личный номер дела.</div></details>
@@ -976,7 +1125,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите такой же кабинет для своего дела?</div>
@@ -993,12 +1142,20 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- APP-РЕЖИМ: полноэкранный демо-кабинет (скрыт по умолчанию, открывается JS) -->
 <div class="cb3-app" id="cb3-app" role="dialog" aria-modal="true" aria-label="Демо-кабинет клиента">
+  <div class="cb3-sticky">
   <header class="cb3-top">
     <span class="cb3-logo" aria-hidden="true"><svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span>
     <span class="cb3-ttl">Кабинет клиента <span class="cb3-demo-chip">Демо</span></span>
     <button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Выйти ×</button>
   </header>
+  <nav class="cb3-tabs" role="tablist" aria-label="Разделы кабинета">
+    <button class="cb3-tab" id="cb3-tab-delo" role="tab" aria-selected="true" aria-controls="cb3-sec-delo" type="button" onclick="cb3Tab('delo')">Дело</button>
+    <button class="cb3-tab" id="cb3-tab-chat" role="tab" aria-selected="false" aria-controls="cb3-sec-chat" type="button" onclick="cb3Tab('chat')">Чат<span class="nb">1</span></button>
+    <button class="cb3-tab" id="cb3-tab-pay" role="tab" aria-selected="false" aria-controls="cb3-sec-pay" type="button" onclick="cb3Tab('pay')">Оплаты</button>
+  </nav>
+  </div>
   <div class="cb3-body">
+    <div class="cb3-sec on" id="cb3-sec-delo" role="tabpanel" aria-labelledby="cb3-tab-delo">
 
     <!-- 1. Привет-строка -->
     <div class="cb3-greet">
@@ -1012,6 +1169,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <div class="pr-t">Подача через MOS — выполнена</div>
       <div class="pr-bar"><span style="width:71%"></span></div>
       <div class="pr-next"><b>Что дальше:</b> ожидание решения — мы следим за статусом и сообщим о каждом изменении. Всё это время вы в Польше легально.</div>
+      <button class="cb3-updbtn" type="button" onclick="cb3Update()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg> Запросить апдейт</button>
     </div>
 
     <div class="cb3-grid">
@@ -1073,33 +1231,173 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <p>Это демо-кабинет — данные вымышленные. Ваш появится после старта дела.</p>
       <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Начать — бесплатная консультация</a>
     </div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+    </div>
+
+    <div class="cb3-sec" id="cb3-sec-chat" role="tabpanel" aria-labelledby="cb3-tab-chat">
+      <div class="cb3-h">Чат со специалистом</div>
+      <div class="cb3-chatcard">
+        <div class="cb3-chathead">
+          <span class="cb3-av" aria-hidden="true">Д</span>
+          <div><b>Дарья · ваш специалист</b><span class="st-on">на связи</span></div>
+        </div>
+        <div class="cb3-thread" id="cb3-thread">
+          <div class="cb3-day">Вчера</div>
+          <div class="cb3-msg sp">Добрый день! Пакет документов проверен — записали вас в уженд, детали в таймлайне 👌<span class="tm">16:42</span></div>
+          <div class="cb3-msg me">Спасибо! Когда прислать новое фото?<span class="tm">17:05</span></div>
+          <div class="cb3-day">Сегодня</div>
+          <div class="cb3-msg sp">До пятницы. Можно прямо сюда или в WhatsApp — как удобнее.<span class="tm">09:12</span></div>
+        </div>
+        <form class="cb3-chatin" onsubmit="return cb3Send(this)">
+          <input type="text" placeholder="Ваше сообщение…" aria-label="Ваше сообщение">
+          <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+      </div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+    </div>
+
+    <div class="cb3-sec" id="cb3-sec-pay" role="tabpanel" aria-labelledby="cb3-tab-pay">
+      <div class="cb3-h">Оплаты</div>
+      <div class="cb3-paycard">
+        <div class="cb3-payhead">
+          <div><b>Договор № 812</b><span class="sub">Рассрочка · 3 платежа на счёт фирмы · суммы — по договору</span></div>
+          <span class="cb3-chip-ok">1 из 3 оплачен</span>
+        </div>
+        <div class="cb3-payrow paid">
+          <span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <div class="ptx"><b>Платёж 1 из 3</b><p>Аванс при подписании договора</p></div>
+          <span class="cb3-chip-ok">Оплачен ✓</span>
+        </div>
+        <div class="cb3-payrow cur">
+          <span class="pnum">2</span>
+          <div class="ptx"><b>Платёж 2 из 3</b><p>Срок — до 15 августа</p></div>
+          <span class="cb3-chip-wait">Ожидается</span>
+          <button class="btn btn-gold cb3-paybtn" id="cb3-paybtn2" type="button" onclick="cb3Pay(this)">Оплатить</button>
+        </div>
+        <div class="cb3-req" id="cb3-req">
+          <div class="rq"><span>Получатель</span><b>LEGALSOL SP. Z O.O.</b></div>
+          <div class="rq"><span>Банк</span><b>mBank</b></div>
+          <div class="rq"><span>IBAN</span><b>PL00 0000 0000 0000 0000 0000 0000 <em>демо</em></b></div>
+          <div class="rq"><span>Назначение платежа</span><b>Дело № 812, платёж 2/3</b></div>
+          <div class="rq"><span>Сумма</span><b>по договору</b></div>
+          <div class="rq-btns">
+            <button class="btn btn-primary" type="button" onclick="cb3Copy(this)">Скопировать реквизиты</button>
+            <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%80%D0%B5%D0%BA%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6%D0%B0%202%20%D0%B8%D0%B7%203%20%D0%BF%D0%BE%20%D0%B4%D0%B5%D0%BB%D1%83%20%E2%84%96%20812." target="_blank" rel="noopener">Прислать реквизиты в WhatsApp</a>
+          </div>
+          <p class="rq-note">Это демо-реквизиты: IBAN — нулевой плейсхолдер. В настоящем кабинете здесь данные вашего договора из CRM.</p>
+        </div>
+        <div class="cb3-payrow off">
+          <span class="pnum">3</span>
+          <div class="ptx"><b>Платёж 3 из 3</b><p>После решения по делу</p></div>
+          <span class="cb3-chip-off">Позже</span>
+        </div>
+      </div>
+      <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
+    </div>
   </div>
+  <div class="cb3-toast" id="cb3-toast" role="status" aria-live="polite"></div>
 </div>
 
 <script>
-/* cb3: полноэкранный app-режим демо-кабинета */
+/* cb3/cb4: app-режим демо-кабинета — вкладки Дело/Чат/Оплаты, демо-чат, оплаты, toast */
 (function(){
   var app=document.getElementById('cb3-app');if(!app)return;
   var prevFocus=null;
-  function open(){
-    if(app.classList.contains('open'))return;
-    prevFocus=document.activeElement;
-    app.classList.add('open');
-    document.body.classList.add('cb3-lock');
+  function inst(){try{return (window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||document.hidden||!!navigator.webdriver||document.documentElement.classList.contains('noanim');}catch(e){return true;}}
+  var SECS=['delo','chat','pay'];
+  function setTab(name){
+    if(SECS.indexOf(name)<0)name='delo';
+    for(var i=0;i<SECS.length;i++){
+      var k=SECS[i],s=document.getElementById('cb3-sec-'+k),t=document.getElementById('cb3-tab-'+k),on=(k===name);
+      if(s){
+        s.classList.remove('anim');
+        s.classList.toggle('on',on);
+        if(on&&!inst()){void s.offsetWidth;s.classList.add('anim');}
+      }
+      if(t)t.setAttribute('aria-selected',on?'true':'false');
+    }
     app.scrollTop=0;
-    var x=document.getElementById('cb3-exit');
-    if(x){try{x.focus({preventScroll:true});}catch(e){}}
+  }
+  window.cb3Tab=setTab;
+  function open(tab){
+    var was=app.classList.contains('open');
+    if(!was){
+      prevFocus=document.activeElement;
+      app.classList.add('open');
+      document.body.classList.add('cb3-lock');
+    }
+    setTab(tab||'delo');
+    app.scrollTop=0;
+    if(!was){var x=document.getElementById('cb3-exit');if(x){try{x.focus({preventScroll:true});}catch(e){}}}
   }
   function close(){
     app.classList.remove('open');
     document.body.classList.remove('cb3-lock');
     if(prevFocus&&prevFocus.focus){try{prevFocus.focus({preventScroll:true});}catch(e){}}
   }
-  window.cb3Open=function(ev){if(ev&&ev.preventDefault)ev.preventDefault();open();return false;};
+  window.cb3Open=function(ev){if(ev&&ev.preventDefault)ev.preventDefault();open('delo');return false;};
   window.cb3Close=close;
   document.addEventListener('keydown',function(e){
     if((e.key==='Escape'||e.keyCode===27)&&app.classList.contains('open'))close();
   });
+  /* toast */
+  var toastEl=document.getElementById('cb3-toast'),toastT=null;
+  window.cb3Toast=function(msg){
+    if(!toastEl)return;
+    toastEl.textContent=msg;toastEl.classList.add('show');
+    if(toastT)clearTimeout(toastT);
+    toastT=setTimeout(function(){toastEl.classList.remove('show');},3000);
+  };
+  window.cb3Update=function(){window.cb3Toast('Запрос отправлен специалисту — ответит в чате и WhatsApp');};
+  /* демо-чат */
+  var thread=document.getElementById('cb3-thread');
+  function hhmm(){var d=new Date(),h=d.getHours(),m=d.getMinutes();return (h<10?'0':'')+h+':'+((m<10?'0':'')+m);}
+  function bubble(cls,html){
+    if(!thread)return null;
+    var el=document.createElement('div');
+    el.className='cb3-msg '+cls+(inst()?'':' anim');
+    el.innerHTML=html+'<span class="tm">'+hhmm()+'</span>';
+    thread.appendChild(el);
+    thread.scrollTop=thread.scrollHeight;
+    return el;
+  }
+  window.cb3Send=function(f){
+    try{
+      var inp=f.querySelector('input'),v=(inp&&inp.value?inp.value:'').replace(/^\s+|\s+$/g,'');
+      if(!v)return false;
+      bubble('me',v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+      inp.value='';
+      setTimeout(function(){
+        bubble('sp','Это демо-чат 🙂 В настоящем кабинете вам отвечает ваш специалист — сообщения синхронизированы с CRM.<br><a class="btn btn-wa cb3-wamini" href="https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Пишу из демо-кабинета — хочу задать вопрос по своей ситуации.')+'" target="_blank" rel="noopener">Продолжить в WhatsApp →</a>');
+      },1200);
+    }catch(e){}
+    return false;
+  };
+  /* оплаты: реквизиты-демо */
+  window.cb3Pay=function(btn){
+    var p=document.getElementById('cb3-req');if(!p)return;
+    p.classList.remove('anim');
+    var isOpen=p.classList.toggle('open');
+    if(isOpen&&!inst()){void p.offsetWidth;p.classList.add('anim');}
+    if(btn)btn.textContent=isOpen?'Скрыть реквизиты':'Оплатить';
+  };
+  window.cb3Copy=function(btn){
+    var txt='Получатель: LEGALSOL SP. Z O.O.\nБанк: mBank\nIBAN: PL00 0000 0000 0000 0000 0000 0000 (демо)\nНазначение: Дело № 812, платёж 2/3\nСумма: по договору';
+    function ok(){
+      if(btn){btn.textContent='Скопировано ✓';setTimeout(function(){btn.textContent='Скопировать реквизиты';},1800);}
+      window.cb3Toast('Реквизиты скопированы — это демо-данные');
+    }
+    function fb(){
+      try{
+        var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+        document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();
+      }catch(e){}
+    }
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);
+      else fb();
+    }catch(e){fb();}
+  };
   /* «Войти в кабинет» → короткое «Входим…» → app */
   var lb=document.getElementById('cb2-login');
   if(lb){lb.addEventListener('click',function(e){
@@ -1107,16 +1405,19 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
     if(lb.dataset.busy)return;
     lb.dataset.busy='1';
     var t=lb.textContent;lb.textContent='Входим…';
-    setTimeout(function(){lb.textContent=t;delete lb.dataset.busy;open();},450);
+    setTimeout(function(){lb.textContent=t;delete lb.dataset.busy;open('delo');},450);
   });}
-  /* прямая ссылка: ?app=1 или #app — открыть сразу */
+  /* прямая ссылка: ?app=1, #app, #app-chat, #app-pay (+ ?req=1 — раскрыть реквизиты) */
   try{
-    if((location.search||'').indexOf('app=1')>-1||location.hash==='#app')open();
+    var h=location.hash||'',q=location.search||'';
+    var tab=(h==='#app-chat')?'chat':((h==='#app-pay')?'pay':null);
+    if(q.indexOf('app=1')>-1||h==='#app'||tab)open(tab||'delo');
+    if(q.indexOf('req=1')>-1)window.cb3Pay(document.getElementById('cb3-paybtn2'));
   }catch(e){}
 })();
 </script>
 
-<footer><svg class="ft-mark" aria-hidden="true" width="340" height="320" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#fff"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#fff"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#fff"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#fff"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#fff"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#fff"/></svg><div class="wrap">
+<footer><div class="wrap">
   <div class="ft-grid">
     <div>
       <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#BCCEE9"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#84A8DE"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5B87CF"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5B87CF"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
@@ -1530,6 +1831,43 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     c.style.setProperty('--hx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
     c.style.setProperty('--hy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
   },{passive:true});
+})();
+</script>
+<script>
+/* live3: лёгкий параллакс фото-разрывов (.pbreak .pb-img) — transform по скроллу (rAF+passive),
+   без background-attachment (iOS); только ≥1000px; instant() → transform снят, статичное фото.
+   Запас хода: у картинки bleed ±40px (CSS), сдвиг ±30px — края не оголяются. */
+(function(){
+  var doc=document.documentElement;
+  var reduce=false;try{reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){}
+  function instant(){return reduce||document.hidden||navigator.webdriver||doc.classList.contains('noanim');}
+  function wide(){return (window.innerWidth||0)>=1000;}
+  var imgs=[].slice.call(document.querySelectorAll('.pbreak .pb-img'));
+  if(!imgs.length)return;
+  var on=false,tick=false;
+  function upd(){
+    tick=false;
+    if(!on)return;
+    var vh=window.innerHeight||1,vc=vh/2,i,p,r,ratio;
+    for(i=0;i<imgs.length;i++){
+      p=imgs[i].parentNode;if(!p||!p.getBoundingClientRect)continue;
+      r=p.getBoundingClientRect();
+      if(r.bottom<-80||r.top>vh+80)continue; /* вне вьюпорта — не трогаем */
+      ratio=((r.top+r.height/2)-vc)/((vc+r.height/2)||1);
+      if(ratio>1)ratio=1;else if(ratio<-1)ratio=-1;
+      imgs[i].style.transform='translate3d(0,'+(-ratio*30).toFixed(1)+'px,0)';
+    }
+  }
+  function req(){if(on&&!tick){tick=true;requestAnimationFrame(upd);}}
+  function judge(){
+    var want=!instant()&&wide();
+    if(want&&!on){on=true;req();}
+    else if(!want&&on){on=false;for(var i=0;i<imgs.length;i++)imgs[i].style.transform='';}
+  }
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',function(){judge();req();},{passive:true});
+  document.addEventListener('visibilitychange',judge);
+  judge();
 })();
 </script>
 </body>

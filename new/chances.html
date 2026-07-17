@@ -475,6 +475,24 @@ details.q[open]{border-left-color:var(--gold)}
 @media(max-width:1000px){#faq .faq-wrap{grid-template-columns:1fr}.faq-side{position:static}}
 @media(prefers-reduced-motion:reduce){details.q:hover,.fs-link:hover{transform:none}}
 @media(max-width:1140px){nav.main,.hd-r .lk{display:none}.burger{display:grid}}
+.wgo,.cab-lead{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:700;color:var(--indigo);transition:transform .2s}
+.wgo:hover,.cab-lead:hover{transform:translateX(4px);color:var(--indigo-7)}
+/* logo motion: колонны вырастают, волна на hover */
+.logo-ico rect{transform-box:fill-box;transform-origin:center bottom}
+.js:not(.noanim) .logo-ico rect:nth-child(-n+4){animation:logoRise .55s cubic-bezier(.16,.7,.2,1) backwards}
+.js:not(.noanim) .logo-ico rect:nth-child(1){animation-delay:.05s}
+.js:not(.noanim) .logo-ico rect:nth-child(2){animation-delay:.12s}
+.js:not(.noanim) .logo-ico rect:nth-child(3){animation-delay:.19s}
+.js:not(.noanim) .logo-ico rect:nth-child(4){animation-delay:.26s}
+.js:not(.noanim) .logo-ico rect:nth-child(n+5){animation:logoBeam .4s ease .34s backwards}
+@keyframes logoRise{from{transform:scaleY(0);opacity:0}}
+@keyframes logoBeam{from{opacity:0;transform:scaleX(.4)}}
+.logo:hover .logo-ico rect:nth-child(-n+4){animation:logoHop .5s cubic-bezier(.34,1.56,.64,1)}
+.logo:hover .logo-ico rect:nth-child(2){animation-delay:.06s}
+.logo:hover .logo-ico rect:nth-child(3){animation-delay:.12s}
+.logo:hover .logo-ico rect:nth-child(4){animation-delay:.18s}
+@keyframes logoHop{35%{transform:translateY(-2.5px)}}
+@media(prefers-reduced-motion:reduce){.logo-ico rect{animation:none!important}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -695,6 +713,48 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .hq-in{transition:none}
 }
 @media(min-width:1000px){.js.plx section:has(>.bg-art){overflow:clip}}
+/* live3 — фото-разрывы + микро-анимации */
+/* l1) полноширинный фото-разрыв: цвет приглушён, тёмно-синие края для перехода, строка-факт по центру */
+.pbreak{position:relative;height:300px;overflow:hidden;background:var(--indigo-9)}
+.pbreak .pb-img{position:absolute;left:0;top:-40px;width:100%;height:calc(100% + 80px);object-fit:cover;filter:saturate(.85)}
+.pbreak::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,27,75,.52),rgba(30,27,75,.16) 32%,rgba(30,27,75,.16) 68%,rgba(30,27,75,.52)),radial-gradient(130% 110% at 50% 50%,transparent 52%,rgba(30,27,75,.32));pointer-events:none}
+.pbreak .pb-line{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;margin:0;padding:0 20px;text-align:center;color:rgba(255,255,255,.93);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 12px rgba(30,27,75,.6)}
+@media(min-width:1000px){.pbreak .pb-img{will-change:transform}}
+@media(max-width:640px){.pbreak{height:180px}.pbreak .pb-img{top:0;height:100%}.pbreak .pb-line{font-size:11.5px;letter-spacing:.12em}}
+/* l2а) галочки в .dir li: прорисовка stroke при появлении карточки, каскад */
+.js .dir.reveal li svg path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .55s cubic-bezier(.16,.7,.2,1) .18s}
+.js .dir.reveal.in li svg path{stroke-dashoffset:0}
+.js .dir.reveal.in li:nth-child(2) svg path{transition-delay:.3s}
+.js .dir.reveal.in li:nth-child(3) svg path{transition-delay:.42s}
+.js .dir.reveal.in li:nth-child(4) svg path{transition-delay:.54s}
+.js .dir.reveal.in li:nth-child(5) svg path{transition-delay:.66s}
+/* l2б) иконка .dir .ic: один мягкий «вдох» при появлении (без fill — hover-transform живёт дальше) */
+@keyframes icBreath{0%{transform:scale(1)}45%{transform:scale(1.06)}100%{transform:scale(1)}}
+.js .dir.reveal.in .ic{animation:icBreath .9s cubic-bezier(.16,.7,.2,1) .3s 1}
+.js .dir.reveal.in.i2 .ic{animation-delay:.42s}
+.js .dir.reveal.in.i3 .ic{animation-delay:.54s}
+.js .dir.reveal.in.i4 .ic{animation-delay:.66s}
+/* l2в) фото-рейл отзывов: лёгкий tilt + подъём при hover */
+.rev-rail img{transition:transform .28s cubic-bezier(.16,.7,.2,1),box-shadow .28s}
+.rev-rail img:hover{transform:translateY(-6px) rotate(-1.5deg);box-shadow:var(--sh)}
+/* l2д) номер этапа при автопрогулке: лёгкий пульс вместе с подсветкой .lit */
+@keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+.js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
+/* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(91,135,207,.6)}
+/* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
+@media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
+/* live3: защита noanim — мгновенный финал */
+.js.noanim .dir.reveal li svg path{stroke-dashoffset:0!important;transition:none!important}
+.js.noanim .dir .ic,.js.noanim .prow.lit .pn{animation:none!important}
+.js.noanim .pbreak .pb-img{transform:none!important}
+/* live3: prefers-reduced-motion — финал без движения */
+@media(prefers-reduced-motion:reduce){
+  .js .dir.reveal li svg path{stroke-dashoffset:0!important;transition:none!important}
+  .dir .ic,.prow.lit .pn{animation:none!important}
+  .pbreak .pb-img{transform:none!important}
+  .rev-rail img:hover{transform:none}
+}
 
 /* --- page:chances --- */
 .chc-hcard{background:linear-gradient(140deg,rgba(61,91,169,.9),rgba(91,135,207,.58)),url(/assets/trc/story2.jpg) center/cover;border-radius:var(--r-lg);padding:92px 72px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
@@ -1621,6 +1681,43 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     c.style.setProperty('--hx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
     c.style.setProperty('--hy',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
   },{passive:true});
+})();
+</script>
+<script>
+/* live3: лёгкий параллакс фото-разрывов (.pbreak .pb-img) — transform по скроллу (rAF+passive),
+   без background-attachment (iOS); только ≥1000px; instant() → transform снят, статичное фото.
+   Запас хода: у картинки bleed ±40px (CSS), сдвиг ±30px — края не оголяются. */
+(function(){
+  var doc=document.documentElement;
+  var reduce=false;try{reduce=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}catch(e){}
+  function instant(){return reduce||document.hidden||navigator.webdriver||doc.classList.contains('noanim');}
+  function wide(){return (window.innerWidth||0)>=1000;}
+  var imgs=[].slice.call(document.querySelectorAll('.pbreak .pb-img'));
+  if(!imgs.length)return;
+  var on=false,tick=false;
+  function upd(){
+    tick=false;
+    if(!on)return;
+    var vh=window.innerHeight||1,vc=vh/2,i,p,r,ratio;
+    for(i=0;i<imgs.length;i++){
+      p=imgs[i].parentNode;if(!p||!p.getBoundingClientRect)continue;
+      r=p.getBoundingClientRect();
+      if(r.bottom<-80||r.top>vh+80)continue; /* вне вьюпорта — не трогаем */
+      ratio=((r.top+r.height/2)-vc)/((vc+r.height/2)||1);
+      if(ratio>1)ratio=1;else if(ratio<-1)ratio=-1;
+      imgs[i].style.transform='translate3d(0,'+(-ratio*30).toFixed(1)+'px,0)';
+    }
+  }
+  function req(){if(on&&!tick){tick=true;requestAnimationFrame(upd);}}
+  function judge(){
+    var want=!instant()&&wide();
+    if(want&&!on){on=true;req();}
+    else if(!want&&on){on=false;for(var i=0;i<imgs.length;i++)imgs[i].style.transform='';}
+  }
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',function(){judge();req();},{passive:true});
+  document.addEventListener('visibilitychange',judge);
+  judge();
 })();
 </script>
 </body>
