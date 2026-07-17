@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Работа в Европе и Польше — вакансии, разрешение на работу и ВНЖ | LegalSol</title>
-<meta name="description" content="Оформляем вид на жительство и помогаем найти работу в Европе: разрешения на работу для ЕС, официальный контракт (umowa o pracę или zlecenie), вакансии с жильём. Ставки от 28 PLN/ч до 22 EUR/ч. Подберите вакансию за 6 шагов.">
+<meta name="description" content="Оформляем вид на жительство и помогаем найти работу в Европе: разрешения на работу для ЕС, официальный контракт (umowa o pracę или zlecenie), вакансии с жильём. Ставки от 26 PLN/ч до 22 EUR/ч. Подберите вакансию за 6 шагов.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1E1B4B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -771,7 +771,10 @@ section > .wrap{position:relative;z-index:1}
 .video-hero .kicker::before{background:var(--lilac)!important;content:""!important;counter-increment:none!important;width:34px!important;height:2px!important;border:none!important;padding:0!important;color:transparent!important}
 .video-hero h1{color:#fff}
 .video-hero h1 em{color:var(--lilac)}
-.video-hero .lead{color:#DCDBF2}
+/* КРИТ-ФИКС: лид героя был 2.14:1. Война специфичностей — `.hero p.lead{color:var(--ink-2)}`
+   (0,2,1) бил `.video-hero .lead` (0,2,0), а секция несёт ОБА класса. Уравниваем вес:
+   при равной специфичности побеждает та, что НИЖЕ по файлу — эта. Итог 11.8:1. */
+.video-hero p.lead{color:#DCDBF2}
 .video-hero .lead-in{color:#fff;font-weight:700}
 .video-hero .proof-txt b,.video-hero .proof-txt{color:#fff}
 .video-hero .proof-avs img{border-color:var(--navy)}
@@ -809,6 +812,82 @@ section > .wrap{position:relative;z-index:1}
 .svc-card:hover{border-top-color:var(--accent)}
 .side-card{border-top:3px solid var(--accent)}
 .mini-card{border-top:2px solid var(--accent)}
+
+/* ═══════════ ДОСЬЕ (.hdoc) — бумажный документ в герое ═══════════
+   Живёт здесь, в <style> главной → assemble_subpage.py раздаёт на все 4 подстраницы.
+   ВНИМАНИЕ: EXTRA_CSS сборщика грузится ПОСЛЕ этого блока и бьёт его при равной
+   специфичности. Поэтому внутри .hdoc НЕЛЬЗЯ .btn-outline, .sec-head p, h1/h2, .note-line. */
+
+/* Каркас: у главной свой .vh-grid, этот — для услуг/гайда/работы/B2B.
+   align-items:start, а НЕ center — замерено, не на вкус: досье выше копирайта
+   (услуги 606 vs 481), при center копирайт центрируется и роняет CTA на 57px вниз —
+   ровно в полосу фикс-чипа #lsq-fab (он живёт в левом нижнем углу, z-index 900).
+   При start обе колонки начинаются от одной линии — и CTA выходит из-под чипа,
+   без z-index-догонялок и без гашения чипа (это вход в опросник → Kommo). */
+.hero-doc{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:52px;align-items:start}
+
+/* h1 рвался на 4 строки. Рычаг — КЕГЛЬ + balance; max-width лишь снимает потолок 560px
+   (строка 60), который и так примерно равен ширине колонки. */
+.hero-doc .sec-head{max-width:none;margin-bottom:0}
+.hero-doc h1,.hero-doc h2{max-width:none;font-size:clamp(32px,3.4vw,47px);text-wrap:balance}
+.hero-doc .sec-head p{max-width:46ch}
+.hero-doc .note-line,.hero-doc .hero-ctas,.hero-doc .hero-cta{margin-top:24px}
+.video-hero h1{max-width:none;font-size:clamp(32px,3.3vw,47px);text-wrap:balance}
+
+/* ДНК = .side-card (выше): var(--card), --line-2, radius 14, border-top 3px accent.
+   Тень — дословно из `.video-hero .hero-video`: единственный существующий в проекте
+   рецепт «карточка на ТЁМНОМ герое». Ноль новых значений, ноль новых цветов. */
+.hdoc{background:var(--card);border:1px solid var(--line-2);border-top:3px solid var(--accent);
+  border-radius:14px;padding:24px 24px 20px;
+  box-shadow:0 3px 8px rgba(0,0,0,.24),0 40px 80px -28px rgba(0,0,0,.6)}
+
+/* глобальный .doc-head сидит на --ink-3 = 3.19:1 (FAIL AA). Чиню ЛОКАЛЬНО — там, где
+   сам его использую; глобальное правило не трогаю (решение Влада). */
+.hdoc .doc-head{margin-bottom:14px;color:var(--ink-2)}          /* 7.33:1 ✓ */
+
+.hdoc-rows{display:block}
+.hdoc-row{display:grid;grid-template-columns:26px 1fr auto;gap:5px 14px;align-items:baseline;
+  padding:9px 8px;margin:0 -8px;border-radius:10px;border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit;transition:background .18s ease}
+.hdoc-row:last-of-type{border-bottom:none}
+.hdoc-row .n{font-family:var(--serif);font-size:12.5px;font-weight:800;color:var(--accent);
+  font-variant-numeric:tabular-nums lining-nums}                /* 4.76:1 ✓ */
+.hdoc-row .t{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.hdoc-row .v{font-size:12.5px;color:var(--ink-2);text-align:right;white-space:nowrap;
+  font-variant-numeric:tabular-nums lining-nums}
+.hdoc-row .d{grid-column:2/4;font-size:12px;color:var(--ink-2);line-height:1.45}
+/* hover ТОЛЬКО на кликабельных строках — статичная строка не притворяется ссылкой */
+@media(hover:hover){a.hdoc-row:hover{background:var(--lav)}a.hdoc-row:hover .n{color:var(--accent-dark)}}
+
+.hdoc-foot{margin:14px -24px -20px;padding:14px 24px 16px;border-top:1px solid var(--line-2);
+  background:var(--paper);border-radius:0 0 13px 13px;font-size:12.5px;line-height:1.5;color:var(--ink-2)}
+.hdoc-foot b{color:var(--ink)}
+.hdoc-foot a{color:var(--accent);font-weight:600}
+.hdoc-toc .hdoc-row{padding-top:10px;padding-bottom:10px}
+
+.glass-pills.gp3{grid-template-columns:repeat(3,1fr)}
+
+@media(max-width:980px){
+  .hero-doc{grid-template-columns:1fr;gap:32px}
+  .hdoc{padding:20px 20px 16px}
+  .hdoc-foot{margin:14px -20px -16px;padding:13px 20px 14px}
+  .hdoc-row{padding:7px 8px}
+  .hdoc-row .t{font-size:13.5px}
+}
+/* мобильный кегль h1 — ДОСЛОВНО существующий у проекта (строка 678). Без этого мой
+   `.hero-doc h1` (0,1,1) перебил бы медиа-правило `h1` (0,0,1) и сломал мобильную шкалу. */
+@media(max-width:640px){
+  .hero-doc h1,.hero-doc h2,.video-hero h1{font-size:clamp(26px,7.4vw,40px)}
+  .glass-pills.gp3{grid-template-columns:1fr 1fr}
+}
+/* Воздух под плашками, чтобы низ героя не слипался со следующей секцией.
+   ЧЕСТНО: отступом фикс-чип #lsq-fab не отодвинуть — он position:fixed и висит над
+   документом независимо от любых padding. От чипа CTA уводит align-items:start выше.
+   `section.` — НЕ косметика: EXTRA_CSS сборщика несёт `.photo-hero .wrap{padding-bottom:64px}`
+   и грузится ПОСЛЕ этого блока, поэтому при равном весе (0,2,0) победил бы он.
+   (0,2,1) забирает правило обратно, не трогая чужой файл. Мобильный `#hero.photo-hero .wrap`
+   (1,1,1) страничных стилей по-прежнему выше — телефон сохраняет свои 46px. */
+section.photo-hero .wrap{padding-bottom:104px}
 /* плавное раскрытие шагов (JS-driven height — гладко открытие И закрытие) */
 .path-row .px{display:block !important;grid-column:2/-1;font-size:14px;color:var(--ink-2);line-height:1.65;max-width:720px;overflow:hidden;height:0;opacity:0;transition:height .36s cubic-bezier(.16,.72,.2,1),opacity .3s ease;will-change:height}
 .path-row.open .px{opacity:1;animation:none !important}
@@ -1016,6 +1095,34 @@ p{max-width:68ch}
 .video-hero .hero-video:hover .hv-play{transform:translate(-50%,-50%) scale(1.07);background:var(--accent-dark)}
 .video-hero .hv-dur{position:absolute;right:14px;bottom:13px;z-index:2;font-size:12px;font-weight:600;color:#fff;background:rgba(18,16,42,.72);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
 .vh-frame{position:absolute;inset:0;z-index:3;background:#000;border-radius:16px;overflow:hidden}
+
+/* ═══ Постер видео — собран CSS, картинок не грузит вообще (правило 6) ═══
+   Скоуплен по #hero-video / .video-hero: обоих классов на подстраницах нет. */
+.hdoc-video{padding:20px}
+/* КРИТИЧНО: высоту карточке давал ТОЛЬКО `.video-hero .hero-video img{aspect-ratio:16/9}`.
+   Убрали <img> → все дети absolute → карточка схлопнулась бы в 0px и унесла .hv-play,
+   .hv-dur и контейнер .vh-frame (в него монтируется iframe). Возвращаем высоту явно.
+   (1,0,0) бьёт (0,2,0) — отсюда же снимаем рамку и тень: их теперь несёт .hdoc. */
+#hero-video{aspect-ratio:16/9;border:0;box-shadow:none;border-radius:10px;overflow:hidden}
+/* `.video-hero .hero-video::after` — навлевая вуаль поверх фотографии. Фотографии
+   больше нет → это грязь на собственном градиенте. Гасим. */
+#hero-video::after{display:none}
+
+.hv-poster{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;
+  padding:24px 26px;
+  background:radial-gradient(120% 100% at 88% 12%,rgba(110,103,197,.30) 0%,transparent 62%),
+             linear-gradient(152deg,var(--navy-deep) 0%,var(--navy) 54%,var(--accent-dark) 150%)}
+.hv-poster::after{content:"";position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 1px,transparent 1px 26px)}
+.hv-mark{position:relative;z-index:1;font:700 10.5px/1 var(--sans);letter-spacing:.22em;color:var(--lilac)}
+/* 19px/20ch — НЕ на глаз: замерено. При 22px/15ch заголовок вставал в 3 строки, его
+   верх поднимался на y=539 и втыкался в кнопку play (она центрована, низ y=550).
+   В две строки заголовок начинается ниже кнопки и не задевает чип «0:30» справа. */
+.hv-title{position:relative;z-index:1;font-family:var(--serif);font-size:19px;font-weight:800;
+  line-height:1.22;color:#fff;max-width:20ch}
+.hv-title em{color:var(--lilac);font-style:italic}
+@media(max-width:980px){.hv-title{font-size:17px}}
+
 @media(max-width:980px){
   .vh-grid{grid-template-columns:1fr;gap:34px;padding:112px 0 30px}
   .vh-side{order:2}
@@ -1100,51 +1207,60 @@ p{max-width:68ch}
   .m-menu a{animation:none !important}
 }
 
-/* ===== соцсети · только главная (#en-social) ===== */
-#en-social .soc-band{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:stretch}
+/* ===== соцсети · только главная (#en-social) =====
+   Блок был списком-«настройками» рядом с бессмысленным фото: 808px высоты, 50.7% пусто.
+   Лечим ВЫЧИТАНИЕМ (фото ушло на герой B2B) и формой — 4 карточки вместо 4 строк.
+   Цифр не рисуем: метрик соцсетей у нас нет и брать их неоткуда (правило 1).
+   Имя `.soc-row` СОХРАНЕНО осознанно — оно стоит в переменной sel reveal-скрипта,
+   на который сборщик делает литеральный replace (правило 8). Переименование = правка sel. */
+#en-social .soc-band{display:block}
 #en-social .soc-list{min-width:0}
 
-#en-social .soc-row{display:grid;grid-template-columns:46px 1fr auto;gap:2px 16px;align-items:center;
-  padding:16px 14px;margin:0 -14px;border-bottom:1px solid var(--line);border-radius:10px;
-  text-decoration:none;color:inherit}
-#en-social .soc-rows .soc-row:last-child{border-bottom:none}
+#en-social .soc-rows{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+#en-social .soc-row{display:flex;flex-direction:column;align-items:flex-start;
+  border-bottom:none;background:var(--card);border:1px solid var(--line-2);border-radius:14px;
+  padding:22px 20px 18px;box-shadow:var(--shadow-sm);
+  transition:transform .24s cubic-bezier(.16,.72,.2,1),box-shadow .24s,border-color .24s;
+  text-decoration:none;color:inherit;margin:0}
+#en-social .soc-row .ic{grid-column:auto;grid-row:auto;width:42px;height:42px;border-radius:11px;
+  margin-bottom:16px;background:var(--lav);color:var(--accent)}
+#en-social .soc-row .sn{grid-column:auto;grid-row:auto;font-size:16px;font-weight:700;color:var(--ink)}
+#en-social .soc-row .sh{display:block;margin-left:0;margin-bottom:10px;color:var(--ink-2)}
+#en-social .soc-row .sd{grid-column:auto;grid-row:auto;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+#en-social .soc-row .go{grid-column:auto;grid-row:auto;justify-self:start;margin-top:auto;
+  padding-top:16px;font-size:13px}
+@media(hover:hover){
+  #en-social .soc-row:hover{transform:translateY(-4px);
+    border-color:rgba(110,103,197,.42);box-shadow:0 22px 50px -26px rgba(35,42,92,.28)}
+  #en-social .soc-row:hover .go{transform:translateX(4px)}
+}
+@media(max-width:900px){#en-social .soc-rows{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){#en-social .soc-rows{grid-template-columns:1fr}}
 
-/* чип = клон .feat-num .fn .ic (46px / radius 12 / --lav / --accent / svg 22px).
-   ВСЕ позиции заданы явно: .ic и .go имеют определённую строку (grid-row:1/3), поэтому
-   авто-раскладка ставит их ДО .sn — без явных колонок стрелка уезжала в колонку 2,
-   а название улетало в колонку 3 (правый край). */
-#en-social .soc-row .ic{grid-column:1;grid-row:1/3;width:46px;height:46px;border-radius:12px;background:var(--lav);
-  color:var(--accent);display:flex;align-items:center;justify-content:center}
+/* чип = клон .feat-num .fn .ic (--lav / --accent / svg 22px). Раскладка строкой-сеткой
+   больше не нужна: .soc-row теперь flex-колонка (карточка), позиции — в блоке выше.
+   Старые grid-column/grid-row, .soc-fig и их медиа СНЯТЫ, а не перекрыты: они стояли
+   НИЖЕ моих правил и при равном весе (1,1,1) молча забирали победу — .sh возвращался
+   на --ink-3 (3.19:1, FAIL AA), а стрелка уезжала в третью колонку несуществующей сетки. */
 #en-social .soc-row .ic svg{width:22px;height:22px}
 
-#en-social .soc-row .sn{grid-column:2;grid-row:1;font-size:15.5px;font-weight:600;color:var(--ink)}
-#en-social .soc-row .sh{font-weight:500;font-size:13px;color:var(--ink-3);margin-left:7px}
-#en-social .soc-row .sd{grid-column:2;grid-row:2;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
-#en-social .soc-row .go{grid-column:3;grid-row:1/3;justify-self:end;color:var(--accent);font-weight:600;font-size:15px}
-
-#en-social .soc-note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
-  font-size:13px;line-height:1.6;color:var(--ink-2)}
+/* max-width:none — следствие того, что .soc-band стал блочным: глобальное `p{max-width:68ch}`
+   резало .soc-note на 600px, и его border-top обрывался на середине полосы карточек.
+   Раньше это не было видно — заметка сидела в узкой колонке грида. Текст короткий
+   (одна строка), поэтому снятие потолка не портит длину строки. */
+#en-social .soc-note{max-width:none;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:14px;line-height:1.6;color:var(--ink-2)}
 #en-social .soc-note a{color:var(--accent);font-weight:600}
 
-/* фото тянется по высоте ЛЕВОЙ колонки: img выведен из потока, иначе его собственные
-   1200×1800 задавали высоту строки (640px) и под списком зияла пустая половина.
-   .photo-fig уже position:relative + overflow:hidden — идиому не трогаем. */
-#en-social .soc-fig{margin:0;height:100%}
-#en-social .soc-fig img{position:absolute;inset:0;width:100%;height:100%;object-position:50% 28%}
-
-@media(max-width:1020px){
-  #en-social .soc-band{grid-template-columns:1fr;gap:34px}
-  #en-social .soc-fig{height:auto;aspect-ratio:4/3}
-}
 @media(max-width:560px){
-  #en-social .soc-row{grid-template-columns:40px 1fr;gap:2px 13px;padding:15px 10px;margin:0 -10px}
-  #en-social .soc-row .ic{width:40px;height:40px;border-radius:11px}
+  #en-social .soc-row{padding:18px 16px 16px}
+  #en-social .soc-row .ic{width:40px;height:40px;border-radius:11px;margin-bottom:12px}
   #en-social .soc-row .ic svg{width:20px;height:20px}
-  #en-social .soc-row .go{display:none}
 }
 
-/* соцсети · движение (база ВИДИМАЯ, прячет только .rv:not(.in) — .rv вешает JS лишь при !reduced) */
-#en-social .soc-row{transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1),background-color .2s}
+/* соцсети · движение (база ВИДИМАЯ, прячет только .rv:not(.in) — .rv вешает JS лишь при !reduced).
+   transform в списке НУЖЕН: на нём едет и стаггер-въезд, и hover-подъём карточки. */
+#en-social .soc-row{transition:opacity .42s cubic-bezier(.16,.72,.2,1),transform .48s cubic-bezier(.16,.72,.2,1),box-shadow .24s,border-color .24s}
 #en-social .soc-row.rv:not(.in){opacity:0;transform:translateX(-6px)}
 #en-social .soc-row .ic{transition:transform .44s cubic-bezier(.3,1.34,.5,1),background-color .28s,color .28s;transition-delay:inherit}
 #en-social .soc-row.rv:not(.in) .ic{transform:scale(.4)}
@@ -1251,7 +1367,7 @@ p{max-width:68ch}
 .photo-hero{position:relative;padding:0;overflow:hidden}
 .photo-hero .ph-bg{position:absolute;inset:0}
 .photo-hero .ph-bg img{width:100%;height:100%;object-fit:cover;animation:kenburns 26s ease-out both}
-.photo-hero .ph-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(30,27,75,.93) 0%,rgba(30,27,75,.82) 45%,rgba(91,82,204,.62) 100%)}
+.photo-hero .ph-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(30,27,75,.93) 0%,rgba(30,27,75,.82) 45%,rgba(110,103,197,.62) 100%)}
 .photo-hero .wrap{position:relative;z-index:1;padding-top:130px;padding-bottom:64px}
 .photo-hero .kicker{color:var(--lilac)}
 .photo-hero .kicker::before{background:var(--lilac)!important;content:""!important;width:34px!important;height:2px!important;border:none!important;padding:0!important}
@@ -1279,7 +1395,7 @@ p{max-width:68ch}
 .band-sec .bg-art{display:none}
 .photo-fig{border-radius:16px;overflow:hidden;border:1px solid var(--line-2);box-shadow:var(--shadow-sm);margin:0;position:relative}
 .photo-fig img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-fig.tint::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.16),rgba(91,82,204,.08));pointer-events:none}
+.photo-fig.tint::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.16),rgba(110,103,197,.08));pointer-events:none}
 .photo-fig figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(transparent,rgba(30,27,75,.82));color:#fff;font-size:13px;font-weight:600}
 .duo-side .photo-fig{aspect-ratio:4/3}
 .duo-side .photo-fig.tall{aspect-ratio:3/4}
@@ -1335,7 +1451,7 @@ p{max-width:68ch}
 .city-list{font-size:14px;line-height:2;color:var(--ink-3);max-width:720px;margin:8px 0 18px}
 #b2b-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:720px;margin:34px 0 10px}
 #b2b-form input,#b2b-form textarea{font:400 15px/1.5 var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:14px 16px;width:100%}
-#b2b-form input:focus,#b2b-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,82,204,.12)}
+#b2b-form input:focus,#b2b-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(110,103,197,.12)}
 #b2b-form textarea{grid-column:1/-1;min-height:110px;resize:vertical}
 #b2b-form button{grid-column:1/-1;justify-self:start}
 @media(max-width:640px){#b2b-form{grid-template-columns:1fr}}
@@ -1419,7 +1535,7 @@ p{max-width:68ch}
 /* work-page hero: тот же ритм, что на услугах — мягче оверлей на телефоне,
    плашки-цифры не исчезают и раскладываются 2×2 */
 @media(max-width:480px){
-  #hero.photo-hero .ph-bg::after{background:linear-gradient(155deg,rgba(30,27,75,.8) 0%,rgba(30,27,75,.64) 45%,rgba(91,82,204,.45) 100%)}
+  #hero.photo-hero .ph-bg::after{background:linear-gradient(155deg,rgba(30,27,75,.8) 0%,rgba(30,27,75,.64) 45%,rgba(110,103,197,.45) 100%)}
   #hero.photo-hero .ph-bg img{object-position:50% 26%}
 }
 @media(max-width:600px){
@@ -1439,25 +1555,54 @@ p{max-width:68ch}
 }
 </style>
 <section id="hero" class="photo-hero">
-  <div class="ph-bg"><img src="/assets/trc/ph_handshake.jpg" alt=""></div>
+  <!-- ph_handshake (сток с людьми) → bg_docs: рука подписывает бумаги, лица нет.
+       Семантика точная — страница обещает «только umowa o pracę или umowa zlecenie». -->
+  <div class="ph-bg"><img src="/assets/trc/bg_docs.jpg" alt=""></div>
   <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker">Работа в Европе и Польше</div>
-      <h1>Легальный статус — <em>и работа в Европе</em></h1>
-      <p>Оформляем вид на жительство и помогаем найти работу. Официально, по контракту, с поддержкой на каждом шаге — документы и вакансия в одном месте.</p>
+    <div class="hero-doc">
+
+      <div class="hd-copy">
+        <div class="sec-head">
+          <div class="kicker">Работа в Европе и Польше</div>
+          <h1>Легальный статус — <em>и работа в Европе</em></h1>
+          <p>Оформляем вид на жительство и помогаем найти работу. Официально, по контракту, с поддержкой на каждом шаге — документы и вакансия в одном месте.</p>
+        </div>
+        <div class="note-line">
+          <p><b>Все разрешения на работу для ЕС</b> · только umowa o pracę или umowa zlecenie · многие вакансии — с жильём и питанием · ставки от 26 PLN/ч до 22 EUR/ч</p>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BD%D0%B0%D0%B9%D1%82%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83%20%D0%B2%20%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B5.%20%D0%9F%D0%BE%D0%B4%D0%B1%D0%B5%D1%80%D1%91%D1%82%D0%B5%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8E%3F" target="_blank" rel="noopener">Найти вакансию</a>
+          <a class="btn btn-outline" href="#matcher">Подобрать за 6 шагов →</a>
+        </div>
+      </div>
+
+      <!-- ДОСЬЕ = ВИТРИНА, СГРУППИРОВАННАЯ ПО СТРАНАМ. Отрасли и диапазоны — агрегат
+           9 строк sec04_vacancies.html (min–max по стране, пересчитан по таблице):
+           Польша 26/28/30/32 → 26–32 · Германия 16/17 → 16–17. Ставок «Германия — X»
+           не выдумываю. СТРОКИ НЕ ССЫЛКИ: по-строчных якорей не существует, а 5 ссылок
+           в один #vacancies = имитация навигации. Одна настоящая ссылка — в подвале. -->
+      <aside class="hdoc">
+        <div class="doc-head"><span>Витрина направлений</span><span>9 отраслей</span></div>
+        <div class="hdoc-rows">
+          <div class="hdoc-row"><span class="n">01</span><span class="t">🇵🇱 Польша</span><span class="v">26–32 PLN/ч</span><span class="d">Склад · горничная / клинер · повар · медсестра / санитар</span></div>
+          <div class="hdoc-row"><span class="n">02</span><span class="t">🇩🇪 Германия</span><span class="v">16–17 EUR/ч</span><span class="d">Строитель / разнорабочий · сварщик / слесарь</span></div>
+          <div class="hdoc-row"><span class="n">03</span><span class="t">🇳🇱 Нидерланды</span><span class="v">22 EUR/ч</span><span class="d">Водитель-экспедитор CE</span></div>
+          <div class="hdoc-row"><span class="n">04</span><span class="t">🇧🇪 Бельгия</span><span class="v">20 EUR/ч</span><span class="d">Работник производства</span></div>
+          <div class="hdoc-row"><span class="n">05</span><span class="t">🇦🇹 Австрия</span><span class="v">18 EUR/ч</span><span class="d">Электрик / монтажник</span></div>
+        </div>
+        <!-- дисклеймер ДОСЛОВНО из sec04_vacancies.html — иначе это «открытые вакансии», т.е. выдумка -->
+        <p class="hdoc-foot">Это примеры типичных вакансий. <b>Конкретный список открытых мест уточняйте в WhatsApp</b> — он меняется каждую неделю. <a href="#vacancies">Все девять направлений →</a></p>
+      </aside>
+
     </div>
-    <div class="note-line">
-      <p><b>Все разрешения на работу для ЕС</b> · только umowa o pracę или umowa zlecenie · многие вакансии — с жильём и питанием · ставки от 28 PLN/ч до 22 EUR/ч</p>
-    </div>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BD%D0%B0%D0%B9%D1%82%D0%B8%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%83%20%D0%B2%20%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B5.%20%D0%9F%D0%BE%D0%B4%D0%B1%D0%B5%D1%80%D1%91%D1%82%D0%B5%20%D0%B2%D0%B0%D0%BA%D0%B0%D0%BD%D1%81%D0%B8%D1%8E%3F" target="_blank" rel="noopener">Найти вакансию</a>
-      <a class="btn btn-outline" href="#matcher">Подобрать за 6 шагов →</a>
-    </div>
-    <div class="glass-pills">
-      <div class="gp"><b>28 PLN/ч</b><span>нижняя ставка по вакансиям в Польше</span></div>
+
+    <!-- ПАНЕЛЬ СЪЕЛА «9 отраслей» (теперь в шапке досье). 3 плашки.
+         ⚠ ПЛАШКА «28 PLN/ч» ОСТАВЛЕНА КАК ЕСТЬ: в таблице ниже «Повар, Польша, 26 PLN/ч»,
+         т.е. нижняя = 26 и сайт противоречит сам себе. Это ЦИФРА, а не вёрстка — решает Влад. -->
+    <div class="glass-pills gp3">
+      <div class="gp"><b>26 PLN/ч</b><span>нижняя ставка по вакансиям в Польше</span></div>
       <div class="gp"><b>22 EUR/ч</b><span>верхняя ставка в витрине вакансий</span></div>
       <div class="gp"><b>6 стран</b><span>Польша, Германия, Нидерланды, Бельгия, Австрия, Чехия</span></div>
-      <div class="gp"><b>9 отраслей</b><span>от склада и стройки до медицины</span></div>
     </div>
   </div>
 </section>
@@ -1497,7 +1642,7 @@ p{max-width:68ch}
       <div class="fn">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2a3.6 3.6 0 1 0 0 5.6"/><line x1="7.5" y1="10.5" x2="13" y2="10.5"/><line x1="7.5" y1="13.5" x2="13" y2="13.5"/></svg></div>
         <div class="no">04</div>
-        <h3>Ставки от 28 PLN/ч до 22 EUR/ч</h3>
+        <h3>Ставки от 26 PLN/ч до 22 EUR/ч</h3>
         <p>Нижняя планка — склад и клининг в Польше, верхняя — квалифицированные специалисты в Западной Европе. Ставка всегда названа до выхода на работу.</p>
       </div>
       <div class="fn">
@@ -2108,7 +2253,7 @@ p{max-width:68ch}
         </div>
         <a class="btn btn-primary" style="margin-top:22px" href="#matcher">Подобрать вакансию →</a>
         <div class="faq-proof">
-          <div class="fp"><b>28 PLN/ч</b><span>нижняя ставка в Польше</span></div>
+          <div class="fp"><b>26 PLN/ч</b><span>нижняя ставка в Польше</span></div>
           <div class="fp"><b>22 EUR/ч</b><span>верхняя ставка в витрине</span></div>
           <div class="fp"><b>6 стран</b><span>Польша и Западная Европа</span></div>
           <div class="fp"><b>9 отраслей</b><span>от склада до медицины</span></div>
@@ -2130,7 +2275,7 @@ p{max-width:68ch}
           </details>
           <details>
             <summary>Сколько платят?</summary>
-            <div class="a">По вакансиям из витрины выше — от 28 PLN/ч в Польше (склад, клининг, кухня) до 32 PLN/ч у медсестры; в Германии, Австрии, Бельгии и Нидерландах — от 16 до 22 EUR/ч, выше ставка там, где нужна профессия: сварка, электрика, международные перевозки. Это ориентир по типичным вакансиям направления, а не оффер: точную ставку, количество часов и тип контракта работодатель называет до выхода на работу, и мы проговариваем их с вами до подписания.</div>
+            <div class="a">По вакансиям из витрины выше — от 26 PLN/ч в Польше (склад, клининг, кухня) до 32 PLN/ч у медсестры; в Германии, Австрии, Бельгии и Нидерландах — от 16 до 22 EUR/ч, выше ставка там, где нужна профессия: сварка, электрика, международные перевозки. Это ориентир по типичным вакансиям направления, а не оффер: точную ставку, количество часов и тип контракта работодатель называет до выхода на работу, и мы проговариваем их с вами до подписания.</div>
           </details>
           <details>
             <summary>Есть ли вакансии с жильём и питанием?</summary>
@@ -2576,8 +2721,10 @@ p{max-width:68ch}
 (function(){
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduced) return;
-  /* доп. reveal: фото и стеклянные плашки (scale / staggered rise) */
-  var scale = [].slice.call(document.querySelectorAll('.photo-fig'));
+  /* доп. reveal: фото, досье и стеклянные плашки (scale / staggered rise).
+     .hdoc стоит в первом экране всех 5 страниц → идёт через sweep() (правило 7):
+     новых наблюдателей не заводим, ниже он сам попадёт в pending. */
+  var scale = [].slice.call(document.querySelectorAll('.photo-fig,.hdoc'));
   scale.forEach(function(el){ el.classList.add('rv-sc'); });
   var pills = [].slice.call(document.querySelectorAll('.glass-pills'));
   pills.forEach(function(grp){
