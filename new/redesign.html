@@ -931,7 +931,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#5B87CF);width:22px;flex:0 0 auto}
 @media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
 </style>
-<script>(function(){try{var q=new URLSearchParams(location.search).get('c');var v=q||localStorage.getItem('ls_color');if(q)localStorage.setItem('ls_color',q);if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
+<script>(function(){try{var P=location.pathname;var isHome=P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P);var q=new URLSearchParams(location.search).get('c');var v=q||(isHome?'violet':'blue');if(v==='violet')document.documentElement.classList.add('violet');}catch(e){}})();</script>
 </head>
 <body>
 <!-- topbar -->
@@ -1913,7 +1913,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 })();
 </script>
 <button id="clr-tog" type="button" aria-label="Toggle accent color" onclick="var h=document.documentElement,v=h.classList.toggle('violet');try{localStorage.setItem('ls_color',v?'violet':'blue');}catch(e){}this.querySelector('span').textContent=v?'Violet':'Blue';"><b aria-hidden="true"></b><span>Blue</span></button>
-<script>(function(){var b=document.getElementById('clr-tog');if(b)b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
+<script>(function(){var b=document.getElementById('clr-tog');if(!b)return;var P=location.pathname;if(!(P.indexOf('redesign')>-1||P.indexOf('out_home')>-1||/\/new\/?$/.test(P))){b.style.display='none';return;}b.querySelector('span').textContent=document.documentElement.classList.contains('violet')?'Violet':'Blue';})();</script>
 <script>
 /* i18n: EN base + runtime dictionaries */
 (function(){
