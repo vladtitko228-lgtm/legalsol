@@ -97,8 +97,8 @@ header{position:sticky}
 /* video card */
 .vcard{position:relative}
 .vplayer{display:block;width:100%;aspect-ratio:16/9;position:relative;border:0;padding:0;cursor:pointer;border-radius:var(--r);overflow:hidden;background:var(--indigo-9);box-shadow:var(--sh)}
-.vplayer .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82)}
-.vplayer::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(30,27,75,.34),rgba(30,27,75,.06) 46%,rgba(30,27,75,.34));pointer-events:none}
+.vplayer .vthumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.5) contrast(.92) brightness(.94)}
+.vplayer::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(61,91,169,.45),rgba(61,91,169,.18) 46%,rgba(61,91,169,.42));pointer-events:none}
 .vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.4);transition:transform .2s}
 .vplay svg{margin-left:4px}
 .vplayer:hover .vplay{transform:translate(-50%,-50%) scale(1.08)}
@@ -520,6 +520,17 @@ details.q[open]{border-left-color:var(--gold)}
 .dir .badge{z-index:3}
 .rev-rail img{object-position:50% 30%}
 .pbreak .pb-line{text-shadow:0 1px 12px rgba(15,25,55,.8)}
+.s11{padding:24px 20px 22px;min-height:150px}
+.s11 .ix{position:absolute;top:14px;right:16px;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--lilac-2);line-height:1;transition:color .3s}
+.s11:hover .ix{color:var(--indigo-2)}
+.s11 .sic{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;background:var(--lilac);color:var(--indigo);margin-bottom:14px;transition:background .3s,color .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.s11 .sic svg{width:23px;height:23px}
+.s11:nth-child(3n+2) .sic{background:var(--gold-soft);color:var(--gold-2)}
+.s11:hover .sic{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;transform:scale(1.08) rotate(-4deg)}
+.s11::after{content:"→";position:absolute;right:18px;bottom:14px;font-size:16px;font-weight:700;color:var(--indigo);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s}
+.s11:hover::after{opacity:1;transform:none}
+.s11.ask .sic{display:none}
+@media(max-width:640px){.s11{min-height:0;padding:18px 16px}.s11 .sic{width:38px;height:38px;margin-bottom:10px}.s11 .ix{font-size:24px}}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -947,7 +958,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Простая версия</span><h2>Весь путь — в шести кадрах</h2><p>Что, как и зачем — без единого термина. Подробности будут ниже, в главах.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Знакомо?</span><div class="num">1</div><h3>Часы тикают</h3><p>Виза заканчивается, уженд молчит, что делать — непонятно.</p></div>
@@ -961,7 +972,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">География</span><h2>Из Варшавы — во все 16 воеводств</h2><p>Наша команда ведёт дела по легализации по всей Польше. Карты побыту — это не «одна из услуг», это то, чем мы живём.</p></div>
   <div class="geo reveal">
     <p>Подача — по всей Польше: с 2026 года всё идёт онлайн через MOS, поэтому ваш город не имеет значения</p>
@@ -977,7 +988,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава I</span><h2>Что такое карта побыту?</h2><p>Карта побыту (по-польски karta pobytu, сокращённо TRC) — это и есть вид на жительство в Польше: пластиковая карта, которая подтверждает ваше право легально жить в стране.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -1004,7 +1015,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава II</span><h2>Почему люди не подают в одиночку</h2><p>Дело не в сложности формы — дело в том, что процедура не прощает мелочей. Вот три причины, из-за которых чаще всего теряют месяцы.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Теперь всё онлайн</b><span>С 27.04.2026 заявления подаются только онлайн — через государственную систему MOS. Для входа в неё обязателен Profil Zaufany — ваша личная электронная подпись для польских госуслуг. Одно неверное поле — и всё дело стоит.</span></div>
@@ -1028,7 +1039,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава III</span><h2>Шесть этапов — от сообщения до карты</h2><p>Весь путь целиком. Сначала — сводная таблица, ниже — что именно происходит на каждом этапе, что нужно от вас и сколько это длится.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Бесплатный разбор дела</b><p>Статус, сроки, правильное основание, план и фиксированная цена</p></div><span class="pt">В тот же день</span></div>
@@ -1103,7 +1114,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава IV</span><h2>Сколько это длится на самом деле: 4–9 месяцев</h2><p>Целиком путь обычно занимает от четырёх до девяти месяцев. Этапы ожидания частично накладываются друг на друга — дело рассматривается уже с момента подачи, поэтому строки не складываются в общую сумму. Вот куда уходит время — без приукрашивания.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 месяцев</span></div>
@@ -1264,7 +1275,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 <div class="remind" id="lsRemind" role="dialog" aria-label="Напоминание">
   <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Закрыть">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Остались вопросы?</b><p>Напишите — специалист ответит за 15 минут, бесплатно.</p>
+    <div><b>Остались вопросы?</b><p>Напишите — Талыш или Адриан ответят за 15 минут, бесплатно.</p>
       <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Оставить заявку</a></div>
     </div>
   </div>
@@ -1273,8 +1284,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <div class="fab-bub" id="fabBub" role="status">
   <button class="bx" type="button" aria-label="Закрыть" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
-  <p>Здравствуйте! Подскажу по вашему случаю — напишите, отвечу за 15 минут 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Влад · LegalSol</small>
+  <p>Здравствуйте! Подскажем по вашему случаю — напишите, ответим за 15 минут 🙌</p>
+  <small><i class="odot" aria-hidden="true"></i>Талыш и Адриан · LegalSol</small>
   <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Написать в WhatsApp"></a>
 </div>
 <a class="fab" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация." target="_blank" rel="noopener">
