@@ -1551,6 +1551,19 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app .cbx-row3 .cbx-legal-tx p{font-size:13px}
 @media(max-width:900px){.cb3-app .cbx-row3 .cbx-legal{grid-template-columns:1fr auto;align-items:center;justify-items:stretch}.cb3-app .cbx-row3 .cbx-legal .cbx-stamp{order:0;width:96px;height:96px}}
 
+/* coming-soon: видно ТОЛЬКО реальному клиенту (в демо скрыто) */
+.cb3-app .cbx-soon{display:none;margin-top:20px;background:linear-gradient(135deg,rgba(115,86,198,.06),rgba(169,155,226,.05));border:1px solid var(--line);border-radius:22px;padding:24px}
+.cb3-app.is-real .cbx-soon{display:block}
+.cb3-app .cbx-soon-h{font-size:14px;font-weight:800;letter-spacing:.02em;color:var(--ink);margin-bottom:16px}
+.cb3-app .cbx-soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.cb3-app .cbx-soon-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.cb3-app .cbx-soon-item b{display:block;font-size:14.5px;color:var(--ink);margin:9px 0 5px}
+.cb3-app .cbx-soon-item p{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-3)}
+.cb3-app .cbx-soon-badge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--indigo-7);background:rgba(115,86,198,.12);border-radius:999px;padding:4px 9px}
+.cb3-app .cbx-soon-badge.cbx-soon-eom{color:var(--gold-2);background:rgba(201,127,51,.12)}
+.cb3-app .cbx-soon-note{margin:16px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-3)}
+@media(max-width:640px){.cb3-app .cbx-soon{padding:18px}.cb3-app .cbx-soon-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1637,7 +1650,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
 <!-- ТИЗЕР ДЕМО-КАБИНЕТА -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">DEMO — through a client's eyes</span>
     <h2>Take a look inside — before your case even starts</h2>
@@ -1661,7 +1674,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Access</span>
     <h2>How to get your portal</h2>
@@ -1680,7 +1693,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Common questions about the portal</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Is this my portal?<span class="pl">+</span></summary><div class="a">Yes — if you're a LegalSol client. Log in with the phone number and password your specialist sent you, and you'll see the live status of your case straight from our CRM. Not a client yet? Open the demo and see what it looks like.</div></details>
@@ -1691,7 +1704,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Want a portal like this for your own case?</div>
@@ -1784,6 +1797,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
         </div></div>
 
 
+<div class="cbx-soon"><div class="cbx-soon-h">Coming to your portal soon</div><div class="cbx-soon-grid"><div class="cbx-soon-item"><span class="cbx-soon-badge cbx-soon-eom">By end of month</span><b>Live MOS status</b><p>Your case status pulled straight from mos.cudzoziemcy.gov.pl, updated automatically.</p></div><div class="cbx-soon-item"><span class="cbx-soon-badge">In development</span><b>Upload documents</b><p>Send photos of documents right here — we’ll check them for you.</p></div><div class="cbx-soon-item"><span class="cbx-soon-badge">In development</span><b>Pay online by card</b><p>Pay installments securely by card, without leaving the portal.</p></div></div><p class="cbx-soon-note">Everything else — case status, timeline, your specialist chat and payment schedule — works now. We add the rest step by step.</p></div>
 <!-- 7. Низ: демо-примечание + CTA -->
     <div class="cb3-final" id="cb3-final">
       <p>This is a demo portal — the data is fictional. Yours appears once your case starts.</p>
