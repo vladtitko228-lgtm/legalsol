@@ -78,7 +78,8 @@ header{position:sticky}
 .mnav a:last-of-type{border-bottom:0;color:var(--indigo)}
 
 /* hero */
-.hero{position:relative;padding:70px 0 84px;overflow:hidden}
+.hero{position:relative;padding:40px 0 56px;overflow:hidden;min-height:calc(100svh - 118px);display:flex;align-items:center}
+.hero>.wrap{width:100%;max-width:1400px}
 .hero::before{content:"";position:absolute;top:-180px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(132,168,222,.14),transparent 68%);pointer-events:none}
 .hero::after{content:"";position:absolute;bottom:-160px;left:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.14),transparent 68%);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.02fr 1.08fr;gap:64px;align-items:center;position:relative}
@@ -457,7 +458,7 @@ section>.wrap{position:relative;z-index:1}
   .waits{padding:22px 16px}
   .guar .wrap,.final .wrap{padding:34px 20px}
   h2{font-size:25px}
-  .hero{padding:44px 0 56px}
+  .hero{padding:44px 0 56px;min-height:auto;display:block}
 }
 
 /* faq split */
@@ -508,6 +509,10 @@ details.q[open]{border-left-color:var(--gold)}
 .bc-cover img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .bcard:hover .bc-cover img{transform:scale(1.05)}
 @media(max-width:640px){.bc-cover{height:92px;margin:-24px -20px 14px}}
+.chk-opts .chk:nth-child(5){grid-column:1/-1;display:flex;align-items:center;gap:16px;text-align:left;padding:18px 24px}
+.chk-opts .chk:nth-child(5) .ci{margin:0}
+.chk-opts .chk:nth-child(5) b{margin:0}
+.chk-opts .chk:nth-child(5) span.d{margin-left:auto}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -842,6 +847,32 @@ a.sv-tr:hover{background:var(--cream)}
 .sv-card{padding:26px 20px}
 .sv-facts b{white-space:normal}
 }
+/* --- раскрывающиеся детали услуг (аккордеон) --- */
+.sv-tgl{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:12px;padding:12px 14px 2px;background:none;border:0;border-top:1px dashed var(--line);cursor:pointer;font:inherit;font-size:13.5px;font-weight:800;letter-spacing:.01em;color:var(--indigo);transition:color .18s}
+.sv-tgl:hover{color:var(--indigo-7)}
+.sv-tgl .ar{display:grid;place-items:center;width:24px;height:24px;flex:none;border-radius:50%;background:var(--lilac);transition:transform .32s cubic-bezier(.16,.7,.2,1)}
+.sv-tgl[aria-expanded="true"] .ar{transform:rotate(180deg)}
+html:not(.js) .sv-tgl{display:none}
+.sv-more{display:grid;grid-template-rows:1fr}
+.js .sv-more{grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.16,.7,.2,1)}
+.js .sv-more.open{grid-template-rows:1fr}
+.sv-mw{overflow:hidden;min-height:0}
+.js .sv-mw{visibility:hidden;transition:visibility .45s}
+.js .sv-more.open .sv-mw{visibility:visible}
+.sv-mi{margin-top:14px;background:var(--lilac);border-radius:var(--r-sm);padding:18px 18px 16px}
+.sv-mh{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo);margin-bottom:10px}
+.sv-mi .sv-list{margin-bottom:13px;flex:none;gap:7px}
+.sv-mi .sv-list li{font-size:13.5px}
+.sv-mp{font-size:13.5px;color:var(--ink-2);margin-bottom:12px}
+.sv-mt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--lilac-line);padding-top:11px;margin-bottom:12px;font-size:13.5px}
+.sv-mt span{color:var(--ink-2)}
+.sv-mt b{color:var(--ink);text-align:right}
+.sv-mcta{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:800;color:var(--indigo)}
+.sv-mcta:hover{color:var(--indigo-7)}
+.noanim .sv-more,.noanim .sv-mw,.noanim .sv-tgl .ar{transition:none!important}
+@media(prefers-reduced-motion:reduce){.js .sv-more,.js .sv-mw,.sv-tgl .ar{transition:none!important}}
+@media(max-width:640px){.sv-mi{padding:16px 14px 14px}}
+
 </style>
 </head>
 <body>
@@ -920,19 +951,19 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- ANCHOR NAV -->
 <section class="sv-nav">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sv-chips stg reveal">
     <a href="#sv-legal">Легализация пребывания <small>6</small></a>
     <a href="#sv-docs">Документы <small>3</small></a>
     <a href="#sv-biz">Бизнес <small>2</small></a>
-    <a href="#sv-prices">Цены — одной таблицей</a>
+    <a href="#sv-prices">Услуги и сроки — таблицей</a>
     <a href="#sv-faq">Вопросы и ответы</a>
   </div>
 </div></section>
 
 <!-- PRICE TABLE -->
 <section id="sv-prices" class="sv-white">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Каталог</span><h2>Все услуги — одной таблицей</h2><p>Цена фиксируется в официальном договоре до начала работы — без доплат по ходу дела. Оплата — 2–3 платежа на счёт фирмы. Нажмите на строку — откроется подробная карточка услуги.</p></div>
   <div class="sv-table reveal">
     <div class="sv-tr hd"><span>Услуга</span><span>Срок</span></div>
@@ -953,7 +984,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- LEGALIZATION -->
 <section id="sv-legal">
-<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Легализация пребывания</span><h2>От первой карты — до паспорта ЕС</h2><p>Шесть услуг для тех, кто оформляет право жить в Польше: временный и постоянный побыт, Blue Card, гражданство — и защита, если пришёл отказ.</p></div>
   <div class="sv-grid stg">
 
@@ -977,6 +1008,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Ожидание решения</span><b>3–6 мес.</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20карта%20побыту%20(ВНЖ).%20Расскажите,%20с%20чего%20начать.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-pobyt">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-pobyt"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Основания для подачи</div>
+        <ul class="sv-list">
+        <li>Работа — umowa o pracę или umowa zlecenie</li>
+        <li>Свой бизнес — działalność gospodarcza</li>
+        <li>Учёба в польском вузе</li>
+        <li>Семья — łączenie rodzin, воссоединение</li>
+        <li>Польские корни или временная защита (UKR)</li>
+        </ul>
+        <p class="sv-mp">Ведём от бесплатной оценки шансов до карты на руках: с нами ожидание решения в среднем на 1,5–2 месяца короче. После карты — поездки по Шенгену (90 дней из 180) и возможность перевезти семью.</p>
+        <div class="sv-mt"><span>Срок</span><b>Подготовка 1–2 недели · решение 3–6 мес. · карта на 1–3 года</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20карта%20побыту%20(ВНЖ).%20Расскажите,%20с%20чего%20начать.">Обсудить карту побыту в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-pmz">
@@ -997,6 +1043,19 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Ожидание решения</span><b>4–8 мес.</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20ПМЖ%20(постоянный%20побыт).%20Оцените%20моё%20право%20на%20подачу.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-pmz">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-pmz"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Что понадобится подтвердить</div>
+        <ul class="sv-list">
+        <li>Непрерывное проживание за 5 лет — копии всех карт побыту и штампов</li>
+        <li>Официальный доход за последние 3 года</li>
+        <li>Знание польского языка — сертификат</li>
+        </ul>
+        <p class="sv-mp">Подавать могут также беженцы — через 5 лет с момента признания статуса — и члены семьи гражданина ЕС. Не уверены, что уже можно? Право на подачу оценим бесплатно, до начала работы.</p>
+        <div class="sv-mt"><span>Срок</span><b>Подготовка 2–4 недели · решение 4–8 мес. · карта — бессрочно</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20ПМЖ%20(постоянный%20побыт).%20Оцените%20моё%20право%20на%20подачу.">Обсудить ПМЖ в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-blue">
@@ -1016,6 +1075,20 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Ожидание решения</span><b>3–6 мес.</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20Blue%20Card.%20Проверьте,%20подхожу%20ли%20я%20по%20требованиям.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-blue">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-blue"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Чем сильнее обычной карты побыту</div>
+        <ul class="sv-list">
+        <li>Карта на 2–4 года — вместо 1–3 лет</li>
+        <li>Право на ПМЖ — уже через 2 года</li>
+        <li>Мобильность в ЕС — через 18 месяцев</li>
+        <li>Упрощённое воссоединение семьи</li>
+        </ul>
+        <p class="sv-mp">Проверим соответствие требованиям — иногда опыт работы от 5 лет засчитывается вместо диплома. Подготовим документы и сопроводительное письмо, подадим и ведём до карты.</p>
+        <div class="sv-mt"><span>Срок</span><b>Подготовка 1–2 недели · решение 3–6 мес.</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20Blue%20Card.%20Проверьте,%20подхожу%20ли%20я%20по%20требованиям.">Обсудить Blue Card в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-citiz">
@@ -1033,6 +1106,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Срок рассмотрения</span><b>6–24 мес.</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20гражданство%20Польши.%20Помогите%20определить%20мой%20путь.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-citiz">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-citiz"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Что входит в услугу</div>
+        <ul class="sv-list">
+        <li>Анализ оснований и выбор оптимального пути</li>
+        <li>Подготовка полного пакета документов</li>
+        <li>Перевод документов</li>
+        <li>Сопровождение через Urząd Wojewódzki или Prezydent RP</li>
+        <li>Контроль на каждом этапе</li>
+        </ul>
+        <p class="sv-mp">Для натурализации понадобятся стабильный доход, жильё и сертификат польского языка B1+ — готовность к подаче проверим на бесплатной консультации.</p>
+        <div class="sv-mt"><span>Срок</span><b>Рассмотрение — 6–24 мес.</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20гражданство%20Польши.%20Помогите%20определить%20мой%20путь.">Обсудить гражданство в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-apel">
@@ -1052,6 +1140,20 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Срок рассмотрения</span><b>2–6 мес.</b></div>
       </div>
       <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ.%20Нужна%20апелляция%20—%20оцените%20шансы.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-apel">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-apel"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Что входит в работу по делу</div>
+        <ul class="sv-list">
+        <li>Правовое заключение о шансах — честно, до начала работы</li>
+        <li>Составление апелляционной жалобы</li>
+        <li>Сбор недостающих доказательств</li>
+        <li>Представление интересов в суде — если нужно</li>
+        </ul>
+        <p class="sv-mp">Если odwołanie не помогло — идём дальше: жалоба в WSA в течение 30 дней, затем кассация в NSA. Сроки считаются с даты получения решения.</p>
+        <div class="sv-mt"><span>Срок</span><b>Подача — 14 дней с даты отказа · рассмотрение 2–6 мес.</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Пришёл%20отказ.%20Нужна%20апелляция%20—%20оцените%20шансы.">Обсудить апелляцию в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-protect">
@@ -1070,6 +1172,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Рассмотрение</span><b>6–24 мес.</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20международная%20защита.%20Оцените%20мою%20ситуацию.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-protect">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-protect"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Как проходит процедура</div>
+        <ul class="sv-list">
+        <li>Заявление в Straż Graniczna — готовим вместе с вами</li>
+        <li>Регистрация и временный документ на время процедуры</li>
+        <li>Интервью в Urząd do Spraw Cudzoziemców — готовим заранее</li>
+        <li>Ожидание решения — всё это время остаёмся на связи</li>
+        <li>Статус — или апелляция, она входит в работу по делу</li>
+        </ul>
+        <p class="sv-mp">Интервью — ключевой этап: заранее разбираем вопросы и вашу историю, это входит в услугу.</p>
+        <div class="sv-mt"><span>Срок</span><b>Рассмотрение — 6–24 мес.</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20международная%20защита.%20Оцените%20мою%20ситуацию.">Обсудить защиту в WhatsApp →</a>
+      </div></div></div>
     </article>
 
   </div>
@@ -1077,7 +1194,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- DOCUMENTS -->
 <section id="sv-docs" class="sv-lilac">
-<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Документы</span><h2>Документы, без которых в Польше никуда</h2><p>PESEL, электронная подпись и польские права: быстрые услуги с фиксированной ценой — оформляем с сопровождением, без очередей.</p></div>
   <div class="sv-grid stg">
 
@@ -1097,6 +1214,19 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Получение номера</span><b>в тот же день</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20PESEL.%20Помогите%20оформить.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-pesel">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-pesel"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Когда PESEL оформляют отдельно</div>
+        <ul class="sv-list">
+        <li>Работаете по рабочей визе или umowa zlecenie — без карты побыту</li>
+        <li>У вас временная защита (UKR)</li>
+        <li>Хотите получить номер раньше карты</li>
+        </ul>
+        <p class="sv-mp">Обладателям карты побыту номер присваивается автоматически — как и при регистрации по адресу (meldunek). В остальных случаях подготовим документы и сопроводим в ужонд.</p>
+        <div class="sv-mt"><span>Срок</span><b>Получение номера — в тот же день</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20PESEL.%20Помогите%20оформить.">Обсудить PESEL в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card pop reveal" id="sv-pz">
@@ -1115,6 +1245,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Услуга LegalSol — с сопровождением</span><b class="hl">на бесплатной консультации</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20Profil%20Zaufany.%20Помогите%20оформить.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-pz">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-pz"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Что можно делать онлайн</div>
+        <ul class="sv-list">
+        <li>Подавать заявления в госорганы — в том числе на карту побыту</li>
+        <li>Проверять статус своего дела</li>
+        <li>Записываться к врачу и получать e-Recepta</li>
+        <li>Подавать декларации в налоговую (e-Deklaracje)</li>
+        <li>Регистрировать бизнес через CEIDG/KRS</li>
+        </ul>
+        <p class="sv-mp">Поможем выбрать способ получения, зарегистрироваться и активировать профиль — и проверим, что подпись работает.</p>
+        <div class="sv-mt"><span>Срок</span><b>Онлайн через банк — самый быстрый способ</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужен%20Profil%20Zaufany.%20Помогите%20оформить.">Обсудить Profil Zaufany в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-prava">
@@ -1133,6 +1278,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Подача</span><b>по записи</b></div>
       </div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20замена%20водительских%20прав%20на%20польские.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-prava">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-prava"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Понадобятся документы</div>
+        <ul class="sv-list">
+        <li>Иностранные права — оригинал</li>
+        <li>Паспорт или карта побыту + PESEL</li>
+        <li>Фото 3,5 × 4,5 см</li>
+        <li>Справка о месте проживания — регистрация</li>
+        <li>Медицинская справка — для категорий C и D</li>
+        </ul>
+        <p class="sv-mp">Код 95 (kwalifikacja wstępna) обязателен для работы дальнобойщиком или водителем автобуса в ЕС: курс 35 часов → экзамен → отметка в правах, продление каждые 5 лет.</p>
+        <div class="sv-mt"><span>Срок</span><b>Подача — по записи в Urząd Komunikacji</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20замена%20водительских%20прав%20на%20польские.">Обсудить замену прав в WhatsApp →</a>
+      </div></div></div>
     </article>
 
   </div>
@@ -1144,7 +1304,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- BUSINESS -->
 <section id="sv-biz" class="sv-white">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow gold">Бизнес</span><h2>Своё дело в Польше — под ключ</h2><p>Открываем фирму и ведём бухгалтерию: JDG или Sp. z o.o., налоговые режимы, ZUS и декларации — без сюрпризов.</p></div>
   <div class="sv-grid2 stg">
 
@@ -1165,6 +1325,21 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Госпошлины</span><b>включены</b></div>
       </div>
       <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20фирму%20в%20Польше.%20Подскажите%20форму%20—%20JDG%20или%20Sp.%20z%20o.o.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-firm">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-firm"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">JDG или Sp. z o.o. — что выбрать</div>
+        <ul class="sv-list">
+        <li>JDG — проще всего открыть и закрыть, ответственность личная</li>
+        <li>JDG подходит фрилансерам, консультантам, перевозчикам</li>
+        <li>Sp. z o.o. — ответственность ограничена, требуется небольшой уставной капитал</li>
+        <li>Sp. z o.o. — сложнее в управлении, но престижнее</li>
+        <li>Фирма — выход на польский и европейский рынок</li>
+        </ul>
+        <p class="sv-mp">Открываете фирму с нами — бухгалтерию подключим сразу, а налоговый режим подберём под ваш оборот на бесплатной консультации.</p>
+        <div class="sv-mt"><span>Срок</span><b>JDG — 1–3 раб. дня · Sp. z o.o. — 5–14 раб. дней</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20фирму%20в%20Польше.%20Подскажите%20форму%20—%20JDG%20или%20Sp.%20z%20o.o.">Обсудить регистрацию фирмы в WhatsApp →</a>
+      </div></div></div>
     </article>
 
     <article class="sv-card reveal" id="sv-buh">
@@ -1183,6 +1358,20 @@ a.sv-tr:hover{background:var(--cream)}
         <div><span>Премиум — ООО, неограниченно</span><b class="hl">на бесплатной консультации</b></div>
       </div>
       <a class="btn btn-gold" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бухгалтерия%20для%20фирмы%20в%20Польше.">Обсудить в WhatsApp</a>
+    
+      <button class="sv-tgl" type="button" aria-expanded="false" aria-controls="svm-buh">Подробнее об услуге <span class="ar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+      <div class="sv-more" id="svm-buh"><div class="sv-mw"><div class="sv-mi">
+        <div class="sv-mh">Коротко о польских налогах</div>
+        <ul class="sv-list">
+        <li>PIT — налог на доходы физлиц</li>
+        <li>CIT — налог на прибыль организаций</li>
+        <li>VAT — НДС, стандартная ставка 23%</li>
+        <li>ZUS — социальное страхование</li>
+        </ul>
+        <p class="sv-mp">Тариф зависит от формы бизнеса и числа операций — Старт, Бизнес или Премиум: подберём на бесплатной консультации.</p>
+        <div class="sv-mt"><span>Срок</span><b>Декларации — ежемесячно · годовое закрытие — раз в год</b></div>
+        <a class="sv-mcta" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бухгалтерия%20для%20фирмы%20в%20Польше.">Обсудить бухгалтерию в WhatsApp →</a>
+      </div></div></div>
     </article>
 
   </div>
@@ -1190,7 +1379,7 @@ a.sv-tr:hover{background:var(--cream)}
 
 <!-- CHECKER -->
 <section class="checker">
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <span class="eyebrow">Не знаете, что нужно?</span>
   <h2>Опишите ситуацию — подскажем путь</h2>
   <p>Выберите, что ближе к вашей ситуации, — специалист ответит в WhatsApp за 15 минут и назовёт точную цену до начала работы.</p>
@@ -1224,6 +1413,45 @@ a.sv-tr:hover{background:var(--cream)}
   </div>
   <div class="sv-faqcta">Не нашли свой вопрос? <a href="https://wa.me/48735248525?text=Здравствуйте!%20Есть%20вопрос%20по%20услугам%20LegalSol.">Спросить в WhatsApp →</a></div>
 </div></section>
+
+<script>
+(function(){
+  var tgls=[].slice.call(document.querySelectorAll('.sv-tgl'));
+  if(!tgls.length)return;
+  function setBtn(b,open){b.setAttribute('aria-expanded',open?'true':'false');}
+  tgls.forEach(function(b){
+    b.addEventListener('click',function(){
+      var panel=document.getElementById(b.getAttribute('aria-controls'));
+      if(!panel)return;
+      var willOpen=!panel.classList.contains('open');
+      var sec=b.closest('section');
+      if(willOpen&&sec){ /* аккордеон в пределах секции */
+        [].forEach.call(sec.querySelectorAll('.sv-more.open'),function(p){
+          if(p===panel)return;
+          p.classList.remove('open');
+          var ob=sec.querySelector('.sv-tgl[aria-controls="'+p.id+'"]');
+          if(ob)setBtn(ob,false);
+        });
+      }
+      panel.classList.toggle('open',willOpen);
+      setBtn(b,willOpen);
+    });
+  });
+  /* строка таблицы цен → открыть детальную карточку по якорю */
+  function openByHash(){
+    var h=(location.hash||'').replace('#','');
+    if(!h)return;
+    var card=document.getElementById(h);
+    if(!card||!card.querySelector)return;
+    var b=card.querySelector('.sv-tgl');
+    if(b&&b.getAttribute('aria-expanded')!=='true')b.click();
+  }
+  window.addEventListener('hashchange',openByHash);
+  openByHash();
+  /* временный хук для скриншота: ?probe=open — раскрыть первую деталь */
+  if(/[?&]probe=open/.test(location.search))tgls[0].click();
+})();
+</script>
 
 <footer><div class="wrap">
   <div class="ft-grid">

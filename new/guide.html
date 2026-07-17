@@ -78,7 +78,8 @@ header{position:sticky}
 .mnav a:last-of-type{border-bottom:0;color:var(--indigo)}
 
 /* hero */
-.hero{position:relative;padding:70px 0 84px;overflow:hidden}
+.hero{position:relative;padding:40px 0 56px;overflow:hidden;min-height:calc(100svh - 118px);display:flex;align-items:center}
+.hero>.wrap{width:100%;max-width:1400px}
 .hero::before{content:"";position:absolute;top:-180px;right:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(132,168,222,.14),transparent 68%);pointer-events:none}
 .hero::after{content:"";position:absolute;bottom:-160px;left:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.14),transparent 68%);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.02fr 1.08fr;gap:64px;align-items:center;position:relative}
@@ -457,7 +458,7 @@ section>.wrap{position:relative;z-index:1}
   .waits{padding:22px 16px}
   .guar .wrap,.final .wrap{padding:34px 20px}
   h2{font-size:25px}
-  .hero{padding:44px 0 56px}
+  .hero{padding:44px 0 56px;min-height:auto;display:block}
 }
 
 /* faq split */
@@ -508,6 +509,10 @@ details.q[open]{border-left-color:var(--gold)}
 .bc-cover img{width:100%;height:100%;object-fit:cover;filter:saturate(.85);transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .bcard:hover .bc-cover img{transform:scale(1.05)}
 @media(max-width:640px){.bc-cover{height:92px;margin:-24px -20px 14px}}
+.chk-opts .chk:nth-child(5){grid-column:1/-1;display:flex;align-items:center;gap:16px;text-align:left;padding:18px 24px}
+.chk-opts .chk:nth-child(5) .ci{margin:0}
+.chk-opts .chk:nth-child(5) b{margin:0}
+.chk-opts .chk:nth-child(5) span.d{margin-left:auto}
 /* responsive */
 @media(max-width:1000px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
@@ -829,6 +834,13 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .gd-st .gt{margin-left:0}
   .gd-st{padding:22px 18px}
 }
+/* фото-разрыв после главы III */
+.gd-break{position:relative;height:300px;overflow:hidden;background:var(--indigo-9)}
+.gd-break .gd-break-img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+.gd-break::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,27,75,.52),rgba(30,27,75,.16) 32%,rgba(30,27,75,.16) 68%,rgba(30,27,75,.52)),radial-gradient(130% 110% at 50% 50%,transparent 52%,rgba(30,27,75,.32));pointer-events:none}
+.gd-break .gd-break-line{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;margin:0;padding:0 20px;text-align:center;color:rgba(255,255,255,.93);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-shadow:0 1px 12px rgba(30,27,75,.6)}
+@media(max-width:640px){.gd-break{height:180px}.gd-break .gd-break-line{font-size:11.5px;letter-spacing:.12em}}
+
 </style>
 </head>
 <body>
@@ -926,7 +938,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Простая версия</span><h2>Весь путь — в шести кадрах</h2><p>Что, как и зачем — без единого термина. Подробности будут ниже, в главах.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Знакомо?</span><div class="num">1</div><h3>Часы тикают</h3><p>Виза заканчивается, уженд молчит, что делать — непонятно.</p></div>
@@ -940,8 +952,8 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
-  <div class="sec-head center"><span class="eyebrow">География</span><h2>Из Варшавы — во все 16 воеводств</h2><p>С 2020 года наша команда ведёт дела по легализации в Польше. Карты побыту — это не «одна из услуг», это то, чем мы живём.</p></div>
+<img class="bg-art bgr" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center"><span class="eyebrow">География</span><h2>Из Варшавы — во все 16 воеводств</h2><p>Наша команда ведёт дела по легализации по всей Польше. Карты побыту — это не «одна из услуг», это то, чем мы живём.</p></div>
   <div class="geo reveal">
     <p>Подача — по всей Польше: с 2026 года всё идёт онлайн через MOS, поэтому ваш город не имеет значения</p>
     <div class="chips">
@@ -956,7 +968,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава I</span><h2>Что такое карта побыту?</h2><p>Карта побыту (по-польски karta pobytu, сокращённо TRC) — это и есть вид на жительство в Польше: пластиковая карта, которая подтверждает ваше право легально жить в стране.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -983,7 +995,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Глава II</span><h2>Почему люди не подают в одиночку</h2><p>Дело не в сложности формы — дело в том, что процедура не прощает мелочей. Вот три причины, из-за которых чаще всего теряют месяцы.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Теперь всё онлайн</b><span>С 27.04.2026 заявления подаются только онлайн — через государственную систему MOS. Для входа в неё обязателен Profil Zaufany — ваша личная электронная подпись для польских госуслуг. Одно неверное поле — и всё дело стоит.</span></div>
@@ -1007,7 +1019,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава III</span><h2>Шесть этапов — от сообщения до карты</h2><p>Весь путь целиком. Сначала — сводная таблица, ниже — что именно происходит на каждом этапе, что нужно от вас и сколько это длится.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Бесплатный разбор дела</b><p>Статус, сроки, правильное основание, план и фиксированная цена</p></div><span class="pt">В тот же день</span></div>
@@ -1078,9 +1090,11 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   </div>
 </div></section>
 
+<div class="gd-break"><img class="gd-break-img" src="/assets/trc/ph_consult.jpg" alt="" aria-hidden="true" loading="lazy"><p class="gd-break-line"><span>Мы рядом на каждом шаге</span></p></div>
+
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Глава IV</span><h2>Сколько это длится на самом деле: 4–9 месяцев</h2><p>Целиком путь обычно занимает от четырёх до девяти месяцев. Этапы ожидания частично накладываются друг на друга — дело рассматривается уже с момента подачи, поэтому строки не складываются в общую сумму. Вот куда уходит время — без приукрашивания.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 месяцев</span></div>
