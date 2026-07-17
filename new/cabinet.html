@@ -1033,6 +1033,213 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 .cb3-demo-chip.live{background:#E4F3EC;color:#2E8B57;text-transform:none;letter-spacing:.02em}
 @media(max-width:560px){.cb3-demo-chip.live{font-size:9px;padding:3px 7px}}
 
+/* --- cbx wow --- */
+.cb3-app .cbx-name{color:#3D5BA9}
+.cb3-app .cbx-sig{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #E8E2D8;border-radius:999px;padding:4px 6px 4px 12px;box-shadow:0 1px 4px rgba(61,91,169,.08)}
+.cb3-app .cbx-sig-l{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#8B86A0}
+.cb3-app .cbx-sig-n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:12.5px;font-weight:700;letter-spacing:.4px;color:#41659F}
+.cb3-app .cbx-sig-b{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:0;border-radius:50%;background:#F1EDE5;color:#41659F;cursor:pointer;padding:0;transition:background .2s,transform .2s}
+.cb3-app .cbx-sig-b:hover{background:#E2E9F7;transform:scale(1.08)}
+.cb3-app .cbx-sig-b:active{transform:scale(.94)}
+.cb3-app .cbx-progx{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:16px;padding-top:16px;border-top:1px dashed #E8E2D8}
+.cb3-app .cbx-ring{position:relative;width:110px;height:110px}
+.cb3-app .cbx-ring svg{display:block}
+.cb3-app .cbx-ring-anim{transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)}
+.cb3-app .cbx-ring-c{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cb3-app .cbx-ring-c b{font-size:17px;color:#211E3D;line-height:1.1}
+.cb3-app .cbx-ring-c span{font-size:10.5px;color:#8B86A0;margin-top:2px}
+.cb3-app .cbx-progx-tx b{display:block;font-size:14.5px;color:#211E3D;margin-bottom:4px}
+.cb3-app .cbx-progx-tx p{margin:0;font-size:13px;line-height:1.55;color:#5A5670}
+.cb3-app .cbx-card{background:#fff;border:1px solid #E8E2D8;border-radius:20px;padding:24px 26px;margin-top:14px;box-shadow:0 8px 24px rgba(61,91,169,.10)}
+.cb3-app .cbx-hh{font-size:15.5px;font-weight:800;color:#211E3D}
+.cb3-app .cbx-hsub{font-size:12.5px;color:#8B86A0;margin-top:3px}
+.cb3-app .cbx-legal{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;background:linear-gradient(135deg,#FFFDF9,#FBF4E9);border:1px solid #EAD9BF;border-radius:20px;padding:24px 26px;margin-top:14px;box-shadow:0 8px 24px rgba(61,91,169,.10)}
+.cb3-app .cbx-legal-h{font-size:17px;font-weight:800;color:#211E3D;margin-bottom:8px}
+.cb3-app .cbx-legal-tx p{margin:0;font-size:13.5px;line-height:1.6;color:#4A465E}
+.cb3-app .cbx-legal-tx p.cbx-legal-sub{margin-top:8px;font-size:12px;color:#8B86A0}
+.cb3-app .cbx-stamp{width:122px;height:122px;transform:rotate(-4deg)}
+.cb3-app .cbx-stamp.cbx-stamped{animation:cbx-stampin .5s cubic-bezier(.34,1.56,.64,1) 1 forwards}
+@keyframes cbx-stampin{0%{transform:rotate(4deg) scale(1.4);opacity:.25}100%{transform:rotate(-4deg) scale(1);opacity:1}}
+.cb3-app .cbx-ghost{display:flex;gap:14px;align-items:flex-start;border:1.6px dashed #C9D4EA;background:rgba(132,168,222,.07);border-radius:16px;padding:14px 16px;margin:16px 0 6px}
+.cb3-app .cbx-ghost b{font-size:13.5px;color:#41659F;display:block;margin-bottom:3px}
+.cb3-app .cbx-ghost p{margin:0;font-size:12.5px;line-height:1.55;color:#6E7A96}
+.cb3-app .cbx-ghost-ic{flex:none;width:34px;height:34px;border-radius:50%;background:#EAF0FA;color:#5B87CF;display:flex;align-items:center;justify-content:center}
+.cb3-app .cbx-evs{position:relative;margin-top:10px}
+.cb3-app .cbx-evs:before{content:"";position:absolute;left:17px;top:10px;bottom:10px;width:2px;background:#EDE7DC}
+.cb3-app .cbx-ev{position:relative;display:flex;gap:14px;padding:12px 0}
+.cb3-app .cbx-ev-ic{position:relative;z-index:1;flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#F3EFE7;color:#8B86A0;border:2px solid #fff;box-shadow:0 1px 4px rgba(61,91,169,.12)}
+.cb3-app .cbx-ev-ic--woj{background:#211E3D;color:#F5E9D6}
+.cb3-app .cbx-ev-ic--mos{background:#3D5BA9;color:#fff}
+.cb3-app .cbx-ev-ic--ls{background:#F5E7D2;color:#C97F33}
+.cb3-app .cbx-ev-bd{flex:1;min-width:0}
+.cb3-app .cbx-ev-top{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
+.cb3-app .cbx-ev-dt{font-size:11.5px;font-weight:700;color:#8B86A0;letter-spacing:.3px}
+.cb3-app .cbx-src{font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;border-radius:999px;padding:2px 8px}
+.cb3-app .cbx-src--woj{background:#211E3D;color:#F5E9D6}
+.cb3-app .cbx-src--mos{background:#E4EBF8;color:#3D5BA9}
+.cb3-app .cbx-src--ls{background:#F8EDDD;color:#A9691F}
+.cb3-app .cbx-ev-bd b{display:block;font-size:13.5px;color:#211E3D;margin-bottom:2px}
+.cb3-app .cbx-ev-bd p{margin:0;font-size:12.5px;line-height:1.55;color:#5A5670}
+.cb3-app .cbx-zare{display:inline-block;margin-top:9px;padding:4px 12px;border:2px solid rgba(33,30,61,.6);border-radius:5px;color:rgba(33,30,61,.78);font-size:11px;font-weight:800;letter-spacing:1.6px;transform:rotate(-2.5deg)}
+.cb3-app .cbx-att{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:6px 12px;border:1px solid #DCE4F2;background:#F5F8FD;color:#3D5BA9;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s}
+.cb3-app .cbx-att:hover{background:#E9F0FB;transform:translateY(-1px)}
+.cb3-app .cbx-att em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;background:#E2A96B;color:#fff;border-radius:999px;padding:1px 7px}
+.cb3-app .cbx-cascade .cbx-ev{animation:cbx-rise .45s ease both}
+.cb3-app .cbx-cascade .cbx-ev:nth-child(2){animation-delay:.09s}
+.cb3-app .cbx-cascade .cbx-ev:nth-child(3){animation-delay:.18s}
+.cb3-app .cbx-cascade .cbx-ev:nth-child(4){animation-delay:.27s}
+.cb3-app .cbx-cascade .cbx-ev:nth-child(5){animation-delay:.36s}
+.cb3-app .cbx-cascade .cbx-ev:nth-child(6){animation-delay:.45s}
+@keyframes cbx-rise{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+.cb3-app .cbx-back-rows{margin-top:14px}
+.cb3-app .cbx-back-row{display:grid;grid-template-columns:34px 140px 1fr;gap:14px;align-items:start;padding:12px 0;border-top:1px solid #F1ECE3}
+.cb3-app .cbx-back-row:first-child{border-top:0}
+.cb3-app .cbx-back-ic{width:34px;height:34px;border-radius:10px;background:#EFF3FB;color:#3D5BA9;display:flex;align-items:center;justify-content:center}
+.cb3-app .cbx-back-l{font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#8B86A0;padding-top:9px}
+.cb3-app .cbx-back-v{font-size:13.5px;line-height:1.6;color:#4A465E;padding-top:7px}
+.cb3-app .cbx-pill{display:inline-block;background:linear-gradient(135deg,#F9EFDF,#F5E3C8);border:1px solid #EAD1A8;color:#8A5A1D;font-size:14px;font-weight:700;line-height:1.5;border-radius:14px;padding:12px 18px}
+.cb3-app .cbx-team-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.cb3-app .cbx-tcard{background:#FCFAF6;border:1px solid #EDE7DB;border-radius:16px;padding:20px 18px;text-align:center;transition:transform .25s ease,box-shadow .25s ease}
+.cb3-app .cbx-tcard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(61,91,169,.14)}
+.cb3-app .cbx-ava{display:flex;align-items:center;justify-content:center;width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:linear-gradient(135deg,#5B87CF,#3D5BA9);color:#fff;font-size:22px;font-weight:800}
+.cb3-app .cbx-ava--gold{box-shadow:0 0 0 3px #fff,0 0 0 6px #E2A96B}
+.cb3-app .cbx-tcard b{display:block;font-size:14.5px;color:#211E3D}
+.cb3-app .cbx-role{display:block;font-size:11.5px;color:#8B86A0;margin:2px 0 8px}
+.cb3-app .cbx-tbadge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;background:#E4EBF8;color:#3D5BA9;border-radius:999px;padding:3px 10px;margin-bottom:9px}
+.cb3-app .cbx-tbadge--gold{background:#F8EDDD;color:#A9691F}
+.cb3-app .cbx-tcard p{margin:0;font-size:12.5px;line-height:1.55;color:#5A5670}
+.cb3-app .cbx-care-rows{margin-top:14px}
+.cb3-app .cbx-care-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid #F1ECE3}
+.cb3-app .cbx-care-row:first-child{border-top:0}
+.cb3-app .cbx-mini{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#5B87CF,#3D5BA9)}
+.cb3-app .cbx-mini--ls{background:linear-gradient(135deg,#E2A96B,#C97F33);font-size:9.5px;letter-spacing:.5px}
+.cb3-app .cbx-care-bd{flex:1;min-width:0}
+.cb3-app .cbx-care-dt{font-size:11px;font-weight:700;color:#8B86A0}
+.cb3-app .cbx-care-bd p{margin:1px 0 0;font-size:13px;line-height:1.5;color:#4A465E}
+.cb3-app .cbx-care-ind{display:flex;align-items:center;gap:9px;margin-top:14px;padding:11px 14px;border-radius:12px;background:#F5F1E8;border:1px solid #E8E2D8;font-size:12.5px;line-height:1.5;color:#5A5670}
+.cb3-app .cbx-dot{flex:none;width:9px;height:9px;border-radius:50%;background:#5B87CF;box-shadow:0 0 0 3px rgba(91,135,207,.18)}
+.cb3-app .cbx-sub{display:block;font-size:10.5px;color:#9A94AC;margin-top:1px;font-weight:400}
+.cb3-app #cb3-docs .cabrow i.cbx-na{color:#8B86A0;font-style:normal}
+@media(max-width:640px){
+.cb3-app .cbx-progx{grid-template-columns:1fr;justify-items:center;text-align:center;gap:12px;padding-top:14px}
+.cb3-app .cbx-legal{grid-template-columns:1fr;justify-items:center;text-align:center;padding:20px 16px;gap:16px}
+.cb3-app .cbx-card{padding:18px 16px}
+.cb3-app .cbx-team-g{grid-template-columns:1fr;gap:12px}
+.cb3-app .cbx-back-row{grid-template-columns:34px 1fr;gap:10px 12px}
+.cb3-app .cbx-back-l{padding-top:0;align-self:center}
+.cb3-app .cbx-back-v{grid-column:2;padding-top:0}
+.cb3-app .cbx-sig{padding:3px 5px 3px 10px}
+}
+.cb3-app .cbx-avring{border-radius:50%;box-shadow:0 0 0 2px #FAF7F2,0 0 0 4px #C97F33;}
+.cb3-app .cb3-chathead .cbx-sub{display:block;font-size:12px;line-height:1.3;color:#41659F;margin-top:2px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cb3-app .cb3-chathead .cbx-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#2FA36B;margin-right:6px;vertical-align:1px;}
+.cb3-app .cbx-sla{display:inline-flex;align-items:center;gap:6px;margin-left:auto;flex:0 0 auto;padding:6px 11px;border:1px solid #E8E2D8;border-radius:999px;background:rgba(91,135,207,.08);color:#41659F;font-size:12px;font-weight:600;white-space:nowrap;cursor:default;}
+.cb3-app .cbx-slatxt{display:inline;}
+.cb3-app .cbx-slaclock{display:block;color:#C97F33;flex:0 0 auto;}
+.cb3-app .cbx-slaring{stroke-dasharray:57;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:50% 50%;}
+.cb3-app .cbx-sla.cbx-hide .cbx-slaring{stroke-dashoffset:57;transition:none;}
+.cb3-app .cbx-sla.cbx-draw .cbx-slaring{stroke-dashoffset:0;transition:stroke-dashoffset .8s ease;}
+.cb3-app .cbx-file{display:flex;align-items:center;gap:8px;margin-top:9px;padding:8px 11px;background:#FFFFFF;border:1px solid #E8E2D8;border-radius:12px;cursor:pointer;color:#211E3D;font-size:12.5px;line-height:1.35;max-width:100%;box-shadow:0 1px 4px rgba(61,91,169,.10);transition:border-color .2s ease,box-shadow .2s ease;}
+.cb3-app .cbx-file:hover{border-color:#84A8DE;box-shadow:0 3px 10px rgba(61,91,169,.14);}
+.cb3-app .cbx-fico{flex:0 0 auto;color:#3D5BA9;}
+.cb3-app .cbx-fname{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;}
+.cb3-app .cbx-fdemo{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#C97F33;border:1px solid rgba(201,127,51,.35);border-radius:999px;padding:2px 7px;background:rgba(201,127,51,.07);}
+.cb3-app .cbx-read{font-size:10px;color:inherit;opacity:.65;margin-right:6px;white-space:nowrap;letter-spacing:.02em;}
+.cb3-app .cbx-quick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px 16px;border-top:1px dashed #E8E2D8;}
+.cb3-app .cbx-qlabel{font-size:12px;color:#41659F;opacity:.75;margin-right:2px;}
+.cb3-app .cbx-chip{font:inherit;font-size:13px;font-weight:600;line-height:1.2;color:#3D5BA9;background:#FFFFFF;border:1px solid #E8E2D8;border-radius:999px;padding:7px 13px;cursor:pointer;-webkit-appearance:none;appearance:none;transition:background .2s ease,border-color .2s ease,transform .15s ease;}
+.cb3-app .cbx-chip:hover{background:rgba(91,135,207,.08);border-color:#84A8DE;}
+.cb3-app .cbx-chip:active{transform:translateY(1px);}
+.cb3-app .cbx-chip.cbx-off,.cb3-app .cbx-chip:disabled{opacity:.45;cursor:default;pointer-events:none;transform:none;}
+.cb3-app .cbx-typing{line-height:1;min-width:44px;}
+.cb3-app .cbx-tdot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#84A8DE;opacity:.35;margin:0 2px;}
+.cb3-app .cbx-typing.cbx-typing-run .cbx-tdot{animation:cbxBlink 1.1s ease-in-out 1 forwards;}
+.cb3-app .cbx-typing.cbx-typing-run .cbx-tdot:nth-child(2){animation-delay:.14s;}
+.cb3-app .cbx-typing.cbx-typing-run .cbx-tdot:nth-child(3){animation-delay:.28s;}
+@keyframes cbxBlink{0%{opacity:.35;transform:translateY(0);}35%{opacity:1;transform:translateY(-3px);}70%{opacity:.35;transform:translateY(0);}100%{opacity:.35;transform:translateY(0);}}
+.cb3-app .cbx-slanote{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-top:10px;padding:0 4px;font-size:12.5px;color:#41659F;line-height:1.5;}
+.cb3-app .cbx-duty{font-weight:700;color:#3D5BA9;white-space:nowrap;}
+.cb3-app .cbx-duty:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#2FA36B;margin-right:6px;vertical-align:1px;}
+.cb3-app .cbx-duty.cbx-night{white-space:normal;}
+.cb3-app .cbx-duty.cbx-night:before{background:#C97F33;}
+.cb3-app .cbx-sync{opacity:.8;}
+.cb3-app .cbx-dx{position:relative;}
+@media(max-width:640px){
+.cb3-app .cbx-sla{padding:6px 8px;}
+.cb3-app .cbx-sla .cbx-slatxt{display:none;}
+.cb3-app .cb3-chathead .cbx-sub{font-size:11.5px;max-width:52vw;}
+.cb3-app .cbx-quick{padding:10px 14px 14px;gap:7px;}
+.cb3-app .cbx-chip{font-size:12.5px;padding:7px 11px;}
+.cb3-app .cbx-file{padding:8px 10px;gap:7px;}
+.cb3-app .cbx-slanote{flex-direction:column;align-items:flex-start;gap:4px;padding:0 2px;margin-top:8px;}
+}
+.cb3-app .cbx-plan{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 16px}
+.cb3-app .cbx-seg{position:relative;overflow:hidden;border:1.5px solid transparent;border-radius:14px;padding:12px 14px;min-height:62px;box-sizing:border-box}
+.cb3-app .cbx-seg-paid{background:#84A8DE;color:#fff}
+.cb3-app .cbx-seg-fill{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#5B87CF,#3D5BA9);transform:scaleX(1);transform-origin:left center;border-radius:12px}
+.cb3-app .cbx-anim .cbx-seg-fill{animation:cbxSweep .7s cubic-bezier(.22,.61,.36,1) 1 forwards}
+@keyframes cbxSweep{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.cb3-app .cbx-seg-body{position:relative;display:flex;flex-direction:column;gap:3px}
+.cb3-app .cbx-seg-t{display:flex;align-items:center;gap:6px;font-weight:700;font-size:13px;line-height:1.2}
+.cb3-app .cbx-seg-d{font-size:12px;line-height:1.3;opacity:.85}
+.cb3-app .cbx-seg-cur{background:#fff;border-color:#C97F33;box-shadow:0 4px 14px rgba(61,91,169,.10)}
+.cb3-app .cbx-seg-cur .cbx-seg-t{color:#C97F33}
+.cb3-app .cbx-seg-cur .cbx-seg-d{color:rgba(33,30,61,.65);opacity:1}
+.cb3-app .cbx-seg-off{background:transparent;border-style:dashed;border-color:#D9D3C7;color:rgba(33,30,61,.55)}
+.cb3-app .cbx-rcpt-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid rgba(61,91,169,.30);border-radius:999px;background:#fff;color:#41659F;font-size:12px;font-weight:600;font-family:inherit;line-height:1;cursor:pointer;white-space:nowrap;transition:background .2s ease,border-color .2s ease}
+.cb3-app .cbx-rcpt-btn:hover{background:rgba(91,135,207,.08);border-color:rgba(61,91,169,.5)}
+.cb3-app .cbx-rcpt-btn:active{transform:translateY(1px)}
+.cb3-app .cbx-chev{transition:transform .3s ease}
+.cb3-app .cbx-rcpt-btn[aria-expanded="true"] .cbx-chev{transform:rotate(180deg)}
+.cb3-app .cbx-rcpt{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.cb3-app .cbx-rcpt.cbx-open{grid-template-rows:1fr}
+.cb3-app .cbx-rcpt-in{overflow:hidden;min-height:0}
+.cb3-app .cbx-rcpt-paper{max-width:400px;margin:6px 0 14px 46px;padding:18px 18px 12px;background:#FFFEFB;border:1px solid #E8E2D8;border-top:0;border-radius:0 0 14px 14px;-webkit-mask:radial-gradient(circle at 8px 0,transparent 4px,#000 4.6px) 0 0/16px 100%;mask:radial-gradient(circle at 8px 0,transparent 4px,#000 4.6px) 0 0/16px 100%;font-family:"SF Mono",ui-monospace,Menlo,Consolas,"Courier New",monospace;font-size:12px;line-height:1.5;color:#211E3D}
+.cb3-app .cbx-rcpt-head{font-weight:700;letter-spacing:.03em;font-size:12.5px;margin:2px 0 8px}
+.cb3-app .cbx-rcpt-sep{border:0;border-top:1px dashed #D9D3C7;margin:9px 0}
+.cb3-app .cbx-rcpt-row{display:flex;justify-content:space-between;gap:12px;padding:2px 0}
+.cb3-app .cbx-rcpt-row span{color:rgba(33,30,61,.55)}
+.cb3-app .cbx-rcpt-row b{font-weight:600;text-align:right}
+.cb3-app .cbx-rcpt-ok{color:#3D5BA9}
+.cb3-app .cbx-rcpt-foot{text-align:center;font-size:10.5px;color:rgba(33,30,61,.45);letter-spacing:.08em;text-transform:uppercase;margin:6px 0 2px}
+.cb3-app .cbx-payfoot{margin-top:16px;padding-top:14px;border-top:1px solid #E8E2D8;display:flex;flex-direction:column;gap:10px}
+.cb3-app .cbx-foot-line{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.45;color:rgba(33,30,61,.78)}
+.cb3-app .cbx-foot-ic{flex:0 0 auto;display:inline-flex;margin-top:1px;color:#3D5BA9}
+.cb3-app .cbx-guarantee{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(201,127,51,.06);border:1px solid rgba(201,127,51,.18);border-radius:14px;font-size:13px;line-height:1.45;color:rgba(33,30,61,.85)}
+.cb3-app .cbx-seal{flex:0 0 auto;color:#C97F33;opacity:.35}
+.cb3-app .cbx-paysupport{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:14px;padding:20px 22px;background:#fff;border:1px solid #E8E2D8;border-radius:18px;box-shadow:0 8px 24px rgba(61,91,169,.10)}
+.cb3-app .cbx-sup-tx{flex:1 1 300px;min-width:240px}
+.cb3-app .cbx-sup-tx b{display:block;font-size:15px;color:#211E3D}
+.cb3-app .cbx-sup-tx p{margin:5px 0 0;font-size:13.5px;line-height:1.5;color:rgba(33,30,61,.70)}
+.cb3-app .cbx-sup-act{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.cb3-app .cbx-sup-note{font-size:12px;color:rgba(33,30,61,.55)}
+@media(max-width:640px){
+.cb3-app .cbx-plan{grid-template-columns:1fr;gap:8px;margin:14px 0}
+.cb3-app .cbx-seg{min-height:0}
+.cb3-app .cbx-rcpt-btn{padding:5px 10px;font-size:11.5px}
+.cb3-app .cbx-rcpt-paper{margin-left:0;max-width:100%}
+.cb3-app .cbx-paysupport{flex-direction:column;align-items:stretch;padding:16px;gap:14px}
+.cb3-app .cbx-sup-tx{min-width:0}
+.cb3-app .cbx-sup-act{align-items:stretch;text-align:center}
+}
+/* cbx integration */
+.cb3-app.is-real .cbx-dx{display:none!important}
+.cb3-app .cb3-sec.anim>*{animation:cbxRise .5s cubic-bezier(.22,1,.36,1) backwards}
+.cb3-app .cb3-sec.anim>*:nth-child(1){animation-delay:.02s}.cb3-app .cb3-sec.anim>*:nth-child(2){animation-delay:.09s}.cb3-app .cb3-sec.anim>*:nth-child(3){animation-delay:.16s}.cb3-app .cb3-sec.anim>*:nth-child(4){animation-delay:.23s}.cb3-app .cb3-sec.anim>*:nth-child(5){animation-delay:.30s}.cb3-app .cb3-sec.anim>*:nth-child(6){animation-delay:.37s}.cb3-app .cb3-sec.anim>*:nth-child(7){animation-delay:.44s}.cb3-app .cb3-sec.anim>*:nth-child(8){animation-delay:.51s}.cb3-app .cb3-sec.anim>*:nth-child(9){animation-delay:.58s}.cb3-app .cb3-sec.anim>*:nth-child(n+10){animation-delay:.64s}
+@keyframes cbxRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::after{animation:none!important;transition-duration:0s!important}
+@media(prefers-reduced-motion:reduce){.cb3-app .cb3-sec.anim>*{animation:none}}
+
+/* cbx-progx на тёмной карточке прогресса: светлый текст + светлое кольцо */
+.cb3-app .cbx-progx{border-top-color:rgba(255,255,255,.25)}
+.cb3-app .cbx-progx-tx b{color:#fff}
+.cb3-app .cbx-progx-tx p{color:rgba(255,255,255,.78)}
+.cb3-app .cbx-ring-c b{color:#fff}
+.cb3-app .cbx-ring-c span{color:rgba(255,255,255,.65)}
+.cb3-app .cbx-ring svg circle:first-of-type{stroke:rgba(255,255,255,.22)}
+
+.cb3-app #cbx-ring-fg{stroke:#fff;opacity:.95}
+
 </style>
 </head>
 <body>
@@ -1120,7 +1327,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- ТИЗЕР ДЕМО-КАБИНЕТА -->
 <section id="cb2-demo" class="cb2-demo">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow gold">ДЕМО — глазами клиента</span>
     <h2>Загляните внутрь — до старта дела</h2>
@@ -1131,7 +1338,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <div class="tz-dots"><i></i><i></i><i></i><em>кабинет клиента · демо</em></div>
       <div class="tz-row"><b>Дело № 812 · Карта побыту</b><span class="tz-chip">На рассмотрении</span></div>
       <div class="tz-row"><b>Готовность документов</b><span class="tz-barwrap"><span class="tz-bar"><span></span></span><u>91%</u></span></div>
-      <div class="tz-row"><b>Напоминание</b><span class="tz-soft">страховка — через 34 дня</span></div>
+      <div class="tz-row"><b>Напоминание</b><span class="tz-soft">страховка — через 64 дня</span></div>
     </div>
     <div class="tz-tx">
       <b>Полноэкранный демо-кабинет</b>
@@ -1144,7 +1351,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- КАК ПОЛУЧИТЬ ДОСТУП -->
 <section class="cb2-access">
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
     <span class="eyebrow">Доступ</span>
     <h2>Как получить свой кабинет</h2>
@@ -1163,7 +1370,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- MINI FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">FAQ</span><h2>Частые вопросы о кабинете</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>Это мой кабинет?<span class="pl">+</span></summary><div class="a">Да — если вы клиент LegalSol. Войдите по телефону и паролю, которые прислал ваш специалист, и увидите живой статус своего дела прямо из CRM. Если пока не клиент — откройте демо и посмотрите, как это выглядит.</div></details>
@@ -1174,7 +1381,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
 <!-- LEAD -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Хотите такой же кабинет для своего дела?</div>
@@ -1208,8 +1415,8 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 
     <!-- 1. Привет-строка -->
     <div class="cb3-greet">
-      <div class="g-tx" id="cb3-greet-tx"><span class="hi">Здравствуйте!</span><b>Ваше дело № 812 — Карта побыту</b></div>
-      <div class="cb3-chips" id="cb3-chips"><span class="cb3-chip st">На рассмотрении</span><span class="cb3-chip">Мазовецкое воеводство</span></div>
+      <div class="g-tx" id="cb3-greet-tx"><span class="hi"><span id="cbx-greet-word">Добрый день</span>, <span class="cbx-name">Алина</span>!</span><b>Дело № 812 — Карта побыту · всё под контролем</b></div>
+      <div class="cb3-chips" id="cb3-chips"><span class="cb3-chip st">На рассмотрении</span><span class="cb3-chip">Мазовецкое воеводство</span><span class="cbx-sig" title="Номер дела (sygnatura) — демо"><span class="cbx-sig-l">sygn.</span><code class="cbx-sig-n">WSC-812/2026</code><button class="cbx-sig-b" type="button" data-cbx="copysig" aria-label="Скопировать номер дела"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span></div>
     </div>
 
     <!-- 2. Прогресс дела -->
@@ -1219,39 +1426,27 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <div class="pr-bar"><span id="cb3-pr-fill" style="width:71%"></span></div>
       <div class="pr-next" id="cb3-pr-next"><b>Что дальше:</b> ожидание решения — мы следим за статусом и сообщим о каждом изменении. Всё это время вы в Польше легально.</div>
       <button class="cb3-updbtn" type="button" onclick="cb3Update()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg> Запросить апдейт</button>
+<div class="cbx-dx cbx-progx" id="cbx-progx"><div class="cbx-ring"><svg viewBox="0 0 110 110" width="110" height="110" aria-hidden="true"><defs><linearGradient id="cbxRingGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3D5BA9"/><stop offset="1" stop-color="#84A8DE"/></linearGradient></defs><circle cx="55" cy="55" r="48" fill="none" stroke="#EDE7DC" stroke-width="9"></circle><circle id="cbx-ring-fg" cx="55" cy="55" r="48" fill="none" stroke="url(#cbxRingGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="87.5" transform="rotate(-90 55 55)"></circle></svg><div class="cbx-ring-c"><b>День <span id="cbx-day-n">39</span></b><span>после подачи</span></div></div><div class="cbx-progx-tx"><b>71% пути позади — этап 5 из 7</b><p>Идёт рассмотрение — самый долгий этап. Мы проверяем статус каждый рабочий день и увидим движение первыми. От вас сейчас ничего не нужно.</p></div></div>
     </div>
 
+<div class="cbx-dx cbx-legal"><div class="cbx-legal-tx"><div class="cbx-legal-h">Вы легальны в Польше</div><p>Пока дело рассматривается, ваше пребывание легально — это закреплено законом при подаче в срок. Можно спокойно жить, а работать — как раньше, у своего работодателя.</p><p class="cbx-legal-sub">Это зафиксировано электронным подтверждением приёма (UPP) от 8 июня.</p></div><div class="cbx-stamp" id="cbx-stamp" aria-hidden="true"><svg viewBox="0 0 122 122" width="122" height="122"><defs><path id="cbxArc" d="M61 61 m -45 0 a 45 45 0 1 1 90 0 a 45 45 0 1 1 -90 0"/></defs><circle cx="61" cy="61" r="57" fill="rgba(201,127,51,.06)" stroke="#C97F33" stroke-width="2.6"/><circle cx="61" cy="61" r="52.5" fill="none" stroke="#C97F33" stroke-width="1" opacity=".55"/><text font-size="8.8" font-weight="700" letter-spacing="1.6" fill="#C97F33"><textPath href="#cbxArc">POBYT LEGALNY · LEGAL SOLUTIONS ·</textPath></text><circle cx="61" cy="61" r="34" fill="none" stroke="#C97F33" stroke-width="1.4" opacity=".7"/><path d="M50 60.5l7.5 7.5L72 53" fill="none" stroke="#C97F33" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><text x="61" y="82" text-anchor="middle" font-size="10.2" font-weight="800" letter-spacing="1.6" fill="#C97F33">LEGALNY</text></svg></div></div>
+<div class="cbx-dx cbx-card cbx-feed"><div class="cbx-hh">Лента дела</div><div class="cbx-hsub">Как трекинг посылки — только про ваше дело. Новое сверху.</div><div class="cbx-ghost"><span class="cbx-ghost-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12"/><path d="M6 22h12"/><path d="M7 2v4l5 5 5-5V2"/><path d="M7 22v-4l5-5 5 5v4"/></svg></span><div><b>Ожидаем: приглашение на отпечатки (biometria)</b><p>Обычно приходит в первые месяцы после подачи. О письме узнаем первыми — и сразу напишем вам.</p></div></div><div class="cbx-evs" id="cbx-feed-list"><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--woj"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">24 июня</span><span class="cbx-src cbx-src--woj">Воеводство</span></div><b>Дело зарегистрировано, присвоен номер</b><p>Пришло письмо воеводства: делу присвоена sygnatura WSC-812/2026. Это штатный шаг — дело официально в работе.</p><span class="cbx-zare">ZAREJESTROWANO · 24.06.2026</span></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">8 июня</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>Подача выполнена — UPP получено</b><p>Вы нажали «Отправить» в системе MOS — наш специалист был рядом онлайн. В тот же день пришло электронное подтверждение приёма.</p><button type="button" class="cbx-att" data-cbx="upp"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg> Подтверждение UPP.pdf <em>демо</em></button></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--mos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">8 июня</span><span class="cbx-src cbx-src--mos">MOS</span></div><b>Госпошлины оплачены</b><p>Оплачены онлайн прямо при подаче — квитанции сохранены в деле.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"/><path d="m10.5 12.5 8-8"/><path d="m15 8 3 3"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">2 июня</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Profil Zaufany оформлен</b><p>Ваш электронный ключ для государственных сервисов готов — без него подать онлайн нельзя.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 7.7 8 9 4.6-1.3 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">28 мая</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Пакет прошёл двойную проверку</b><p>ИИ-проверка по 12 частым причинам отказа, затем каждый документ лично проверила Дарья.</p></div></div><div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.3 0-2.6-.3-3.7-.9L3 21l1.9-5.8A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">12 мая</span><span class="cbx-src cbx-src--ls">LegalSol</span></div><b>Дело стартовало</b><p>Вы написали в WhatsApp — ответили за 15 минут. Дальше — бесплатная консультация, договор и этот кабинет.</p></div></div></div></div>
+<div class="cbx-dx cbx-card cbx-back"><div class="cbx-hh">Что происходит сейчас</div><div class="cbx-hsub">Честно о том, что за кулисами вашего дела.</div><div class="cbx-back-rows"><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5H3Z"/><path d="M5 8v9"/><path d="M9 8v9"/><path d="M15 8v9"/><path d="M19 8v9"/><path d="M3 21h18"/></svg></span><span class="cbx-back-l">Где дело</span><div class="cbx-back-v">У инспектора воеводства — идёт рассмотрение.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="cbx-back-l">Что это значит</span><div class="cbx-back-v">Инспектор сверяет документы — это самый долгий этап. По практике Мазовецкого воеводства — 11–16 месяцев, зависит от загрузки. Долгие сроки — так устроена система, а не проблема вашего дела.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></span><span class="cbx-back-l">Что делаем мы</span><div class="cbx-back-v">Проверяем статус каждый рабочий день и сами отвечаем на письма воеводства. Последняя проверка — сегодня 09:00 ✓.</div></div><div class="cbx-back-row"><span class="cbx-back-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"/></svg></span><span class="cbx-back-l">От вас сейчас</span><div class="cbx-back-v"><span class="cbx-pill">Ничего. Можно спокойно жить — если что-то понадобится, напишем первыми.</span></div></div></div></div>
     <div class="cb3-grid">
       <!-- 3. Таймлайн 7 шагов -->
       <div class="cb3-col">
         <div class="cb3-h">Путь вашего дела</div>
         <div class="path cb3-tl" id="cb3-tl">
-          <div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Вы обратились</b><p>Профиль дела создан, персональный специалист закреплён.</p></div><span class="pt">День 1</span></div>
-          <div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Чек-лист под ваш случай</b><p>Список документов под воеводство и основание — ничего не упущено.</p></div><span class="pt">Готово</span></div>
-          <div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Проверка документов</b><p>Даты, подписи, переводы — юрист проверил пакет дважды.</p></div><span class="pt">Готово</span></div>
-          <div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Запись без очереди</b><p>Ранний слот найден и забронирован.</p></div><span class="pt">Назначена</span></div>
-          <div class="prow c"><span class="pn">5</span><div><b>Подача через MOS — выполнена</b><p>Пакет подан онлайн, подтверждение получено. Идёт рассмотрение — всё это время вы в Польше легально.</p></div><span class="pt">Вы здесь</span></div>
-          <div class="prow f"><span class="pn">6</span><div><b>Ожидание — под контролем</b><p>Напоминания за 90/60/30 дней, статус — всегда в кабинете.</p></div><span class="pt">24/7</span></div>
-          <div class="prow f"><span class="pn">7</span><div><b>Карта побыту у вас</b><p>Проверяем данные карты и планируем следующий шаг.</p></div><span class="pt">Результат</span></div>
-        </div>
+<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Вы обратились</b><p>Написали в WhatsApp — ответили за 15 минут. На следующий день — бесплатная консультация и честная оценка шансов.</p></div><span class="pt">12 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Чек-лист и документы</b><p>Список под Мазовецкое воеводство и ваше основание — пакет собран полностью, ничего не упущено.</p></div><span class="pt">26 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Двойная проверка</b><p>ИИ-проверка по 12 частым причинам отказа + Дарья проверила каждый документ лично.</p></div><span class="pt">28 мая</span></div><div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Profil Zaufany оформлен</b><p>Ваш электронный ключ для подачи онлайн — готов.</p></div><span class="pt">2 июня</span></div><div class="prow c"><span class="pn">5</span><div><b>Подача через MOS — выполнена</b><p>8 июня вы нажали «Отправить» — наш специалист был рядом онлайн. Подтверждение приёма (UPP) пришло в тот же день. Всё это время вы в Польше легально.</p></div><span class="pt">Вы здесь</span></div><div class="prow f"><span class="pn">6</span><div><b>Ожидание — под контролем</b><p>Проверяем статус каждый рабочий день, напоминания за 90/60/30 дней — статус всегда в кабинете.</p></div><span class="pt">24/7</span></div><div class="prow f"><span class="pn">7</span><div><b>Карта побыту у вас</b><p>Проверим данные карты и спланируем следующий шаг вместе.</p></div><span class="pt">Результат</span></div>
+</div>
       </div>
 
       <div class="cb3-col">
         <!-- 4. Документы -->
         <div class="cb3-h">Документы</div>
         <div class="cabcard cb3-docs" id="cb3-docs">
-          <div class="ch"><span><b>Пакет по делу № 812</b></span><span>5 позиций</span></div>
-          <div class="cabrow"><span>Загранпаспорт</span><i>✓ Проверен</i></div>
-          <div class="cabrow"><span>Umowa o pracę</span><i>✓ Проверена</i></div>
-          <div class="cabrow"><span>Фото 35×45 мм</span><i class="w">⟳ Обновить</i></div>
-          <div class="cabrow"><span>Медицинская страховка</span><i>✓ Проверена</i></div>
-          <div class="cabrow"><span>Запись в уженд</span><i>✓ Назначена</i></div>
-          <div class="cabbar">
-            <div class="cb3-pct"><b>91%</b><span>Готовность пакета документов</span></div>
-            <div class="cb"><div class="cbf"></div></div>
-          </div>
-          <a class="btn btn-wa cb3-docbtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D1%81%D0%BB%D0%B0%D1%82%D1%8C%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%84%D0%BE%D1%82%D0%BE%2035%C3%9745%20%D0%BC%D0%BC%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Прислать фото в WhatsApp</a>
-        </div>
+<div class="ch"><span><b>Пакет по делу № 812</b></span><span>8 позиций</span></div><div class="cabrow"><span>Загранпаспорт (все страницы)<small class="cbx-sub">Проверено · Дарья, дважды</small></span><i>✓ Проверен</i></div><div class="cabrow"><span>Umowa o pracę<small class="cbx-sub">Проверено · Дарья, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Zaświadczenie o zatrudnieniu<small class="cbx-sub">С печатью работодателя · проверено дважды</small></span><i>✓ Проверено</i></div><div class="cabrow"><span>Wyciąg bankowy за 3 месяца<small class="cbx-sub">Проверено · Дарья, дважды</small></span><i>✓ Проверен</i></div><div class="cabrow"><span>Медицинская страховка<small class="cbx-sub">Проверено · Дарья, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Umowa najmu — подтверждение проживания<small class="cbx-sub">Проверено · Дарья, дважды</small></span><i>✓ Проверена</i></div><div class="cabrow"><span>Фото 3,5 × 4,5 см<small class="cbx-sub">Просили новое — пришлите в WhatsApp</small></span><i class="w">⟳ Обновить</i></div><div class="cabrow"><span>PIT за прошлый год<small class="cbx-sub">Для вашего случая не нужен</small></span><i class="cbx-na">— Не требуется</i></div><div class="cabbar"><div class="cb3-pct"><b>91%</b><span>Готовность пакета документов</span></div><div class="cb"><div class="cbf"></div></div></div><a class="btn btn-wa cb3-docbtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D1%81%D0%BB%D0%B0%D1%82%D1%8C%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%84%D0%BE%D1%82%D0%BE%2035%C3%9745%20%D0%BC%D0%BC%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83." target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Прислать фото в WhatsApp</a>
+</div>
 
         <!-- 5. Напоминания -->
         <div class="cb3-h">Напоминания</div>
@@ -1259,7 +1454,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
           <span class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
           <div>
             <b>Ближайшее напоминание</b>
-            <p>Продлить медицинскую страховку — <b style="color:var(--gold-2);white-space:nowrap">через 34 дня</b></p>
+            <p>Продлить медицинскую страховку — <b style="color:var(--gold-2);white-space:nowrap">через 64 дня</b></p>
             <p style="margin-top:5px;color:var(--ink-3)">Правило 90/60/30: напомним заранее — в WhatsApp и в кабинете.</p>
             <div class="cb3-days"><span>за 90 дней</span><span>за 60 дней</span><span>за 30 дней</span></div>
           </div>
@@ -1275,6 +1470,8 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       </div>
     </div>
 
+<div class="cbx-dx cbx-card cbx-team"><div class="cbx-hh">Ваше дело ведут люди</div><div class="cbx-hsub">Не бот и не колл-центр — конкретные люди отвечают за результат.</div><div class="cbx-team-g"><div class="cbx-tcard"><span class="cbx-ava cbx-ava--gold">Д</span><b>Дарья</b><span class="cbx-role">Старший юрист</span><span class="cbx-tbadge cbx-tbadge--gold">ведёт ваше дело</span><p>Лично проверяет каждый документ — дважды.</p></div><div class="cbx-tcard"><span class="cbx-ava">Т</span><b>Талыш</b><span class="cbx-role">Менеджер</span><span class="cbx-tbadge">на связи в WhatsApp</span><p>Отвечает за 15 минут в рабочие часы (ПН–ПТ 10:00–18:00).</p></div><div class="cbx-tcard"><span class="cbx-ava">А</span><b>Адриан</b><span class="cbx-role">Менеджер</span><span class="cbx-tbadge">на связи в WhatsApp</span><p>Держит вас в курсе на каждом шаге.</p></div></div></div>
+<div class="cbx-dx cbx-card cbx-care"><div class="cbx-hh">Пока вы жили свою жизнь</div><div class="cbx-hsub">Работа по делу не останавливается — вот что мы делали без вас.</div><div class="cbx-care-rows"><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">Сегодня · 09:00</span><p>Плановая проверка статуса в MOS — без изменений ✓</p></div></div><div class="cbx-care-row"><span class="cbx-mini">Д</span><div class="cbx-care-bd"><span class="cbx-care-dt">1 июля</span><p>Дарья отправила в воеводство запрос о статусе вашего дела.</p></div></div><div class="cbx-care-row"><span class="cbx-mini cbx-mini--ls">LS</span><div class="cbx-care-bd"><span class="cbx-care-dt">24 июня</span><p>Занесли номер дела WSC-812/2026 в систему и в ваш кабинет.</p></div></div><div class="cbx-care-row"><span class="cbx-mini">Д</span><div class="cbx-care-bd"><span class="cbx-care-dt">17 июня</span><p>Дарья проверила комплектность пакета в MOS — всё на месте.</p></div></div></div><div class="cbx-care-ind"><span class="cbx-dot"></span>Проверяем статус в MOS каждый рабочий день · сегодня 09:00 ✓ без изменений — для этого этапа это нормально.</div></div>
     <!-- 7. Низ: демо-примечание + CTA -->
     <div class="cb3-final" id="cb3-final">
       <p>Это демо-кабинет — данные вымышленные. Ваш появится после старта дела.</p>
@@ -1287,60 +1484,108 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
       <div class="cb3-h">Чат со специалистом</div>
       <div class="cb3-chatcard">
         <div class="cb3-chathead" id="cb3-chath">
-          <span class="cb3-av" aria-hidden="true">Д</span>
-          <div id="cb3-chn"><b>Дарья · ваш специалист</b><span class="st-on">на связи</span></div>
-        </div>
+<span class="cb3-av cbx-avring" aria-hidden="true">Д</span><div id="cb3-chn"><b>Дарья · старший юрист</b><span class="cbx-sub"><span class="cbx-dot" aria-hidden="true"></span>ведёт ваше дело · на связи</span></div><span class="cbx-sla" tabindex="0" role="note" aria-label="Отвечаем за 15 минут"><svg class="cbx-slaclock" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="cbx-slaring" cx="12" cy="12" r="9"></circle><path d="M12 7.5v4.5l2.8 1.8" stroke="#41659F"></path></svg><span class="cbx-slatxt">Отвечаем за 15 минут</span></span>
+</div>
         <div class="cb3-thread" id="cb3-thread">
-          <div class="cb3-day">Вчера</div>
-          <div class="cb3-msg sp">Добрый день! Пакет документов проверен — записали вас в уженд, детали в таймлайне 👌<span class="tm">16:42</span></div>
-          <div class="cb3-msg me">Спасибо! Когда прислать новое фото?<span class="tm">17:05</span></div>
-          <div class="cb3-day">Сегодня</div>
-          <div class="cb3-msg sp">До пятницы. Можно прямо сюда или в WhatsApp — как удобнее.<span class="tm">09:12</span></div>
-        </div>
+<div class="cb3-day">15 мая</div><div class="cb3-msg sp">Добрый день, Алина! Я Дарья, ваш юрист. Договор подписан — кабинет открыт, здесь всегда видно, что происходит с делом. Чек-лист документов уже собрала под ваше воеводство 👌<span class="cbx-file" role="button" tabindex="0" aria-label="Открыть документ: Чек-лист — карта побыту (работа), демо"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Чек-лист — карта побыту (работа).pdf</span><span class="cbx-fdemo">демо</span></span><span class="tm">10:24</span></div><div class="cb3-day">8 июня</div><div class="cb3-msg sp">Подача выполнена! Вы отлично справились с MOS — подтверждение приёма (UPP) уже в деле. Теперь всё остальное берём на себя: письма, статусы, сроки.<span class="cbx-file" role="button" tabindex="0" aria-label="Открыть документ: Potwierdzenie złożenia (UPP), демо"><svg class="cbx-fico" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg><span class="cbx-fname">Potwierdzenie złożenia (UPP).pdf</span><span class="cbx-fdemo">демо</span></span><span class="tm">12:41</span></div><div class="cb3-msg me">Спасибо огромное! Долго теперь ждать?<span class="cbx-read">✓✓ прочитано</span><span class="tm">12:58</span></div><div class="cb3-msg sp">Сроки в Польше сейчас длинные у всех — так устроена система, а не ваше дело такое. Пока идёт рассмотрение, вы в Польше легально. Мы проверяем статус каждый день и напишем первыми, как будет движение. Мы рядом 🤍<span class="tm">13:07</span></div><div class="cb3-day">Сегодня</div><div class="cb3-msg sp">Утренняя проверка: дело в работе у инспектора, без изменений — для этого этапа это нормально. От вас ничего не нужно, живите спокойно 🙌<span class="tm">09:03</span></div>
+</div>
         <form class="cb3-chatin" onsubmit="return cb3Send(this)">
           <input type="text" placeholder="Ваше сообщение…" aria-label="Ваше сообщение">
           <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
+<div class="cbx-quick cbx-dx" id="cbx-quick" role="group" aria-label="Быстрые вопросы"><span class="cbx-qlabel">Быстрые вопросы</span><button type="button" class="cbx-chip" data-q="how">Как моё дело?</button><button type="button" class="cbx-chip" data-q="biometria">Когда отпечатки?</button><button type="button" class="cbx-chip" data-q="need">Что от меня нужно?</button></div>
       </div>
+<div class="cbx-slanote cbx-dx" id="cbx-slanote"><span class="cbx-duty" id="cbx-duty">Сейчас на связи: Адриан</span><span class="cbx-sync">Этот чат синхронизирован с CRM — сообщения видит вся ваша команда.</span></div>
       <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
     </div>
 
     <div class="cb3-sec" id="cb3-sec-pay" role="tabpanel" aria-labelledby="cb3-tab-pay">
       <div class="cb3-h">Оплаты</div>
       <div class="cb3-paycard" id="cb3-paycard">
-        <div class="cb3-payhead">
-          <div><b>Договор № 812</b><span class="sub">Рассрочка · 3 платежа на счёт фирмы · суммы — по договору</span></div>
-          <span class="cb3-chip-ok">1 из 3 оплачен</span>
-        </div>
-        <div class="cb3-payrow paid">
-          <span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <div class="ptx"><b>Платёж 1 из 3</b><p>Аванс при подписании договора</p></div>
-          <span class="cb3-chip-ok">Оплачен ✓</span>
-        </div>
-        <div class="cb3-payrow cur">
-          <span class="pnum">2</span>
-          <div class="ptx"><b>Платёж 2 из 3</b><p>Срок — до 15 августа</p></div>
-          <span class="cb3-chip-wait">Ожидается</span>
-          <button class="btn btn-gold cb3-paybtn" id="cb3-paybtn2" type="button" onclick="cb3Pay(this)">Оплатить</button>
-        </div>
-        <div class="cb3-req" id="cb3-req">
-          <div class="rq"><span>Получатель</span><b>LEGALSOL SP. Z O.O.</b></div>
-          <div class="rq"><span>Банк</span><b>mBank</b></div>
-          <div class="rq"><span>IBAN</span><b>PL00 0000 0000 0000 0000 0000 0000 <em>демо</em></b></div>
-          <div class="rq"><span>Назначение платежа</span><b>Дело № 812, платёж 2/3</b></div>
-          <div class="rq"><span>Сумма</span><b>по договору</b></div>
-          <div class="rq-btns">
-            <button class="btn btn-primary" type="button" onclick="cb3Copy(this)">Скопировать реквизиты</button>
-            <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%80%D0%B5%D0%BA%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6%D0%B0%202%20%D0%B8%D0%B7%203%20%D0%BF%D0%BE%20%D0%B4%D0%B5%D0%BB%D1%83%20%E2%84%96%20812." target="_blank" rel="noopener">Прислать реквизиты в WhatsApp</a>
-          </div>
-          <p class="rq-note">Это демо-реквизиты: IBAN — нулевой плейсхолдер. В настоящем кабинете здесь данные вашего договора из CRM.</p>
-        </div>
-        <div class="cb3-payrow off">
-          <span class="pnum">3</span>
-          <div class="ptx"><b>Платёж 3 из 3</b><p>После решения по делу</p></div>
-          <span class="cb3-chip-off">Позже</span>
-        </div>
-      </div>
+<div class="cb3-payhead">
+  <div><b>Договор № 812</b><span class="sub">Рассрочка · 3 платежа на счёт фирмы · подписан онлайн 15 мая</span></div>
+  <span class="cb3-chip-ok">1 из 3 оплачен</span>
+</div>
+<div class="cbx-plan" id="cbx-plan">
+  <div class="cbx-seg cbx-seg-paid">
+    <span class="cbx-seg-fill"></span>
+    <span class="cbx-seg-body">
+      <span class="cbx-seg-t"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Платёж 1</span>
+      <span class="cbx-seg-d">15 мая</span>
+    </span>
+  </div>
+  <div class="cbx-seg cbx-seg-cur">
+    <span class="cbx-seg-body">
+      <span class="cbx-seg-t">Платёж 2</span>
+      <span class="cbx-seg-d">до 15 августа</span>
+    </span>
+  </div>
+  <div class="cbx-seg cbx-seg-off">
+    <span class="cbx-seg-body">
+      <span class="cbx-seg-t">Платёж 3</span>
+      <span class="cbx-seg-d">после решения</span>
+    </span>
+  </div>
+</div>
+<div class="cb3-payrow paid">
+  <span class="pnum"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+  <div class="ptx"><b>Платёж 1 из 3</b><p>Аванс при подписании договора · 15 мая</p></div>
+  <span class="cb3-chip-ok">Оплачен ✓</span>
+  <button class="cbx-rcpt-btn" id="cbx-rcpt-btn" type="button" aria-expanded="false" aria-controls="cbx-rcpt">Квитанция (демо)<svg class="cbx-chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<div class="cbx-rcpt" id="cbx-rcpt">
+  <div class="cbx-rcpt-in">
+    <div class="cbx-rcpt-paper">
+      <div class="cbx-rcpt-head">Квитанция № LS-0812-1 (демо)</div>
+      <hr class="cbx-rcpt-sep">
+      <div class="cbx-rcpt-row"><span>Дата</span><b>15.05.2026</b></div>
+      <div class="cbx-rcpt-row"><span>Платёж</span><b>1 из 3</b></div>
+      <div class="cbx-rcpt-row"><span>Сумма</span><b>по договору</b></div>
+      <div class="cbx-rcpt-row"><span>Способ</span><b>перевод на счёт фирмы</b></div>
+      <div class="cbx-rcpt-row"><span>Статус</span><b class="cbx-rcpt-ok">зачислен ✓</b></div>
+      <hr class="cbx-rcpt-sep">
+      <div class="cbx-rcpt-foot">демо-документ</div>
+    </div>
+  </div>
+</div>
+<div class="cb3-payrow cur">
+  <span class="pnum">2</span>
+  <div class="ptx"><b>Платёж 2 из 3</b><p>Срок — до 15 августа</p></div>
+  <span class="cb3-chip-wait">Ожидается</span>
+  <button class="btn btn-gold cb3-paybtn" id="cb3-paybtn2" type="button" onclick="cb3Pay(this)">Оплатить</button>
+</div>
+<div class="cb3-req" id="cb3-req">
+  <div class="rq"><span>Получатель</span><b>LEGALSOL SP. Z O.O.</b></div>
+  <div class="rq"><span>Банк</span><b>mBank</b></div>
+  <div class="rq"><span>IBAN</span><b>PL00 0000 0000 0000 0000 0000 0000 <em>демо</em></b></div>
+  <div class="rq"><span>Назначение платежа</span><b>Дело № 812, платёж 2/3</b></div>
+  <div class="rq"><span>Сумма</span><b>по договору</b></div>
+  <div class="rq-btns">
+    <button class="btn btn-primary" type="button" onclick="cb3Copy(this)">Скопировать реквизиты</button>
+    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D1%80%D0%B8%D1%88%D0%BB%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%80%D0%B5%D0%BA%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D1%8B%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B5%D0%B6%D0%B0%202%20%D0%B8%D0%B7%203%20%D0%BF%D0%BE%20%D0%B4%D0%B5%D0%BB%D1%83%20%E2%84%96%20812." target="_blank" rel="noopener">Прислать реквизиты в WhatsApp</a>
+  </div>
+  <p class="rq-note">Это демо-реквизиты: IBAN — нулевой плейсхолдер. В настоящем кабинете здесь данные вашего договора из CRM.</p>
+</div>
+<div class="cb3-payrow off">
+  <span class="pnum">3</span>
+  <div class="ptx"><b>Платёж 3 из 3</b><p>После решения по делу</p></div>
+  <span class="cb3-chip-off">Позже</span>
+</div>
+<div class="cbx-payfoot">
+  <div class="cbx-foot-line"><span class="cbx-foot-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg></span><span>Госпошлины воеводства — отдельно; оплачены онлайн при подаче 8 июня ✓</span></div>
+  <div class="cbx-guarantee"><svg class="cbx-seal" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/><path d="m9.5 8 1.7 1.7 3.3-3.3"/></svg><span>Если придёт отказ — апелляция за наш счёт. Это условие договора.</span></div>
+</div>
+</div>
+      <div class="cbx-paysupport cbx-dx">
+  <div class="cbx-sup-tx">
+    <b>Вопрос по оплате?</b>
+    <p>Удобнее частями по-другому? Напишите Талышу или Адриану — подстроим график под вас.</p>
+  </div>
+  <div class="cbx-sup-act">
+    <a class="btn btn-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%20%D0%BF%D0%BE%20%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D1%83%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B%20%D0%BF%D0%BE%20%D0%BC%D0%BE%D0%B5%D0%BC%D1%83%20%D0%B4%D0%B5%D0%BB%D1%83%2E" target="_blank" rel="noopener">Обсудить в WhatsApp</a>
+    <span class="cbx-sup-note">Blik и наличные в офисе тоже принимаем</span>
+  </div>
+</div>
       <div class="cb3-crm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg><span>Данные кабинета подтягиваются из CRM автоматически — статус, документы, платежи и чат всегда актуальны.</span></div>
     </div>
   </div>
@@ -1461,6 +1706,265 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
 </script>
 
 <script>
+/* cbx wow */
+window.__cbxDayN=Math.max(1,Math.floor((Date.now()-new Date(2026,5,8).getTime())/864e5));
+(function(){var n=document.getElementById('cbx-day-n');if(n){n.textContent=String(window.__cbxDayN);}})();
+(function(){
+"use strict";
+var RM=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||!!navigator.webdriver||document.hidden||document.documentElement.classList.contains('noanim');
+var app=document.getElementById('cb3-app');
+var gw=document.getElementById('cbx-greet-word');
+if(gw){
+  var h=(new Date()).getHours();
+  gw.textContent=(h>=5&&h<12)?'Доброе утро':((h>=12&&h<18)?'Добрый день':'Добрый вечер');
+}
+function cbxCopy(txt){
+  function ok(){if(window.cb3Toast){window.cb3Toast('Номер дела скопирован — назовите его в WhatsApp');}}
+  function fb(){
+    var ta=document.createElement('textarea');
+    ta.value=txt;ta.setAttribute('readonly','');
+    ta.style.position='fixed';ta.style.top='-999px';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{if(document.execCommand('copy')){ok();}}catch(e){}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fb);}
+  else{fb();}
+}
+if(app){
+  app.addEventListener('click',function(e){
+    var t=e.target;
+    while(t&&t!==app){
+      if(t.getAttribute&&t.getAttribute('data-cbx')){break;}
+      t=t.parentNode;
+    }
+    if(!t||t===app||!t.getAttribute){return;}
+    var k=t.getAttribute('data-cbx');
+    if(k==='copysig'){cbxCopy('WSC-812/2026');}
+    else if(k==='upp'){if(window.cb3Toast){window.cb3Toast('Демо-документ: в настоящем кабинете здесь открывается PDF');}}
+  });
+}
+function once(el,fn){
+  if(!el||RM){return;}
+  if(!window.IntersectionObserver){fn();return;}
+  var io=new IntersectionObserver(function(en){
+    var i;
+    for(i=0;i<en.length;i++){
+      if(en[i].isIntersecting){io.unobserve(el);fn();break;}
+    }
+  },{threshold:0.2});
+  io.observe(el);
+}
+once(document.getElementById('cbx-progx'),function(){
+  var fg=document.getElementById('cbx-ring-fg');
+  if(fg){
+    fg.style.strokeDashoffset='301.6';
+    void fg.getBoundingClientRect();
+    var c=fg.getAttribute('class')||'';
+    fg.setAttribute('class',c+(c?' ':'')+'cbx-ring-anim');
+    fg.style.strokeDashoffset='87.5';
+  }
+  var n=document.getElementById('cbx-day-n');
+  if(n&&window.requestAnimationFrame){
+    var st=null;
+    n.textContent='0';
+    requestAnimationFrame(function step(ts){
+      if(st===null){st=ts;}
+      var p=(ts-st)/800;
+      if(p>1){p=1;}
+      n.textContent=String(Math.round(window.__cbxDayN*(1-Math.pow(1-p,3))));
+      if(p<1){requestAnimationFrame(step);}
+    });
+  }
+});
+var stamp=document.getElementById('cbx-stamp');
+once(stamp,function(){stamp.className+=' cbx-stamped';});
+var list=document.getElementById('cbx-feed-list');
+once(list,function(){list.className+=' cbx-cascade';});
+})();
+(function(){
+  var app=document.getElementById('cb3-app');
+  if(!app){return;}
+  var TOAST='Демо-документ: в настоящем кабинете здесь открывается PDF';
+  function RM(){return (window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||!!navigator.webdriver||document.hidden||document.documentElement.classList.contains('noanim');}
+  function cls(el){var c=el&&el.className;if(c&&typeof c==='object'&&typeof c.baseVal==='string'){return c.baseVal;}return (typeof c==='string')?c:'';}
+  function hasClass(el,c){return (' '+cls(el)+' ').indexOf(' '+c+' ')>-1;}
+  function addClass(el,c){if(!hasClass(el,c)){el.className=cls(el)+(cls(el)?' ':'')+c;}}
+  function removeClass(el,c){var s=(' '+cls(el)+' ').split(' '+c+' ').join(' ');el.className=s.replace(/^\s+|\s+$/g,'');}
+  function closestC(el,c){while(el&&el!==app){if(el.nodeType===1&&hasClass(el,c)){return el;}el=el.parentNode;}return null;}
+  function pad(n){return (n<10?'0':'')+n;}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function warsaw(){
+    var d=new Date();
+    var res={h:d.getHours(),m:d.getMinutes(),day:d.getDate(),dow:d.getDay()};
+    try{
+      if(window.Intl&&Intl.DateTimeFormat){
+        var f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Warsaw',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short',day:'2-digit'});
+        if(f.formatToParts){
+          var parts=f.formatToParts(d);var i;var map={};
+          for(i=0;i<parts.length;i++){map[parts[i].type]=parts[i].value;}
+          var h=parseInt(map.hour,10);if(h===24){h=0;}
+          var wd={Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:0};
+          res={h:h,m:parseInt(map.minute,10),day:parseInt(map.day,10),dow:(map.weekday in wd)?wd[map.weekday]:res.dow};
+        }
+      }
+    }catch(e){}
+    return res;
+  }
+  function thread(){return document.getElementById('cb3-thread');}
+  function scrollBottom(){var t=thread();if(t){t.scrollTop=t.scrollHeight;}}
+  function addMsg(kind,html){
+    var t=thread();if(!t){return;}
+    var w=warsaw();
+    var div=document.createElement('div');
+    div.className='cb3-msg '+kind;
+    var extra=(kind==='me')?'<span class="cbx-read">✓✓ прочитано</span>':'';
+    div.innerHTML=html+extra+'<span class="tm">'+pad(w.h)+':'+pad(w.m)+'</span>';
+    t.appendChild(div);scrollBottom();
+  }
+  var ANS={
+    how:'Проверила сегодня утром: дело в работе у инспектора, статус без изменений — для этого этапа это совершенно нормально. Всё время рассмотрения вы в Польше легально: живите спокойно, работа у своего работодателя продолжается как раньше. Мы смотрим статус каждый рабочий день и напишем первыми, как только будет движение 🤍',
+    biometria:'Wezwanie на отпечатки обычно приходит в первые месяцы после подачи — точную дату воеводство заранее не называет, это зависит от загрузки. Мы проверяем статус каждый день и узнаем первыми. Как только придёт — сразу напишем и придём с готовым планом: куда, когда и что взять с собой.',
+    need:'Сейчас — ничего 🙌 Единственная мелочь: ждём новое фото 3,5×4,5 до пятницы — можно прислать прямо сюда или в WhatsApp. Остальное — письма, статусы, сроки — мы берём на себя.'
+  };
+  var busy=false;
+  function drawClock(sla){
+    if(RM()){return;}
+    if(sla.getAttribute('data-run')==='1'){return;}
+    sla.setAttribute('data-run','1');
+    addClass(sla,'cbx-hide');
+    void sla.offsetWidth;
+    removeClass(sla,'cbx-hide');
+    addClass(sla,'cbx-draw');
+    setTimeout(function(){removeClass(sla,'cbx-draw');sla.setAttribute('data-run','0');},950);
+  }
+  function handleChip(chip){
+    if(busy||chip.disabled||hasClass(chip,'cbx-off')){return;}
+    busy=true;chip.disabled=true;addClass(chip,'cbx-off');
+    var q=chip.getAttribute('data-q')||'how';
+    var txt=chip.textContent||chip.innerText||'';
+    addMsg('me',esc(txt.replace(/^\s+|\s+$/g,'')));
+    setTimeout(function(){
+      var reduced=RM();
+      var typing=document.createElement('div');
+      typing.className='cb3-msg sp cbx-typing';
+      typing.setAttribute('data-rep','0');
+      typing.setAttribute('aria-label','Дарья печатает');
+      typing.innerHTML='<span class="cbx-tdot"></span><span class="cbx-tdot"></span><span class="cbx-tdot"></span>';
+      var t=thread();
+      if(t){t.appendChild(typing);scrollBottom();}
+      if(!reduced){addClass(typing,'cbx-typing-run');}
+      setTimeout(function(){
+        if(typing.parentNode){typing.parentNode.removeChild(typing);}
+        if(app.className.indexOf('is-real')>-1){busy=false;return;}
+        addMsg('sp',ANS[q]||ANS.how);
+        chip.disabled=false;removeClass(chip,'cbx-off');busy=false;
+      },reduced?260:1900);
+    },900);
+  }
+  (function(){
+    var el=document.getElementById('cbx-duty');
+    if(!el){return;}
+    var w=warsaw();
+    var open=(w.dow>=1&&w.dow<=5&&w.h>=10&&w.h<18);
+    if(open){el.textContent='Сейчас на связи: '+((w.day%2===0)?'Талыш':'Адриан');removeClass(el,'cbx-night');}
+    else{var m2;if(w.dow===0||w.dow===6){m2='Сейчас выходной — ответим в понедельник с 10:00';}else if(w.h>=18&&w.h<23){m2='Рабочий день закончился — ответим завтра с 10:00';}else{m2='Сейчас в Варшаве ночь — ответим утром до 10:00';}el.textContent=m2;addClass(el,'cbx-night');}
+  })();
+  app.addEventListener('click',function(ev){
+    var t=ev.target||ev.srcElement;
+    var el=closestC(t,'cbx-file');
+    if(el){if(window.cb3Toast){window.cb3Toast(TOAST);}return;}
+    el=closestC(t,'cbx-chip');
+    if(el){handleChip(el);return;}
+    el=closestC(t,'cbx-sla');
+    if(el){drawClock(el);return;}
+    var n=t;
+    while(n&&n!==document){
+      if(n.id==='cb3-tab-chat'){scrollBottom();setTimeout(scrollBottom,50);break;}
+      n=n.parentNode;
+    }
+  },false);
+  app.addEventListener('mouseover',function(ev){
+    var el=closestC(ev.target||ev.srcElement,'cbx-sla');
+    if(el){drawClock(el);}
+  },false);
+  app.addEventListener('keydown',function(ev){
+    var k=ev.key||ev.keyCode;
+    if(k!=='Enter'&&k!==13&&k!==' '&&k!==32&&k!=='Spacebar'){return;}
+    var el=closestC(ev.target||ev.srcElement,'cbx-file');
+    if(el){if(window.cb3Toast){window.cb3Toast(TOAST);}if(ev.preventDefault){ev.preventDefault();}}
+  },false);
+  app.addEventListener('transitionend',function(ev){
+    var t=ev.target;
+    if(t&&hasClass(t,'cbx-slaring')){
+      var sla=closestC(t,'cbx-sla');
+      if(sla){removeClass(sla,'cbx-draw');sla.setAttribute('data-run','0');}
+    }
+  },false);
+  app.addEventListener('animationend',function(ev){
+    var t=ev.target;
+    if(!t||!hasClass(t,'cbx-tdot')){return;}
+    var box=closestC(t,'cbx-typing');
+    if(!box||!box.parentNode){return;}
+    var kids=box.children;
+    if(!kids||kids.length===0||t!==kids[kids.length-1]){return;}
+    var rep=parseInt(box.getAttribute('data-rep')||'0',10);
+    if(rep<2&&!RM()){
+      box.setAttribute('data-rep',''+(rep+1));
+      removeClass(box,'cbx-typing-run');
+      void box.offsetWidth;
+      addClass(box,'cbx-typing-run');
+    }
+  },false);
+  scrollBottom();
+  setTimeout(scrollBottom,50);
+})();
+(function(){
+  var RM=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||!!navigator.webdriver||document.hidden||document.documentElement.classList.contains('noanim');
+  var app=document.getElementById('cb3-app');
+  if(!app){return;}
+  app.addEventListener('click',function(e){
+    var t=e.target;
+    while(t&&t!==app){
+      if(t.id==='cbx-rcpt-btn'){
+        var r=document.getElementById('cbx-rcpt');
+        if(r){
+          if(r.className.indexOf('cbx-open')>-1){
+            r.className=r.className.replace(/\s*cbx-open/g,'');
+            t.setAttribute('aria-expanded','false');
+          }else{
+            r.className+=' cbx-open';
+            t.setAttribute('aria-expanded','true');
+          }
+        }
+        return;
+      }
+      t=t.parentNode;
+    }
+  },false);
+  var plan=document.getElementById('cbx-plan');
+  if(plan&&!RM){
+    if('IntersectionObserver' in window){
+      var fired=false;
+      var io=new IntersectionObserver(function(entries){
+        var i;
+        for(i=0;i<entries.length;i++){
+          if(entries[i].isIntersecting&&!fired){
+            fired=true;
+            plan.className+=' cbx-anim';
+            io.disconnect();
+          }
+        }
+      },{threshold:0.3});
+      io.observe(plan);
+    }else{
+      plan.className+=' cbx-anim';
+    }
+  }
+})();
+</script>
+
+<script>
 /* cbReal: НАСТОЯЩИЙ вход в кабинет — /api/cabinet/login → /api/cabinet/me (Kommo CRM).
    Демо-режим (кнопка «Посмотреть демо», ?app=1) не тронут: перед демо DOM восстанавливается из снапшота. */
 (function(){
@@ -1501,6 +2005,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
     }
     var nb=$('cb3-chat-nb');if(nb)nb.style.display='';
     var fin=$('cb3-final');if(fin)fin.style.display='';
+    app.classList.remove('is-real');
     MODE='demo';CUR=null;
   }
   function doLogout(){
@@ -1629,6 +2134,7 @@ body.cb3-lock .fab,body.cb3-lock .remind,body.cb3-lock #lsq-fab{display:none!imp
   var SOFT='Не нашли дело по этому номеру. Проверьте формат — например +48 500 123 456'+waErr+'.';
   function enterReal(me){
     snap();
+    app.classList.add('is-real');
     renderReal(me);
     MODE='real';
     if(pw)pw.value='';
