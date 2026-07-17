@@ -852,6 +852,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
   .duo2-cta{width:100%}
 }
 
+.wkc-incl{border-top:1px solid var(--lilac-line);padding-top:14px}.wkc-incl ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}.wkc-incl li{position:relative;padding-left:22px;font-size:13.5px;color:var(--ink-2);line-height:1.45}.wkc-incl li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--gold-2);font-weight:800}
 </style>
 </head>
 <body>
@@ -1017,7 +1018,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
       <a class="go" href="https://wa.me/48735248525?text=Здравствуйте!%20Хочу%20открыть%20своё%20дело%20в%20Польше.%20Помогите%20выбрать%20JDG%20или%20Spółka.">Открыть своё дело →</a>
     </div>
   </div>
-  <div class="svc-more reveal"><a href="services.html">Все услуги и цены подробнее →</a></div>
+  <div class="svc-more reveal"><a href="services.html">Все услуги — подробнее →</a></div>
 </div></section>
 
 <!-- PATH · sticky duo -->
@@ -1065,7 +1066,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- WAITS -->
 <section id="wk-waits">
-<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head reveal">
     <span class="eyebrow gold">Сроки — честно</span>
     <h2>Полный цикл: 8–16 месяцев</h2>
@@ -1102,11 +1103,11 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 
 <!-- CALC -->
 <section id="wk-calc">
-<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Калькулятор</span>
-    <h2>Прикиньте цену и срок — за пару секунд</h2>
-    <p>Выберите услугу — покажем цену «от», средний срок и размер платежа, если платить частями. Точную сумму назовём на бесплатной консультации — до начала работы.</p>
+    <span class="eyebrow">Подбор услуги</span>
+    <h2>Подберите услугу — срок и формат за пару секунд</h2>
+    <p>Выберите услугу — покажем средний срок оформления, что входит в сопровождение и как удобнее платить. Точную цену назовём в WhatsApp — обычно за 15 минут.</p>
   </div>
   <div class="wkc-kit reveal">
     <div class="wkc-in">
@@ -1122,55 +1123,47 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
           <option value="pz">Profil Zaufany</option>
         </select>
       </div>
-      <div class="wkc-field" style="margin-bottom:14px">
-        <label>Как удобнее платить</label>
-        <div class="wkc-seg" id="cx-pay">
-          <button type="button" class="on" data-n="1">Сразу</button>
-          <button type="button" data-n="2">2 платежа</button>
-          <button type="button" data-n="3">3 платежа</button>
-        </div>
-      </div>
-      <p class="wkc-fine">Госпошлина ужонда оплачивается отдельно. Оплата — на счёт фирмы, по официальному договору.</p>
+      <p class="wkc-fine">Госпошлина ужонда оплачивается отдельно — размер подскажем. Оплата — на счёт фирмы, по официальному договору.</p>
     </div>
     <div class="wkc-out">
-      <div class="wkc-k">Цена LegalSol от</div>
-      <div class="wkc-big" id="cx-price">от 2 500 PLN</div>
-      <div class="wkc-row"><span>Средний срок</span><b id="cx-term">4–9 мес.</b></div>
-      <div class="wkc-row"><span id="cx-paylbl">Оплата сразу</span><b id="cx-payv">2 500 PLN</b></div>
-      <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Интересует%20услуга:%20Карта%20побыту%20(ВНЖ)">Обсудить в WhatsApp</a>
+      <div class="wkc-k" id="cx-klbl">Средний срок оформления</div>
+      <div class="wkc-big" id="cx-term">4–9 мес.</div>
+      <div class="wkc-row"><span>Оплата частями</span><b>2–3 платежа</b></div>
+      <div class="wkc-row"><span>Точная цена</span><b>в WhatsApp — за 15 минут</b></div>
+      <div class="wkc-incl">
+        <div class="wkc-k">Что входит</div>
+        <ul id="cx-incl">
+          <li>Персональный чек-лист; бумаги от работодателя запросим сами</li>
+          <li>Подача онлайн через MOS — штамп о легальном ожидании</li>
+          <li>Отказ по нашей вине — апелляция бесплатно</li>
+        </ul>
+      </div>
+      <a class="btn btn-primary" id="cx-wa" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B0%3A%20%D0%9A%D0%B0%D1%80%D1%82%D0%B0%20%D0%BF%D0%BE%D0%B1%D1%8B%D1%82%D1%83.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%20%D1%82%D0%BE%D1%87%D0%BD%D1%83%D1%8E%20%D1%86%D0%B5%D0%BD%D1%83.">Узнать цену за 15 минут</a>
     </div>
   </div>
   <script>
   (function(){
     var CX={
-      kp:{p:"от 2 500 PLN",t:"4–9 мес.",n:2500,h:"Карта побыту (ВНЖ)"},
-      blue:{p:"от 3 200 PLN",t:"3–6 мес.",n:3200,h:"Blue Card (ЕС)"},
-      pmz:{p:"от 4 000 PLN",t:"4–8 мес.",n:4000,h:"ПМЖ — постоянный побыт"},
-      spolka:{p:"от 800 PLN",t:"1–14 раб. дней",n:800,h:"Регистрация компании"},
-      buh:{p:"от 300 PLN/мес",t:"ежемесячно",n:0,h:"Бухгалтерия и налоги"},
-      pesel:{p:"450 PLN",t:"в тот же день",n:450,h:"PESEL"},
-      pz:{p:"350 PLN",t:"онлайн через банк",n:350,h:"Profil Zaufany"}
+      kp:{t:"4–9 мес.",h:"Карта побыту (ВНЖ)",i:["Персональный чек-лист; бумаги от работодателя запросим сами","Подача онлайн через MOS — штамп о легальном ожидании","Отказ по нашей вине — апелляция бесплатно"]},
+      blue:{t:"3–6 мес.",h:"Blue Card (ЕС)",i:["Проверим соответствие требованиям Blue Card","Подача онлайн через MOS","Отказ по нашей вине — апелляция бесплатно"]},
+      pmz:{t:"4–8 мес.",h:"ПМЖ — постоянный побыт",i:["Персональный чек-лист под ваш случай","Подача онлайн через MOS","Сопровождение до решения и карты"]},
+      spolka:{t:"1–14 раб. дней",h:"Регистрация компании",i:["Регистрация JDG через CEIDG или Sp. z o.o.","Счёт в банке и коды PKD — под ключ","Подскажем форму и налоговый режим"]},
+      buh:{t:"ежемесячно",k:"Формат работы",h:"Бухгалтерия и налоги",i:["Ведение учёта вашей фирмы","Консультация по налоговым режимам"]},
+      pesel:{t:"в тот же день",h:"PESEL",i:["Бумагами занимаемся мы — от заявления до номера","Менеджер на связи — ответ за 15 минут"]},
+      pz:{t:"онлайн через банк",k:"Как оформляется",h:"Profil Zaufany",i:["Нужен для подачи документов через MOS","Оформим вместе с вами — онлайн"]}
     };
-    var sel=document.getElementById('cx-svc'),seg=document.getElementById('cx-pay');
-    if(!sel||!seg)return;
-    var payN=1;
-    function money(v){v=String(v);var o='',c=0;for(var i=v.length-1;i>=0;i--){o=v.charAt(i)+o;if(++c%3===0&&i>0)o=' '+o;}return o;}
+    var sel=document.getElementById('cx-svc');
+    if(!sel)return;
     function render(){
       var d=CX[sel.value]||CX.kp;
-      document.getElementById('cx-price').textContent=d.p;
+      document.getElementById('cx-klbl').textContent=d.k||'Средний срок оформления';
       document.getElementById('cx-term').textContent=d.t;
-      var lbl=document.getElementById('cx-paylbl'),val=document.getElementById('cx-payv');
-      if(!d.n){lbl.textContent='Оплата';val.textContent='по договорённости';}
-      else if(payN===1){lbl.textContent='Оплата сразу';val.textContent=money(d.n)+' PLN';}
-      else{lbl.textContent=(payN===2?'2 платежа по ≈':'3 платежа по ≈');val.textContent=money(Math.round(d.n/payN))+' PLN';}
-      document.getElementById('cx-wa').href='https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Интересует услуга: '+d.h);
+      var ul=document.getElementById('cx-incl');
+      ul.innerHTML='';
+      for(var j=0;j<d.i.length;j++){var li=document.createElement('li');li.textContent=d.i[j];ul.appendChild(li);}
+      document.getElementById('cx-wa').href='https://wa.me/48735248525?text='+encodeURIComponent('Здравствуйте! Интересует услуга: '+d.h+'. Подскажите, пожалуйста, точную цену.');
     }
     sel.addEventListener('change',render);
-    seg.addEventListener('click',function(e){
-      var b=e.target.closest('button');if(!b)return;
-      [].forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
-      b.classList.add('on');payN=parseInt(b.getAttribute('data-n'),10)||1;render();
-    });
     render();
   })();
   </script>
