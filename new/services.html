@@ -131,6 +131,22 @@ header{position:sticky}
 
 /* directions cards */
 .dir-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+/* --- perk block (what the card gives you) --- */
+.perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.perk{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;box-shadow:var(--sh-sm);transition:transform .2s,box-shadow .2s}
+.perk:hover{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(26,24,36,.30)}
+.perk .ic{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;margin-bottom:18px}
+.perk.pv .ic{background:var(--lilac)}
+.perk.pg .ic{background:var(--gold-soft)}
+.perk h3{font-size:19px;margin-bottom:8px}
+.perk p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
+.perk-cta{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.perk-cta .btn{margin-top:0;width:auto}
+.perk-ask{font-weight:700;font-size:14.5px;color:var(--indigo);display:inline-flex;gap:7px;align-items:center}
+.perk-ask:hover{text-decoration:underline}
+@media(max-width:900px){.perk-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.perk-grid{grid-template-columns:1fr}.perk-cta{flex-direction:column;gap:14px}}
+
 .dir{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh-sm);position:relative;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
 .dir:hover{transform:translateY(-5px);box-shadow:var(--sh)}
 .dir.pop{border-color:transparent;box-shadow:0 0 0 2px var(--indigo),var(--sh)}
@@ -1199,7 +1215,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1>All LegalSol services</h1>
     <p class="sv-sub">Eleven services — one reliable partner. From your first PESEL to a Polish passport: legalization, documents and business, all under one roof. Calm, contract-based, with a price you know before work begins.</p>
     <div class="sv-ctas">
-      <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20услугам%20LegalSol.">
+      <a class="btn btn-primary btn-lg" href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20бесплатная%20консультация%20по%20услугам%20LegalSol.">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
         Free consultation
       </a>
