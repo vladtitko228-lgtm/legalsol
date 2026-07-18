@@ -131,6 +131,35 @@ header{position:sticky}
 
 /* directions cards */
 .dir-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+/* --- perk block (what the card gives you) --- */
+.perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.perk{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;box-shadow:var(--sh-sm);transition:transform .2s,box-shadow .2s}
+.perk:hover{transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(26,24,36,.30)}
+.perk .ic{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;margin-bottom:18px}
+.perk.pv .ic{background:var(--lilac)}
+.perk.pg .ic{background:var(--gold-soft)}
+.perk h3{font-size:19px;margin-bottom:8px}
+.perk p{font-size:14.5px;color:var(--ink-2);line-height:1.6}
+.perk-cta{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.perk-cta .btn{margin-top:0;width:auto}
+.perk-ask{font-weight:700;font-size:14.5px;color:var(--indigo);display:inline-flex;gap:7px;align-items:center}
+.perk-ask:hover{text-decoration:underline}
+.blog-all{text-align:center;margin-top:36px}
+.blog-all .btn{width:auto;margin-top:0}
+/* тонкое фирменное свечение в углу карточек — живее, но не отвлекает */
+.perk{position:relative;overflow:hidden}
+.perk::after{content:"";position:absolute;top:-50px;right:-50px;width:170px;height:170px;border-radius:50%;pointer-events:none;z-index:0}
+.perk.pv::after{background:radial-gradient(circle,rgba(95,82,137,.11),transparent 68%)}
+.perk.pg::after{background:radial-gradient(circle,rgba(201,127,51,.10),transparent 68%)}
+.perk>*{position:relative;z-index:1}
+.bcard{position:relative;overflow:hidden}
+.bcard::after{content:"";position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(95,82,137,.07),transparent 70%);pointer-events:none;z-index:0}
+.bcard>*{position:relative;z-index:1}
+
+
+@media(max-width:900px){.perk-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.perk-grid{grid-template-columns:1fr}.perk-cta{flex-direction:column;gap:14px}}
+
 .dir{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 28px;box-shadow:var(--sh-sm);position:relative;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
 .dir:hover{transform:translateY(-5px);box-shadow:var(--sh)}
 .dir.pop{border-color:transparent;box-shadow:0 0 0 2px var(--indigo),var(--sh)}
@@ -2024,7 +2053,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   function load(lang){
     if(DICTS[lang]){apply();return;}
     var s=document.createElement('script');
-    s.src='/new/i18n/'+lang+'.js';s.async=true;
+    s.src='/new/i18n/'+lang+'.js?v=5675d0ea';s.async=true;
     document.head.appendChild(s);
   }
   window.lsSetLang=function(lang){
