@@ -1156,6 +1156,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 .chc-photos .cph-b{width:47%;margin:46px 0 0 -5%;transform:rotate(1.6deg);z-index:2}
 @media(max-width:640px){.chc-photos{margin-top:28px}.chc-photos .cph img{height:150px}.chc-photos .cph-a{width:58%;transform:rotate(-1.5deg)}.chc-photos .cph-b{width:58%;margin:34px 0 0 -18%}}
 
+.chc-stage{position:relative;overflow:hidden;will-change:height}.chc-stage.ready{transition:height .4s cubic-bezier(.16,.7,.2,1)}
 </style>
 </head>
 <body>
@@ -1551,6 +1552,7 @@ if(location.search.indexOf('probe=worst')>-1){
     <details class="q"><summary>What should I do after getting my result?<span class="pl">+</span></summary><div class="a">Message us on WhatsApp — a free 15-minute case review: we'll check your grounds, put together a document checklist for your situation and map out a plan for filing via MOS. No strings attached — the decision is yours.</div></details>
   </div>
 </div></section>
+<script>(function(){var card=document.querySelector(".chc-card");if(!card)return;var steps=[].slice.call(card.querySelectorAll(".chc-step"));if(steps.length<2)return;if(card.querySelector(".chc-stage"))return;var stage=document.createElement("div");stage.className="chc-stage";card.insertBefore(stage,steps[0]);steps.forEach(function(s){stage.appendChild(s)});function fit(){var a=stage.querySelector(".chc-step.act");stage.style.height=(a?a.getBoundingClientRect().height:0)+"px";}fit();requestAnimationFrame(function(){fit();stage.classList.add("ready");});window.addEventListener("load",fit);var mo=new MutationObserver(function(){requestAnimationFrame(fit);});steps.forEach(function(s){mo.observe(s,{attributes:true,attributeFilter:["class"]});});var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(fit,120);});})();</script>
 
 <footer><div class="wrap">
   <div class="ft-grid">
