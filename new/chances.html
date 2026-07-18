@@ -1162,7 +1162,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 .chc-photos .cph-b{width:47%;margin:46px 0 0 -5%;transform:rotate(1.6deg);z-index:2}
 @media(max-width:640px){.chc-photos{margin-top:28px}.chc-photos .cph img{height:150px}.chc-photos .cph-a{width:58%;transform:rotate(-1.5deg)}.chc-photos .cph-b{width:58%;margin:34px 0 0 -18%}}
 
-.chc-stage{position:relative;overflow:hidden;will-change:height}.chc-stage.ready{transition:height .4s cubic-bezier(.16,.7,.2,1)}
+
 </style>
 </head>
 <body>
@@ -1630,7 +1630,7 @@ if(location.search.indexOf('probe=worst')>-1){
 </div>
 
 <script>
-document.documentElement.classList.add('js');
+document.documentElement.classList.remove('nojs');document.documentElement.classList.add('js');
 window.lsPlay=function(el){var f=document.createElement('iframe');f.className='vframe';f.src='https://www.youtube.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1';f.title='LegalSol';f.allow='autoplay; encrypted-media; picture-in-picture; web-share';f.setAttribute('allowfullscreen','');el.replaceWith(f);};
 window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;try{v.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}window.lsPlay(v);};
 (function(){

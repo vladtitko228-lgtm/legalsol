@@ -1856,7 +1856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-document.documentElement.classList.add('js');
+document.documentElement.classList.remove('nojs');document.documentElement.classList.add('js');
 window.lsPlay=function(el){var f=document.createElement('iframe');f.className='vframe';f.src='https://www.youtube.com/embed/WRYMR8caNPc?autoplay=1&rel=0&modestbranding=1&playsinline=1';f.title='LegalSol';f.allow='autoplay; encrypted-media; picture-in-picture; web-share';f.setAttribute('allowfullscreen','');el.replaceWith(f);};
 window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;try{v.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}window.lsPlay(v);};
 (function(){
