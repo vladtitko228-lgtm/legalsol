@@ -1524,7 +1524,7 @@ window.lsWatch=function(){var v=document.querySelector('.vplayer');if(!v)return;
   document.addEventListener('visibilitychange',function(){if(document.hidden)els.forEach(function(e){e.classList.add('in');});});
 })();
 </script>
-<script src="quiz.js" defer></script>
+<script src="quiz.js?v=3" defer></script>
 <script>
 window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim();var sel=f.querySelector('select');var s=(sel&&sel.selectedIndex>0)?sel.value:'';var m='Hello!%20I%20would%20like%20to%20submit%20a%20request.'+(n?'%20Name:%20'+encodeURIComponent(n):'')+(p?',%20phone:%20'+encodeURIComponent(p):'')+(s?'.%20Interested%20in:%20'+encodeURIComponent(s):'');window.open('https://wa.me/48735248525?text='+m,'_blank');return false;};
 (function(){var r=document.getElementById('lsRemind');if(!r)return;var shown=false,dismissed=false;
