@@ -12,7 +12,7 @@
 // а не в /api, и тоже не затрагиваются.
 
 export const config = {
-  matcher: ['/api/:path*', '/vercel.json', '/_index.html', '/.gitignore', '/preview/:path*'],
+  matcher: ['/api/:path*', '/vercel.json', '/middleware.js', '/_index.html', '/.gitignore', '/preview/:path*'],
 };
 
 export default function middleware(req) {
@@ -25,6 +25,7 @@ export default function middleware(req) {
   //    (если понадобится смотреть preview вживую — убери '/preview/' ниже)
   const isPrivate =
     pathname === '/vercel.json' ||
+    pathname === '/middleware.js' ||
     pathname === '/_index.html' ||
     pathname === '/.gitignore' ||
     pathname.startsWith('/preview/');

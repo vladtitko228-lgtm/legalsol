@@ -20,12 +20,91 @@
       "source": "/trc",
       "destination": "/guide",
       "permanent": true
+    },
+    {
+      "source": "/business",
+      "destination": "/b2b",
+      "permanent": true
+    },
+    {
+      "source": "/polish",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/housing",
+      "destination": "/services",
+      "permanent": true
     }
   ],
   "rewrites": [
     {
       "source": "/",
-      "destination": "/api/index"
+      "destination": "/new/redesign.html"
+    },
+    {
+      "source": "/redesign.html",
+      "destination": "/new/redesign.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/new/services.html"
+    },
+    {
+      "source": "/services.html",
+      "destination": "/new/services.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/new/work.html"
+    },
+    {
+      "source": "/work.html",
+      "destination": "/new/work.html"
+    },
+    {
+      "source": "/b2b",
+      "destination": "/new/b2b.html"
+    },
+    {
+      "source": "/b2b.html",
+      "destination": "/new/b2b.html"
+    },
+    {
+      "source": "/guide",
+      "destination": "/new/guide.html"
+    },
+    {
+      "source": "/guide.html",
+      "destination": "/new/guide.html"
+    },
+    {
+      "source": "/chances",
+      "destination": "/new/chances.html"
+    },
+    {
+      "source": "/chances.html",
+      "destination": "/new/chances.html"
+    },
+    {
+      "source": "/referral",
+      "destination": "/new/referral.html"
+    },
+    {
+      "source": "/referral.html",
+      "destination": "/new/referral.html"
+    },
+    {
+      "source": "/cabinet",
+      "destination": "/new/cabinet.html"
+    },
+    {
+      "source": "/cabinet.html",
+      "destination": "/new/cabinet.html"
+    },
+    {
+      "source": "/quiz.js",
+      "destination": "/new/quiz.js"
     },
     {
       "source": "/blog/:slug",
@@ -36,8 +115,16 @@
       "destination": "/api/blog-listing"
     },
     {
+      "source": "/blog.html",
+      "destination": "/api/blog-listing"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
+    },
+    {
+      "source": "/owner",
+      "destination": "/owner.html"
     },
     {
       "source": "/privacy",
@@ -46,26 +133,6 @@
     {
       "source": "/terms",
       "destination": "/terms.html"
-    },
-    {
-      "source": "/business",
-      "destination": "/business.html"
-    },
-    {
-      "source": "/polish",
-      "destination": "/polish.html"
-    },
-    {
-      "source": "/guide",
-      "destination": "/guide.html"
-    },
-    {
-      "source": "/housing",
-      "destination": "/housing.html"
-    },
-    {
-      "source": "/owner",
-      "destination": "/owner.html"
     }
   ],
   "buildCommand": "cp _index.html api/_index.html",
