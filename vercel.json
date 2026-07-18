@@ -112,11 +112,11 @@
     },
     {
       "source": "/blog",
-      "destination": "/new/blog.html"
+      "destination": "/api/blog-listing"
     },
     {
       "source": "/blog.html",
-      "destination": "/new/blog.html"
+      "destination": "/api/blog-listing"
     },
     {
       "source": "/sitemap.xml",
