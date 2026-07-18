@@ -16,10 +16,9 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://legalsol.pl/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"></noscript>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/plus-jakarta-var.woff2" crossorigin fetchpriority="high">
 <style>
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400 800;font-display:swap;src:url(/assets/fonts/plus-jakarta-var.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400 800;font-display:swap;src:url(/assets/fonts/plus-jakarta-latinext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
@@ -655,7 +654,7 @@ details.q[open]{border-left-color:var(--gold)}
 }
 /* motion pack 2 */
 /* 1) вход героя при загрузке: каскад слева + въезд видео-карточки справа */
-.js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .hero-ctas,.js .hero .hero-feats,.js .hero .proof{opacity:0;transform:translateY(18px);transition:opacity .75s cubic-bezier(.16,.7,.2,1),transform .75s cubic-bezier(.16,.7,.2,1)}
+.js .hero .eyebrow,.js .hero h1,.js .hero .lead,.js .hero .hero-ctas,.js .hero .hero-feats,.js .hero .proof{transform:translateY(16px);transition:transform .7s cubic-bezier(.16,.7,.2,1)}
 .js.hero-in .hero .eyebrow,.js.hero-in .hero h1,.js.hero-in .hero .lead,.js.hero-in .hero .hero-ctas,.js.hero-in .hero .hero-feats,.js.hero-in .hero .proof{opacity:1;transform:none}
 .js.hero-in .hero h1{transition-delay:.09s}
 .js.hero-in .hero .lead{transition-delay:.18s}
@@ -757,7 +756,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 .hq-in img{width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 6px rgba(26,24,36,.18);flex:none}
 .hq-q{font-size:13.5px;line-height:1.35;color:var(--ink-2)}
 .hq-in b{font-size:12.5px;color:var(--ink-3);flex:none}
-.js .hero .hq{opacity:0;transform:translateY(18px);transition:opacity .75s cubic-bezier(.16,.7,.2,1),transform .75s cubic-bezier(.16,.7,.2,1)}
+.js .hero .hq{transform:translateY(16px);transition:transform .7s cubic-bezier(.16,.7,.2,1)}
 .js.hero-in .hero .hq{opacity:1;transform:none;transition-delay:.54s}
 /* a4) автопрогулка по «Пути дела» (класс .lit ставит JS) */
 .js .path .prow{transition:opacity .7s cubic-bezier(.16,.7,.2,1),transform .7s cubic-bezier(.16,.7,.2,1),background-color .5s ease}

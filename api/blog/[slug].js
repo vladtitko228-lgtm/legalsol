@@ -368,7 +368,7 @@ function renderPage(a, contentHtml, faqs) {
     ? '<script type="application/ld+json">' + jsonForScript({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) }) + '</script>'
     : '';
   head = head.replace(/<script type="application\/ld\+json">\{[\s\S]*?"Blog"[\s\S]*?<\/script>/, articleLd(a, canonical) + (faqLd ? "\n" + faqLd : ""));
-  if (coverImage) head = head.replace('</head>', `<meta property="og:image" content="${esc(coverImage)}"><meta name="twitter:image" content="${esc(coverImage)}"></head>`);
+  if (coverImage) { head = head.replace(/(<meta property="og:image" content=")[^"]*(">)/, `$1${esc(coverImage)}$2`).replace(/(<meta name="twitter:image" content=")[^"]*(">)/, `$1${esc(coverImage)}$2`); }
   head = head.replace('</style>', artCss + '</style>');
 
   // ---- FAQ block ----
