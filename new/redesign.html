@@ -940,6 +940,15 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   .fab-bub,.remind{bottom:88px!important}
   body{padding-bottom:74px}
 }
+
+/* declutter первого экрана: нижняя панель и quiz-кнопка — после скролла за герой */
+.fbar{transition:opacity .35s cubic-bezier(.16,.7,.2,1),transform .35s cubic-bezier(.16,.7,.2,1)}
+body:not(.ls-scrolled) .fbar{opacity:0;transform:translateY(18px);pointer-events:none}
+body.ls-scrolled .fbar{opacity:1;transform:none;pointer-events:auto}
+body:not(.ls-scrolled) #lsq-fab{opacity:0;transform:translateY(18px);pointer-events:none}
+body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
+#lsq-fab{transition:opacity .35s,transform .35s}
+@media(max-width:640px){body:not(.ls-scrolled) .fbar{transform:translateY(100%)}}
 </style>
 </head>
 <body>
@@ -1269,7 +1278,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
   <img class="bg-art bgr" src="/assets/trc/ph_meet.jpg" alt="" aria-hidden="true" loading="lazy" style="opacity:.12">
   <span class="eyebrow">60-second check</span>
   <h2>Are your documents ready for a residence card?</h2>
-  <p>Pick your situation — Kamil or Adam will reply on WhatsApp within 15 minutes: they'll tell you your chances and send a document list for your case.</p>
+  <p>Pick your situation — we will reply on WhatsApp within 15 minutes: they'll tell you your chances and send a document list for your case.</p>
   <div class="chk-opts stg">
     <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Through work</b><span>Umowa o pracę / zlecenie</span></a>
     <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>My own business</b><span>JDG / Spółka z o.o.</span></a>
@@ -1495,7 +1504,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <div class="remind" id="lsRemind" role="dialog" aria-label="Reminder">
   <button class="rx" onclick="document.getElementById('lsRemind').classList.remove('show')" aria-label="Close">&times;</button>
   <div class="rc"><span class="rd"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><i></i></span>
-    <div><b>Still have questions?</b><p>Message us — Kamil or Adam will reply within 15 minutes, free of charge.</p>
+    <div><b>Still have questions?</b><p>Message us — we will reply within 15 minutes, free of charge.</p>
       <div class="rb"><a class="btn btn-wa" href="https://wa.me/48735248525?text=Здравствуйте!%20Остались%20вопросы%20по%20легализации." target="_blank" rel="noopener">WhatsApp</a><a class="btn btn-ghost" href="redesign.html#contact" onclick="document.getElementById('lsRemind').classList.remove('show')">Send a request</a></div>
     </div>
   </div>
@@ -1505,7 +1514,7 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 <div class="fab-bub" id="fabBub" role="status">
   <button class="bx" type="button" aria-label="Close" onclick="event.stopPropagation();this.parentNode.classList.remove('show');window.__bubOff=1;">&times;</button>
   <p>Hello! We'll advise on your case — message us and we'll reply within 15 minutes 🙌</p>
-  <small><i class="odot" aria-hidden="true"></i>Kamil and Adam · LegalSol</small>
+  <small><i class="odot" aria-hidden="true"></i>LegalSol · Warsaw</small>
   <a href="https://wa.me/48735248525?text=Здравствуйте!%20Нужна%20консультация%20по%20моему%20случаю." target="_blank" rel="noopener" aria-label="Message us on WhatsApp"></a>
 </div>
 <div class="fbar">
@@ -2034,6 +2043,19 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     }
     if(cur!=='en')load(cur);
   }
+})();
+</script>
+<script>
+/* показать плавающие CTA только после ухода с первого экрана */
+(function(){
+  var thr=0,tick=false;
+  function calc(){thr=Math.max(280,(window.innerHeight||700)*0.62);}
+  function upd(){tick=false;var y=window.pageYOffset||document.documentElement.scrollTop||0;
+    document.body.classList.toggle('ls-scrolled',y>thr);}
+  function on(){if(!tick){tick=true;requestAnimationFrame(upd);}}
+  calc();upd();
+  window.addEventListener('scroll',on,{passive:true});
+  window.addEventListener('resize',function(){calc();on();},{passive:true});
 })();
 </script>
 </body>
