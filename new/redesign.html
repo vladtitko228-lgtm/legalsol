@@ -20,7 +20,7 @@
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
   --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
-  --indigo:#7D62CE;--indigo-2:#B6A9E9;--indigo-7:#5C4BA8;--indigo-9:#443589;
+  --indigo:#8670D4;--indigo-2:#C2B6ED;--indigo-7:#5C4BA8;--indigo-9:#443589;
   --lilac:#F3F1F9;--lilac-2:#E6E1F1;--lilac-line:#E0DAEE;
   --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
   --card:#fff;--line:#E9E5F1;--wa:#25D366;
@@ -46,8 +46,8 @@ h2{font-size:clamp(30px,4vw,46px)}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(125,98,206,.6)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(125,98,206,.7)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(134,112,212,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(134,112,212,.7)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -63,7 +63,7 @@ h2{font-size:clamp(30px,4vw,46px)}
 header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:28px;height:74px}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(125,98,206,.6)}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(134,112,212,.6)}
 .logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
 nav.main{display:flex;gap:26px;margin-left:8px}
 nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
@@ -426,7 +426,7 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
 /* premium hovers */
 .dir,.s11,.bcard{position:relative}
-.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(125,98,206,.12),transparent 65%);pointer-events:none}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(134,112,212,.12),transparent 65%);pointer-events:none}
 .dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
 .dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .dir:hover::after{transform:scaleX(1)}
@@ -781,7 +781,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 @keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 .js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
 /* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
-.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(125,98,206,.6)}
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(134,112,212,.6)}
 /* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
 @media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
 /* live3: защита noanim — мгновенный финал */
@@ -919,9 +919,9 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .lsw-dd{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line,#E8E2D8);border-radius:16px;box-shadow:0 18px 48px -12px rgba(33,30,61,.28);padding:8px;min-width:172px;display:none;z-index:90}
 .lsw.open .lsw-dd{display:block}
 .lsw-o{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;font-size:13.5px;color:var(--ink,#211E3D);padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left}
-.lsw-o:hover{background:rgba(125,98,206,.09)}
-.lsw-o.cur{background:rgba(125,98,206,.13);font-weight:700}
-.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#7D62CE);width:22px;flex:0 0 auto}
+.lsw-o:hover{background:rgba(134,112,212,.09)}
+.lsw-o.cur{background:rgba(134,112,212,.13);font-weight:700}
+.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#8670D4);width:22px;flex:0 0 auto}
 @media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
 
 /* fixed bottom action bar: Call + Free consultation */
@@ -961,7 +961,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <!-- header -->
 <header><div class="wrap">
   <a class="logo" href="redesign.html">
-    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span>
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span>
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
@@ -1015,8 +1015,8 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
     </div>
     <div class="hero-feats">
       <span><i class="odot" aria-hidden="true"></i>Reply within 15 minutes</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Contract — fixed price</span>
-      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Appeals — free for clients</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Contract — fixed price</span>
+      <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Appeals — free for clients</span>
     </div>
     <a class="proof" href="#reviews">
       <span class="avs"><img src="/assets/trc/client2.jpg" alt=""><img src="/assets/trc/client8.jpg" alt=""><img src="/assets/trc/client4.jpg" alt=""><img src="/assets/trc/client1.jpg" alt=""></span>
@@ -1069,8 +1069,8 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
     <p class="about-lead">We become your personal legal partner for your entire stay in Poland.</p>
     <div class="about-note">We're foreigners ourselves — student visa, residence card, permanent residence, citizenship. We know what the waiting feels like, because we've lived it.</div>
     <div class="about-feats">
-      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Any complexity</b> — we take on difficult cases too, and assess your chances honestly</span></div>
-      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>We check every document package</b> — double-checked before filing: a lawyer and the system</span></div>
+      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Any complexity</b> — we take on difficult cases too, and assess your chances honestly</span></div>
+      <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>We check every document package</b> — double-checked before filing: a lawyer and the system</span></div>
     </div>
     <div class="ab-shots reveal" aria-hidden="true">
       <img class="big" src="/assets/trc/nx_team2.jpg" alt="" loading="lazy">
@@ -1095,7 +1095,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
   <div class="dir-grid stg">
     <div class="dir i1 pop reveal">
       <span class="badge">POPULAR</span>
-      <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
+      <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
       <h3>Legalization and residence permits</h3>
       <p>Everything you need to live in Poland legally — from your first card to permanent residence.</p>
       <ul>
@@ -1277,10 +1277,10 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
   <h2>Are your documents ready for a residence card?</h2>
   <p>Pick your situation — we will reply on WhatsApp within 15 minutes: they'll tell you your chances and send a document list for your case.</p>
   <div class="chk-opts stg">
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Through work</b><span>Umowa o pracę / zlecenie</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>My own business</b><span>JDG / Spółka z o.o.</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20семья%20(воссоединение).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>Through family</b><span>Reunification</span></a>
-    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20учёба.%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Studies</b><span>Full-time university studies</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20работа%20(umowa).%20Проверьте%20мои%20документы%20на%20карту%20побыту." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span><b>Through work</b><span>Umowa o pracę / zlecenie</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20своё%20дело%20(JDG/Spółka).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M4 9h16"/><path d="M9 20v-6h6v6"/></svg></span><b>My own business</b><span>JDG / Spółka z o.o.</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20семья%20(воссоединение).%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 6.5a3 3 0 0 1 0 5.8M21 20c0-2.6-1.6-4.3-4-4.9"/></svg></span><b>Through family</b><span>Reunification</span></a>
+    <a class="chk" href="https://wa.me/48735248525?text=Здравствуйте!%20Моё%20основание%20—%20учёба.%20Проверьте%20мои%20документы." target="_blank" rel="noopener"><span class="ci"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 12 5 2 9l10 4 10-4z"/><path d="M6 11v5c0 1.3 2.7 2.5 6 2.5s6-1.2 6-2.5v-5"/></svg></span><b>Studies</b><span>Full-time university studies</span></a>
     <a class="chk other" href="https://wa.me/48735248525?text=Здравствуйте!%20У%20меня%20другая%20ситуация%20—%20подскажите%20путь." target="_blank" rel="noopener"><b>Different situation?</b><span>Describe it on WhatsApp — we'll point the way →</span></a>
   </div>
   <div class="fine">Free · Reply within 15 minutes · No obligation</div>
@@ -1458,7 +1458,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
       <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
     <div><h4>Services</h4><ul>

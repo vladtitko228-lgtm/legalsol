@@ -20,7 +20,7 @@
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
   --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
-  --indigo:#7D62CE;--indigo-2:#B6A9E9;--indigo-7:#5C4BA8;--indigo-9:#443589;
+  --indigo:#8670D4;--indigo-2:#C2B6ED;--indigo-7:#5C4BA8;--indigo-9:#443589;
   --lilac:#F3F1F9;--lilac-2:#E6E1F1;--lilac-line:#E0DAEE;
   --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
   --card:#fff;--line:#E9E5F1;--wa:#25D366;
@@ -46,8 +46,8 @@ h2{font-size:clamp(30px,4vw,46px)}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(125,98,206,.6)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(125,98,206,.7)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(134,112,212,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(134,112,212,.7)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -63,7 +63,7 @@ h2{font-size:clamp(30px,4vw,46px)}
 header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:28px;height:74px}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(125,98,206,.6)}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(134,112,212,.6)}
 .logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
 nav.main{display:flex;gap:26px;margin-left:8px}
 nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
@@ -426,7 +426,7 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
 /* premium hovers */
 .dir,.s11,.bcard{position:relative}
-.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(125,98,206,.12),transparent 65%);pointer-events:none}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(134,112,212,.12),transparent 65%);pointer-events:none}
 .dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
 .dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .dir:hover::after{transform:scaleX(1)}
@@ -781,7 +781,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 @keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 .js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
 /* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
-.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(125,98,206,.6)}
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(134,112,212,.6)}
 /* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
 @media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
 /* live3: защита noanim — мгновенный финал */
@@ -919,9 +919,9 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .lsw-dd{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line,#E8E2D8);border-radius:16px;box-shadow:0 18px 48px -12px rgba(33,30,61,.28);padding:8px;min-width:172px;display:none;z-index:90}
 .lsw.open .lsw-dd{display:block}
 .lsw-o{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;font-size:13.5px;color:var(--ink,#211E3D);padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left}
-.lsw-o:hover{background:rgba(125,98,206,.09)}
-.lsw-o.cur{background:rgba(125,98,206,.13);font-weight:700}
-.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#7D62CE);width:22px;flex:0 0 auto}
+.lsw-o:hover{background:rgba(134,112,212,.09)}
+.lsw-o.cur{background:rgba(134,112,212,.13);font-weight:700}
+.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#8670D4);width:22px;flex:0 0 auto}
 @media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
 
 /* fixed bottom action bar: Call + Free consultation */
@@ -1015,7 +1015,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <!-- header -->
 <header><div class="wrap">
   <a class="logo" href="redesign.html">
-    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span>
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span>
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
@@ -1076,7 +1076,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- 3 STEPS -->
 <section class="steps" id="rf2-steps">
-<img class="bg-art bgl" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">How it works</span><h2>Three steps — and the money is yours</h2><p>No forms, no reports. You just share our contact — we handle the rest.</p></div>
   <div class="steps-grid rf2-steps3 stg">
     <div class="step"><div class="num">1</div><h3>Share our contact</h3><p>Send your friend our contact — WhatsApp or the website. For them everything works as usual: a free consultation and a reply within 15 minutes.</p></div>
@@ -1089,7 +1089,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- REWARD STATS -->
 <section class="stats rf2-stats">
-<img class="bg-art bgr" src="/assets/trc/bg_docs.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow gold">Rewards</span><h2>How much you get</h2><p>Cash or a discount — the choice is yours.</p></div>
   <div class="stats-grid stg">
     <div class="stat"><div class="n">from 300 zł</div><div class="l">for every friend you refer</div></div>
@@ -1101,7 +1101,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- LEVELS -->
 <section id="rf2-levels">
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head reveal"><span class="eyebrow">Program levels</span><h2>More friends — more bonuses</h2><p>There's no limit on the number of friends. The more referrals, the higher your level.</p></div>
   <div class="rf2-lad stg">
     <div class="rf2-tier t1"><div class="rf2-tn">3<small>friends</small></div><div><b>Bonus ×3</b><p>Three friends — three payouts. We'll share the amounts on WhatsApp.</p><div class="rf2-bar"><i></i></div></div></div>
@@ -1114,7 +1114,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- JOIN -->
 <section class="checker rf2-join">
-<img class="bg-art bgr" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <span class="eyebrow gold">Join</span>
   <h2>One message — and you're in</h2>
   <p>Message us on WhatsApp saying "I want to join" — we'll add you to the program and answer your questions. After that, just share our contact.</p>
@@ -1124,7 +1124,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- FAQ -->
 <section class="faq">
-<img class="bg-art bgl" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Frequently asked questions</h2><p>The essentials in brief. Didn't find your answer — message us on WhatsApp.</p></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>When will I get my payout?<span class="pl">+</span></summary><div class="a">After your friend's first payment. We send the transfer within 1–3 business days.</div></details>
@@ -1172,7 +1172,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
       <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
     <div><h4>Services</h4><ul>

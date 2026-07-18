@@ -20,7 +20,7 @@
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
   --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
-  --indigo:#7D62CE;--indigo-2:#B6A9E9;--indigo-7:#5C4BA8;--indigo-9:#443589;
+  --indigo:#8670D4;--indigo-2:#C2B6ED;--indigo-7:#5C4BA8;--indigo-9:#443589;
   --lilac:#F3F1F9;--lilac-2:#E6E1F1;--lilac-line:#E0DAEE;
   --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
   --card:#fff;--line:#E9E5F1;--wa:#25D366;
@@ -46,8 +46,8 @@ h2{font-size:clamp(30px,4vw,46px)}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(125,98,206,.6)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(125,98,206,.7)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(134,112,212,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(134,112,212,.7)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -63,7 +63,7 @@ h2{font-size:clamp(30px,4vw,46px)}
 header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:28px;height:74px}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(125,98,206,.6)}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(134,112,212,.6)}
 .logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
 nav.main{display:flex;gap:26px;margin-left:8px}
 nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
@@ -426,7 +426,7 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
 /* premium hovers */
 .dir,.s11,.bcard{position:relative}
-.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(125,98,206,.12),transparent 65%);pointer-events:none}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(134,112,212,.12),transparent 65%);pointer-events:none}
 .dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
 .dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .dir:hover::after{transform:scaleX(1)}
@@ -781,7 +781,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 @keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 .js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
 /* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
-.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(125,98,206,.6)}
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(134,112,212,.6)}
 /* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
 @media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
 /* live3: защита noanim — мгновенный финал */
@@ -919,9 +919,9 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .lsw-dd{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line,#E8E2D8);border-radius:16px;box-shadow:0 18px 48px -12px rgba(33,30,61,.28);padding:8px;min-width:172px;display:none;z-index:90}
 .lsw.open .lsw-dd{display:block}
 .lsw-o{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;font-size:13.5px;color:var(--ink,#211E3D);padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left}
-.lsw-o:hover{background:rgba(125,98,206,.09)}
-.lsw-o.cur{background:rgba(125,98,206,.13);font-weight:700}
-.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#7D62CE);width:22px;flex:0 0 auto}
+.lsw-o:hover{background:rgba(134,112,212,.09)}
+.lsw-o.cur{background:rgba(134,112,212,.13);font-weight:700}
+.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#8670D4);width:22px;flex:0 0 auto}
 @media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
 
 /* fixed bottom action bar: Call + Free consultation */
@@ -951,7 +951,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 @media(max-width:640px){body:not(.ls-scrolled) .fbar{transform:translateY(100%)}}
 
 /* --- page:chances --- */
-.chc-hcard{background:linear-gradient(140deg,rgba(68,53,137,.9),rgba(125,98,206,.58)),url(/assets/trc/story2.jpg) center/cover;border-radius:var(--r-lg);padding:92px 72px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
+.chc-hcard{background:linear-gradient(140deg,rgba(68,53,137,.9),rgba(134,112,212,.58)),url(/assets/trc/story2.jpg) center/cover;border-radius:var(--r-lg);padding:92px 72px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh)}
 .chc-hcard::after{content:"";position:absolute;right:-110px;bottom:-130px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(226,155,84,.26),transparent 70%);pointer-events:none}
 .chc-hcard .eyebrow{background:rgba(255,255,255,.16);color:#fff}
 .chc-hcard h1{font-size:clamp(34px,4.8vw,58px);margin:6px 0 18px;max-width:820px}
@@ -976,7 +976,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 .chc-opt .d{font-size:12.5px;color:var(--ink-3);line-height:1.35;align-self:start}
 .chc-opt:hover{transform:translateY(-3px);border-color:var(--indigo);box-shadow:var(--sh-sm)}
 .chc-opt:focus-visible{outline:3px solid var(--indigo-2);outline-offset:2px}
-.chc-opt.sel{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));border-color:var(--indigo-7);box-shadow:0 14px 30px -12px rgba(125,98,206,.55)}
+.chc-opt.sel{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));border-color:var(--indigo-7);box-shadow:0 14px 30px -12px rgba(134,112,212,.55)}
 .chc-opt.sel b{color:#fff}
 .chc-opt.sel .d{color:rgba(255,255,255,.82)}
 .chc-opt.sel .ci{background:rgba(255,255,255,.18);color:#fff}
@@ -993,7 +993,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 @media(min-width:641px){.chc-step[data-k="voiv"]{min-height:230px}}}
 .chc-nav{display:flex;justify-content:space-between;gap:14px;margin-top:26px}
 .chc-nav .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none}
-@keyframes chcPulse{0%{box-shadow:0 14px 30px -12px rgba(125,98,206,.6),0 0 0 0 rgba(125,98,206,.4)}100%{box-shadow:0 14px 30px -12px rgba(125,98,206,.6),0 0 0 16px rgba(125,98,206,0)}}
+@keyframes chcPulse{0%{box-shadow:0 14px 30px -12px rgba(134,112,212,.6),0 0 0 0 rgba(134,112,212,.4)}100%{box-shadow:0 14px 30px -12px rgba(134,112,212,.6),0 0 0 16px rgba(134,112,212,0)}}
 .js .chc-ready:not(:disabled){animation:chcPulse 1.3s ease-out 2}
 .chc-done .chc-nav{display:none}
 .chc-result[hidden]{display:none!important}
@@ -1097,7 +1097,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
 <!-- header -->
 <header><div class="wrap">
   <a class="logo" href="redesign.html">
-    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span>
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span>
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
@@ -1174,7 +1174,7 @@ html.nojs .chc-nav,html.nojs .chc-top{display:none}
       <button type="button" class="btn btn-ghost" id="chcBack" disabled>← Back</button>
       <button type="button" class="btn btn-primary" id="chcNext" disabled>Next →</button>
     </div>
-    <div class="chc-result" id="chcResult" hidden><h3 class="chc-reshead" id="chcResHead">Your preliminary result</h3><div class="chc-res-grid"><div class="chc-gauge"><svg class="chc-gsvg" viewBox="0 0 200 120" aria-hidden="true"><path d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="var(--lilac-2)" stroke-width="15" stroke-linecap="round"/><path class="chc-arc" id="chcArc" d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="#7D62CE" stroke-width="15" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33"/></svg><div class="chc-score"><span class="chc-n" id="chcNum">0</span><small>points out of 100 · preliminary</small></div></div><div class="chc-verdict"><div class="chc-cat" id="chcCat" aria-live="polite">…</div><p class="chc-phrase" id="chcPhrase"></p><div class="chc-wait"><span class="wic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C4BA8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><p id="chcWait"></p></div></div></div><div class="chc-tips" id="chcTipsBox"><b>What will strengthen your application</b><ul id="chcTips"></ul></div><p class="chc-disc">This is a preliminary LegalSol estimate based on 1,000+ cases, not a legal opinion. An exact case review is free at a consultation.</p><div class="chc-res-ctas"><a class="btn btn-wa btn-lg" id="chcWaBtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%88%D1%91%D0%BB%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%88%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%20%E2%80%94%20%D1%85%D0%BE%D1%87%D1%83%20%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Get an exact case review on WhatsApp</a><button type="button" class="btn btn-ghost btn-lg" id="chcAgain">Start over</button></div></div>
+    <div class="chc-result" id="chcResult" hidden><h3 class="chc-reshead" id="chcResHead">Your preliminary result</h3><div class="chc-res-grid"><div class="chc-gauge"><svg class="chc-gsvg" viewBox="0 0 200 120" aria-hidden="true"><path d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="var(--lilac-2)" stroke-width="15" stroke-linecap="round"/><path class="chc-arc" id="chcArc" d="M20 108 A80 80 0 0 1 180 108" fill="none" stroke="#8670D4" stroke-width="15" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="251.33"/></svg><div class="chc-score"><span class="chc-n" id="chcNum">0</span><small>points out of 100 · preliminary</small></div></div><div class="chc-verdict"><div class="chc-cat" id="chcCat" aria-live="polite">…</div><p class="chc-phrase" id="chcPhrase"></p><div class="chc-wait"><span class="wic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C4BA8" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><p id="chcWait"></p></div></div></div><div class="chc-tips" id="chcTipsBox"><b>What will strengthen your application</b><ul id="chcTips"></ul></div><p class="chc-disc">This is a preliminary LegalSol estimate based on 1,000+ cases, not a legal opinion. An exact case review is free at a consultation.</p><div class="chc-res-ctas"><a class="btn btn-wa btn-lg" id="chcWaBtn" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%88%D1%91%D0%BB%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D1%88%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%20%E2%80%94%20%D1%85%D0%BE%D1%87%D1%83%20%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Get an exact case review on WhatsApp</a><button type="button" class="btn btn-ghost btn-lg" id="chcAgain">Start over</button></div></div>
   </div>
   <p class="chc-under reveal">The scoring is transparent: a base score + grounds, status, documents, stability, income, history and complicating factors. No magic — just the experience of 1,000+ cases.</p>
 </div>
@@ -1450,7 +1450,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- LEADBAND -->
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
+<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap"><div class="leadband reveal">
   <div class="lb-left">
     <div>
       <div class="lb-t">Want an exact case review, not just an estimate?</div>
@@ -1467,7 +1467,7 @@ if(location.search.indexOf('probe=worst')>-1){
 
 <!-- FAQ -->
 <section id="chc-faq" class="faq">
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Questions about the calculator</h2></div>
   <div class="faq-wrap reveal">
     <details class="q"><summary>How accurate is this estimate?<span class="pl">+</span></summary><div class="a">This is a preliminary estimate based on the experience of 1,000+ LegalSol cases, not a legal opinion. Every case is unique: an exact review with a lawyer is free — at the consultation we'll check your documents and tell you your real chances.</div></details>
@@ -1479,7 +1479,7 @@ if(location.search.indexOf('probe=worst')>-1){
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
       <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
     <div><h4>Services</h4><ul>

@@ -20,7 +20,7 @@
 :root{
   --cream:#FAF7F2;--cream-2:#F2ECE3;
   --ink:#211E3D;--ink-2:#524D74;--ink-3:#8C88A6;
-  --indigo:#7D62CE;--indigo-2:#B6A9E9;--indigo-7:#5C4BA8;--indigo-9:#443589;
+  --indigo:#8670D4;--indigo-2:#C2B6ED;--indigo-7:#5C4BA8;--indigo-9:#443589;
   --lilac:#F3F1F9;--lilac-2:#E6E1F1;--lilac-line:#E0DAEE;
   --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
   --card:#fff;--line:#E9E5F1;--wa:#25D366;
@@ -46,8 +46,8 @@ h2{font-size:clamp(30px,4vw,46px)}
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-weight:700;font-size:15px;padding:15px 26px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(125,98,206,.6)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(125,98,206,.7)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 14px 30px -12px rgba(134,112,212,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(134,112,212,.7)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff;box-shadow:0 14px 30px -12px rgba(201,127,51,.55)}
 .btn-gold:hover{transform:translateY(-2px)}
 .btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -63,7 +63,7 @@ h2{font-size:clamp(30px,4vw,46px)}
 header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:28px;height:74px}
 .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.01em}
-.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(125,98,206,.6)}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--indigo-2),var(--indigo-9));display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(134,112,212,.6)}
 .logo small{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-top:1px}
 nav.main{display:flex;gap:26px;margin-left:8px}
 nav.main a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .15s}
@@ -426,7 +426,7 @@ section>.wrap{position:relative;z-index:1}
 @media(max-width:400px){.logo{font-size:16px}.logo-ico svg{width:28px;height:27px}header .wrap{gap:8px}.hd-r{gap:8px}.hd-r .btn{padding:10px 12px;font-size:13px}.burger{width:40px;height:40px}}
 /* premium hovers */
 .dir,.s11,.bcard{position:relative}
-.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(125,98,206,.12),transparent 65%);pointer-events:none}
+.dir::before,.s11::before,.bcard::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--hx,50%) var(--hy,45%),rgba(134,112,212,.12),transparent 65%);pointer-events:none}
 .dir:hover::before,.s11:hover::before,.bcard:hover::before{opacity:1}
 .dir::after{content:"";position:absolute;top:0;left:9%;right:9%;height:2.5px;border-radius:3px;background:linear-gradient(90deg,var(--indigo),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,.7,.2,1)}
 .dir:hover::after{transform:scaleX(1)}
@@ -781,7 +781,7 @@ nav.main a:hover::after,nav.main a:focus-visible::after{transform:scaleX(1)}
 @keyframes pnPulse{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 .js:not(.noanim) .prow.lit .pn{animation:pnPulse .7s cubic-bezier(.16,.7,.2,1) 1}
 /* l2е) фокус-кольцо основной кнопки (hover-подъём уже есть) */
-.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(125,98,206,.6)}
+.btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 6px var(--indigo),0 14px 30px -12px rgba(134,112,212,.6)}
 /* l3) подстраницы (без section.hero): фоновые сцены чуть заметнее на десктопе */
 @media(min-width:1000px){body:not(:has(section.hero)) .bg-art{opacity:.13}}
 /* live3: защита noanim — мгновенный финал */
@@ -919,9 +919,9 @@ html.noanim .steps-grid::before{transform:scaleX(1)!important;transition:none!im
 .lsw-dd{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--line,#E8E2D8);border-radius:16px;box-shadow:0 18px 48px -12px rgba(33,30,61,.28);padding:8px;min-width:172px;display:none;z-index:90}
 .lsw.open .lsw-dd{display:block}
 .lsw-o{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;font:inherit;font-size:13.5px;color:var(--ink,#211E3D);padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left}
-.lsw-o:hover{background:rgba(125,98,206,.09)}
-.lsw-o.cur{background:rgba(125,98,206,.13);font-weight:700}
-.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#7D62CE);width:22px;flex:0 0 auto}
+.lsw-o:hover{background:rgba(134,112,212,.09)}
+.lsw-o.cur{background:rgba(134,112,212,.13);font-weight:700}
+.lsw-o em{font-style:normal;font-size:11px;font-weight:800;color:var(--indigo,#8670D4);width:22px;flex:0 0 auto}
 @media(max-width:640px){.lsw-b span{display:none}.lsw-b{padding:6px 9px}}
 
 /* fixed bottom action bar: Call + Free consultation */
@@ -953,7 +953,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 /* --- page:guide --- */
 /* — гайд: герой — */
 .gd-hero{padding:36px 0 0}
-.gd-hbox{background:linear-gradient(140deg,rgba(68,53,137,.92),rgba(125,98,206,.5)),url(/assets/trc/bg_docs.jpg) center/cover;border-radius:var(--r-lg);padding:78px 64px;color:#fff;position:relative;overflow:hidden}
+.gd-hbox{background:linear-gradient(140deg,rgba(68,53,137,.92),rgba(134,112,212,.5)),url(/assets/trc/bg_docs.jpg) center/cover;border-radius:var(--r-lg);padding:78px 64px;color:#fff;position:relative;overflow:hidden}
 .gd-hbox::after{content:"";position:absolute;right:-90px;bottom:-110px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(182,169,233,.35),transparent 70%)}
 .gd-hbox>*{position:relative;z-index:1}
 .gd-hbox h1{font-size:clamp(34px,4.8vw,56px);margin:8px 0 18px;color:#fff}
@@ -1029,7 +1029,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <!-- header -->
 <header><div class="wrap">
   <a class="logo" href="redesign.html">
-    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span>
+    <span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span>
     <span>LEGALSOL<small>LEGALIZATION SERVICES</small></span>
   </a>
   <nav class="main">
@@ -1113,7 +1113,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ШЕСТЬ КАДРОВ -->
 <section class="steps">
-<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_law.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">The simple version</span><h2>The whole journey in six frames</h2><p>What, how and why — without a single legal term. Details come below, in the chapters.</p></div>
   <div class="gd-frames stg">
     <div class="step reveal"><span class="gd-tag">Sound familiar?</span><div class="num">1</div><h3>The clock is ticking</h3><p>Your visa is ending, the urząd is silent, and it's unclear what to do.</p></div>
@@ -1127,7 +1127,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ГЕОГРАФИЯ -->
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_city.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Geography</span><h2>From Warsaw to all 16 voivodeships</h2><p>Our team runs legalization cases all over Poland. Residence cards aren't "one service among many" — they're what we live and breathe.</p></div>
   <div class="geo reveal">
     <p>Filing works across all of Poland: since 2026 everything goes online through MOS, so your city makes no difference</p>
@@ -1145,7 +1145,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ГЛАВА I -->
 <section id="gd-ch1" class="about gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter I</span><h2>What is a residence card?</h2><p>A residence card (karta pobytu in Polish, TRC for short) is Poland's residence permit: a plastic card that confirms your right to live in the country legally.</p></div>
   <div class="about-grid">
     <div class="reveal">
@@ -1161,8 +1161,8 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
       <h3 style="font-size:24px;margin-bottom:12px">Why timing matters</h3>
       <p style="color:var(--ink-2);font-size:16px;margin-bottom:18px">If your legal stay ends before a correct filing, you risk a refusal, an entry ban and losing your job. Formalities decide everything here — one small mistake can cost you months.</p>
       <div class="about-feats" style="margin-bottom:18px">
-        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>The card is always tied to a basis: <b>work, study, family or business</b>.</span></div>
-        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7D62CE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>With it you live, work, travel around Schengen, and prove your status at any urząd, bank, or employer.</span></div>
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>The card is always tied to a basis: <b>work, study, family or business</b>.</span></div>
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8670D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>With it you live, work, travel around Schengen, and prove your status at any urząd, bank, or employer.</span></div>
       </div>
       <div class="about-note"><b>The main rule:</b> file the application correctly and before your current status expires. Then you spend the entire wait in Poland legally.</div>
       <a class="btn btn-primary" href="https://wa.me/48735248525?text=Здравствуйте!%20Вопрос%20по%20срокам%20подачи%20на%20карту%20побыту." target="_blank" rel="noopener">Chat on WhatsApp →</a>
@@ -1172,7 +1172,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ГЛАВА II -->
 <section id="gd-ch2" class="gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">Chapter II</span><h2>Why people don't file on their own</h2><p>It's not that the form is hard — it's that the procedure doesn't forgive small things. Here are the three reasons people most often lose months.</p></div>
   <div class="gd-why stg">
     <div class="ab-pt reveal"><div class="n">01</div><b>Everything is online now</b><span>From 27.04.2026, applications are filed online only — through the government MOS system. Logging in requires a Profil Zaufany — your personal electronic signature for Polish government services. One wrong field, and the whole case stalls.</span></div>
@@ -1198,7 +1198,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ГЛАВА III -->
 <section id="gd-ch3" class="steps gd-anchor">
-<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_news.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter III</span><h2>Six stages — from your first message to the card</h2><p>The whole journey in one place. First a summary table, then what exactly happens at each stage, what we need from you and how long it takes.</p></div>
   <div class="path reveal">
     <div class="prow"><span class="pn">01</span><div><b>Free case review</b><p>Status, timelines, the right basis, a plan and a fixed price</p></div><span class="pt">Same day</span></div>
@@ -1273,7 +1273,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 
 <!-- ГЛАВА IV -->
 <section id="gd-ch4" class="about gd-anchor">
-<img class="bg-art bgr" src="/assets/trc/bg_sign.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_stamp.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><span class="eyebrow">Chapter IV</span><h2>How long it really takes: 4–9 months</h2><p>The whole journey usually takes four to nine months. The waiting stages partly overlap — your case is being processed from the moment of filing, so the rows don't add up to a total. Here's where the time goes — no sugar-coating.</p></div>
   <div class="waits reveal">
     <div class="wscale"><span>0</span><span>3</span><span>6</span><span>9 months</span></div>
@@ -1396,7 +1396,7 @@ body.ls-scrolled #lsq-fab{opacity:1;transform:none;pointer-events:auto}
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B6A9E9"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#7D62CE"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#7D62CE"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
+      <a class="logo" href="redesign.html"><span class="logo-ico"><svg width="38" height="36" viewBox="0 0 34 32" aria-hidden="true"><rect x="0" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#C2B6ED"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#8670D4"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#8670D4"/></svg></span><span>LEGALSOL<small>LEGALIZATION SERVICES</small></span></a>
       <p style="margin-top:14px;max-width:280px">Legal support for foreigners in Poland. Residence card, permanent residence, business.</p>
     </div>
     <div><h4>Services</h4><ul>
