@@ -1638,7 +1638,7 @@ window.lsLead=function(f){var n=(f[0].value||'').trim(),p=(f[1].value||'').trim(
 r.querySelector('.rx').addEventListener('click',function(){dismissed=true;});
 window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(window.pageYOffset+window.innerHeight)/document.body.scrollHeight;if(sc>0.5){shown=true;r.classList.add('show');setTimeout(function(){r.classList.remove('show');},12000);}},{passive:true});})();
 </script>
-<script>
+<script>(window.requestIdleCallback||function(f){setTimeout(f,1)})(function(){
 /* motion pack: каунт-ап цифр в .stats-grid — числа в разметке не меняем (SEO), JS читает и восстанавливает */
 (function(){
   var doc=document.documentElement;
@@ -1700,7 +1700,8 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   });
   document.addEventListener('visibilitychange',function(){if(document.hidden)items.forEach(finish);});
 })();
-</script>
+
+},{timeout:2500});</script>
 <script>
 /* motion pack 2: вход героя, прогресс скролла, каунт-ап 4,9, плавный FAQ.
    Общий каркас: каждый блок проверяет наличие узлов, при noanim/reduced — мгновенный финал. */
@@ -1976,7 +1977,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   },{passive:true});
 })();
 </script>
-<script>
+<script>(window.requestIdleCallback||function(f){setTimeout(f,1)})(function(){
 /* live3: лёгкий параллакс фото-разрывов (.pbreak .pb-img) — transform по скроллу (rAF+passive),
    без background-attachment (iOS); только ≥1000px; instant() → transform снят, статичное фото.
    Запас хода: у картинки bleed ±40px (CSS), сдвиг ±30px — края не оголяются. */
@@ -2012,7 +2013,8 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   document.addEventListener('visibilitychange',judge);
   judge();
 })();
-</script>
+
+},{timeout:2500});</script>
 <script>
 /* alive4: пузырёк один раз */
 (function(){
@@ -2140,7 +2142,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   }
 })();
 </script>
-<script>
+<script>(window.requestIdleCallback||function(f){setTimeout(f,1)})(function(){
 /* показать плавающие CTA только после ухода с первого экрана */
 (function(){
   var thr=0,tick=false;
@@ -2152,7 +2154,8 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   window.addEventListener('scroll',on,{passive:true});
   window.addEventListener('resize',function(){calc();on();},{passive:true});
 })();
-</script>
+
+},{timeout:2500});</script>
 <script>try{document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a");if(!a)return;var _href=a.getAttribute("href")||"";var _isWa=_href.indexOf("wa.me/")!==-1,_isTel=_href.indexOf("tel:")===0;if(!_isWa&&!_isTel)return;if(a.hasAttribute("data-no-lead"))return;if(_isWa&&window.fbq)fbq("track","Contact",{content_name:"WhatsApp_click",source_url:location.pathname});try{var lead_service=a.getAttribute("data-lead-service");if(!lead_service){var p=location.pathname;if(p.indexOf("/b2b")===0)lead_service="b2b";else if(p.indexOf("/work")===0)lead_service="work_permit";else if(p.indexOf("/services")===0)lead_service="general";else if(p.indexOf("/chances")===0)lead_service="karta_pobytu";else if(p.indexOf("/referral")===0)lead_service="referral";else if(p.indexOf("/housing")===0)lead_service="housing";else if(p.indexOf("/business")===0)lead_service="b2b";else if(p.indexOf("/polish")===0)lead_service="polish_language";else if(p.indexOf("/guide")===0)lead_service="karta_pobytu";else if(p.indexOf("/blog/karta-pobytu")!==-1||p.indexOf("/blog/pmz")!==-1)lead_service="karta_pobytu";else if(p.indexOf("/blog/citizenship")!==-1||p.indexOf("/blog/obywatelstwo")!==-1)lead_service="citizenship";else if(p.indexOf("/blog/international-protection")!==-1)lead_service="international_protection";else if(p.indexOf("/blog/work")!==-1||p.indexOf("/blog/visa")!==-1)lead_service="work_permit";else if(p.indexOf("/blog/housing")!==-1||p.indexOf("/blog/rent")!==-1)lead_service="housing";else lead_service="general"}var lead_lang=a.getAttribute("data-lead-lang")||window.L||document.documentElement.lang||"unknown";var lead_source=a.getAttribute("data-lead-source")||a.id||"unknown";window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:"lead_submit",lead_source:(_isWa?"wa:":"tel:")+lead_source,lead_service:lead_service,lead_lang:lead_lang,lead_page:location.pathname})}catch(err){}});}catch(e){}</script>
 </body>
 </html>
