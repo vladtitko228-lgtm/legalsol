@@ -4,6 +4,14 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 const SHELL = require("../_blog-shell.json"); // redesign chrome
+function sizeCover(u, w) {
+  if (!u || u.indexOf('images.unsplash.com') < 0) return u;
+  u = u.replace(/([?&])w=\d+/i, '$1w=' + w).replace(/([?&])q=\d+/i, '$1q=72');
+  if (!/[?&]w=/.test(u)) u += (u.indexOf('?') < 0 ? '?' : '&') + 'w=' + w;
+  if (!/[?&]auto=/.test(u)) u += '&auto=format';
+  return u;
+}
+
 
 
 
@@ -381,7 +389,7 @@ function renderPage(a, contentHtml, faqs) {
 
   const body = `<!-- ARTICLE -->
 <a class="art-back" href="/blog">← ${T.back}</a>
-${cover ? `<div class="art-cover"><img src="${esc(cover)}" alt="${esc(title)}" width="1200" height="525"></div>` : ""}
+${cover ? `<div class="art-cover"><img src="${esc(sizeCover(cover,900))}" alt="${esc(title)}" width="1200" height="525" fetchpriority="high"></div>` : ""}
 <div class="art-head">
   <div class="art-meta">${category ? `<span class="cat">${esc(category)}</span>` : ""}${dateStr ? `<span class="art-date">${dateStr}</span>` : ""}</div>
   <h1>${esc(displayTitle)}</h1>

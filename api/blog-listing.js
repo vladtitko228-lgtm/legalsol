@@ -55,6 +55,15 @@ const FALLBACK_IMAGES = {
 function getFallback(category) {
   return FALLBACK_IMAGES[(category || "").toUpperCase()] || FALLBACK_IMAGES["DEFAULT"];
 }
+
+function sizeCover(u, w) {
+  if (!u || u.indexOf('images.unsplash.com') < 0) return u;
+  u = u.replace(/([?&])w=\d+/i, '$1w=' + w).replace(/([?&])q=\d+/i, '$1q=70');
+  if (!/[?&]w=/.test(u)) u += (u.indexOf('?') < 0 ? '?' : '&') + 'w=' + w;
+  if (!/[?&]auto=/.test(u)) u += '&auto=format';
+  return u;
+}
+
 function coverFor(a) {
   return (!a.coverImage || a.coverImage.includes('s3.amazonaws.com') || a.coverImage.includes('prod-files-secure') || a.coverImage.includes('secure.notion-static'))
     ? getFallback(a.category) : a.coverImage;
@@ -71,7 +80,7 @@ function renderArticleCard(article, idx) {
   const hidden = idx >= INITIAL_SHOW ? " lsb-hidden" : "";
 
   return `<a href="/blog/${escapeHtml(article.slug)}" class="bcard blog-card${hidden}" data-title="${escapeHtml(article.title)}" data-desc="${escapeHtml(article.seoDescription)}" data-cat="${escapeHtml(article.category)}" data-tags="${escapeHtml(tagsStr)}">`
-    + `<div class="bc-cover"><img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(article.title || article.category || 'Article')}" loading="lazy" onerror="this.src='${fallback}';this.onerror=null;"></div>`
+    + `<div class="bc-cover"><img src="${escapeHtml(sizeCover(imgSrc,600))}" alt="${escapeHtml(article.title || article.category || 'Article')}" width="600" height="400" loading="lazy" onerror="this.src='${fallback}';this.onerror=null;"></div>`
     + (article.category ? `<div class="cat">${escapeHtml(article.category)}</div>` : "")
     + `<h3>${escapeHtml(article.title)}</h3>`
     + (article.seoDescription ? `<p>${escapeHtml(article.seoDescription)}</p>` : "")
