@@ -4014,10 +4014,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     if(sec){ heroCard=[].slice.call(sec.children).filter(function(c){return /CASE PROGRESS/.test(c.textContent);})[0]; }
     var card=document.createElement('div'); card.className='cbwow-card'; card.id='cbwow-fc';
     card.innerHTML='<h4><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5F5289" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Expected decision window</h4>'
-      +'<div class="big">September — October 2026</div>'
-      +'<div class="cbwow-scale"><span class="band"></span><span class="dot"></span></div>'
-      +'<div class="cbwow-scale-l"><span>Jun</span><span>Aug</span><span>Oct</span><span>Dec</span></div>'
-      +'<p>Based on current Mazowieckie processing times. We track your case daily — the moment anything moves, you’ll know first.</p>';
+      +'<div class="big">December 2026 — February 2027</div>'
+      +'<div class="cbwow-scale"><span class="band" style="left:66%;width:23%"></span><span class="dot" style="left:13%"></span></div>'
+      +'<div class="cbwow-scale-l"><span>Jun ’26</span><span>Sep</span><span>Dec</span><span>Mar ’27</span></div>'
+      +'<p>An honest estimate based on real Mazowieckie processing times — no over-promising. We track your case daily; the moment anything moves, you’ll know first.</p>';
     if(heroCard&&heroCard.parentElement) heroCard.parentElement.insertBefore(card,heroCard.nextSibling);
     else if(sec) sec.insertBefore(card,sec.children[1]||null);
   }
