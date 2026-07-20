@@ -4028,13 +4028,15 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 
   /* 7. счётчик дней легальности */
   function legality(){
-    var host=findByText('*', /Your stay in Poland is legal/)[0];
-    if(!host||app.querySelector('#cbwow-days')) return;
-    var block=host; while(block&&block!==app&&!/card|cell/i.test(block.className||'')) block=block.parentElement;
+    if(app.querySelector('#cbwow-days')) return;
+    // самый ГЛУБОКИЙ элемент с текстом (заголовок карточки) — счётчик встаёт сразу после него, внутри карточки
+    var hosts=findByText('*', /Your stay in Poland is legal/).filter(function(e){return e.children.length===0;});
+    var host=hosts[0];
+    if(!host) return;
     var p=document.createElement('p'); p.id='cbwow-days';
     p.style.cssText='margin-top:10px;font-size:14px;color:#1A1824;font-weight:700';
     p.innerHTML='Day <span style="color:#5F5289;font-size:18px">0</span> of fully legal stay — every single day covered';
-    (block||host.parentElement).appendChild(p);
+    host.parentElement.insertBefore(p, host.nextSibling);
     var num=p.querySelector('span'), v=0, target=42;
     var iv=setInterval(function(){ v+=2; if(v>=target){v=target;clearInterval(iv);} num.textContent=v; }, reduce?1:40);
   }
