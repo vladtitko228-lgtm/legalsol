@@ -4,7 +4,7 @@
 const {
   kommo, getCfValue, hashPassword, verifyJwt, readCookie, readJsonBody, normalizePhone, findContactByPhone,
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
-  isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote,
+  isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote, isChatReplyNote, stripChatReplyPrefix,
   isClientMsgNote, stripClientMsgPrefix,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
@@ -134,10 +134,10 @@ async function actionClient(req, res) {
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
     // Двусторонний чат для Даши: ОТ КЛИЕНТА: (входящие) + КЛИЕНТУ: (её ответы)
-    chat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+    chat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
       .map(n => isClientMsgNote(n.text)
         ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-        : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+        : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
       .sort((a, b) => a.createdAt - b.createdAt);
   } catch (_) {}
   let tasks = [];
@@ -184,7 +184,7 @@ async function actionReply(req, res) {
   if (!lid) return res.status(400).json({ error: 'leadId_required' });
   if (!msg) return res.status(400).json({ error: 'text_required' });
   await kommo('POST', `/leads/${lid}/notes`, [
-    { note_type: 'common', params: { text: 'КЛИЕНТУ: ' + msg } }
+    { note_type: 'common', params: { text: 'ОТВЕТ: ' + msg } }
   ]);
   return res.status(200).json({ ok: true });
 }

@@ -248,6 +248,22 @@ function stripClientMsgPrefix(text) {
 }
 const CLIENT_NOTE_PREFIX = 'КЛИЕНТУ:'; // дефолтный (для UI и сообщений)
 
+// Ответы в ЧАТ (бот/Даша отвечают на вопрос клиента). Видны только в чате кабинета,
+// в ленту апдейтов (updates / Case feed) НЕ попадают — иначе каждый ответ дублируется как «апдейт».
+const CHAT_REPLY_PREFIXES = ['ОТВЕТ:', 'Ответ:', 'ответ:', '[ОТВЕТ]'];
+function isChatReplyNote(text) {
+  if (!text) return false;
+  const t = decodeHtmlEntities(text).trim();
+  return CHAT_REPLY_PREFIXES.some(p => t.toUpperCase().startsWith(p.toUpperCase()));
+}
+function stripChatReplyPrefix(text) {
+  let t = decodeHtmlEntities(text || '').trim();
+  for (const p of CHAT_REPLY_PREFIXES) {
+    if (t.toUpperCase().startsWith(p.toUpperCase())) return t.slice(p.length).trim();
+  }
+  return t;
+}
+
 // Платёжные заметки: менеджер (или TG-бот /paid) ставит префикс «ОПЛАТА:».
 // Формат тела (любой из): «1500 zł · Visa · 17.06.2026» / «1500 zl Visa» / «1500».
 // Клиент видит их в кабинете на странице «Оплаты» отдельно от текстовых апдейтов.
@@ -593,6 +609,7 @@ module.exports = {
   PIPELINE_OPS,
   STAGE_NAMES_OPS,
   serviceNameEn,
+  isChatReplyNote, stripChatReplyPrefix,
   CLIENT_NOTE_PREFIX,
   CLIENT_NOTE_PREFIXES,
   isClientNote,

@@ -2,7 +2,7 @@
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie, readJsonBody,
-  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, serviceNameEn,
+  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, serviceNameEn, isChatReplyNote, stripChatReplyPrefix,
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
   isPaymentPlanNote, parsePaymentPlanNote,
@@ -64,10 +64,10 @@ module.exports = async function handler(req, res) {
         .map(n => ({ createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() }))
         .filter(n => n.text);
       const chat = allN
-        .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+        .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
         .map(n => isClientMsgNote(n.text)
           ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-          : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+          : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
         .sort((a, b) => a.createdAt - b.createdAt);
       const updates = allN
         .filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text))
@@ -186,10 +186,10 @@ module.exports = async function handler(req, res) {
 
           // Двусторонний чат: КЛИЕНТУ: → менеджер, ОТ КЛИЕНТА: → клиент. По возрастанию времени.
           chat = all
-            .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text)) && !isPaymentNote(n.text))
+            .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
             .map(n => isClientMsgNote(n.text)
               ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-              : { from: 'manager', text: stripClientPrefix(n.text), createdAt: n.createdAt })
+              : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
             .sort((a, b) => a.createdAt - b.createdAt);
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе
@@ -205,6 +205,17 @@ module.exports = async function handler(req, res) {
             completeTill: t.complete_till * 1000,
             taskType: t.task_type_id
           })).sort((a, b) => a.completeTill - b.completeTill);
+        } catch (_) {}
+
+        // История смены этапов (Kommo events) — «роадмап» для ленты дела
+        let stageHistory = [];
+        try {
+          const er = await kommo('GET', `/events?filter[entity]=lead&filter[entity_id]=${lid}&filter[type]=lead_status_changed&limit=30`);
+          stageHistory = (er?._embedded?.events || []).map(e => {
+            const toId = e.value_after?.[0]?.lead_status?.id;
+            const st = STAGE_NAMES_OPS[toId];
+            return st ? { ts: (e.created_at || 0) * 1000, en: st.en, ru: st.ru, step: st.step } : null;
+          }).filter(Boolean).sort((a, b) => a.ts - b.ts);
         } catch (_) {}
 
         const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '', whatWeDo: '', clientAction: null, etaText: null };
@@ -248,6 +259,7 @@ module.exports = async function handler(req, res) {
           clientActionEn: stage.clientActionEn || '',
           whatWeDoEn: stage.whatWeDoEn || '',
           serviceTypeEn,
+          stageHistory,
           totalSteps: TOTAL_STEPS,
           notes,        // совместимость — здесь только клиентские (с 📢)
           updates,      // тоже клиентские, более явное имя
