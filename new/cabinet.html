@@ -3684,7 +3684,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
         t.innerHTML='<span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5F5289" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><span><b></b><small></small></span>';
         document.body.appendChild(t);}
       t.querySelector('b').textContent=title;
-      t.querySelector('small').textContent=sub||'только что';
+      t.querySelector('small').textContent=sub||'just now';
       requestAnimationFrame(function(){t.classList.add('on');});
       clearTimeout(t.__h); t.__h=setTimeout(function(){t.classList.remove('on');},6000);
     },delay||0);
@@ -3743,10 +3743,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
         setTimeout(function(){
           if(svg) svg.classList.remove('cbwow-spin');
           b.disabled=false;
-          var t=document.getElementById('cbx-mostime'); if(t) t.textContent='только что ✓';
+          var t=document.getElementById('cbx-mostime'); if(t) t.textContent='just now ✓';
           var card=b.closest('[class*="moscard"]')||b.parentElement; if(card) card.classList.add('cbwow-flash');
           setTimeout(function(){card&&card.classList.remove('cbwow-flash');},1200);
-          toast('Статус в MOS синхронизирован','W trakcie rozpatrywania · без изменений — это норма');
+          toast('MOS status synced','W trakcie rozpatrywania · no changes — perfectly normal');
         }, reduce?300:1400);
       });
     });
@@ -3758,10 +3758,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       b.__wow=1;
       b.addEventListener('click',function(){
         if(!demo()||b.dataset.busy)return; b.dataset.busy='1';
-        var old=b.innerHTML; b.textContent='Отправляем…';
+        var old=b.innerHTML; b.textContent='Sending…';
         setTimeout(function(){
-          b.textContent='✓ Запрос отправлен';
-          toast('Запрос юристу отправлен','ответим в WhatsApp в течение 15 минут');
+          b.textContent='✓ Request sent';
+          toast('Request sent to your lawyer','we will reply on WhatsApp within 15 minutes');
           setTimeout(function(){b.innerHTML=old;delete b.dataset.busy;},6000);
         }, reduce?250:1000);
       });
@@ -3789,11 +3789,11 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       if(!demo())return;
       var zone=drop||inp.parentElement;
       var chip=document.createElement('div');chip.className='cbwow-chip';
-      chip.innerHTML='<small>'+(fileName||'photo.jpg')+'</small><span class="bar"><i></i></span><small class="st">загружаем…</small>';
+      chip.innerHTML='<small>'+(fileName||'photo.jpg')+'</small><span class="bar"><i></i></span><small class="st">uploading…</small>';
       zone.parentElement.insertBefore(chip,zone.nextSibling);
       requestAnimationFrame(function(){requestAnimationFrame(function(){chip.querySelector('.bar i').style.width='100%';});});
       setTimeout(function(){
-        chip.querySelector('.st').textContent='✓ у юриста в CRM';
+        chip.querySelector('.st').textContent='✓ with your lawyer in the CRM';
         if(!docsDone){
           docsDone=true;
           /* строка «Фото 3.5×4.5» → Checked */
@@ -3801,7 +3801,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
             var i=row.querySelector('i.w');
             if(i&&/Фото|photo/i.test(row.textContent)){
               i.className='';i.textContent='✓ Checked';
-              var sub=row.querySelector('.cbx-sub'); if(sub) sub.textContent='Получено только что — проверено юристом';
+              var sub=row.querySelector('.cbx-sub'); if(sub) sub.textContent='Received just now — checked by your lawyer';
               row.classList.add('cbwow-flash');
             }
           });
@@ -3810,9 +3810,9 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
           [].slice.call(app.querySelectorAll('[id*="ring"]')).forEach(function(r){if(r.getAttribute&&r.getAttribute('stroke-dashoffset')&&r.id!=='cbx-ring-fg'){r.style.transition='stroke-dashoffset .9s';r.setAttribute('stroke-dashoffset','0');}});
           [].slice.call(app.querySelectorAll('.tz-bar > span, .cbf')).forEach(function(b){b.style.transition='width .9s cubic-bezier(.3,.7,.3,1)';b.style.width='100%';});
           confetti(chip);
-          toast('Пакет документов собран полностью','100% готовности — всё проверено');
+          toast('Document package complete','100% ready — everything checked');
         } else {
-          toast('Документ получен','уже у юриста в CRM');
+          toast('Document received','already with your lawyer in the CRM');
         }
       }, reduce?300:1700);
     }
@@ -3831,7 +3831,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     if(!demo())return;
     animateIn();
     setTimeout(function(){armChat();armMos();armReq();armUpload();armed=true;},1100);
-    if(!toastShown){toastShown=true;toast('Утренняя проверка MOS пройдена','по делу №812 всё в порядке ✓',4500);}
+    if(!toastShown){toastShown=true;toast('Morning MOS check complete','case no. 812 — all good ✓',4500);}
   }
   /* детект открытия демо: app получает класс .open (fixed-оверлей, offsetParent тут всегда null) */
   var booted=false;
