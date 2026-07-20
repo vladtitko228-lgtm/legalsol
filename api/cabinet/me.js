@@ -213,6 +213,7 @@ module.exports = async function handler(req, res) {
           const er = await kommo('GET', `/events?filter[entity]=lead&filter[entity_id]=${lid}&filter[type]=lead_status_changed&limit=30`);
           stageHistory = (er?._embedded?.events || []).map(e => {
             const toId = e.value_after?.[0]?.lead_status?.id;
+            if (toId === 142 || toId === 143) return null; // случайные клики в «закрыто» не показываем клиенту
             const st = STAGE_NAMES_OPS[toId];
             return st ? { ts: (e.created_at || 0) * 1000, en: st.en, ru: st.ru, step: st.step } : null;
           }).filter(Boolean).sort((a, b) => a.ts - b.ts);
