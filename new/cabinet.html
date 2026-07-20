@@ -1643,6 +1643,7 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app.is-real .cbx-soon{display:block}
 /* real-only блоки (MOS + живая лента дела): скрыты в демо, видны после входа */
 .cb3-real-only{display:none}.cb3-app.is-real .cb3-real-only{display:block}
+.cb3-app .cbx-cell.cb3-real-only{display:none}.cb3-app.is-real .cbx-cell.cb3-real-only{display:flex}
 .cb3-mosreal .cbx-soon-badge{display:inline-block;margin:10px 0 2px}
 .cb3-feedreal{margin-top:20px}
 .cb3-app .cbx-soon-h{font-size:14px;font-weight:800;letter-spacing:.02em;color:var(--ink);margin-bottom:16px}
@@ -2779,6 +2780,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var nb=$('cb3-chat-nb');if(nb)nb.style.display='';
     var fin=$('cb3-final');if(fin)fin.style.display='';
     app.classList.remove('is-real');
+    var fr=$('cb3-feed-list-real');if(fr)fr.innerHTML='';
     MODE='demo';CUR=null;
   }
   function doLogout(){
@@ -2871,7 +2873,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var el=$('cb3-feed-list-real');if(!el)return;
     var evs=[];
     (L.updates||[]).forEach(function(u){if(u&&u.text)evs.push({ts:u.createdAt||0,ic:'upd',src:'LegalSol',b:'Update from your team',p:u.text});});
-    (L.payments||[]).forEach(function(p){evs.push({ts:p.createdAt||0,ic:'pay',src:'Payments',b:'Payment received — '+fmtZl(p.amount),p:[p.method,p.dateText].filter(Boolean).join(' · ')||'Recorded in your contract'});});
+    (L.payments||[]).forEach(function(p){if(!p)return;evs.push({ts:p.createdAt||0,ic:'pay',src:'Payments',b:'Payment received — '+fmtZl(p.amount),p:[p.method,p.dateText].filter(Boolean).join(' · ')||'Recorded in your contract'});});
     if(L.createdAt)evs.push({ts:L.createdAt,ic:'start',src:'LegalSol',b:'Case started',p:'Contract signed — your case profile was created and work on your case began.'});
     evs.sort(function(a,b){return b.ts-a.ts;});
     var st=(L.stage&&(L.stage.en||L.stage.ru))||'In progress';
