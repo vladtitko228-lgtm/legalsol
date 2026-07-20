@@ -1646,7 +1646,6 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app .cbx-cell.cb3-real-only{display:none}.cb3-app.is-real .cbx-cell.cb3-real-only{display:flex}
 .cb3-mosreal .cbx-soon-badge{display:inline-block;margin:10px 0 2px}
 .cb3-feedreal{margin-top:20px}
-.cb3-msg a,.cb3-feedreal a{color:#5F5289;text-decoration:underline;word-break:break-all}.cb3-msg.me a{color:#fff}
 .cb3-app .cbx-soon-h{font-size:14px;font-weight:800;letter-spacing:.02em;color:var(--ink);margin-bottom:16px}
 .cb3-app .cbx-soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .cb3-app .cbx-soon-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
@@ -1659,11 +1658,15 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 
 
 /* соцсети в хедере портала */
-.cb3-soc{display:inline-flex;gap:6px;margin-left:auto;margin-right:10px}
+.cb3-soc{position:relative;display:inline-flex;margin-left:auto;margin-right:10px}
+.cb3-socbtn{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:11px;background:#EEE9F4;color:#5F5289;cursor:pointer;transition:background .2s,color .2s}
+.cb3-socbtn:hover,.cb3-soc.open .cb3-socbtn{background:#5F5289;color:#fff}
+.cb3-socdd{position:absolute;top:calc(100% + 8px);right:0;display:none;gap:6px;background:#fff;border:1px solid #E8E2D8;border-radius:14px;padding:8px;box-shadow:0 18px 44px -14px rgba(26,24,36,.35);z-index:60}
+.cb3-soc.open .cb3-socdd{display:inline-flex}
 .cb3-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#EEE9F4;color:#5F5289;transition:background .2s,color .2s,transform .15s}
 .cb3-soc a:hover{background:#5F5289;color:#fff}
 .cb3-soc a:active{transform:scale(.92)}
-@media(max-width:480px){.cb3-soc{gap:4px;margin-right:8px}.cb3-soc a{width:29px;height:29px}.cb3-soc a svg{width:14px;height:14px}}
+@media(max-width:480px){.cb3-socbtn{width:32px;height:32px}}
 </style>
 </head>
 <body>
@@ -1832,7 +1835,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="cb3-top">
     <span class="cb3-logo" aria-hidden="true"><svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B5AACC"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B5AACC"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5F5289"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5F5289"/></svg></span>
     <span class="cb3-ttl">Client portal <span class="cb3-demo-chip" id="cb3-mode-chip">Demo</span></span>
-    <span class="cb3-soc" aria-label="Social media"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.4c-1.2.1-2.4-.2-3.5-.8v5.6c0 3.3-2.4 5.4-5.2 5.4A5.2 5.2 0 0 1 6 14.3c0-3 2.5-5.3 5.7-5v2.6c-.4-.1-.9-.2-1.3-.1-1.3.2-2.1 1.1-2 2.5.1 1.3 1.1 2.1 2.3 2 1.3-.1 2-1 2-2.4V3z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9L16 6.4c.4-.3-.1-.5-.6-.2L5.6 12.5l-4.4-1.4c-1-.3-1-1 .2-1.4L20.6 3c.8-.3 1.5.2 1.3 1.3z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.9-1.5-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.9 1.5 1.7 1.7 1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg></a></span><button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Exit ×</button>
+    <span class="cb3-soc" aria-label="Social media"><button class="cb3-socbtn" type="button" aria-expanded="false" aria-label="Our social media" onclick="var s=this.parentNode;s.classList.toggle('open');this.setAttribute('aria-expanded',s.classList.contains('open'))"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.7 15.7 6.4M8.3 13.3l7.4 4.3"/></svg></button><span class="cb3-socdd"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.4c-1.2.1-2.4-.2-3.5-.8v5.6c0 3.3-2.4 5.4-5.2 5.4A5.2 5.2 0 0 1 6 14.3c0-3 2.5-5.3 5.7-5v2.6c-.4-.1-.9-.2-1.3-.1-1.3.2-2.1 1.1-2 2.5.1 1.3 1.1 2.1 2.3 2 1.3-.1 2-1 2-2.4V3z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9L16 6.4c.4-.3-.1-.5-.6-.2L5.6 12.5l-4.4-1.4c-1-.3-1-1 .2-1.4L20.6 3c.8-.3 1.5.2 1.3 1.3z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.9-1.5-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.9 1.5 1.7 1.7 1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg></a></span></span><button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Exit ×</button>
   </header>
   <nav class="cb3-tabs" role="tablist" aria-label="Portal sections">
     <button class="cb3-tab" id="cb3-tab-delo" role="tab" aria-selected="true" aria-controls="cb3-sec-delo" type="button" onclick="cb3Tab('delo')">Case</button>
@@ -2756,7 +2759,6 @@ once(list,function(){list.className+=' cbx-cascade';});
   var MODE='demo',CUR=null,SNAP=null,updBusy=false,lastChatFetch=0;
   var BELL='<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-  function linkify(s){return String(s).replace(/(https?:\/\/[^\s<]+)/g,function(u){return '<a href="'+u+'" target="_blank" rel="noopener">'+u+'</a>';});}
   function pad(n){return (n<10?'0':'')+n;}
   function hhmm(ts){var d=new Date(ts);return pad(d.getHours())+':'+pad(d.getMinutes());}
   function fmtDate(ts){var d=new Date(ts);return pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();}
@@ -2831,7 +2833,7 @@ once(list,function(){list.className+=' cbx-cascade';});
       chat.forEach(function(m){
         var d=dayLabel(m.createdAt);
         if(d!==last){h+='<div class="cb3-day">'+d+'</div>';last=d;}
-        h+='<div class="cb3-msg '+(m.from==='client'?'me':'sp')+'">'+linkify(esc(m.text)).replace(/\n/g,'<br>')+'<span class="tm">'+hhmm(m.createdAt)+'</span></div>';
+        h+='<div class="cb3-msg '+(m.from==='client'?'me':'sp')+'">'+esc(m.text).replace(/\n/g,'<br>')+'<span class="tm">'+hhmm(m.createdAt)+'</span></div>';
       });
     }
     th.innerHTML=h;
@@ -2891,7 +2893,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var h='<div class="cbx-ghost"><span class="cbx-ghost-ic">'+FEED_IC.wait+'</span><div><b>Now in progress: '+esc(st)+'</b><p>'+esc(L.whatWeDoEn||L.whatWeDo||'We are handling your case and will post every movement here.')+((L.etaTextEn||L.etaText)?' Typical time for this stage: '+esc(L.etaTextEn||L.etaText)+'.':'')+'</p></div></div>';
     h+='<div class="cbx-evs">';
     evs.slice(0,20).forEach(function(e){
-      h+='<div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls">'+FEED_IC[e.ic]+'</span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">'+fmtDate(e.ts)+'</span><span class="cbx-src cbx-src--ls">'+esc(e.src)+'</span></div><b>'+esc(e.b)+'</b><p>'+linkify(esc(e.p)).replace(/\n/g,'<br>')+'</p></div></div>';
+      h+='<div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls">'+FEED_IC[e.ic]+'</span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">'+fmtDate(e.ts)+'</span><span class="cbx-src cbx-src--ls">'+esc(e.src)+'</span></div><b>'+esc(e.b)+'</b><p>'+esc(e.p).replace(/\n/g,'<br>')+'</p></div></div>';
     });
     h+='</div>';
     el.innerHTML=h;
@@ -4098,5 +4100,6 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   setTimeout(function(){clearInterval(p2);},30000);
 })();
 </script>
+<script>document.addEventListener("click",function(e){var s=document.querySelector(".cb3-soc.open");if(s&&!s.contains(e.target)){s.classList.remove("open");var b=s.querySelector(".cb3-socbtn");b&&b.setAttribute("aria-expanded","false");}});</script>
 </body>
 </html>
