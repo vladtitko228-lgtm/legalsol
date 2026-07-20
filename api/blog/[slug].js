@@ -501,9 +501,15 @@ module.exports = async function handler(req, res) {
 
     // Aggressive edge caching: 24h fresh, 7-day SWR. Articles change rarely;
     // we redeploy on each new post which invalidates cache anyway.
-    res.setHeader("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
-    res.setHeader("CDN-Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
-    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
+    // Свежая статья (<48ч): короткий кэш — бот публикует поэтапно, ранний снапшот
+    // может быть чужим/неполным и не должен прилипать в CDN на сутки.
+    const _fresh = article.publishedDate && (Date.now() - new Date(article.publishedDate).getTime()) < 48*3600*1000;
+    const _cc = _fresh
+      ? "public, s-maxage=300, stale-while-revalidate=3600"
+      : "public, s-maxage=86400, stale-while-revalidate=604800";
+    res.setHeader("Cache-Control", _cc);
+    res.setHeader("CDN-Cache-Control", _cc);
+    res.setHeader("Vercel-CDN-Cache-Control", _cc);
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
 

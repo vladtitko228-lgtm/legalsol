@@ -15,6 +15,11 @@ const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 
 const INITIAL_SHOW = 24;
 
+// Память-кэш инстанса функции: тёплая лямбда не ходит в Notion вообще (TTL 5 мин).
+// Холодный рендер ускоряет фильтр по языку в самом запросе (не тянем RU ради EN).
+const MEM = {};            // { EN: {t, articles}, RU: {t, articles} }
+const MEM_TTL = 300000;
+
 function getPropertyText(prop) {
   if (!prop) return "";
   if (prop.type === "title") return prop.title?.map(t => t.plain_text).join("") || "";
@@ -166,13 +171,25 @@ ${cardsHtml}
 
 module.exports = async function handler(req, res) {
   try {
-    // Fetch ALL published pages — paginate (blog has grown past 100 posts).
+    // Language: ?lang=ru → RU posts, else EN (нужно ДО запроса — фильтруем на стороне Notion)
+    const reqLang = (req.query && req.query.lang) ? String(req.query.lang).toUpperCase() : "EN";
+    const wantLang = (reqLang === "RU") ? "RU" : "EN";
+
+    const hit = MEM[wantLang];
+    let filtered;
+    if (hit && Date.now() - hit.t < MEM_TTL) {
+      filtered = hit.articles;
+    } else {
+
     let allResults = [];
     let startCursor = undefined;
     do {
       const response = await notion.databases.query({
         database_id: DATABASE_ID,
-        filter: { property: "Status", select: { equals: "Published" } },
+        filter: { and: [
+          { property: "Status", select: { equals: "Published" } },
+          { property: "Language", select: { equals: wantLang } },
+        ] },
         sorts: [{ property: "Published Date", direction: "descending" }],
         page_size: 100,
         start_cursor: startCursor,
@@ -195,10 +212,9 @@ module.exports = async function handler(req, res) {
       };
     });
 
-    // Language: ?lang=ru → RU posts, else EN
-    const reqLang = (req.query && req.query.lang) ? String(req.query.lang).toUpperCase() : "EN";
-    const wantLang = (reqLang === "RU") ? "RU" : "EN";
-    const filtered = articles.filter(a => a.language === wantLang);
+    filtered = articles;                       // запрос уже отфильтрован по языку
+    MEM[wantLang] = { t: Date.now(), articles: filtered };
+    }
 
     // JSON mode (homepage cards): short cache so a new post appears quickly
     if (req.query && req.query.format === "json") {
@@ -217,9 +233,9 @@ module.exports = async function handler(req, res) {
 
     // HTML mode: aggressive CDN cache — the listing changes a few times/day, and
     // stale-while-revalidate keeps it instant while it refreshes in the background.
-    res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-    res.setHeader("CDN-Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
+    res.setHeader("Cache-Control", "public, s-maxage=7200, stale-while-revalidate=86400");
+    res.setHeader("CDN-Cache-Control", "public, s-maxage=7200, stale-while-revalidate=86400");
+    res.setHeader("Vercel-CDN-Cache-Control", "public, s-maxage=7200, stale-while-revalidate=86400");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.status(200).send(renderPage(filtered));
 
