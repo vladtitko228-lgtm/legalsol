@@ -2,7 +2,7 @@
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
   kommo, getCfValue, getCfAllValues, verifyJwt, readCookie, readJsonBody,
-  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS,
+  STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, serviceNameEn,
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
   isPaymentPlanNote, parsePaymentPlanNote,
@@ -209,6 +209,7 @@ module.exports = async function handler(req, res) {
 
         const stage = STAGE_NAMES_OPS[lead.status_id] || { ru: 'В работе', en: 'In progress', pl: 'W toku', step: 2, service: '', whatWeDo: '', clientAction: null, etaText: null };
         const serviceType = getCfValue(lead, CF_SERVICE_TYPE) || stage.service || 'Услуга легализации';
+        const serviceTypeEn = serviceNameEn(serviceType) || stage.serviceEn || 'Legalization service';
         const cleanName = cleanLeadName(lead.name);
 
         // Если в контакте имя = «+48...», вытаскиваем из имени сделки
@@ -243,6 +244,10 @@ module.exports = async function handler(req, res) {
           etaText: stage.etaText || '',
           clientAction: stage.clientAction || '',
           whatWeDo: stage.whatWeDo || '',
+          etaTextEn: stage.etaTextEn || '',
+          clientActionEn: stage.clientActionEn || '',
+          whatWeDoEn: stage.whatWeDoEn || '',
+          serviceTypeEn,
           totalSteps: TOTAL_STEPS,
           notes,        // совместимость — здесь только клиентские (с 📢)
           updates,      // тоже клиентские, более явное имя

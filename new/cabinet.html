@@ -2806,7 +2806,7 @@ once(list,function(){list.className+=' cbx-cascade';});
       if(i<step){
         h+='<div class="prow d"><span class="pn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Done</span></div>';
       }else if(i===step){
-        h+='<div class="prow c"><span class="pn">'+i+'</span><div><b>'+esc((L.stage&&(L.stage.en||L.stage.ru))||s[0])+'</b><p>'+esc(L.whatWeDo||s[1])+'</p></div><span class="pt">You are here</span></div>';
+        h+='<div class="prow c"><span class="pn">'+i+'</span><div><b>'+esc((L.stage&&(L.stage.en||L.stage.ru))||s[0])+'</b><p>'+esc(L.whatWeDoEn||L.whatWeDo||s[1])+'</p></div><span class="pt">You are here</span></div>';
       }else{
         h+='<div class="prow f"><span class="pn">'+i+'</span><div><b>'+esc(s[0])+'</b><p>'+esc(s[1])+'</p></div><span class="pt">Ahead</span></div>';
       }
@@ -2837,7 +2837,7 @@ once(list,function(){list.className+=' cbx-cascade';});
   }
   function renderPay(L){
     var pc=$('cb3-paycard');if(!pc)return;
-    var h='<div class="cb3-payhead"><div><b>Contract for case no. '+L.id+'</b><span class="sub">'+esc(L.serviceType||'Legalization service')+'</span></div>';
+    var h='<div class="cb3-payhead"><div><b>Contract for case no. '+L.id+'</b><span class="sub">'+esc(L.serviceTypeEn||L.serviceType||'Legalization service')+'</span></div>';
     if(L.price>0)h+='<span class="'+(L.remaining>0?'cb3-chip-wait':'cb3-chip-ok')+'">Paid '+fmtZl(L.paidTotal)+' of '+fmtZl(L.price)+'</span>';
     else if(L.paidTotal>0)h+='<span class="cb3-chip-ok">Paid '+fmtZl(L.paidTotal)+'</span>';
     h+='</div>';
@@ -2877,7 +2877,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     if(L.createdAt)evs.push({ts:L.createdAt,ic:'start',src:'LegalSol',b:'Case started',p:'Contract signed — your case profile was created and work on your case began.'});
     evs.sort(function(a,b){return b.ts-a.ts;});
     var st=(L.stage&&(L.stage.en||L.stage.ru))||'In progress';
-    var h='<div class="cbx-ghost"><span class="cbx-ghost-ic">'+FEED_IC.wait+'</span><div><b>Now in progress: '+esc(st)+'</b><p>'+esc(L.whatWeDo||'We are handling your case and will post every movement here.')+(L.etaText?' Typical time for this stage: '+esc(L.etaText)+'.':'')+'</p></div></div>';
+    var h='<div class="cbx-ghost"><span class="cbx-ghost-ic">'+FEED_IC.wait+'</span><div><b>Now in progress: '+esc(st)+'</b><p>'+esc(L.whatWeDoEn||L.whatWeDo||'We are handling your case and will post every movement here.')+((L.etaTextEn||L.etaText)?' Typical time for this stage: '+esc(L.etaTextEn||L.etaText)+'.':'')+'</p></div></div>';
     h+='<div class="cbx-evs">';
     evs.slice(0,20).forEach(function(e){
       h+='<div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls">'+FEED_IC[e.ic]+'</span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">'+fmtDate(e.ts)+'</span><span class="cbx-src cbx-src--ls">'+esc(e.src)+'</span></div><b>'+esc(e.b)+'</b><p>'+esc(e.p).replace(/\n/g,'<br>')+'</p></div></div>';
@@ -2892,7 +2892,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     if(/^[\s+()\-\d]+$/.test(name))name='';
     var first=name?name.split(/\s+/)[0]:'';
     var g=$('cb3-greet-tx');
-    if(g)g.innerHTML='<span class="hi">Hello'+(first?', '+esc(first):'')+'!</span><b>Your case no. '+L.id+' — '+esc(L.serviceType||'Legalization service')+'</b>';
+    if(g)g.innerHTML='<span class="hi">Hello'+(first?', '+esc(first):'')+'!</span><b>Your case no. '+L.id+' — '+esc(L.serviceTypeEn||L.serviceType||'Legalization service')+'</b>';
     var step=(L.stage&&L.stage.step)||2,total=L.totalSteps||6;
     var ch=$('cb3-chips');
     if(ch)ch.innerHTML='<span class="cb3-chip st">'+esc((L.stage&&(L.stage.en||L.stage.ru))||'In progress')+'</span><span class="cb3-chip">Stage '+step+' of '+total+'</span>'+(me.leads.length>1?'<span class="cb3-chip">Cases in progress: '+me.leads.length+'</span>':'');
@@ -2900,7 +2900,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var pt=$('cb3-pr-t');if(pt)pt.textContent=(L.stage&&(L.stage.en||L.stage.ru))||'In progress';
     var fill=$('cb3-pr-fill');if(fill)fill.style.width=Math.max(8,Math.round(step/total*100))+'%';
     var nx=$('cb3-pr-next');
-    if(nx)nx.innerHTML='<b>What’s next:</b> '+esc(L.whatWeDo||'We are handling your case and will let you know about every change.')+(L.clientAction?' <b>From you:</b> '+esc(L.clientAction):'')+(L.etaText?' <span style="color:var(--ink-3)">Typical time for this stage: '+esc(L.etaText)+'.</span>':'');
+    if(nx)nx.innerHTML='<b>What’s next:</b> '+esc(L.whatWeDoEn||L.whatWeDo||'We are handling your case and will let you know about every change.')+((L.clientActionEn||L.clientAction)?' <b>From you:</b> '+esc(L.clientActionEn||L.clientAction):'')+((L.etaTextEn||L.etaText)?' <span style="color:var(--ink-3)">Typical time for this stage: '+esc(L.etaTextEn||L.etaText)+'.</span>':'');
     renderTimeline(L);
     var docs=$('cb3-docs');
     if(docs)docs.innerHTML='<div class="ch"><span><b>Package for case no. '+L.id+'</b></span></div><p class="rq-note" style="margin-top:2px">Your online document list will appear here once work on the package starts. Your specialist sends you the up-to-date checklist — and you can send documents right in WhatsApp.</p><a class="btn btn-wa cb3-docbtn" href="'+waHref('Hello! I want to send a document for case no. '+L.id+'.')+'" target="_blank" rel="noopener">Send a document on WhatsApp</a>';

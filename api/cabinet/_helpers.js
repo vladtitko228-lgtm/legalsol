@@ -58,88 +58,166 @@ const STAGE_NAMES_OPS = {
     ru: 'Заявка принята', en: 'Application received', pl: 'Wniosek przyjęty', step: 1, service: 'Карта побыту',
     whatWeDo: 'Менеджер изучает вашу ситуацию и подберёт оптимальный путь.',
     clientAction: 'Возможно, попросим уточнить детали по WhatsApp.',
-    etaText: '1–2 рабочих дня'
+    etaText: '1–2 рабочих дня',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Your manager is reviewing your situation and choosing the best path forward.',
+    clientActionEn: 'We may ask you to clarify a few details on WhatsApp.',
+    etaTextEn: '1–2 business days'
   },
   106716267: {
     ru: 'Документы отправлены', en: 'Documents sent', pl: 'Dokumenty wysłane', step: 2, service: 'Карта побыту',
     whatWeDo: 'Ваш пакет документов отправлен в воеводский офис почтой.',
     clientAction: null,
-    etaText: 'Доставка 3–7 дней'
+    etaText: 'Доставка 3–7 дней',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Your document package has been mailed to the voivodeship office.',
+    clientActionEn: null,
+    etaTextEn: 'Delivery takes 3–7 days'
   },
   106716271: {
     ru: 'Подано в офис', en: 'Filed at office', pl: 'Złożone w urzędzie', step: 3, service: 'Карта побыту',
     whatWeDo: 'Документы зарегистрированы в воеводстве. Ждём первое решение или запрос дополнительных бумаг.',
     clientAction: null,
-    etaText: '2–4 недели до первой реакции'
+    etaText: '2–4 недели до первой реакции',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Your documents are registered with the voivodeship. We are waiting for the first decision or a request for additional papers.',
+    clientActionEn: null,
+    etaTextEn: '2–4 weeks until the first response'
   },
   106716275: {
     ru: 'Ускоренное рассмотрение', en: 'Speed-up review', pl: 'Przyspieszone', step: 4, service: 'Карта побыту',
     whatWeDo: 'Юрист готовит дополнительные документы и работает с воеводством напрямую.',
     clientAction: null,
-    etaText: '7–14 дней'
+    etaText: '7–14 дней',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Your lawyer is preparing additional documents and working with the voivodeship directly.',
+    clientActionEn: null,
+    etaTextEn: '7–14 days'
   },
   106716319: {
     ru: 'Дело у партнёра-юриста', en: 'With partner lawyer', pl: 'U prawnika-partnera', step: 4, service: 'Карта побыту',
     whatWeDo: 'Дело передано юристу-партнёру (стандартный путь для сложных случаев).',
     clientAction: null,
-    etaText: '14–30 дней'
+    etaText: '14–30 дней',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Your case has been handed to a partner lawyer — the standard path for complex cases.',
+    clientActionEn: null,
+    etaTextEn: '14–30 days'
   },
   106716323: {
     ru: 'Ждём отпечатки пальцев', en: 'Awaiting fingerprints', pl: 'Czekamy na odciski', step: 5, service: 'Карта побыту',
     whatWeDo: 'Воеводство назначило вам биометрию. Дата и адрес — в апдейте от менеджера.',
     clientAction: 'Прийти в указанный день с паспортом.',
-    etaText: '7–21 день после биометрии'
+    etaText: '7–21 день после биометрии',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'The voivodeship has scheduled your biometrics. The date and address are in the update from your manager.',
+    clientActionEn: 'Come on the appointed day with your passport.',
+    etaTextEn: '7–21 days after biometrics'
   },
   106716347: {
     ru: 'Финальная проверка', en: 'Final review', pl: 'Końcowa weryfikacja', step: 5, service: 'Карта побыту',
     whatWeDo: 'Наш юрист проверяет результат перед выдачей.',
     clientAction: null,
-    etaText: '3–7 дней'
+    etaText: '3–7 дней',
+    serviceEn: 'Karta pobytu',
+    whatWeDoEn: 'Our lawyer is checking the result before issuance.',
+    clientActionEn: null,
+    etaTextEn: '3–7 days'
   },
   106716327: {
     ru: 'Подана апелляция', en: 'Appeal filed', pl: 'Złożono odwołanie', step: 4, service: 'Апелляция',
     whatWeDo: 'Апелляция на отказ подана. Решение пересматривает вышестоящая инстанция.',
     clientAction: null,
-    etaText: '30–60 дней'
+    etaText: '30–60 дней',
+    serviceEn: 'Appeal',
+    whatWeDoEn: 'Your appeal against the refusal has been filed. A higher authority is reviewing the decision.',
+    clientActionEn: null,
+    etaTextEn: '30–60 days'
   },
   106716331: {
     ru: 'Защита от депортации', en: 'Deportation defence', pl: 'Obrona przed deportacją', step: 3, service: 'Защита от депортации',
     whatWeDo: 'Юрист готовит защиту вашего права остаться в Польше.',
     clientAction: 'Менеджер может запросить дополнительные доказательства.',
-    etaText: 'Зависит от ситуации'
+    etaText: 'Зависит от ситуации',
+    serviceEn: 'Deportation defence',
+    whatWeDoEn: 'Your lawyer is preparing the defence of your right to stay in Poland.',
+    clientActionEn: 'Your manager may ask for additional evidence.',
+    etaTextEn: 'Depends on the situation'
   },
   106716335: {
     ru: 'Международная защита', en: 'International protection', pl: 'Ochrona międzynarodowa', step: 3, service: 'Международная защита',
     whatWeDo: 'Ведём процесс международной защиты — собираем доказательства, готовим показания.',
     clientAction: 'Возможны встречи и интервью.',
-    etaText: 'Несколько месяцев'
+    etaText: 'Несколько месяцев',
+    serviceEn: 'International protection',
+    whatWeDoEn: 'We are running your international protection case — gathering evidence and preparing your testimony.',
+    clientActionEn: 'Meetings and interviews are possible.',
+    etaTextEn: 'Several months'
   },
   106716339: {
     ru: 'Воссоединение семьи', en: 'Family reunification', pl: 'Łączenie rodzin', step: 3, service: 'Воссоединение семьи',
     whatWeDo: 'Готовим документы для воссоединения с членами семьи в Польше.',
     clientAction: 'Менеджер уточнит документы на родственников.',
-    etaText: '2–6 месяцев'
+    etaText: '2–6 месяцев',
+    serviceEn: 'Family reunification',
+    whatWeDoEn: 'We are preparing the documents to reunite you with your family members in Poland.',
+    clientActionEn: 'Your manager will confirm which documents are needed for your relatives.',
+    etaTextEn: '2–6 months'
   },
   106716343: {
     ru: 'Замена водительских прав', en: 'Driving licence exchange', pl: 'Wymiana prawa jazdy', step: 3, service: 'Замена прав',
     whatWeDo: 'Документы поданы в Urząd Komunikacji.',
     clientAction: null,
-    etaText: '1–2 месяца'
+    etaText: '1–2 месяца',
+    serviceEn: 'Driving licence exchange',
+    whatWeDoEn: 'Your documents have been submitted to Urząd Komunikacji.',
+    clientActionEn: null,
+    etaTextEn: '1–2 months'
   },
   142: {
     ru: 'Готово ✓', en: 'Completed ✓', pl: 'Gotowe ✓', step: 6, service: '',
     whatWeDo: 'Услуга оказана. Поздравляем!',
     clientAction: 'Менеджер свяжется по выдаче результата.',
-    etaText: null
+    etaText: null,
+    serviceEn: '',
+    whatWeDoEn: 'Your service is complete. Congratulations!',
+    clientActionEn: 'Your manager will contact you about receiving the result.',
+    etaTextEn: null
   },
   143: {
     ru: 'Дело закрыто', en: 'Case closed', pl: 'Sprawa zamknięta', step: 6, service: '',
     whatWeDo: 'Дело закрыто. Если есть вопросы — пишите менеджеру.',
     clientAction: null,
-    etaText: null
+    etaText: null,
+    serviceEn: '',
+    whatWeDoEn: 'The case is closed. If you have questions — message your manager.',
+    clientActionEn: null,
+    etaTextEn: null
   }
 };
 const TOTAL_STEPS = 6;
+
+// Перевод названия услуги (Kommo CF хранит по-русски) для английского кабинета
+const SERVICE_EN = {
+  'карта побыту': 'Karta pobytu',
+  'международная защита': 'International protection',
+  'апелляция': 'Appeal',
+  'защита от депортации': 'Deportation defence',
+  'воссоединение семьи': 'Family reunification',
+  'замена прав': 'Driving licence exchange',
+  'замена водительских прав': 'Driving licence exchange',
+  'пмж': 'Permanent residence',
+  'гражданство': 'Citizenship',
+  'карта резидента': 'EU resident card',
+  'голубая карта': 'Blue Card',
+  'blue card': 'Blue Card',
+  'услуга легализации': 'Legalization service'
+};
+function serviceNameEn(name) {
+  if (!name) return '';
+  return SERVICE_EN[String(name).trim().toLowerCase()] || String(name);
+}
+
 
 // Префиксы клиентских апдейтов: менеджер ставит ЛЮБОЙ из них в начало заметки.
 // Если матчится — заметка летит в кабинет, без префикса остаётся внутренней.
@@ -514,6 +592,7 @@ module.exports = {
   PIPELINE_SALES,
   PIPELINE_OPS,
   STAGE_NAMES_OPS,
+  serviceNameEn,
   CLIENT_NOTE_PREFIX,
   CLIENT_NOTE_PREFIXES,
   isClientNote,
