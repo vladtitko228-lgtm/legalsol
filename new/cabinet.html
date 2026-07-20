@@ -3642,5 +3642,207 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 })();
 </script>
 <script>try{document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a");if(!a)return;var _href=a.getAttribute("href")||"";var _isWa=_href.indexOf("wa.me/")!==-1,_isTel=_href.indexOf("tel:")===0;if(!_isWa&&!_isTel)return;if(a.hasAttribute("data-no-lead"))return;if(_isWa&&window.fbq)fbq("track","Contact",{content_name:"WhatsApp_click",source_url:location.pathname});try{var lead_service=a.getAttribute("data-lead-service");if(!lead_service){var p=location.pathname;if(p.indexOf("/b2b")===0)lead_service="b2b";else if(p.indexOf("/work")===0)lead_service="work_permit";else if(p.indexOf("/services")===0)lead_service="general";else if(p.indexOf("/chances")===0)lead_service="karta_pobytu";else if(p.indexOf("/referral")===0)lead_service="referral";else if(p.indexOf("/housing")===0)lead_service="housing";else if(p.indexOf("/business")===0)lead_service="b2b";else if(p.indexOf("/polish")===0)lead_service="polish_language";else if(p.indexOf("/guide")===0)lead_service="karta_pobytu";else if(p.indexOf("/blog/karta-pobytu")!==-1||p.indexOf("/blog/pmz")!==-1)lead_service="karta_pobytu";else if(p.indexOf("/blog/citizenship")!==-1||p.indexOf("/blog/obywatelstwo")!==-1)lead_service="citizenship";else if(p.indexOf("/blog/international-protection")!==-1)lead_service="international_protection";else if(p.indexOf("/blog/work")!==-1||p.indexOf("/blog/visa")!==-1)lead_service="work_permit";else if(p.indexOf("/blog/housing")!==-1||p.indexOf("/blog/rent")!==-1)lead_service="housing";else lead_service="general"}var lead_lang=a.getAttribute("data-lead-lang")||window.L||document.documentElement.lang||"unknown";var lead_source=a.getAttribute("data-lead-source")||a.id||"unknown";window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:"lead_submit",lead_source:(_isWa?"wa:":"tel:")+lead_source,lead_service:lead_service,lead_lang:lead_lang,lead_page:location.pathname})}catch(err){}});}catch(e){}</script>
+
+<style id="cbwow-css">
+/* ═══ demo wow-addon (только демо: .cb3-app:not(.is-real)) ═══ */
+#cbwow-toast{position:fixed;top:18px;right:18px;z-index:99999;display:flex;align-items:flex-start;gap:11px;max-width:340px;background:#fff;border:1px solid #E8E2D8;border-radius:16px;box-shadow:0 22px 54px -16px rgba(26,24,36,.35);padding:14px 16px;transform:translateX(120%);opacity:0;transition:transform .5s cubic-bezier(.16,.7,.2,1),opacity .5s}
+#cbwow-toast.on{transform:none;opacity:1}
+#cbwow-toast .ic{flex:none;width:38px;height:38px;border-radius:12px;background:#EEE9F4;display:grid;place-items:center}
+#cbwow-toast b{display:block;font-size:14px;color:#1A1824;line-height:1.35;margin-bottom:2px}
+#cbwow-toast small{font-size:12px;color:#8C88A6}
+.cbwow-typing{display:inline-flex;align-items:center;gap:5px;background:#F1EDE6;border-radius:16px 16px 16px 4px;padding:12px 16px;margin:4px 0;width:max-content}
+.cbwow-typing i{width:7px;height:7px;border-radius:50%;background:#8C88A6;animation:cbwowDot 1.1s infinite}
+.cbwow-typing i:nth-child(2){animation-delay:.18s}.cbwow-typing i:nth-child(3){animation-delay:.36s}
+@keyframes cbwowDot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+.cbwow-pop{animation:cbwowPop .45s cubic-bezier(.16,.7,.2,1)}
+@keyframes cbwowPop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.cbwow-flash{animation:cbwowFlash 1.1s ease}
+@keyframes cbwowFlash{0%{box-shadow:0 0 0 0 rgba(37,211,102,.0)}25%{box-shadow:0 0 0 4px rgba(37,211,102,.35)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.cbwow-spin{animation:cbwowSpin 1s linear infinite}
+@keyframes cbwowSpin{to{transform:rotate(360deg)}}
+.cbwow-chip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E8E2D8;border-radius:12px;padding:10px 13px;margin-top:10px}
+.cbwow-chip .bar{flex:1;height:7px;border-radius:99px;background:#EEE9F4;overflow:hidden}
+.cbwow-chip .bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#B5AACC,#C97F33);transition:width 1.4s cubic-bezier(.3,.7,.3,1)}
+.cbwow-chip small{font-size:12.5px;color:#3B3548;white-space:nowrap}
+.cbwow-conf{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:cbwowConf .9s cubic-bezier(.16,.7,.3,1) forwards}
+@keyframes cbwowConf{from{transform:translate(0,0) rotate(0);opacity:1}to{transform:translate(var(--dx),var(--dy)) rotate(260deg);opacity:0}}
+@media (prefers-reduced-motion: reduce){#cbwow-toast{transition:none}.cbwow-typing i,.cbwow-pop,.cbwow-flash,.cbwow-spin,.cbwow-conf{animation:none!important}}
+</style>
+<script id="cbwow">
+/* Демо-«жизнь» кабинета для съёмки обзора: печатающий юрист, тосты, живой аплоад,
+   синк MOS, анимация прогресса. Работает ТОЛЬКО в демо (.cb3-app без .is-real). */
+(function(){
+  var app=document.getElementById('cb3-app'); if(!app) return;
+  var demo=function(){return !app.classList.contains('is-real');};
+  var reduce=false; try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  var armed=false, toastShown=false, docsDone=false;
+
+  function toast(title,sub,delay){
+    setTimeout(function(){
+      var t=document.getElementById('cbwow-toast');
+      if(!t){t=document.createElement('div');t.id='cbwow-toast';
+        t.innerHTML='<span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5F5289" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span><span><b></b><small></small></span>';
+        document.body.appendChild(t);}
+      t.querySelector('b').textContent=title;
+      t.querySelector('small').textContent=sub||'только что';
+      requestAnimationFrame(function(){t.classList.add('on');});
+      clearTimeout(t.__h); t.__h=setTimeout(function(){t.classList.remove('on');},6000);
+    },delay||0);
+  }
+
+  /* — анимация прогресса при открытии — */
+  function animateIn(){
+    if(reduce) return;
+    try{
+      var ring=document.getElementById('cbx-ring-fg');
+      if(ring){var target=ring.getAttribute('stroke-dashoffset');ring.setAttribute('stroke-dashoffset','301.6');ring.style.transition='stroke-dashoffset 1.3s cubic-bezier(.3,.7,.3,1) .3s';requestAnimationFrame(function(){requestAnimationFrame(function(){ring.setAttribute('stroke-dashoffset',target);});});}
+      [].slice.call(app.querySelectorAll('*')).filter(function(e){
+        var cs=getComputedStyle(e),r=e.getBoundingClientRect(),p=e.parentElement&&e.parentElement.getBoundingClientRect();
+        return cs.backgroundImage.indexOf('gradient')>=0&&p&&p.width>0&&r.height<14&&r.width/p.width>0.3&&r.width/p.width<0.98;
+      }).slice(0,3).forEach(function(bar){
+        var w=Math.round(bar.getBoundingClientRect().width/bar.parentElement.getBoundingClientRect().width*100);
+        bar.style.width='0%';bar.style.transition='width 1.2s cubic-bezier(.3,.7,.3,1) .25s';
+        requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width=w+'%';});});
+      });
+    }catch(e){}
+  }
+
+  /* — «юрист печатает…» перед каждым ответом в чате — */
+  function armChat(){
+    var sec=document.getElementById('cb3-sec-chat'); if(!sec||sec.__wow) return; sec.__wow=1;
+    var anyMsg=sec.querySelector('.cb3-msg'); if(!anyMsg) return;
+    var list=anyMsg.parentElement;
+    new MutationObserver(function(muts){
+      if(!armed||!demo()) return;
+      muts.forEach(function(m){
+        [].slice.call(m.addedNodes).forEach(function(n){
+          if(!(n.nodeType===1&&n.classList&&n.classList.contains('cb3-msg')&&n.classList.contains('sp'))) return;
+          if(n.__wow) return; n.__wow=1;
+          n.style.display='none';
+          var ty=document.createElement('div');ty.className='cbwow-typing';ty.innerHTML='<i></i><i></i><i></i>';
+          list.insertBefore(ty,n);
+          var sc=list; while(sc&&sc!==document.body&&getComputedStyle(sc).overflowY!=='auto'&&getComputedStyle(sc).overflowY!=='scroll') sc=sc.parentElement;
+          if(sc&&sc.scrollTo) sc.scrollTop=sc.scrollHeight;
+          setTimeout(function(){
+            ty.remove(); n.style.display=''; n.classList.add('cbwow-pop');
+            if(sc) sc.scrollTop=sc.scrollHeight;
+          }, reduce?250:1900);
+        });
+      });
+    }).observe(list,{childList:true});
+  }
+
+  /* — Check now: живой синк MOS — */
+  function armMos(){
+    [].slice.call(app.querySelectorAll('button')).filter(function(b){return /Check now/.test(b.textContent)&&!b.__wow;}).forEach(function(b){
+      b.__wow=1;
+      b.addEventListener('click',function(){
+        if(!demo())return;
+        var svg=b.querySelector('svg'); if(svg) svg.classList.add('cbwow-spin');
+        b.disabled=true;
+        setTimeout(function(){
+          if(svg) svg.classList.remove('cbwow-spin');
+          b.disabled=false;
+          var t=document.getElementById('cbx-mostime'); if(t) t.textContent='только что ✓';
+          var card=b.closest('[class*="moscard"]')||b.parentElement; if(card) card.classList.add('cbwow-flash');
+          setTimeout(function(){card&&card.classList.remove('cbwow-flash');},1200);
+          toast('Статус в MOS синхронизирован','W trakcie rozpatrywania · без изменений — это норма');
+        }, reduce?300:1400);
+      });
+    });
+  }
+
+  /* — Request an update — */
+  function armReq(){
+    [].slice.call(app.querySelectorAll('button')).filter(function(b){return /Request an update/.test(b.textContent)&&!b.__wow;}).forEach(function(b){
+      b.__wow=1;
+      b.addEventListener('click',function(){
+        if(!demo()||b.dataset.busy)return; b.dataset.busy='1';
+        var old=b.innerHTML; b.textContent='Отправляем…';
+        setTimeout(function(){
+          b.textContent='✓ Запрос отправлен';
+          toast('Запрос юристу отправлен','ответим в WhatsApp в течение 15 минут');
+          setTimeout(function(){b.innerHTML=old;delete b.dataset.busy;},6000);
+        }, reduce?250:1000);
+      });
+    });
+  }
+
+  /* — живой аплоад: файл → прогресс → пакет 100% + конфетти — */
+  function armUpload(){
+    var inp=document.getElementById('cbx-upfile');
+    var drop=inp&&inp.closest('[class*="drop"]')||document.querySelector('.cbx-drop');
+    if(!inp||inp.__wow) return; inp.__wow=1;
+    function confetti(anchor){
+      if(reduce||!anchor) return;
+      var r=anchor.getBoundingClientRect(), colors=['#C97F33','#5F5289','#B5AACC','#25D366','#E29B54'];
+      for(var i=0;i<14;i++){
+        var c=document.createElement('i');c.className='cbwow-conf';
+        c.style.left=(r.left+r.width/2)+'px';c.style.top=(r.top+window.scrollY+r.height/2)+'px';
+        c.style.position='absolute';c.style.background=colors[i%colors.length];
+        c.style.setProperty('--dx',(Math.random()*160-80)+'px');
+        c.style.setProperty('--dy',(-40-Math.random()*90)+'px');
+        document.body.appendChild(c);setTimeout(function(cc){return function(){cc.remove();};}(c),950);
+      }
+    }
+    function simulate(fileName){
+      if(!demo())return;
+      var zone=drop||inp.parentElement;
+      var chip=document.createElement('div');chip.className='cbwow-chip';
+      chip.innerHTML='<small>'+(fileName||'photo.jpg')+'</small><span class="bar"><i></i></span><small class="st">загружаем…</small>';
+      zone.parentElement.insertBefore(chip,zone.nextSibling);
+      requestAnimationFrame(function(){requestAnimationFrame(function(){chip.querySelector('.bar i').style.width='100%';});});
+      setTimeout(function(){
+        chip.querySelector('.st').textContent='✓ у юриста в CRM';
+        if(!docsDone){
+          docsDone=true;
+          /* строка «Фото 3.5×4.5» → Checked */
+          [].slice.call(app.querySelectorAll('.cabrow')).forEach(function(row){
+            var i=row.querySelector('i.w');
+            if(i&&/Фото|photo/i.test(row.textContent)){
+              i.className='';i.textContent='✓ Checked';
+              var sub=row.querySelector('.cbx-sub'); if(sub) sub.textContent='Получено только что — проверено юристом';
+              row.classList.add('cbwow-flash');
+            }
+          });
+          /* готовность 91 → 100 */
+          [].slice.call(app.querySelectorAll('u, .cb3-pct b, b')).filter(function(u){return u.children.length===0&&/91\s*%/.test(u.textContent);}).forEach(function(u){u.textContent='100%';});
+          [].slice.call(app.querySelectorAll('[id*="ring"]')).forEach(function(r){if(r.getAttribute&&r.getAttribute('stroke-dashoffset')&&r.id!=='cbx-ring-fg'){r.style.transition='stroke-dashoffset .9s';r.setAttribute('stroke-dashoffset','0');}});
+          [].slice.call(app.querySelectorAll('.tz-bar > span, .cbf')).forEach(function(b){b.style.transition='width .9s cubic-bezier(.3,.7,.3,1)';b.style.width='100%';});
+          confetti(chip);
+          toast('Пакет документов собран полностью','100% готовности — всё проверено');
+        } else {
+          toast('Документ получен','уже у юриста в CRM');
+        }
+      }, reduce?300:1700);
+    }
+    inp.addEventListener('change',function(){
+      var f=inp.files&&inp.files[0];
+      simulate(f?f.name:'photo.jpg');
+      inp.value='';
+    });
+    if(drop){
+      drop.addEventListener('dragover',function(e){e.preventDefault();});
+      drop.addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];simulate(f?f.name:'photo.jpg');});
+    }
+  }
+
+  function boot(){
+    if(!demo())return;
+    animateIn();
+    setTimeout(function(){armChat();armMos();armReq();armUpload();armed=true;},1100);
+    if(!toastShown){toastShown=true;toast('Утренняя проверка MOS пройдена','по делу №812 всё в порядке ✓',4500);}
+  }
+  /* детект открытия демо: app получает класс .open (fixed-оверлей, offsetParent тут всегда null) */
+  var booted=false;
+  function tryBoot(){if(booted)return;if(app.classList.contains('open')&&demo()){booted=true;boot();}}
+  var prev=window.cb3OpenRaw;
+  if(typeof prev==='function'){window.cb3OpenRaw=function(tab){var r=prev.apply(this,arguments);setTimeout(tryBoot,400);return r;};}
+  var poll=setInterval(function(){tryBoot();if(booted)clearInterval(poll);},500);
+  setTimeout(function(){clearInterval(poll);},30000);
+  /* повторное открытие демо после Exit — переарм */
+  new MutationObserver(function(){if(!app.classList.contains('open')){booted=false;toastShown=false;}else tryBoot();}).observe(app,{attributes:true,attributeFilter:['class']});
+})();
+</script>
 </body>
 </html>
