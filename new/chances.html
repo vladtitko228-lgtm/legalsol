@@ -1363,6 +1363,7 @@ function paint(dir){
   next.textContent=(idx===N-1)?'Get my result →':'Next →';
   next.disabled=!ans[idx];
   next.classList.toggle('chc-ready',!!ans[idx]);
+  if(dir){var _c=document.querySelector('.chc-card');if(_c){var _r=_c.getBoundingClientRect();if(_r.top<8||_r.top>110){var _y=window.scrollY+_r.top-64;try{window.scrollTo({top:_y,behavior:'smooth'});}catch(e){window.scrollTo(0,_y);}}}}
 }
 function readMulti(s,i){
   var sel=[].slice.call(s.querySelectorAll('.chc-opt.sel')),p=0,vs=[],ts=[];
