@@ -1656,6 +1656,13 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app .cbx-soon-note{margin:16px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink-3)}
 @media(max-width:640px){.cb3-app .cbx-soon{padding:18px}.cb3-app .cbx-soon-grid{grid-template-columns:1fr}}
 
+
+/* соцсети в хедере портала */
+.cb3-soc{display:inline-flex;gap:6px;margin-left:auto;margin-right:10px}
+.cb3-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#EEE9F4;color:#5F5289;transition:background .2s,color .2s,transform .15s}
+.cb3-soc a:hover{background:#5F5289;color:#fff}
+.cb3-soc a:active{transform:scale(.92)}
+@media(max-width:480px){.cb3-soc{gap:4px;margin-right:8px}.cb3-soc a{width:29px;height:29px}.cb3-soc a svg{width:14px;height:14px}}
 </style>
 </head>
 <body>
@@ -1824,7 +1831,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="cb3-top">
     <span class="cb3-logo" aria-hidden="true"><svg width="30" height="28" viewBox="0 0 34 32"><rect x="0" y="9" width="7" height="20" rx="2" fill="#B5AACC"/><rect x="9" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="18" y="4" width="7" height="25" rx="2" fill="#D5CEEF"/><rect x="27" y="9" width="7" height="20" rx="2" fill="#B5AACC"/><rect x="0" y="5" width="34" height="4" rx="2" fill="#5F5289"/><rect x="0" y="29" width="34" height="3" rx="1.5" fill="#5F5289"/></svg></span>
     <span class="cb3-ttl">Client portal <span class="cb3-demo-chip" id="cb3-mode-chip">Demo</span></span>
-    <button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Exit ×</button>
+    <span class="cb3-soc" aria-label="Social media"><a href="https://www.instagram.com/legalsol.pl" target="_blank" rel="noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://www.tiktok.com/@legalsol.pl" target="_blank" rel="noopener" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.4c-1.2.1-2.4-.2-3.5-.8v5.6c0 3.3-2.4 5.4-5.2 5.4A5.2 5.2 0 0 1 6 14.3c0-3 2.5-5.3 5.7-5v2.6c-.4-.1-.9-.2-1.3-.1-1.3.2-2.1 1.1-2 2.5.1 1.3 1.1 2.1 2.3 2 1.3-.1 2-1 2-2.4V3z"/></svg></a><a href="https://t.me/legalsolinfo" target="_blank" rel="noopener" aria-label="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9L16 6.4c.4-.3-.1-.5-.6-.2L5.6 12.5l-4.4-1.4c-1-.3-1-1 .2-1.4L20.6 3c.8-.3 1.5.2 1.3 1.3z"/></svg></a><a href="https://youtube.com/@legal_sol" target="_blank" rel="noopener" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.9-1.5-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.9 1.5 1.7 1.7 1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l6 3.3-6 3.3z"/></svg></a></span><button class="cb3-exit" id="cb3-exit" type="button" onclick="cb3Close()">Exit ×</button>
   </header>
   <nav class="cb3-tabs" role="tablist" aria-label="Portal sections">
     <button class="cb3-tab" id="cb3-tab-delo" role="tab" aria-selected="true" aria-controls="cb3-sec-delo" type="button" onclick="cb3Tab('delo')">Case</button>
@@ -3666,6 +3673,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 .cbwow-chip small{font-size:12.5px;color:#3B3548;white-space:nowrap}
 .cbwow-conf{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:cbwowConf .9s cubic-bezier(.16,.7,.3,1) forwards}
 @keyframes cbwowConf{from{transform:translate(0,0) rotate(0);opacity:1}to{transform:translate(var(--dx),var(--dy)) rotate(260deg);opacity:0}}
+@media(max-width:480px){#cbwow-toast{top:auto;bottom:18px;left:16px;right:16px;max-width:none;transform:translateY(130%)}#cbwow-toast.on{transform:none}}
 @media (prefers-reduced-motion: reduce){#cbwow-toast{transition:none}.cbwow-typing i,.cbwow-pop,.cbwow-flash,.cbwow-spin,.cbwow-conf{animation:none!important}}
 </style>
 <script id="cbwow">
