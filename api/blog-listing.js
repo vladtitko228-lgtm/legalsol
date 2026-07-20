@@ -13,7 +13,7 @@ const SHELL = require("./_blog-shell.json"); // { head, tail } — redesign fram
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const DATABASE_ID = process.env.NOTION_BLOG_DB_ID;
 
-const INITIAL_SHOW = 24;
+const INITIAL_SHOW = 9;
 
 // Память-кэш инстанса функции: тёплая лямбда не ходит в Notion вообще (TTL 5 мин).
 // Холодный рендер ускоряет фильтр по языку в самом запросе (не тянем RU ради EN).
@@ -118,7 +118,7 @@ function renderPage(articles) {
 ${cardsHtml}
   </div>
   <p class="lsb-empty" id="lsbEmpty">Nothing found. Try another word — or <a href="https://wa.me/48735248525?text=${encodeURIComponent('Здравствуйте! Вопрос по легализации в Польше.')}" style="color:var(--indigo);font-weight:700">ask us on WhatsApp</a>.</p>
-  <div class="lsb-more" id="lsbMore"><button class="btn btn-ghost btn-lg" id="lsbMoreBtn" style="width:auto;margin-top:0">Load more articles</button></div>
+  <div class="lsb-more" id="lsbMore"><button class="btn btn-ghost btn-lg" id="lsbMoreBtn" style="width:auto;margin-top:0">View all articles →</button></div>
 </div></section>
 
 <script>
@@ -154,7 +154,7 @@ ${cardsHtml}
     if(moreWrap) moreWrap.style.display = (limited && matches>shown) ? '' : 'none';
   }
   if(search) search.addEventListener('input', function(){ shown=INIT; apply(); });
-  if(moreBtn) moreBtn.addEventListener('click', function(){ shown+=INIT; apply(); });
+  if(moreBtn) moreBtn.addEventListener('click', function(){ shown=cards.length; apply(); });
   if(chipsWrap) chipsWrap.addEventListener('click', function(e){
     var b=e.target.closest('.lsb-chip'); if(!b) return;
     activeCat=b.getAttribute('data-cat')||'';
