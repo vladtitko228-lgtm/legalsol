@@ -3027,6 +3027,17 @@ once(list,function(){list.className+=' cbx-cascade';});
         .catch(function(){});
     }
   };
+  /* Автовход: кука cabinet_token живёт 30 дней — после обновления страницы возвращаем клиента в кабинет.
+     Exit/Escape зовут doLogout() (кука гаснет) — после явного выхода автовход не сработает. */
+  try{
+    fetch('/api/cabinet/me',{credentials:'include'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(me){
+        if(!me||me.role==='staff'||MODE==='real')return;
+        if(!me.leads||!me.leads.length)return;
+        enterReal(me);
+      }).catch(function(){});
+  }catch(e){}
 })();
 </script>
 
