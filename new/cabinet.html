@@ -4197,9 +4197,20 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     app.dataset.view='case';
     paintTabs('case');
   }
-  var p=setInterval(function(){ if(app.classList.contains('open')&&demo()){ clearInterval(p); setTimeout(boot,900);} },500);
+  var booted3=false;
+  function armSecObserver(){
+    var s=document.getElementById('cb3-sec-delo');
+    if(s&&!s.__cgObs){ s.__cgObs=1; new MutationObserver(function(){ if(booted3) classify(); }).observe(s,{childList:true}); }
+  }
+  function tryBootNow(){ if(booted3) return; if(app.classList.contains('open')&&demo()){ booted3=true; boot(); armSecObserver(); [800,2000,3500,6000].forEach(function(t){ setTimeout(function(){ if(booted3) classify(); },t); }); } }
+  /* мгновенно: и при уже открытом (?app=1), и при клике «открыть демо» */
+  tryBootNow();
+  var prev3=window.cb3OpenRaw;
+  if(typeof prev3==='function'){ window.cb3OpenRaw=function(t){ var r=prev3.apply(this,arguments); tryBootNow(); return r; }; }
+  var p=setInterval(function(){ tryBootNow(); if(booted3) clearInterval(p); },150);
   setTimeout(function(){clearInterval(p);},30000);
-  new MutationObserver(function(){ if(!app.classList.contains('open')){ clearView(); } }).observe(app,{attributes:true,attributeFilter:['class']});
+
+  new MutationObserver(function(){ if(!app.classList.contains('open')){ booted3=false; clearView(); } }).observe(app,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 </body>
