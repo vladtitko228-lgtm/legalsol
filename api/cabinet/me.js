@@ -80,6 +80,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'POST') {
       const body = await readJsonBody(req);
       const text = String(body.text || '').trim().slice(0, 1500);
+      const isIdea = body.kind === 'idea'; // пожелание по кабинету → внутренняя заметка, не чат
       const leadId = String(body.leadId || '').replace(/[^\d]/g, '');
       if (!text) return res.status(400).json({ error: 'text_required' });
       // Проверяем, что сделка принадлежит этому контакту и она в воронке Легализации
@@ -95,7 +96,7 @@ module.exports = async function handler(req, res) {
       }
       if (!targetLead) return res.status(404).json({ error: 'no_lead' });
       await kommo('POST', `/leads/${targetLead}/notes`, [
-        { note_type: 'common', params: { text: CLIENT_MSG_PREFIX + ' ' + text } }
+        { note_type: 'common', params: { text: (isIdea ? 'ПОЖЕЛАНИЕ: ' : CLIENT_MSG_PREFIX + ' ') + text } }
       ]);
       try { await kvCmd('DEL', 'cab:me:' + payload.cid); } catch (_) {}
       return res.status(200).json({ ok: true });
