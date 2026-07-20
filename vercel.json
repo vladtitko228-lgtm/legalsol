@@ -2,6 +2,51 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/cabinet.html",
+      "destination": "/cabinet",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/referral.html",
+      "destination": "/referral",
+      "permanent": true
+    },
+    {
+      "source": "/chances.html",
+      "destination": "/chances",
+      "permanent": true
+    },
+    {
+      "source": "/guide.html",
+      "destination": "/guide",
+      "permanent": true
+    },
+    {
+      "source": "/b2b.html",
+      "destination": "/b2b",
+      "permanent": true
+    },
+    {
+      "source": "/work.html",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/redesign.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/blog/mos-online-karta-pobytu-2026-en",
       "destination": "/blog/mos-online-submission-en",
       "permanent": true
