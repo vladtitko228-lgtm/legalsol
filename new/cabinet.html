@@ -1646,6 +1646,13 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-app .cbx-cell.cb3-real-only{display:none}.cb3-app.is-real .cbx-cell.cb3-real-only{display:flex}
 .cb3-mosreal .cbx-soon-badge{display:inline-block;margin:10px 0 2px}
 .cb3-feedreal{margin-top:20px}
+.cb3-msg a,.cb3-feedreal a{color:#5F5289;text-decoration:underline;word-break:break-all}.cb3-msg.me a{color:#fff}
+.cb3-wish{margin-top:20px}.cb3-wishrow{display:flex;gap:10px;margin-top:12px}
+.cb3-wishrow input{flex:1;padding:12px 16px;border:1px solid #E4DED2;border-radius:12px;font:inherit;font-size:14px;background:#fff;color:#26223B}
+.cb3-wishrow input:focus{outline:none;border-color:#8579B0}
+.cb3-wishrow button{padding:12px 22px;border:none;border-radius:12px;background:#5F5289;color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.cb3-wishrow button:disabled{opacity:.55;cursor:default}
+.cb3-wish-ok{display:none;margin-top:10px;color:#2E9E6B}
 .cb3-app .cbx-soon-h{font-size:14px;font-weight:800;letter-spacing:.02em;color:var(--ink);margin-bottom:16px}
 .cb3-app .cbx-soon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
 .cb3-app .cbx-soon-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
@@ -1912,6 +1919,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="cbx-soon"><div class="cbx-soon-h">Coming to your portal soon</div><div class="cbx-soon-grid"><div class="cbx-soon-item"><span class="cbx-soon-badge cbx-soon-eom">By end of month</span><b>Live MOS status</b><p>Your case status pulled straight from mos.cudzoziemcy.gov.pl, updated automatically.</p></div><div class="cbx-soon-item"><span class="cbx-soon-badge">In development</span><b>Upload documents</b><p>Send photos of documents right here — we’ll check them for you.</p></div><div class="cbx-soon-item"><span class="cbx-soon-badge">In development</span><b>Pay online by card</b><p>Pay installments securely by card, without leaving the portal.</p></div></div><p class="cbx-soon-note">Everything else — case status, timeline, your specialist chat and payment schedule — works now. We add the rest step by step.</p></div>
 <!-- 7. Низ: демо-примечание + CTA -->
+    <div class="cbx-card cb3-real-only cb3-wish"><div class="cbx-hh">Make this portal better</div><div class="cbx-hsub">What would you like to see here? Tell us — we read every idea.</div><div class="cb3-wishrow"><input id="cb3-wish-inp" type="text" maxlength="600" placeholder="I would love to see…" aria-label="Your idea for the portal"><button type="button" id="cb3-wish-btn" onclick="cb3SendWish()">Send</button></div><p class="cbx-fine cb3-wish-ok" id="cb3-wish-ok">Thank you! Your idea went straight to our team.</p></div>
+
     <div class="cb3-final" id="cb3-final">
       <p>This is a demo portal — the data is fictional. Yours appears once your case starts.</p>
       <a class="btn btn-wa btn-lg" href="https://wa.me/48735248525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D0%BA%D0%BE%D0%BD%D1%81%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%86%D0%B8%D1%8E%20%D0%B8%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B2%20%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82%20%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82%D0%B0." target="_blank" rel="noopener"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg> Get started — free consultation</a>
@@ -2759,6 +2768,7 @@ once(list,function(){list.className+=' cbx-cascade';});
   var MODE='demo',CUR=null,SNAP=null,updBusy=false,lastChatFetch=0;
   var BELL='<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function linkify(s){return String(s).replace(/(https?:\/\/[^\s<]+)/g,function(u){return '<a href="'+u+'" target="_blank" rel="noopener">'+u+'</a>';});}
   function pad(n){return (n<10?'0':'')+n;}
   function hhmm(ts){var d=new Date(ts);return pad(d.getHours())+':'+pad(d.getMinutes());}
   function fmtDate(ts){var d=new Date(ts);return pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+d.getFullYear();}
@@ -2833,7 +2843,7 @@ once(list,function(){list.className+=' cbx-cascade';});
       chat.forEach(function(m){
         var d=dayLabel(m.createdAt);
         if(d!==last){h+='<div class="cb3-day">'+d+'</div>';last=d;}
-        h+='<div class="cb3-msg '+(m.from==='client'?'me':'sp')+'">'+esc(m.text).replace(/\n/g,'<br>')+'<span class="tm">'+hhmm(m.createdAt)+'</span></div>';
+        h+='<div class="cb3-msg '+(m.from==='client'?'me':'sp')+'">'+linkify(esc(m.text)).replace(/\n/g,'<br>')+'<span class="tm">'+hhmm(m.createdAt)+'</span></div>';
       });
     }
     th.innerHTML=h;
@@ -2893,7 +2903,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var h='<div class="cbx-ghost"><span class="cbx-ghost-ic">'+FEED_IC.wait+'</span><div><b>Now in progress: '+esc(st)+'</b><p>'+esc(L.whatWeDoEn||L.whatWeDo||'We are handling your case and will post every movement here.')+((L.etaTextEn||L.etaText)?' Typical time for this stage: '+esc(L.etaTextEn||L.etaText)+'.':'')+'</p></div></div>';
     h+='<div class="cbx-evs">';
     evs.slice(0,20).forEach(function(e){
-      h+='<div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls">'+FEED_IC[e.ic]+'</span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">'+fmtDate(e.ts)+'</span><span class="cbx-src cbx-src--ls">'+esc(e.src)+'</span></div><b>'+esc(e.b)+'</b><p>'+esc(e.p).replace(/\n/g,'<br>')+'</p></div></div>';
+      h+='<div class="cbx-ev"><span class="cbx-ev-ic cbx-ev-ic--ls">'+FEED_IC[e.ic]+'</span><div class="cbx-ev-bd"><div class="cbx-ev-top"><span class="cbx-ev-dt">'+fmtDate(e.ts)+'</span><span class="cbx-src cbx-src--ls">'+esc(e.src)+'</span></div><b>'+esc(e.b)+'</b><p>'+linkify(esc(e.p)).replace(/\n/g,'<br>')+'</p></div></div>';
     });
     h+='</div>';
     el.innerHTML=h;
@@ -3037,6 +3047,17 @@ once(list,function(){list.className+=' cbx-cascade';});
         .then(function(j){if(j&&j.chat&&MODE==='real')renderChat(j.chat);})
         .catch(function(){});
     }
+  };
+  /* Пожелания по кабинету: POST kind=idea → внутренняя заметка ПОЖЕЛАНИЕ: + TG Даше/Владу */
+  window.cb3SendWish=function(){
+    var inp=$('cb3-wish-inp'),btn=$('cb3-wish-btn'),ok=$('cb3-wish-ok');
+    var v=inp&&inp.value.trim();
+    if(!v||MODE!=='real'||!CUR)return;
+    if(btn)btn.disabled=true;
+    fetch('/api/cabinet/me',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:v,leadId:CUR.lead.id,kind:'idea'})})
+      .then(function(r){if(!r.ok)throw 0;if(inp)inp.value='';if(ok)ok.style.display='block';setTimeout(function(){if(ok)ok.style.display='none';},6000);})
+      .catch(function(){if(window.cb3Toast)window.cb3Toast('Did not go through — try again or message us on WhatsApp');})
+      .then(function(){if(btn)btn.disabled=false;});
   };
   /* Автовход: кука cabinet_token живёт 30 дней — после обновления страницы возвращаем клиента в кабинет.
      Exit/Escape зовут doLogout() (кука гаснет) — после явного выхода автовход не сработает. */
