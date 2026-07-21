@@ -1201,6 +1201,34 @@ html.menu-open #m-cta{display:none}
 @media(max-width:900px){.ct-more{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.ct-more{grid-template-columns:1fr}}
 
+/* v4: продающие блоки */
+.ct-pain{background:linear-gradient(180deg,var(--cream) 0%,#F3EEE6 100%)}
+.ct-pain-bubbles{max-width:560px;margin:0 auto 34px;display:flex;flex-direction:column;gap:12px}
+.ct-pbub{background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 5px;padding:14px 18px;font-size:15.5px;color:var(--ink);box-shadow:var(--sh-sm);width:max-content;max-width:100%}
+.ct-pbub:nth-child(2){margin-left:34px}
+.ct-pbub:nth-child(3){margin-left:12px}
+.ct-pbub span{display:block;font-size:12px;color:var(--ink-3);margin-top:4px}
+.ct-vow{background:linear-gradient(135deg,var(--indigo-9),#5A5079);border-radius:26px;padding:36px 38px;color:#fff;box-shadow:var(--sh)}
+.ct-vow h3{font-size:clamp(22px,3vw,30px);letter-spacing:-.015em;line-height:1.2;margin-bottom:22px;color:#fff}
+.ct-vows{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ct-vowi{display:flex;flex-direction:column}
+.ct-vowi .vic{width:30px;height:30px;border-radius:10px;background:rgba(37,211,102,.18);color:#7ED9A7;font-weight:800;display:grid;place-items:center;margin-bottom:10px}
+.ct-vowi b{font-size:15.5px;margin-bottom:5px}
+.ct-vowi small{font-size:13px;line-height:1.55;color:rgba(255,255,255,.75)}
+.ct-vs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.ct-vs-col{border-radius:22px;padding:26px 26px 22px}
+.ct-vs-col.old{background:#F1EDE6;border:1px solid var(--line)}
+.ct-vs-col.new{background:linear-gradient(135deg,var(--indigo-9),#514873);color:#fff;box-shadow:var(--sh)}
+.ct-vs-t{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px;color:var(--ink-3)}
+.ct-vs-col.new .ct-vs-t{color:rgba(255,255,255,.65)}
+.ct-vsr{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;line-height:1.5;border-bottom:1px dashed rgba(140,136,166,.25)}
+.ct-vs-col.new .ct-vsr{border-bottom-color:rgba(255,255,255,.14)}
+.ct-vsr:last-child{border-bottom:0}
+.ct-vsr .x{color:#B8503A;font-weight:800;flex:none}
+.ct-vsr .v{color:#7ED9A7;font-weight:800;flex:none}
+@media(max-width:860px){.ct-vows{grid-template-columns:1fr}.ct-vs{grid-template-columns:1fr}}
+@media(max-width:560px){.ct-vow{padding:26px 22px}.ct-pbub:nth-child(2){margin-left:18px}}
+
 </style>
 </head>
 <body>
@@ -1299,11 +1327,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div></section>
 
+<section class="ct-pain">
+<img class="bg-art bgl" src="/assets/trc/bg_meet.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center">
+    <span class="ct-chip">Why we built this</span>
+    <h2>“My lawyer isn’t replying.”</h2>
+    <p>The #1 pain in legalization is not documents. It’s silence.</p>
+  </div>
+  <div class="ct-pain-bubbles reveal">
+    <div class="ct-pbub">Two weeks. No reply. <span>— every second client, before LegalSol</span></div>
+    <div class="ct-pbub">Did they even file my case?</div>
+    <div class="ct-pbub">I paid — and then… nothing.</div>
+  </div>
+  <div class="ct-vow reveal">
+    <h3>We built this portal so you never feel that again.</h3>
+    <div class="ct-vows">
+      <div class="ct-vowi"><span class="vic">✓</span><b>Always in touch</b><small>replies in ~15 min in working hours — chat in the portal, duplicated to WhatsApp</small></div>
+      <div class="ct-vowi"><span class="vic">✓</span><b>You see everything we do</b><small>every step on your case lands in your feed — work never happens “somewhere”</small></div>
+      <div class="ct-vowi"><span class="vic">✓</span><b>No “trust me” — proof</b><small>your official status straight from the government MOS system, checked daily</small></div>
+    </div>
+  </div>
+</div></section>
+
 <section>
-<img class="bg-art bgl" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_desk.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center">
     <h2>«What's happening with my case?»</h2>
-    <p>You'll never ask that again.</p>
+    <p>You'll never ask that again. Here’s what’s inside.</p>
   </div>
 
   <div class="ct-feat">
@@ -1428,7 +1478,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div></section>
 
 <section>
-<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgl" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center">
     <h2>And that's not all</h2>
     <p>Small things that make the wait easier.</p>
@@ -1440,6 +1490,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="ct-mc"><span class="mi">🧾</span><b>Receipts with a stamp</b><small>every payment confirmed in the portal</small></div>
     <div class="ct-mc"><span class="mi">🧡</span><b>Invite a friend</b><small>you get 300 zł, they get 400 zł off</small></div>
     <div class="ct-mc"><span class="mi">💡</span><b>Suggest a feature</b><small>goes straight to the team’s Telegram — best ideas go live</small></div>
+  </div>
+</div></section>
+
+<section>
+<img class="bg-art bgr" src="/assets/trc/bg_note.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center"><h2>The old way — and ours</h2></div>
+  <div class="ct-vs reveal">
+    <div class="ct-vs-col old">
+      <div class="ct-vs-t">Without the portal</div>
+      <div class="ct-vsr"><span class="x">✕</span>“We’ll call you back” — then weeks of silence</div>
+      <div class="ct-vsr"><span class="x">✕</span>Status? Unknown. Call during office hours</div>
+      <div class="ct-vsr"><span class="x">✕</span>“Did my payment even arrive?”</div>
+      <div class="ct-vsr"><span class="x">✕</span>Deadlines live in someone’s notebook</div>
+    </div>
+    <div class="ct-vs-col new">
+      <div class="ct-vs-t">With the LegalSol portal</div>
+      <div class="ct-vsr"><span class="v">✓</span>Reply in ~15 min, working hours</div>
+      <div class="ct-vsr"><span class="v">✓</span>Case in your pocket 24/7 — every step visible</div>
+      <div class="ct-vsr"><span class="v">✓</span>Plan, receipts, reminders — zero surprises</div>
+      <div class="ct-vsr"><span class="v">✓</span>Official MOS status, checked every working day</div>
+    </div>
   </div>
 </div></section>
 
@@ -1457,7 +1528,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="final reveal"><div class="wrap">
   <div class="sec-head center">
-    <h2>See it for yourself</h2>
+    <h2>Stop guessing. Start seeing.</h2>
+    <p>The demo takes 30 seconds — no sign-up, nothing to enter. And if the answer is no — the appeal is on us: 98% approvals.</p>
   </div>
   <div class="ct-ctas" style="justify-content:center">
     <a class="btn btn-gold btn-lg" href="/cabinet?app=1">Open the demo →</a>
@@ -2013,7 +2085,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   function load(lang){
     if(DICTS[lang]){apply();return;}
     var s=document.createElement('script');
-    s.src='/new/i18n/'+lang+'.js?v=3fa0fc29';s.async=true;
+    s.src='/new/i18n/'+lang+'.js?v=f3cfcad3';s.async=true;
     document.head.appendChild(s);
   }
   window.lsSetLang=function(lang){
