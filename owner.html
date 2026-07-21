@@ -761,6 +761,8 @@ function buildAlerts(d,pm,pnl){
   const gi=(d.trend||[]).findIndex(x=>x.month===CUR_KEY);
   if(gi>0&&d.trend[gi-1].closings){const g=Math.round((d.trend[gi].closings-d.trend[gi-1].closings)/d.trend[gi-1].closings*100);
     if(g>=30) a.push({sev:'green',t:`Закрытия выросли на ${g}% к прошлому месяцу`,d:`${d.trend[gi-1].closings} → ${d.trend[gi].closings}.`});}
+  if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm) a.push({sev:'red',t:`${d.ops.onboarding.noCrm} оплативших не заведены в производство`,
+    d:'Оплата есть — дела в Kommo нет: клиент завис до начала работы. Детали: Клиенты → «Новые клиенты».',go:'clients',btn:'Открыть'});
   if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
     d:`Дольше всех — ${d.ops.stale[0]?d.ops.stale[0].days+' дн.':''} Глянуть с Дашей.`,go:'clients',btn:'Клиенты'});
   const order={red:0,yellow:1,green:2};
@@ -1215,6 +1217,17 @@ function render(d){
         ${cs.items&&cs.items.length?`<div style="margin-top:8px">${cs.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--hair);font-size:13px">
           <span>${esc(x.name)}</span><span class="mut num">${esc(x.when)}</span></div>`).join('')}</div>`:'<div class="sec-note">Пока никто не входил — как только клиент откроет кабинет, он появится здесь (обновление каждые 2 часа).</div>'}
       </div>`;
+    }
+    if(o.onboarding){
+      const ob=o.onboarding;
+      const lag=v=>v==null?'<span class="neg">❌ не заведено</span>':(v<=1?`<span class="pos">${v===0?'в тот же день':'через 1 дн'}</span>`:v<=3?`<span style="color:var(--warn)">через ${v} дн</span>`:`<span class="neg">через ${v} дн</span>`);
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">🆕 Новые клиенты → производство</b>
+        <div class="t2" style="font-size:13.5px;margin-top:8px">${ob.avgLag!=null?`Дело в CRM заводится в среднем через <b style="color:var(--t1)">${ob.avgLag} дн</b> после оплаты.`:''} ${ob.noCrm?`<span class="neg">Не заведено: ${ob.noCrm}.</span>`:'Все оплатившие заведены 👍'}</div>
+        <div class="tblwrap" style="margin-top:10px"><table class="stack"><thead><tr><th>Клиент</th><th class="n">Оплатил</th><th>Дело в CRM</th><th>Первый апдейт клиенту</th></tr></thead>
+        <tbody>${(ob.items||[]).map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="оплатил" class="n num t2">${dLabel(x.paid)}</td>
+          <td data-l="CRM">${lag(x.crmDays)}</td>
+          <td data-l="апдейт" class="t2" style="font-size:12.5px">${x.firstDays!=null?('через '+x.firstDays+' дн'):'—'}</td></tr>`).join('')}</tbody></table></div>
+        <div class="sec-note">Оплаты за 45 дней против воронки «Легализация». «Не заведено» — оплата есть, дела в производстве нет (в продажах лид может висеть — но работа по нему не начата).</div></div>`;
     }
     if(o.activity14&&o.activity14.length){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Работа по делам · 14 дней</b>
