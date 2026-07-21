@@ -3985,7 +3985,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     card.innerHTML='<h4><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5F5289" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg> Biometrics appointment</h4>'
       +'<div class="big">Aug 5, 10:30</div>'
       +'<p>Urząd Wojewódzki · ul. Marszałkowska 3/5, Warszawa<br>Bring only your passport — we’ll remind you a day before.</p>'
-      +'<button type="button" class="cbwow-icsbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg> Add to my calendar</button>';
+      +'<button type="button" class="cbwow-icsbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18M12 13.5v5M9.5 16h5"/></svg> Add to my calendar</button>';
     if(cell&&cell.parentElement&&app.contains(cell)){ cell.parentElement.insertBefore(card,cell); }
     else { var host=document.getElementById('cb3-sec-delo')||app; host.appendChild(card); }
     card.querySelector('.cbwow-icsbtn').addEventListener('click',function(){
