@@ -4608,6 +4608,8 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
 .cb3-dark .cbwow-chip{background:#201C2E;border-color:#332D48}
 .cb3-dark .cbwow-chip small{color:#C9C4DA}
 /* ── шапка: аватар · колокольчик · луна ── */
+@media(max-width:640px){#cb5-hwrap{margin-left:auto}}
+.cb3-app:not(.is-real) .cb3-top .cb3-exit{margin-left:0}
 .cb5-hbtn{position:relative;font:inherit;border:1px solid var(--line);background:var(--card);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--indigo);flex:none;transition:transform .18s}
 .cb5-hbtn:hover{transform:translateY(-1px)}
 .cb5-ava{position:relative;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#B5AACC,#5F5289);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;flex:none}
@@ -4714,12 +4716,12 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   /* ── шапка: аватар + колокольчик + луна ── */
   function buildHeader(){
     if(document.getElementById('cb5-moon')) return;
-    var anchor=app.querySelector('.cb3-soc')||app.querySelector('.cb3-exit');
+    var anchor=app.querySelector('.cb3-exit')||app.querySelector('.cb3-soc');
     if(!anchor) return;
     var host=anchor.parentElement;
     var wrap=document.createElement('span');
     wrap.id='cb5-hwrap';
-    wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;position:relative;margin-left:auto';
+    wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;position:relative';
     wrap.innerHTML=
       '<span class="cb5-ava" title="Alina · online">A<i></i></span>'
       +'<button type="button" class="cb5-hbtn" id="cb5-bell" aria-label="Notifications">'+ic(I.bell)+'<span class="cb5-badge" id="cb5-bbadge">3</span></button>'
