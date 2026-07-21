@@ -4121,7 +4121,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 
 <style id="cbwow3-css">
 /* ═══ v3: разбивка «Дела» на тематические вкладки (демо) ═══ */
-.cb3-app[data-view] #cb3-sec-delo [data-cg]{display:none!important}
+.cb3-app[data-view]:not(.is-real) #cb3-sec-delo [data-cg]{display:none!important}
 .cb3-app[data-view] #cb3-sec-delo [data-cg="hdr"]{display:revert!important}
 .cb3-app[data-view="case"] #cb3-sec-delo [data-cg="case"]{display:revert!important}
 .cb3-app[data-view="process"] #cb3-sec-delo [data-cg="process"]{display:revert!important}
@@ -4218,7 +4218,11 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   var p=setInterval(function(){ tryBootNow(); if(booted3) clearInterval(p); },150);
   setTimeout(function(){clearInterval(p);},30000);
 
-  new MutationObserver(function(){ if(!app.classList.contains('open')){ booted3=false; clearView(); } }).observe(app,{attributes:true,attributeFilter:['class']});
+  new MutationObserver(function(){
+    if(app.classList.contains('is-real')){ booted3=false; clearView(); return; }
+    if(app.classList.contains('open')){ tryBootNow(); }
+    else{ booted3=false; clearView(); }
+  }).observe(app,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 <style id="cbwow4-css">
@@ -4466,6 +4470,435 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       if(window.__cbwowToast) __cbwowToast(msg); else alert(msg);
     });
   });
+})();
+</script>
+<style id="cbwow5-css">
+/* ═══ demo v5: modern shell — тёмная тема, app-бар, уведомления, скелетон ═══ */
+/* Тёмная палитра (Warm Sanctuary · Night) — только демо */
+.cb3-app.cb3-dark:not(.is-real){
+  --cream:#151220;--cream-2:#1C1829;
+  --ink:#F1EEF8;--ink-2:#C9C4DA;--ink-3:#8F89A8;
+  --indigo:#7A6BAE;--indigo-2:#8F81B8;--indigo-7:#D9D2EC;--indigo-9:#211C31;
+  --lilac:#2A2440;--lilac-2:#37304F;--lilac-line:#3A3354;
+  --gold:#E2A45C;--gold-2:#E0A45C;--gold-soft:#33281A;
+  --card:#201C2E;--line:#332D48;
+  --sh:0 2px 4px rgba(0,0,0,.3),0 32px 64px -36px rgba(0,0,0,.6);
+  --sh-sm:0 1px 2px rgba(0,0,0,.3),0 16px 34px -24px rgba(0,0,0,.5);
+  background:#151220;color:var(--ink);
+}
+.cb3-app.cb3-dark:not(.is-real) .cb3-sticky{background:rgba(21,18,32,.92)}
+.cb3-app.cb3-dark:not(.is-real) .cb3-top{background:transparent}
+.cb3-app.cb3-dark:not(.is-real) .cb3-tabs{background:transparent}
+.cb3-dark .cbx-name{color:#E8D9A8}
+.cb3-dark .cbx-sig-b,.cb3-dark .cbx-sig-l{color:#C9C4DA}
+.cb3-dark .cb3-ttl{color:#F1EEF8}
+/* ядровые карточки кабинета с жёстким #fff */
+.cb3-dark .cb3-greet,.cb3-dark .cb3-rem,.cb3-dark .cb3-paycard,.cb3-dark .cb3-chatcard,.cb3-dark .cb3-thread,
+.cb3-dark .cb3-app .cbx-card,.cb3-dark .cbx-card,.cb3-dark .cbx-moscard,.cb3-dark .cbx-pcard,.cb3-dark .cbx-paysupport,
+.cb3-dark .cbx-soon-item,.cb3-dark .cbx-sig,.cb3-dark .cbx-file,.cb3-dark .cbx-chip,.cb3-dark .path,.cb3-dark .cabcard,
+.cb3-dark .cbx-seg-cur,.cb3-dark .cbx-rcpt-btn,.cb3-dark .cbx-cardbtn,.cb3-dark .cb3-socdd
+{background:#201C2E;border-color:#332D48}
+.cb3-dark .cb3-tab{background:#201C2E;border-color:#332D48;color:#C9C4DA}
+.cb3-dark .cb3-exit{background:#201C2E;border-color:#332D48;color:#F1EEF8}
+.cb3-dark .cbx-input,.cb3-dark .cb3-chatin input{background:#1C1829;border-color:#332D48;color:#F1EEF8}
+.cb3-dark .cbx-drop{background:#1C1829;border-color:#3A3354}
+.cb3-dark .cbx-drop:hover,.cb3-dark .cbx-drop.cbx-drag{background:#221D33}
+.cb3-dark .cbx-pm-card{background:#201C2E}
+.cb3-dark .cbx-pm-field{background:#1C1829;border-color:#332D48}
+.cb3-dark .cbx-rcpt-paper{background:#1C1829;border-color:#332D48;color:#F1EEF8}
+.cb3-dark .cb3-req{background:#1C1829}
+.cb3-dark .cbx-seg-t{color:#F1EEF8}
+.cb3-dark .cbx-seg-d{color:#A9A3BE}
+.cb3-dark .cbx-seg-off .cbx-seg-t,.cb3-dark .cbx-seg-off .cbx-seg-d{color:#8F89A8}
+.cb3-dark .cbx-rcpt-btn{color:#C9C4DA}
+.cb3-dark .cbx-fine{color:#8F89A8}
+.cb3-dark .cabrow{border-color:#332D48}
+.cb3-dark .cb3-h{color:#F1EEF8}
+/* MOS-карта */
+.cb3-dark .cbx-mostitle b,.cb3-dark .cbx-kv{color:#F1EEF8}
+.cb3-dark .cbx-mostitle small{color:#8F89A8}
+.cb3-dark .cbx-kl,.cb3-dark .cbx-kvnote,.cb3-dark .cbx-stru{color:#8F89A8}
+.cb3-dark .cbx-stpill{color:#D9D2EC}
+.cb3-dark .cbx-sync{color:#C9C4DA}
+.cb3-dark .cbx-mosbtn,.cb3-dark .cbx-savebtn{background:#4A4165}
+/* чат */
+.cb3-dark .cbx-chip{color:#D9D2EC}
+.cb3-dark .cbx-qlabel{color:#A9A3BE}
+.cb3-dark .cbx-file,.cb3-dark .cbx-fico{color:#F1EEF8}
+.cb3-dark .cbx-sub,.cb3-dark .cbx-sla,.cb3-dark .cbx-slanote{color:#A9A3BE}
+.cb3-dark .cbx-duty{color:#D9D2EC}
+.cb3-dark .cbwow-typing{background:#2A2440}
+/* лента/активность */
+.cb3-dark .cbx-ev-bd b,.cb3-dark .cbx-hh,.cb3-dark .cbx-ghost b{color:#F1EEF8}
+.cb3-dark .cbx-ev-bd p,.cb3-dark .cbx-care-bd p,.cb3-dark .cbx-back-v{color:#B4AEC8}
+.cb3-dark .cbx-hsub{color:#8F89A8}
+.cb3-dark .cbx-zare{border-color:rgba(241,238,248,.5);color:rgba(241,238,248,.7)}
+/* сигнатура */
+.cb3-dark .cbx-sig-n{color:#D9D2EC}
+.cb3-dark .cbx-sig-b{background:#2A2440}
+/* оплаты */
+.cb3-dark .cbx-sup-tx b{color:#F1EEF8}
+.cb3-app.cb3-dark .cbx-seg-cur .cbx-seg-d{color:#A9A3BE}
+.cb3-dark .cbx-rcpt-ok{color:#7ED9A7}
+.cb3-dark .cbx-foot-ic{color:#A9A3BE}
+/* модалка оплаты картой */
+.cb3-dark .cbx-pm-title,.cb3-dark .cbx-pm-ok-t{color:#F1EEF8}
+.cb3-dark .cbx-pm-badge,.cb3-dark .cbx-pm-lab{color:#A9A3BE}
+.cb3-dark .cbx-pm-inp{color:#F1EEF8}
+.cb3-dark .cbx-pm-inp::placeholder{color:rgba(241,238,248,.35)}
+.cb3-dark .cbx-pm-meta{background:#1C1829}
+.cb3-dark .cbx-pm-meta-row span{color:#8F89A8}
+.cb3-dark .cbx-pm-meta-row b{color:#F1EEF8}
+/* детали */
+.cb3-dark .cbx-phead b,.cb3-dark .cbx-tgltxt b{color:#F1EEF8}
+.cb3-dark .cbx-lab,.cb3-dark .cbx-tgltxt small{color:#8F89A8}
+.cb3-dark .cbx-savedok{color:#7ED9A7}
+/* документы */
+.cb3-dark .cbx-droptxt b{color:#F1EEF8}
+.cb3-dark .cbx-droptxt small{color:#8F89A8}
+.cb3-dark .cbx-clip{color:#C3B7E4}
+.cb3-dark .cbwow-verdict{color:#BFE8D2}
+/* легальность + команда */
+.cb3-dark .cbx-legal{background:linear-gradient(135deg,#241F33,#2A2440);border-color:#3A3354}
+.cb3-dark .cbx-legal-h{color:#F1EEF8}
+.cb3-dark .cbx-legal-sub{color:#B4AEC8}
+.cb3-dark .cbx-legal p{color:#F1EEF8!important}
+.cb3-dark .cbx-legal p span{color:#C3B7E4!important}
+.cb3-dark .cbx-tcard{background:#201C2E!important;border-color:#332D48;color:#C9C4DA}
+.cb3-dark .cbx-tcard b{color:#F1EEF8}
+/* мелочи аддонов */
+.cb3-dark #cbwow-idea-walink{color:#C3B7E4}
+.cb3-dark .cbwow-card h4 svg{stroke:#C3B7E4}
+/* тосты живут в body — класс ставит setDark */
+body.cb3-dark-body #cbwow-toast{background:#201C2E;border-color:#332D48}
+body.cb3-dark-body #cbwow-toast b{color:#F1EEF8}
+body.cb3-dark-body #cbwow-toast small{color:#8F89A8}
+body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
+/* карточки/тексты аддонов с жёсткими цветами */
+.cb3-dark .cbws-t,.cb3-dark .cbws-row,.cb3-dark .cbwow-card,.cb3-dark .cbws-stats .st{background:#201C2E;border-color:#332D48}
+.cb3-dark .cbws-stats{background:#332D48;border-color:#332D48}
+.cb3-dark .cbws-hero{background:linear-gradient(135deg,#201C2E 30%,#251F3B);border-color:#332D48}
+.cb3-dark .cbws-t b,.cb3-dark .cbws-hero-tx b,.cb3-dark .cbws-stats .st b,.cb3-dark .cbws-hero-tx .lnk,.cb3-dark .cbws-row .go{color:#C3B7E4}
+.cb3-dark .cbws-t.amb b{color:#E2A45C}
+.cb3-dark .cbws-t.ok b{color:#7ED9A7}
+.cb3-dark .cbws-t small,.cb3-dark .cbws-hero-tx small{color:#A9A3BE}
+.cb3-dark .cbws-row .t{color:#A9A3BE}
+.cb3-dark .cbws-row .t b{color:#F1EEF8}
+.cb3-dark .cbwow-card h4{color:#F1EEF8}
+.cb3-dark .cbwow-card p{color:#C9C4DA}
+.cb3-dark .cbwow-card .big{color:#C3B7E4}
+.cb3-dark .cbws-t .ich,.cb3-dark .cbws-row .ich{background:#2A2440;color:#C3B7E4}
+.cb3-dark .cbws-t.amb .ich{background:#33281A;color:#E2A45C}
+.cb3-dark .cbws-t.ok .ich{background:#1C3328;color:#7ED9A7}
+.cb3-dark #cbwow-imp{background:linear-gradient(135deg,#2E2415,#332818);border-color:#54421F}
+.cb3-dark #cbwow-imp b{color:#E8C388}
+.cb3-dark #cbwow-imp span{color:#D6CFC2}
+.cb3-dark #cbwow-imp .ic{background:#201C2E}
+.cb3-dark .cbws-ring svg circle:first-child{stroke:#2A2440}
+.cb3-dark .cbws-ring .arc{stroke:#C3B7E4}
+.cb3-dark .cbws-ring .rc b{color:#C3B7E4}
+.cb3-dark #cbwow-idea-f textarea{background:#1C1829;border-color:#332D48;color:#F1EEF8}
+.cb3-dark .cbwow-scale{background:#2A2440}
+.cb3-dark .cbwow-chip{background:#201C2E;border-color:#332D48}
+.cb3-dark .cbwow-chip small{color:#C9C4DA}
+/* ── шапка: аватар · колокольчик · луна ── */
+.cb5-hbtn{position:relative;font:inherit;border:1px solid var(--line);background:var(--card);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--indigo);flex:none;transition:transform .18s}
+.cb5-hbtn:hover{transform:translateY(-1px)}
+.cb5-ava{position:relative;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#B5AACC,#5F5289);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;flex:none}
+.cb5-ava i{position:absolute;right:-2px;bottom:-2px;width:11px;height:11px;border-radius:50%;background:#25D366;border:2px solid var(--cream)}
+.cb5-badge{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;border-radius:99px;background:#C97F33;color:#fff;font-size:10.5px;font-weight:800;display:grid;place-items:center;padding:0 4px;transition:opacity .4s,transform .4s}
+.cb5-badge.off{opacity:0;transform:scale(.5)}
+@media(max-width:640px){#cb5-bellp{position:fixed!important;top:56px!important;left:10px;right:10px!important;width:auto!important}}
+#cb5-bellp{position:absolute;top:54px;right:0;width:min(92vw,330px);background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:8px;z-index:60;display:none}
+#cb5-bellp.on{display:block;animation:cbwsUp .3s cubic-bezier(.16,.7,.2,1)}
+#cb5-bellp .bh{display:flex;justify-content:space-between;align-items:baseline;padding:8px 10px 6px}
+#cb5-bellp .bh b{font-size:13px;color:var(--ink)}
+#cb5-bellp .bh small{font-size:11px;color:var(--ink-3)}
+.cb5-nitem{display:flex;gap:10px;align-items:flex-start;width:100%;font:inherit;text-align:left;background:none;border:0;border-radius:11px;padding:9px 10px;cursor:pointer}
+.cb5-nitem:hover{background:var(--lilac)}
+.cb5-nitem .nic{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center}
+.cb5-nitem b{display:block;font-size:12.5px;color:var(--ink);line-height:1.4;font-weight:700}
+.cb5-nitem small{font-size:11px;color:var(--ink-3)}
+/* ── нижний app-бар (мобайл, демо) ── */
+#cb5-bar{display:none}
+@media(max-width:640px){
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-top{gap:7px;padding:9px 12px 7px}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-ttl{font-size:13.5px;white-space:nowrap}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-soc{display:none}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb5-hbtn{width:33px;height:33px;border-radius:10px}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb5-ava{width:33px;height:33px;border-radius:10px;font-size:13px}
+  .cb3-app.cb5-hasbar:not(.is-real) #cb5-hwrap{gap:6px}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-exit{padding:7px 11px;font-size:12px}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-demo-chip{display:none}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-tabs{display:none}
+  .cb3-app.cb5-hasbar:not(.is-real) .cb3-body{padding-bottom:92px}
+  #cb5-bar{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:70;display:flex;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px -12px rgba(26,24,36,.45);padding:7px 6px calc(7px)}
+  .cb3-app.cb3-dark #cb5-bar{box-shadow:0 10px 40px -12px rgba(0,0,0,.7)}
+  #cb5-bar button{flex:1;font:inherit;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0 4px;border-radius:14px;color:var(--ink-3);position:relative}
+  #cb5-bar button span{font-size:9.5px;font-weight:800;letter-spacing:.02em}
+  #cb5-bar button.act{color:var(--indigo)}
+  #cb5-bar button.act::before{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:22px;height:3px;border-radius:99px;background:var(--indigo)}
+  #cb5-bar .bdg{position:absolute;top:1px;right:calc(50% - 16px);min-width:15px;height:15px;border-radius:99px;background:#C97F33;color:#fff;font-size:9.5px;font-weight:800;display:grid;place-items:center;padding:0 3px}
+}
+/* ── шторка «More» ── */
+#cb5-sheet{position:fixed;inset:0;z-index:80;display:none}
+#cb5-sheet.on{display:block}
+#cb5-sheet .ovl{position:absolute;inset:0;background:rgba(15,12,22,.55);opacity:0;transition:opacity .25s}
+#cb5-sheet.vis .ovl{opacity:1}
+#cb5-sheet .pan{position:absolute;left:0;right:0;bottom:0;background:var(--cream);border-radius:22px 22px 0 0;padding:10px 14px calc(20px + env(safe-area-inset-bottom));transform:translateY(102%);transition:transform .32s cubic-bezier(.16,.7,.2,1)}
+#cb5-sheet.vis .pan{transform:none}
+#cb5-sheet .grab{width:40px;height:4px;border-radius:99px;background:var(--lilac-2);margin:2px auto 12px}
+.cb5-srow{display:flex;align-items:center;gap:12px;width:100%;font:inherit;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-top:8px;cursor:pointer;color:var(--ink);font-weight:700;font-size:14px}
+.cb5-srow .ich{flex:none;width:30px;height:30px;border-radius:10px;background:var(--lilac);display:grid;place-items:center;color:var(--indigo)}
+.cb5-srow .arr{margin-left:auto;color:var(--ink-3)}
+/* ── скелетон при открытии ── */
+.cb3-app:not(.is-real) .cb3-body{position:relative}
+#cb5-skel{position:absolute;inset:0;z-index:40;background:var(--cream);padding:16px 12px;opacity:1;transition:opacity .35s}
+#cb5-skel.out{opacity:0;pointer-events:none}
+#cb5-skel .sk{border-radius:18px;background:linear-gradient(100deg,var(--lilac) 30%,var(--cream-2) 50%,var(--lilac) 70%);background-size:200% 100%;animation:cb5Shim 1.1s linear infinite;margin-bottom:12px}
+#cb5-skel .lbl{display:flex;align-items:center;gap:9px;justify-content:center;font-size:12.5px;font-weight:700;color:var(--ink-3);margin:14px 0}
+#cb5-skel .lbl i{width:14px;height:14px;border:2px solid var(--indigo-2);border-top-color:transparent;border-radius:50%;display:inline-block;animation:cbwowSpin .8s linear infinite}
+@keyframes cb5Shim{to{background-position:-200% 0}}
+/* ── переход контента при смене вкладки ── */
+.cb3-app:not(.is-real) .cb3-sec{animation:cb5In .3s cubic-bezier(.16,.7,.2,1)}
+.cb3-app:not(.is-real) .cb5-rein{animation:cb5In .3s cubic-bezier(.16,.7,.2,1)}
+@keyframes cb5In{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  .cb3-app:not(.is-real) .cb3-sec,.cb5-rein{animation:none}
+  #cb5-skel{display:none!important}
+  #cb5-bellp.on{animation:none}
+  #cb5-sheet .pan,#cb5-sheet .ovl{transition:none}
+}
+</style>
+<script id="cbwow5">
+/* Modern shell демо-кабинета: тёмная тема, колокольчик, аватар, app-бар, скелетон,
+   count-up, переходы вкладок. Только демо (.cb3-app без .is-real). */
+(function(){
+  var app=document.getElementById('cb3-app'); if(!app) return;
+  var demo=function(){return !app.classList.contains('is-real');};
+  var RM=function(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){return false;}};
+  function ic(p,w){ return '<svg width="'+(w||18)+'" height="'+(w||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'; }
+  var I={
+    bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+    moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    home:'<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/>',
+    docs:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/>',
+    chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>',
+    card:'<rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/>',
+    grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+    route:'<circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M12 19h4.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H12"/>',
+    gov:'<path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/>',
+    act:'<path d="M22 12h-4l-3 8-6-16-3 8H2"/>',
+    user:'<path d="M12 11c2 0 3.5-1.6 3.5-3.5S14 4 12 4 8.5 5.6 8.5 7.5 10 11 12 11Zm-7 9c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+    share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 3.9M15.4 6.6 8.6 10.5"/>'
+  };
+  function click(id){ var b=document.getElementById(id); if(b) b.click(); }
+
+  /* ── тёмная тема ── */
+  function setDark(on){
+    if(on) app.classList.add('cb3-dark'); else if(app.classList.contains('cb3-dark')) app.classList.remove('cb3-dark');
+    try{ document.body.classList.toggle('cb3-dark-body',!!on); }catch(e){}
+    try{ localStorage.setItem('cb3_dark', on?'1':''); }catch(e){}
+    var mb=document.getElementById('cb5-moon');
+    if(mb) mb.innerHTML=ic(on?I.sun:I.moon);
+  }
+  function darkPref(){ try{ return localStorage.getItem('cb3_dark')==='1'; }catch(e){ return false; } }
+
+  /* ── шапка: аватар + колокольчик + луна ── */
+  function buildHeader(){
+    if(document.getElementById('cb5-moon')) return;
+    var anchor=app.querySelector('.cb3-soc')||app.querySelector('.cb3-exit');
+    if(!anchor) return;
+    var host=anchor.parentElement;
+    var wrap=document.createElement('span');
+    wrap.id='cb5-hwrap';
+    wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;position:relative;margin-left:auto';
+    wrap.innerHTML=
+      '<span class="cb5-ava" title="Alina · online">A<i></i></span>'
+      +'<button type="button" class="cb5-hbtn" id="cb5-bell" aria-label="Notifications">'+ic(I.bell)+'<span class="cb5-badge" id="cb5-bbadge">3</span></button>'
+      +'<button type="button" class="cb5-hbtn" id="cb5-moon" aria-label="Toggle dark mode">'+ic(I.moon)+'</button>'
+      +'<div id="cb5-bellp" role="menu">'
+      +'<div class="bh"><b>Notifications</b><small id="cb5-bnew">3 new</small></div>'
+      +'<button type="button" class="cb5-nitem" data-nav="vt:mos"><span class="nic" style="background:#EEE9F4;color:#5F5289">'+ic(I.act,15)+'</span><span><b>Morning MOS check — no changes, all on track</b><small>today · 09:00</small></span></button>'
+      +'<button type="button" class="cb5-nitem" data-nav="tab:cb3-tab-pay"><span class="nic" style="background:#E4F4EC;color:#1E9E6A">'+ic(I.card,15)+'</span><span><b>Payment 2 of 3 — friendly reminder, due by Aug 15</b><small>yesterday</small></span></button>'
+      +'<button type="button" class="cb5-nitem" data-nav="vt:process"><span class="nic" style="background:#FCEFDE;color:#C97F33">'+ic(I.gov,15)+'</span><span><b>Invitation received — biometrics Aug 5, 10:30</b><small>Jul 15</small></span></button>'
+      +'</div>';
+    host.insertBefore(wrap,anchor);
+    var seen=false;
+    document.getElementById('cb5-bell').addEventListener('click',function(e){
+      e.stopPropagation();
+      var p=document.getElementById('cb5-bellp');
+      var on=p.classList.toggle('on');
+      if(on&&!seen){ seen=true; setTimeout(function(){
+        var b=document.getElementById('cb5-bbadge'); if(b) b.classList.add('off');
+        var n=document.getElementById('cb5-bnew'); if(n) n.textContent='all read ✓';
+      },700); }
+    });
+    if(!window.__cb5DocClose){ window.__cb5DocClose=1;
+      document.addEventListener('click',function(e){
+        var p=document.getElementById('cb5-bellp');
+        if(p&&p.classList.contains('on')&&!p.contains(e.target)&&e.target.id!=='cb5-bell') p.classList.remove('on');
+      });
+    }
+    document.getElementById('cb5-bellp').addEventListener('click',function(e){
+      var t=e.target.closest('[data-nav]'); if(!t) return;
+      navTo(t.dataset.nav);
+      document.getElementById('cb5-bellp').classList.remove('on');
+    });
+    document.getElementById('cb5-moon').addEventListener('click',function(){ setDark(!app.classList.contains('cb3-dark')); });
+    if(darkPref()) setDark(true);
+  }
+  function navTo(spec){
+    var m=spec.split(':');
+    if(m[0]==='vt') click('cb3-vtab-'+m[1]);
+    else click(m[1]);
+    syncBar();
+  }
+
+  /* ── нижний app-бар + шторка More ── */
+  var BAR=[['case',I.home,'Case','tab:cb3-tab-delo'],['docs',I.docs,'Docs','vt:docs'],['chat',I.chat,'Chat','tab:cb3-tab-chat'],['pay',I.card,'Pay','tab:cb3-tab-pay'],['more',I.grid,'More','sheet']];
+  function buildBar(){
+    if(document.getElementById('cb5-bar')) return;
+    var bar=document.createElement('nav');
+    bar.id='cb5-bar'; bar.setAttribute('aria-label','Quick navigation');
+    bar.innerHTML=BAR.map(function(b){
+      return '<button type="button" data-k="'+b[0]+'" data-nav="'+b[3]+'">'+ic(b[1],19)+'<span>'+b[2]+'</span>'+(b[0]==='chat'?'<i class="bdg">1</i>':'')+'</button>';
+    }).join('');
+    app.appendChild(bar);
+    app.classList.add('cb5-hasbar');
+    bar.addEventListener('click',function(e){
+      var t=e.target.closest('button'); if(!t) return;
+      if(t.dataset.nav==='sheet'){ openSheet(); return; }
+      navTo(t.dataset.nav);
+    });
+    var sh=document.createElement('div');
+    sh.id='cb5-sheet';
+    sh.innerHTML='<div class="ovl"></div><div class="pan"><div class="grab"></div>'
+      +'<button type="button" class="cb5-srow" data-nav="vt:process"><span class="ich">'+ic(I.route,15)+'</span>Your process<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" data-nav="vt:mos"><span class="ich">'+ic(I.gov,15)+'</span>MOS status<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" data-nav="vt:activity"><span class="ich">'+ic(I.act,15)+'</span>Activity<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" data-nav="tab:cb3-tab-profile"><span class="ich">'+ic(I.user,15)+'</span>Details<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" id="cb5-sheetsoc"><span class="ich">'+ic(I.share,15)+'</span>Follow us on social<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" id="cb5-sheetdark"><span class="ich">'+ic(I.moon,15)+'</span>Dark mode<span class="arr">→</span></button>'
+      +'</div>';
+    app.appendChild(sh);
+    sh.querySelector('.ovl').addEventListener('click',closeSheet);
+    sh.addEventListener('click',function(e){
+      var t=e.target.closest('[data-nav]');
+      if(t){ navTo(t.dataset.nav); closeSheet(); return; }
+      if(e.target.closest('#cb5-sheetdark')){ setDark(!app.classList.contains('cb3-dark')); closeSheet(); return; }
+      if(e.target.closest('#cb5-sheetsoc')){
+        closeSheet();
+        var dd=app.querySelector('.cb3-socdd');
+        if(dd){ dd.style.cssText='display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(100px + env(safe-area-inset-bottom));z-index:90'; 
+          var hide=function(ev){ if(!dd.contains(ev.target)){ dd.style.cssText=''; document.removeEventListener('click',hide,true); } };
+          setTimeout(function(){ document.addEventListener('click',hide,true); },50);
+        }
+      }
+    });
+  }
+  function openSheet(){ var s=document.getElementById('cb5-sheet'); if(!s) return; s.classList.add('on'); requestAnimationFrame(function(){ s.classList.add('vis'); }); }
+  function closeSheet(){ var s=document.getElementById('cb5-sheet'); if(!s) return; s.classList.remove('vis'); setTimeout(function(){ s.classList.remove('on'); },330); }
+  function syncBar(){
+    var bar=document.getElementById('cb5-bar'); if(!bar) return;
+    var v=app.dataset.view;
+    var key='case';
+    if(v==='docs') key='docs';
+    else if(v&&v!=='case') key='more';
+    else{
+      var sel=function(id){var b=document.getElementById(id);return b&&b.getAttribute('aria-selected')==='true';};
+      if(sel('cb3-tab-chat')) key='chat';
+      else if(sel('cb3-tab-pay')) key='pay';
+      else if(sel('cb3-tab-profile')) key='more';
+    }
+    [].forEach.call(bar.querySelectorAll('button'),function(b){ b.classList.toggle('act',b.dataset.k===key); });
+  }
+
+  /* ── скелетон «Syncing with your case…» ── */
+  function skeleton(){
+    if(RM()) return;
+    var body=app.querySelector('.cb3-body'); if(!body) return;
+    var old=document.getElementById('cb5-skel'); if(old) old.remove();
+    var s=document.createElement('div');
+    s.id='cb5-skel';
+    s.innerHTML='<div class="sk" style="height:120px"></div><div class="sk" style="height:88px"></div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="sk" style="height:110px;margin:0"></div><div class="sk" style="height:110px;margin:0"></div></div>'
+      +'<div class="lbl"><i></i>Syncing with your case…</div>';
+    body.appendChild(s);
+    setTimeout(function(){ s.classList.add('out'); setTimeout(function(){ s.remove(); },400); },720);
+  }
+
+  /* ── count-up чисел сводки ── */
+  function countUp(el,target,fmt){
+    if(!el||RM()){ if(el) el.textContent=fmt(target); return; }
+    var t0=null;
+    function step(ts){
+      if(!t0) t0=ts;
+      var k=Math.min(1,(ts-t0)/750);
+      k=1-Math.pow(1-k,3);
+      el.textContent=fmt(Math.round(target*k));
+      if(k<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function countUps(){
+    try{
+      var hero=app.querySelector('.cbws-hero-tx b');
+      if(hero&&!hero.__cb5cnt&&/Day\s+\d+/.test(hero.textContent)){
+        hero.__cb5cnt=1;
+        var d=parseInt(hero.textContent.replace(/\D+/g,''),10);
+        countUp(hero,d,function(v){return 'Day '+v;});
+      }
+      var pct=document.getElementById('cbws-st-docs');
+      if(pct&&!pct.__cb5cnt&&/^\d+%$/.test(pct.textContent.trim())){
+        pct.__cb5cnt=1;
+        var p=parseInt(pct.textContent,10);
+        countUp(pct,p,function(v){return v+'%';});
+      }
+    }catch(e){}
+  }
+
+  /* ── переход контента при смене data-view ── */
+  new MutationObserver(function(){
+    if(!demo()||RM()) return;
+    var sec=document.getElementById('cb3-sec-delo'); if(!sec) return;
+    sec.classList.remove('cb5-rein'); void sec.offsetWidth; sec.classList.add('cb5-rein');
+    syncBar();
+  }).observe(app,{attributes:true,attributeFilter:['data-view']});
+  app.addEventListener('click',function(e){
+    if(e.target.closest('.cb3-tab')) setTimeout(syncBar,60);
+  });
+
+  /* ── boot / teardown ── */
+  var booted5=false;
+  function boot5(){
+    buildHeader(); buildBar(); syncBar(); skeleton();
+    setTimeout(countUps,60); setTimeout(countUps,500);
+  }
+  function tryBoot(){ if(booted5) return; if(app.classList.contains('open')&&demo()){ booted5=true; boot5(); } }
+  function teardown(){
+    booted5=false;
+    ['cb5-hwrap','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
+    /* ВАЖНО: remove() отсутствующего класса ВСЁ РАВНО плодит mutation record →
+       безусловные вызовы здесь зацикливают observer ниже (зависание вкладки). */
+    if(app.classList.contains('cb5-hasbar')) app.classList.remove('cb5-hasbar');
+    if(app.classList.contains('cb3-dark')) app.classList.remove('cb3-dark');
+    if(app.dataset.view!==undefined&&app.classList.contains('is-real')) delete app.dataset.view;
+    var dd=app.querySelector('.cb3-socdd'); if(dd&&dd.style.cssText) dd.style.cssText='';
+    var sec=document.getElementById('cb3-sec-delo'); if(sec&&sec.classList.contains('cb5-rein')) sec.classList.remove('cb5-rein');
+    try{ document.body.classList.remove('cb3-dark-body'); }catch(e){}
+  }
+  tryBoot();
+  var prev5=window.cb3OpenRaw;
+  if(typeof prev5==='function'){ window.cb3OpenRaw=function(t){ var r=prev5.apply(this,arguments); tryBoot(); return r; }; }
+  var p5=setInterval(function(){ tryBoot(); if(booted5) clearInterval(p5); },150);
+  setTimeout(function(){clearInterval(p5);},30000);
+  new MutationObserver(function(){
+    if(app.classList.contains('is-real')){ teardown(); return; }
+    if(app.classList.contains('open')){ tryBoot(); }
+    else{ teardown(); }
+  }).observe(app,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 </body>
