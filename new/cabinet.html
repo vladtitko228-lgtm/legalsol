@@ -2033,7 +2033,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cbwow-card" id="cbwow-idea" style="margin-top:16px">
   <h4>💡 Make this portal better</h4>
   <p>Missing a feature? Have an idea? Tell us — we build this portal around our clients, and the best suggestions go live.</p>
-  <a class="cbwow-icsbtn" style="text-decoration:none;margin-top:12px" target="_blank" rel="noopener" href="https://wa.me/48735248525?text=Hi!%20I%20have%20a%20suggestion%20for%20the%20client%20portal:%20">💬 Suggest an improvement</a>
+  <div id="cbwow-idea-f">
+    <textarea id="cbwow-idea-txt" rows="3" maxlength="600" placeholder="What would make this portal better for you?"></textarea>
+    <input id="cbwow-idea-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="cbwow-idea-row">
+      <button class="cbwow-icsbtn" id="cbwow-idea-send" type="button" style="margin-top:0">💬 Send to the team</button>
+      <a id="cbwow-idea-walink" href="https://wa.me/48735248525?text=Hi!%20I%20have%20a%20suggestion%20for%20the%20client%20portal:%20" target="_blank" rel="noopener">or via WhatsApp</a>
+    </div>
+  </div>
+  <p id="cbwow-idea-ok" hidden>✓ Sent! Your idea just landed in the team’s Telegram — thank you.</p>
   <span style="display:block;margin-top:10px;font-size:12px;color:#8C88A6">Goes straight to the team — we reply within 15 minutes during working hours.</span>
 </div></div></div>
   </div>
@@ -4278,6 +4286,13 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 .cbws-grid .cbws-t:nth-child(4){animation:cbwsUp .55s .21s cubic-bezier(.16,.7,.2,1) both}
 @keyframes cbwsUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media(max-width:420px){.cbws-hero{gap:14px;padding:16px}.cbws-hero-tx b{font-size:23px}.cbws-t b{font-size:17.5px}}
+#cbwow-idea-f textarea{width:100%;box-sizing:border-box;font:inherit;font-size:13.5px;color:#1A1824;background:#FBF9F4;border:1px solid #E8E2D8;border-radius:12px;padding:11px 13px;margin-top:12px;resize:vertical;min-height:74px}
+#cbwow-idea-f textarea:focus{outline:2px solid #B5AACC;outline-offset:1px}
+#cbwow-idea-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cbwow-idea-row{display:flex;align-items:center;gap:14px;margin-top:11px;flex-wrap:wrap}
+#cbwow-idea-walink{font-size:12.5px;font-weight:700;color:#5F5289}
+#cbwow-idea-ok{margin-top:12px;font-size:13.5px;font-weight:700;color:#1E9E6A}
+#cbwow-idea-send[disabled]{opacity:.6;cursor:default}
 @media(prefers-reduced-motion:reduce){.cbws-t,.cbws-hero,.cbws-row,#cbwow-imp{transition:none}#cbwow-sum>*,.cbws-grid .cbws-t{animation:none}.cbws-head small i{animation:none}.cbws-ring .arc{transition:none}}
 </style>
 <script id="cbwow4">
@@ -4419,6 +4434,38 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     if(app.classList.contains('open')){ tryBoot(); }
     else{ teardown(); }
   }).observe(app,{attributes:true,attributeFilter:['class']});
+})();
+</script>
+<script id="cbwow-idea-js">
+/* Кнопка «Suggest an improvement»: POST /api/cabinet/suggest → очередь → TG-бот команды */
+(function(){
+  var btn=document.getElementById('cbwow-idea-send');
+  var txt=document.getElementById('cbwow-idea-txt');
+  var hp=document.getElementById('cbwow-idea-hp');
+  var okEl=document.getElementById('cbwow-idea-ok');
+  var form=document.getElementById('cbwow-idea-f');
+  if(!btn||!txt) return;
+  btn.addEventListener('click',function(){
+    var t=(txt.value||'').trim();
+    if(t.length<3){ txt.focus(); return; }
+    btn.disabled=true; var old=btn.textContent; btn.textContent='Sending…';
+    var app=document.getElementById('cb3-app');
+    var mode=(app&&app.classList.contains('is-real'))?'real':'demo';
+    fetch('/api/cabinet/suggest',{method:'POST',credentials:'same-origin',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({text:t,hp:(hp&&hp.value)||'',page:'cabinet#'+mode})})
+    .then(function(r){ if(!r.ok) throw new Error(r.status===429?'slow':'http'); return r.json(); })
+    .then(function(){
+      if(form) form.hidden=true;
+      if(okEl) okEl.hidden=false;
+      if(window.__cbwowToast) __cbwowToast('Suggestion sent to the team ✓');
+    })
+    .catch(function(e){
+      btn.disabled=false; btn.textContent=old;
+      var msg=e&&e.message==='slow'?'One suggestion per minute — try again shortly.':'Could not send — try WhatsApp below.';
+      if(window.__cbwowToast) __cbwowToast(msg); else alert(msg);
+    });
+  });
 })();
 </script>
 </body>
