@@ -4129,11 +4129,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   var demo=function(){return !app.classList.contains('is-real');};
   var built=false;
 
-  var PATS={process:/YOUR CASE'S JOURNEY|Next reminder|Biometrics appointment/i, mos:/Status in MOS/i,
-            docs:/Package for case|Upload a document/i, activity:/While you were living|What's happening now|Case feed/i,
-            'case':/CASE PROGRESS|Expected decision|stay in Poland is legal/i};
+  var PATS={process:/YOUR CASE'S JOURNEY|Next reminder|Biometrics appointment|CASE PROGRESS|Expected decision|stay in Poland is legal/i, mos:/Status in MOS/i,
+            docs:/Package for case|Upload a document/i, activity:/While you were living|What's happening now|Case feed/i};
   var CLS=[['cb3-greet','hdr'],['cb3-final','hdr'],['cb3-crm','hdr'],['cbx-feed','activity'],
-           ['cbx-team','case'],['cbx-contact','case'],['cbx-soon','case']];
+           ['cbx-team','process'],['cbx-contact','process'],['cbx-soon','process']];
   function marks(el){var t=el.textContent||'',m=[];for(var k in PATS){if(PATS[k].test(t))m.push(k);}return m;}
   function byClass(el){for(var i=0;i<CLS.length;i++){if(el.classList&&el.classList.contains(CLS[i][0]))return CLS[i][1];}return null;}
   function tag(el,depth){
@@ -4215,33 +4214,63 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 })();
 </script>
 <style id="cbwow4-css">
-/* ═══ demo v4: сводка «Case at a glance» на главной вкладке ═══ */
+/* ═══ demo v4.1: главный экран «Case at a glance» ═══ */
 .cb3-app.is-real #cbwow-sum{display:none!important}
 #cbwow-sum{margin:14px 0 4px}
-.cbws-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 9px}
+.cbws-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 10px}
 .cbws-head b{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#8C88A6;font-weight:800}
 .cbws-head small{font-size:12px;color:#8C88A6}
 .cbws-head small i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#25D366;margin-right:5px;vertical-align:1px;animation:cbwsLive 1.6s infinite}
 @keyframes cbwsLive{0%,100%{opacity:1}50%{opacity:.35}}
-.cbws-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-@media(min-width:760px){.cbws-grid{grid-template-columns:repeat(3,1fr)}}
-.cbws-t{font:inherit;text-align:left;background:#fff;border:1px solid #E8E2D8;border-radius:16px;padding:13px 14px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0;box-shadow:0 1px 2px rgba(26,24,36,.04);transition:transform .22s cubic-bezier(.16,.7,.2,1),box-shadow .22s}
+.cbws-hero{font:inherit;width:100%;text-align:left;display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#fff 30%,#F5F1FB);border:1px solid #E8E2D8;border-radius:20px;padding:18px 20px;cursor:pointer;box-shadow:0 1px 2px rgba(26,24,36,.04),0 18px 40px -28px rgba(95,82,137,.35);transition:transform .22s cubic-bezier(.16,.7,.2,1),box-shadow .22s}
+.cbws-hero:hover{transform:translateY(-2px);box-shadow:0 22px 48px -26px rgba(95,82,137,.45)}
+.cbws-ring{position:relative;flex:none;width:76px;height:76px}
+.cbws-ring .arc{transition:stroke-dashoffset 1.25s cubic-bezier(.3,.7,.3,1)}
+.cbws-ring .rc{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.cbws-ring .rc b{font-size:19px;font-weight:800;color:#5F5289;letter-spacing:-.02em;line-height:1}
+.cbws-ring .rc b i{font-style:normal;font-size:12.5px;color:#8C88A6;font-weight:800}
+.cbws-ring .rc small{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#8C88A6;font-weight:800;margin-top:2px}
+.cbws-hero-tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.cbws-hero-tx .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8C88A6;font-weight:800}
+.cbws-hero-tx b{font-size:27px;font-weight:800;color:#5F5289;letter-spacing:-.025em;line-height:1.1;margin-top:2px}
+.cbws-hero-tx small{font-size:12.5px;color:#6B667F;line-height:1.5;margin-top:3px}
+.cbws-hero-tx .lnk{font-size:12.5px;font-weight:800;color:#5F5289;margin-top:7px}
+.cbws-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:9px}
+@media(min-width:860px){.cbws-grid{grid-template-columns:repeat(4,1fr)}}
+.cbws-t{font:inherit;text-align:left;background:#fff;border:1px solid #E8E2D8;border-radius:17px;padding:13px 14px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0;box-shadow:0 1px 2px rgba(26,24,36,.04);transition:transform .22s cubic-bezier(.16,.7,.2,1),box-shadow .22s}
 .cbws-t:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(26,24,36,.28)}
-.cbws-t .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8C88A6;font-weight:800;display:flex;align-items:center;gap:5px}
-.cbws-t .k svg{flex:none}
-.cbws-t b{font-size:21px;font-weight:800;color:#5F5289;letter-spacing:-.02em;line-height:1.15;margin-top:3px}
+.cbws-t .ich{width:27px;height:27px;border-radius:9px;background:#EEE9F4;color:#5F5289;display:grid;place-items:center;margin-bottom:7px}
+.cbws-t.amb .ich{background:#F9EFDD;color:#C97F33}
+.cbws-t.ok .ich{background:#E4F4EC;color:#1E9E6A}
+.cbws-t .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8C88A6;font-weight:800}
+.cbws-t b{font-size:19.5px;font-weight:800;color:#5F5289;letter-spacing:-.02em;line-height:1.18;margin-top:3px}
 .cbws-t small{font-size:11.5px;color:#6B667F;line-height:1.45;margin-top:2px}
 .cbws-t.amb b{color:#C97F33}
 .cbws-t.ok b{color:#1E9E6A}
-.cbws-t .cbws-up{font:inherit;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#B5AACC,#403950);border:0;border-radius:999px;padding:6px 13px;margin-top:8px;cursor:pointer;align-self:flex-start}
+.cbws-t .cbws-up{font:inherit;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#B5AACC,#403950);border:0;border-radius:999px;padding:6px 13px;margin-top:9px;cursor:pointer;align-self:flex-start}
+.cbws-row{font:inherit;width:100%;text-align:left;display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #E8E2D8;border-radius:14px;padding:11px 15px;margin-top:9px;cursor:pointer;transition:transform .22s cubic-bezier(.16,.7,.2,1)}
+.cbws-row:hover{transform:translateY(-1px)}
+.cbws-row .ich{flex:none;width:27px;height:27px;border-radius:9px;background:#EEE9F4;color:#5F5289;display:grid;place-items:center}
+.cbws-row .t{min-width:0;font-size:12.5px;color:#6B667F;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbws-row .t b{color:#1A1824;font-weight:800}
+.cbws-row .go{margin-left:auto;flex:none;color:#5F5289;font-weight:800}
 #cbwow-imp{width:100%;font:inherit;text-align:left;display:flex;gap:12px;align-items:flex-start;background:linear-gradient(135deg,#FBF3E4,#F7EAD2);border:1px solid #EAD9B0;border-radius:16px;padding:13px 15px;margin-top:9px;cursor:pointer;transition:transform .22s cubic-bezier(.16,.7,.2,1)}
 #cbwow-imp:hover{transform:translateY(-2px)}
 #cbwow-imp .ic{flex:none;width:34px;height:34px;border-radius:11px;background:#fff;display:grid;place-items:center;box-shadow:0 2px 6px rgba(201,127,51,.25)}
 #cbwow-imp b{display:block;font-size:12.5px;color:#8A5A1E;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
 #cbwow-imp span{font-size:13px;color:#3B3548;line-height:1.5}
 #cbwow-imp .go{margin-left:auto;align-self:center;flex:none;color:#C97F33;font-weight:800;font-size:16px}
-@media(max-width:420px){.cbws-t b{font-size:19px}}
-@media(prefers-reduced-motion:reduce){.cbws-t,#cbwow-imp{transition:none}.cbws-head small i{animation:none}}
+#cbwow-sum>*{animation:cbwsUp .55s cubic-bezier(.16,.7,.2,1) both}
+#cbwow-sum>*:nth-child(2){animation-delay:.05s}
+#cbwow-sum>*:nth-child(3){animation-delay:.12s}
+#cbwow-sum>*:nth-child(4){animation-delay:.19s}
+#cbwow-sum>*:nth-child(5){animation-delay:.26s}
+.cbws-grid .cbws-t:nth-child(2){animation:cbwsUp .55s .15s cubic-bezier(.16,.7,.2,1) both}
+.cbws-grid .cbws-t:nth-child(3){animation:cbwsUp .55s .18s cubic-bezier(.16,.7,.2,1) both}
+.cbws-grid .cbws-t:nth-child(4){animation:cbwsUp .55s .21s cubic-bezier(.16,.7,.2,1) both}
+@keyframes cbwsUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:420px){.cbws-hero{gap:14px;padding:16px}.cbws-hero-tx b{font-size:23px}.cbws-t b{font-size:17.5px}}
+@media(prefers-reduced-motion:reduce){.cbws-t,.cbws-hero,.cbws-row,#cbwow-imp{transition:none}#cbwow-sum>*,.cbws-grid .cbws-t{animation:none}.cbws-head small i{animation:none}.cbws-ring .arc{transition:none}}
 </style>
 <script id="cbwow4">
 /* Сводка «Case at a glance» на вкладке Case: дни в работе, прогноз решения, отпечатки,
@@ -4276,17 +4305,22 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     el.id='cbwow-sum'; el.dataset.cg='case';
     el.innerHTML=
       '<div class="cbws-head"><b>Your case at a glance</b><small><i></i>updated just now</small></div>'
+      +'<button type="button" class="cbws-hero" data-go="process"><span class="cbws-ring"><svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="38" cy="38" r="32" fill="none" stroke="#EEE9F4" stroke-width="7"/><circle class="arc" cx="38" cy="38" r="32" fill="none" stroke="#5F5289" stroke-width="7" stroke-linecap="round" stroke-dasharray="201.1" stroke-dashoffset="201.1" transform="rotate(-90 38 38)"/></svg><span class="rc"><b>5<i>/7</i></b><small>stages</small></span></span>'
+      +'<span class="cbws-hero-tx"><span class="k">In work</span><b>Day '+dWork+'</b><small>with us since May 12 · submission via MOS complete</small><span class="lnk">Full journey →</span></span></button>'
       +'<div class="cbws-grid">'
-      +'<button type="button" class="cbws-t" data-go="process"><span class="k">'+ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>')+'In work</span><b>Day '+dWork+'</b><small>with us since May 12 · stage 5 of 7</small></button>'
-      +'<button type="button" class="cbws-t" data-fc="1"><span class="k">'+ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')+'Decision expected</span><b>Dec — Feb</b><small>official window: Dec 2026 — Feb 2027</small></button>'
-      +'<button type="button" class="cbws-t" data-go="process"><span class="k">'+ic('<path d="M12 11c2 0 3.5-1.6 3.5-3.5S14 4 12 4 8.5 5.6 8.5 7.5 10 11 12 11Zm-7 9c0-3.9 3.1-7 7-7s7 3.1 7 7"/>')+'Biometrics</span><b>Aug 5, 10:30</b><small>ul. Marszałkowska 3/5 · passport only</small></button>'
-      +'<button type="button" class="cbws-t amb" id="cbws-need" data-go="docs"><span class="k">'+ic('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/>')+'Needed from you</span><b>1 item</b><small>Photo 35×45 mm — a phone photo is fine</small><span class="cbws-up">Upload now</span></button>'
-      +'<button type="button" class="cbws-t" data-go="activity"><span class="k">'+ic('<path d="M22 12h-4l-3 8-6-16-3 8H2"/>')+'Last activity</span><b>Today</b><small id="cbws-act"></small></button>'
-      +'<button type="button" class="cbws-t ok" data-legal="1"><span class="k">'+ic('<path d="M20 6 9 17l-5-5"/>')+'Legal stay</span><b>Day '+dLegal+' ✓</b><small>100% legal while the case is pending</small></button>'
+      +'<button type="button" class="cbws-t" data-fc="1"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><span class="k">Decision expected</span><b>Dec — Feb</b><small>Dec 2026 — Feb 2027 · we check every day</small></button>'
+      +'<button type="button" class="cbws-t" data-go="process"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c2 0 3.5-1.6 3.5-3.5S14 4 12 4 8.5 5.6 8.5 7.5 10 11 12 11Zm-7 9c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg></span><span class="k">Biometrics</span><b>Aug 5, 10:30</b><small>Marszałkowska 3/5 · passport only</small></button>'
+      +'<button type="button" class="cbws-t amb" id="cbws-need" data-go="docs"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg></span><span class="k">Needed from you</span><b>1 item</b><small>Photo 35×45 mm — a phone photo is fine</small><span class="cbws-up">Upload now</span></button>'
+      +'<button type="button" class="cbws-t ok" data-legal="1"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="k">Legal stay</span><b>Day '+dLegal+' ✓</b><small>100% legal while we wait</small></button>'
       +'</div>'
+      +'<button type="button" class="cbws-row" data-go="activity"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 8-6-16-3 8H2"/></svg></span><span class="t"><b>Today</b><span id="cbws-act"></span></span><span class="go">→</span></button>'
       +'<button type="button" id="cbwow-imp"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C97F33" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><span style="min-width:0"><b>Important now</b><span>Invitation received — fingerprints on Aug 5 at 10:30. Bring only your passport; we\u2019ll remind you a day before in WhatsApp.</span></span><span class="go">→</span></button>';
 
-    el.querySelector('#cbws-act').textContent=lastActivity();
+    el.querySelector('#cbws-act').textContent=' · '+lastActivity();
+    var arc=el.querySelector('.cbws-ring .arc');
+    if(arc){ var setArc=function(){ arc.style.strokeDashoffset='58.3'; };
+      requestAnimationFrame(function(){ requestAnimationFrame(setArc); });
+      setTimeout(setArc,450); }
     function place(){
       var g=sec.querySelector('.cb3-greet');
       if(g&&g.parentElement===sec){ if(el.previousElementSibling!==g) sec.insertBefore(el,g.nextSibling); }
@@ -4304,11 +4338,12 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
       var t=e.target.closest('[data-go],[data-fc],[data-legal],#cbwow-imp');
       if(!t||!el.contains(t)) return;
       if(t.id==='cbwow-imp'){ go('process'); pulse(/Biometrics appointment/); return; }
-      if(t.dataset.fc){ pulse(/Expected decision/); return; }
-      if(t.dataset.legal){ pulse(/stay in Poland is legal/); return; }
+      if(t.dataset.fc){ go('process'); pulse(/Expected decision/); return; }
+      if(t.dataset.legal){ go('process'); pulse(/stay in Poland is legal/); return; }
       var v=t.dataset.go;
       go(v);
       if(v==='docs') pulse(/Upload a document|drag it here/i);
+      if(v==='process'&&t.classList.contains('cbws-hero')) pulse(/YOUR CASE'S JOURNEY/i);
       if(v==='process'&&t.querySelector('b')&&/Aug 5/.test(t.querySelector('b').textContent)) pulse(/Biometrics appointment/);
     });
 
