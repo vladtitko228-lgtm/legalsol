@@ -4124,7 +4124,10 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 
 <style id="cbwow3-css">
 /* ═══ v3: разбивка «Дела» на тематические вкладки (демо) ═══ */
-.cb3-app[data-view]:not(.is-real) #cb3-sec-delo [data-cg]{display:none!important}
+/* NB: специфичность ДОЛЖНА быть ниже show-правил ниже (:not(.is-real) сюда нельзя —
+   перевесит revert и спрячет всё). Реальный режим защищён кодом: data-view чистится
+   при is-real (observer v3 + teardown v5). */
+.cb3-app[data-view] #cb3-sec-delo [data-cg]{display:none!important}
 .cb3-app[data-view] #cb3-sec-delo [data-cg="hdr"]{display:revert!important}
 .cb3-app[data-view="case"] #cb3-sec-delo [data-cg="case"]{display:revert!important}
 .cb3-app[data-view="process"] #cb3-sec-delo [data-cg="process"]{display:revert!important}
