@@ -4451,9 +4451,9 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     btn.disabled=true; var old=btn.textContent; btn.textContent='Sending…';
     var app=document.getElementById('cb3-app');
     var mode=(app&&app.classList.contains('is-real'))?'real':'demo';
-    fetch('/api/cabinet/suggest',{method:'POST',credentials:'same-origin',
+    fetch('/api/cabinet/me',{method:'POST',credentials:'same-origin',
       headers:{'content-type':'application/json'},
-      body:JSON.stringify({text:t,hp:(hp&&hp.value)||'',page:'cabinet#'+mode})})
+      body:JSON.stringify({kind:'idea',text:t,hp:(hp&&hp.value)||''})})
     .then(function(r){ if(!r.ok) throw new Error(r.status===429?'slow':'http'); return r.json(); })
     .then(function(){
       if(form) form.hidden=true;

@@ -1,7 +1,7 @@
 // GET /api/cabinet/me — данные авторизованного клиента из Kommo.
 // Показываем ТОЛЬКО сделки из Pipeline 2 (Легализация) — это оплаченные клиенты.
 const {
-  kommo, getCfValue, getCfAllValues, verifyJwt, readCookie, readJsonBody,
+  kommo, getCfValue, getCfAllValues, verifyJwt, readCookie, readJsonBody, clientIp,
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, serviceNameEn, isChatReplyNote, stripChatReplyPrefix,
   isClientNote, stripClientPrefix,
   isPaymentNote, parsePaymentNote,
@@ -38,6 +38,25 @@ module.exports = async function handler(req, res) {
   try {
     const token = readCookie(req, 'cabinet_token');
     const payload = verifyJwt(token);
+
+    // ── Публичная ветка: пожелание из ДЕМО-портала (без сессии) ──
+    // Кнопка «Suggest an improvement» у гостей. Падает заметкой «ПОЖЕЛАНИЕ:»
+    // на служебный лид — дальше бот (clientmsgwatch) шлёт её команде в
+    // Telegram тем же путём, что и пожелания реальных клиентов.
+    if (!payload && req.method === 'POST') {
+      const body = await readJsonBody(req);
+      if (body.kind !== 'idea') return res.status(401).json({ error: 'unauthorized' });
+      if (body.hp) return res.status(200).json({ ok: true }); // honeypot — молча «ок»
+      const text = String(body.text || '').replace(/\s+/g, ' ').trim().slice(0, 600);
+      if (text.length < 3) return res.status(400).json({ error: 'text_required' });
+      const rl = await kvCmd('SET', `sug:rl:${clientIp(req)}`, '1', 'EX', '60', 'NX');
+      if (rl !== null && rl !== 'OK') return res.status(429).json({ error: 'slow_down' });
+      const DEMO_IDEAS_LEAD_ID = 21208806; // «Гость демо-портала» в Ops-воронке
+      await kommo('POST', `/leads/${DEMO_IDEAS_LEAD_ID}/notes`, [
+        { note_type: 'common', params: { text: 'ПОЖЕЛАНИЕ: [демо-портал] ' + text } }
+      ]);
+      return res.status(200).json({ ok: true });
+    }
     if (!payload) return res.status(401).json({ error: 'unauthorized' });
 
     // Сотрудник (Даша) — отдаём роль, без клиентских данных. Фронт покажет админ-панель.
