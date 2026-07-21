@@ -1163,6 +1163,44 @@ html.menu-open #m-cta{display:none}
  .ct-arrow{display:none}
 }
 
+/* v3: главный экран, тёмный мок, гряда фич */
+.ct-gl-hero{display:flex;gap:16px;align-items:center;margin-bottom:14px}
+.ct-ring{position:relative;flex:none;width:64px;height:64px}
+.ct-ring i{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:800;color:var(--indigo)}
+.ct-gl-tx{display:flex;flex-direction:column}
+.ct-gl-tx small{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.ct-gl-tx b{font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--indigo);line-height:1.1}
+.ct-gl-tx small:last-child{text-transform:none;letter-spacing:0;font-weight:600}
+.ct-gl-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.ct-gl-tiles span{background:var(--cream);border:1px solid var(--line);border-radius:13px;padding:10px 12px;display:flex;flex-direction:column}
+.ct-gl-tiles small{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.ct-gl-tiles b{font-size:15.5px;font-weight:800;color:var(--indigo);margin-top:2px}
+.ct-gl-tiles .amb b{color:var(--gold-2)}
+.ct-gl-stats{display:flex;border-top:1px dashed var(--line);padding-top:11px;font-size:12px;color:var(--ink-3)}
+.ct-gl-stats span{flex:1;text-align:center}
+.ct-gl-stats b{color:var(--indigo);font-weight:800;font-size:14px;display:block}
+.ct-darkm{background:#151220;border-color:#332D48}
+.ct-dk-hd{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ct-dk-hd .ava{position:relative;width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#B5AACC,#5F5289);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.ct-dk-hd .ava i{position:absolute;right:-2px;bottom:-2px;width:9px;height:9px;border-radius:50%;background:#25D366;border:2px solid #151220}
+.ct-dk-t{font-size:13.5px;font-weight:800;color:#F1EEF8}
+.ct-dk-hd .bell{margin-left:auto;position:relative;font-size:15px}
+.ct-dk-hd .bell b{position:absolute;top:-6px;right:-8px;background:#C97F33;color:#fff;font-size:9px;font-weight:800;min-width:14px;height:14px;border-radius:99px;display:grid;place-items:center}
+.ct-dk-hd .moon{font-size:15px;margin-left:6px}
+.ct-dk-tiles{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.ct-dk-tiles span{background:#201C2E;border:1px solid #332D48;border-radius:13px;padding:11px 13px;display:flex;flex-direction:column}
+.ct-dk-tiles small{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#8F89A8}
+.ct-dk-tiles b{font-size:16px;font-weight:800;color:#C3B7E4;margin-top:2px}
+.ct-dk-bar{display:flex;justify-content:space-around;background:#201C2E;border:1px solid #332D48;border-radius:14px;padding:9px 8px;font-size:15px;color:#8F89A8}
+.ct-dk-bar .on{color:#C3B7E4}
+.ct-more{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.ct-mc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 19px;box-shadow:var(--sh-sm)}
+.ct-mc .mi{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--lilac);font-size:19px;margin-bottom:11px}
+.ct-mc b{display:block;font-size:15px;margin-bottom:4px}
+.ct-mc small{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+@media(max-width:900px){.ct-more{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.ct-more{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1238,7 +1276,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div>
       <span class="eyebrow">Client portal</span>
       <h1>Your case — <em>always in your pocket</em></h1>
-      <p class="lead">Status. Chat. Payments. One portal, 24/7.</p>
+      <p class="lead">Status. Chat. Payments. Dark mode. One portal, 24/7.</p>
       <div class="ct-ctas">
         <a class="btn btn-primary btn-lg" href="/cabinet?app=1">Open the demo →</a>
         <a class="btn btn-ghost btn-lg" href="/cabinet">Client log in</a>
@@ -1270,6 +1308,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="ct-feat">
     <div class="ct-txt">
+      <span class="ct-chip">Home screen</span>
+      <h3>The whole case at a glance</h3>
+      <div class="ct-big">5 <em>sec</em><small>to know everything's on track</small></div>
+    </div>
+    <div class="ct-fmock reveal">
+      <div class="ct-gl-hero">
+        <span class="ct-ring"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--lilac)" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="var(--indigo)" stroke-width="6" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="47.4" transform="rotate(-90 32 32)"/></svg><i>5/7</i></span>
+        <span class="ct-gl-tx"><small>In work</small><b>Day 70</b><small>since May 12</small></span>
+      </div>
+      <div class="ct-gl-tiles">
+        <span><small>Decision</small><b>Dec — Feb</b></span>
+        <span class="amb"><small>Needed from you</small><b>1 item — photo</b></span>
+      </div>
+      <div class="ct-gl-stats"><span><b>91%</b> documents</span><span><b>1 of 3</b> paid</span><span><b>&lt; 15 min</b> reply</span></div>
+    </div>
+  </div>
+
+  <div class="ct-feat rev">
+    <div class="ct-txt">
       <span class="ct-chip">Status</span>
       <h3>Always know where your case is</h3>
       <p class="ct-line">Seven stages. One glowing dot: you are here.</p>
@@ -1285,7 +1342,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="ct-feat rev">
+  <div class="ct-feat">
     <div class="ct-txt">
       <span class="ct-chip">Chat</span>
       <h3>A lawyer who actually replies</h3>
@@ -1300,7 +1357,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="ct-feat">
+  <div class="ct-feat rev">
     <div class="ct-txt">
       <span class="ct-chip">Government sync</span>
       <h3>Straight from the MOS system</h3>
@@ -1313,7 +1370,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="ct-feat rev">
+  <div class="ct-feat">
     <div class="ct-txt">
       <span class="ct-chip">Documents</span>
       <h3>Checked twice.<br>AI + lawyer.</h3>
@@ -1327,7 +1384,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="ct-feat">
+  <div class="ct-feat rev">
     <div class="ct-txt">
       <span class="ct-chip">Payments</span>
       <h3>Transparent. In parts.</h3>
@@ -1340,7 +1397,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <div class="ct-feat rev">
+  <div class="ct-feat">
     <div class="ct-txt">
       <span class="ct-chip">Reminders</span>
       <h3>We remember for you</h3>
@@ -1352,10 +1409,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="ct-remind"><span>90</span><span>60</span><span>30</span></div>
     </div>
   </div>
+
+  <div class="ct-feat rev">
+    <div class="ct-txt">
+      <span class="ct-chip">Feels like an app</span>
+      <h3>Dark mode. App bar. Notifications.</h3>
+      <div class="ct-big">1 <em>tap</em><small>light ↔ dark — your choice is saved</small></div>
+    </div>
+    <div class="ct-fmock reveal ct-darkm">
+      <div class="ct-dk-hd"><span class="ava">A<i></i></span><span class="ct-dk-t">Client portal</span><span class="bell">🔔<b>3</b></span><span class="moon">🌙</span></div>
+      <div class="ct-dk-tiles">
+        <span><small>In work</small><b>Day 70</b></span>
+        <span><small>Decision</small><b>Dec — Feb</b></span>
+      </div>
+      <div class="ct-dk-bar"><span class="on">⌂</span><span>🗎</span><span>💬</span><span>▤</span></div>
+    </div>
+  </div>
 </div></section>
 
 <section>
-<img class="bg-art bgr" src="/assets/trc/nx_warsaw2.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+<img class="bg-art bgr" src="/assets/trc/bg_office.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
+  <div class="sec-head center">
+    <h2>And that's not all</h2>
+    <p>Small things that make the wait easier.</p>
+  </div>
+  <div class="ct-more reveal">
+    <div class="ct-mc"><span class="mi">🤖</span><b>AI document check</b><small>12 refusal reasons screened before filing</small></div>
+    <div class="ct-mc"><span class="mi">📅</span><b>Biometrics → calendar</b><small>one tap adds the visit to your phone</small></div>
+    <div class="ct-mc"><span class="mi">🟢</span><b>Legal-stay counter</b><small>every covered day — counted</small></div>
+    <div class="ct-mc"><span class="mi">🧾</span><b>Receipts with a stamp</b><small>every payment confirmed in the portal</small></div>
+    <div class="ct-mc"><span class="mi">🧡</span><b>Invite a friend</b><small>you get 300 zł, they get 400 zł off</small></div>
+    <div class="ct-mc"><span class="mi">💡</span><b>Suggest a feature</b><small>goes straight to the team’s Telegram — best ideas go live</small></div>
+  </div>
+</div></section>
+
+<section>
+<img class="bg-art bgl" src="/assets/trc/nx_warsaw2.jpg" alt="" aria-hidden="true" loading="lazy"><div class="wrap">
   <div class="sec-head center"><h2>Three steps in</h2></div>
   <div class="ct-steps">
     <div class="ct-step"><span class="n">1</span><b>Consultation</b></div>
@@ -1924,7 +2013,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   function load(lang){
     if(DICTS[lang]){apply();return;}
     var s=document.createElement('script');
-    s.src='/new/i18n/'+lang+'.js?v=1bd004fb';s.async=true;
+    s.src='/new/i18n/'+lang+'.js?v=3fa0fc29';s.async=true;
     document.head.appendChild(s);
   }
   window.lsSetLang=function(lang){
