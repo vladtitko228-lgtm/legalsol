@@ -27,6 +27,7 @@ module.exports = async function handler(req, res) {
     { loc: `${SITE}/work`,     priority: "0.8", changefreq: "monthly" },
     { loc: `${SITE}/b2b`,      priority: "0.8", changefreq: "monthly" },
     { loc: `${SITE}/chances`,  priority: "0.8", changefreq: "monthly" },
+    { loc: `${SITE}/cabinet-tour`, priority: "0.7", changefreq: "monthly" },
     { loc: `${SITE}/referral`, priority: "0.7", changefreq: "monthly" },
     { loc: `${SITE}/guide`,    priority: "0.8", changefreq: "monthly" },
     { loc: `${SITE}/privacy`,  priority: "0.3", changefreq: "yearly"  },

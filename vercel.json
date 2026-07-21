@@ -132,6 +132,14 @@
       "destination": "/new/chances.html"
     },
     {
+      "source": "/cabinet-tour",
+      "destination": "/new/cabtour.html"
+    },
+    {
+      "source": "/cabinet-tour.html",
+      "destination": "/new/cabtour.html"
+    },
+    {
       "source": "/referral",
       "destination": "/new/referral.html"
     },
