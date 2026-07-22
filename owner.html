@@ -763,6 +763,8 @@ function buildAlerts(d,pm,pnl){
     if(g>=30) a.push({sev:'green',t:`Закрытия выросли на ${g}% к прошлому месяцу`,d:`${d.trend[gi-1].closings} → ${d.trend[gi].closings}.`});}
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm) a.push({sev:'red',t:`${d.ops.onboarding.noCrm} оплативших не заведены в производство`,
     d:'Оплата есть — дела в Kommo нет: клиент завис до начала работы. Детали: Клиенты → «Новые клиенты».',go:'clients',btn:'Открыть'});
+  if(d.salesCtl&&d.salesCtl.waMissed&&d.salesCtl.waMissed.count>10) a.push({sev:'red',t:`${d.salesCtl.waMissed.count} клиентов в WhatsApp ждут ответа — лиды ничьи, отвечает только автобот`,
+    d:`Не назначено ${(d.salesCtl.unassigned||{}).active||0} лидов; продавцы за 14 дней сделали ${(d.salesCtl.statusMoves14||[]).filter(x=>['Талыш','Адриан'].includes(x.name)).reduce((s,x)=>s+x.count,0)} движений в CRM.`,go:'sales',btn:'Смотреть'});
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm>0) a.push({sev:'yellow',t:`${d.ops.onboarding.noCrm} оплативших клиент(ов) не нашлись в CRM производства`,
     d:'Либо дело не заведено, либо имя в таблице не совпадает с Kommo. Вкладка «Клиенты» → «Новые клиенты — онбординг».',go:'clients',btn:'Проверить'});
   if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
@@ -1078,6 +1080,33 @@ function render(d){
     html+=sec('👥 По продавцам · '+mLabel(CUR_KEY),'план и деньги каждого; золотое число — собрано первыми оплатами');
     html+=`<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
     html+=sellersConversion(pm);
+  }
+  if(d.salesCtl){
+    const sc=d.salesCtl, un=sc.unassigned||{}, wm=sc.waMissed||{count:0,items:[]};
+    const sellerMoves=(sc.statusMoves14||[]).filter(x=>['Талыш','Адриан'].includes(x.name)).reduce((s,x)=>s+x.count,0);
+    html+=sec('📞 Работа с лидами · воронка продаж','что происходит с '+nf(sc.activeTotal)+' живыми лидами в CRM прямо сейчас');
+    html+=`<div class="grid g4">
+      ${tile('Живых лидов в воронке',nf(sc.activeTotal),(un.active?nf(un.active)+' из них ничьи (без ответственного)':''))}
+      ${tile('WhatsApp без ответа',wm.count?`<span class="neg">${wm.count}</span>`:'0',wm.count?('дольше всех ждёт '+Math.round((wm.items[0]||{}).hours/24)+' дн — отвечает только автобот'):'')}
+      ${tile('Лидов не назначено',un.active?`<span class="${un.active>50?'neg':''}">${nf(un.active)}</span>`:'0','падают из WhatsApp и висят ничьи')}
+      ${tile('Движений продавцов в CRM',`<span class="${sellerMoves<10?'neg':''}">${sellerMoves}</span>`,'смен статусов за 14 дней — их руками')}
+    </div>`;
+    if(wm.count){
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">🔥 WhatsApp: клиенты ждут ответа</b>
+        <div style="margin-top:8px">${wm.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--hair);font-size:13px">
+          <span>${esc(x.name)} <span class="chip" style="height:19px;font-size:10.5px;margin-left:6px">${x.seller==='Не назначен'?'ничей':esc(x.seller)}</span></span>
+          <span class="chip b">${x.hours>=48?Math.round(x.hours/24)+' дн':x.hours+' ч'}</span></div>`).join('')}
+        ${wm.count>wm.items.length?`<div style="padding:9px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${wm.count-wm.items.length}</div>`:''}</div>
+        <div class="sec-note">«Lead #…» — лид без имени из WhatsApp-интеграции. Исходящие по ним пишет только автоответчик.</div></div>`;
+    }
+    html+=`<div class="grid g2">
+      <div class="card rv"><b style="font-size:15px">Воронка живьём</b>
+        <div class="tblwrap" style="margin-top:8px"><table><thead><tr><th>Стадия</th><th class="n">Талыш</th><th class="n">Адриан</th><th class="n">Ничьи</th></tr></thead>
+        <tbody>${(sc.funnel||[]).map(r=>`<tr><td>${esc(r.stage)}</td><td class="n num">${r['Талыш']||0}</td><td class="n num">${r['Адриан']||0}</td><td class="n num ${r['Не назначен']?'neg':''}">${r['Не назначен']||0}</td></tr>`).join('')}</tbody></table></div></div>
+      <div class="card rv"><b style="font-size:15px">Кто реально двигает CRM · 14 дней</b>
+        <div style="margin-top:6px">${hbarList(sc.statusMoves14||[],x=>x.count,x=>esc(x.name),x=>x.name==='Роботы и автоматика'?'var(--neut)':(x.count===0?'var(--bad)':'var(--s2)'))}</div>
+        <div class="sec-note">Смены статусов сделок. Продавцы общаются с личных телефонов — CRM этого не видит: пока переписка не идёт через WhatsApp в Kommo, контроль скорости ответов невозможен.</div></div>
+    </div>`;
   }
   html+=sec('🎯 Источники закрытий · '+mLabel(CUR_KEY),'откуда пришли купившие — бот тегирует каждую оплату в чате');
   if(pm.quality&&pm.quality.length){
