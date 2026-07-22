@@ -1102,7 +1102,7 @@ function render(d){
     html+=`<div class="grid g4">
       ${tile('Живых лидов в воронке',nf(sc.activeTotal),(un.active?nf(un.active)+' из них ничьи (без ответственного)':''))}
       ${tile('WhatsApp без ответа',wm.count?`<span class="neg">${wm.count}</span>`:'0',(()=>{const h=(wm.items[0]||{}).hours;
-        return wm.count&&h!=null?('дольше всех ждёт '+(h>=48?Math.round(h/24)+' дн':h+' ч')+(assignedMissed===0?' — отвечает только автобот':' — '+assignedMissed+' на продавцах')):'';})()}
+        return wm.count&&h!=null?('дольше всех ждёт '+(h>=48?Math.round(h/24)+' дн':h+' ч')+(assignedMissed===0?' — отвечает только автобот':' — '+assignedMissed+' на продавцах')):'';})())}
       ${tile('Лидов не назначено',un.active?`<span class="${un.active>50?'neg':''}">${nf(un.active)}</span>`:'0','падают из WhatsApp и висят ничьи')}
       ${tile('Движений продавцов в CRM',`<span class="${sellerMoves<10?'neg':''}">${sellerMoves}</span>`,'смен статусов за 14 дней — их руками')}
     </div>`;
