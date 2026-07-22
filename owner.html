@@ -763,6 +763,8 @@ function buildAlerts(d,pm,pnl){
     if(g>=30) a.push({sev:'green',t:`Закрытия выросли на ${g}% к прошлому месяцу`,d:`${d.trend[gi-1].closings} → ${d.trend[gi].closings}.`});}
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm) a.push({sev:'red',t:`${d.ops.onboarding.noCrm} оплативших не заведены в производство`,
     d:'Оплата есть — дела в Kommo нет: клиент завис до начала работы. Детали: Клиенты → «Новые клиенты».',go:'clients',btn:'Открыть'});
+  if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm>0) a.push({sev:'yellow',t:`${d.ops.onboarding.noCrm} оплативших клиент(ов) не нашлись в CRM производства`,
+    d:'Либо дело не заведено, либо имя в таблице не совпадает с Kommo. Вкладка «Клиенты» → «Новые клиенты — онбординг».',go:'clients',btn:'Проверить'});
   if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
     d:`Дольше всех — ${d.ops.stale[0]?d.ops.stale[0].days+' дн.':''} Глянуть с Дашей.`,go:'clients',btn:'Клиенты'});
   const order={red:0,yellow:1,green:2};
@@ -1206,7 +1208,7 @@ function render(d){
     if(w.count){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Клиенты ждут ответа в кабинете</b>
         <div style="margin-top:10px">${w.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--hair);font-size:13.5px">
-          <span>${esc(x.name)}</span><span class="chip b">${fmtWait(x)}</span></div>`).join('')}
+          <span>${esc(x.name)} <span class="chip" style="height:19px;font-size:10.5px;margin-left:6px">${x.ch==='WhatsApp'?'🟢 WA':x.ch==='почта'?'✉️ почта':'💬 кабинет'}</span></span><span class="chip b">${fmtWait(x)}</span></div>`).join('')}
         ${w.count>w.items.length?`<div style="padding:9px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${w.count-w.items.length}</div>`:''}</div>
         <div class="sec-note">Ответить: карточка клиента в Kommo → заметка «КЛИЕНТУ: …» — она улетит в его кабинет.</div></div>`;
     }
@@ -1228,6 +1230,18 @@ function render(d){
           <td data-l="CRM">${lag(x.crmDays)}</td>
           <td data-l="апдейт" class="t2" style="font-size:12.5px">${x.firstDays!=null?('через '+x.firstDays+' дн'):'—'}</td></tr>`).join('')}</tbody></table></div>
         <div class="sec-note">Оплаты за 45 дней против воронки «Легализация». «Не заведено» — оплата есть, дела в производстве нет (в продажах лид может висеть — но работа по нему не начата).</div></div>`;
+    }
+    if(o.onboarding&&o.onboarding.items&&o.onboarding.items.length){
+      const ob=o.onboarding;
+      const st=v=>v==null?'<span class="mut">—</span>':v<=1?`<span class="pos">✓ ${v===0?'в тот день':'+1 дн'}</span>`:v<=3?`<span style="color:var(--warn)">✓ +${v} дн</span>`:`<span class="neg">✓ +${v} дн</span>`;
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">🆕 Новые клиенты — онбординг Даши</b>
+        <div class="t2" style="font-size:13px;margin-top:8px">Закрытия за 45 дней: заведение в CRM ${ob.avgLag!=null?('в среднем '+ob.avgLag+' дн'):''}${ob.noCrm?` · <span class="neg">${ob.noCrm} не найдено в CRM</span>`:''}. Мейл и WA видны, только если отправлены через Kommo.</div>
+        <div class="tblwrap" style="margin-top:8px"><table class="stack"><thead><tr><th>Клиент</th><th>Оплатил</th><th>CRM</th><th>✉️ Мейл</th><th>WA</th><th>Кабинет</th></tr></thead>
+        <tbody>${ob.items.map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="оплатил" class="t2 num">${dLabel(x.paid)}</td>
+          <td data-l="CRM">${x.crmDays==null?'<span class="neg">не найден</span>':st(x.crmDays)}</td>
+          <td data-l="мейл">${st(x.mailDays)}</td><td data-l="WA">${st(x.waDays)}</td><td data-l="кабинет">${st(x.firstDays)}</td></tr>`).join('')}</tbody></table></div>
+        <div class="sec-note" style="margin-top:8px">«✓ в тот день» = сделано в день оплаты. «Не найден» в CRM — либо дело не заведено, либо имя в таблице не совпадает с Kommo: проверить руками.</div>
+      </div>`;
     }
     if(o.activity14&&o.activity14.length){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Работа по делам · 14 дней</b>
