@@ -59,16 +59,36 @@ async function actionData(req, res, payload) {
     }
   }
   const now = Date.now();
-  // Дата последнего КЛИЕНТУ-апдейта по каждой сделке (массово, не по одной)
+  // Массовый скан свежих заметок: последние КЛИЕНТУ-апдейты, ответы (ОТВЕТ:),
+  // вопросы клиентов (ОТ КЛИЕНТА:) и идеи (ПОЖЕЛАНИЕ:) — для ленты активности
+  // и маркера «ждёт ответа».
   const lastUpdateMap = {};
+  const lastReplyMap = {};
+  const lastMsgMap = {};
+  const actRaw = [];
+  const isIdeaNote = t => /^ПОЖЕЛАНИЕ:/i.test(String(t || '').trim());
+  const stripIdea = t => String(t || '').trim().replace(/^ПОЖЕЛАНИЕ:\s*/i, '');
   try {
     for (let np = 1; np <= 4; np++) {
       const nr = await kommo('GET', `/leads/notes?filter[note_type]=common&order[updated_at]=desc&limit=250&page=${np}`);
       const notes = nr?._embedded?.notes || [];
       for (const n of notes) {
-        if (!isClientNote(n.params?.text || '')) continue;
+        const txt = (n.params?.text || '').trim();
         const lid = n.entity_id; const ts = (n.created_at || 0) * 1000;
-        if (ts && (!lastUpdateMap[lid] || ts > lastUpdateMap[lid])) lastUpdateMap[lid] = ts;
+        if (!txt || !lid || !ts) continue;
+        if (isClientNote(txt)) {
+          if (!lastUpdateMap[lid] || ts > lastUpdateMap[lid]) lastUpdateMap[lid] = ts;
+          if (!lastReplyMap[lid] || ts > lastReplyMap[lid]) lastReplyMap[lid] = ts;
+        } else if (isChatReplyNote(txt)) {
+          if (!lastReplyMap[lid] || ts > lastReplyMap[lid]) lastReplyMap[lid] = ts;
+        } else if (isClientMsgNote(txt) || isIdeaNote(txt)) {
+          if (!lastMsgMap[lid] || ts > lastMsgMap[lid]) lastMsgMap[lid] = ts;
+          if (actRaw.length < 60) actRaw.push({
+            leadId: lid, at: ts,
+            kind: isIdeaNote(txt) ? 'idea' : 'chat',
+            text: (isIdeaNote(txt) ? stripIdea(txt) : stripClientMsgPrefix(txt)).slice(0, 220),
+          });
+        }
       }
       if (notes.length < 250) break;
     }
@@ -93,15 +113,26 @@ async function actionData(req, res, payload) {
     if (isDone) completed++; else active++;
     if (cm.hasAccess) withAccess++;
     contractTotal += price;
+    const lastMsgMs = lastMsgMap[ld.id] || 0;
+    const waiting = lastMsgMs > (lastReplyMap[ld.id] || 0);
     list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
-      stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle, lastUpdateMs: lastUpdateMap[ld.id] || 0 });
+      stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle,
+      lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
+  // Лента «кто что спрашивает»: свежие вопросы/идеи с именами клиентов
+  const byLead = {};
+  for (const c of list) byLead[c.leadId] = c;
+  const activity = actRaw.slice(0, 40).map(a => {
+    const c = byLead[a.leadId] || {};
+    return { ...a, name: c.name || 'Клиент', hasAccess: !!c.hasAccess, waiting: !!c.waiting };
+  });
   return res.status(200).json({
     name: payload.name || 'Сотрудник',
     stats: { total: list.length, active, completed, withAccess, noAccess: list.length - withAccess, contractTotal,
-      stale48: list.filter(x => !x.isDone && x.daysIdle >= 2).length },
-    byStage, clients: list
+      stale48: list.filter(x => !x.isDone && x.daysIdle >= 2).length,
+      waiting: list.filter(x => x.waiting).length },
+    byStage, clients: list, activity
   });
 }
 
