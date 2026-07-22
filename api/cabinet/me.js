@@ -98,11 +98,14 @@ module.exports = async function handler(req, res) {
       const allN = (nR?._embedded?.notes || [])
         .map(n => ({ createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() }))
         .filter(n => n.text);
+      // Чат = живой диалог: сообщения клиента и прямые ответы менеджера.
+      // Апдейты «КЛИЕНТУ:» — вехи процесса, живут ТОЛЬКО в ленте этапов (updates),
+      // чтобы чат оставался пустым, пока клиент сам не напишет.
       const chat = allN
-        .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
+        .filter(n => (isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
         .map(n => isClientMsgNote(n.text)
           ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-          : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
+          : { from: 'manager', text: stripChatReplyPrefix(n.text), createdAt: n.createdAt })
         .sort((a, b) => a.createdAt - b.createdAt);
       const updates = allN
         .filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text))
@@ -220,12 +223,12 @@ module.exports = async function handler(req, res) {
             .sort((a, b) => b.createdAt - a.createdAt)[0];
           if (planNote) plan = parsePaymentPlanNote(planNote.text);
 
-          // Двусторонний чат: КЛИЕНТУ: → менеджер, ОТ КЛИЕНТА: → клиент. По возрастанию времени.
+          // Чат = живой диалог (клиент ↔ прямые ответы). Вехи «КЛИЕНТУ:» — только в ленте этапов.
           chat = all
-            .filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
+            .filter(n => (isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
             .map(n => isClientMsgNote(n.text)
               ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-              : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
+              : { from: 'manager', text: stripChatReplyPrefix(n.text), createdAt: n.createdAt })
             .sort((a, b) => a.createdAt - b.createdAt);
         } catch (_) {}
         // Для совместимости со старыми именами в JSON-ответе
