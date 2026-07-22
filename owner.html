@@ -771,6 +771,12 @@ function buildAlerts(d,pm,pnl){
     a.push({sev:'red',t:`В WhatsApp без ответа: ${d.salesCtl.waMissed.count} ${plural(d.salesCtl.waMissed.count,['клиент','клиента','клиентов'])}${_am===0?' — лиды ничьи, отвечает только автобот':` — ${_am} на продавцах, остальные ничьи`}`,
       d:`Не назначено ${(d.salesCtl.unassigned||{}).active||0} лидов; продавцы за 14 дней сделали ${_mv} ${plural(_mv,['движение','движения','движений'])} в CRM.`,go:'sales',btn:'Смотреть'});
   }
+  if(d.tasks&&d.tasks.overdueCount>0){
+    const bw=Object.entries(d.tasks.byWho||{}).filter(([,c])=>c.overdue).map(([w,c])=>`${w} ${c.overdue}`).join(' · ');
+    const worst=(d.tasks.overdue||[])[0];
+    a.push({sev:worst&&worst.days>=3?'red':'yellow',t:`${d.tasks.overdueCount} ${plural(d.tasks.overdueCount,['просроченная задача','просроченные задачи','просроченных задач'])} в Kommo: ${bw}`,
+      d:worst?`Дольше всех: «${worst.text}»${worst.client?' · '+worst.client:''} — ${worst.days} дн.`:null,go:'clients',btn:'Смотреть'});
+  }
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm>0) a.push({sev:'yellow',t:`${d.ops.onboarding.noCrm} оплативших клиент(ов) не нашлись в CRM производства`,
     d:'Либо дело не заведено, либо имя в таблице не совпадает с Kommo. Вкладка «Клиенты» → «Новые клиенты — онбординг».',go:'clients',btn:'Проверить'});
   if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
@@ -1279,6 +1285,18 @@ function render(d){
           <td data-l="CRM">${x.crmDays==null?'<span class="neg">не найден</span>':st(x.crmDays)}</td>
           <td data-l="мейл">${st(x.mailDays)}</td><td data-l="WA">${st(x.waDays)}</td><td data-l="кабинет">${st(x.firstDays)}</td></tr>`).join('')}</tbody></table></div>
         <div class="sec-note" style="margin-top:8px">«✓ в тот день» = сделано в день оплаты. «Не найден» в CRM — либо дело не заведено, либо имя в таблице не совпадает с Kommo: проверить руками.</div>
+      </div>`;
+    }
+    if(d.tasks){
+      const tk=d.tasks;
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">⏰ Задачи в Kommo</b>
+        <div class="schips" style="margin-top:10px">${Object.entries(tk.byWho||{}).map(([w,c])=>`<span class="chip ${c.overdue?'b':'g'}">${esc(w)}: ${c.overdue?c.overdue+' просроч.':'✓ без просрочек'} · открыто ${c.open}</span>`).join('')}</div>
+        ${tk.overdue&&tk.overdue.length?`<div style="margin-top:10px">${tk.overdue.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--hair);font-size:13px">
+          <span><b>${esc(x.who)}</b> · ${esc(x.text)}${x.client?` <span class="mut">· ${esc(x.client)}</span>`:''}</span>
+          <span class="chip b" style="flex-shrink:0">${x.days} дн</span></div>`).join('')}
+          ${tk.overdueCount>tk.overdue.length?`<div style="padding:8px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${tk.overdueCount-tk.overdue.length}</div>`:''}</div>`:'<div class="sec-note">Просроченных нет 👍</div>'}
+        ${tk.today&&tk.today.length?`<div style="margin-top:12px;font-size:13px"><b style="font-size:13px">На сегодня:</b> ${tk.today.map(x=>`${esc(x.who)} — ${esc(x.text)}${x.client?' ('+esc(x.client)+')':''}`).join(' · ')}</div>`:''}
+        <div class="sec-note">«Без текста» — авто-задачи интеграций (обычно «связаться с лидом»). Закрываются в Kommo.</div>
       </div>`;
     }
     if(o.activity14&&o.activity14.length){
