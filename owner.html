@@ -392,6 +392,7 @@ const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>
 
 // ---- форматирование ----
 const nf = n => (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('ru-RU');
+const plural = (n,f) => { const a=Math.abs(n)%100, b=a%10; return f[(a>=11&&a<=14)?2:(b===1?0:(b>=2&&b<=4?1:2))]; };
 const zl = n => (n==null||isNaN(n))?'—':nf(n)+' zł';
 const zlh = n => (n==null||isNaN(n))?'—':nf(n)+'<span class="zl">zł</span>';   // для hero/KPI
 const pct = n => (n==null||isNaN(n))?'—':(Math.round(n*10)/10).toLocaleString('ru-RU')+'%';
@@ -763,8 +764,13 @@ function buildAlerts(d,pm,pnl){
     if(g>=30) a.push({sev:'green',t:`Закрытия выросли на ${g}% к прошлому месяцу`,d:`${d.trend[gi-1].closings} → ${d.trend[gi].closings}.`});}
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm) a.push({sev:'red',t:`${d.ops.onboarding.noCrm} оплативших не заведены в производство`,
     d:'Оплата есть — дела в Kommo нет: клиент завис до начала работы. Детали: Клиенты → «Новые клиенты».',go:'clients',btn:'Открыть'});
-  if(d.salesCtl&&d.salesCtl.waMissed&&d.salesCtl.waMissed.count>10) a.push({sev:'red',t:`${d.salesCtl.waMissed.count} клиентов в WhatsApp ждут ответа — лиды ничьи, отвечает только автобот`,
-    d:`Не назначено ${(d.salesCtl.unassigned||{}).active||0} лидов; продавцы за 14 дней сделали ${(d.salesCtl.statusMoves14||[]).filter(x=>['Талыш','Адриан'].includes(x.name)).reduce((s,x)=>s+x.count,0)} движений в CRM.`,go:'sales',btn:'Смотреть'});
+  if(d.salesCtl&&d.salesCtl.waMissed&&d.salesCtl.waMissed.count>10){
+    const _sn=((d.salesCtl.sellers)||[]).map(x=>x.name);
+    const _am=((d.salesCtl.sellers)||[]).reduce((s,x)=>s+(x.waMissed||0),0);
+    const _mv=(d.salesCtl.statusMoves14||[]).filter(x=>_sn.includes(x.name)).reduce((s,x)=>s+x.count,0);
+    a.push({sev:'red',t:`В WhatsApp без ответа: ${d.salesCtl.waMissed.count} ${plural(d.salesCtl.waMissed.count,['клиент','клиента','клиентов'])}${_am===0?' — лиды ничьи, отвечает только автобот':` — ${_am} на продавцах, остальные ничьи`}`,
+      d:`Не назначено ${(d.salesCtl.unassigned||{}).active||0} лидов; продавцы за 14 дней сделали ${_mv} ${plural(_mv,['движение','движения','движений'])} в CRM.`,go:'sales',btn:'Смотреть'});
+  }
   if(d.ops&&d.ops.onboarding&&d.ops.onboarding.noCrm>0) a.push({sev:'yellow',t:`${d.ops.onboarding.noCrm} оплативших клиент(ов) не нашлись в CRM производства`,
     d:'Либо дело не заведено, либо имя в таблице не совпадает с Kommo. Вкладка «Клиенты» → «Новые клиенты — онбординг».',go:'clients',btn:'Проверить'});
   if(d.ops&&d.ops.staleCount>5) a.push({sev:'yellow',t:`${d.ops.staleCount} дел в производстве стоят без движения >7 дней`,
@@ -1081,13 +1087,16 @@ function render(d){
     html+=`<div class="grid g2">${pm.bySeller.map(sellerCard).join('')}</div>`;
     html+=sellersConversion(pm);
   }
-  if(d.salesCtl){
+  if(d.salesCtl&&CUR_KEY===d.curMonthKey){
     const sc=d.salesCtl, un=sc.unassigned||{}, wm=sc.waMissed||{count:0,items:[]};
-    const sellerMoves=(sc.statusMoves14||[]).filter(x=>['Талыш','Адриан'].includes(x.name)).reduce((s,x)=>s+x.count,0);
+    const sellerNames=(sc.sellers||[]).map(x=>x.name);
+    const sellerMoves=(sc.statusMoves14||[]).filter(x=>sellerNames.includes(x.name)).reduce((s,x)=>s+x.count,0);
+    const assignedMissed=(sc.sellers||[]).reduce((a,s)=>a+(s.waMissed||0),0);
     html+=sec('📞 Работа с лидами · воронка продаж','что происходит с '+nf(sc.activeTotal)+' живыми лидами в CRM прямо сейчас');
     html+=`<div class="grid g4">
       ${tile('Живых лидов в воронке',nf(sc.activeTotal),(un.active?nf(un.active)+' из них ничьи (без ответственного)':''))}
-      ${tile('WhatsApp без ответа',wm.count?`<span class="neg">${wm.count}</span>`:'0',wm.count?('дольше всех ждёт '+Math.round((wm.items[0]||{}).hours/24)+' дн — отвечает только автобот'):'')}
+      ${tile('WhatsApp без ответа',wm.count?`<span class="neg">${wm.count}</span>`:'0',(()=>{const h=(wm.items[0]||{}).hours;
+        return wm.count&&h!=null?('дольше всех ждёт '+(h>=48?Math.round(h/24)+' дн':h+' ч')+(assignedMissed===0?' — отвечает только автобот':' — '+assignedMissed+' на продавцах')):'';})()}
       ${tile('Лидов не назначено',un.active?`<span class="${un.active>50?'neg':''}">${nf(un.active)}</span>`:'0','падают из WhatsApp и висят ничьи')}
       ${tile('Движений продавцов в CRM',`<span class="${sellerMoves<10?'neg':''}">${sellerMoves}</span>`,'смен статусов за 14 дней — их руками')}
     </div>`;
@@ -1101,8 +1110,8 @@ function render(d){
     }
     html+=`<div class="grid g2">
       <div class="card rv"><b style="font-size:15px">Воронка живьём</b>
-        <div class="tblwrap" style="margin-top:8px"><table><thead><tr><th>Стадия</th><th class="n">Талыш</th><th class="n">Адриан</th><th class="n">Ничьи</th></tr></thead>
-        <tbody>${(sc.funnel||[]).map(r=>`<tr><td>${esc(r.stage)}</td><td class="n num">${r['Талыш']||0}</td><td class="n num">${r['Адриан']||0}</td><td class="n num ${r['Не назначен']?'neg':''}">${r['Не назначен']||0}</td></tr>`).join('')}</tbody></table></div></div>
+        <div class="tblwrap" style="margin-top:8px"><table><thead><tr><th>Стадия</th>${sellerNames.map(n=>`<th class="n">${esc(n)}</th>`).join('')}<th class="n">Ничьи</th></tr></thead>
+        <tbody>${(sc.funnel||[]).map(r=>`<tr><td>${esc(r.stage)}</td>${sellerNames.map(n=>`<td class="n num">${r[n]||0}</td>`).join('')}<td class="n num ${r['Не назначен']?'neg':''}">${r['Не назначен']||0}</td></tr>`).join('')}</tbody></table></div></div>
       <div class="card rv"><b style="font-size:15px">Кто реально двигает CRM · 14 дней</b>
         <div style="margin-top:6px">${hbarList(sc.statusMoves14||[],x=>x.count,x=>esc(x.name),x=>x.name==='Роботы и автоматика'?'var(--neut)':(x.count===0?'var(--bad)':'var(--s2)'))}</div>
         <div class="sec-note">Смены статусов сделок. Продавцы общаются с личных телефонов — CRM этого не видит: пока переписка не идёт через WhatsApp в Kommo, контроль скорости ответов невозможен.</div></div>
