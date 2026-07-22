@@ -1239,16 +1239,16 @@ function render(d){
     const o=d.ops, w=o.waiting||{count:0,items:[]}, n30=o.notes30||{};
     html+=`<div class="grid g4" style="margin-top:16px">
       ${tile('Дел в работе',String(o.total),(o.new30?('+'+o.new30+' новых за 30 дней · '):'')+'зона Даши')}
-      ${o.waiting?tile('Ждут ответа',w.count?`<span class="neg">${w.count}</span>`:'0',w.count?('дольше всех — '+esc((w.items[0]||{}).name||'')+' '+fmtWait(w.items[0])):'все сообщения из кабинета отвечены 👍'):tile('Ждут ответа','—','обновится в ближайшие 2 часа')}
+      ${o.waiting?tile('Ждут реакции в CRM',w.count?`<span class="neg">${w.count}</span>`:'0',w.count?('дольше всех — '+esc((w.items[0]||{}).name||'')+' '+fmtWait(w.items[0])):'на все сообщения клиентов есть реакция 👍'):tile('Ждут реакции в CRM','—','обновится в ближайшие 2 часа')}
       ${tile('Застряло >7 дней',`<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`,o.stale&&o.stale.length?('дольше всех — '+o.stale[0].days+' дн.'):'')}
       ${tile('Активность Даши · 30 дн',String((n30.dasha??0)+(n30.waOut??0)||'—'),'заметок '+(n30.dasha??'—')+' · писем '+(n30.emails??'—')+' · апдейтов '+(n30.toClient??'—')+(n30.waOut!=null?' · WA-сообщений '+n30.waOut:''))}
     </div>`;
     if(w.count){
-      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Клиенты ждут ответа в кабинете</b>
+      html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Сообщения клиентов без реакции в CRM</b>
         <div style="margin-top:10px">${w.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--hair);font-size:13.5px">
           <span>${esc(x.name)} <span class="chip" style="height:19px;font-size:10.5px;margin-left:6px">${x.ch==='WhatsApp'?'🟢 WA':x.ch==='почта'?'✉️ почта':'💬 кабинет'}</span></span><span class="chip b">${fmtWait(x)}</span></div>`).join('')}
         ${w.count>w.items.length?`<div style="padding:9px 0;border-top:1px solid var(--hair);font-size:13px" class="mut">… и ещё ${w.count-w.items.length}</div>`:''}</div>
-        <div class="sec-note">Ответить: карточка клиента в Kommo → заметка «КЛИЕНТУ: …» — она улетит в его кабинет.</div></div>`;
+        <div class="sec-note">Реакция = ответ клиенту (письмо/«КЛИЕНТУ:»/WA) или любая заметка Даши в деле после сообщения. Если ответила вне CRM — пусть добавит заметку в дело, запись погаснет.</div></div>`;
     }
     if(o.cabSeen){
       const cs=o.cabSeen;
