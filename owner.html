@@ -1282,7 +1282,7 @@ function render(d){
         <div class="t2" style="font-size:13px;margin-top:8px">Закрытия за 45 дней: заведение в CRM ${ob.avgLag!=null?('в среднем '+ob.avgLag+' дн'):''}${ob.noCrm?` · <span class="neg">${ob.noCrm} не найдено в CRM</span>`:''}. Мейл и WA видны, только если отправлены через Kommo.</div>
         <div class="tblwrap" style="margin-top:8px"><table class="stack"><thead><tr><th>Клиент</th><th>Оплатил</th><th>CRM</th><th>✉️ Мейл</th><th>WA</th><th>Кабинет</th></tr></thead>
         <tbody>${ob.items.map(x=>`<tr><td data-l="клиент">${esc(x.name)}</td><td data-l="оплатил" class="t2 num">${dLabel(x.paid)}</td>
-          <td data-l="CRM">${x.crmDays==null?'<span class="neg">не найден</span>':st(x.crmDays)}</td>
+          <td data-l="CRM">${x.crmDays==null?'<span class="neg">не найден</span>':(x.pipe==='sales'?'<span style="color:var(--warn)">⚠ в продажах</span>':st(x.crmDays))}</td>
           <td data-l="мейл">${st(x.mailDays)}</td><td data-l="WA">${st(x.waDays)}</td><td data-l="кабинет">${st(x.firstDays)}</td></tr>`).join('')}</tbody></table></div>
         <div class="sec-note" style="margin-top:8px">«✓ в тот день» = сделано в день оплаты. «Не найден» в CRM — либо дело не заведено, либо имя в таблице не совпадает с Kommo: проверить руками.</div>
       </div>`;
