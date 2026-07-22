@@ -65,6 +65,22 @@ module.exports = async function handler(req, res) {
     }
     if (!payload.cid) return res.status(401).json({ error: 'unauthorized' });
 
+    // След визита (раз в сутки на клиента): владелец видит в табло, что клиент
+    // реально открывал кабинет — вход по куке иначе невидим. KV NX-гейт = дёшево.
+    try {
+      const first = await kvCmd('SET', 'cab:visit:' + payload.cid, '1', 'EX', '86400', 'NX');
+      if (first === 'OK') {
+        const cV = await kommo('GET', `/contacts/${payload.cid}?with=leads`);
+        for (const l0 of (cV?._embedded?.leads || []).slice(0, 5)) {
+          const lF = await kommo('GET', `/leads/${l0.id}`);
+          if (lF && lF.pipeline_id === PIPELINE_OPS) {
+            await kommo('POST', `/leads/${lF.id}/notes`, [{ note_type: 'common', params: { text: 'Открыл кабинет' } }]);
+            break;
+          }
+        }
+      }
+    } catch (_) {}
+
     // ── GET ?chat=<leadId>: лёгкий поллинг чата (1–2 запроса Kommo вместо каскада).
     // Владение сделкой проверяем по KV-кэшу списка сделок клиента (TTL 10 мин).
     if (req.method === 'GET' && req.query && req.query.chat) {
