@@ -1241,7 +1241,7 @@ function render(d){
       ${tile('Дел в работе',String(o.total),(o.new30?('+'+o.new30+' новых за 30 дней · '):'')+'зона Даши')}
       ${o.waiting?tile('Ждут ответа',w.count?`<span class="neg">${w.count}</span>`:'0',w.count?('дольше всех — '+esc((w.items[0]||{}).name||'')+' '+fmtWait(w.items[0])):'все сообщения из кабинета отвечены 👍'):tile('Ждут ответа','—','обновится в ближайшие 2 часа')}
       ${tile('Застряло >7 дней',`<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`,o.stale&&o.stale.length?('дольше всех — '+o.stale[0].days+' дн.'):'')}
-      ${tile('Активность Даши · 30 дн',String(n30.dasha??'—'),'заметок лично · писем '+(n30.emails??'—')+' · апдейтов клиентам '+(n30.toClient??'—'))}
+      ${tile('Активность Даши · 30 дн',String((n30.dasha??0)+(n30.waOut??0)||'—'),'заметок '+(n30.dasha??'—')+' · писем '+(n30.emails??'—')+' · апдейтов '+(n30.toClient??'—')+(n30.waOut!=null?' · WA-сообщений '+n30.waOut:''))}
     </div>`;
     if(w.count){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Клиенты ждут ответа в кабинете</b>
@@ -1284,7 +1284,7 @@ function render(d){
     if(o.activity14&&o.activity14.length){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">Работа по делам · 14 дней</b>
         ${activityChart(o.activity14)}
-        <div class="sec-note" style="margin-top:8px">Каждое действие в карточках дел: заметки, письма, апдейты. За 30 дней всего ${n30.total??'—'}, лично Даша — ${n30.dasha??'—'}.${n30.capped?' <span style="color:var(--warn)">⚠ часть заметок не влезла в выборку — активность занижена.</span>':''}</div></div>`;
+        <div class="sec-note" style="margin-top:8px">Каждое действие в карточках дел: заметки, письма, апдейты и WA-сообщения (после подключения WA Даши). За 30 дней всего ${n30.total??'—'}, лично Даша — ${((n30.dasha??0)+(n30.waOut??0))||'—'}.${n30.capped?' <span style="color:var(--warn)">⚠ часть заметок не влезла в выборку — активность занижена.</span>':''}</div></div>`;
     }
     html+=`<div class="grid g2">
       <div class="card rv"><b style="font-size:15px">По стадиям</b>
