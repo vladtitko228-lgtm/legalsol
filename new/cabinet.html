@@ -1678,6 +1678,11 @@ html.cb3-chk body::after{content:"";position:fixed;top:calc(50% - 19px);left:cal
 .cb3-rqcopy{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:8px;border:1px solid var(--line,#E8E2D8);background:#fff;color:#5F5289;cursor:pointer;padding:0}
 .cb3-rqcopy:active{transform:scale(.92)}
 .cb3-rqcopy.did{background:#E4F4EC;border-color:#BFE8D2;color:#1E9E6A}
+</style><style id="rq-neat">
+.cb3-req .rq{display:block;padding:10px 0;border-bottom:1px dashed var(--line)}
+.cb3-req .rq:last-of-type{border-bottom:0}
+.cb3-req .rq span{display:block;font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px;text-align:left}
+.cb3-req .rq b{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;text-align:left;overflow-wrap:anywhere}
 </style></head>
 <body><script>try{if(localStorage.getItem('cb3_auth')==='1')document.documentElement.classList.add('cb3-chk');}catch(e){}</script><script>setTimeout(function(){try{document.documentElement.classList.remove('cb3-chk');}catch(e){}},6000);</script>
 <!-- Google Tag Manager (noscript) -->
@@ -5073,5 +5078,26 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
 /* Демо-блоки (.cbx-dx) в РЕАЛЕ скрыты всегда — revert-фильтр вкладок их не воскрешает.
    Исключение: карточки команды/контактов/тизера — они настоящие. */
 .cb3-app.is-real #cb3-sec-delo .cbx-dx:not(.cbx-team):not(.cbx-contact):not(.cbx-soon){display:none!important}
-</style></body>
+</style><script id="cbref-real">
+/* В реале финальный блок = рефералка (клиент уже закрыт — консультацию не продаём) */
+(function(){
+  var app=document.getElementById('cb3-app'); if(!app) return;
+  function swap(){
+    if(!app.classList.contains('is-real')) return;
+    var f=document.getElementById('cb3-final'); if(!f||f.__ref) return;
+    f.__ref=1;
+    var shareTxt='I got my residence case handled by LegalSol — personal portal, live updates, honest timelines. With my referral you get 400 zł off: https://legalsol.pl';
+    f.innerHTML='<div style="background:linear-gradient(135deg,#FBF3E4,#F7EAD2);border:1px solid #EAD9B0;border-radius:18px;padding:18px 20px;text-align:left">'
+      +'<b style="display:block;font-size:16px;margin-bottom:4px">🧡 Invite a friend — get 300 zł</b>'
+      +'<p style="font-size:13.5px;color:#3B3548;line-height:1.55;margin:0 0 12px">Your friend gets <b>400 zł off</b> their case, you get <b>300 zł</b> after their contract. Share your recommendation:</p>'
+      +'<div style="display:flex;gap:10px;flex-wrap:wrap">'
+      +'<a class="btn btn-wa" style="margin:0" href="https://wa.me/?text='+encodeURIComponent(shareTxt)+'" target="_blank" rel="noopener">Share on WhatsApp</a>'
+      +'<a class="btn btn-ghost" style="margin:0" href="https://wa.me/48516295791?text='+encodeURIComponent('Hello! I referred a friend to LegalSol — their name is: ')+'" target="_blank" rel="noopener">I already invited someone</a>'
+      +'</div></div>';
+  }
+  new MutationObserver(swap).observe(app,{attributes:true,attributeFilter:['class']});
+  swap();
+})();
+</script>
+</body>
 </html>
