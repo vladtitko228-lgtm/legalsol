@@ -60,20 +60,7 @@ module.exports = async function handler(req, res) {
     }
 
     await rateLimitReset(ip, normalized);
-    // След входа: заметка «🔑 Вход в кабинет» в деле производства — владелец видит
-    // в табло, что доступ дошёл (клиент вошёл = рассылка сработала). Не критично — в try.
-    try {
-      const leadIds = ((contact._embedded && contact._embedded.leads) || []).map(l => l.id).slice(0, 5);
-      for (const lid of leadIds) {
-        const l = await kommo('GET', `/leads/${lid}`);
-        if (l && l.pipeline_id === PIPELINE_OPS) {
-          await kommo('POST', `/leads/${lid}/notes`, [
-            { note_type: 'common', params: { text: 'Клиент вошёл в кабинет' } }
-          ]);
-          break;
-        }
-      }
-    } catch (_) {}
+    // Заметку о входе больше не пишем — Влад: «не писать в CRM мусор».
     const token = signJwt({ cid: contact.id });
     setAuthCookie(res, token);
     return res.status(200).json({ ok: true, name: contact.name || '' });
