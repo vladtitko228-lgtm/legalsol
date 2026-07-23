@@ -1669,7 +1669,12 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-soc a:active{transform:scale(.92)}
 @media(max-width:480px){.cb3-socbtn{width:32px;height:32px}}
 </style>
-<style id="tapfb">@media(hover:none){button:active,a:active,[role="button"]:active,[onclick]:active,.cb3-tab:active,.cbws-t:active,.cbws-hero:active,.cbws-row:active,.cbws-stats .st:active,#cb5-bar button:active,.cb5-srow:active,.cb5-hbtn:active,.stf-row:active,.stf-actr:active,.ct-mc:active{transform:scale(.96)!important;transition:transform .1s ease!important}}</style><style id="cb3-chk-css">
+<style id="tapfb">@media(hover:none){button:active,a:active,[role="button"]:active,[onclick]:active,.cb3-tab:active,.cbws-t:active,.cbws-hero:active,.cbws-row:active,.cbws-stats .st:active,#cb5-bar button:active,.cb5-srow:active,.cb5-hbtn:active,.stf-row:active,.stf-actr:active,.ct-mc:active{transform:scale(.96)!important;transition:transform .1s ease!important}}</style><style id="cb5-rgl-css">
+#cb5-rglance{margin:14px 0 4px}
+#cb5-rglance>*{animation:cbwsUp .55s cubic-bezier(.16,.7,.2,1) both}
+#cb5-rglance .cbws-grid{animation-delay:.08s}
+#cb5-rglance .cbws-stats{animation-delay:.16s}
+</style><style id="cb3-chk-css">
 html.cb3-chk body>*{visibility:hidden}
 html.cb3-chk body::before{content:"";position:fixed;inset:0;background:#FAF7F2;z-index:99998;visibility:visible}
 html.cb3-chk body::after{content:"";position:fixed;top:calc(50% - 19px);left:calc(50% - 19px);width:38px;height:38px;border-radius:50%;border:3px solid #DBD3E7;border-top-color:#5F5289;animation:cb3chkspin .8s linear infinite;z-index:99999;visibility:visible}
@@ -4958,8 +4963,76 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       buildHeader(); buildBar(); syncBar(); skeleton();
       setTimeout(countUps,60); setTimeout(countUps,500);
     } else {
-      buildBar(); syncBar(); buildRealBell();
+      buildBar(); syncBar(); buildRealBell(); buildRealGlance();
     }
+  }
+  /* ── РЕАЛ: сводка «Your case at a glance» из настоящих данных ── */
+  function buildRealStats(L){
+    try{
+      var fz=function(n){try{return (n||0).toLocaleString('en-US');}catch(e){return String(n||0);}};
+      var ins=(L.plan&&L.plan.installments)||[];
+      var payB, payS;
+      if(ins.length){
+        var paidN=ins.filter(function(i){return i.paid;}).length;
+        payB=paidN+' of '+ins.length+(paidN>=ins.length?' ✓':'');
+        var next=ins.find(function(i){return !i.paid;});
+        payS=next?('next'+(next.dateText?' — by '+next.dateText:'')+' · '+fz(next.amount)+' zł'):'all paid — thank you';
+      }else{
+        payB=fz(L.paidTotal)+' zł';
+        payS=L.remaining>0?('remaining '+fz(L.remaining)+' zł'):'of '+fz(L.price)+' zł';
+      }
+      var updN=(L.updates||[]).length;
+      var step=(L.stage&&L.stage.step)||1, total=L.totalSteps||6;
+      return '<div class="cbws-stats">'
+        +'<button type="button" class="st" data-rg="pay"><b>'+payB+'</b><span>Payments</span><small>'+payS+'</small></button>'
+        +'<button type="button" class="st" data-rg="activity"><b>'+updN+'</b><span>Updates</span><small>from your case team</small></button>'
+        +'<button type="button" class="st" data-rg="team"><b>&lt; 15 min</b><span>Reply time</span><small>chat · WhatsApp 24/7</small></button>'
+        +'<button type="button" class="st" data-rg="process"><b>'+step+' of '+total+'</b><span>Stage</span><small>full journey →</small></button>'
+        +'</div>';
+    }catch(e){ return ''; }
+  }
+  function buildRealGlance(){
+    try{
+      if(document.getElementById('cb5-rglance')) return;
+      var me=window.__cbMe; if(!me||!me.leads||!me.leads.length) return;
+      var L=me.leads[0];
+      var sec=document.getElementById('cb3-sec-delo'); if(!sec) return;
+      var greet=sec.querySelector('.cb3-greet');
+      var step=(L.stage&&L.stage.step)||1, total=L.totalSteps||6;
+      var dWork=Math.max(1,Math.floor((Date.now()-(L.createdAt||Date.now()))/864e5));
+      var CIRC=201.1, off=CIRC*(1-Math.min(1,step/total));
+      var upd=(L.updates&&L.updates[0])||null;
+      var updD=upd?new Date(upd.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):null;
+      var updT=upd?String(upd.text||'').slice(0,60):null;
+      var act=L.clientActionEn||L.clientAction||'';
+      var fz=function(n){try{return (n||0).toLocaleString('en-US');}catch(e){return String(n||0);}};
+      var el=document.createElement('div');
+      el.id='cb5-rglance'; el.dataset.cg='case';
+      el.innerHTML=
+        '<div class="cbws-head"><b>Your case at a glance</b><small><i></i>live from CRM</small></div>'
+        +'<button type="button" class="cbws-hero" data-rg="process"><span class="cbws-ring"><svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="38" cy="38" r="32" fill="none" stroke="#EEE9F4" stroke-width="7"/><circle class="arc" cx="38" cy="38" r="32" fill="none" stroke="#5F5289" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+CIRC+'" stroke-dashoffset="'+CIRC+'" transform="rotate(-90 38 38)"/></svg><span class="rc"><b>'+step+'<i>/'+total+'</i></b><small>stages</small></span></span>'
+        +'<span class="cbws-hero-tx"><span class="k">In work</span><b>Day '+dWork+'</b><small>'+(L.serviceTypeEn||L.serviceType||'Legalization')+' · '+((L.stage&&L.stage.ru)?'stage '+step+' of '+total:'in progress')+'</small><span class="lnk">Full journey →</span></span></button>'
+        +'<div class="cbws-grid">'
+        +'<button type="button" class="cbws-t" data-rg="process"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span class="k">'+(L.etaTextEn||L.etaText?'This stage takes':'Now')+'</span><b>'+((L.etaTextEn||L.etaText)?String(L.etaTextEn||L.etaText).slice(0,24):'Stage '+step+' of '+total)+'</b><small>'+String(L.whatWeDoEn||L.whatWeDo||'We are working on your case').slice(0,80)+'</small></button>'
+        +'<button type="button" class="cbws-t '+(act?'amb':'ok')+'" data-rg="'+(act?'docs':'case')+'"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/></svg></span><span class="k">Needed from you</span><b>'+(act?'1 action':'Nothing ✓')+'</b><small>'+(act?String(act).slice(0,80):'Everything else is on us')+'</small></button>'
+        +'<button type="button" class="cbws-t" data-rg="pay"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></span><span class="k">Payments</span><b>'+fz(L.paidTotal)+' zł</b><small>of '+fz(L.price)+' zł paid'+(L.remaining>0?' · remaining '+fz(L.remaining):'')+'</small></button>'
+        +'<button type="button" class="cbws-t" data-rg="activity"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 8-6-16-3 8H2"/></svg></span><span class="k">Last update</span><b>'+(updD||'—')+'</b><small>'+(updT?updT.replace(/</g,'&lt;'):'Updates will appear here')+'</small></button>'
+        +'</div>'
+        +buildRealStats(L)
+        ;
+      if(greet&&greet.parentElement===sec) sec.insertBefore(el,greet.nextSibling);
+      else sec.insertBefore(el,sec.firstChild);
+      el.addEventListener('click',function(e){
+        var t=e.target.closest('[data-rg]'); if(!t) return;
+        var v=t.dataset.rg;
+        if(v==='pay'){ var b=document.getElementById('cb3-tab-pay'); b&&b.click(); return; }
+        if(v==='team'){ var tc=sec.querySelector('.cbx-team'); if(tc){ tc.scrollIntoView({behavior:'smooth',block:'center'}); } return; }
+        if(v==='case'){ return; }
+        var vb=document.getElementById('cb3-vtab-'+v); if(vb) vb.click();
+      });
+      var arc=el.querySelector('.arc');
+      if(arc){ var setA=function(){arc.style.strokeDashoffset=String(off);}; requestAnimationFrame(function(){requestAnimationFrame(setA);}); setTimeout(setA,450); }
+    }catch(e){}
   }
   /* ── РЕАЛ: колокольчик с настоящими апдейтами дела ── */
   function realUpdates(){
@@ -5015,7 +5088,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   function tryBoot(){ if(booted5) return; if(app.classList.contains('open')){ booted5=true; boot5(); } }
   function teardown(){
     booted5=false;
-    ['cb5-hwrap','cb5-realwrap','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
+    ['cb5-hwrap','cb5-realwrap','cb5-rglance','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
     /* ВАЖНО: remove() отсутствующего класса ВСЁ РАВНО плодит mutation record →
        безусловные вызовы здесь зацикливают observer ниже (зависание вкладки). */
     if(app.classList.contains('cb5-hasbar')) app.classList.remove('cb5-hasbar');
@@ -5040,6 +5113,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       if(!document.getElementById('cb5-bar')){ buildBar(); }
       syncBar();
       buildRealBell();
+      buildRealGlance();
       booted5=true;
       return;
     }
