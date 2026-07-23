@@ -1,7 +1,7 @@
 // POST /api/cabinet/login  body: { phone, password }
 // Найти контакт в Kommo по телефону, проверить пароль из кастомного поля → выдать cookie.
 const {
-  findContactByPhone, getCfValue, verifyPassword, signJwt, setAuthCookie,
+  findContactByPhone, findContactsByPhone, getCfValue, verifyPassword, signJwt, setAuthCookie,
   readJsonBody, normalizePhone, PASSWORD_FIELD_ID,
   clientIp, rateLimitBlocked, rateLimitFail, rateLimitReset,
   findStaffByPhone, kommo, PIPELINE_OPS
@@ -38,17 +38,23 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ ok: true, staff: true, name: staff.name });
     }
 
-    const contact = await findContactByPhone(normalized);
-    const storedHash = contact ? getCfValue(contact, PASSWORD_FIELD_ID) : null;
-
+    // Один телефон может принадлежать НЕСКОЛЬКИМ клиентам (семья на одном номере,
+    // у каждого свой контакт/пароль/дела) — примеряем пароль к каждому кандидату.
+    const candidates = await findContactsByPhone(normalized);
+    let contact = null;
+    let tried = false;
+    for (const c of candidates) {
+      const hash = getCfValue(c, PASSWORD_FIELD_ID);
+      if (!hash) continue;
+      tried = true;
+      if (verifyPassword(password, hash)) { contact = c; break; }
+    }
     // ЕДИНЫЙ ответ для всех неудач (нет контакта / нет пароля / неверный пароль),
     // иначе перебором телефонов можно вычислить, кто из них клиент LS (база ПДн).
-    // Подсказку «менеджер ещё не задал пароль» показывает страница логина статически.
-    // Холостой scrypt при промахе — чтобы время ответа не выдавало существование контакта.
-    const ok = storedHash
-      ? verifyPassword(password, storedHash)
-      : (verifyPassword(password, 'scrypt$' + '0'.repeat(32) + '$' + '0'.repeat(64)), false);
-    if (!ok) {
+    // Холостой scrypt при промахе без единой проверки — чтобы время ответа
+    // не выдавало существование контакта.
+    if (!contact) {
+      if (!tried) verifyPassword(password, 'scrypt$' + '0'.repeat(32) + '$' + '0'.repeat(64));
       await rateLimitFail(ip, normalized);
       return res.status(401).json({ error: 'invalid_credentials' });
     }

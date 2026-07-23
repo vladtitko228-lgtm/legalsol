@@ -442,6 +442,29 @@ async function findContactByPhone(phone) {
   return found.find(c => getCfValue(c, PASSWORD_FIELD_ID)) || found[0];
 }
 
+// Все контакты с этим номером (семьи на одном телефоне: у каждого свой пароль
+// и свои дела — логин должен примерять пароль к каждому). С паролем — первыми.
+async function findContactsByPhone(phone) {
+  const normalized = normalizePhone(phone);
+  if (!normalized) return [];
+  const localPart = normalized.length === 11 && normalized.startsWith('48') ? normalized.slice(2) : normalized;
+  const polishSpaced = localPart.length === 9 ? localPart.slice(0, 3) + ' ' + localPart.slice(3, 6) + ' ' + localPart.slice(6) : null;
+  const queries = ['+' + normalized, normalized, localPart, polishSpaced, polishSpaced ? '+48 ' + polishSpaced : null].filter(Boolean);
+  const hit = raw => { const np = normalizePhone(raw); return !!np && (np === normalized || (np.length === 9 && '48' + np === normalized)); };
+  const seen = new Set(); const found = [];
+  for (const q of queries) {
+    let contacts = [];
+    try { const r = await kommo('GET', `/contacts?query=${encodeURIComponent(q)}&with=leads&limit=20`); contacts = r?._embedded?.contacts || []; } catch (_) {}
+    for (const c of contacts) {
+      if (seen.has(c.id)) continue; seen.add(c.id);
+      const phones = ((c.custom_fields_values || []).find(f => f.field_id === PHONE_FIELD_ID)?.values) || [];
+      if (phones.some(v => hit(v.value)) || hit(c.name)) found.push(c);
+    }
+  }
+  found.sort((a, b) => (getCfValue(b, PASSWORD_FIELD_ID) ? 1 : 0) - (getCfValue(a, PASSWORD_FIELD_ID) ? 1 : 0));
+  return found;
+}
+
 // === Парсинг custom_fields_values ===
 function getCfValue(contact, fieldId) {
   const f = (contact?.custom_fields_values || []).find(x => x.field_id === fieldId);
@@ -593,6 +616,7 @@ module.exports = {
   rateLimitReset,
   normalizePhone,
   findContactByPhone,
+  findContactsByPhone,
   getCfValue,
   getCfAllValues,
   signJwt,
