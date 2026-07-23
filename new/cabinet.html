@@ -2865,7 +2865,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     var th=$('cb3-thread');if(!th)return;
     var h='',last='';
     if(!chat||!chat.length){
-      h='<div class="cb3-day">Start of conversation</div><div class="cb3-msg sp">Hello! This is the chat with your specialist — write a message and it goes straight to your card in the CRM. We reply during working hours.</div>';
+      h='';
     }else{
       chat.forEach(function(m){
         var d=dayLabel(m.createdAt);
