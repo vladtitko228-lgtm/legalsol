@@ -5016,5 +5016,9 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   fill();
 })();
 </script>
-</body>
+<style id="realdx-fix">
+/* Демо-блоки (.cbx-dx) в РЕАЛЕ скрыты всегда — revert-фильтр вкладок их не воскрешает.
+   Исключение: карточки команды/контактов/тизера — они настоящие. */
+.cb3-app.is-real #cb3-sec-delo .cbx-dx:not(.cbx-team):not(.cbx-contact):not(.cbx-soon){display:none!important}
+</style></body>
 </html>
