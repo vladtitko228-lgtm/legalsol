@@ -6,7 +6,7 @@
 <!-- Google Tag Manager -->
 <script>(function(){window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});var _lsc=null;try{_lsc=localStorage.getItem('ls_consent');}catch(e){}window.__lsConsent=_lsc;if(_lsc==='granted'){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}function go(){if(window.__gtmGo)return;window.__gtmGo=1;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f)})(window,document,"script","dataLayer","GTM-NVH4HK34");}var evs=["pointerdown","scroll","keydown","touchstart"];evs.forEach(function(e){addEventListener(e,go,{once:true,passive:true})});window.addEventListener("load",function(){setTimeout(go,3000)});setTimeout(go,8000);})();</script>
 <!-- End Google Tag Manager -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>LegalSol client portal — your case status under control 24/7</title>
 <meta name="description" content="LegalSol client portal: case status any time, chat with your specialist, payments and reminders 90/60/30 days ahead. All synced with CRM. Try the demo portal.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'><rect%20width='32'%20height='32'%20rx='7.5'%20fill='%233A2F5C'/><g%20fill='%23C6B9EC'><rect%20x='5'%20y='7.2'%20width='22'%20height='2.9'%20rx='1.4'/><rect%20x='5.7'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='11.4'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='17.1'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='22.8'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='5'%20y='22.9'%20width='22'%20height='2.9'%20rx='1.4'/></g></svg>">
@@ -4967,6 +4967,13 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
     }
   }
   /* ── РЕАЛ: сводка «Your case at a glance» из настоящих данных ── */
+  function cbWTrim(s,n){
+    s=String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').trim();
+    if(s.length<=n) return s;
+    var cut=s.slice(0,n);
+    var sp=cut.lastIndexOf(' ');
+    return (sp>n*0.5?cut.slice(0,sp):cut)+'…';
+  }
   function buildRealStats(L){
     try{
       var fz=function(n){try{return (n||0).toLocaleString('en-US');}catch(e){return String(n||0);}};
@@ -4991,6 +4998,11 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
         +'</div>';
     }catch(e){ return ''; }
   }
+  function cbEtaShort(s){
+    s=String(s||'').trim();
+    var cut=s.split(/\s+(?:until|till|before|до|перед)(?=\s|$)/i)[0].trim();
+    return cbWTrim(cut,26);
+  }
   function buildRealGlance(){
     try{
       if(document.getElementById('cb5-rglance')) return;
@@ -5003,7 +5015,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       var CIRC=201.1, off=CIRC*(1-Math.min(1,step/total));
       var upd=(L.updates&&L.updates[0])||null;
       var updD=upd?new Date(upd.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):null;
-      var updT=upd?String(upd.text||'').slice(0,60):null;
+      var updT=upd?cbWTrim(upd.text,64):null;
       var act=L.clientActionEn||L.clientAction||'';
       var fz=function(n){try{return (n||0).toLocaleString('en-US');}catch(e){return String(n||0);}};
       var el=document.createElement('div');
@@ -5013,8 +5025,8 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
         +'<button type="button" class="cbws-hero" data-rg="process"><span class="cbws-ring"><svg viewBox="0 0 76 76" width="76" height="76" aria-hidden="true"><circle cx="38" cy="38" r="32" fill="none" stroke="#EEE9F4" stroke-width="7"/><circle class="arc" cx="38" cy="38" r="32" fill="none" stroke="#5F5289" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+CIRC+'" stroke-dashoffset="'+CIRC+'" transform="rotate(-90 38 38)"/></svg><span class="rc"><b>'+step+'<i>/'+total+'</i></b><small>stages</small></span></span>'
         +'<span class="cbws-hero-tx"><span class="k">In work</span><b>Day '+dWork+'</b><small>'+(L.serviceTypeEn||L.serviceType||'Legalization')+' · '+((L.stage&&L.stage.ru)?'stage '+step+' of '+total:'in progress')+'</small><span class="lnk">Full journey →</span></span></button>'
         +'<div class="cbws-grid">'
-        +'<button type="button" class="cbws-t" data-rg="process"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span class="k">'+(L.etaTextEn||L.etaText?'This stage takes':'Now')+'</span><b>'+((L.etaTextEn||L.etaText)?String(L.etaTextEn||L.etaText).slice(0,24):'Stage '+step+' of '+total)+'</b><small>'+String(L.whatWeDoEn||L.whatWeDo||'We are working on your case').slice(0,80)+'</small></button>'
-        +'<button type="button" class="cbws-t '+(act?'amb':'ok')+'" data-rg="'+(act?'docs':'case')+'"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/></svg></span><span class="k">Needed from you</span><b>'+(act?'1 action':'Nothing ✓')+'</b><small>'+(act?String(act).slice(0,80):'Everything else is on us')+'</small></button>'
+        +'<button type="button" class="cbws-t" data-rg="process"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span class="k">'+(L.etaTextEn||L.etaText?'This stage takes':'Now')+'</span><b>'+((L.etaTextEn||L.etaText)?cbEtaShort(L.etaTextEn||L.etaText):'Stage '+step+' of '+total)+'</b><small>'+cbWTrim(L.whatWeDoEn||L.whatWeDo||'We are working on your case',110)+'</small></button>'
+        +'<button type="button" class="cbws-t '+(act?'amb':'ok')+'" data-rg="'+(act?'docs':'case')+'"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/></svg></span><span class="k">Needed from you</span><b>'+(act?'1 action':'Nothing ✓')+'</b><small>'+(act?cbWTrim(act,90):'Everything else is on us')+'</small></button>'
         +'<button type="button" class="cbws-t" data-rg="pay"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></span><span class="k">Payments</span><b>'+fz(L.paidTotal)+' zł</b><small>of '+fz(L.price)+' zł paid'+(L.remaining>0?' · remaining '+fz(L.remaining):'')+'</small></button>'
         +'<button type="button" class="cbws-t" data-rg="activity"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 8-6-16-3 8H2"/></svg></span><span class="k">Last update</span><b>'+(updD||'—')+'</b><small>'+(updT?updT.replace(/</g,'&lt;'):'Updates will appear here')+'</small></button>'
         +'</div>'
@@ -5173,5 +5185,17 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   swap();
 })();
 </script>
+<script id="cb5-nozoom">
+(function(){
+  function lock(e){ if(document.body.classList.contains('cb3-lock')) e.preventDefault(); }
+  ['gesturestart','gesturechange','gestureend'].forEach(function(ev){
+    document.addEventListener(ev, lock, {passive:false});
+  });
+})();
+</script>
+<style id="cb5-nozoom-css">
+/* двойной тап не зумит, клики не страдают; пинч глушится жестами выше */
+body.cb3-lock, body.cb3-lock *{touch-action:manipulation}
+</style>
 </body>
 </html>
