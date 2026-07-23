@@ -2893,10 +2893,26 @@ once(list,function(){list.className+=' cbx-cascade';});
     }else{
       h+='<p class="rq-note" style="margin-top:6px">Your payment schedule will appear here once your case starts — amounts and dates are set in your contract.</p>';
     }
-    if(L.remaining>0)h+='<p class="rq-note">Remaining balance on your contract: <b>'+fmtZl(L.remaining)+'</b>. Your specialist will send you the payment details.</p>';
-    h+='<div style="margin-top:14px"><a class="btn btn-wa" href="'+waHref('Hello! Please send me the payment details for case no. '+L.id+'.')+'" target="_blank" rel="noopener">Request payment details on WhatsApp</a></div>';
+    if(L.remaining>0)h+='<p class="rq-note">Remaining balance on your contract: <b>'+fmtZl(L.remaining)+'</b>.</p>';
+    /* Реквизиты фирмы — всегда на виду у реального клиента */
+    h+='<div class="cb3-req open" style="margin-top:14px">'
+      +'<div class="rq"><span>Recipient</span><b>LEGALSOL SP. Z O.O.</b></div>'
+      +'<div class="rq"><span>Bank</span><b>mBank S.A.</b></div>'
+      +'<div class="rq"><span>Account (PLN)</span><b>40 1140 2004 0000 3602 8678 8482</b></div>'
+      +'<div class="rq"><span>SWIFT/BIC</span><b>BREXPLPWXXX</b></div>'
+      +'<div class="rq"><span>Payment reference</span><b>Case no. '+L.id+'</b></div>'
+      +(L.remaining>0?'<div class="rq"><span>Amount</span><b>'+fmtZl(L.remaining)+' (or your next installment)</b></div>':'')
+      +'<div class="rq-btns"><button class="btn btn-primary" type="button" onclick="cb3CopyReal(this,'+L.id+','+(L.remaining||0)+')">Copy bank details</button></div>'
+      +'</div>';
+    h+='<div style="margin-top:12px"><a class="btn btn-wa" href="'+waHref('Hello! A question about my payment for case no. '+L.id+'.')+'" target="_blank" rel="noopener">Question about payment? WhatsApp</a></div>';
     pc.innerHTML=h;
   }
+  window.cb3CopyReal=function(btn,leadId,remaining){
+    var txt='Recipient: LEGALSOL SP. Z O.O.\nBank: mBank S.A.\nAccount (PLN): 40 1140 2004 0000 3602 8678 8482\nSWIFT/BIC: BREXPLPWXXX\nReference: Case no. '+leadId+(remaining>0?'\nAmount: '+remaining+' zł (or your next installment)':'');
+    function ok(){ if(btn){btn.textContent='Copied ✓';setTimeout(function(){btn.textContent='Copy bank details';},1800);} if(window.cb3Toast) cb3Toast('Bank details copied'); }
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok); return; } }catch(e){}
+    try{ var ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);ok(); }catch(e){}
+  };
   /* живая лента дела: апдейты + оплаты + старт дела, новые сверху */
   var FEED_IC={
     upd:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
