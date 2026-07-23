@@ -12,6 +12,7 @@ const {
 function cleanLeadName(name) {
   if (!name) return '';
   return String(name)
+    .replace(/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s+/, '') // ведущий счётчик закрытий «13/07/2026 Имя»
     .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '')
     .replace(/^(Facebook|Instagram|TikTok)\s*№?\s*\d+/i, '')
     .replace(/^Lead\s*#\d+/i, '')

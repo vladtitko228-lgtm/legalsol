@@ -4142,10 +4142,25 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   var demo=function(){return !app.classList.contains('is-real');};
   var built=false;
 
-  var PATS={process:/YOUR CASE'S JOURNEY|Next reminder|Biometrics appointment|CASE PROGRESS|Expected decision|stay in Poland is legal/i, mos:/Status in MOS/i,
+  /* Раскладки по режимам: в ДЕМО главный экран = сводка v4 (прогресс уезжает на Process),
+     в РЕАЛЕ сводки нет — прогресс-карта остаётся на Case. */
+  var PATS_DEMO={process:/YOUR CASE'S JOURNEY|Next reminder|Biometrics appointment|CASE PROGRESS|Expected decision|stay in Poland is legal/i, mos:/Status in MOS/i,
             docs:/Package for case|Upload a document/i, activity:/While you were living|What's happening now|Case feed/i};
-  var CLS=[['cb3-greet','hdr'],['cb3-final','hdr'],['cb3-crm','hdr'],['cbx-feed','activity'],
+  var PATS_REAL={process:/YOUR CASE'S JOURNEY|Next reminder/i, mos:/Status in MOS/i,
+            docs:/Package for case|Upload a document/i, activity:/Case feed/i,
+            'case':/CASE PROGRESS/i};
+  var CLS_DEMO=[['cb3-greet','hdr'],['cb3-final','hdr'],['cb3-crm','hdr'],['cbx-feed','activity'],
            ['cbx-team','process'],['cbx-contact','process'],['cbx-soon','process']];
+  var CLS_REAL=[['cb3-greet','hdr'],['cb3-final','hdr'],['cb3-crm','hdr'],
+           ['cb3-feedreal','activity'],['cb3-real-only','mos'],['cbx-feed','activity'],
+           ['cbx-team','case'],['cbx-contact','case'],['cbx-soon','case']];
+  var PATS=PATS_DEMO, CLS=CLS_DEMO;
+  function pickMode(){
+    var real=app.classList.contains('is-real');
+    PATS=real?PATS_REAL:PATS_DEMO;
+    CLS=real?CLS_REAL:CLS_DEMO;
+    return real?'real':'demo';
+  }
   function marks(el){var t=el.textContent||'',m=[];for(var k in PATS){if(PATS[k].test(t))m.push(k);}return m;}
   function byClass(el){for(var i=0;i<CLS.length;i++){if(el.classList&&el.classList.contains(CLS[i][0]))return CLS[i][1];}return null;}
   function tag(el,depth){
@@ -4156,8 +4171,14 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     if(m.length>1&&depth<2){[].slice.call(el.children).forEach(function(k){tag(k,depth+1);});return;}
     el.dataset.cg='case';
   }
-  function classify(){
+  var mode3='';
+  function classify(force){
     var sec=document.getElementById('cb3-sec-delo'); if(!sec) return 0;
+    var m=pickMode();
+    if(force||m!==mode3){
+      mode3=m;
+      [].slice.call(sec.querySelectorAll('[data-cg]')).forEach(function(el){ delete el.dataset.cg; });
+    }
     [].slice.call(sec.children).forEach(function(el){tag(el,0);});
     return sec.querySelectorAll('[data-cg]').length;
   }
@@ -4194,7 +4215,6 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     if(view) caseBtn.setAttribute('aria-selected', view==='case'?'true':'false');
   }
   function setView(v){
-    if(!demo()) return;
     classify();
     if(window.cb3Tab) cb3Tab('delo');       // показать секцию дела (родные табы подсветит cb3Tab)
     app.dataset.view=v;
@@ -4204,7 +4224,6 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   function clearView(){ delete app.dataset.view; paintTabs(null); }
 
   function boot(){
-    if(!demo()) return;
     buildTabs();
     classify();
     app.dataset.view='case';
@@ -4215,7 +4234,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     var s=document.getElementById('cb3-sec-delo');
     if(s&&!s.__cgObs){ s.__cgObs=1; new MutationObserver(function(){ if(booted3) classify(); }).observe(s,{childList:true}); }
   }
-  function tryBootNow(){ if(booted3) return; if(app.classList.contains('open')&&demo()){ booted3=true; boot(); armSecObserver(); [800,2000,3500,6000].forEach(function(t){ setTimeout(function(){ if(booted3) classify(); },t); }); } }
+  function tryBootNow(){ if(booted3) return; if(app.classList.contains('open')){ booted3=true; boot(); armSecObserver(); [800,2000,3500,6000].forEach(function(t){ setTimeout(function(){ if(booted3) classify(); },t); }); } }
   /* мгновенно: и при уже открытом (?app=1), и при клике «открыть демо» */
   tryBootNow();
   var prev3=window.cb3OpenRaw;
@@ -4224,15 +4243,19 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
   setTimeout(function(){clearInterval(p);},30000);
 
   new MutationObserver(function(){
-    if(app.classList.contains('is-real')){ booted3=false; clearView(); return; }
-    if(app.classList.contains('open')){ tryBootNow(); }
-    else{ booted3=false; clearView(); }
+    if(!app.classList.contains('open')){ booted3=false; clearView(); return; }
+    if(!booted3){ tryBootNow(); return; }
+    var m=app.classList.contains('is-real')?'real':'demo';
+    if(m!==mode3){ classify(true); setView('case'); }
   }).observe(app,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 <style id="cbwow4-css">
 /* ═══ demo v4.1: главный экран «Case at a glance» ═══ */
 .cb3-app.is-real #cbwow-sum{display:none!important}
+/* демо-карточки v2 (прогноз/биометрия — вымышленные) не показываем реальным клиентам;
+   карточка идей в Details (#cbwow-idea) остаётся — она настоящая */
+.cb3-app.is-real #cb3-sec-delo .cbwow-card{display:none!important}
 #cbwow-sum{margin:14px 0 4px}
 .cbws-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 10px}
 .cbws-head b{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#8C88A6;font-weight:800}
@@ -4608,6 +4631,8 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
 .cb3-dark .cbwow-chip small{color:#C9C4DA}
 /* ── шапка: аватар · колокольчик · луна ── */
 @media(max-width:640px){#cb5-hwrap{margin-left:auto}}
+.cb3-app.is-real #cb5-bar .bdg{display:none}
+.cb3-app.is-real #cb5-sheet #cb5-sheetdark{display:none}
 .cb3-app:not(.is-real) .cb3-top .cb3-exit{margin-left:0}
 .cb5-hbtn{position:relative;font:inherit;border:1px solid var(--line);background:var(--card);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--indigo);flex:none;transition:transform .18s}
 .cb5-hbtn:hover{transform:translateY(-1px)}
@@ -4629,15 +4654,15 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
 /* ── нижний app-бар (мобайл, демо) ── */
 #cb5-bar{display:none}
 @media(max-width:640px){
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-top{gap:7px;padding:9px 12px 7px}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-ttl{font-size:13.5px;white-space:nowrap}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-soc{display:none}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb5-hbtn{width:33px;height:33px;border-radius:10px}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb5-ava{width:33px;height:33px;border-radius:10px;font-size:13px}
-  .cb3-app.cb5-hasbar:not(.is-real) #cb5-hwrap{gap:6px}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-exit{padding:7px 11px;font-size:12px}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-demo-chip{display:none}
-  .cb3-app.cb5-hasbar:not(.is-real) .cb3-tabs{display:none}
+  .cb3-app.cb5-hasbar .cb3-top{gap:7px;padding:9px 12px 7px}
+  .cb3-app.cb5-hasbar .cb3-ttl{font-size:13.5px;white-space:nowrap}
+  .cb3-app.cb5-hasbar .cb3-soc{display:none}
+  .cb3-app.cb5-hasbar .cb5-hbtn{width:33px;height:33px;border-radius:10px}
+  .cb3-app.cb5-hasbar .cb5-ava{width:33px;height:33px;border-radius:10px;font-size:13px}
+  .cb3-app.cb5-hasbar #cb5-hwrap{gap:6px}
+  .cb3-app.cb5-hasbar .cb3-exit{padding:7px 11px;font-size:12px}
+  .cb3-app.cb5-hasbar .cb3-demo-chip{display:none}
+  .cb3-app.cb5-hasbar .cb3-tabs{display:none}
   .cb3-app.cb5-hasbar:not(.is-real) .cb3-body{padding-bottom:92px}
   #cb5-bar{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:70;display:flex;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px -12px rgba(26,24,36,.45);padding:7px 6px calc(7px)}
   .cb3-app.cb3-dark #cb5-bar{box-shadow:0 10px 40px -12px rgba(0,0,0,.7)}
@@ -4880,10 +4905,14 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   /* ── boot / teardown ── */
   var booted5=false;
   function boot5(){
-    buildHeader(); buildBar(); syncBar(); skeleton();
-    setTimeout(countUps,60); setTimeout(countUps,500);
+    if(demo()){
+      buildHeader(); buildBar(); syncBar(); skeleton();
+      setTimeout(countUps,60); setTimeout(countUps,500);
+    } else {
+      buildBar(); syncBar();
+    }
   }
-  function tryBoot(){ if(booted5) return; if(app.classList.contains('open')&&demo()){ booted5=true; boot5(); } }
+  function tryBoot(){ if(booted5) return; if(app.classList.contains('open')){ booted5=true; boot5(); } }
   function teardown(){
     booted5=false;
     ['cb5-hwrap','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
@@ -4902,9 +4931,18 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   var p5=setInterval(function(){ tryBoot(); if(booted5) clearInterval(p5); },150);
   setTimeout(function(){clearInterval(p5);},30000);
   new MutationObserver(function(){
-    if(app.classList.contains('is-real')){ teardown(); return; }
-    if(app.classList.contains('open')){ tryBoot(); }
-    else{ teardown(); }
+    if(!app.classList.contains('open')){ teardown(); return; }
+    if(app.classList.contains('is-real')){
+      /* реал: демо-надстройки снять, app-бар оставить/построить */
+      ['cb5-hwrap','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
+      if(app.classList.contains('cb3-dark')) app.classList.remove('cb3-dark');
+      try{ document.body.classList.remove('cb3-dark-body'); }catch(e){}
+      if(!document.getElementById('cb5-bar')){ buildBar(); }
+      syncBar();
+      booted5=true;
+      return;
+    }
+    tryBoot();
   }).observe(app,{attributes:true,attributeFilter:['class']});
 })();
 </script>
