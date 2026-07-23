@@ -244,7 +244,8 @@ module.exports = async function handler(req, res) {
             .filter(t => /^\s*(КЛИЕНТ|CLIENT)\s*:/i.test(String(t.text || '')))
             .map(t => ({
               id: t.id,
-              text: String(t.text).replace(/^\s*(КЛИЕНТ|CLIENT)\s*:\s*/i, '').trim(),
+              // «EN для клиента || RU для Даши» — клиенту только часть до ||
+              text: String(t.text).replace(/^\s*(КЛИЕНТ|CLIENT)\s*:\s*/i, '').split('||')[0].trim(),
               completeTill: (t.complete_till || 0) * 1000
             }))
             .filter(t => t.text)
