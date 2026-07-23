@@ -1669,7 +1669,14 @@ html.noanim .cb3-app *,html.noanim .cb3-app *::before,html.noanim .cb3-app *::af
 .cb3-soc a:active{transform:scale(.92)}
 @media(max-width:480px){.cb3-socbtn{width:32px;height:32px}}
 </style>
-<style id="tapfb">@media(hover:none){button:active,a:active,[role="button"]:active,[onclick]:active,.cb3-tab:active,.cbws-t:active,.cbws-hero:active,.cbws-row:active,.cbws-stats .st:active,#cb5-bar button:active,.cb5-srow:active,.cb5-hbtn:active,.stf-row:active,.stf-actr:active,.ct-mc:active{transform:scale(.96)!important;transition:transform .1s ease!important}}</style><style id="cb5-rgl-css">
+<style id="tapfb">@media(hover:none){button:active,a:active,[role="button"]:active,[onclick]:active,.cb3-tab:active,.cbws-t:active,.cbws-hero:active,.cbws-row:active,.cbws-stats .st:active,#cb5-bar button:active,.cb5-srow:active,.cb5-hbtn:active,.stf-row:active,.stf-actr:active,.ct-mc:active{transform:scale(.96)!important;transition:transform .1s ease!important}}</style><style id="cb5-rtask-css">
+.cb3-app:not(.is-real) #cb5-srow-tasks{display:none}
+.cb5-tcard{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #E8E2D8;border-radius:15px;padding:14px 16px;margin-top:9px;box-shadow:0 1px 2px rgba(26,24,36,.04)}
+.cb5-tcard .tic{flex:none;width:28px;height:28px;border-radius:9px;background:#F9EFDD;color:#C97F33;font-weight:800;display:grid;place-items:center}
+.cb5-tcard.done .tic{background:#E4F4EC;color:#1E9E6A}
+.cb5-tcard b{display:block;font-size:14px;color:#1A1824;line-height:1.45}
+.cb5-tcard small{display:block;font-size:11.5px;color:#8C88A6;margin-top:3px}
+</style><style id="cb5-rgl-css">
 #cb5-rglance{margin:14px 0 4px}
 #cb5-rglance>*{animation:cbwsUp .55s cubic-bezier(.16,.7,.2,1) both}
 #cb5-rglance .cbws-grid{animation-delay:.08s}
@@ -3014,7 +3021,7 @@ once(list,function(){list.className+=' cbx-cascade';});
     if(MODE!=='real')return;
     try{fetch('/api/cabinet/me',{credentials:'include'})
       .then(function(r){return r.ok?r.json():null;})
-      .then(function(j){if(j&&MODE==='real'){renderReal(j);}})
+      .then(function(j){if(j&&MODE==='real'){renderReal(j); try{ window.__cbMe=j; document.dispatchEvent(new CustomEvent('cb5:me')); }catch(e){} }})
       .catch(function(){});}catch(e){}
   }
   var _refTimer=null;
@@ -4187,6 +4194,8 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
 .cb3-app[data-view="mos"] #cb3-sec-delo [data-cg="mos"]{display:revert!important}
 .cb3-app[data-view="docs"] #cb3-sec-delo [data-cg="docs"]{display:revert!important}
 .cb3-app[data-view="activity"] #cb3-sec-delo [data-cg="activity"]{display:revert!important}
+.cb3-app[data-view="tasks"] #cb3-sec-delo [data-cg="tasks"]{display:revert!important}
+.cb3-app:not(.is-real) #cb3-vtab-tasks{display:none}
 </style>
 <script id="cbwow3">
 /* Тематические вкладки поверх «Case»: контент не переносится (реальный кабинет не задет),
@@ -4237,7 +4246,7 @@ window.addEventListener('scroll',function(){if(shown||dismissed)return;var sc=(w
     return sec.querySelectorAll('[data-cg]').length;
   }
 
-  var TABS=[['process','Process'],['mos','MOS'],['docs','Documents'],['activity','Activity']];
+  var TABS=[['process','Process'],['mos','MOS'],['docs','Documents'],['tasks','Tasks'],['activity','Activity']];
   function buildTabs(){
     if(built) return; 
     var nav=app.querySelector('.cb3-tabs'); var caseBtn=document.getElementById('cb3-tab-delo');
@@ -4862,6 +4871,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
     sh.id='cb5-sheet';
     sh.innerHTML='<div class="ovl"></div><div class="pan"><div class="grab"></div>'
       +'<button type="button" class="cb5-srow" data-nav="vt:process"><span class="ich">'+ic(I.route,15)+'</span>Your process<span class="arr">→</span></button>'
+      +'<button type="button" class="cb5-srow" data-nav="vt:tasks" id="cb5-srow-tasks"><span class="ich">'+ic(I.docs,15)+'</span>Your tasks<span class="arr">→</span></button>'
       +'<button type="button" class="cb5-srow" data-nav="vt:mos"><span class="ich">'+ic(I.gov,15)+'</span>MOS status<span class="arr">→</span></button>'
       +'<button type="button" class="cb5-srow" data-nav="vt:activity"><span class="ich">'+ic(I.act,15)+'</span>Activity<span class="arr">→</span></button>'
       +'<button type="button" class="cb5-srow" data-nav="tab:cb3-tab-profile"><span class="ich">'+ic(I.user,15)+'</span>Details<span class="arr">→</span></button>'
@@ -4963,9 +4973,52 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       buildHeader(); buildBar(); syncBar(); skeleton();
       setTimeout(countUps,60); setTimeout(countUps,500);
     } else {
-      buildBar(); syncBar(); buildRealBell(); buildRealGlance();
+      buildBar(); syncBar(); buildRealBell(); buildRealGlance(); buildRealTasks(); sig5=meSig();
     }
   }
+  /* перестройка реальных блоков при изменении данных (рефреш /me каждые 90с) */
+  var sig5='';
+  function meSig(){
+    try{
+      var me=window.__cbMe; if(!me||!me.leads||!me.leads.length) return '';
+      var L=pick5(me.leads);
+      return JSON.stringify([L.id,(L.stage&&L.stage.step)||0,L.paidTotal,(L.updates||[]).length,(L.clientTasks||[]).map(function(t){return t.id;})]);
+    }catch(e){ return ''; }
+  }
+  document.addEventListener('cb5:me', function(){
+    if(!app.classList.contains('is-real')) return;
+    var s=meSig(); if(s===sig5) return; sig5=s;
+    ['cb5-realwrap','cb5-rglance','cb5-rtasks'].forEach(function(id){ var e=document.getElementById(id); if(e) e.remove(); });
+    buildRealBell(); buildRealGlance(); buildRealTasks();
+  });
+  /* ── РЕАЛ: вкладка Tasks — задачи «КЛИЕНТ:» из Kommo ── */
+  function buildRealTasks(){
+    try{
+      var old=document.getElementById('cb5-rtasks'); if(old) old.remove();
+      var me=window.__cbMe; if(!me||!me.leads||!me.leads.length) return;
+      var L=pick5(me.leads);
+      var sec=document.getElementById('cb3-sec-delo'); if(!sec) return;
+      var ts=(L.clientTasks||[]);
+      var el=document.createElement('div');
+      el.id='cb5-rtasks'; el.dataset.cg='tasks';
+      var inner='<div class="cbws-head" style="margin-top:14px"><b>Your tasks</b><small>'+(ts.length?ts.length+' open':'')+'</small></div>';
+      if(!ts.length){
+        inner+='<div class="cb5-tcard done"><span class="tic">✓</span><div><b>No tasks for you right now</b><small>Everything else is on us — relax, we are working on your case.</small></div></div>';
+      }else{
+        ts.forEach(function(t){
+          var due=t.completeTill?new Date(t.completeTill).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
+          inner+='<div class="cb5-tcard"><span class="tic">!</span><div><b>'+String(t.text).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</b>'+(due?'<small>please do this by '+due+'</small>':'')+'</div></div>';
+        });
+        inner+='<a class="btn btn-wa" style="margin-top:11px" target="_blank" rel="noopener" href="https://wa.me/48516295791?text='+encodeURIComponent('Hello! About my task in the portal: ')+'">Done / ask a question — WhatsApp</a>';
+      }
+      el.innerHTML=inner;
+      var fin=document.getElementById('cb3-final');
+      if(fin&&fin.parentElement===sec) sec.insertBefore(el,fin);
+      else sec.appendChild(el);
+    }catch(e){}
+  }
+  /* тот же выбор лида, что в renderReal (pickLead): самый свежий по updatedAt */
+  function pick5(ls){ try{ return ls.reduce(function(a,b){return (b.updatedAt||0)>(a.updatedAt||0)?b:a;}); }catch(e){ return ls&&ls[0]; } }
   /* ── РЕАЛ: сводка «Your case at a glance» из настоящих данных ── */
   function cbWTrim(s,n){
     s=String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').trim();
@@ -5007,7 +5060,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
     try{
       if(document.getElementById('cb5-rglance')) return;
       var me=window.__cbMe; if(!me||!me.leads||!me.leads.length) return;
-      var L=me.leads[0];
+      var L=pick5(me.leads);
       var sec=document.getElementById('cb3-sec-delo'); if(!sec) return;
       var greet=sec.querySelector('.cb3-greet');
       var step=(L.stage&&L.stage.step)||1, total=L.totalSteps||6;
@@ -5017,6 +5070,10 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       var updD=upd?new Date(upd.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):null;
       var updT=upd?cbWTrim(upd.text,64):null;
       var act=L.clientActionEn||L.clientAction||'';
+      var tks=(L.clientTasks||[]);
+      if(tks.length){ act=tks[0].text; }
+      var actGo=tks.length?'tasks':'docs';
+      var actB=tks.length?(tks.length+(tks.length>1?' tasks':' task')):'1 action';
       var fz=function(n){try{return (n||0).toLocaleString('en-US');}catch(e){return String(n||0);}};
       var el=document.createElement('div');
       el.id='cb5-rglance'; el.dataset.cg='case';
@@ -5026,7 +5083,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
         +'<span class="cbws-hero-tx"><span class="k">In work</span><b>Day '+dWork+'</b><small>'+(L.serviceTypeEn||L.serviceType||'Legalization')+' · '+((L.stage&&L.stage.ru)?'stage '+step+' of '+total:'in progress')+'</small><span class="lnk">Full journey →</span></span></button>'
         +'<div class="cbws-grid">'
         +'<button type="button" class="cbws-t" data-rg="process"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span class="k">'+(L.etaTextEn||L.etaText?'This stage takes':'Now')+'</span><b>'+((L.etaTextEn||L.etaText)?cbEtaShort(L.etaTextEn||L.etaText):'Stage '+step+' of '+total)+'</b><small>'+cbWTrim(L.whatWeDoEn||L.whatWeDo||'We are working on your case',110)+'</small></button>'
-        +'<button type="button" class="cbws-t '+(act?'amb':'ok')+'" data-rg="'+(act?'docs':'case')+'"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/></svg></span><span class="k">Needed from you</span><b>'+(act?'1 action':'Nothing ✓')+'</b><small>'+(act?cbWTrim(act,90):'Everything else is on us')+'</small></button>'
+        +'<button type="button" class="cbws-t '+(act?'amb':'ok')+'" data-rg="'+(act?actGo:'case')+'"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/></svg></span><span class="k">Needed from you</span><b>'+(act?actB:'Nothing ✓')+'</b><small>'+(act?cbWTrim(act,90):'Everything else is on us')+'</small></button>'
         +'<button type="button" class="cbws-t" data-rg="pay"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg></span><span class="k">Payments</span><b>'+fz(L.paidTotal)+' zł</b><small>of '+fz(L.price)+' zł paid'+(L.remaining>0?' · remaining '+fz(L.remaining):'')+'</small></button>'
         +'<button type="button" class="cbws-t" data-rg="activity"><span class="ich"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 8-6-16-3 8H2"/></svg></span><span class="k">Last update</span><b>'+(updD||'—')+'</b><small>'+(updT?updT.replace(/</g,'&lt;'):'Updates will appear here')+'</small></button>'
         +'</div>'
@@ -5100,7 +5157,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
   function tryBoot(){ if(booted5) return; if(app.classList.contains('open')){ booted5=true; boot5(); } }
   function teardown(){
     booted5=false;
-    ['cb5-hwrap','cb5-realwrap','cb5-rglance','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
+    ['cb5-hwrap','cb5-realwrap','cb5-rglance','cb5-rtasks','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
     /* ВАЖНО: remove() отсутствующего класса ВСЁ РАВНО плодит mutation record →
        безусловные вызовы здесь зацикливают observer ниже (зависание вкладки). */
     if(app.classList.contains('cb5-hasbar')) app.classList.remove('cb5-hasbar');
@@ -5126,6 +5183,8 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       syncBar();
       buildRealBell();
       buildRealGlance();
+      buildRealTasks();
+      sig5=meSig();
       booted5=true;
       return;
     }

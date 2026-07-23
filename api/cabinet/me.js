@@ -161,7 +161,7 @@ module.exports = async function handler(req, res) {
       await Promise.all(opsIds.slice(ci, ci + 5).map(async lid => {
         const [nR, tR] = await Promise.all([
           kommo('GET', `/leads/${lid}/notes?limit=100`).catch(() => null),
-          kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=10`).catch(() => null)
+          kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${lid}&filter[is_completed]=0&limit=50`).catch(() => null)
         ]);
         notesMap[lid] = nR; tasksMap[lid] = tR;
       }));
@@ -235,6 +235,22 @@ module.exports = async function handler(req, res) {
           })).sort((a, b) => a.completeTill - b.completeTill);
         } catch (_) {}
 
+        // Задачи для КЛИЕНТА (вкладка Tasks в кабинете): Даша ставит в Kommo задачу,
+        // начав текст с «КЛИЕНТ:» — только такие уходят наружу, префикс срезаем.
+        let clientTasks = [];
+        try {
+          const tRes = tasksMap[lid];
+          clientTasks = (tRes?._embedded?.tasks || [])
+            .filter(t => /^\s*(КЛИЕНТ|CLIENT)\s*:/i.test(String(t.text || '')))
+            .map(t => ({
+              id: t.id,
+              text: String(t.text).replace(/^\s*(КЛИЕНТ|CLIENT)\s*:\s*/i, '').trim(),
+              completeTill: (t.complete_till || 0) * 1000
+            }))
+            .filter(t => t.text)
+            .sort((a, b) => (a.completeTill || 9e15) - (b.completeTill || 9e15));
+        } catch (_) {}
+
         // История смены этапов (Kommo events) — «роадмап» для ленты дела
         let stageHistory = [];
         try {
@@ -293,7 +309,8 @@ module.exports = async function handler(req, res) {
           notes,        // совместимость — здесь только клиентские (с 📢)
           updates,      // тоже клиентские, более явное имя
           chat,         // двусторонний чат: {from:'client'|'manager', text, createdAt}
-          tasks
+          tasks,
+          clientTasks   // видимые клиенту задачи (префикс «КЛИЕНТ:» в Kommo)
         });
       } catch (e) {
         console.error('lead fetch err:', e.message);
