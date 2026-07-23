@@ -3015,6 +3015,7 @@ once(list,function(){list.className+=' cbx-cascade';});
   }
   function enterReal(me){
     try{ localStorage.setItem('cb3_auth','1'); }catch(e){}
+    try{ window.__cbMe=me; }catch(e){}
     snap();
     app.classList.add('is-real');
     renderReal(me);
@@ -4676,7 +4677,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
 @media(max-width:640px){#cb5-hwrap{margin-left:auto}}
 .cb3-app.is-real #cb5-bar .bdg{display:none}
 .cb3-app.is-real #cb5-sheet #cb5-sheetdark{display:none}
-.cb3-app:not(.is-real) .cb3-top .cb3-exit{margin-left:0}
+.cb3-app .cb3-top .cb3-exit{margin-left:0}
 .cb5-hbtn{position:relative;font:inherit;border:1px solid var(--line);background:var(--card);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;cursor:pointer;color:var(--indigo);flex:none;transition:transform .18s}
 .cb5-hbtn:hover{transform:translateY(-1px)}
 .cb5-ava{position:relative;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#B5AACC,#5F5289);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;flex:none}
@@ -4952,13 +4953,64 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       buildHeader(); buildBar(); syncBar(); skeleton();
       setTimeout(countUps,60); setTimeout(countUps,500);
     } else {
-      buildBar(); syncBar();
+      buildBar(); syncBar(); buildRealBell();
     }
+  }
+  /* ── РЕАЛ: колокольчик с настоящими апдейтами дела ── */
+  function realUpdates(){
+    try{
+      var me=window.__cbMe; if(!me||!me.leads) return [];
+      var out=[];
+      me.leads.forEach(function(l){ (l.updates||[]).forEach(function(u){ out.push({t:u.text||'',at:u.createdAt||0}); }); });
+      out.sort(function(a,b){return b.at-a.at;});
+      return out.slice(0,6);
+    }catch(e){ return []; }
+  }
+  function buildRealBell(){
+    if(document.getElementById('cb5-realwrap')) return;
+    var anchorEl=app.querySelector('.cb3-top .cb3-exit'); if(!anchorEl) return;
+    var ups=realUpdates();
+    var seen=0; try{ seen=parseInt(localStorage.getItem('cb3_upd_seen')||'0',10); }catch(e){}
+    var fresh=ups.filter(function(u){return u.at>seen;}).length;
+    var wrap=document.createElement('span');
+    wrap.id='cb5-realwrap';
+    wrap.style.cssText='display:inline-flex;align-items:center;gap:8px;position:relative';
+    wrap.innerHTML='<button type="button" class="cb5-hbtn" id="cb5-rbell" aria-label="Notifications">'+
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>'+
+      (fresh?'<span class="cb5-badge" id="cb5-rbadge">'+fresh+'</span>':'')+'</button>'+
+      '<div id="cb5-bellp" role="menu"><div class="bh"><b>Updates on your case</b><small id="cb5-rnew">'+(fresh?fresh+' new':'')+'</small></div>'+
+      (ups.length?ups.map(function(u){
+        var d=new Date(u.at); var tm=d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+        var txt=u.t.length>90?u.t.slice(0,87)+'…':u.t;
+        return '<button type="button" class="cb5-nitem" data-go-act="1"><span class="nic" style="background:#EEE9F4;color:#5F5289"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 8-6-16-3 8H2"/></svg></span><span><b>'+txt.replace(/</g,'&lt;')+'</b><small>'+tm+'</small></span></button>';
+      }).join(''):'<div style="padding:12px 10px;font-size:13px;color:#8C88A6">No updates yet — your case just started. Everything new will appear here.</div>')+
+      '</div>';
+    anchorEl.parentNode.insertBefore(wrap,anchorEl);
+    var bell=document.getElementById('cb5-rbell');
+    bell.addEventListener('click',function(e){
+      e.stopPropagation();
+      var p=wrap.querySelector('#cb5-bellp');
+      var on=p.classList.toggle('on');
+      if(on){
+        try{ localStorage.setItem('cb3_upd_seen',String(Date.now())); }catch(e2){}
+        var b=document.getElementById('cb5-rbadge'); if(b) b.classList.add('off');
+        var n=document.getElementById('cb5-rnew'); if(n) n.textContent='';
+      }
+    });
+    document.addEventListener('click',function(e){
+      var p=wrap.querySelector('#cb5-bellp');
+      if(p&&p.classList.contains('on')&&!wrap.contains(e.target)) p.classList.remove('on');
+    });
+    wrap.addEventListener('click',function(e){
+      var t=e.target.closest('[data-go-act]'); if(!t) return;
+      var v=document.getElementById('cb3-vtab-activity'); if(v) v.click();
+      wrap.querySelector('#cb5-bellp').classList.remove('on');
+    });
   }
   function tryBoot(){ if(booted5) return; if(app.classList.contains('open')){ booted5=true; boot5(); } }
   function teardown(){
     booted5=false;
-    ['cb5-hwrap','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
+    ['cb5-hwrap','cb5-realwrap','cb5-bar','cb5-sheet','cb5-skel'].forEach(function(id){ var n=document.getElementById(id); if(n) n.remove(); });
     /* ВАЖНО: remove() отсутствующего класса ВСЁ РАВНО плодит mutation record →
        безусловные вызовы здесь зацикливают observer ниже (зависание вкладки). */
     if(app.classList.contains('cb5-hasbar')) app.classList.remove('cb5-hasbar');
@@ -4982,6 +5034,7 @@ body.cb3-dark-body #cbwow-toast .ic{background:#2A2440}
       try{ document.body.classList.remove('cb3-dark-body'); }catch(e){}
       if(!document.getElementById('cb5-bar')){ buildBar(); }
       syncBar();
+      buildRealBell();
       booted5=true;
       return;
     }
