@@ -91,8 +91,10 @@ button{font-family:var(--font)}
 .kpi:hover{transform:translateY(-2px)}
 .kpi .n{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
 .kpi .t{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-top:3px}
-.kpi.alert{border-color:var(--red);background:linear-gradient(180deg,#fff, var(--red-soft))}
+.kpi.alert{border-color:var(--red);background:linear-gradient(180deg,#fff, var(--red-soft));animation:kpipulse 2.6s ease-in-out infinite}
 .kpi.alert .n{color:var(--red)}
+@keyframes kpipulse{0%,100%{box-shadow:var(--sh-sm)}50%{box-shadow:0 1px 2px rgba(196,83,75,.10),0 18px 40px -22px rgba(196,83,75,.55)}}
+@media(prefers-reduced-motion:reduce){.kpi.alert,.bell{animation:none}}
 .kpi.ok .n{color:var(--green)}
 .kpi.gold .n{color:var(--gold-2)}
 
@@ -818,8 +820,9 @@ function setPassword(){
     .catch(function(){b.disabled=false;toast('Нет связи')});
 }
 
-/* авто-обновление: каждые 5 минут + при возврате на вкладку */
-setInterval(function(){if(DATA&&document.visibilityState==='visible')loadData()},300000);
+/* авто-обновление: каждые 90 сек, пока вкладка открыта, + при возврате на вкладку.
+   Бот кладёт черновик за ~20-45 сек, так что новое сообщение появляется у Даши быстро. */
+setInterval(function(){if(DATA&&document.visibilityState==='visible')loadData()},90000);
 document.addEventListener('visibilitychange',function(){if(DATA&&document.visibilityState==='visible')loadData()});
 
 boot();
