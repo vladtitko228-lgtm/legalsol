@@ -198,7 +198,7 @@ async function actionClient(req, res) {
   // Имя клиента: имя сделки, если оно не телефон; иначе имя контакта
   const leadNm = cleanLeadName(lead.name);
   const displayName = (leadNm && !looksLikePhone(leadNm)) ? leadNm : ((cname && !looksLikePhone(cname)) ? cname : (leadNm || cname || 'Клиент'));
-  let updates = [], payments = [], chat = [], plan = null, draft = '', draftAt = 0;
+  let updates = [], payments = [], chat = [], plan = null, draft = '', draftAt = 0, notes = [];
   try {
     const nRes = await kommo('GET', `/leads/${leadId}/notes?limit=100`);
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
@@ -206,6 +206,11 @@ async function actionClient(req, res) {
     const dNote = all.filter(n => isDraftNote(n.text)).sort((a, b) => b.createdAt - a.createdAt)[0];
     const lastOut = all.filter(n => isChatReplyNote(n.text) || (isClientNote(n.text) && !isPaymentNote(n.text))).sort((a, b) => b.createdAt - a.createdAt)[0];
     if (dNote && (!lastOut || dNote.createdAt > lastOut.createdAt)) { draft = stripDraftPrefix(dNote.text); draftAt = dNote.createdAt; }
+    // Личные заметки сотрудников по клиенту («ЗАМЕТКА (Имя): …») — внутренние
+    notes = all.filter(n => /^ЗАМЕТКА\s*\(/i.test(n.text)).map(n => {
+      const m = n.text.match(/^ЗАМЕТКА\s*\(([^)]*)\):\s*([\s\S]*)$/i);
+      return { id: n.id, createdAt: n.createdAt, who: (m && m[1]) || '', text: (m && m[2] || '').trim() };
+    }).filter(n => n.text).sort((a, b) => b.createdAt - a.createdAt).slice(0, 20);
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
     // План рассрочки — НОВЕЙШАЯ заметка «ПЛАН ОПЛАТ» (пишет платёжный бот из таблицы закрытий)
@@ -231,12 +236,12 @@ async function actionClient(req, res) {
   const paidTotal = Math.max(planPaid, notesPaid);
   const nextUnpaid = plan ? (plan.installments.find(i => !i.paid) || null) : null;
   return res.status(200).json({
-    leadId: lead.id, name: displayName, phone, hasAccess,
+    leadId: lead.id, name: displayName, phone, hasAccess, contactId: cid || 0,
     service: getCfValue(lead, CF_SERVICE_TYPE) || stage.service || '',
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
     price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0,
     nextDue: nextUnpaid ? { amount: nextUnpaid.amount, dateText: nextUnpaid.dateText } : null,
-    payments, tasks, updates, chat, draft, draftAt,
+    payments, tasks, updates, chat, draft, draftAt, notes,
     crmUrl: `https://${KOMMO_SUBDOMAIN}.kommo.com/leads/detail/${lead.id}`
   });
 }
@@ -245,12 +250,18 @@ async function actionClient(req, res) {
 async function actionSetPassword(req, res) {
   const ip = clientIp(req);
   if (await rateLimitBlocked(ip, '__staffpw__')) return res.status(429).json({ error: 'too_many_attempts' });
-  const { phone, password } = await readJsonBody(req);
+  const { phone, password, contactId } = await readJsonBody(req);
   if (!phone) return res.status(400).json({ error: 'phone_required' });
   if (!password || String(password).length < 6) return res.status(400).json({ error: 'password_too_short', message: 'Пароль — минимум 6 символов.' });
   const normalized = normalizePhone(phone);
   if (normalized.length < 9) return res.status(400).json({ error: 'invalid_phone' });
-  const contact = await findContactByPhone(normalized);
+  // Пишем пароль КОНТАКТУ ОТКРЫТОЙ КАРТОЧКИ (contactId), а не «первому по телефону»:
+  // на одном номере бывает семья/дубли, и findContactByPhone предпочитает того, у кого
+  // пароль уже есть → доступ уходил не тому человеку (аудит 24.07.2026).
+  let contact = null;
+  const cid = String(contactId || '').replace(/[^\d]/g, '');
+  if (cid) { try { contact = await kommo('GET', `/contacts/${cid}`); } catch (_) {} }
+  if (!contact || !contact.id) contact = await findContactByPhone(normalized);
   if (!contact) { await rateLimitFail(ip, '__staffpw__'); return res.status(404).json({ error: 'contact_not_found', message: 'Клиент с таким телефоном не найден в Kommo. Сначала заведите карточку и переведите в воронку «Легализация».' }); }
   let inOps = false;
   try {
@@ -262,15 +273,39 @@ async function actionSetPassword(req, res) {
   return res.status(200).json({ ok: true, contactId: contact.id, name: contact.name || '', login: '+' + normalized, inOps, updated: already });
 }
 
-// ── action=reply ── Даша отвечает клиенту в кабинет (заметка КЛИЕНТУ:)
+// ── action=reply ── Даша отвечает клиенту в кабинет (заметка ОТВЕТ:)
 async function actionReply(req, res) {
-  const { leadId, text } = await readJsonBody(req);
+  const { leadId, text, draft } = await readJsonBody(req);
   const lid = String(leadId || '').replace(/[^\d]/g, '');
   const msg = String(text || '').trim().slice(0, 1500);
   if (!lid) return res.status(400).json({ error: 'leadId_required' });
   if (!msg) return res.status(400).json({ error: 'text_required' });
   await kommo('POST', `/leads/${lid}/notes`, [
     { note_type: 'common', params: { text: 'ОТВЕТ: ' + msg } }
+  ]);
+  // Обучение ИИ: если Даша поправила черновик — сохраняем пару «было → стало»
+  // внутренней заметкой; ai.js подмешивает такие уроки в промпт (её стиль).
+  const d = String(draft || '').trim();
+  if (d && d !== msg) {
+    try {
+      await kommo('POST', `/leads/${lid}/notes`, [
+        { note_type: 'common', params: { text: 'ПРАВКА ЧЕРНОВИКА:\nБЫЛО: ' + d.slice(0, 700) + '\nСТАЛО: ' + msg.slice(0, 700) } }
+      ]);
+    } catch (_) {}
+  }
+  return res.status(200).json({ ok: true });
+}
+
+// ── action=note ── личная заметка Даши по клиенту (внутренняя, клиенту не видна)
+async function actionNote(req, res, payload) {
+  const { leadId, text } = await readJsonBody(req);
+  const lid = String(leadId || '').replace(/[^\d]/g, '');
+  const msg = String(text || '').trim().slice(0, 1500);
+  if (!lid) return res.status(400).json({ error: 'leadId_required' });
+  if (!msg) return res.status(400).json({ error: 'text_required' });
+  const who = String(payload?.name || 'Сотрудник').replace(/[\r\n]/g, ' ').slice(0, 40);
+  await kommo('POST', `/leads/${lid}/notes`, [
+    { note_type: 'common', params: { text: 'ЗАМЕТКА (' + who + '): ' + msg } }
   ]);
   return res.status(200).json({ ok: true });
 }
@@ -285,6 +320,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'client') return actionClient(req, res);
     if (req.method === 'POST' && action === 'set-password') return actionSetPassword(req, res);
     if (req.method === 'POST' && action === 'reply') return actionReply(req, res);
+    if (req.method === 'POST' && action === 'note') return actionNote(req, res, payload);
     return res.status(400).json({ error: 'bad_action' });
   } catch (e) {
     console.error('staff err:', e.message);

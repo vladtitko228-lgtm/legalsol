@@ -122,6 +122,14 @@ button{font-family:var(--font)}
 .missed-card .ago{font-size:12px;font-weight:800;color:var(--red);white-space:nowrap}
 .missed-card .txt{font-size:13.5px;color:var(--ink-2);background:var(--lilac);border-radius:12px;padding:10px 12px;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .missed-card .txt.idea{background:var(--gold-soft)}
+.mc-stage{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+.mc-stage .mini{white-space:nowrap}
+/* заметки сотрудника */
+.note-item{background:var(--cream-2);border-radius:12px;padding:10px 13px;margin-bottom:8px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.note-item .nmeta{display:block;font-size:11px;font-weight:800;color:var(--ink-3);margin-top:6px;text-transform:uppercase;letter-spacing:.05em}
+.note-row{display:flex;gap:8px;margin-top:4px}
+.note-row textarea{flex:1;font-family:var(--font);font-size:14px;padding:10px 13px;border:1.5px solid var(--line);border-radius:var(--r-sm);resize:none;outline:none;min-height:42px;max-height:110px;background:#fff}
+.note-row textarea:focus{border-color:var(--indigo)}
 .all-ok{background:var(--green-soft);color:var(--green);font-weight:700;font-size:14.5px;padding:16px 20px;border-radius:var(--r)}
 
 /* activity */
@@ -499,6 +507,8 @@ function render(){
       var fresh=c.lastMsgMs&&(Date.now()-c.lastMsgMs)<8*60e3;
       return '<div class="missed-card" data-lead="'+c.leadId+'">'+
         '<div class="head"><div class="nm">'+esc(c.name)+(lbl?'<span class="seqtag">'+lbl+'</span>':'')+'</div><div class="ago">'+BELL+' ждёт '+ago(c.lastMsgMs)+'</div></div>'+
+        '<div class="mc-stage"><span class="stage-chip'+(c.isDone?' done':'')+'">'+esc(c.stage)+'</span><span class="mini" style="text-align:left">шаг '+(c.step||0)+' из '+(c.totalSteps||6)+'</span>'+
+          (c.service?'<span class="mini" style="text-align:left;font-weight:600">'+esc(c.service)+'</span>':'')+'</div>'+
         (a?'<div class="txt'+(a.kind==='idea'?' idea':'')+'">'+esc(a.text)+'</div>':'<div class="txt">Новое сообщение в кабинете — откройте чат.</div>')+
         (c.draft
           ? '<div class="draft"><div class="dh">'+ICO_AI+'Готовый ответ — проверьте и отправьте</div><div class="dt">'+esc(c.draft)+'</div>'+
@@ -687,6 +697,15 @@ function renderDetail(){
     '<div class="hint">Ответ появится у клиента в чате кабинета. Пишите как клиенту: без внутренних пометок.</div>'+
     '</div>';
 
+  /* заметки сотрудника (клиент их не видит) */
+  html+='<div class="dr-sec"><h4>Мои заметки по клиенту</h4>'+
+    ((c.notes||[]).length
+      ? c.notes.map(function(n){return '<div class="note-item">'+esc(n.text)+'<span class="nmeta">'+esc(n.who||'')+' · '+fmtDT(n.createdAt)+'</span></div>'}).join('')
+      : '<div class="chat-empty">Заметок пока нет.</div>')+
+    '<div class="note-row"><textarea id="noteText" placeholder="Заметка для себя: договорённости, что проверить…" maxlength="1500"></textarea><button class="btn btn-ghost btn-sm" id="noteSave">Записать</button></div>'+
+    '<div class="hint">Видно только команде — клиенту эти заметки не показываются.</div>'+
+    '</div>';
+
   /* updates */
   if((c.updates||[]).length){
     var ups=c.updates.slice(0,5);
@@ -725,6 +744,22 @@ function renderDetail(){
     $('pwInput').value=p;
   });
   $('pwSet').addEventListener('click',setPassword);
+  $('noteSave').addEventListener('click',saveNote);
+}
+
+function saveNote(){
+  var ta=$('noteText'),msg=ta.value.trim();
+  if(!msg||!DETAIL)return;
+  var b=$('noteSave');b.disabled=true;b.textContent='…';
+  api('/api/cabinet/staff?action=note',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:DETAIL.leadId,text:msg})})
+    .then(function(r){
+      b.disabled=false;b.textContent='Записать';
+      if(!r.ok){toast('Не сохранилось — попробуйте ещё раз');return}
+      ta.value='';
+      toast('Заметка записана');
+      openClient(DETAIL.leadId);
+    })
+    .catch(function(){b.disabled=false;b.textContent='Записать';toast('Нет связи')});
 }
 
 /* Отправка готового ответа одним кликом из списка пропущенных */
@@ -745,7 +780,7 @@ function sendReply(){
   var ta=$('replyText'),msg=ta.value.trim();
   if(!msg||!DETAIL)return;
   var b=$('replySend');b.disabled=true;b.textContent='…';
-  api('/api/cabinet/staff?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:DETAIL.leadId,text:msg})})
+  api('/api/cabinet/staff?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:DETAIL.leadId,text:msg,draft:DETAIL.draft||''})})
     .then(function(r){
       b.disabled=false;b.textContent='Отправить';
       if(!r.ok){toast('Не отправилось — попробуйте ещё раз');return}
@@ -769,13 +804,13 @@ function setPassword(){
   if(pw.length<6){toast('Пароль — минимум 6 символов');return}
   if(!DETAIL.phone){toast('У клиента нет телефона в Kommo — сначала внесите номер');return}
   var b=$('pwSet');b.disabled=true;b.textContent='…';
-  api('/api/cabinet/staff?action=set-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:DETAIL.phone,password:pw})})
+  api('/api/cabinet/staff?action=set-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:DETAIL.phone,password:pw,contactId:DETAIL.contactId||0})})
     .then(function(r){
       b.disabled=false;b.textContent=DETAIL.hasAccess?'Сменить':'Выдать доступ';
       if(!r.ok){toast(r.j&&r.j.message?r.j.message:'Не получилось — попробуйте ещё раз');return}
       var ok=$('pwOk');
       ok.style.display='block';
-      ok.textContent='Готово! Логин: '+(r.j.login||DETAIL.phone)+' · Пароль: '+pw+' — отправьте клиенту в WhatsApp.';
+      ok.textContent='Готово для «'+(r.j.name||DETAIL.name)+'» · Логин: '+(r.j.login||DETAIL.phone)+' · Пароль: '+pw+' — отправьте клиенту в WhatsApp.';
       DETAIL.hasAccess=true;
       toast('Доступ сохранён');
       loadData();

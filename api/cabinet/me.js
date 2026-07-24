@@ -236,16 +236,20 @@ module.exports = async function handler(req, res) {
         } catch (_) {}
 
         // Задачи для КЛИЕНТА (вкладка Tasks в кабинете): Даша ставит в Kommo задачу,
-        // начав текст с «КЛИЕНТ:» — только такие уходят наружу, префикс срезаем.
+        // начав текст с «КЛИЕНТУ:» — только такие уходят наружу, префикс срезаем.
+        // ВАЖНО (аудит 24.07.2026): раньше триггером было «КЛИЕНТ:» — обычное начало
+        // ВНУТРЕННЕЙ задачи («Клиент: дожать оплату», «клиент: не отвечает») публиковалось
+        // клиенту дословно. Теперь только дательный падеж «КЛИЕНТУ:» / «TO CLIENT:»,
+        // как и в заметках — совпадения с обычной речью нет.
         let clientTasks = [];
         try {
           const tRes = tasksMap[lid];
           clientTasks = (tRes?._embedded?.tasks || [])
-            .filter(t => /^\s*(КЛИЕНТ|CLIENT)\s*:/i.test(String(t.text || '')))
+            .filter(t => /^\s*(КЛИЕНТУ|TO CLIENT)\s*:/i.test(String(t.text || '')))
             .map(t => ({
               id: t.id,
               // «EN для клиента || RU для Даши» — клиенту только часть до ||
-              text: String(t.text).replace(/^\s*(КЛИЕНТ|CLIENT)\s*:\s*/i, '').split('||')[0].trim(),
+              text: String(t.text).replace(/^\s*(КЛИЕНТУ|TO CLIENT)\s*:\s*/i, '').split('||')[0].trim(),
               completeTill: (t.complete_till || 0) * 1000
             }))
             .filter(t => t.text)
