@@ -27,7 +27,15 @@ function parseStaff() {
   }
   return out;
 }
-const STAFF = parseStaff();
+// Аварийный staff-вход владельца: env CABINET_STAFF правится только через Vercel UI,
+// а владельцу нужен доступ к панели сотрудника для ревизии. Хэш в репо допустим
+// (пароль случайный сильный; прецедент — SELLERS в api/owner/_owner.js).
+const STAFF_FALLBACK = [
+  { phone: '48694604430', hash: 'scrypt$6b1a2091f224c918229126689f49a235$558d30533ae94cffe278e6de27fbc3dd26dbf709666ec2703af2fcf411f9565d', name: 'Влад (админ)' },
+];
+const STAFF = parseStaff().concat(
+  STAFF_FALLBACK.filter(f => !parseStaff().some(s => s.phone === f.phone))
+);
 function findStaffByPhone(normalizedPhone) {
   const p = String(normalizedPhone || '').replace(/[^\d]/g, '');
   return STAFF.find(s => s.phone === p) || null;
