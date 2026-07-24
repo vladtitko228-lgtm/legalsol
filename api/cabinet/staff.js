@@ -58,7 +58,9 @@ async function actionData(req, res, payload) {
     leadsRaw.push(...arr);
     if (arr.length < 50) break;
   }
-  const leads = leadsRaw.filter(ld => !isTestLead(ld));
+  // Тестовые/демо-сделки видит только Влад (для проверки цепочки кабинет→панель); у Даши их нет
+  const showTests = /влад/i.test(String(payload?.name || ''));
+  const leads = leadsRaw.filter(ld => showTests || !isTestLead(ld));
   const contactIds = [];
   for (const ld of leads) {
     const cid = ld._embedded?.contacts?.[0]?.id;

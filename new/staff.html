@@ -162,6 +162,7 @@ button{font-family:var(--font)}
 .month-head:first-child{margin-top:2px}
 .month-head .line{flex:1;height:1.5px;background:var(--lilac-2);border-radius:2px}
 .seq{font-weight:800;color:var(--indigo)}
+.seqtag{display:inline-block;font-size:11.5px;font-weight:800;color:var(--indigo);background:var(--lilac);padding:2px 9px;border-radius:var(--pill);margin-left:8px;vertical-align:2px;white-space:nowrap;letter-spacing:.02em}
 .bell{display:inline-flex;width:15px;height:15px;color:var(--red);margin-left:7px;vertical-align:-2px;flex:none;animation:ring 2.4s ease-in-out infinite;transform-origin:50% 0}
 .bell svg{width:100%;height:100%}
 @keyframes ring{0%,72%,100%{transform:rotate(0)}76%{transform:rotate(13deg)}81%{transform:rotate(-11deg)}86%{transform:rotate(8deg)}91%{transform:rotate(-5deg)}96%{transform:rotate(2deg)}}
@@ -348,6 +349,13 @@ function monthTitle(key){
   var p=key.split('-'),m=MONTH_NAMES[+p[1]-1];
   return m?m+' '+p[0]:key;
 }
+/* Номер закрытия в привычном виде «13/06/26» */
+function seqLabel(c){
+  if(!c||!c.seq||!c.monthKey)return '';
+  var p=c.monthKey.split('-');
+  var n=c.seq<10?'0'+c.seq:''+c.seq;
+  return n+'/'+p[1]+'/'+p[0].slice(2);
+}
 
 /* ── api ── */
 function api(url,opts){return fetch(url,Object.assign({credentials:'include'},opts||{})).then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {ok:r.ok,status:r.status,j:j}})})}
@@ -438,8 +446,9 @@ function render(){
     $('missedList').className='missed-grid';
     $('missedList').innerHTML=missed.map(function(c){
       var a=lastActByLead[c.leadId];
+      var lbl=seqLabel(c);
       return '<div class="missed-card" data-lead="'+c.leadId+'">'+
-        '<div class="head"><div class="nm">'+esc(c.name)+(c.seq?' <span class="seq" style="font-size:12px">№'+c.seq+'</span>':'')+'</div><div class="ago">'+BELL+' ждёт '+ago(c.lastMsgMs)+'</div></div>'+
+        '<div class="head"><div class="nm">'+esc(c.name)+(lbl?'<span class="seqtag">'+lbl+'</span>':'')+'</div><div class="ago">'+BELL+' ждёт '+ago(c.lastMsgMs)+'</div></div>'+
         (a?'<div class="txt'+(a.kind==='idea'?' idea':'')+'">'+esc(a.text)+'</div>':'<div class="txt">Новое сообщение в кабинете — откройте чат.</div>')+
         '<button class="btn btn-primary btn-sm">Открыть и ответить</button></div>';
     }).join('');
@@ -499,15 +508,16 @@ function matches(c){
   if(FILTER==='stale'&&(c.isDone||c.daysIdle<2))return false;
   if(FILTER==='done'&&!c.isDone)return false;
   if(QUERY){
-    var hay=(c.name+' '+(c.phone||'')+' '+(c.service||'')+' '+(c.stage||'')+' №'+(c.seq||'')).toLowerCase();
+    var hay=(c.name+' '+(c.phone||'')+' '+(c.service||'')+' '+(c.stage||'')+' №'+(c.seq||'')+' '+seqLabel(c)).toLowerCase();
     if(hay.indexOf(QUERY)<0)return false;
   }
   return true;
 }
 function rowHtml(c){
   var pct=c.totalSteps?Math.round((c.step||0)/c.totalSteps*100):0;
+  var lbl=seqLabel(c);
   return '<div class="client-row" data-lead="'+c.leadId+'">'+
-    '<div><div class="nm">'+esc(c.name)+(c.waiting?BELL:'')+'</div><div class="svc">'+(c.seq?'<span class="seq">№'+c.seq+'</span>'+(c.service?' · ':''):'')+esc(c.service||'')+'</div></div>'+
+    '<div><div class="nm">'+esc(c.name)+(lbl?'<span class="seqtag">'+lbl+'</span>':'')+(c.waiting?BELL:'')+'</div><div class="svc">'+esc(c.service||'')+'</div></div>'+
     '<div class="col-stage"><span class="stage-chip'+(c.isDone?' done':'')+'">'+esc(c.stage)+'</span></div>'+
     '<div class="col-prog"><div class="prog"><i style="width:'+pct+'%"></i></div><div class="mini" style="text-align:left;margin-top:4px">шаг '+(c.step||0)+' из '+(c.totalSteps||8)+'</div></div>'+
     '<div class="col-idle mini'+(c.daysIdle>=4?' bad':c.daysIdle<=1?' ok':'')+'">'+(c.daysIdle||0)+' '+plural(c.daysIdle||0,'день','дня','дней')+'<br><span style="font-weight:600;color:var(--ink-3)">без движения</span></div>'+
@@ -538,8 +548,10 @@ function renderClients(){
 }
 
 /* ── drawer ── */
+var DETAIL_LI=null;
 function openClient(leadId){
   if(!leadId)return;
+  DETAIL_LI=(DATA&&DATA.clients||[]).filter(function(c){return c.leadId===leadId})[0]||null;
   $('ov').style.display='block';
   var d=$('drawer');d.classList.add('open');d.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden';
@@ -562,7 +574,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer(
 function renderDetail(){
   var c=DETAIL;if(!c)return;
   $('drName').textContent=c.name||'Клиент';
-  $('drMeta').innerHTML=(c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a> · ':'')+esc(c.service||'');
+  var dlbl=seqLabel(DETAIL_LI);
+  $('drMeta').innerHTML=(dlbl?'<span class="seqtag" style="margin-left:0;margin-right:8px;vertical-align:0">'+dlbl+'</span>':'')+(c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a> · ':'')+esc(c.service||'');
   var st=c.stage||{};
   var pct=st.step&&st.totalSteps?Math.round(st.step/st.totalSteps*100):0;
   var html='';
