@@ -3055,12 +3055,12 @@ once(list,function(){list.className+=' cbx-cascade';});
       .then(function(r){return r.json().then(function(j){return{s:r.status,j:j};}).catch(function(){return{s:r.status,j:{}};});})
       .then(function(x){
         if(x.s===200&&x.j&&x.j.ok){
-          if(x.j.staff){done();doLogout();showErr('This is a staff login — the admin panel works in the main portal at <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
+          if(x.j.staff){done();window.location.href='/staff';return;}
           return fetch('/api/cabinet/me',{credentials:'include'})
             .then(function(r2){if(!r2.ok)throw 0;return r2.json();})
             .then(function(me){
               done();
-              if(me.role==='staff'){doLogout();showErr('This is a staff login — the admin panel works in the main portal at <a href="https://legalsol.pl/cabinet" target="_blank" rel="noopener">legalsol.pl</a>.');return;}
+              if(me.role==='staff'){window.location.href='/staff';return;}
               if(!me.leads||!me.leads.length){showErr('You are signed in, but there is no active case yet — your portal will fill up once your case starts. Questions'+waErr+'.');return;}
               enterReal(me);
             });
