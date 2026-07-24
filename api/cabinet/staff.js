@@ -65,9 +65,9 @@ async function actionData(req, res, payload) {
     leadsRaw.push(...arr);
     if (arr.length < 50) break;
   }
-  // Тестовые/демо-сделки видит только Влад (для проверки цепочки кабинет→панель); у Даши их нет
-  const showTests = /влад/i.test(String(payload?.name || ''));
-  const leads = leadsRaw.filter(ld => showTests || !isTestLead(ld));
+  // Тестовые/демо-сделки показываем всем сотрудникам, но помечаем «ТЕСТ» —
+  // Влад гоняет цепочку кабинет→панель через вход Даши (24.07)
+  const leads = leadsRaw;
   const contactIds = [];
   for (const ld of leads) {
     const cid = ld._embedded?.contacts?.[0]?.id;
@@ -156,7 +156,7 @@ async function actionData(req, res, payload) {
     list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
       stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle,
       lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting, seq: sq ? sq.seq : 0, monthKey,
-      draft, crmUrl: `https://${KOMMO_SUBDOMAIN}.kommo.com/leads/detail/${ld.id}` });
+      draft, isTest: isTestLead(ld), crmUrl: `https://${KOMMO_SUBDOMAIN}.kommo.com/leads/detail/${ld.id}` });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
   // Лента «кто что спрашивает»: свежие вопросы/идеи с именами клиентов
