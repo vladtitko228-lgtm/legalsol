@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<title>LegalSol — панель сотрудника</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'><rect%20width='32'%20height='32'%20rx='7.5'%20fill='%233A2F5C'/><g%20fill='%23C6B9EC'><rect%20x='5'%20y='7.2'%20width='22'%20height='2.9'%20rx='1.4'/><rect%20x='5.7'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='11.4'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='17.1'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='22.8'%20y='11'%20width='3.3'%20height='11'%20rx='1.1'/><rect%20x='5'%20y='22.9'%20width='22'%20height='2.9'%20rx='1.4'/></g></svg>">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FAF7F2;--cream-2:#F2ECE3;
+  --ink:#1A1824;--ink-2:#3B3548;--ink-3:#8C88A6;
+  --indigo:#5F5289;--indigo-2:#B5AACC;--indigo-7:#403950;--indigo-9:#2A2539;
+  --lilac:#EEE9F4;--lilac-2:#DBD3E7;--lilac-line:#D4CBE1;
+  --gold:#E29B54;--gold-2:#C97F33;--gold-soft:#FCEFDE;
+  --red:#C4534B;--red-soft:#FBEAE8;
+  --green:#4E8A5E;--green-soft:#E8F3EB;
+  --card:#fff;--line:#E9E5F1;
+  --r:22px;--r-sm:14px;--pill:999px;
+  --sh:0 2px 4px rgba(26,24,36,.04),0 32px 64px -36px rgba(26,24,36,.30);
+  --sh-sm:0 1px 2px rgba(26,24,36,.04),0 16px 34px -24px rgba(26,24,36,.20);
+  --font:'Plus Jakarta Sans',-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ── buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;padding:12px 20px;border-radius:var(--pill);border:0;cursor:pointer;transition:transform .15s,box-shadow .15s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 12px 26px -12px rgba(95,82,137,.6)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#fff}
+.btn-ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--indigo);color:var(--indigo)}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn[disabled]{opacity:.55;cursor:default;transform:none}
+
+/* ── login ── */
+#loginView{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;background:
+  radial-gradient(900px 500px at 85% -10%,rgba(181,170,204,.25),transparent 60%),
+  radial-gradient(700px 480px at -10% 100%,rgba(226,155,84,.12),transparent 55%),var(--cream)}
+.login-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:38px 32px;width:100%;max-width:400px}
+.brand{display:flex;align-items:center;gap:11px;margin-bottom:24px}
+.brand-mark{width:38px;height:38px;border-radius:10px;background:#3A2F5C;display:grid;place-items:center;flex:none}
+.brand-mark svg{width:24px;height:24px}
+.brand b{font-size:17px;letter-spacing:.04em}
+.brand span{display:block;font-size:12px;color:var(--ink-3);font-weight:600}
+.login-card h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.login-card .sub{color:var(--ink-3);font-size:14px;margin-bottom:22px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.field input{width:100%;font-family:var(--font);font-size:16px;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:#fff;color:var(--ink);outline:none;transition:border .15s}
+.field input:focus{border-color:var(--indigo)}
+.login-err{display:none;background:var(--red-soft);color:var(--red);font-size:13.5px;font-weight:600;padding:11px 14px;border-radius:var(--r-sm);margin-bottom:14px}
+.login-note{margin-top:18px;font-size:13px;color:var(--ink-3);text-align:center}
+.login-note a{color:var(--indigo);font-weight:700}
+
+/* ── topbar ── */
+#panelView{display:none}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:12px;padding:12px 0}
+.topbar .brand{margin:0}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.who{display:inline-flex;align-items:center;gap:8px;background:var(--lilac);color:var(--indigo);font-size:13px;font-weight:700;padding:8px 14px;border-radius:var(--pill)}
+.who .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--ink-2);transition:border .15s,color .15s}
+.icon-btn:hover{border-color:var(--indigo);color:var(--indigo)}
+.icon-btn svg{width:17px;height:17px}
+.icon-btn.spin svg{animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ── KPI ── */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0}
+.kpi{background:var(--card);border-radius:var(--r);box-shadow:var(--sh-sm);padding:18px 20px;cursor:pointer;transition:transform .15s;border:1.5px solid transparent}
+.kpi:hover{transform:translateY(-2px)}
+.kpi .n{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.kpi .t{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-top:3px}
+.kpi.alert{border-color:var(--red);background:linear-gradient(180deg,#fff, var(--red-soft))}
+.kpi.alert .n{color:var(--red)}
+.kpi.ok .n{color:var(--green)}
+.kpi.gold .n{color:var(--gold-2)}
+
+/* ── sections ── */
+.sec{margin:30px 0}
+.sec-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-title h2{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.count-pill{background:var(--lilac);color:var(--indigo);font-size:12.5px;font-weight:800;padding:3px 11px;border-radius:var(--pill)}
+.count-pill.red{background:var(--red-soft);color:var(--red)}
+
+/* missed messages */
+.missed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.missed-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh-sm);padding:18px;border-left:4px solid var(--red);cursor:pointer;transition:transform .15s}
+.missed-card:hover{transform:translateY(-2px)}
+.missed-card .head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.missed-card .nm{font-weight:800;font-size:15.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.missed-card .ago{font-size:12px;font-weight:800;color:var(--red);white-space:nowrap}
+.missed-card .txt{font-size:13.5px;color:var(--ink-2);background:var(--lilac);border-radius:12px;padding:10px 12px;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.missed-card .txt.idea{background:var(--gold-soft)}
+.all-ok{background:var(--green-soft);color:var(--green);font-weight:700;font-size:14.5px;padding:16px 20px;border-radius:var(--r)}
+
+/* activity */
+.act-list{background:var(--card);border-radius:var(--r);box-shadow:var(--sh-sm);overflow:hidden}
+.act-item{display:flex;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s}
+.act-item:last-child{border-bottom:0}
+.act-item:hover{background:var(--lilac)}
+.act-item .when{font-size:12px;color:var(--ink-3);font-weight:600;white-space:nowrap;padding-top:2px;width:88px;flex:none}
+.act-item .body{min-width:0;flex:1}
+.act-item .who-line{font-size:13.5px;font-weight:800;margin-bottom:2px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.tag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:var(--pill)}
+.tag.chat{background:var(--lilac);color:var(--indigo)}
+.tag.idea{background:var(--gold-soft);color:var(--gold-2)}
+.tag.wait{background:var(--red-soft);color:var(--red)}
+.act-item .msg{font-size:13.5px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.show-more{width:100%;background:none;border:0;padding:12px;font-size:13px;font-weight:700;color:var(--indigo);cursor:pointer}
+
+/* clients */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{flex:1;min-width:200px;position:relative}
+.search input{width:100%;font-family:var(--font);font-size:14.5px;padding:11px 15px 11px 40px;border:1.5px solid var(--line);border-radius:var(--pill);background:#fff;outline:none;transition:border .15s}
+.search input:focus{border-color:var(--indigo)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-3)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{background:#fff;border:1.5px solid var(--line);color:var(--ink-2);font-size:13px;font-weight:700;padding:8px 15px;border-radius:var(--pill);cursor:pointer;transition:all .15s}
+.chip.on{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.client-list{display:flex;flex-direction:column;gap:10px}
+.client-row{background:var(--card);border-radius:var(--r-sm);box-shadow:var(--sh-sm);padding:14px 18px;display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(110px,1fr) 120px 90px 90px;gap:12px;align-items:center;cursor:pointer;transition:transform .12s}
+.client-row:hover{transform:translateY(-1px)}
+.client-row .nm{font-weight:800;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.client-row .svc{font-size:12px;color:var(--ink-3);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-chip{font-size:12px;font-weight:700;background:var(--lilac);color:var(--indigo);padding:4px 11px;border-radius:var(--pill);display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-chip.done{background:var(--green-soft);color:var(--green)}
+.prog{height:6px;background:var(--lilac);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo-2),var(--indigo));border-radius:99px}
+.mini{font-size:12px;color:var(--ink-3);font-weight:700;text-align:right;white-space:nowrap}
+.mini.bad{color:var(--red)}
+.mini.ok{color:var(--green)}
+.badges{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap}
+.b{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:var(--pill);white-space:nowrap}
+.b.wait{background:var(--red-soft);color:var(--red)}
+.b.noacc{background:var(--cream-2);color:var(--ink-3)}
+.b.acc{background:var(--green-soft);color:var(--green)}
+.empty-note{color:var(--ink-3);font-size:14px;padding:18px;text-align:center}
+
+/* ── drawer ── */
+#ov{position:fixed;inset:0;background:rgba(26,24,36,.45);z-index:90;display:none;backdrop-filter:blur(2px)}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);background:var(--cream);z-index:95;transform:translateX(105%);transition:transform .28s cubic-bezier(.2,.8,.25,1);display:flex;flex-direction:column;box-shadow:-24px 0 60px rgba(26,24,36,.25)}
+#drawer.open{transform:none}
+.dr-head{padding:18px 22px 14px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:12px}
+.dr-head .info{flex:1;min-width:0}
+.dr-head h3{font-size:19px;font-weight:800;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dr-head .meta{font-size:13px;color:var(--ink-3);font-weight:600;margin-top:2px}
+.dr-head .meta a{color:var(--indigo)}
+.dr-body{flex:1;overflow-y:auto;padding:18px 22px 90px;-webkit-overflow-scrolling:touch}
+.dr-sec{background:var(--card);border-radius:var(--r-sm);box-shadow:var(--sh-sm);padding:16px 18px;margin-bottom:14px}
+.dr-sec h4{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:11px}
+.stage-line{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.money-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.money-grid .cell{background:var(--lilac);border-radius:12px;padding:10px 6px}
+.money-grid .cell.warn{background:var(--gold-soft)}
+.money-grid .v{font-size:16px;font-weight:800}
+.money-grid .k{font-size:11px;font-weight:700;color:var(--ink-3)}
+.task-item{display:flex;gap:9px;font-size:13.5px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.task-item:last-child{border-bottom:0}
+.task-item .dl{font-weight:800;white-space:nowrap;color:var(--ink-2)}
+.task-item .dl.over{color:var(--red)}
+.upd-item{padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.upd-item:last-child{border-bottom:0}
+.upd-item .d{font-size:11.5px;font-weight:800;color:var(--indigo)}
+/* chat */
+.chat-box{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding:2px}
+.bub{max-width:86%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.bub.client{align-self:flex-start;background:var(--lilac);border-bottom-left-radius:5px}
+.bub.mgr{align-self:flex-end;background:var(--indigo);color:#fff;border-bottom-right-radius:5px}
+.bub .bt{display:block;font-size:10.5px;opacity:.65;margin-top:4px;font-weight:700}
+.chat-empty{color:var(--ink-3);font-size:13px;text-align:center;padding:10px}
+.reply-row{display:flex;gap:8px;margin-top:12px}
+.reply-row textarea{flex:1;font-family:var(--font);font-size:14px;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--r-sm);resize:none;outline:none;min-height:44px;max-height:120px;background:#fff}
+.reply-row textarea:focus{border-color:var(--indigo)}
+.hint{font-size:11.5px;color:var(--ink-3);margin-top:7px}
+/* access */
+.acc-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.acc-row input{flex:1;min-width:130px;font-family:var(--font);font-size:14px;padding:10px 13px;border:1.5px solid var(--line);border-radius:var(--r-sm);outline:none;background:#fff}
+.acc-ok{display:none;margin-top:9px;font-size:13px;font-weight:700;color:var(--green);background:var(--green-soft);padding:9px 13px;border-radius:12px;word-break:break-word}
+.acc-login{font-size:13px;color:var(--ink-2);margin-bottom:10px}
+.acc-login b{color:var(--indigo)}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--indigo-9);color:#fff;font-size:14px;font-weight:700;padding:13px 22px;border-radius:var(--pill);z-index:120;transition:transform .25s;box-shadow:var(--sh);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+.skel{background:linear-gradient(90deg,var(--lilac) 25%,var(--lilac-2) 50%,var(--lilac) 75%);background-size:200% 100%;animation:sk 1.2s infinite;border-radius:var(--r);height:74px;margin-bottom:10px}
+@keyframes sk{to{background-position:-200% 0}}
+
+@media(max-width:860px){
+  .kpis{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi{padding:14px 16px}.kpi .n{font-size:24px}
+  .client-row{grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:6px 10px;padding:13px 15px}
+  .client-row .col-stage{grid-column:1;grid-row:2}
+  .client-row .col-prog{display:none}
+  .client-row .col-idle{grid-column:2;grid-row:2;align-self:center}
+  .client-row .badges{grid-column:2;grid-row:1}
+  .act-item .when{width:64px}
+  .topbar .brand span{display:none}
+  .topbar .brand b{font-size:15px}
+  .who{font-size:12px;padding:7px 11px}
+  #drawer{width:100vw}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="loginView">
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-mark"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g fill="#C6B9EC"><rect x="5" y="7.2" width="22" height="2.9" rx="1.4"/><rect x="5.7" y="11" width="3.3" height="11" rx="1.1"/><rect x="11.4" y="11" width="3.3" height="11" rx="1.1"/><rect x="17.1" y="11" width="3.3" height="11" rx="1.1"/><rect x="22.8" y="11" width="3.3" height="11" rx="1.1"/><rect x="5" y="22.9" width="22" height="2.9" rx="1.4"/></g></svg></div>
+      <div><b>LEGALSOL</b><span>Панель сотрудника</span></div>
+    </div>
+    <h1>Вход для команды</h1>
+    <p class="sub">Клиенты, сообщения и доступы к кабинетам — в одном месте.</p>
+    <div class="login-err" id="loginErr"></div>
+    <form id="loginForm">
+      <div class="field"><label>Телефон</label><input id="lgPhone" type="tel" inputmode="tel" placeholder="+48 ..." autocomplete="username"></div>
+      <div class="field"><label>Пароль</label><input id="lgPass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="btn btn-primary" id="lgBtn" type="submit" style="width:100%;padding:14px">Войти</button>
+    </form>
+    <p class="login-note">Вы клиент? Ваш кабинет — на странице <a href="/cabinet">legalsol.pl/cabinet</a></p>
+  </div>
+</div>
+
+<!-- ═══ PANEL ═══ -->
+<div id="panelView">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="brand">
+      <div class="brand-mark"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g fill="#C6B9EC"><rect x="5" y="7.2" width="22" height="2.9" rx="1.4"/><rect x="5.7" y="11" width="3.3" height="11" rx="1.1"/><rect x="11.4" y="11" width="3.3" height="11" rx="1.1"/><rect x="17.1" y="11" width="3.3" height="11" rx="1.1"/><rect x="22.8" y="11" width="3.3" height="11" rx="1.1"/><rect x="5" y="22.9" width="22" height="2.9" rx="1.4"/></g></svg></div>
+      <div><b>LEGALSOL</b><span>Панель сотрудника</span></div>
+    </div>
+    <div class="topbar-right">
+      <span class="who"><span class="dot"></span><span id="whoName">…</span></span>
+      <button class="icon-btn" id="refreshBtn" title="Обновить" aria-label="Обновить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg></button>
+      <button class="icon-btn" id="logoutBtn" title="Выйти" aria-label="Выйти"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+    </div>
+  </div></div>
+
+  <div class="wrap">
+    <div class="kpis" id="kpis"></div>
+
+    <div class="sec" id="missedSec">
+      <div class="sec-title"><h2>Пропущенные сообщения</h2><span class="count-pill red" id="missedCount">0</span></div>
+      <div id="missedList" class="missed-grid"></div>
+    </div>
+
+    <div class="sec" id="actSec" style="display:none">
+      <div class="sec-title"><h2>Лента сообщений</h2><span class="count-pill" id="actCount">0</span></div>
+      <div class="act-list" id="actList"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title"><h2>Все клиенты</h2><span class="count-pill" id="clCount">0</span></div>
+      <div class="controls">
+        <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Имя, телефон, услуга…"></div>
+        <div class="chips" id="chips">
+          <button class="chip on" data-f="all">Все</button>
+          <button class="chip" data-f="wait">Ждут ответа</button>
+          <button class="chip" data-f="noacc">Без доступа</button>
+          <button class="chip" data-f="stale">Простой 48ч+</button>
+          <button class="chip" data-f="done">Завершённые</button>
+        </div>
+      </div>
+      <div class="client-list" id="clientList"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DRAWER ═══ -->
+<div id="ov"></div>
+<aside id="drawer" aria-hidden="true">
+  <div class="dr-head">
+    <div class="info">
+      <h3 id="drName">…</h3>
+      <div class="meta" id="drMeta"></div>
+    </div>
+    <button class="icon-btn" id="drClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="dr-body" id="drBody"></div>
+</aside>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var DATA=null, FILTER='all', QUERY='', DETAIL=null, ACT_EXPANDED=false;
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},2600)}
+function fmtDate(ms){if(!ms)return '—';try{return new Intl.DateTimeFormat('ru',{day:'numeric',month:'short',timeZone:'Europe/Warsaw'}).format(new Date(ms))}catch(e){return new Date(ms).toLocaleDateString('ru')}}
+function fmtDT(ms){if(!ms)return '—';try{return new Intl.DateTimeFormat('ru',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Warsaw'}).format(new Date(ms))}catch(e){return new Date(ms).toLocaleString('ru')}}
+function ago(ms){if(!ms)return '';var d=Date.now()-ms;if(d<3600e3)return Math.max(1,Math.round(d/60e3))+' мин';if(d<86400e3)return Math.round(d/3600e3)+' ч';return Math.round(d/86400e3)+' дн'}
+function zl(n){return (Math.round(n)||0).toLocaleString('ru-RU').replace(/,/g,' ')+' zł'}
+function plural(n,a,b,c){var m=n%10,h=n%100;if(h>=11&&h<=14)return c;if(m===1)return a;if(m>=2&&m<=4)return b;return c}
+
+/* ── api ── */
+function api(url,opts){return fetch(url,Object.assign({credentials:'include'},opts||{})).then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {ok:r.ok,status:r.status,j:j}})})}
+
+/* ── auth flow ── */
+function boot(){
+  api('/api/cabinet/staff?action=data').then(function(r){
+    if(r.status===401){show('login');return}
+    if(!r.ok){show('login');loginError('Сервер недоступен, попробуйте ещё раз.');return}
+    DATA=r.j;show('panel');render();
+  });
+}
+function show(view){
+  $('loginView').style.display=view==='login'?'flex':'none';
+  $('panelView').style.display=view==='panel'?'block':'none';
+}
+function loginError(msg){var e=$('loginErr');e.textContent=msg;e.style.display=msg?'block':'none'}
+
+$('loginForm').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var ph=$('lgPhone').value.trim(),ps=$('lgPass').value;
+  if(!ph||!ps){loginError('Введите телефон и пароль.');return}
+  var b=$('lgBtn');b.disabled=true;b.textContent='Входим…';loginError('');
+  api('/api/cabinet/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:ph,password:ps})})
+    .then(function(r){
+      b.disabled=false;b.textContent='Войти';
+      if(r.ok&&r.j&&r.j.staff){loadData(true);return}
+      if(r.ok&&r.j&&r.j.ok&&!r.j.staff){loginError('Это логин клиента. Кабинет клиента — на странице legalsol.pl/cabinet.');return}
+      if(r.status===429){loginError('Слишком много попыток. Подождите 15 минут.');return}
+      loginError('Неверный телефон или пароль.');
+    })
+    .catch(function(){b.disabled=false;b.textContent='Войти';loginError('Нет связи. Проверьте интернет.')});
+});
+
+function loadData(first){
+  var btn=$('refreshBtn');btn.classList.add('spin');
+  return api('/api/cabinet/staff?action=data').then(function(r){
+    btn.classList.remove('spin');
+    if(r.status===401){show('login');return}
+    if(!r.ok){toast('Не удалось обновить данные');return}
+    DATA=r.j;show('panel');render();
+    if(first)window.scrollTo(0,0);
+  });
+}
+$('refreshBtn').addEventListener('click',function(){loadData()});
+$('logoutBtn').addEventListener('click',function(){
+  api('/api/cabinet/logout',{method:'POST'}).then(function(){DATA=null;show('login');$('lgPass').value=''});
+});
+
+/* ── render ── */
+function render(){
+  if(!DATA)return;
+  $('whoName').textContent=DATA.name||'Сотрудник';
+  var s=DATA.stats||{},clients=DATA.clients||[],act=DATA.activity||[];
+
+  /* KPI */
+  var waitN=s.waiting||0;
+  $('kpis').innerHTML=
+    '<div class="kpi '+(waitN?'alert':'ok')+'" data-goto="wait"><div class="n">'+waitN+'</div><div class="t">'+(waitN?'Ждут ответа':'Все отвечены')+'</div></div>'+
+    '<div class="kpi" data-goto="all"><div class="n">'+(s.active||0)+'</div><div class="t">Клиентов в работе</div></div>'+
+    '<div class="kpi ok" data-goto="noacc"><div class="n">'+(s.withAccess||0)+'<span style="font-size:16px;color:var(--ink-3)">/'+(s.total||0)+'</span></div><div class="t">С доступом в кабинет</div></div>'+
+    '<div class="kpi '+((s.stale48||0)>5?'gold':'')+'" data-goto="stale"><div class="n">'+(s.stale48||0)+'</div><div class="t">Без движения 48ч+</div></div>';
+  Array.prototype.forEach.call($('kpis').children,function(k){
+    k.addEventListener('click',function(){
+      var f=k.getAttribute('data-goto');
+      if(f==='wait'&&waitN){$('missedSec').scrollIntoView({behavior:'smooth'});return}
+      setFilter(f==='wait'?'wait':f==='noacc'?'noacc':f==='stale'?'stale':'all');
+      document.querySelector('.controls').scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  /* missed messages */
+  var lastActByLead={};
+  act.forEach(function(a){if(!lastActByLead[a.leadId]||a.at>lastActByLead[a.leadId].at)lastActByLead[a.leadId]=a});
+  var missed=clients.filter(function(c){return c.waiting});
+  missed.sort(function(a,b){return (a.lastMsgMs||0)-(b.lastMsgMs||0)});
+  $('missedCount').textContent=missed.length;
+  if(!missed.length){
+    $('missedList').className='';
+    $('missedList').innerHTML='<div class="all-ok">Все сообщения клиентов отвечены. Отличная работа!</div>';
+  }else{
+    $('missedList').className='missed-grid';
+    $('missedList').innerHTML=missed.map(function(c){
+      var a=lastActByLead[c.leadId];
+      return '<div class="missed-card" data-lead="'+c.leadId+'">'+
+        '<div class="head"><div class="nm">'+esc(c.name)+'</div><div class="ago">ждёт '+ago(c.lastMsgMs)+'</div></div>'+
+        (a?'<div class="txt'+(a.kind==='idea'?' idea':'')+'">'+esc(a.text)+'</div>':'<div class="txt">Новое сообщение в кабинете — откройте чат.</div>')+
+        '<button class="btn btn-primary btn-sm">Открыть и ответить</button></div>';
+    }).join('');
+    Array.prototype.forEach.call($('missedList').querySelectorAll('.missed-card'),function(el){
+      el.addEventListener('click',function(){openClient(+el.getAttribute('data-lead'))});
+    });
+  }
+
+  /* activity */
+  if(act.length){
+    $('actSec').style.display='block';
+    $('actCount').textContent=act.length;
+    renderActivity();
+  }else{$('actSec').style.display='none'}
+
+  /* clients */
+  renderClients();
+}
+
+function renderActivity(){
+  var act=(DATA.activity||[]);
+  var lim=ACT_EXPANDED?act.length:6;
+  var html=act.slice(0,lim).map(function(a){
+    return '<div class="act-item" data-lead="'+a.leadId+'">'+
+      '<div class="when">'+fmtDT(a.at)+'</div>'+
+      '<div class="body"><div class="who-line">'+esc(a.name)+
+      '<span class="tag '+(a.kind==='idea'?'idea':'chat')+'">'+(a.kind==='idea'?'Пожелание':'Вопрос')+'</span>'+
+      (a.waiting?'<span class="tag wait">без ответа</span>':'')+
+      '</div><div class="msg">'+esc(a.text)+'</div></div></div>';
+  }).join('');
+  if(act.length>6){
+    html+='<button class="show-more" id="actMore">'+(ACT_EXPANDED?'Свернуть':'Показать все ('+act.length+')')+'</button>';
+  }
+  $('actList').innerHTML=html;
+  Array.prototype.forEach.call($('actList').querySelectorAll('.act-item'),function(el){
+    el.addEventListener('click',function(){openClient(+el.getAttribute('data-lead'))});
+  });
+  var m=$('actMore');if(m)m.addEventListener('click',function(){ACT_EXPANDED=!ACT_EXPANDED;renderActivity()});
+}
+
+function setFilter(f){
+  FILTER=f;
+  Array.prototype.forEach.call($('chips').children,function(ch){ch.classList.toggle('on',ch.getAttribute('data-f')===f)});
+  renderClients();
+}
+Array.prototype.forEach.call($('chips').children,function(ch){
+  ch.addEventListener('click',function(){setFilter(ch.getAttribute('data-f'))});
+});
+$('q').addEventListener('input',function(){QUERY=this.value.trim().toLowerCase();renderClients()});
+
+function matches(c){
+  if(FILTER==='wait'&&!c.waiting)return false;
+  if(FILTER==='noacc'&&(c.hasAccess||c.isDone))return false;
+  if(FILTER==='stale'&&(c.isDone||c.daysIdle<2))return false;
+  if(FILTER==='done'&&!c.isDone)return false;
+  if(FILTER==='all'&&c.isDone)return false;
+  if(QUERY){
+    var hay=(c.name+' '+(c.phone||'')+' '+(c.service||'')+' '+(c.stage||'')).toLowerCase();
+    if(hay.indexOf(QUERY)<0)return false;
+  }
+  return true;
+}
+function renderClients(){
+  var clients=(DATA.clients||[]).filter(matches);
+  $('clCount').textContent=clients.length;
+  if(!clients.length){$('clientList').innerHTML='<div class="empty-note">Никого не найдено. Поменяйте фильтр или запрос.</div>';return}
+  $('clientList').innerHTML=clients.map(function(c){
+    var pct=c.totalSteps?Math.round((c.step||0)/c.totalSteps*100):0;
+    return '<div class="client-row" data-lead="'+c.leadId+'">'+
+      '<div><div class="nm">'+esc(c.name)+'</div><div class="svc">'+esc(c.service||'')+'</div></div>'+
+      '<div class="col-stage"><span class="stage-chip'+(c.isDone?' done':'')+'">'+esc(c.stage)+'</span></div>'+
+      '<div class="col-prog"><div class="prog"><i style="width:'+pct+'%"></i></div><div class="mini" style="text-align:left;margin-top:4px">шаг '+(c.step||0)+' из '+(c.totalSteps||8)+'</div></div>'+
+      '<div class="col-idle mini'+(c.daysIdle>=4?' bad':c.daysIdle<=1?' ok':'')+'">'+(c.daysIdle||0)+' '+plural(c.daysIdle||0,'день','дня','дней')+'<br><span style="font-weight:600;color:var(--ink-3)">без движения</span></div>'+
+      '<div class="badges">'+
+        (c.waiting?'<span class="b wait">ждёт ответа</span>':'')+
+        (c.hasAccess?'<span class="b acc">кабинет</span>':'<span class="b noacc">нет доступа</span>')+
+      '</div></div>';
+  }).join('');
+  Array.prototype.forEach.call($('clientList').querySelectorAll('.client-row'),function(el){
+    el.addEventListener('click',function(){openClient(+el.getAttribute('data-lead'))});
+  });
+}
+
+/* ── drawer ── */
+function openClient(leadId){
+  if(!leadId)return;
+  $('ov').style.display='block';
+  var d=$('drawer');d.classList.add('open');d.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  $('drName').textContent='Загружаем…';$('drMeta').textContent='';
+  $('drBody').innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+  api('/api/cabinet/staff?action=client&leadId='+leadId).then(function(r){
+    if(!r.ok){$('drBody').innerHTML='<div class="empty-note">Не удалось загрузить карточку. Попробуйте ещё раз.</div>';return}
+    DETAIL=r.j;renderDetail();
+  });
+}
+function closeDrawer(){
+  $('ov').style.display='none';
+  var d=$('drawer');d.classList.remove('open');d.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';DETAIL=null;
+}
+$('ov').addEventListener('click',closeDrawer);
+$('drClose').addEventListener('click',closeDrawer);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer()});
+
+function renderDetail(){
+  var c=DETAIL;if(!c)return;
+  $('drName').textContent=c.name||'Клиент';
+  $('drMeta').innerHTML=(c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a> · ':'')+esc(c.service||'');
+  var st=c.stage||{};
+  var pct=st.step&&st.totalSteps?Math.round(st.step/st.totalSteps*100):0;
+  var html='';
+
+  html+='<div class="dr-sec"><h4>Этап дела</h4>'+
+    '<div class="stage-line"><span class="stage-chip">'+esc(st.ru||'В работе')+'</span><span class="mini" style="text-align:left">шаг '+(st.step||0)+' из '+(st.totalSteps||8)+'</span></div>'+
+    '<div class="prog"><i style="width:'+pct+'%"></i></div>'+
+    (st.whatWeDo?'<p style="font-size:13px;color:var(--ink-2);margin-top:10px">'+esc(st.whatWeDo)+'</p>':'')+
+    '</div>';
+
+  if(c.price){
+    html+='<div class="dr-sec"><h4>Оплаты</h4><div class="money-grid">'+
+      '<div class="cell"><div class="v">'+zl(c.price)+'</div><div class="k">контракт</div></div>'+
+      '<div class="cell"><div class="v">'+zl(c.paidTotal)+'</div><div class="k">оплачено</div></div>'+
+      '<div class="cell'+(c.remaining>0?' warn':'')+'"><div class="v">'+zl(c.remaining)+'</div><div class="k">остаток</div></div>'+
+      '</div></div>';
+  }
+
+  if((c.tasks||[]).length){
+    html+='<div class="dr-sec"><h4>Открытые задачи</h4>'+c.tasks.map(function(t){
+      var over=t.completeTill<Date.now();
+      return '<div class="task-item"><span class="dl'+(over?' over':'')+'">'+fmtDate(t.completeTill)+(over?' ⚠':'')+'</span><span>'+esc(t.text)+'</span></div>';
+    }).join('')+'</div>';
+  }
+
+  /* chat */
+  html+='<div class="dr-sec"><h4>Чат с клиентом</h4><div class="chat-box" id="chatBox">'+
+    ((c.chat||[]).length?c.chat.map(function(m){
+      return '<div class="bub '+(m.from==='client'?'client':'mgr')+'">'+esc(m.text)+'<span class="bt">'+fmtDT(m.createdAt)+'</span></div>';
+    }).join(''):'<div class="chat-empty">Сообщений пока нет.</div>')+
+    '</div>'+
+    '<div class="reply-row"><textarea id="replyText" placeholder="Ответ клиенту…" maxlength="1500"></textarea><button class="btn btn-primary btn-sm" id="replySend">Отправить</button></div>'+
+    '<div class="hint">Ответ появится у клиента в чате кабинета. Пишите как клиенту: без внутренних пометок.</div>'+
+    '</div>';
+
+  /* updates */
+  if((c.updates||[]).length){
+    var ups=c.updates.slice(0,5);
+    html+='<div class="dr-sec"><h4>Лента статусов в кабинете ('+c.updates.length+')</h4>'+
+      ups.map(function(u){return '<div class="upd-item"><div class="d">'+fmtDate(u.createdAt)+'</div>'+esc(u.text.length>180?u.text.slice(0,180)+'…':u.text)+'</div>'}).join('')+
+      '</div>';
+  }
+
+  /* access */
+  html+='<div class="dr-sec"><h4>Доступ в кабинет</h4>'+
+    (c.hasAccess
+      ?'<div class="acc-login">Доступ выдан · логин <b>'+esc(c.phone||'—')+'</b>. Можно задать новый пароль:</div>'
+      :'<div class="acc-login">Кабинет ещё не выдан. Логин будет <b>'+esc(c.phone||'— (нет телефона в Kommo)')+'</b>.</div>')+
+    '<div class="acc-row">'+
+      '<input id="pwInput" type="text" placeholder="Пароль (мин. 6 символов)" autocomplete="off">'+
+      '<button class="btn btn-ghost btn-sm" id="pwGen">Сгенерировать</button>'+
+      '<button class="btn btn-gold btn-sm" id="pwSet">'+(c.hasAccess?'Сменить':'Выдать доступ')+'</button>'+
+    '</div><div class="acc-ok" id="pwOk"></div></div>';
+
+  $('drBody').innerHTML=html;
+  var cb=$('chatBox');if(cb)cb.scrollTop=cb.scrollHeight;
+
+  $('replySend').addEventListener('click',sendReply);
+  $('replyText').addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))sendReply()});
+  $('pwGen').addEventListener('click',function(){
+    var abc='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',p='';
+    for(var i=0;i<10;i++)p+=abc[Math.floor(Math.random()*abc.length)];
+    $('pwInput').value=p;
+  });
+  $('pwSet').addEventListener('click',setPassword);
+}
+
+function sendReply(){
+  var ta=$('replyText'),msg=ta.value.trim();
+  if(!msg||!DETAIL)return;
+  var b=$('replySend');b.disabled=true;b.textContent='…';
+  api('/api/cabinet/staff?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:DETAIL.leadId,text:msg})})
+    .then(function(r){
+      b.disabled=false;b.textContent='Отправить';
+      if(!r.ok){toast('Не отправилось — попробуйте ещё раз');return}
+      ta.value='';
+      var cb=$('chatBox');
+      if(cb){
+        var empty=cb.querySelector('.chat-empty');if(empty)empty.remove();
+        var d=document.createElement('div');d.className='bub mgr';d.textContent=msg;
+        var bt=document.createElement('span');bt.className='bt';bt.textContent='только что';d.appendChild(bt);
+        cb.appendChild(d);cb.scrollTop=cb.scrollHeight;
+      }
+      toast('Ответ отправлен в кабинет клиента');
+      loadData();
+    })
+    .catch(function(){b.disabled=false;b.textContent='Отправить';toast('Нет связи')});
+}
+
+function setPassword(){
+  if(!DETAIL)return;
+  var pw=$('pwInput').value.trim();
+  if(pw.length<6){toast('Пароль — минимум 6 символов');return}
+  if(!DETAIL.phone){toast('У клиента нет телефона в Kommo — сначала внесите номер');return}
+  var b=$('pwSet');b.disabled=true;b.textContent='…';
+  api('/api/cabinet/staff?action=set-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:DETAIL.phone,password:pw})})
+    .then(function(r){
+      b.disabled=false;b.textContent=DETAIL.hasAccess?'Сменить':'Выдать доступ';
+      if(!r.ok){toast(r.j&&r.j.message?r.j.message:'Не получилось — попробуйте ещё раз');return}
+      var ok=$('pwOk');
+      ok.style.display='block';
+      ok.textContent='Готово! Логин: '+(r.j.login||DETAIL.phone)+' · Пароль: '+pw+' — отправьте клиенту в WhatsApp.';
+      DETAIL.hasAccess=true;
+      toast('Доступ сохранён');
+      loadData();
+    })
+    .catch(function(){b.disabled=false;toast('Нет связи')});
+}
+
+/* авто-обновление: каждые 5 минут + при возврате на вкладку */
+setInterval(function(){if(DATA&&document.visibilityState==='visible')loadData()},300000);
+document.addEventListener('visibilitychange',function(){if(DATA&&document.visibilityState==='visible')loadData()});
+
+boot();
+})();
+</script>
+</body>
+</html>

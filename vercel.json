@@ -85,7 +85,7 @@
   "rewrites": [
     {
       "source": "/staff",
-      "destination": "/api/index"
+      "destination": "/new/staff.html"
     },
     {
       "source": "/",
