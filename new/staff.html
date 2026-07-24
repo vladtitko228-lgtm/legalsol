@@ -88,8 +88,18 @@ button{font-family:var(--font)}
 .kpi.ok .n{color:var(--green)}
 .kpi.gold .n{color:var(--gold-2)}
 
+/* ── tabs ── */
+.tabs{position:sticky;top:63px;z-index:45;display:flex;gap:6px;background:#fff;border-radius:var(--pill);padding:6px;box-shadow:var(--sh-sm);margin:4px 0 6px;width:max-content;max-width:100%}
+.tab{flex:none;display:inline-flex;align-items:center;gap:8px;border:0;background:none;color:var(--ink-2);font-weight:800;font-size:14.5px;padding:11px 22px;border-radius:var(--pill);cursor:pointer;transition:background .15s,color .15s}
+.tab.on{background:linear-gradient(135deg,var(--indigo-2),var(--indigo-7));color:#fff;box-shadow:0 10px 22px -12px rgba(95,82,137,.65)}
+.tab-badge{background:var(--red);color:#fff;font-size:11.5px;font-weight:800;min-width:20px;height:20px;padding:0 6px;border-radius:var(--pill);display:inline-flex;align-items:center;justify-content:center}
+.tab-badge.gray{background:var(--lilac);color:var(--indigo)}
+.tab.on .tab-badge.gray{background:rgba(255,255,255,.22);color:#fff}
+@media(max-width:860px){.tabs{width:100%;top:57px}.tab{flex:1;justify-content:center;padding:10px 8px;font-size:13.5px}}
+
 /* ── sections ── */
 .sec{margin:30px 0}
+#tab-msgs .sec:first-child,#tab-clients .sec:first-child{margin-top:16px}
 .sec-title{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .sec-title h2{font-size:19px;font-weight:800;letter-spacing:-.02em}
 .count-pill{background:var(--lilac);color:var(--indigo);font-size:12.5px;font-weight:800;padding:3px 11px;border-radius:var(--pill)}
@@ -260,29 +270,38 @@ button{font-family:var(--font)}
   <div class="wrap">
     <div class="kpis" id="kpis"></div>
 
-    <div class="sec" id="missedSec">
-      <div class="sec-title"><h2>Пропущенные сообщения</h2><span class="count-pill red" id="missedCount">0</span></div>
-      <div id="missedList" class="missed-grid"></div>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-tab="msgs">Сообщения<span class="tab-badge" id="tabMsgBadge" style="display:none">0</span></button>
+      <button class="tab" data-tab="clients">Клиенты<span class="tab-badge gray" id="tabClBadge">0</span></button>
     </div>
 
-    <div class="sec" id="actSec" style="display:none">
-      <div class="sec-title"><h2>Лента сообщений</h2><span class="count-pill" id="actCount">0</span></div>
-      <div class="act-list" id="actList"></div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-title"><h2>Все клиенты</h2><span class="count-pill" id="clCount">0</span></div>
-      <div class="controls">
-        <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Имя, телефон, услуга…"></div>
-        <div class="chips" id="chips">
-          <button class="chip on" data-f="all">Все</button>
-          <button class="chip" data-f="wait">Ждут ответа</button>
-          <button class="chip" data-f="noacc">Без доступа</button>
-          <button class="chip" data-f="stale">Простой 48ч+</button>
-          <button class="chip" data-f="done">Завершённые</button>
-        </div>
+    <div id="tab-msgs">
+      <div class="sec" id="missedSec">
+        <div class="sec-title"><h2>Пропущенные сообщения</h2><span class="count-pill red" id="missedCount">0</span></div>
+        <div id="missedList" class="missed-grid"></div>
       </div>
-      <div class="client-list" id="clientList"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+
+      <div class="sec" id="actSec" style="display:none">
+        <div class="sec-title"><h2>Лента сообщений</h2><span class="count-pill" id="actCount">0</span></div>
+        <div class="act-list" id="actList"></div>
+      </div>
+    </div>
+
+    <div id="tab-clients" style="display:none">
+      <div class="sec">
+        <div class="sec-title"><h2>Все клиенты</h2><span class="count-pill" id="clCount">0</span></div>
+        <div class="controls">
+          <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Имя, телефон, услуга…"></div>
+          <div class="chips" id="chips">
+            <button class="chip on" data-f="all">Все</button>
+            <button class="chip" data-f="wait">Ждут ответа</button>
+            <button class="chip" data-f="noacc">Без доступа</button>
+            <button class="chip" data-f="stale">Простой 48ч+</button>
+            <button class="chip" data-f="done">Завершённые</button>
+          </div>
+        </div>
+        <div class="client-list" id="clientList"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -306,7 +325,14 @@ button{font-family:var(--font)}
 (function(){
 'use strict';
 var $=function(id){return document.getElementById(id)};
-var DATA=null, FILTER='all', QUERY='', DETAIL=null, ACT_EXPANDED=false;
+var DATA=null, FILTER='all', QUERY='', DETAIL=null, ACT_EXPANDED=false, TAB='msgs';
+
+function setTab(t){
+  TAB=t;
+  $('tab-msgs').style.display=t==='msgs'?'block':'none';
+  $('tab-clients').style.display=t==='clients'?'block':'none';
+  Array.prototype.forEach.call($('tabs').children,function(b){b.classList.toggle('on',b.getAttribute('data-tab')===t)});
+}
 
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},2600)}
@@ -387,11 +413,17 @@ function render(){
   Array.prototype.forEach.call($('kpis').children,function(k){
     k.addEventListener('click',function(){
       var f=k.getAttribute('data-goto');
-      if(f==='wait'&&waitN){$('missedSec').scrollIntoView({behavior:'smooth'});return}
-      setFilter(f==='wait'?'wait':f==='noacc'?'noacc':f==='stale'?'stale':'all');
-      document.querySelector('.controls').scrollIntoView({behavior:'smooth'});
+      if(f==='wait'){setTab('msgs');return}
+      setTab('clients');
+      setFilter(f==='noacc'?'noacc':f==='stale'?'stale':'all');
     });
   });
+
+  /* бейджи вкладок */
+  var mb=$('tabMsgBadge');
+  mb.textContent=waitN;
+  mb.style.display=waitN?'inline-flex':'none';
+  $('tabClBadge').textContent=s.total||0;
 
   /* missed messages */
   var lastActByLead={};
@@ -455,6 +487,9 @@ function setFilter(f){
 }
 Array.prototype.forEach.call($('chips').children,function(ch){
   ch.addEventListener('click',function(){setFilter(ch.getAttribute('data-f'))});
+});
+Array.prototype.forEach.call($('tabs').children,function(b){
+  b.addEventListener('click',function(){setTab(b.getAttribute('data-tab'))});
 });
 $('q').addEventListener('input',function(){QUERY=this.value.trim().toLowerCase();renderClients()});
 
