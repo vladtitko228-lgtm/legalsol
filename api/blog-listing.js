@@ -117,7 +117,7 @@ function renderPage(articles) {
   <div class="lsb-grid" id="lsbGrid">
 ${cardsHtml}
   </div>
-  <p class="lsb-empty" id="lsbEmpty">Nothing found. Try another word — or <a href="https://wa.me/48735248525?text=${encodeURIComponent('Здравствуйте! Вопрос по легализации в Польше.')}" style="color:var(--indigo);font-weight:700">ask us on WhatsApp</a>.</p>
+  <p class="lsb-empty" id="lsbEmpty">Nothing found. Try another word — or <a href="https://wa.me/48453202991?text=${encodeURIComponent('Здравствуйте! Вопрос по легализации в Польше.')}" style="color:var(--indigo);font-weight:700">ask us on WhatsApp</a>.</p>
   <div class="lsb-more" id="lsbMore"><button class="btn btn-ghost btn-lg" id="lsbMoreBtn" style="width:auto;margin-top:0">View all articles →</button></div>
 </div></section>
 

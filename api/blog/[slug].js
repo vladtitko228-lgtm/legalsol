@@ -385,7 +385,7 @@ function renderPage(a, contentHtml, faqs) {
       faqs.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("") +
       `</div></section>` : "";
 
-  const wa = `https://wa.me/48735248525?text=${encodeURIComponent((isRu ? 'Здравствуйте! Вопрос по статье: ' : 'Hello! A question about the article: ') + (title || ''))}`;
+  const wa = `https://wa.me/48453202991?text=${encodeURIComponent((isRu ? 'Здравствуйте! Вопрос по статье: ' : 'Hello! A question about the article: ') + (title || ''))}`;
 
   const body = `<!-- ARTICLE -->
 <a class="art-back" href="/blog">← ${T.back}</a>
