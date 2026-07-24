@@ -31,6 +31,13 @@ function parseSeq(name) {
   return { seq, monthKey: yr + '-' + String(mo).padStart(2, '0') };
 }
 
+const KOMMO_SUBDOMAIN = process.env.KOMMO_SUBDOMAIN || 'legalsol';
+
+// ИИ-черновик ответа: внутренняя заметка «ЧЕРНОВИК: …» от cabinet-bot.
+// Префикса НЕТ в CLIENT_NOTE_PREFIXES → клиент его не видит (проверено 24.07.2026).
+function isDraftNote(text) { return /^ЧЕРНОВИК:/i.test(String(text || '').trim()); }
+function stripDraftPrefix(text) { return String(text || '').trim().replace(/^ЧЕРНОВИК:\s*/i, ''); }
+
 // Тестовые/демо-сделки не показываем в панели (Влад, 24.07)
 const TEST_LEAD_IDS = { 21119540: 1, 21119588: 1, 21138922: 1, 21208806: 1, 19334410: 1 };
 const TEST_LEAD_RE = /(\bTEST\b|\bТЕСТ\b|\bДЕМО\b|демо-портала|тест кабинета)/i;
@@ -86,6 +93,7 @@ async function actionData(req, res, payload) {
   const lastUpdateMap = {};
   const lastReplyMap = {};
   const lastMsgMap = {};
+  const draftMap = {};
   const actRaw = [];
   const isIdeaNote = t => /^ПОЖЕЛАНИЕ:/i.test(String(t || '').trim());
   const stripIdea = t => String(t || '').trim().replace(/^ПОЖЕЛАНИЕ:\s*/i, '');
@@ -97,7 +105,10 @@ async function actionData(req, res, payload) {
         const txt = (n.params?.text || '').trim();
         const lid = n.entity_id; const ts = (n.created_at || 0) * 1000;
         if (!txt || !lid || !ts) continue;
-        if (isClientNote(txt)) {
+        if (isDraftNote(txt)) {
+          // ИИ-черновик ответа (пишет cabinet-bot). Клиенту не виден — только Даше в панели.
+          if (!draftMap[lid] || ts > draftMap[lid].at) draftMap[lid] = { at: ts, text: stripDraftPrefix(txt) };
+        } else if (isClientNote(txt)) {
           if (!lastUpdateMap[lid] || ts > lastUpdateMap[lid]) lastUpdateMap[lid] = ts;
           if (!lastReplyMap[lid] || ts > lastReplyMap[lid]) lastReplyMap[lid] = ts;
         } else if (isChatReplyNote(txt)) {
@@ -136,12 +147,16 @@ async function actionData(req, res, payload) {
     contractTotal += price;
     const lastMsgMs = lastMsgMap[ld.id] || 0;
     const waiting = lastMsgMs > (lastReplyMap[ld.id] || 0);
+    // Черновик показываем, только если он свежее последнего ответа (иначе он уже отработан)
+    const dr = draftMap[ld.id];
+    const draft = (dr && dr.at > (lastReplyMap[ld.id] || 0)) ? dr.text : '';
     // Порядковый номер закрытия и месяц — из имени сделки; без счётчика — месяц создания сделки
     const sq = parseSeq(ld.name);
     const monthKey = sq ? sq.monthKey : (ld.created_at ? new Date(ld.created_at * 1000).toISOString().slice(0, 7) : '');
     list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
       stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle,
-      lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting, seq: sq ? sq.seq : 0, monthKey });
+      lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting, seq: sq ? sq.seq : 0, monthKey,
+      draft, crmUrl: `https://${KOMMO_SUBDOMAIN}.kommo.com/leads/detail/${ld.id}` });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
   // Лента «кто что спрашивает»: свежие вопросы/идеи с именами клиентов
@@ -183,10 +198,14 @@ async function actionClient(req, res) {
   // Имя клиента: имя сделки, если оно не телефон; иначе имя контакта
   const leadNm = cleanLeadName(lead.name);
   const displayName = (leadNm && !looksLikePhone(leadNm)) ? leadNm : ((cname && !looksLikePhone(cname)) ? cname : (leadNm || cname || 'Клиент'));
-  let updates = [], payments = [], chat = [], plan = null;
+  let updates = [], payments = [], chat = [], plan = null, draft = '', draftAt = 0;
   try {
     const nRes = await kommo('GET', `/leads/${leadId}/notes?limit=100`);
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
+    // ИИ-черновик ответа — свежайший «ЧЕРНОВИК:», если он новее последнего нашего ответа
+    const dNote = all.filter(n => isDraftNote(n.text)).sort((a, b) => b.createdAt - a.createdAt)[0];
+    const lastOut = all.filter(n => isChatReplyNote(n.text) || (isClientNote(n.text) && !isPaymentNote(n.text))).sort((a, b) => b.createdAt - a.createdAt)[0];
+    if (dNote && (!lastOut || dNote.createdAt > lastOut.createdAt)) { draft = stripDraftPrefix(dNote.text); draftAt = dNote.createdAt; }
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
     // План рассрочки — НОВЕЙШАЯ заметка «ПЛАН ОПЛАТ» (пишет платёжный бот из таблицы закрытий)
@@ -217,7 +236,8 @@ async function actionClient(req, res) {
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
     price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0,
     nextDue: nextUnpaid ? { amount: nextUnpaid.amount, dateText: nextUnpaid.dateText } : null,
-    payments, tasks, updates, chat
+    payments, tasks, updates, chat, draft, draftAt,
+    crmUrl: `https://${KOMMO_SUBDOMAIN}.kommo.com/leads/detail/${lead.id}`
   });
 }
 

@@ -106,7 +106,7 @@ button{font-family:var(--font)}
 .count-pill.red{background:var(--red-soft);color:var(--red)}
 
 /* missed messages */
-.missed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.missed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
 .missed-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh-sm);padding:18px;border-left:4px solid var(--red);cursor:pointer;transition:transform .15s}
 .missed-card:hover{transform:translateY(-2px)}
 .missed-card .head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
@@ -209,6 +209,29 @@ button{font-family:var(--font)}
 .acc-ok{display:none;margin-top:9px;font-size:13px;font-weight:700;color:var(--green);background:var(--green-soft);padding:9px 13px;border-radius:12px;word-break:break-word}
 .acc-login{font-size:13px;color:var(--ink-2);margin-bottom:10px}
 .acc-login b{color:var(--indigo)}
+
+/* ИИ-рекомендация */
+.draft{background:linear-gradient(180deg,#F6F3FB,#EFEAF7);border:1.5px solid var(--lilac-line);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:12px}
+.draft .dh{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--indigo);margin-bottom:9px}
+.draft .dh svg{width:14px;height:14px}
+.draft .dt{font-size:14px;line-height:1.55;color:var(--ink);white-space:pre-wrap;margin-bottom:12px}
+.draft .da{display:flex;gap:8px;flex-wrap:wrap}
+.draft-wait{display:flex;align-items:center;gap:9px;background:var(--lilac);border-radius:var(--r-sm);padding:12px 15px;margin-bottom:12px;font-size:13px;font-weight:700;color:var(--indigo)}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--indigo);animation:bl 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.missed-card .draft{margin-bottom:10px;padding:12px 14px}
+.missed-card .draft .dt{font-size:13px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+/* быстрые действия */
+.quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:2px}
+.qbtn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:7px 13px;border-radius:var(--pill);background:#fff;color:var(--ink-2);box-shadow:inset 0 0 0 1.5px var(--line);cursor:pointer;transition:box-shadow .15s,color .15s}
+.qbtn:hover{box-shadow:inset 0 0 0 1.5px var(--indigo);color:var(--indigo)}
+.qbtn svg{width:14px;height:14px}
+.qbtn.wa:hover{box-shadow:inset 0 0 0 1.5px var(--wa);color:#128C3E}
+.crm-link{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--lilac);color:var(--indigo);transition:background .15s}
+.crm-link:hover{background:var(--lilac-2)}
+.crm-link svg{width:15px;height:15px}
 
 /* toast */
 #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--indigo-9);color:#fff;font-size:14px;font-weight:700;padding:13px 22px;border-radius:var(--pill);z-index:120;transition:transform .25s;box-shadow:var(--sh);max-width:90vw;text-align:center}
@@ -343,6 +366,14 @@ function ago(ms){if(!ms)return '';var d=Date.now()-ms;if(d<3600e3)return Math.ma
 function zl(n){return (Math.round(n)||0).toLocaleString('ru-RU').replace(/,/g,' ')+' zł'}
 function plural(n,a,b,c){var m=n%10,h=n%100;if(h>=11&&h<=14)return c;if(m===1)return a;if(m>=2&&m<=4)return b;return c}
 var BELL='<span class="bell" title="Клиент написал — ждёт ответа"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></span>';
+var ICO_AI='<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1.9 4.9L19 8.8l-4.2 3 .5 5.2-3.3-2.6-3.3 2.6.5-5.2L5 8.8l5.1-1.9L12 2z"/></svg>';
+var ICO_CRM='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>';
+var ICO_WA='<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.6.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5l-.9-2.1c-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
+function waLink(phone,text){
+  var d=String(phone||'').replace(/[^\d]/g,'');
+  if(!d)return '';
+  return 'https://wa.me/'+d+(text?'?text='+encodeURIComponent(text):'');
+}
 var MONTH_NAMES=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 function monthTitle(key){
   if(!key)return 'Прочие';
@@ -447,13 +478,24 @@ function render(){
     $('missedList').innerHTML=missed.map(function(c){
       var a=lastActByLead[c.leadId];
       var lbl=seqLabel(c);
+      var fresh=c.lastMsgMs&&(Date.now()-c.lastMsgMs)<8*60e3;
       return '<div class="missed-card" data-lead="'+c.leadId+'">'+
         '<div class="head"><div class="nm">'+esc(c.name)+(lbl?'<span class="seqtag">'+lbl+'</span>':'')+'</div><div class="ago">'+BELL+' ждёт '+ago(c.lastMsgMs)+'</div></div>'+
         (a?'<div class="txt'+(a.kind==='idea'?' idea':'')+'">'+esc(a.text)+'</div>':'<div class="txt">Новое сообщение в кабинете — откройте чат.</div>')+
-        '<button class="btn btn-primary btn-sm">Открыть и ответить</button></div>';
+        (c.draft
+          ? '<div class="draft"><div class="dh">'+ICO_AI+'Готовый ответ — проверьте и отправьте</div><div class="dt">'+esc(c.draft)+'</div>'+
+            '<div class="da"><button class="btn btn-primary btn-sm" data-send="'+c.leadId+'">Отправить</button>'+
+            '<button class="btn btn-ghost btn-sm" data-open="'+c.leadId+'">Изменить</button></div></div>'
+          : (fresh?'<div class="draft-wait">'+ICO_AI+'Готовлю ответ<span class="dots"><i></i><i></i><i></i></span></div>'
+                  :'<button class="btn btn-primary btn-sm" data-open="'+c.leadId+'">Открыть и ответить</button>'))+
+        '</div>';
     }).join('');
     Array.prototype.forEach.call($('missedList').querySelectorAll('.missed-card'),function(el){
-      el.addEventListener('click',function(){openClient(+el.getAttribute('data-lead'))});
+      el.addEventListener('click',function(ev){
+        var send=ev.target.closest('[data-send]');
+        if(send){ev.stopPropagation();quickSend(+send.getAttribute('data-send'),send);return}
+        openClient(+el.getAttribute('data-lead'));
+      });
     });
   }
 
@@ -524,6 +566,7 @@ function rowHtml(c){
     '<div class="badges">'+
       (c.waiting?'<span class="b wait">ждёт ответа</span>':'')+
       (c.hasAccess?'<span class="b acc">кабинет</span>':'<span class="b noacc">нет доступа</span>')+
+      (c.crmUrl?'<a class="crm-link" href="'+esc(c.crmUrl)+'" target="_blank" rel="noopener" title="Открыть сделку в CRM" data-crm="1">'+ICO_CRM+'</a>':'')+
     '</div></div>';
 }
 function renderClients(){
@@ -543,7 +586,10 @@ function renderClients(){
   });
   $('clientList').innerHTML=html;
   Array.prototype.forEach.call($('clientList').querySelectorAll('.client-row'),function(el){
-    el.addEventListener('click',function(){openClient(+el.getAttribute('data-lead'))});
+    el.addEventListener('click',function(ev){
+      if(ev.target.closest('[data-crm]'))return; // клик по иконке CRM — просто уходим по ссылке
+      openClient(+el.getAttribute('data-lead'));
+    });
   });
 }
 
@@ -575,7 +621,11 @@ function renderDetail(){
   var c=DETAIL;if(!c)return;
   $('drName').textContent=c.name||'Клиент';
   var dlbl=seqLabel(DETAIL_LI);
-  $('drMeta').innerHTML=(dlbl?'<span class="seqtag" style="margin-left:0;margin-right:8px;vertical-align:0">'+dlbl+'</span>':'')+(c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a> · ':'')+esc(c.service||'');
+  $('drMeta').innerHTML=(dlbl?'<span class="seqtag" style="margin-left:0;margin-right:8px;vertical-align:0">'+dlbl+'</span>':'')+(c.phone?'<a href="tel:'+esc(c.phone)+'">'+esc(c.phone)+'</a> · ':'')+esc(c.service||'')+
+    '<div class="quick">'+
+      (c.crmUrl?'<a class="qbtn" href="'+esc(c.crmUrl)+'" target="_blank" rel="noopener">'+ICO_CRM+'Открыть в CRM</a>':'')+
+      (c.phone?'<a class="qbtn wa" href="'+esc(waLink(c.phone,''))+'" target="_blank" rel="noopener">'+ICO_WA+'WhatsApp</a>':'')+
+    '</div>';
   var st=c.stage||{};
   var pct=st.step&&st.totalSteps?Math.round(st.step/st.totalSteps*100):0;
   var html='';
@@ -609,6 +659,11 @@ function renderDetail(){
       return '<div class="bub '+(m.from==='client'?'client':'mgr')+'">'+esc(m.text)+'<span class="bt">'+fmtDT(m.createdAt)+'</span></div>';
     }).join(''):'<div class="chat-empty">Сообщений пока нет.</div>')+
     '</div>'+
+    (c.draft
+      ? '<div class="draft" style="margin-top:12px;margin-bottom:0"><div class="dh">'+ICO_AI+'Рекомендованный ответ</div><div class="dt">'+esc(c.draft)+'</div>'+
+        '<div class="da"><button class="btn btn-primary btn-sm" id="draftSend">Отправить как есть</button>'+
+        '<button class="btn btn-ghost btn-sm" id="draftEdit">Изменить</button></div></div>'
+      : '')+
     '<div class="reply-row"><textarea id="replyText" placeholder="Ответ клиенту…" maxlength="1500"></textarea><button class="btn btn-primary btn-sm" id="replySend">Отправить</button></div>'+
     '<div class="hint">Ответ появится у клиента в чате кабинета. Пишите как клиенту: без внутренних пометок.</div>'+
     '</div>';
@@ -637,12 +692,34 @@ function renderDetail(){
 
   $('replySend').addEventListener('click',sendReply);
   $('replyText').addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))sendReply()});
+  if(c.draft){
+    $('draftSend').addEventListener('click',function(){$('replyText').value=c.draft;sendReply()});
+    $('draftEdit').addEventListener('click',function(){
+      var ta=$('replyText');ta.value=c.draft;ta.focus();
+      ta.setSelectionRange(ta.value.length,ta.value.length);
+      ta.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  }
   $('pwGen').addEventListener('click',function(){
     var abc='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789',p='';
     for(var i=0;i<10;i++)p+=abc[Math.floor(Math.random()*abc.length)];
     $('pwInput').value=p;
   });
   $('pwSet').addEventListener('click',setPassword);
+}
+
+/* Отправка готового ответа одним кликом из списка пропущенных */
+function quickSend(leadId,btn){
+  var c=(DATA.clients||[]).filter(function(x){return x.leadId===leadId})[0];
+  if(!c||!c.draft)return;
+  btn.disabled=true;btn.textContent='Отправляем…';
+  api('/api/cabinet/staff?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({leadId:leadId,text:c.draft})})
+    .then(function(r){
+      if(!r.ok){btn.disabled=false;btn.textContent='Отправить';toast('Не отправилось — попробуйте ещё раз');return}
+      toast('Ответ отправлен '+c.name);
+      loadData();
+    })
+    .catch(function(){btn.disabled=false;btn.textContent='Отправить';toast('Нет связи')});
 }
 
 function sendReply(){
