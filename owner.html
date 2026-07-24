@@ -1249,6 +1249,26 @@ function render(d){
       ${tile('Застряло >7 дней',`<span class="${o.staleCount>5?'neg':''}">${o.staleCount}</span>`,o.stale&&o.stale.length?('дольше всех — '+o.stale[0].days+' дн.'):'')}
       ${tile('Активность Даши · 30 дн',String((n30.dasha??0)+(n30.waOut??0)||'—'),'заметок '+(n30.dasha??'—')+' · писем '+(n30.emails??'—')+' · апдейтов '+(n30.toClient??'—')+(n30.waOut!=null?' · WA-сообщений '+n30.waOut:''))}
     </div>`;
+    // ── Кабинет Даши: скорость ответов + вход в её панель ──
+    if(o.dashaCabinet){
+      const dc=o.dashaCabinet;
+      const fmtH=h=>h==null?'—':(h<1?Math.max(1,Math.round(h*60))+' мин':(h<24?h.toFixed(1).replace('.0','')+' ч':Math.round(h/24)+' дн'));
+      const spd=dc.medianRespH;
+      const spdCls=spd==null?'':(spd<=4?'pos':spd<=24?'':'neg');
+      html+=`<div class="card rv" style="margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <b style="font-size:15px">💬 Кабинет Даши — как отвечает клиентам</b>
+          <a href="/staff" target="_blank" rel="noopener" class="chip g" style="text-decoration:none;font-weight:700;padding:0 14px;height:30px">Открыть её панель →</a>
+        </div>
+        <div class="grid g4" style="margin-top:12px">
+          ${tile('Скорость ответа',`<span class="${spdCls}">${fmtH(spd)}</span>`,'медиана за 30 дней · отвечено '+(dc.answered30||0))}
+          ${tile('Ответила сегодня',String(dc.answeredToday||0),'сообщений клиентам')}
+          ${tile('Черновиков ждут',`<span class="${dc.draftsPending>0?'':'pos'}">${dc.draftsPending||0}</span>`,dc.draftsPending?'ИИ подготовил — осталось отправить':'всё отправлено 👍')}
+          ${tile('Сообщений за неделю',String(dc.msgsWeek||0),'от клиентов в кабинет')}
+        </div>
+        <div class="sec-note">Скорость = медианное время от сообщения клиента до ответа (кабинет/почта/WA). ИИ учится на правках Даши: за 30 дней она поправила черновиков — <b>${dc.draftsEdited||0}</b>, каждый делает следующие ответы точнее.</div>
+      </div>`;
+    }
     if(w.count){
       html+=`<div class="card rv" style="margin-top:16px"><b style="font-size:15px">💬 Сообщения клиентов без реакции в CRM</b>
         <div style="margin-top:10px">${w.items.map(x=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--hair);font-size:13.5px">
