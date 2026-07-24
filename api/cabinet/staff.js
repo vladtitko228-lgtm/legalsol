@@ -5,19 +5,36 @@ const {
   kommo, getCfValue, hashPassword, verifyJwt, readCookie, readJsonBody, normalizePhone, findContactByPhone,
   STAGE_NAMES_OPS, TOTAL_STEPS, PIPELINE_OPS, PASSWORD_FIELD_ID, PHONE_FIELD_ID, CF_SERVICE_TYPE,
   isClientNote, stripClientPrefix, isPaymentNote, parsePaymentNote, isChatReplyNote, stripChatReplyPrefix,
-  isClientMsgNote, stripClientMsgPrefix,
+  isClientMsgNote, stripClientMsgPrefix, isPaymentPlanNote, parsePaymentPlanNote,
   clientIp, rateLimitBlocked, rateLimitFail
 } = require('./_helpers');
 
 function cleanLeadName(name) {
   if (!name) return '';
   return String(name)
-    .replace(/^\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s+/, '') // ведущий счётчик закрытий «13/07/2026 Имя»
-    .replace(/\s+\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '')
+    .replace(/^\d{1,3}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s+/, '') // ведущий счётчик закрытий «13/07/2026 Имя»
+    .replace(/\s+\d{1,3}[\/.\-]\d{1,2}[\/.\-]\d{2,4}\s*$/, '')
     .replace(/^(Facebook|Instagram|TikTok)\s*№?\s*\d+/i, '')
     .replace(/^Lead\s*#\d+/i, '')
     .trim();
 }
+
+// Счётчик закрытий из имени сделки: «13/07/2026 Имя» или «Имя 12/05/2026».
+// Первое число — ПОРЯДКОВЫЙ НОМЕР закрытия в месяце (бывает 31/06, 35/06), второе — месяц.
+function parseSeq(name) {
+  const s = String(name || '');
+  const m = s.match(/^(\d{1,3})[\/.\-](\d{1,2})[\/.\-](\d{2,4})\s+/) || s.match(/\s(\d{1,3})[\/.\-](\d{1,2})[\/.\-](\d{2,4})\s*$/);
+  if (!m) return null;
+  const seq = +m[1], mo = +m[2]; let yr = +m[3];
+  if (yr < 100) yr += 2000;
+  if (!seq || mo < 1 || mo > 12 || yr < 2020 || yr > 2100) return null;
+  return { seq, monthKey: yr + '-' + String(mo).padStart(2, '0') };
+}
+
+// Тестовые/демо-сделки не показываем в панели (Влад, 24.07)
+const TEST_LEAD_IDS = { 21119540: 1, 21119588: 1, 21138922: 1, 21208806: 1, 19334410: 1 };
+const TEST_LEAD_RE = /(\bTEST\b|\bТЕСТ\b|\bДЕМО\b|демо-портала|тест кабинета)/i;
+function isTestLead(ld) { return !!TEST_LEAD_IDS[ld.id] || TEST_LEAD_RE.test(String(ld.name || '')); }
 
 // Многие контакты LS хранят телефон в ИМЕНИ контакта, а не в поле телефона.
 function looksLikePhone(s) {
@@ -41,8 +58,9 @@ async function actionData(req, res, payload) {
     leadsRaw.push(...arr);
     if (arr.length < 50) break;
   }
+  const leads = leadsRaw.filter(ld => !isTestLead(ld));
   const contactIds = [];
-  for (const ld of leadsRaw) {
+  for (const ld of leads) {
     const cid = ld._embedded?.contacts?.[0]?.id;
     if (cid && contactIds.indexOf(cid) < 0) contactIds.push(cid);
   }
@@ -96,7 +114,7 @@ async function actionData(req, res, payload) {
   } catch (_) {}
   const list = []; const byStage = {};
   let active = 0, completed = 0, withAccess = 0, contractTotal = 0;
-  for (const ld of leadsRaw) {
+  for (const ld of leads) {
     const stage = STAGE_NAMES_OPS[ld.status_id] || { ru: 'В работе', step: 2 };
     const cid = ld._embedded?.contacts?.[0]?.id;
     const cm = (cid && contactMap[cid]) || { phone: '', name: '', hasAccess: false };
@@ -116,16 +134,20 @@ async function actionData(req, res, payload) {
     contractTotal += price;
     const lastMsgMs = lastMsgMap[ld.id] || 0;
     const waiting = lastMsgMs > (lastReplyMap[ld.id] || 0);
+    // Порядковый номер закрытия и месяц — из имени сделки; без счётчика — месяц создания сделки
+    const sq = parseSeq(ld.name);
+    const monthKey = sq ? sq.monthKey : (ld.created_at ? new Date(ld.created_at * 1000).toISOString().slice(0, 7) : '');
     list.push({ leadId: ld.id, name: nm, phone: cm.phone, service: getCfValue(ld, CF_SERVICE_TYPE) || stage.service || '',
       stage: stKey, step: stage.step || 0, totalSteps: TOTAL_STEPS, price, isDone, hasAccess: cm.hasAccess, updatedMs, daysIdle,
-      lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting });
+      lastUpdateMs: lastUpdateMap[ld.id] || 0, lastMsgMs, waiting, seq: sq ? sq.seq : 0, monthKey });
   }
   list.sort((a, b) => (a.isDone !== b.isDone) ? (a.isDone ? 1 : -1) : (b.daysIdle - a.daysIdle));
   // Лента «кто что спрашивает»: свежие вопросы/идеи с именами клиентов
   const byLead = {};
   for (const c of list) byLead[c.leadId] = c;
-  const activity = actRaw.slice(0, 40).map(a => {
-    const c = byLead[a.leadId] || {};
+  // Только сделки из списка панели — тестовые/демо и чужие воронки в ленту не попадают
+  const activity = actRaw.filter(a => byLead[a.leadId]).slice(0, 40).map(a => {
+    const c = byLead[a.leadId];
     return { ...a, name: c.name || 'Клиент', hasAccess: !!c.hasAccess, waiting: !!c.waiting };
   });
   return res.status(200).json({
@@ -159,17 +181,21 @@ async function actionClient(req, res) {
   // Имя клиента: имя сделки, если оно не телефон; иначе имя контакта
   const leadNm = cleanLeadName(lead.name);
   const displayName = (leadNm && !looksLikePhone(leadNm)) ? leadNm : ((cname && !looksLikePhone(cname)) ? cname : (leadNm || cname || 'Клиент'));
-  let updates = [], payments = [], chat = [];
+  let updates = [], payments = [], chat = [], plan = null;
   try {
     const nRes = await kommo('GET', `/leads/${leadId}/notes?limit=100`);
     const all = (nRes?._embedded?.notes || []).map(n => ({ id: n.id, createdAt: (n.created_at || 0) * 1000, text: (n.params?.text || '').trim() })).filter(n => n.text);
     updates = all.filter(n => isClientNote(n.text) && !isPaymentNote(n.text) && !isClientMsgNote(n.text)).map(n => ({ ...n, text: stripClientPrefix(n.text) })).sort((a, b) => b.createdAt - a.createdAt);
     payments = all.filter(n => isPaymentNote(n.text)).map(n => { const p = parsePaymentNote(n.text) || { amount: 0, method: '', dateText: '' }; return { id: n.id, createdAt: n.createdAt, amount: p.amount, method: p.method, dateText: p.dateText }; }).filter(p => p.amount > 0).sort((a, b) => b.createdAt - a.createdAt);
-    // Двусторонний чат для Даши: ОТ КЛИЕНТА: (входящие) + КЛИЕНТУ: (её ответы)
-    chat = all.filter(n => (isClientNote(n.text) || isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
+    // План рассрочки — НОВЕЙШАЯ заметка «ПЛАН ОПЛАТ» (пишет платёжный бот из таблицы закрытий)
+    const planNote = all.filter(n => isPaymentPlanNote(n.text)).sort((a, b) => b.createdAt - a.createdAt)[0];
+    if (planNote) plan = parsePaymentPlanNote(planNote.text);
+    // Чат = ТОЛЬКО живой диалог (как у клиента в me.js): ОТ КЛИЕНТА: + ОТВЕТ:.
+    // Вехи «КЛИЕНТУ:» в чат не попадают — они в ленте статусов.
+    chat = all.filter(n => (isClientMsgNote(n.text) || isChatReplyNote(n.text)) && !isPaymentNote(n.text))
       .map(n => isClientMsgNote(n.text)
         ? { from: 'client', text: stripClientMsgPrefix(n.text), createdAt: n.createdAt }
-        : { from: 'manager', text: isChatReplyNote(n.text) ? stripChatReplyPrefix(n.text) : stripClientPrefix(n.text), createdAt: n.createdAt })
+        : { from: 'manager', text: stripChatReplyPrefix(n.text), createdAt: n.createdAt })
       .sort((a, b) => a.createdAt - b.createdAt);
   } catch (_) {}
   let tasks = [];
@@ -177,13 +203,19 @@ async function actionClient(req, res) {
     const tRes = await kommo('GET', `/tasks?filter[entity_type]=leads&filter[entity_id]=${leadId}&filter[is_completed]=0&limit=20`);
     tasks = (tRes?._embedded?.tasks || []).map(t => ({ id: t.id, completeTill: t.complete_till * 1000, text: t.text || '' })).sort((a, b) => a.completeTill - b.completeTill);
   } catch (_) {}
-  const price = lead.price || 0;
-  const paidTotal = payments.reduce((s, p) => s + (p.amount || 0), 0);
+  // Оплачено: план рассрочки (источник правды — таблица закрытий) приоритетнее разрозненных «ОПЛАТА:»
+  const price = lead.price || (plan ? plan.total : 0) || 0;
+  const notesPaid = payments.reduce((s, p) => s + (p.amount || 0), 0);
+  const planPaid = plan ? plan.installments.filter(i => i.paid).reduce((s, i) => s + i.amount, 0) : 0;
+  const paidTotal = Math.max(planPaid, notesPaid);
+  const nextUnpaid = plan ? (plan.installments.find(i => !i.paid) || null) : null;
   return res.status(200).json({
     leadId: lead.id, name: displayName, phone, hasAccess,
     service: getCfValue(lead, CF_SERVICE_TYPE) || stage.service || '',
     stage: { ru: stage.ru, step: stage.step || 0, totalSteps: TOTAL_STEPS, whatWeDo: stage.whatWeDo || '', clientAction: stage.clientAction || '', etaText: stage.etaText || '' },
-    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0, payments, tasks, updates, chat
+    price, paidTotal, remaining: price > paidTotal ? price - paidTotal : 0,
+    nextDue: nextUnpaid ? { amount: nextUnpaid.amount, dateText: nextUnpaid.dateText } : null,
+    payments, tasks, updates, chat
   });
 }
 
