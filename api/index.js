@@ -140,7 +140,12 @@ function fallback(res, code = 200) {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "public, s-maxage=120, stale-while-revalidate=86400");
   res.setHeader("X-SSR-Status", "fallback");
-  res.status(code).send(INDEX_HTML || "");
+  let out = INDEX_HTML || "";
+  // /staff — прямой вход в панель сотрудника: сразу открываем вкладку кабинета
+  if (String(req.url || "").startsWith("/staff")) {
+    out = out.replace("</head>", '<script>if(!location.hash)location.hash="#cabinet";</script></head>');
+  }
+  res.status(code).send(out);
 }
 
 module.exports = async function handler(req, res) {
